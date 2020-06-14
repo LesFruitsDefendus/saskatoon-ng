@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'member',
     'harvest',
     'rest_framework',
+    'django_filters',
 ]
 
 MIDDLEWARE = [
@@ -129,3 +130,7 @@ STATIC_URL = '/static/'
 # CUSTOM STUFF
 
 AUTH_USER_MODEL = "member.AuthUser"
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
