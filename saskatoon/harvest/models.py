@@ -758,12 +758,16 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
+####### SIGNALS ##################
 
-# SIGNALS
-
-# Property signal
+# Property signals
 models.signals.pre_save.connect(
-    signals.changed_by,
+    receiver=signals.changed_by,
+    sender=Property
+)
+
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_property,
     sender=Property
 )
 
@@ -773,8 +777,25 @@ models.signals.post_save.connect(
     sender=Comment
 )
 
-# Harvest signal
+# Harvest signals
 models.signals.pre_save.connect(
     signals.changed_by,
     sender=Harvest
+)
+
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_harvest,
+    sender=Harvest
+)
+
+# RFP signal
+models.signals.post_save.connect(
+    signals.rfp_send_mail,
+    sender=RequestForParticipation
+)
+
+# Equipment signal
+models.signals.post_save.connect(
+    receiver=signals.clear_cache_equipment,
+    sender=Equipment
 )
