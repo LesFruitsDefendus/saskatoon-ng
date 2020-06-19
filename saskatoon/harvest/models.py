@@ -1,4 +1,5 @@
 # coding: utf-8
+from harvest import signals
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
@@ -37,6 +38,7 @@ HARVESTS_STATUS_CHOICES = (
     )
 )
 
+
 class TreeType(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -68,6 +70,7 @@ class TreeType(models.Model):
     def __str__(self):
         return self.name
 
+
 class EquipmentType(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -80,6 +83,7 @@ class EquipmentType(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Property(models.Model):
     """
@@ -146,7 +150,8 @@ class Property(models.Model):
     trees = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
-        help_text=_('Select multiple fruit types if applicable. Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'),
+        help_text=_(
+            'Select multiple fruit types if applicable. Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'),
     )
 
     trees_location = models.CharField(
@@ -164,7 +169,6 @@ class Property(models.Model):
         blank=True,
         max_length=200
     )
-
 
     avg_nb_required_pickers = models.PositiveIntegerField(
         verbose_name=_("Required pickers on average"),
@@ -322,10 +326,11 @@ class Property(models.Model):
     def __str__(self):
         if self.street_number:
             return u"%s at %s %s" % \
-               (self.owner, self.street_number, self.street)
+                   (self.owner, self.street_number, self.street)
         else:
             return u"%s at %s" % \
-               (self.owner, self.street)
+                   (self.owner, self.street)
+
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -359,6 +364,7 @@ class Property(models.Model):
     @property
     def get_owner_name(self):
         return self.owner.__str__()
+
 
 class Harvest(models.Model):
     status = models.CharField(
@@ -509,7 +515,7 @@ class Harvest(models.Model):
 
     def is_publishable(self):
         now = datetime.datetime.now()
-        publication_hour = 18 #FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
+        publication_hour = 18  # FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
         print("Publication date: ", self.publication_date)
         if self.publication_date is not None:
             is_good_day = self.publication_date.day == now.day
@@ -549,6 +555,7 @@ class Harvest(models.Model):
             return True
         else:
             return False
+
 
 class RequestForParticipation(models.Model):
     picker = models.ForeignKey(
@@ -628,6 +635,7 @@ class RequestForParticipation(models.Model):
         return "Request by %s to participate to %s" % \
                (self.picker, self.harvest)
 
+
 class HarvestYield(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
@@ -661,6 +669,7 @@ class HarvestYield(models.Model):
     def __str__(self):
         return "%.2f kg of %s to %s" % \
                (self.total_in_lb, self.tree.fruit_name, self.recipient)
+
 
 class Equipment(models.Model):
     type = models.ForeignKey(
@@ -704,6 +713,7 @@ class Equipment(models.Model):
     def __str__(self):
         return "%s (%s)" % (self.description, self.type)
 
+
 class Comment(models.Model):
     content = models.CharField(
         verbose_name=_("Content"),
@@ -735,3 +745,36 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.content
+
+
+class PropertyImage(models.Model):
+    property = models.ForeignKey(
+        Property,
+        related_name='images',
+        on_delete=models.CASCADE,
+
+    )
+    image = models.ImageField(
+        upload_to='properties_images',
+    )
+
+
+# SIGNALS
+
+# Property signal
+models.signals.pre_save.connect(
+    signals.changed_by,
+    sender=Property
+)
+
+# Send email on new comments
+models.signals.post_save.connect(
+    signals.comment_send_mail,
+    sender=Comment
+)
+
+# Harvest signal
+models.signals.pre_save.connect(
+    signals.changed_by,
+    sender=Harvest
+)
