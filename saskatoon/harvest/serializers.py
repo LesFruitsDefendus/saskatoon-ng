@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from harvest.models import Harvest, Property
+from .models import Harvest, Property, Equipment
 
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
@@ -11,4 +11,10 @@ class HarvestSerializer(serializers.ModelSerializer):
 class PropertySerializer(serializers.ModelSerializer):
     class Meta:
         model = Property
+        fields = '__all__'
+
+# Equipment serializer
+class EquipmentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipment
         fields = '__all__'

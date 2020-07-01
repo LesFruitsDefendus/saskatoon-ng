@@ -132,5 +132,10 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = "member.AuthUser"
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'PAGINATE_BY': 10,
+    'DEFAULT_RENDERER_CLASSES': (
+    'rest_framework.renderers.TemplateHTMLRenderer',
+    'rest_framework.renderers.JSONRenderer',
+ )
 }
