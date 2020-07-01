@@ -2,7 +2,6 @@ from django.conf.urls import url
 from django.urls import include
 from rest_framework import routers
 from rest_framework.urlpatterns import format_suffix_patterns
-from . import views
 from . import api
 
 router = routers.DefaultRouter()
