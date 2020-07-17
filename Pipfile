@@ -9,6 +9,13 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 django-rest-knox = "*"
+django-filter = "*"
+mysqlclient = "*"
+django-crequest = "*"
+django-geojson = "*"
+jsonfield = "*"
+django-leaflet = "*"
+pillow = "*"
 
 [requires]
-python_version = "3.8"
+python_version = "3.7"
