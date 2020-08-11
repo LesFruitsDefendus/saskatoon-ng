@@ -4,6 +4,13 @@ from .models import Harvest, Property, Equipment
 from rest_framework import viewsets, permissions
 from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer
 import django_filters.rest_framework
+from django.utils.decorators import method_decorator
+from django.views.generic import TemplateView
+from django.contrib.auth.decorators import login_required
+
+#@method_decorator(login_required, name='dispatch')
+class IndexView(TemplateView):
+    template_name = 'index.html'
 
 # Harvest Viewset
 class HarvestViewset(viewsets.ModelViewSet):
@@ -15,6 +22,7 @@ class HarvestViewset(viewsets.ModelViewSet):
     ]
     serializer_class = HarvestSerializer
     template_name = 'harvest.html'
+    #template_name = 'index.html'
 
     def list(self, request, *args, **kwargs):
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
