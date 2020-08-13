@@ -17,6 +17,7 @@ jsonfield = "*"
 django-leaflet = "*"
 pillow = "*"
 django-bootstrap3 = "*"
+django-bootstrap-form = "*"
 
 [requires]
 python_version = "3.7"

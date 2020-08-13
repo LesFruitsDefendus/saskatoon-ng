@@ -1,0 +1,7 @@
+{% load rest_framework %}
+
+<html>
+  {% for x in data %}
+    {{ x.id }} - {{ x.about }}<br>
+  {% endfor %}
+</html>
