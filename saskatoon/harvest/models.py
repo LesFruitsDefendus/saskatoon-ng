@@ -37,8 +37,6 @@ HARVESTS_STATUS_CHOICES = (
         _("Cancelled"),
     )
 )
-
-
 class TreeType(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -758,6 +756,17 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
+class HarvestImage(models.Model):
+    harvest = models.ForeignKey(
+        Harvest,
+        related_name='images',
+        on_delete=models.CASCADE,
+    )
+    image = models.ImageField(
+        upload_to='harvests_images',
+    )
+
+
 ####### SIGNALS ##################
 
 # Property signals
@@ -799,3 +808,4 @@ models.signals.post_save.connect(
     receiver=signals.clear_cache_equipment,
     sender=Equipment
 )
+

@@ -18,6 +18,9 @@ django-leaflet = "*"
 pillow = "*"
 django-bootstrap3 = "*"
 django-bootstrap-form = "*"
+django-autocomplete-light = "*"
+django-select2 = "*"
+django-ckeditor = "*"
 
 [requires]
 python_version = "3.7"

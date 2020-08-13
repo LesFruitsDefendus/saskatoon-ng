@@ -3,6 +3,7 @@ from .models import Harvest, Property, Equipment
 
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
+    trees = serializers.StringRelatedField(many=True)
     class Meta:
         model = Harvest
         fields = '__all__'
