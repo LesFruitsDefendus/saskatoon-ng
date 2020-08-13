@@ -21,7 +21,7 @@ class HarvestViewset(viewsets.ModelViewSet):
       permissions.AllowAny
     ]
     serializer_class = HarvestSerializer
-    template_name = 'harvest.html'
+    template_name = 'harvest/list.html'
     #template_name = 'index.html'
 
     def list(self, request, *args, **kwargs):

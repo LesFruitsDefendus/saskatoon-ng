@@ -16,6 +16,7 @@ django-geojson = "*"
 jsonfield = "*"
 django-leaflet = "*"
 pillow = "*"
+django-bootstrap3 = "*"
 
 [requires]
 python_version = "3.7"
