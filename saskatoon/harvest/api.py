@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 #@method_decorator(login_required, name='dispatch')
 class IndexView(TemplateView):
-    template_name = 'index.html'
+    template_name = 'app/index.html'
 
 # Harvest Viewset
 class HarvestViewset(viewsets.ModelViewSet):
