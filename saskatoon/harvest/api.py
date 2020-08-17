@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 
 from .models import Harvest, Property, Equipment
+from harvest.filters import HarvestFilter, PropertyFilter
 from rest_framework import viewsets, permissions
 from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer
 import django_filters.rest_framework
@@ -16,7 +17,7 @@ class IndexView(TemplateView):
 class HarvestViewset(viewsets.ModelViewSet):
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
     filter_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about')
-    queryset = Harvest.objects.all()
+    queryset = Harvest.objects.all().order_by('-id')
     permission_classes = [
       permissions.AllowAny
     ]
