@@ -1,5 +1,7 @@
 {% extends "app/base_site.html" %}
 {% load i18n %}
+{% load bootstrap %}
+
 
 {% block title %} {% trans "Harvests" %}{% endblock title %}
 
@@ -159,7 +161,7 @@
             <div class="x_content">
               <form role="form">
                 {% csrf_token %}
-                {{ form }}
+                {{ form|bootstrap }}
                 <div class="form-group">
                   <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
                 </div>
