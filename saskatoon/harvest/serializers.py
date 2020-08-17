@@ -26,7 +26,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
 class HarvestSerializer(serializers.ModelSerializer):
     # three different ways of getting a multimodel serializer:
     # 1) calling a model property
-    #get_pickers = serializers.ReadOnlyField()
+    get_pickers = serializers.ReadOnlyField()
     start_date = serializers.DateTimeField(format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='start_date', format="%H:%M")
     # 2) get string rather than id from a pk
