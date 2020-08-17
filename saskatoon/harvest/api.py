@@ -16,7 +16,7 @@ class IndexView(TemplateView):
 # Harvest Viewset
 class HarvestViewset(viewsets.ModelViewSet):
     filter_backends = [django_filters.rest_framework.DjangoFilterBackend]
-    filter_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about')
+    filter_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about', 'status')
     queryset = Harvest.objects.all().order_by('-id')
     permission_classes = [
       permissions.AllowAny
