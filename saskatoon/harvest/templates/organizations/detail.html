@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load is_person %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header">
+                {{ property }} <small> (#{{ property.id }})</small>
+                <span class="pull-right">
+                    <a class="btn btn-xs btn-warning" href='{% url "harvest:property_update"  property.id %}'>
+                        <i class="fa fa-pencil"></i> {% trans "Edit this property" %}
+                    </a>
+                    <a class="btn btn-xs btn-primary" href='{% url "harvest:harvest_create" property.id %}'>
+                        <i class="fa fa-plus"></i> {% trans "Add harvest" %}
+                    </a>
+                </span>
+            </h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
+            <div id="carousel-example-generic" class="thumbnail carousel slide" data-ride="carousel">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}" class="active"></li>
+                        {% else %}
+                        <li data-target="#carousel-example-generic" data-slide-to="{{forloop.counter0}}"></li>
+                        {% endif %}
+                    {% endfor %}
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner" role="listbox">
+                    {% for image in property.images.all %}
+                        {% if forloop.first %}
+                        <div class="item active" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{f.image}}" alt="Sample image" style="max-height:100%; max-width: 100%;" />
+                        </div>
+                        {% else %}
+                        <div class="item" style="height:200px;">
+                            <img src="{{ MEDIA_URL }}{{image.image}}" alt="Sample image" style="max-height:200px; max-width: 100%;" />
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Add button -->
+                    <a class="btn btn-xs btn-default pull-right" data-toggle="modal" data-target="#AddImageModal">
+                        <i class="fa fa-plus"></i> {% trans "Add an image" %}
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-4">
+                            <div class="table-responsive">
+                                <table class='table table-borderless'>
+                                    <tbody>
+                                        <tr>
+                                            <td><strong>{% trans "Compost bin closeby" %} :</strong></td>
+                                            <td>{% if property.compost_bin %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Is active" %} :</strong></td>
+                                            <td>{% if property.authorized %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Publicly accessible" %} :</strong></td>
+                                            <td>{% if property.public_access %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>{% trans "Access to neighbors terrain" %} :</strong></td>
+                                            <td>{% if property.neighbor_access %}
+                                                    <i class="fa fa-check" style="color:green"></i>
+                                                {% else %}
+                                                    <i class="fa fa-times" style="color:red"></i>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <!-- /.table-responsive -->
+        </div>
+
+        <div class="col-sm-4">
+            <strong>{% trans "About this property" %} :</strong> {{ property.about }}
+            <hr>
+
+            <div class="alert alert-warning">
+                <strong>{{ property.avg_nb_required_pickers }}</strong> {% trans " pickers are recommended at this property!" %}
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                <i class="glyphicon glyphicon-user" style="color:white"></i> <b>{% trans "Owner information" %}</b>
+                </div>
+                <div class="panel-body">
+                    {% with property.owner|is_person as is_person %}
+                        {% if is_person == True %}
+                            <p class="lead">{{ property.owner.person.name }}</p>
+                            {% if property.owner.person.address %}
+                                    {% trans "Personal address" %} : {{ property.owner.person.address }}.<br>
+                            {% endif %}
+                            {% trans "Phone" %} : {{ property.owner.person.phone }}<br>
+                            {% trans "Email" %} : {{ property.owner.person.email }}<br>
+                            {% trans "Preferred language" %} : {{ property.owner.person.language|default:" ? " }}<br>
+                                {% if property.owner.person.comments %}
+                                    {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
+                                {% endif %}
+                        {% elif is_person == False %}
+                            <strong>{{ property.owner.organization.name }}</strong><br>
+                            <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
+                            <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact_person }}<br>
+                            <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
+                            <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
+                            <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
+                            {% endif %}
+                    {% endwith %}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                <i class="glyphicon glyphicon-tree-deciduous"></i> <b>{% trans "Trees" %}</b>
+                </div>
+                <div class="panel-body">
+                    {% if property.trees.all %}
+                    <ul>
+                        {% for tree in property.trees.all %}
+                            <li>{{ tree.fruit_name }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                        {% trans "No tree in this property." %}
+                    {% endif %}
+                    <hr>
+                    <strong>{% trans "Trees location" %} :</strong> {{ property.trees_location }}
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <a href='{% url "harvest:property_add_equipment" property.id %}' class="btn btn-xs btn-warning pull-right">
+                        <i class="fa fa-plus"></i> Add equipment
+                    </a>
+                    <i class="glyphicon glyphicon-scissors"></i> &nbsp;<b>{% trans "Equipment" %}</b>
+                </div>
+                <table class="panel-body table table-hover table-condensed">
+                    {% if property.equipment.all %}
+                        {% for equipment in property.equipment.all %}
+                            <tr>
+                                <td>
+                                    <span class="label label-default" style="margin-right: 5px;">
+                                    {{ equipment.type }}
+                                    </span>
+                                </td>
+                                <td>
+                                    {{ equipment.description }}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        {% trans "No equipment available at this property." %}
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <strong>{% trans "Harvests at this property" %}</strong>
+                </div>
+
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 0px;">
+                    <table class="table table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>{% trans "Id" %}</th>
+                            <th>{% trans "Pickleader" %}</th>
+                            <th>{% trans "Date" %}</th>
+                            <th>{% trans "Status" %}</th>
+                            <th>{% trans "Tree(s)" %}</th>
+                        </tr>
+                    </thead>
+
+                        {% for h in property.get_harvests %}
+                        <tr>
+                            <td><a href="{% url 'harvest:harvest_detail' h.id %}">{{ h.id }}</a></td>
+                            <td>{{ h.pick_leader|default:"-" }}</td>
+                            <td>{{ h.start_date|default:"-" }}</td>
+                            <td>{{ h.status }}</td>
+                            <td>
+                                {% for tree in h.trees.all %}
+                                    {{ tree.fruit_name }}<br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{% trans "History" %}</strong>
+                </div>
+
+                <div class="panel-body" style="max-height: 150px; overflow-y: auto; padding: 0px;">
+                    <table class="table table-hover table-condensed">
+                        {% for line in property_history %}
+                        {% if line.get_history_type_display == "Created" %}
+                        <tr class="success">
+                        {% else %}
+                        <tr>
+                        {% endif %}
+                        {% if line.changed_by != None %}
+                            <td>
+                                Updated by {{ line.changed_by }} in {{ line.history_date }}
+                            </td>
+                        {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-----------
+    --- MODAL ---
+    ------------>
+
+    <!-- Image modal -->
+    <div class="modal fade" id="AddImageModal" tabindex="-1" role="dialog" aria-labelledby="addImageLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn btn-xs btn-danger pull-right" data-dismiss="modal">x</button>
+                    <h4 class="modal-title" id="addImageLabel">{% trans "New image" %}</h4>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data" action="{% url 'harvest:property_add_image' property.id %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form_image %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

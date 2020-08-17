@@ -1,0 +1,547 @@
+{% extends "app/base_site.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+{% load is_person %}
+{% load order_by %}
+
+{% block title %} Harvest {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+    <!-- top tiles -->
+    <div class="row tile_count">
+      <div class="col-xs-12 col-sm-12 col-md-3 tile_stats_count">
+             <span class="count_top"><i class="fa fa-calendar-check-o"></i> Status</span>
+             {% if harvest.status == "To-be-confirmed" %}
+               <div class="count warning">{% trans "Unauthorized" %}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="0"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Succeeded" %}
+               <div class="count green">{% trans "Success" %}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-success" role="progressbar" data-transitiongoal="100"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Cancelled" %}
+               <div class="count red">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-danger" role="progressbar" data-transitiongoal="100"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Orphan" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="5"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Adopted" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="20"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Date-scheduled" %}
+               <div class="count yellow">{% trans "Scheduled" %}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="60"></div>
+               </div>
+             {% endif %}
+             {% if harvest.status == "Ready" %}
+               <div class="count yellow">{{ harvest.get_status_l10n }}</div>
+               <div class="progress progress_sm">
+                 <div class="progress-bar progress-bar-warning" role="progressbar" data-transitiongoal="80"></div>
+               </div>
+             {% endif %}
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-clock-o"></i> Schedule</span>
+        <div class="count">{{ harvest.start_date|date:"d M" }}</div>
+        <span class="count_bottom"><i>{{ harvest.start_date|date:"H:i" }} {% trans "to" %} {{ harvest.end_date|date:"H:i" }}</i></span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-1 tile_stats_count">
+        <span class="count_top"><i class="fa fa-users"></i> {%trans "Requests" %}</span>
+        <div class="count">{{ requests.count }}</div>
+        <span class="count_bottom"><i>{{ harvest.nb_required_pickers }} {% trans "needed" %}</i></span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-shopping-basket"></i>{% trans "Total harvested" %}</span>
+        <div class="count">{{ harvest.get_total_distribution }} lbs</div>
+        <span class="count_bottom"><i>{% trans "Distribution bellow" %}</i></span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-4 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Leader</span>
+          {% if harvest.pick_leader != None %}
+              <div class="count">{{ harvest.pick_leader }}</div>
+              <span class="count_bottom"><i>{% trans "Thanks!" %}</i></span>
+          {% endif %}
+          {% if harvest.pick_leader == None %}        
+            <div class="count red">{% trans "None" %}
+                <i><a href='{% url "harvest:harvest_adopt" harvest.id %}' class="btn btn-default"><b>{% trans "Adopt it!" %}</b></a>
+                </i></div>
+          {% endif %}
+      </div>
+    </div>
+    <!-- /top tiles -->
+
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <div class="x_panel">
+          <div class="x_title">
+              <h1>
+                <b>
+                {% for f in harvest.trees.all %}
+                  {{ f }},
+                {% endfor %}
+                </b>
+                <a href='{% url "harvest:property_detail" harvest.property.id %}'>{{ harvest.property.short_address }}</a>
+              <a class="btn btn-warning btn-sm pull-right" href='{% url "harvest:harvest_update" harvest.id %}'>
+                <i class="fa fa-pencil"></i> {% trans "Edit Harvest" %}
+              </a>
+              </h1>
+          </div>
+          <div class="x_content">
+            <div class="l_content">
+             {% if harvest.owner_present %}
+               <span class="label label-check" style="margin-right:10px"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to be present" %} </span>
+             {% endif %}
+             {% if harvest.owner_help %}
+               <span class="label label-check" style="margin-right:10px"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to participate" %} </span>
+             {% endif %}
+             {% if harvest.owner_fruit %}
+               <span class="label label-check"><i class="fa fa-check fa-lg text-success"></i> {% trans "Owner wants to get fruits" %} </span>
+             {% endif %}
+            </div>
+             <h3>{% trans "Public announcement" %}</h3>
+             <blockquote>
+                <p>{{ harvest.about|safe }}</p>
+             </blockquote>
+            <div class="clearfix"></div>
+          </div>
+        </div> <!-- x_panel -->
+      </div> <!-- col -->
+
+      <div class="col-xs-12 col-md-4">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Comments" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a data-toggle="modal" data-target="#CommentModal"><i class="fa fa-plus"></i></a>
+              </li>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+           <div class="dashboard-widget-content">
+              <ul class="list-unstyled timeline widget">
+               {% for comment in harvest.comment.all|order_by:"-created_date" %}    
+                <li>
+                  <div class="block">
+                    <div class="block_content">
+                      <h2 class="title">
+                                        <a>{{ comment.content|truncatewords:4 }}</a>
+                                    </h2>
+                      <div class="byline">
+                        <span>{{ comment.created_date }}</span> {%trans "by" %} <a>{{ comment.author }}</a>
+                      </div>
+                      <p class="excerpt">{{ comment.content }}</p>
+                    </div>
+                  </div>
+                </li>
+            {% endfor %}
+            </ul>
+          </div>
+        </div> <!-- x_panel -->
+      </div> <!-- col -->
+    </div> <!-- row -->
+
+      <!-- Comment modal -->
+      <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="CommentModal">
+        <div class="modal-dialog modal-sm">
+          <div class="modal-content">
+
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+              </button>
+              <h4 class="modal-title" id="requestLabel">{% trans "New comment" %}</h4>
+            </div>
+            <div class="modal-body">
+               <form method="post" action="{% url 'harvest:comment_create' harvest.id %}">
+                   {% csrf_token %}
+                   {% bootstrap_form form_comment %}
+                   {% buttons %}
+                       <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                   {% endbuttons %}
+               </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- /comment modal -->
+
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Pickers" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a data-toggle="modal" data-target="#RFPModal"><i class="fa fa-plus"></i></a>
+              </li>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+
+                <table class="table table-striped projects dt-responsive">
+                    <tr>
+                        <th>{% trans "Picker" %}</th>
+                        <th>{% trans "Number of people" %}</th>
+                        <th>{% trans "Status" %}</th>
+                        <th>{% trans "Requested on" %}</th>
+                        <th>{% trans "Accepted on" %}</th>
+                        <th>{% trans "First time" %}</th>
+                        <th>{% trans "Comment from picker" %}</th>
+                        <th>{% trans "Comment from pick leader" %}</th>
+                        <th>{% trans "Action" %}</th>
+                    </tr>
+                    {% for r in requests %}
+                    <tr>
+                        <td>{{ r.picker }}
+                        {% if r.picker.phone %}
+                            <br>{{ r.picker.phone }}
+                        {% endif %}
+                        {% if r.picker.email %}
+                            <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
+                        {% endif %}
+                        </td>
+                        <td>{{ r.number_of_people }}</td>
+                        <td>
+                            {% if r.is_accepted == None %}
+                                <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                            {% elif r.is_accepted == False %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                            {% elif r.is_accepted == True %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                            {% endif %}
+                        </td>
+                        <td>{{ r.creation_date }}</td>
+                        <td>
+                            {% if r.acceptation_date %}
+                                {{ r.acceptation_date }}
+                            {% else %}
+                                <i class="fa fa-times" style="color:red"></i>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
+                                <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
+                            {% else  %}
+                                <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
+                            {% endif %}
+                        </td>
+                        <td>{{ r.comment }}</td>
+                        <td>{{ r.notes_from_pickleader }}</td>
+                        <td>
+                           <!-- Small modal -->
+                           <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="ManageRequestModal-{{r.id}}">
+                             <div class="modal-dialog modal-sm">
+                               <div class="modal-content">
+         
+                                 <div class="modal-header">
+                                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                   </button>
+                                   <h4 class="modal-title" id="requestLabel">{% trans "Manage request" %}</h4>
+                                 </div>
+                                 <div class="modal-body">
+                                   <form method="post" action='{% url "harvest:participation_update" r.id %}'>
+                                       {% csrf_token %}
+                                       {% bootstrap_form form_manage_request %}
+                                       {% buttons %}
+                                       <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                       {% endbuttons %}
+                                   </form>
+                                 </div>
+                               </div>
+                             </div>
+                           </div>
+                           <!-- /modals -->
+                            <a data-toggle="modal" data-target="#ManageRequestModal-{{ r.id }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4">
+        <div class="x_panel tile fixed_height_240">
+          <div class="x_title">
+            <h2>{% trans "Property information" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li>
+                <a href="#"></a>
+              </li>
+              <li>
+                <a href="#"></a>
+              </li>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+                  <table class="tile_info">
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-home"></i> {{ harvest.property.short_address }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-user"></i> {{ harvest.property.owner }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-phone"></i> {{ harvest.property.owner.person.phone|default:" -- " }} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-envelope"></i> {{ harvest.property.owner.person.email|default:" -- "}} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-comments-o "></i> {{ harvest.property.owner.person.language|default:" -- "}} </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p><i class="fa fa-angle-double-right"></i><a href='{% url "harvest:property_detail" harvest.property.id %}'>{% trans "more info..." %}</a></p>
+                      </td>
+                    </tr>
+                  </table>
+              <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="col-xs-12 col-md-8">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Distribution of fruits" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a href="{% url 'harvest:harvest_add_recipient' harvest.id %}"><i class="fa fa-plus"></i></a>
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="" style="width:100%">
+              <tr>
+                <td>
+                  <!--<canvas id="myCanvasDoughnut" height="140" width="140" style="margin: 15px 10px 10px 0"></canvas>-->
+                  <canvas id="myCanvasDoughnut"></canvas>
+                </td>
+                <td>
+                  <table>
+                   {% for d in distribution %}
+                    <tr>
+                      <td class="col-md-6">
+                        <p><i class="fa fa-square blue"></i> {{ d.recipient }} </p>
+                      </td>
+                      <td class="col-md-4"><p>{{ d.tree.fruit_name }}</p></td>
+                      <td class="col-md-2"><p>{{ d.total_in_lb }}</p></td>
+                      <td> 
+                        <a class="btn btn-warning btn-xs" href='{% url "harvest:harvest_edit_recipient" d.id %}'>
+                               <i class="fa fa-pencil"></i>
+                        </a>
+                        <!-- Tried to implement via modal, but could not make the right form be retrieved
+			<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="EditRecipientModal-{{d.id}}">
+                           <div class="modal-dialog modal-sm">
+                             <div class="modal-content">
+
+                               <div class="modal-header">
+                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                                 </button>
+                                 <h4 class="modal-title" id="requestLabel">{% trans "Edit recipient" %}</h4>
+                               </div>
+                               <div class="modal-body">
+                                 <form method="post" action='{% url "harvest:harvest_edit_recipient" d.id %}'>
+                                     {% csrf_token %}
+                                     {% bootstrap_form form_edit_recipient %}
+                                     {% buttons %}
+                                     <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                                     {% endbuttons %}
+                                 </form>
+                               </div>
+                             </div>
+                           </div>
+                           </div>
+
+                            <a data-toggle="modal" data-target="#EditRecipientModal-{{ d.id }}" class="btn btn-xs btn-warning">
+                                <i class="fa fa-pencil"></i>
+                            </a> 
+                            -->
+                      </td>
+                      <!-- Pending to implement delete action
+                      <td>
+                            <a data-toggle="modal" data-target="#DeleteDistributionModal-{{ r.id }}" class="btn btn-xs btn-danger">
+                                <i class="fa fa-trash"></i>
+                            </a>
+                      </td>
+                      -->
+                    </tr>
+                   {% endfor %}
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    
+          <!-- RFP modal -->
+          <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-hidden="true" id="RFPModal">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span>
+                  </button>
+                  <h4 class="modal-title" id="requestLabel">{% trans "Add picker(s)" %}</h4>
+                </div>
+                <div class="modal-body">
+                {% if harvest.pick_leader == None %}
+                    <div class="alert alert-danger">
+                        This harvest has no pick leader yet, so no pickers can be added.
+                    </div>
+                        <p>Consider adopting it, then other people will be able to join!</p>
+                {% else %}
+                   <form method="post" action="{% url 'harvest:participation_create' harvest.id %}">
+                       {% csrf_token %}
+                       {% bootstrap_form form_request %}
+                       <input type="hidden" name="harvest_id" value={{harvest.id}} id="harvest_id" />
+
+                       {% buttons %}
+                           <button type="submit" class="btn btn-primary">{% trans "Save" %}</button>
+                       {% endbuttons %}
+                   </form>
+                {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- /RFP modal -->
+
+          </div>
+          <div class="clearfix"></div>
+        </div>
+      </div>
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+  <!-- Chart.js -->
+  <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- gauge.js -->
+  <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+  <!-- Skycons -->
+  <script src="/static/vendors/skycons/skycons.js"></script>
+  <!-- Flot -->
+  <script src="/static/vendors/Flot/jquery.flot.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.pie.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.time.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.stack.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.resize.js"></script>
+  <!-- Flot plugins -->
+  <script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+  <script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+  <script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
+  <!-- DateJS -->
+  <script src="/static/vendors/DateJS/build/date.js"></script>
+  <!-- JQVMap -->
+  <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+  <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+  <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+  <script>
+      var chart_doughnut_settings = {
+          type: 'doughnut',
+          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
+          data: {
+              labels: [
+                  {% for d in distribution %} "{{ d.recipient }}", {% endfor %}
+              ],
+              datasets: [{
+                  data: [{% for d in distribution %} {{ d.total_in_lb }}, {% endfor %}],
+                  // alternativelly, get proportions
+                  // data: {{ harvest.get_distribution_proportions }},
+                  backgroundColor: [
+                      "#BDC3C7",
+                      "#9B59B6",
+                      "#E74C3C",
+                      "#26B99A",
+                      "#3498DB",
+                      "#BDC3C7",
+                      "#9B59B6",
+                      "#E74C3C",
+                      "#26B99A",
+                      "#3498DB",
+                  ],
+                  hoverBackgroundColor: [
+                      "#CFD4D8",
+                      "#B370CF",
+                      "#E95E4F",
+                      "#36CAAB",
+                      "#49A9EA",
+                      "#CFD4D8",
+                      "#B370CF",
+                      "#E95E4F",
+                      "#36CAAB",
+                      "#49A9EA",
+                  ]
+              }]
+          },
+          options: {
+              legend: true,
+              responsive: true
+          }
+      }
+
+          var chart_element = document.getElementById("myCanvasDoughnut").getContext('2d');
+          var chart_doughnut = new Chart(chart_element, chart_doughnut_settings);
+
+
+
+
+</script>
+
+{% endblock javascripts %}

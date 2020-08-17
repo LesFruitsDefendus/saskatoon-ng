@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+
+{% block extrascript %}
+    <script type="text/javascript" src="{% static 'sbadmin2/bower_components/jquery/dist/jquery.js' %}"></script>
+
+    {{ form.media }}
+{% endblock %}
+
+{% block content %}
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Basic Form Elements
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <form method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                        <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        <button type="reset" class="btn btn-danger">Réinitialiser</button>
+                    {% endbuttons %}
+                </form>
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+    <!-- /.panel -->
+{% endblock %}

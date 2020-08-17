@@ -1,0 +1,243 @@
+{% extends "app/base_site.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block title %} Statictics {% endblock title %}
+
+{% block stylesheets %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="/static/css/saskatoon.css" />
+{% endblock stylesheets %}
+
+{% block content %}
+  <div class="right_col" role="main">
+ <!--
+      <div class="page-title">
+        <div class="title_left">
+          <h3> {% trans "Statistics" %} </h3>
+        </div>
+
+        <div class="title_right">
+          <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
+            <div class="input-group">
+              <span class="input-group-btn">
+
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown">{% trans "Select season" %}
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    {% for s in seasons %}
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/{{s}}">{{s}}</a></li>
+                    {% endfor %}
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/all">All seasons</a></li>    
+                  </ul>
+                </div>
+
+              </span>
+            </div>
+          </div>
+        </div>
+      </div> page-title -->
+
+      <div class="clearfix"></div>
+    <!-- top tiles -->
+    <div class="row tile_count">
+      <div class="col-xs-4 col-md-2 tile_stats_count" style="overflow: visible;">
+          <span class="count_top"><i class="fa fa-calendar-check-o"></i> {% trans "Season" %} </span>
+          <div class="count">
+                <div class="dropdown">
+                  <button class="btn btn-default dropdown-toggle" id="menu1" type="button" data-toggle="dropdown" style="font-size:0.85em;font-weight:bold;color:#73879C;">
+
+                     {% if season == "all" %}
+                        {% trans "All" %}
+                     {% else %}
+                        {{ season }}
+                     {% endif %}
+
+                  <span class="caret"></span></button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
+                    {% for s in seasons %}
+                      <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/{{s}}">{{s}}</a></li>
+                    {% endfor %}
+                    <li role="presentation" class="divider"></li>
+                    <li role="presentation"><a role="menuitem" tabindex="-1" href="/harvest/stats/all">All seasons</a></li>    
+                  </ul>
+                </div>
+          </div>
+      </div>
+      <div class="col-xs-4 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-shopping-basket"></i> {% trans "Harvests" %} </span>
+        <div class="count">{{ highlights.total_harvests }}</div>
+        <span class="count_bottom">{% trans "Succeeded"%}</span>
+      </div>
+      <div class="col-xs-4 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-users"></i> {% trans "Pickers" %}</span>
+        <div class="count">{{ highlights.total_pickers }}</div>
+        <span class="count_bottom">{% trans "Participated"%}</span>
+      </div>
+      <div class="col-xs-6 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-university"></i> {% trans "Beneficiary" %}</span>
+        <div class="count">{{ highlights.total_beneficiary }}</div>
+        <span class="count_bottom">{% trans "Organizations"%}</span>
+      </div>
+      <div class="col-xs-6 col-md-2 tile_stats_count">
+        <span class="count_top"><i class="fa fa-balance-scale"></i> {%trans "Total weight" %}</span>
+        <div class="count">{{ highlights.total_weight }}</div>
+        <span class="count_bottom">(lbs)</span>
+      </div>
+    </div>
+    <!-- /top tiles -->
+
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="x_panel">
+          <div class="x_title">
+              <h3>
+                {% trans "Total per fruit" %}
+              </h3>
+          </div>
+          <div class="x_content">
+              <table class="table table-responsive table-condensed">
+                <tr>
+		            <th>Fruit</th><th>Harvests</th><th>Weight (lb)</th>
+        		</tr>
+                {% for f in total_fruit %}
+                    <tr><td>{{ f.0 }}</td>
+                        <td>{{ f.1 }}</td>
+                        <td>{{ f.2 }}</td>
+                    </tr>
+                {% endfor %}
+              </table>
+            <div class="clearfix"></div>
+          </div>
+        </div> <!-- x_panel -->
+      </div> <!-- col -->
+
+      <div class="col-xs-12 col-md-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Total per beneficiary" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+             <div class="dashboard-widget-content">
+                <table class="table table-responsive table-condensed">
+                    <tr>
+                        <th>Beneficiary</th><th>Harvests</th><th>Weight (lb)</th>
+                    </tr>
+                    {% for b in total_beneficiary %}
+                        <tr><td>{{ b.0 }}</td>
+                            <td>{{ b.1 }}</td>
+                            <td>{{ b.2 }}</td>
+                        </tr>
+                    {% endfor %}
+                </table>
+             </div>
+          </div>
+        </div> <!-- x_panel -->
+      </div> <!-- col -->
+    </div> <!-- row -->
+
+    <div class="row">
+
+      <div class="col-xs-12 col-md-6">
+        <div class="x_panel tile fixed_height_240">
+          <div class="x_title">
+            <h2>{% trans "Total per neighborhood" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-responsive table-condensed">
+               <tr>
+                  <th>Neighborhood</th><th>Harvests</th><th>Weight (lb)</th>
+               </tr>
+               {% for n in total_neighborhood %}
+                   <tr><td>{{ n.0 }}</td>
+                       <td>{{ n.1 }}</td>
+                       <td>{{ n.2 }}</td>
+                   </tr>
+               {% endfor %}
+            </table>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-xs-12 col-md-6">
+        <div class="x_panel">
+          <div class="x_title">
+            <h2>{% trans "Total per picker" %}</h2>
+            <ul class="nav navbar-right panel_toolbox">
+              <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+              </li>
+              <li><a class="close-link"><i class="fa fa-close"></i></a>
+              </li>
+            </ul>
+            <div class="clearfix"></div>
+          </div>
+          <div class="x_content">
+            <table class="table table-responsive table-condensed">
+               <tr>
+                  <th>Picker</th><th>Leader</th><th>RFP</th><th>Accepted</th><th>Recipient<th>Weight (lb)</th>
+               </tr>
+               {% for p in total_picker %}
+                   <tr><td>{{ p.0 }}</td>
+                       <td>{{ p.1 }}</td>
+                       <td>{{ p.2 }}</td>
+                       <td>{{ p.3 }}</td>
+                       <td>{{ p.4 }}</td>
+                       <td>{{ p.5|default_if_none:"0.0" }}</td>
+                   </tr>
+               {% endfor %}
+            </table>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div> <!-- col -->
+    
+
+    </div> <!-- row -->
+ </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+  {{ block.super}}
+  <!-- Chart.js -->
+  <script src="/static/vendors/Chart.js/dist/Chart.min.js"></script>
+  <!-- gauge.js -->
+  <script src="/static/vendors/gauge.js/dist/gauge.min.js"></script>
+  <!-- Skycons -->
+  <script src="/static/vendors/skycons/skycons.js"></script>
+  <!-- Flot -->
+  <script src="/static/vendors/Flot/jquery.flot.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.pie.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.time.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.stack.js"></script>
+  <script src="/static/vendors/Flot/jquery.flot.resize.js"></script>
+  <!-- Flot plugins -->
+  <script src="/static/vendors/flot.orderbars/js/jquery.flot.orderBars.js"></script>
+  <script src="/static/vendors/flot-spline/js/jquery.flot.spline.min.js"></script>
+  <script src="/static/vendors/flot.curvedlines/curvedLines.js"></script>
+  <!-- DateJS -->
+  <script src="/static/vendors/DateJS/build/date.js"></script>
+  <!-- JQVMap -->
+  <script src="/static/vendors/jqvmap/dist/jquery.vmap.js"></script>
+  <script src="/static/vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+  <script src="/static/vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+
+{% endblock javascripts %}
