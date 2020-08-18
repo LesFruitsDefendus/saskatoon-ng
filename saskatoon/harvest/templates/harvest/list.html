@@ -129,10 +129,10 @@
                     </td>
                     <td>
                       <ul class="list-inline">
-                      {% for p in harvest.get_pickers %}
+                      {% for p in harvest.pickers %}
                         <li>
-                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p.picker }}">
-                            <img src="/static/images/user.png" class="avatar" alt="{{ p.picker }}">
+                          <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p }}">
+                            <img src="/static/images/user.png" class="avatar" alt="{{ p }}">
                           </a>
                         </li>
                       {% endfor %}

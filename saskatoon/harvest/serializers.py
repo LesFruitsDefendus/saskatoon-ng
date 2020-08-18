@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Harvest, Property, Equipment
+from .models import Harvest, Property, Equipment, RequestForParticipation
 from member.models import Neighborhood
 
 # Neighborhood serializer
@@ -25,8 +25,8 @@ class EquipmentSerializer(serializers.ModelSerializer):
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
     # three different ways of getting a multimodel serializer:
-    # 1) calling a model property
-    get_pickers = serializers.ReadOnlyField()
+    # 1) calling a model method
+    pickers = serializers.ReadOnlyField(source='get_pickers')
     start_date = serializers.DateTimeField(format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='start_date', format="%H:%M")
     # 2) get string rather than id from a pk

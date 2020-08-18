@@ -487,7 +487,7 @@ class Harvest(models.Model):
 
     def get_pickers(self):
         requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
-        return requests
+        return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
 
     def is_urgent(self):
         if self.start_date:
