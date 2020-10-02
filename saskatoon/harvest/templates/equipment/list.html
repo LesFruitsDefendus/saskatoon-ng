@@ -53,22 +53,22 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for equipment in equipments %}
+                {% for equipment in data %}
                   <tr>
                     <td>{{ equipment.id }}</td>
-                    <td>{{ equipment.type }}</td>
+                    <td>{{ equipment.type.name }}</td>
                     <td>{{ equipment.description }}</td>
                     {% if equipment.owner %}
                       <td>{{ equipment.owner }}</td>
                     {% else %}
                       <td>
-                      {{ equipment.property }}
+                      {{ equipment.property.title }}
                       {% if equipment.property.is_active == False %}
                         <br /><span class="label label-danger">{% trans "inactive" %}</span>
                       {% endif %}
                     {% endif %}
                     </td>
-                    <td>{{ equipment.property.neighborhood }}</td>
+                    <td>{{ equipment.property.neighborhood.name }}</td>
                     <td>{% if equipment.shared %} {% trans "Yes" %} {% else %} {% trans "No" %} {% endif %}</td>
                     <td>
                       <a href='/admin/harvest/equipment/{{ equipment.id }}/change/' class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>

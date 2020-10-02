@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Harvest, Property, Equipment, RequestForParticipation
+from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
 from member.models import Neighborhood
 
 # Neighborhood serializer
@@ -19,8 +19,16 @@ class PropertySerializer(serializers.ModelSerializer):
         model = Property
         fields = '__all__'
 
+# EquipmentType serializer
+class EquipmentTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EquipmentType
+        fields = '__all__'
+
 # Equipment serializer
 class EquipmentSerializer(serializers.ModelSerializer):
+    property = PropertySerializer(many=False, read_only=True)
+    type = EquipmentTypeSerializer(many=False, read_only=True)
     class Meta:
         model = Equipment
         fields = '__all__'

@@ -82,16 +82,20 @@ class PropertyViewset(viewsets.ModelViewSet):
 
 # Equipment Viewset
 class EquipmentViewset(viewsets.ModelViewSet):
-    queryset = Equipment.objects.all()
-    template_name = 'equipment.html'
-    serializer_class = EquipmentSerializer
+    queryset = Equipment.objects.all().order_by('-id')
 
     permission_classes = [
       permissions.AllowAny
     ]
 
+    serializer_class = EquipmentSerializer
+    template_name = 'equipment/list.html'
+
     def list(self, request, *args, **kwargs):
+        filter_request = self.request.GET
+
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'html':
-             return Response({'data': response.data})
-        return response
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data})
