@@ -20,11 +20,11 @@ class IndexView(TemplateView):
 class HarvestViewset(viewsets.ModelViewSet):
     queryset = Harvest.objects.all().order_by('-id')
 
-    # Integrating DRF to django-filter #
+    ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about', 'status', 'start_date')
     filterset_class = HarvestFilter
-    ###################################
+    ####################################################
 
     permission_classes = [
       permissions.AllowAny
@@ -50,11 +50,35 @@ class HarvestViewset(viewsets.ModelViewSet):
 
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
-    queryset = Property.objects.all()
+    queryset = Property.objects.all().order_by('-id')
+
+    ######### Integrating DRF to django-filter #########
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_fields = ('s_active','authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
+    filterset_class = PropertyFilter
+    ####################################################
+
     permission_classes = [
       permissions.AllowAny
     ]
+
     serializer_class = PropertySerializer
+    template_name = 'properties/list.html'
+
+    def list(self, request, *args, **kwargs):
+        filter_request = self.request.GET
+
+        # only way I found to generate the filter form 
+        filter_form = PropertyFilter(
+            filter_request,
+            self.queryset
+        )
+
+        response = super(PropertyViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data, 'form': filter_form.form})
 
 # Equipment Viewset
 class EquipmentViewset(viewsets.ModelViewSet):

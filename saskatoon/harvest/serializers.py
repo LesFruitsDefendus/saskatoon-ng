@@ -12,6 +12,9 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
+    harvests = serializers.ReadOnlyField(source="get_harvests")
+    last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
+    trees = serializers.StringRelatedField(many=True)
     class Meta:
         model = Property
         fields = '__all__'

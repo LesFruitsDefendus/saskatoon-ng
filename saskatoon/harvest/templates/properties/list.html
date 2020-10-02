@@ -49,14 +49,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                {% for property in properties.qs %}
+                {% for property in data %}
                   <tr>
                     <td>{{ property.id }}</td>
                     <td>
-                      {{ property }}<br />
+                      {{ property.title }}<br />
                     </td>
                     <td>
-                      {{ property.neighborhood }}<br />
+                      {{ property.neighborhood.name }}<br />
                     </td>
                     <td>
                         <ul class="list-unstyled">
@@ -82,15 +82,15 @@
                         </ul>
                     </td>
                     <td>
-                      {% for tree in property.trees.all %}
+                      {% for tree in property.trees %}
                       <div class="text-nowrap">{{ tree }}</div>
                       {% endfor %}
                     </td>
                     <td>
                       <ul class="list-inline">
-                      {% for harvest in property.get_harvests.all %}
+                      {% for harvest in property.harvests %}
                         <li>
-                          <a href='{% url "harvest:harvest_detail" harvest.id %}' data-toggle="tooltip" data-placement="top" title="{{ harvest }}">
+                          <a href='harvest.id' data-toggle="tooltip" data-placement="top" title="{{ harvest }}">
                             {% if harvest.status == "Succeeded" %}
                               <i class="fa fa-shopping-basket fa-lg text-success" style="padding-top:7px;"></i>
                             {% elif harvest.status == "Cancelled" %}
@@ -103,10 +103,10 @@
                       {% endfor %}
                       </ul>
                     </td>
-                    <td><a href="/harvest/{{property.get_last_succeeded_harvest.id}}">{{ property.get_last_succeeded_harvest.start_date|date:"Y-m-d" }}</a></td>
+                    <td><a href="/harvest/{{property.last_succeeded_harvest.id}}">{{ property.last_succeeded_harvest.start_date|date:"Y-m-d" }}</a></td>
                     <td>
-                      <a href="{% url 'harvest:property_detail' property.id %}" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
-                      <a href='{% url "harvest:property_update" property.id %}' class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
+                      <a href="property.id" class="btn btn-info btn-xs"><i class="fa fa-eye"></i></a>
+                      <a href='property.id' class="btn btn-warning btn-xs"><i class="fa fa-pencil"></i></a>
                       <!--<a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> </a>-->
                     </td>
                   </tr>
