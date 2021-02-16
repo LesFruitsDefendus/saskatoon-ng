@@ -18,7 +18,7 @@ Please follow each part of this documentation to install the project.
     source ~/.zshrc
     ```
 
-- Pillow requyirements
+- Pillow requirements
     For Ubuntu: 
     ```
     sudo apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
