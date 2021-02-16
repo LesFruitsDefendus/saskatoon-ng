@@ -6,6 +6,13 @@ django-geojson==3.0.0
 django-leaflet==0.26.0
 django-rest-knox==4.1.0
 djangorestframework==3.11.0
+django-autocomplete-light
+django-select2
+django-ckeditor
+django-filter
+django-bootstrap3
+django-bootstrap-form
+django-crequest
 jsonfield==3.1.0
 mysqlclient==1.4.6
 Pillow==7.1.2
