@@ -19,6 +19,7 @@ Please follow each part of this documentation in order to run your own instance 
     ```
 
 - Pillow requirements
+
     For Debian and derivatives: 
     ```
     sudo apt install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
