@@ -1,14 +1,14 @@
 # Installation guide
 
-Please follow each part of this documentation to install the project.
+Please follow each part of this documentation in order to run your own instance of Saskatoon.
 
 ## Installation of requirements
 
 - MySQL client
 
-    For Ubuntu: 
+    For Debian and derivatives: 
     ```
-    apt-get install libmysqlclient-dev
+    sudo apt install libmysqlclient-dev
     ```
 
     For MacOS:
@@ -19,9 +19,9 @@ Please follow each part of this documentation to install the project.
     ```
 
 - Pillow requirements
-    For Ubuntu: 
+    For Debian and derivatives: 
     ```
-    sudo apt-get install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
+    sudo apt install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
     libharfbuzz-dev libfribidi-dev libxcb1-dev
     ```
@@ -46,14 +46,12 @@ virtualenv ve
 
 To install Python requirements use :
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 ## Database
 
-We use an `sqlite3` database in our development environment because it's really fast to setup.
-
-You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#databases).
+You may want to use `sqlite3` database in your development environment.
 
 The setting file is provided as `saskatoon/saskatoon/settings.py`. Edit `DATABASES` entry to use an `sqlite3` database: 
 ```
@@ -64,8 +62,10 @@ DATABASES = {
     }
 }
 ```
+You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#databases).
 
 To initiate the database use: (NOT WOKRING AT THE MOMENT, are we missing migration files ?)
+
 ```
 cd saskatoon
 python3 manage.py migrate
@@ -90,7 +90,7 @@ localhost:8000/admin
 
 ## Launch the server
 
-Django have an embedded server for development purpose. To run the development server use :
+You can use Django embedded server for development purpose:
 
 ```
 cd saskatoon
