@@ -6,7 +6,7 @@ Please follow each part of this documentation in order to run your own instance 
 
 - MySQL client
 
-    For Debian and derivatives: 
+    For Debian and derivatives:
     ```
     sudo apt install libmysqlclient-dev
     ```
@@ -20,9 +20,9 @@ Please follow each part of this documentation in order to run your own instance 
 
 - Pillow requirements
 
-    For Debian and derivatives: 
+    For Debian and derivatives:
     ```
-    sudo apt install libtiff5-dev libjpeg8-dev libopenjp2-7-dev zlib1g-dev \
+    sudo apt install libtiff5-dev libjpeg-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
     libharfbuzz-dev libfribidi-dev libxcb1-dev
     ```
@@ -34,7 +34,7 @@ Please follow each part of this documentation in order to run your own instance 
     source ~/.zshrc
     ```
 
-    Refer to [Pillow installation instruction](https://pillow.readthedocs.io/en/latest/installation.html#building-on-linux) for more documentation. 
+    Refer to [Pillow installation instruction](https://pillow.readthedocs.io/en/latest/installation.html#building-on-linux) for more documentation.
 
 
 All Python requirements are present in the `requirements.txt` file at the project's root.
@@ -54,7 +54,7 @@ pip3 install -r requirements.txt
 
 You may want to use `sqlite3` database in your development environment.
 
-The setting file is provided as `saskatoon/saskatoon/settings.py`. Edit `DATABASES` entry to use an `sqlite3` database: 
+The setting file is provided as `saskatoon/saskatoon/settings.py`. Edit `DATABASES` entry to use an `sqlite3` database:
 ```
 DATABASES = {
     'default': {
