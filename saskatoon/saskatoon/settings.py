@@ -87,15 +87,10 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon_prod',
-        'USER': 'saskatoon',
-        #'PASSWORD': '',
-        #'HOST': '127.0.0.1',
-        #'PORT': '5432',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3.db',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

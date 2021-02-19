@@ -24,7 +24,7 @@ Please follow each part of this documentation in order to run your own instance 
     ```
     sudo apt install libtiff5-dev libjpeg-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
-    libharfbuzz-dev libfribidi-dev libxcb1-dev
+    libharfbuzz-dev libfribidi-dev libxcb1-dev libcharls2
     ```
 
     For MacOS:
@@ -52,24 +52,23 @@ pip3 install -r requirements.txt
 
 ## Database
 
-You may want to use `sqlite3` database in your development environment.
+Edit the DB path file at `saskatoon/saskatoon/settings.py`, section `DATABASES`:
 
-The setting file is provided as `saskatoon/saskatoon/settings.py`. Edit `DATABASES` entry to use an `sqlite3` database:
 ```
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/Users/me/Documents/saskatoon-dev/sqlite3.db',
+        'NAME': '/YOURDBPATH/sqlite3.db',
     }
 }
 ```
 You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#databases).
 
-To initiate the database use: (NOT WOKRING AT THE MOMENT, are we missing migration files ?)
+To initiate the database use:
 
 ```
 cd saskatoon
-python3 manage.py migrate
+python3 manage.py migrate --skip-checks
 ```
 
 ## Create administrator account
