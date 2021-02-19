@@ -1404,7 +1404,7 @@ exports.Test = require('./test');
  */
 
 function image(name) {
-  return __dirname + '/static/images/' + name + '.png';
+  return __dirname + '/../images/' + name + '.png';
 }
 
 /**

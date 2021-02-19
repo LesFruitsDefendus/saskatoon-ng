@@ -19,7 +19,7 @@ When a test case fails, it doesn't necessary to be a bug since the rendering met
 Make sure `../dist/echarts.js` is the built based on current source files by:
 
 ```bash
-cd /static/build
+cd ../build
 npm install
 bash build.sh
 ```
