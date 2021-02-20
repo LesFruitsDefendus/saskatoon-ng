@@ -13,13 +13,13 @@ from django.contrib.auth.decorators import login_required
 #@login_required
 def index(request):
     context = {}
-    template = loader.get_template('index.html')
+    template = loader.get_template('app/index.html')
     return HttpResponse(template.render(context, request))
 
 ############ sitebase views ####################
 
 class Calendar(generic.TemplateView):
-    template_name = 'calendar.html'
+    template_name = 'app/calendar.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super(Calendar, self).dispatch(request, *args, **kwargs)
@@ -100,4 +100,4 @@ class JsonCalendar(generic.View):
         return JsonResponse(events, safe=False)
 
 class Login(generic.TemplateView):
-    template_name = 'registration/login.html'
+    template_name = 'app/login-register.html'
