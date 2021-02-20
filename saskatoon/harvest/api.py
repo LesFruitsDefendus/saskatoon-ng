@@ -31,7 +31,7 @@ class HarvestViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = HarvestSerializer
-    template_name = 'harvest/list.html'
+    template_name = 'app/harvest_list.html'
 
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
