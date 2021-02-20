@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'dal_select2',
     'ckeditor',
     'leaflet',
-    'app',
+    'sitebase',
     'member',
     'harvest',
     'rest_framework',
