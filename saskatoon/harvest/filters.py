@@ -5,7 +5,7 @@ from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property
 from member.models import AuthUser, Neighborhood
 
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
-FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
+#FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
 
 class HarvestFilter(filters.FilterSet):
     seasons = []
