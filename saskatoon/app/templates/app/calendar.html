@@ -1,5 +1,5 @@
 {% extends "app/base_site.html" %}
-{% load staticfiles %}
+{% load static %}
 {% load i18n %}
 {% load bootstrap3 %}
 
@@ -9,8 +9,8 @@
 {% block stylesheets %}
   {{ block.super }}
   <!-- FullCalendar -->
-  <link href="/static/vendors/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet">
-  <link href="/static/vendors/fullcalendar/dist/fullcalendar.print.css" rel="stylesheet" media="print">
+  <link href="{% static 'vendors/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+  <link href="{% static 'vendors/fullcalendar/dist/fullcalendar.print.css' %}" rel="stylesheet" media="print">
 
 {% endblock stylesheets %}
 
