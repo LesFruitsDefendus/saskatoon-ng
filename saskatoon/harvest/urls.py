@@ -8,10 +8,11 @@ router = routers.DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
+router.register('organization', api.OrganizationViewset, 'organization')
+
 
 urlpatterns = [
     url(r'^index', api.IndexView.as_view()),
     url(r'^', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
-

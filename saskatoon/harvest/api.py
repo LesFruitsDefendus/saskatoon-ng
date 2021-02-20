@@ -36,7 +36,7 @@ class HarvestViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
 
-        # only way I found to generate the filter form 
+        # only way I found to generate the filter form
         filter_form = HarvestFilter(
             filter_request,
             self.queryset
@@ -68,7 +68,7 @@ class PropertyViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
 
-        # only way I found to generate the filter form 
+        # only way I found to generate the filter form
         filter_form = PropertyFilter(
             filter_request,
             self.queryset
@@ -99,3 +99,7 @@ class EquipmentViewset(viewsets.ModelViewSet):
             return response
         # default request format is html:
         return Response({'data': response.data})
+
+# Equipment Viewset
+class OrganizationViewset(viewsets.ModelViewSet):
+    pass

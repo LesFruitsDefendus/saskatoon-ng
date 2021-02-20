@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load static %}
 
 <div class="left_col scroll-view">
   <div class="navbar nav_title" style="border: 0;">
@@ -12,7 +13,7 @@
   <!-- menu profile quick info -->
   <div class="profile clearfix">
     <div class="profile_pic">
-      <img src="/static/images/user.png" alt="..." class="img-circle profile_img">
+      <img src="{% static 'images/user.png' %}" alt="..." class="img-circle profile_img">
     </div>
     <div class="profile_info">
       <span>{% trans "Welcome" %},</span>
@@ -28,15 +29,15 @@
     <div class="menu_section">
       <h3>General</h3>
       <ul class="nav side-menu">
-          <li><a href="/"><i class="fa fa-home"></i>{% trans "Home" %}</a></li>
-          <li><a href='{% url "app:calendar" %}'><i class="fa fa-table"></i>{% trans "Calendar" %}</a></li>
-          <li><a href='{% url "harvest:harvest_list" %}'><i class="fa fa-shopping-basket"></i>{% trans "Harvests" %}</a></li>
-          <li><a href='{% url "harvest:property_list" %}'><i class="glyphicon glyphicon-tree-deciduous"></i>{% trans "Properties" %}</a></li>
-          <li><a href="{% url 'harvest:organization_list' %}"><i class="fa fa-gift"></i>{% trans "Beneficiaries" %}</a></li>
+          <li><a href="/index"><i class="fa fa-home"></i>{% trans "Home" %}</a></li>
+          <li><a href='/calendar'><i class="fa fa-table"></i>{% trans "Calendar" %}</a></li>
+          <li><a href='/harvest'><i class="fa fa-shopping-basket"></i>{% trans "Harvests" %}</a></li>
+          <li><a href='/property'><i class="glyphicon glyphicon-tree-deciduous"></i>{% trans "Properties" %}</a></li>
+          <li><a href="/organization"><i class="fa fa-gift"></i>{% trans "Beneficiaries" %}</a></li>
           <li><a href="/harvest/stats/all"><i class="fa fa-bar-chart fa-fw"></i>{% trans "Statistics" %}</a></li>
           {% if user.is_superuser %}
-          <li><a href="{% url 'member:people' %}"><i class="fa fa-users"></i>{% trans "Community" %}</a></li>
-          <li><a href="{% url 'harvest:equipment_list' %}"><i class="fa fa-scissors"></i>{% trans "Equipment" %}</a></li> 
+          <li><a href="/people"><i class="fa fa-users"></i>{% trans "Community" %}</a></li>
+          <li><a href="/equipment"><i class="fa fa-scissors"></i>{% trans "Equipment" %}</a></li>
           <li><a href="#" id="btn-1" data-toggle="collapse" data-target="#submenu1" aria-expanded="false">
                   <i class="fa fa-angle-down fa-fw"></i>Admin
               </a>

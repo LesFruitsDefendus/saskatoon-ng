@@ -83,7 +83,7 @@ class JsonCalendar(generic.View):
                 event["title"] = ", ".join(trees_list)
                 if harvest.property.neighborhood.name != "Other":
                     event["title"] += " @ "+harvest.property.neighborhood.name
-                
+
                 event["total_harvested"] = harvest.get_total_distribution()
 
                 # FIXME: see
@@ -110,5 +110,5 @@ class JsonCalendar(generic.View):
 
         return JsonResponse(events, safe=False)
 
-
-
+class Login(generic.TemplateView):
+    template_name = 'registration/login.html'
