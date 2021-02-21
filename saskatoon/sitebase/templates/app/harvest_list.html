@@ -5,34 +5,59 @@
 
 {% block content %}
 
+        <!-- Breadcomb area Start-->
+        <div class="breadcomb-area">
+            <div class="container">
+                 <div class="row">
+                      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcomb-list">
+                                 <div class="row">
+                                      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <div class="breadcomb-wp">
+                                                 <div class="breadcomb-ctn">
+                                                      <div class="accordion-stn">
+                                                          <div class="panel-group" data-collapse-color="nk-green" id="accordionGreen" role="tablist" aria-multiselectable="true">
+                                                              <div class="panel panel-collapse notika-accrodion-cus">
+                                                                  <div class="panel-heading" role="tab">
+                                                                      <h4 class="panel-title">
+                                                                          <a data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-one" aria-expanded="true">Filters</a>
+                                                                      </h4>
+                                                                  </div>
+                                                                  <div id="accordionGreen-one" class="collapse" role="tabpanel">
+                                                                      <div class="panel-body">
+                                                                          <form role="form">
+                                                                             {% csrf_token %}
+                                                                             {{ form|bootstrap }}
+                                                                             <div class="form-group">
+                                                                               <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
+                                                                             </div>
+                                                                          </form>
+                                                                       </div>
+                                                                   </div>
+                                                               </div>
+                                                           </div>
+                                                       </div>
+                                            </div>
+                                      </div>
+                                 </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                       <div class="breadcomb-report">
+                           <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
+                      </div>
+                </div>
+            </div>
+        </div>
+     </div>
+  </div>
+ </div>
+</div>
+        <!-- Breadcomb area End-->
+
     <!-- Data Table area Start-->
     <div class="data-table-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="accordion-stn">
-                        <div class="panel-group" data-collapse-color="nk-green" id="accordionGreen" role="tablist" aria-multiselectable="true">
-                            <div class="panel panel-collapse notika-accrodion-cus">
-                                <div class="panel-heading" role="tab">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordionGreen" href="#accordionGreen-one" aria-expanded="true">Filters</a>
-                                    </h4>
-                                </div>
-                                <div id="accordionGreen-one" class="collapse" role="tabpanel">
-                                    <div class="panel-body">
-                                        <form role="form">
-                                           {% csrf_token %}
-                                           {{ form|bootstrap }}
-                                           <div class="form-group">
-                                             <button type="submit" class="btn btn-primary">{% trans "Filter" %}</button>
-                                           </div>
-                                        </form>
-                                        <p>Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry cry then richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf msr noontemporem, sunt aliqua put a bird on it squid single-origin coffee nullassumendan shoreditch et.</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="data-table-list">
                         <div class="table-responsive">
@@ -122,7 +147,7 @@
                                           <div class="skill">
                                             <div class="progress">
                                                 <div class="lead-content">{% trans "Ready" %}</div>
-                                                <div class="progress-bar wow fadeInLeft" data-progress="80%" style="background-color: #FF5733; width: 80%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="80%" style="background-color: #FFC30F; width: 80%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
                                             </div>
                                           </div>
                                         {% endif %}
