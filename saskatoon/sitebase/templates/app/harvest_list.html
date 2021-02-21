@@ -69,7 +69,7 @@
                                         {% endfor %}
                                       </td>
                                       <td>{{ harvest.property.neighborhood.name }}</td>
-                                      <td class="project_progress">
+                                      <td>
                                         {% if harvest.status == "Succeeded" %}
                                           <div class="skill">
                                             <div class="progress">
@@ -98,15 +98,15 @@
                                           <div class="skill">
                                             <div class="progress">
                                                 <div class="lead-content">{% trans "Adopted" %}</div>
-                                                <div class="progress-bar wow fadeInLeft" data-progress="20%" style="background-color: yellow; width: 20%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="20%" style="background-color: #FFC30F; width: 20%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
                                             </div>
                                           </div>
                                         {% endif %}
                                         {% if harvest.status == "To-be-confirmed" %}
                                           <div class="skill">
                                             <div class="progress">
-                                                <div class="lead-content">{% trans "Unauthorized" %}</div>
-                                                <div class="progress-bar wow fadeInLeft" data-progress="40%" style="background-color: yellow; width: 40%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                                <div class="lead-content">{% trans "Pending auth." %}</div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="40%" style="background-color: #FFC30F; width: 40%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
                                             </div>
                                           </div>
                                         {% endif %}
@@ -114,7 +114,7 @@
                                           <div class="skill">
                                             <div class="progress">
                                                 <div class="lead-content">{% trans "Scheduled" %}</div>
-                                                <div class="progress-bar wow fadeInLeft" data-progress="60%" style="background-color: yellow; width: 60%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="60%" style="background-color: #FFC30F; width: 60%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
                                             </div>
                                           </div>
                                         {% endif %}
@@ -122,7 +122,7 @@
                                           <div class="skill">
                                             <div class="progress">
                                                 <div class="lead-content">{% trans "Ready" %}</div>
-                                                <div class="progress-bar wow fadeInLeft" data-progress="80%" style="background-color: orange; width: 80%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
+                                                <div class="progress-bar wow fadeInLeft" data-progress="80%" style="background-color: #FF5733; width: 80%;" data-wow-duration="1.5s" data-wow-delay="1.2s"></div>
                                             </div>
                                           </div>
                                         {% endif %}
