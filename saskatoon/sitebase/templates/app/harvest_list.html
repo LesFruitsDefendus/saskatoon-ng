@@ -65,7 +65,7 @@
                                 <thead>
                                     <tr>
                                        <th>#</th>
-                                       <th>{% trans "Property" %}</th>
+                                       <th>{% trans "Harvest details" %}</th>
                                        <th>{% trans "Tree" %}</th>
                                        <th>{% trans "Neighborhood" %}</th>
                                        <th style="width: 12%">{% trans "Status" %}</th>
@@ -86,7 +86,7 @@
                                     <tr>
                                       <td>{{ harvest.id }}</td>
                                       <td>
-                                        <a href='harvest.property'>{{ harvest.property.title }}</a>
+                                        <a href='/harvest/{{harvest.id}}'>{{ harvest.property.title }}</a>
                                       </td>
                                       <td>
                                         {% for tree in harvest.trees %}

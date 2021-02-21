@@ -63,7 +63,10 @@
     <!-- Data Table JS
                 ============================================ -->
     <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
-
+    <!-- FullCalendar
+                ============================================ -->
+    <link href="{% static 'js/fullcalendar/dist/fullcalendar.min.css' %}" rel="stylesheet">
+    <link href="{% static 'js/fullcalendar/dist/fullcalendar.print.css' %}" rel="stylesheet" media="print">
 
     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
 </head>
@@ -362,7 +365,7 @@
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul class="mobile-menu-nav">
-                                <li><a href="/index">Home</a></li>
+                                <li><a href="/calendar">Calendar</a></li>
                                 <li><a data-toggle="collapse" data-target="#demoevent" href="#">Harvests</a>
                                     <ul id="demoevent" class="collapse dropdown-header-top">
                                         <li><a href="/harvest">Search and view harvests</a></li>
@@ -420,22 +423,6 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages</a>
-                                    <ul id="Pagemob" class="collapse dropdown-header-top">
-                                        <li><a href="contact.html">Contact</a>
-                                        </li>
-                                        <li><a href="invoice.html">Invoice</a>
-                                        </li>
-                                        <li><a href="typography.html">Typography</a>
-                                        </li>
-                                        <li><a href="color.html">Color</a>
-                                        </li>
-                                        <li><a href="login-register.html">Login Register</a>
-                                        </li>
-                                        <li><a href="404.html">404 Page</a>
-                                        </li>
-                                    </ul>
-                                </li>
                             </ul>
                         </nav>
                     </div>
@@ -450,7 +437,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
-                        <li class="active"><a href="/index"><i class="fa fa-home"></i> Home</a>
+                        <li class="active"><a href="/calendar"><i class="fa fa-table"></i> Calendar</a>
                         </li>
                         <li><a data-toggle="tab" href="#harvests"><i class="fa fa-shopping-basket"></i> Harvests</a>
                         </li>
@@ -463,8 +450,6 @@
                         <li><a data-toggle="tab" href="#Forms"><i class="fa fa-scissors"></i> Equipment</a>
                         </li>
                         <li><a data-toggle="tab" href="#Appviews"><i class="fa fa-bar-chart fa-fw"></i> Analytics</a>
-                        </li>
-                        <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Admin</a>
                         </li>
                     </ul>
                     <div class="tab-content custom-menu-content">
@@ -535,22 +520,6 @@
                                 <li><a href="tooltips.html">Tooltips</a>
                                 </li>
                                 <li><a href="dropdown.html">Dropdowns</a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="Page" class="tab-pane notika-tab-menu-bg animated flipInX">
-                            <ul class="notika-main-menu-dropdown">
-                                <li><a href="contact.html">Contact</a>
-                                </li>
-                                <li><a href="invoice.html">Invoice</a>
-                                </li>
-                                <li><a href="typography.html">Typography</a>
-                                </li>
-                                <li><a href="color.html">Color</a>
-                                </li>
-                                <li><a href="login-register.html">Login Register</a>
-                                </li>
-                                <li><a href="404.html">404 Page</a>
                                 </li>
                             </ul>
                         </div>
@@ -650,6 +619,61 @@
 	<!-- tawk chat JS
 		============================================ -->
     <script src="{% static 'js/tawk-chat.js' %}"></script>
+
+  <!-- FullCalendar -->
+  <script src="{% static 'js/moment/min/moment.min.js' %}"></script>
+  <script src="{% static 'js/fullcalendar/dist/fullcalendar.min.js' %}"></script>
+    <script>
+        $(document).ready(function() {
+            $('#calendar').fullCalendar({
+                events: '/jsoncal/',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,basicWeek,basicDay,mylist'
+                },
+                views: {
+                  mylist: {
+                    type: 'listWeek',
+                    duration: { days: 30 },
+                    buttonText: 'list'
+                  }
+                },
+                eventLimit: true,
+                eventClick:  function(event, jsEvent, view) {
+                    if (event.status==="Succeeded"||event.status==="Cancelled"||event.status==="Ready"){
+                        if (event.status==="Succeeded"){
+                            $('#status').html('<div class="count green">'+event.status+'</div>');
+                        } else if (event.status==="Cancelled"){
+                            $('#status').html('<div class="count red">'+event.status+'</div>');
+                        } else {
+                            $('#status').html('<div class="count">'+event.status+'</div>');
+                        }
+                        $('#title_closed').html(event.title);
+                        $('#total_harvested').html(event.total_harvested);
+                        $('#description_closed').html(event.description);
+                        $('#harvest_url_closed').attr('href', "/harvest/"+event.harvest_id);
+                        $('#ClosedModal').modal();
+                    } else {
+                        $('#title').html(event.title);
+                        $('#harvest_id').attr('value', event.harvest_id);
+                        $('#description').html(event.description);
+                        $('#trees').html(event.trees);
+                        $('#nb_required_pickers').html(event.nb_required_pickers);
+                        $('#nb_requests').html(event.nb_requests);
+                        $('#start_date_str').html(event.start_date_str);
+                        $('#start_time').html(event.start_time);
+                        $('#end_time').html(event.end_time);
+                        $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);
+                        $('#form_request').attr('action', event.url);
+                        $('#OpenModal').modal();
+                    }
+                    return false;
+                }
+            });
+        });
+    </script>
+
 </body>
 
 </html>

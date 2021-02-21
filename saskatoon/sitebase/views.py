@@ -88,10 +88,11 @@ class JsonCalendar(generic.View):
                     tz_end_date = harvest.end_date - datetime.timedelta(hours=4)
                     event["end"] = tz_end_date
                     event["end_time"] = tz_end_date.strftime("%H:%M")
-                event["url"] = reverse(
-                    'harvest:participation_create',
-                    kwargs={'pk': harvest.id}
-                )
+                #FIXME
+                #event["url"] = reverse(
+                #    'participation_create',
+                #    kwargs={'pk': harvest.id}
+                #)
                 event["color"] = color
                 event["textColor"] = text_color
                 events.append(event)
