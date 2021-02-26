@@ -3,6 +3,7 @@ import datetime
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 from django.views import generic
 from harvest.models import Harvest, Property, RequestForParticipation
 from harvest.forms import RequestForm
@@ -17,7 +18,9 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 ############ sitebase views ####################
+#@login_required
 
+@method_decorator(login_required, name='dispatch')
 class Calendar(generic.TemplateView):
     template_name = 'app/calendar.html'
 
@@ -99,6 +102,3 @@ class JsonCalendar(generic.View):
                 del event
 
         return JsonResponse(events, safe=False)
-
-class Login(generic.TemplateView):
-    template_name = 'app/login-register.html'

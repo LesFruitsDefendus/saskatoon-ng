@@ -111,4 +111,4 @@ class JsonCalendar(generic.View):
         return JsonResponse(events, safe=False)
 
 class Login(generic.TemplateView):
-    template_name = 'registration/login.html'
+    template_name = 'app/login-register.html'
