@@ -8,25 +8,50 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
+
+To set new settings, adapt the following ``.env`` 
+file and place it inside `saskatoon/` project directory. 
+
+::
+    
+    # SECURITY WARNING: keep the secret key used in production secret!
+    # More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
+    SASKATOON_SECRET_KEY=<KEY>
+    
+    # SECURITY WARNING: don't run with debug turned on in production!
+    SASKATOON_DEBUG=no
+
+    # Database settings
+    SASKATOON_DB_ENGINE=django.db.backends.mysql
+    SASKATOON_DB_NAME=saskatoon_prod
+    SASKATOON_DB_USER=saskatoon
+    SASKATOON_DB_PASSWORD=
+    SASKATOON_DB_HOST=127.0.0.1
+
+    # Misc
+    SASKATOON_TIME_ZONE=UTC
 """
 
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+env_path = Path(BASE_DIR) / ".env"
+load_dotenv(dotenv_path=env_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '%5k4)igg&h!k(@3o!5x%6_)y6go#sfbf5opqf-la3h05&5hhp+'
+SECRET_KEY = os.getenv('SASKATOON_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('SASKATOON_DEBUG').lower() in ['yes', 'true'] if os.getenv('SASKATOON_DEBUG') else False
 
 ALLOWED_HOSTS = ['*']
-
 
 # Application definition
 
@@ -85,20 +110,13 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': 'sqlite3.db',
-#    }
-#}
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'saskatoon_prod',
-        'USER': 'saskatoon',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',
+        'ENGINE': os.getenv('SASKATOON_DB_ENGINE'),
+        'NAME': os.getenv('SASKATOON_DB_NAME'),
+        'USER': os.getenv('SASKATOON_DB_USER'),
+        'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),
+        'HOST': os.getenv('SASKATOON_DB_HOST'),
     }
 }
 
@@ -127,7 +145,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
 
 USE_I18N = True
 
