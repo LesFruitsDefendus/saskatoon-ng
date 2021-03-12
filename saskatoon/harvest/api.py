@@ -49,7 +49,6 @@ class HarvestViewset(viewsets.ModelViewSet):
 
 # Harvest details Viewset
 class HarvestDetailsViewset(viewsets.ModelViewSet):
-
     permission_classes = [
       permissions.AllowAny
     ]

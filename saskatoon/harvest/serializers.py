@@ -44,6 +44,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
 
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
+
     # three different ways of getting a multimodel serializer:
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
