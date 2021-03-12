@@ -86,15 +86,57 @@
                                     <a href='/property/{{property.id}}'>{{ property.title }}</a>
                                 </td>
                                 <td>{{ property.neighborhood.name }}</td>
-                                                                <td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        {% if property.is_active %}
+                                        {% if property.pending %}
+                                        <span class="label label-warning">{% trans "pending" %}</span>
+                                        {% else %}
+                                        <span class="label label-success">{% trans "validated" %}</span>
+                                        {% endif %}
+                                        {% if property.authorized is None %}
+                                        <span class="label label-warning">{% trans "not yet authorized" %}</span>
+                                        {% elif property.authorized %}
+                                        <span class="label label-success">{% trans "authorized" %}</span>
+                                        {% else %}
+                                        <span class="label label-danger">{% trans "unauthorized" %}</span>
+                                        {% endif %}
+                                        {% else %}
+                                        <span class="label label-danger">{% trans "inactive" %}</span><br/>
+                                        {% endif %}
+                                        {% if property.owner.person.about %}
+                                        <li><i class="fa fa-envelope"></i> {{ property.owner.person.email }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td>
                                     {% for tree in property.trees %}
-                                         <div class="text-nowrap">{{ tree }}</div>
+                                    <div class="text-nowrap">{{ tree }}</div>
                                     {% endfor %}
                                 </td>
-                                <td>Status</td>
-                                <td>PICKS</td>
                                 <td>
-                                    <div class="text-nowrap">{{ property.last_succeeded_harvest }}</div>
+                                    <ul class="list-inline">
+                                        {% for harvest in property.harvests %}
+                                        <li>
+                                            <a data-placement="top" data-toggle="tooltip" href='/harvest/harvest.id'
+                                               title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
+                                                {% if harvest.status == "Succeeded" %}
+                                                <i class="fa fa-shopping-basket fa-lg text-success"
+                                                   style="padding-top:7px;"></i>
+                                                {% elif harvest.status == "Cancelled" %}
+                                                <i class="fa fa-shopping-basket fa-lg text-danger"
+                                                   style="padding-top:7px;"></i>
+                                                {% else %}
+                                                <i class="fa fa-shopping-basket fa-lg text-warning"
+                                                   style="padding-top:7px;"></i>
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <div class="text-nowrap">{{ property.last_succeeded_harvest|date:"Y-m-d" }}</div>
                                     <small>{{ harvest.start_time }}</small>
                                 </td>
                             </tr>

@@ -352,7 +352,7 @@ class Property(models.Model):
 
     # Returns a few fields only, useful for property list view
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date').order_by('-start_date')
+        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date', 'pick_leader__person__first_name').order_by('-start_date')
         return harvests_list
 
     def get_last_succeeded_harvest(self):
