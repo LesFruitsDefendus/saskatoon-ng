@@ -55,7 +55,7 @@ class HarvestDetailsViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = HarvestSerializer
-    template_name = 'app/harvest_widgets.html'
+    template_name = 'app/harvest_details.html'
 
     def list(self, request, *args, **kwargs):
         response = super(HarvestDetailsViewset, self).list(request, *args, **kwargs)
@@ -79,7 +79,7 @@ class PropertyViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = PropertySerializer
-    template_name = 'properties/list.html'
+    template_name = 'app/property_list.html'
 
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
