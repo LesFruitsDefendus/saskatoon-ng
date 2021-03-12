@@ -12,8 +12,7 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
-    # FIXME: find a way to get harvests without "Object of type Harvest is not JSON serializable" (maybe a new method in the model)
-    # harvests = serializers.ReadOnlyField(source="get_harvests")
+    harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
     trees = serializers.StringRelatedField(many=True)
     class Meta:
