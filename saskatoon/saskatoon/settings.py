@@ -34,13 +34,15 @@ file and place it inside `saskatoon/` project directory.
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-env_path = Path(BASE_DIR) / ".env"
-load_dotenv(dotenv_path=env_path)
+# Load the environment variables from .env file. 
+file = find_dotenv()
+if file:
+    load_dotenv(dotenv_path=file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
