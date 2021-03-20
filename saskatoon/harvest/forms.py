@@ -7,8 +7,9 @@ from django import forms
 from dal import autocomplete
 from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
-from harvest.models import *
-from member.models import *
+from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment, 
+                            Equipment, PropertyImage, HarvestImage, TreeType, Property)
+from member.models import AuthUser, Person
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe

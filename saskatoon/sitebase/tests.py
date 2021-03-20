@@ -1,3 +1,5 @@
-from django.test import TestCase
-
+"""
+No unittests yet.
+"""
+# from django.test import TestCase
 # Create your tests here.

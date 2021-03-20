@@ -4,9 +4,9 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
 from django.views import generic
-from harvest.models import Harvest, Property, RequestForParticipation
+from harvest.models import Harvest, RequestForParticipation #, Property 
 from harvest.forms import RequestForm
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 
 ########## Original template views #############
 

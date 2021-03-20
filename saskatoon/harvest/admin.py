@@ -1,10 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+"""
+Models registration. 
+"""
 
-from leaflet.admin import LeafletGeoAdmin
+# from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
-from member.models import *
-from harvest.models import *
+from member.models import (Actor, Language, Person, Organization, Neighborhood, City, State, Country)
+from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment)
 
 admin.site.register(Property)
 admin.site.register(Harvest)
