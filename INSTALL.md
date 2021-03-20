@@ -47,7 +47,7 @@ virtualenv ve
 
 To install Python requirements use :
 ```
-pip3 install -r requirements.txt
+pip3 install .
 ```
 
 ## Database
