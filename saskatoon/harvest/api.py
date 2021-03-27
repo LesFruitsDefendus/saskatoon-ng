@@ -104,7 +104,7 @@ class EquipmentViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = EquipmentSerializer
-    template_name = 'equipment/list.html'
+    template_name = 'app/equipment_list.html'
 
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
