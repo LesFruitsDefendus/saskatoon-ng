@@ -9,7 +9,8 @@ router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('harvest/553/', api.HarvestDetailsViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('organization', api.OrganizationViewset, 'organization')
+router.register('beneficiary', api.BeneficiaryViewset, 'organization')
+router.register('community', api.CommunityViewset, 'community')
 
 urlpatterns = [
     path(r'^index', api.IndexView.as_view()),

@@ -2,16 +2,17 @@ from rest_framework.response import Response
 from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
 from .models import Harvest, Property, Equipment
-from harvest.filters import HarvestFilter, PropertyFilter
+from harvest.filters import *
 from rest_framework import viewsets, permissions
-from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer
+from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer
 import django_filters.rest_framework
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django_filters import rest_framework as filters
+from member.models import AuthUser
 
-#@method_decorator(login_required, name='dispatch')
+
 class IndexView(TemplateView):
     template_name = 'app/index.html'
 
@@ -115,6 +116,37 @@ class EquipmentViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data})
 
-# Equipment Viewset
-class OrganizationViewset(viewsets.ModelViewSet):
+# Beneficiary Viewset
+class BeneficiaryViewset(viewsets.ModelViewSet):
     pass
+
+# Community Viewset
+class CommunityViewset(viewsets.ModelViewSet):
+    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
+
+    ######### Integrating DRF to django-filter #########
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = CommunityFilter
+    ####################################################
+
+    permission_classes = [
+      permissions.AllowAny
+    ]
+
+    serializer_class = CommunitySerializer
+    template_name = 'app/community_list.html'
+
+    def list(self, request, *args, **kwargs):
+        filter_request = self.request.GET
+
+        # only way I found to generate the filter form
+        filter_form = CommunityFilter(
+            filter_request,
+            self.queryset
+        )
+
+        response = super(CommunityViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data, 'form': filter_form.form})
