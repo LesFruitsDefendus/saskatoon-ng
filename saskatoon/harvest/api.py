@@ -4,13 +4,14 @@ from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyFo
 from .models import Harvest, Property, Equipment
 from harvest.filters import *
 from rest_framework import viewsets, permissions
-from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer
+from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer, \
+    BeneficiarySerializer
 import django_filters.rest_framework
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django_filters import rest_framework as filters
-from member.models import AuthUser
+from member.models import AuthUser, Organization
 
 
 class IndexView(TemplateView):
@@ -118,7 +119,23 @@ class EquipmentViewset(viewsets.ModelViewSet):
 
 # Beneficiary Viewset
 class BeneficiaryViewset(viewsets.ModelViewSet):
-    pass
+    queryset = Organization.objects.all().order_by('-actor_id')
+
+    permission_classes = [
+      permissions.AllowAny
+    ]
+
+    serializer_class = BeneficiarySerializer
+    template_name = 'app/beneficiary_list.html'
+
+    def list(self, request, *args, **kwargs):
+        filter_request = self.request.GET
+
+        response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data})
 
 # Community Viewset
 class CommunityViewset(viewsets.ModelViewSet):
