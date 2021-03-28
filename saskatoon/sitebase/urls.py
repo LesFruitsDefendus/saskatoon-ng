@@ -9,6 +9,7 @@ urlpatterns = [
     # The home page
     url(r'^$', views.index, name='index'),
     path('accounts/login/', auth_views.LoginView.as_view()),
+    path('i18n/', include('django.conf.urls.i18n')),
     # url(
     #     r'^password_reset/$',
     #     auth_views.PasswordResetView,
