@@ -96,16 +96,36 @@
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
-                            <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-support"></i></span></a>
-                                <div role="menu" class="dropdown-menu search-dd animated flipInX">
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-app"></i></span></a>
-                                <div role="menu" class="dropdown-menu message-dd animated zoomIn">
-                                </div>
-                            </li>
+                            {% if user.is_authenticated %}
+                                <li class="nav-item dropdown">
+                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                        <span><i class="notika-icon notika-support"></i></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="/admin/password_change/">{% translate "Change password" %}</a></li>
+                                        <li><a href={% url "logout" %}>{% translate "Logout" %}</a></li>
+                                    </ul>
+                                </li>
+                                {% if user.is_staff %}
+                                    <li class="nav-item dropdown">
+                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                            <span><i class="notika-icon notika-app"></i></span></a>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li><a href="/admin/member/authuser/add/">{% translate "Add user" %}</a></li>
+                                            <li><a href="/admin/member/authuser/">{% translate "Manage user" %}</a></li>
+                                            <li><a href="/admin/member/organization/">{% translate "Manage beneficiary" %}</a></li>
+                                            <li><a href="/admin/">{% translate "Full admin" %}</a></li>
+                                        </ul>
+                                    </li>
+                                {% endif %}    
+                            {% else %}
+                                <li>
+                                    <a href='/login'>
+                                        <i class="notika-icon notika-support"></i>
+                                    </a>
+                                </li>
+                            {% endif %}
                             <li class="nav-item">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
                                     <span class="menu-it-icon-pro">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
