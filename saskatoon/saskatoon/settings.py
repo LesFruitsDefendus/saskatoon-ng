@@ -31,15 +31,14 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'dal',
-    'django_select2',
-    'dal_select2',
     'ckeditor',
     'leaflet',
     'sitebase',
@@ -169,4 +168,14 @@ REST_FRAMEWORK = {
     'rest_framework.renderers.TemplateHTMLRenderer',
     'rest_framework.renderers.JSONRenderer',
  )
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
 }

@@ -1,0 +1,46 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<!-- Data Table area Start-->
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Organization" %}</th>
+                                <th  style="width: 22%">{% trans "Description" %}</th>
+                                <th>{% trans "Contact" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for beneficiary in data %}
+                            <tr>
+                                <td>{{ beneficiary.actor_id }}</td>
+                                <td>{{ beneficiary.civil_name }}</td>
+                                <td>{{ beneficiary.description }}</td>
+                                <td>{{ beneficiary.contact_person.full_name }}
+                                     <br><small>{{ beneficiary.phone }}</small>
+                                </td>
+                                <td>{{ beneficiary.neighborhood.name }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+<!-- Data Table area End-->
