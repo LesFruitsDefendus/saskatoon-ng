@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-27 19:56+0000\n"
+"POT-Creation-Date: 2021-03-28 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,197 +17,261 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/templates/app/base_site.html:16
-msgid "Saskatoon - Urbain harvesting management system"
-msgstr ""
-
-#: app/templates/app/calendar.html:7 app/templates/app/sidebar.html:32
-msgid "Calendar"
-msgstr "Calendrier"
-
-#: app/templates/app/calendar.html:25
-msgid "Harvest calendar"
-msgstr "Calendrier de récoltes"
-
-#: app/templates/app/calendar.html:25
-msgid "Choose a pick!"
-msgstr ""
-
-#: app/templates/app/calendar.html:61
-msgid "Schedule"
-msgstr ""
-
-#: app/templates/app/calendar.html:63
-msgid "to"
-msgstr ""
-
-#: app/templates/app/calendar.html:82 app/templates/app/calendar.html:137
-msgid "View harvest details"
-msgstr ""
-
-#: app/templates/app/calendar.html:87
-msgid "Request to participate"
-msgstr ""
-
-#: app/templates/app/calendar.html:94
-msgid "Send"
-msgstr ""
-
-#: app/templates/app/calendar.html:125
-msgid "Total harvested"
-msgstr ""
-
-#: app/templates/app/index.html:18
-msgid "Pick-leader guides"
-msgstr "Guides de Chefs de Cueillette"
-
-#: app/templates/app/index.html:23
-msgid "Volunteer Waiver"
-msgstr "Formulaire de Décharge Bénévole"
-
-#: app/templates/app/index.html:24
-msgid "Pre-pick Guide"
-msgstr "Guide de Pré-Cueillette"
-
-#: app/templates/app/index.html:25
-msgid "Equipment Points (Annex B)"
-msgstr "Points d'Équipement (Annexe B)"
-
-#: app/templates/app/index.html:26
-msgid "Planning Harvests Using the Properties List (Annex D)"
-msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
-
-#: app/templates/app/index.html:27
-msgid "Harvest Guide"
-msgstr "Guide de Cueillette"
-
-#: app/templates/app/index.html:28
-msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
-msgstr ""
-"Carte: Points d'Équipement, Organismes Bénéficiaires & Frigos Communautaires"
-
-#: app/templates/app/sidebar.html:6
-msgid "Saskatoon v2.0"
-msgstr ""
-
-#: app/templates/app/sidebar.html:18
-msgid "Welcome"
-msgstr "Bienvenu(e)"
-
-#: app/templates/app/sidebar.html:31
-msgid "Home"
-msgstr ""
-
-#: app/templates/app/sidebar.html:33
-msgid "Harvests"
-msgstr ""
-
-#: app/templates/app/sidebar.html:34
-msgid "Properties"
-msgstr ""
-
-#: app/templates/app/sidebar.html:35
-msgid "Beneficiaries"
-msgstr ""
-
-#: app/templates/app/sidebar.html:36
-msgid "Statistics"
-msgstr ""
-
-#: app/templates/app/sidebar.html:38
-msgid "Community"
-msgstr ""
-
-#: app/templates/app/sidebar.html:39
-msgid "Equipment"
-msgstr ""
-
-#: app/templates/app/sidebar.html:44
-msgid "Add user"
-msgstr ""
-
-#: app/templates/app/sidebar.html:45
-msgid "Manage users"
-msgstr ""
-
-#: app/templates/app/sidebar.html:46
-msgid "Manage beneficiaries"
-msgstr ""
-
-#: app/templates/app/sidebar.html:47
-msgid "Full admin interface"
-msgstr ""
-
-#: app/templates/app/top_navigation.html:18
-#: app/templates/registration/password_reset_confirm.html:20
-#: app/templates/registration/password_reset_confirm.html:24
-msgid "Change password"
-msgstr "Changer mot de passe"
-
-#: app/templates/app/top_navigation.html:19
-msgid "Logout"
-msgstr ""
-
-#: app/templates/app/top_navigation.html:27
-#: app/templates/registration/login.html:27
-#: app/templates/registration/password_reset_complete.html:22
-msgid "Login"
-msgstr ""
-
-#: app/templates/app/top_navigation.html:37
+#: sitebase/templates/app/base.html:106
 msgid "Language"
 msgstr ""
 
-#: app/templates/registration/login.html:18
-msgid "Login Form"
+#: sitebase/templates/app/base.html:134 sitebase/templates/app/base.html:151
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: sitebase/templates/app/base.html:135 sitebase/templates/app/base.html:153
+msgid "Harvests"
+msgstr "Récoltes"
+
+#: sitebase/templates/app/base.html:136 sitebase/templates/app/base.html:155
+#: sitebase/templates/app/community_list.html:77
+msgid "Properties"
+msgstr "Proriété"
+
+#: sitebase/templates/app/base.html:157
+msgid "Beneficiaries"
+msgstr "Bénéficiaires"
+
+#: sitebase/templates/app/base.html:159
+msgid "Community"
+msgstr "Communauté"
+
+#: sitebase/templates/app/base.html:161
+#: sitebase/templates/app/equipment_list.html:18
+msgid "Equipment"
+msgstr "Équipement"
+
+#: sitebase/templates/app/base.html:163
+msgid "Analytics"
 msgstr ""
 
-#: app/templates/registration/login.html:20
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: app/templates/registration/login.html:23
-msgid "Password"
-msgstr "Mot de passe"
-
-#: app/templates/registration/login.html:28
-msgid "Lost your password?"
+#: sitebase/templates/app/base.html:180
+msgid "is a Free/Libre Software developed by the collective "
 msgstr ""
 
-#: app/templates/registration/password_reset_complete.html:18
-msgid "Reset complete"
+#: sitebase/templates/app/base.html:180
+msgid "Template by"
 msgstr ""
 
-#: app/templates/registration/password_reset_confirm.html:29
-msgid "Invalid link"
+#: sitebase/templates/app/calendar.html:14
+msgid "Harvest calendar"
+msgstr "Calendrier de récoltes"
+
+#: sitebase/templates/app/calendar.html:39
+msgid "Schedule"
+msgstr "Calendrier"
+
+#: sitebase/templates/app/calendar.html:41
+msgid "to"
+msgstr "à"
+
+#: sitebase/templates/app/calendar.html:60
+#: sitebase/templates/app/calendar.html:113
+msgid "View harvest details"
 msgstr ""
 
-#: app/templates/registration/password_reset_confirm.html:33
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used."
+#: sitebase/templates/app/calendar.html:65
+msgid "Request to participate"
 msgstr ""
 
-#: app/templates/registration/password_reset_confirm.html:35
-msgid "New password reset"
-msgstr "Mot de passe"
-
-#: app/templates/registration/password_reset_done.html:17
-msgid "Email sent"
+#: sitebase/templates/app/calendar.html:72
+msgid "Send"
 msgstr ""
 
-#: app/templates/registration/password_reset_form.html:4
-msgid "Reset password"
-msgstr "Réinitialiser mot de passe"
+#: sitebase/templates/app/calendar.html:101
+msgid "Total harvested"
+msgstr ""
 
-#: app/templates/registration/password_reset_form.html:18
-msgid "Password reset"
-msgstr "Réinitialiser mot de passe"
+#: sitebase/templates/app/community_list.html:35
+#: sitebase/templates/app/harvest_list.html:35
+#: sitebase/templates/app/property_list.html:35
+msgid "Filter"
+msgstr ""
 
-#: app/templates/registration/password_reset_form.html:21
-msgid "E-mail"
-msgstr "Courriel"
+#: sitebase/templates/app/community_list.html:73
+msgid "Person"
+msgstr ""
 
-#: app/templates/registration/password_reset_form.html:22
-msgid "Reset"
-msgstr "Réinitialiser"
+#: sitebase/templates/app/community_list.html:74
+msgid "Roles"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:75
+#: sitebase/templates/app/equipment_list.html:21
+#: sitebase/templates/app/harvest_list.html:75
+#: sitebase/templates/app/property_list.html:74
+msgid "Neighborhood"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:76
+msgid "Picks leading"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:92
+msgid "Tree owner"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:95
+#, fuzzy
+#| msgid "Pick-leader guides"
+msgid "Pick leader"
+msgstr "Guides de Chefs de Cueillette"
+
+#: sitebase/templates/app/community_list.html:98
+msgid "Staff"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:101
+msgid "Picker"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:19
+msgid "Description"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:20
+#: sitebase/templates/app/property_list.html:73
+msgid "Property"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:22
+msgid "Shared"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:73
+#, fuzzy
+#| msgid "Harvest Guide"
+msgid "Harvest details"
+msgstr "Guide de Cueillette"
+
+#: sitebase/templates/app/harvest_list.html:74
+#: sitebase/templates/app/property_list.html:76
+msgid "Tree"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:76
+#: sitebase/templates/app/property_list.html:75
+msgid "Status"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:77
+msgid "Leader"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:78
+msgid "Date"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:98
+msgid "Succeeded"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:108
+msgid "Cancelled"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:120
+msgid "Orphan"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:130
+msgid "Adopted"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:141
+msgid "Pending auth."
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:152
+msgid "Scheduled"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:163
+msgid "Ready"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:77
+msgid "Picks"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:78
+msgid "Last pick"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:93
+msgid "pending"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:95
+msgid "validated"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:98
+msgid "not yet authorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:100
+msgid "authorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:102
+msgid "unauthorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:105
+msgid "inactive"
+msgstr ""
+
+#: sitebase/templates/registration/login.html:105
+msgid "Login"
+msgstr ""
+
+#~ msgid "Volunteer Waiver"
+#~ msgstr "Formulaire de Décharge Bénévole"
+
+#~ msgid "Pre-pick Guide"
+#~ msgstr "Guide de Pré-Cueillette"
+
+#~ msgid "Equipment Points (Annex B)"
+#~ msgstr "Points d'Equipement (Annexe B)"
+
+#~ msgid "Planning Harvests Using the Properties List (Annex D)"
+#~ msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
+
+#~ msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
+#~ msgstr ""
+#~ "Carte: Points d'Equipement, Organismes Bénéficiaires & Frigos "
+#~ "Communautaires"
+
+#~ msgid "Welcome"
+#~ msgstr "Bienvenu(e)"
+
+#~ msgid "Change password"
+#~ msgstr "Changer mot de passe"
+
+#~ msgid "Username"
+#~ msgstr "Nom d'utilisateur"
+
+#~ msgid "Password"
+#~ msgstr "Mot de passe"
+
+#~ msgid "New password reset"
+#~ msgstr "Mot de passe"
+
+#~ msgid "Reset password"
+#~ msgstr "Réinitialiser mot de passe"
+
+#~ msgid "Password reset"
+#~ msgstr "Réinitialiser mot de passe"
+
+#~ msgid "E-mail"
+#~ msgstr "Courriel"
+
+#~ msgid "Reset"
+#~ msgstr "Réinitialiser"

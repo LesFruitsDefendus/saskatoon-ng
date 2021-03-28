@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-27 19:56+0000\n"
+"POT-Creation-Date: 2021-03-28 20:38+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: app/templates/app/base_site.html:16
+#: app/templates/app/base_site.html:17
 msgid "Saskatoon - Urbain harvesting management system"
 msgstr ""
 
-#: app/templates/app/calendar.html:7 app/templates/app/sidebar.html:32
+#: app/templates/app/calendar.html:7 app/templates/app/sidebar.html:33
 msgid "Calendar"
 msgstr "Calendrier"
 
@@ -57,84 +57,84 @@ msgstr ""
 msgid "Total harvested"
 msgstr ""
 
-#: app/templates/app/index.html:18
+#: app/templates/app/index.html:31
 msgid "Pick-leader guides"
 msgstr "Guides de Chefs de Cueillette"
 
-#: app/templates/app/index.html:23
+#: app/templates/app/index.html:36
 msgid "Volunteer Waiver"
 msgstr "Formulaire de Décharge Bénévole"
 
-#: app/templates/app/index.html:24
+#: app/templates/app/index.html:37
 msgid "Pre-pick Guide"
 msgstr "Guide de Pré-Cueillette"
 
-#: app/templates/app/index.html:25
+#: app/templates/app/index.html:38
 msgid "Equipment Points (Annex B)"
 msgstr "Points d'Équipement (Annexe B)"
 
-#: app/templates/app/index.html:26
+#: app/templates/app/index.html:39
 msgid "Planning Harvests Using the Properties List (Annex D)"
 msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
 
-#: app/templates/app/index.html:27
+#: app/templates/app/index.html:40
 msgid "Harvest Guide"
 msgstr "Guide de Cueillette"
 
-#: app/templates/app/index.html:28
+#: app/templates/app/index.html:41
 msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
 msgstr ""
 "Carte: Points d'Équipement, Organismes Bénéficiaires & Frigos Communautaires"
 
-#: app/templates/app/sidebar.html:6
+#: app/templates/app/sidebar.html:7
 msgid "Saskatoon v2.0"
 msgstr ""
 
-#: app/templates/app/sidebar.html:18
+#: app/templates/app/sidebar.html:19
 msgid "Welcome"
 msgstr "Bienvenu(e)"
 
-#: app/templates/app/sidebar.html:31
+#: app/templates/app/sidebar.html:32
 msgid "Home"
 msgstr ""
 
-#: app/templates/app/sidebar.html:33
+#: app/templates/app/sidebar.html:34
 msgid "Harvests"
 msgstr ""
 
-#: app/templates/app/sidebar.html:34
+#: app/templates/app/sidebar.html:35
 msgid "Properties"
 msgstr ""
 
-#: app/templates/app/sidebar.html:35
+#: app/templates/app/sidebar.html:36
 msgid "Beneficiaries"
 msgstr ""
 
-#: app/templates/app/sidebar.html:36
+#: app/templates/app/sidebar.html:37
 msgid "Statistics"
 msgstr ""
 
-#: app/templates/app/sidebar.html:38
+#: app/templates/app/sidebar.html:39
 msgid "Community"
 msgstr ""
 
-#: app/templates/app/sidebar.html:39
+#: app/templates/app/sidebar.html:40
 msgid "Equipment"
 msgstr ""
 
-#: app/templates/app/sidebar.html:44
+#: app/templates/app/sidebar.html:45
 msgid "Add user"
 msgstr ""
 
-#: app/templates/app/sidebar.html:45
+#: app/templates/app/sidebar.html:46
 msgid "Manage users"
 msgstr ""
 
-#: app/templates/app/sidebar.html:46
+#: app/templates/app/sidebar.html:47
 msgid "Manage beneficiaries"
 msgstr ""
 
-#: app/templates/app/sidebar.html:47
+#: app/templates/app/sidebar.html:48
 msgid "Full admin interface"
 msgstr ""
 
