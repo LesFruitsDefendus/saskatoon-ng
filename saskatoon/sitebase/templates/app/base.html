@@ -69,6 +69,11 @@
     <link href="{% static 'js/fullcalendar/dist/fullcalendar.print.css' %}" rel="stylesheet" media="print">
 
     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+
+    <!-- jquery in the head due to django autocomplete
+		============================================ -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+
 </head>
 
 <body>
@@ -389,7 +394,7 @@
                         </li>
                         <li><a href="/property"><i class="glyphicon glyphicon-tree-deciduous"></i> Properties</a>
                         </li>
-                        <li><a href="/beneficary"><i class="fa fa-gift"></i> Beneficiaries</a>
+                        <li><a href="/beneficiary"><i class="fa fa-gift"></i> Beneficiaries</a>
                         </li>
                         <li><a href="/community"><i class="fa fa-users"></i> Community</a>
                         </li>
@@ -419,9 +424,6 @@
         </div>
     </div>
     <!-- End Footer area-->
-    <!-- jquery
-		============================================ -->
-    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
     <!-- bootstrap JS
 		============================================ -->
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

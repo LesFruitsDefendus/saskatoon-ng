@@ -6,7 +6,7 @@ django-geojson==3.0.0
 django-leaflet==0.26.0
 django-rest-knox==4.1.0
 djangorestframework>=3.11.2
-django-autocomplete-light
+django-autocomplete-light>=3.8.2
 django-select2
 django-ckeditor
 django-filter
