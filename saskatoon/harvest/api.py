@@ -1,4 +1,6 @@
 from dal import autocomplete
+from django.contrib.messages.views import SuccessMessageMixin
+from django.urls import reverse_lazy
 from rest_framework.response import Response
 from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
@@ -172,10 +174,12 @@ class IndexView(TemplateView):
     template_name = 'app/index.html'
 
 
-class EquipmentCreateView(CreateView):
+class EquipmentCreateView(SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/equipment_create.html'
+    success_url = reverse_lazy('equipment-list')
+    success_message = "Equipment created successfully!"
 
 ################ AUTOCOMPLETE ###############################
 
