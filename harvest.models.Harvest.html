@@ -1,0 +1,672 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>harvest.models.Harvest : API documentation</title>
+
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="apidocs.css" />
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default">
+      <div class="container">
+        <div class="navbar-header navbar-brand">
+          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>
+          <a href="index.html">API Documentation</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+
+      <div class="page-header">
+        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code>.<code><a href="harvest.models.html">models</a></code>.<code><a href="harvest.models.Harvest.html">Harvest</a></code></code></h1>
+        <div id="showPrivate">
+          <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
+        </div>
+      </div>
+
+      <div class="categoryHeader">
+        class documentation
+      </div>
+
+      <div class="extrasDocstring">
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Harvest</span>(<span title="django.db.models.Model">models.Model</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L367">(source)</a></code></p>
+        <p><a href="classIndex.html#harvest.models.Harvest">View In Hierarchy</a></p>
+      </div>
+
+      <div class="moduleDocstring">
+        <div><p class="undocumented">Undocumented</p></div>
+      </div>
+
+      <div id="splitTables">
+        <table class="children sortable" id="id51">
+  
+  <tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#status">status</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#property">property</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#trees">trees</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#owner_present">owner_present</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#owner_help">owner_help</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#owner_fruit">owner_fruit</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#pick_leader">pick_leader</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#start_date">start_date</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#end_date">end_date</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#publication_date">publication_date</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#equipment_reserved">equipment_reserved</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#creation_date">creation_date</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#nb_required_pickers">nb_required_pickers</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#about">about</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#changed_by">changed_by</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_status_l10n">get_status_l10n</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_total_distribution">get_total_distribution</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="class">
+    
+    <td>Class</td>
+    <td><code><a href="harvest.models.Harvest.Meta.html">Meta</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#__str__">__str__</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_pickers">get_pickers</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#is_urgent">is_urgent</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#is_happening">is_happening</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#is_publishable">is_publishable</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#is_open_to_requests">is_open_to_requests</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr>
+</table>
+        
+
+          
+      </div>
+
+      <div id="childList">
+
+        <div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.status">
+    
+  </a>
+  <a name="status">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">status</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L368">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.property">
+    
+  </a>
+  <a name="property">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">property</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L375">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.trees">
+    
+  </a>
+  <a name="trees">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">trees</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L382">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.owner_present">
+    
+  </a>
+  <a name="owner_present">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">owner_present</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L387">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.owner_help">
+    
+  </a>
+  <a name="owner_help">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">owner_help</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L392">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.owner_fruit">
+    
+  </a>
+  <a name="owner_fruit">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">owner_fruit</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L397">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.pick_leader">
+    
+  </a>
+  <a name="pick_leader">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">pick_leader</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L402">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.start_date">
+    
+  </a>
+  <a name="start_date">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">start_date</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L410">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.end_date">
+    
+  </a>
+  <a name="end_date">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">end_date</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L416">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.publication_date">
+    
+  </a>
+  <a name="publication_date">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">publication_date</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L422">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.equipment_reserved">
+    
+  </a>
+  <a name="equipment_reserved">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">equipment_reserved</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L428">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.creation_date">
+    
+  </a>
+  <a name="creation_date">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">creation_date</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L434">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.nb_required_pickers">
+    
+  </a>
+  <a name="nb_required_pickers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">nb_required_pickers</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L440">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.about">
+    
+  </a>
+  <a name="about">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">about</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L445">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  <a name="harvest.models.Harvest.changed_by">
+    
+  </a>
+  <a name="changed_by">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">changed_by</span> =
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L454">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.get_status_l10n">
+    
+  </a>
+  <a name="get_status_l10n">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_status_l10n</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L462">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.get_total_distribution">
+    
+  </a>
+  <a name="get_total_distribution">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_total_distribution</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L468">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.__str__">
+    
+  </a>
+  <a name="__str__">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">__str__</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L479">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.get_pickers">
+    
+  </a>
+  <a name="get_pickers">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_pickers</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L488">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.is_urgent">
+    
+  </a>
+  <a name="is_urgent">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_urgent</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L492">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.is_happening">
+    
+  </a>
+  <a name="is_happening">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_happening</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L504">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.is_publishable">
+    
+  </a>
+  <a name="is_publishable">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_publishable</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L514">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  <a name="harvest.models.Harvest.is_open_to_requests">
+    
+  </a>
+  <a name="is_open_to_requests">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">is_open_to_requests</span>(self):
+    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/d8690562894387841dafac925f268d74b5c549d3/saskatoon/harvest/models.py#L548">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div>
+
+      </div>
+      <address>
+        <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-03-29 22:33:08.
+      </address>
+
+    </div>
+
+    <script src="pydoctor.js" type="text/javascript"></script>
+
+  </body>
+</html>
