@@ -4,7 +4,7 @@
 Models registration. 
 """
 
-# from leaflet.admin import LeafletGeoAdmin
+from leaflet.admin import LeafletGeoAdmin
 from django.contrib import admin
 from member.models import (Actor, Language, Person, Organization, Neighborhood, City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment, PropertyImage)
