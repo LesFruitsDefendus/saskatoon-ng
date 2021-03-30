@@ -552,7 +552,7 @@ class HarvestForm(forms.ModelForm):
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             # if publication_date is None:
-            instance.publication_date = datetime.now()
+            instance.publication_date = datetime.datetime.now()
 
         if status in ["To-be-confirmed", "Orphan", "Adopted"]:
             if publication_date is not None:
