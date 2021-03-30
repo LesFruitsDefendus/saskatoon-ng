@@ -1,0 +1,1274 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-28 20:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: harvest/filters.py:26 harvest/templates/stats/stats.html:48
+msgid "Season"
+msgstr "Saison"
+
+#: harvest/filters.py:46 harvest/filters.py:80 harvest/models.py:648
+#: harvest/templates/harvest/list.html:44
+#: harvest/templates/harvest/list.html:54
+#: harvest/templates/properties/detail.html:297
+#: harvest/templates/properties/list.html:45
+msgid "Tree"
+msgstr "Arbre"
+
+#: harvest/filters.py:53 harvest/filters.py:74 harvest/filters.py:95
+#: harvest/models.py:264 harvest/templates/equipment/list.html:50
+#: harvest/templates/harvest/detail_public.html:39
+#: harvest/templates/harvest/list.html:45
+#: harvest/templates/harvest/list.html:55
+#: harvest/templates/organizations/list.html:50
+#: harvest/templates/participation/list.html:30
+#: harvest/templates/properties/list.html:43
+msgid "Neighborhood"
+msgstr "Quartier"
+
+#: harvest/filters.py:86 harvest/templates/properties/detail.html:132
+msgid "Pending validation"
+msgstr "Validation en attente"
+
+#: harvest/filters.py:102 harvest/templates/organizations/detail.html:142
+#: harvest/templates/properties/detail.html:273
+msgid "Language"
+msgstr ""
+
+#: harvest/forms.py:19
+msgid "Enter a valid email address, please."
+msgstr ""
+
+#: harvest/forms.py:20 harvest/templates/organizations/detail.html:131
+#: harvest/templates/properties/detail.html:215
+#: harvest/templates/properties/detail.html:262
+msgid "Email"
+msgstr ""
+
+#: harvest/forms.py:23
+msgid "First name"
+msgstr ""
+
+#: harvest/forms.py:26
+msgid "Family name"
+msgstr ""
+
+#: harvest/forms.py:29 harvest/templates/organizations/detail.html:130
+#: harvest/templates/organizations/detail.html:141
+#: harvest/templates/properties/detail.html:214
+#: harvest/templates/properties/detail.html:261
+#: harvest/templates/properties/detail.html:272
+msgid "Phone"
+msgstr ""
+
+#: harvest/forms.py:32 harvest/models.py:577
+msgid "Comment"
+msgstr ""
+
+#: harvest/forms.py:64
+msgid "You have already requested to join this pick."
+msgstr ""
+
+#: harvest/forms.py:113
+msgid "New request from "
+msgstr ""
+
+#: harvest/forms.py:174
+msgid "Your comment here."
+msgstr ""
+
+#: harvest/forms.py:186
+msgid "Picker showed up"
+msgstr ""
+
+#: harvest/forms.py:190
+msgid "Picker didn't show up"
+msgstr ""
+
+#: harvest/forms.py:194
+msgid "Picker cancelled in advance"
+msgstr ""
+
+#: harvest/forms.py:201
+msgid "Accept this request"
+msgstr ""
+
+#: harvest/forms.py:205
+msgid "Refuse this request"
+msgstr ""
+
+#: harvest/forms.py:209 harvest/models.py:103
+#: harvest/templates/harvest/detail.html:236
+msgid "Pending"
+msgstr ""
+
+#: harvest/forms.py:214
+msgid "Please accept or refuse this request :"
+msgstr ""
+
+#: harvest/forms.py:221
+msgid "About the picker participation :"
+msgstr ""
+
+#: harvest/forms.py:372
+msgid ""
+"Volunteers have permission to go on the neighbours' property to access fruits"
+msgstr ""
+
+#: harvest/forms.py:377
+msgid "I have a compost bin where you can leave rotten fruit"
+msgstr ""
+
+#: harvest/forms.py:382
+msgid "I have a ladder that can be used during the harvest"
+msgstr ""
+
+#: harvest/forms.py:387
+msgid "I would lend my ladder for another harvest nearby"
+msgstr ""
+
+#: harvest/forms.py:392
+msgid ""
+"My tree(s)/vine(s) produce fruit every year (if not, please include info "
+"about frequency in additional comments at the bottom)"
+msgstr ""
+
+#: harvest/forms.py:397
+msgid "Have you provided us any information about your property before?"
+msgstr ""
+
+#: harvest/forms.py:398 harvest/forms.py:404
+#: harvest/templates/equipment/list.html:72
+msgid "Yes"
+msgstr ""
+
+#: harvest/forms.py:398 harvest/templates/equipment/list.html:72
+msgid "No"
+msgstr ""
+
+#: harvest/forms.py:403
+msgid ""
+"Do you give us permission to harvest your tree(s) and/or vine(s) this season?"
+msgstr ""
+
+#: harvest/forms.py:404
+msgid "Not this year, but maybe in future seasons"
+msgstr ""
+
+#: harvest/forms.py:418
+msgid "Location of tree(s) or vine(s)"
+msgstr ""
+
+#: harvest/forms.py:419
+msgid "Location on the property (e.g. Front yard, back yard, etc.)"
+msgstr ""
+
+#: harvest/forms.py:424
+msgid "Access to tree(s) or vine(s)"
+msgstr ""
+
+#: harvest/forms.py:425
+msgid ""
+"Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, "
+"publicly accessible from sidewalk, etc.)"
+msgstr ""
+
+#: harvest/forms.py:430
+msgid "Number of pickers"
+msgstr ""
+
+#: harvest/forms.py:431
+msgid "Approximate number of pickers needed for a two-hour harvesting period."
+msgstr ""
+
+#: harvest/forms.py:436
+msgid "Height of lowest fruits (meters)"
+msgstr ""
+
+#: harvest/forms.py:441
+msgid "Address number"
+msgstr ""
+
+#: harvest/forms.py:446 harvest/models.py:208
+msgid "Total number of trees/vines on this property"
+msgstr ""
+
+#: harvest/forms.py:451
+msgid "Street name"
+msgstr ""
+
+#: harvest/forms.py:456
+msgid "Apartment # (if applicable)"
+msgstr ""
+
+#: harvest/forms.py:465
+msgid ""
+"I would like to receive emails from Les Fruits Defendus such as newsletters "
+"and updates"
+msgstr ""
+
+#: harvest/forms.py:470
+msgid ""
+"Any additional information that we should be aware of (e.g. details about "
+"how often tree produces fruit, description of fruit if the type is unknown "
+"or not in the list, etc.)"
+msgstr ""
+
+#: harvest/forms.py:478 harvest/models.py:448
+#: harvest/templates/harvest/detail.html:122
+msgid "Public announcement"
+msgstr ""
+
+#: harvest/forms.py:588
+msgid "Fill in one of the two fields: property or owner."
+msgstr ""
+
+#: harvest/models.py:13 harvest/templates/properties/detail.html:366
+msgid "To be confirmed"
+msgstr ""
+
+#: harvest/models.py:17 harvest/templates/harvest/list.html:93
+#: harvest/templates/properties/detail.html:354
+msgid "Orphan"
+msgstr ""
+
+#: harvest/models.py:21 harvest/templates/harvest/list.html:99
+#: harvest/templates/properties/detail.html:360
+msgid "Adopted"
+msgstr ""
+
+#: harvest/models.py:25
+msgid "Date scheduled"
+msgstr ""
+
+#: harvest/models.py:29 harvest/templates/harvest/list.html:117
+#: harvest/templates/properties/detail.html:378
+msgid "Ready"
+msgstr ""
+
+#: harvest/models.py:33 harvest/templates/harvest/list.html:81
+#: harvest/templates/properties/detail.html:342
+#: harvest/templates/stats/stats.html:73
+msgid "Succeeded"
+msgstr ""
+
+#: harvest/models.py:37 harvest/templates/harvest/list.html:87
+#: harvest/templates/properties/detail.html:348
+msgid "Cancelled"
+msgstr ""
+
+#: harvest/models.py:42 harvest/models.py:74
+#: harvest/templates/properties/detail.html:213
+msgid "Name"
+msgstr ""
+
+#: harvest/models.py:49
+msgid "Fruit image"
+msgstr ""
+
+#: harvest/models.py:54
+msgid "Fruit name"
+msgstr ""
+
+#: harvest/models.py:59
+msgid "Season start date"
+msgstr ""
+
+#: harvest/models.py:65
+msgid "tree type"
+msgstr ""
+
+#: harvest/models.py:66
+msgid "tree types"
+msgstr ""
+
+#: harvest/models.py:79
+msgid "equipment type"
+msgstr ""
+
+#: harvest/models.py:80
+msgid "equipment types"
+msgstr ""
+
+#: harvest/models.py:91 harvest/templates/organizations/detail.html:73
+msgid "Is active"
+msgstr ""
+
+#: harvest/models.py:92
+msgid "This property exists and may be able to host a pick"
+msgstr ""
+
+#: harvest/models.py:97
+msgid "Authorized for this season"
+msgstr ""
+
+#: harvest/models.py:98
+msgid ""
+"Harvest in this property has been authorized for the current season by its "
+"owner"
+msgstr ""
+
+#: harvest/models.py:104
+msgid ""
+"This property was created through a public form and needs to be validated by "
+"an administrator"
+msgstr ""
+
+#: harvest/models.py:109
+msgid "Contact name"
+msgstr ""
+
+#: harvest/models.py:110
+msgid "Name of the person to be contacted for confirmation"
+msgstr ""
+
+#: harvest/models.py:115
+msgid "Contact phone number"
+msgstr ""
+
+#: harvest/models.py:116
+msgid "Phone number to be used for confirmation"
+msgstr ""
+
+#: harvest/models.py:121
+msgid "Contact email"
+msgstr ""
+
+#: harvest/models.py:122
+msgid "Email address to be used for confirmation"
+msgstr ""
+
+#: harvest/models.py:128
+msgid "Newsletter subscription"
+msgstr ""
+
+#: harvest/models.py:133
+msgid "Recurring property signup"
+msgstr ""
+
+#: harvest/models.py:143 harvest/models.py:688
+msgid "Owner"
+msgstr ""
+
+#: harvest/models.py:150
+msgid "Fruit tree/vine type(s)"
+msgstr ""
+
+#: harvest/models.py:152
+msgid ""
+"Select multiple fruit types if applicable. Unknown fruit type or colour can "
+"be mentioned in the additional comments at the bottom."
+msgstr ""
+
+#: harvest/models.py:156 harvest/templates/organizations/detail.html:164
+#: harvest/templates/properties/detail.html:126
+msgid "Trees location"
+msgstr ""
+
+#: harvest/models.py:157
+msgid "Front yard or backyard?"
+msgstr ""
+
+#: harvest/models.py:164
+msgid "Trees accessibility"
+msgstr ""
+
+#: harvest/models.py:165
+msgid "Any info on how to access the tree (eg. key, gate etc)"
+msgstr ""
+
+#: harvest/models.py:172
+msgid "Required pickers on average"
+msgstr ""
+
+#: harvest/models.py:178 harvest/templates/organizations/detail.html:82
+#: harvest/templates/properties/detail.html:165
+msgid "Publicly accessible"
+msgstr ""
+
+#: harvest/models.py:183
+msgid "Access to neighboring terrain if needed"
+msgstr ""
+
+#: harvest/models.py:188 harvest/templates/organizations/detail.html:64
+#: harvest/templates/properties/detail.html:175
+msgid "Compost bin closeby"
+msgstr ""
+
+#: harvest/models.py:193
+msgid "There is a ladder available in the property"
+msgstr ""
+
+#: harvest/models.py:198
+msgid "A ladder is available in the property and can be used for nearby picks"
+msgstr ""
+
+#: harvest/models.py:203 harvest/templates/properties/detail.html:147
+msgid "Produces fruits every year"
+msgstr ""
+
+#: harvest/models.py:214
+msgid "Approximative maturity date"
+msgstr ""
+
+#: harvest/models.py:215
+msgid "When is the tree commonly ready to be harvested?"
+msgstr ""
+
+#: harvest/models.py:221
+msgid "Height of lowest fruits"
+msgstr ""
+
+#: harvest/models.py:227
+msgid "Number"
+msgstr ""
+
+#: harvest/models.py:234 harvest/templates/harvest/detail_public.html:38
+msgid "Street"
+msgstr ""
+
+#: harvest/models.py:241
+msgid "Complement"
+msgstr ""
+
+#: harvest/models.py:248
+msgid "Postal code"
+msgstr ""
+
+#: harvest/models.py:255
+msgid "Publishable location"
+msgstr ""
+
+#: harvest/models.py:256
+msgid ""
+"Aproximative location to be used in public communications (not the actual "
+"address)"
+msgstr ""
+
+#: harvest/models.py:271
+msgid "City"
+msgstr ""
+
+#: harvest/models.py:279
+msgid "Province"
+msgstr ""
+
+#: harvest/models.py:287
+msgid "Country"
+msgstr ""
+
+#: harvest/models.py:294
+msgid "Longitude"
+msgstr ""
+
+#: harvest/models.py:300
+msgid "Latitude"
+msgstr ""
+
+#: harvest/models.py:306
+msgid "Additional information"
+msgstr ""
+
+#: harvest/models.py:307
+msgid "Any additional information that we should be aware of"
+msgstr ""
+
+#: harvest/models.py:321
+msgid "property"
+msgstr ""
+
+#: harvest/models.py:322
+msgid "properties"
+msgstr ""
+
+#: harvest/models.py:374
+msgid "Harvest status"
+msgstr ""
+
+#: harvest/models.py:380 harvest/models.py:696
+#: harvest/templates/equipment/list.html:49
+#: harvest/templates/participation/list.html:29
+#: harvest/templates/properties/list.html:42
+msgid "Property"
+msgstr ""
+
+#: harvest/models.py:386
+msgid "Fruit trees"
+msgstr ""
+
+#: harvest/models.py:390 harvest/templates/harvest/detail.html:113
+msgid "Owner wants to be present"
+msgstr ""
+
+#: harvest/models.py:395 harvest/templates/harvest/detail.html:116
+msgid "Owner wants to participate"
+msgstr ""
+
+#: harvest/models.py:400
+msgid "Owner want his share of fruits"
+msgstr ""
+
+#: harvest/models.py:413
+msgid "Start date"
+msgstr ""
+
+#: harvest/models.py:419
+msgid "End date"
+msgstr ""
+
+#: harvest/models.py:425
+msgid "Publication date"
+msgstr ""
+
+#: harvest/models.py:432
+msgid "Reserve equipment"
+msgstr ""
+
+#: harvest/models.py:437
+msgid "Creation date"
+msgstr ""
+
+#: harvest/models.py:443 harvest/templates/harvest/detail_public.html:26
+msgid "Number of required pickers"
+msgstr ""
+
+#: harvest/models.py:450
+msgid ""
+"If any help is needed from volunteer pickers, please describe them here."
+msgstr ""
+
+#: harvest/models.py:478 harvest/models.py:737
+msgid "harvest"
+msgstr ""
+
+#: harvest/models.py:479
+msgid "harvests"
+msgstr ""
+
+#: harvest/models.py:563
+msgid "Requester"
+msgstr ""
+
+#: harvest/models.py:568
+msgid "How many people are you?"
+msgstr ""
+
+#: harvest/models.py:583
+msgid "Notes from the pick leader."
+msgstr ""
+
+#: harvest/models.py:590 harvest/models.py:642
+#: harvest/templates/harvest/list.html:43
+#: harvest/templates/harvest/list.html:53
+msgid "Harvest"
+msgstr ""
+
+#: harvest/models.py:596
+msgid "Created on"
+msgstr ""
+
+#: harvest/models.py:601 harvest/templates/harvest/detail.html:217
+msgid "Accepted on"
+msgstr ""
+
+#: harvest/models.py:607 harvest/templates/harvest/detail.html:240
+msgid "Accepted"
+msgstr ""
+
+#: harvest/models.py:614
+msgid "Showed up"
+msgstr ""
+
+#: harvest/models.py:621
+msgid "Canceled"
+msgstr ""
+
+#: harvest/models.py:626
+msgid "request for participation"
+msgstr ""
+
+#: harvest/models.py:627
+msgid "requests for participation"
+msgstr ""
+
+#: harvest/models.py:653
+msgid "Weight (lb)"
+msgstr ""
+
+#: harvest/models.py:661
+msgid "Recipient"
+msgstr ""
+
+#: harvest/models.py:666
+msgid "harvest yield"
+msgstr ""
+
+#: harvest/models.py:667
+msgid "harvest yields"
+msgstr ""
+
+#: harvest/models.py:677
+msgid "Type"
+msgstr ""
+
+#: harvest/models.py:682 harvest/templates/equipment/list.html:48
+#: harvest/templates/organizations/detail.html:138
+#: harvest/templates/organizations/list.html:48
+#: harvest/templates/properties/detail.html:269
+msgid "Description"
+msgstr ""
+
+#: harvest/models.py:704 harvest/templates/equipment/list.html:51
+msgid "Shared"
+msgstr ""
+
+#: harvest/models.py:705
+msgid "Can be used in harvests outside of property"
+msgstr ""
+
+#: harvest/models.py:710 harvest/models.py:711
+msgid "equipment"
+msgstr ""
+
+#: harvest/models.py:719
+msgid "Content"
+msgstr ""
+
+#: harvest/models.py:724
+msgid "Created date"
+msgstr ""
+
+#: harvest/models.py:730
+msgid "Author"
+msgstr ""
+
+#: harvest/models.py:743
+msgid "comment"
+msgstr ""
+
+#: harvest/models.py:744
+msgid "comments"
+msgstr ""
+
+#: harvest/templates/equipment/list.html:5
+#: harvest/templates/equipment/list.html:21
+#: harvest/templates/equipment/list.html:47
+#: harvest/templates/organizations/detail.html:174
+msgid "Equipment"
+msgstr ""
+
+#: harvest/templates/equipment/list.html:52
+#: harvest/templates/harvest/detail.html:221
+#: harvest/templates/harvest/list.html:50
+#: harvest/templates/harvest/list.html:60
+#: harvest/templates/organizations/list.html:51
+#: harvest/templates/properties/list.html:48
+msgid "Action"
+msgstr ""
+
+#: harvest/templates/equipment/list.html:67
+#: harvest/templates/properties/list.html:77
+msgid "inactive"
+msgstr ""
+
+#: harvest/templates/harvest/create.html:18
+msgid "New Harvest"
+msgstr ""
+
+#: harvest/templates/harvest/create.html:43
+#: harvest/templates/harvest_yield/create.html:27
+#: harvest/templates/harvest_yield/update.html:27
+#: harvest/templates/participation/create.html:27
+#: harvest/templates/properties/create.html:31
+msgid "Submit"
+msgstr ""
+
+#: harvest/templates/harvest/create.html:44
+#: harvest/templates/harvest_yield/create.html:28
+#: harvest/templates/harvest_yield/update.html:28
+#: harvest/templates/participation/create.html:28
+#: harvest/templates/properties/create.html:32
+msgid "Reset"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:21
+#: harvest/templates/harvest/list.html:105
+msgid "Unauthorized"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:27
+msgid "Success"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:51
+#: harvest/templates/harvest/list.html:111
+#: harvest/templates/properties/detail.html:372
+msgid "Scheduled"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:66
+msgid "to"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:69
+msgid "Requests"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:71
+msgid "needed"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:74
+msgid "Total harvested"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:76
+msgid "Distribution bellow"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:82
+msgid "Thanks!"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:85
+msgid "None"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:86
+msgid "Adopt it!"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:106
+msgid "Edit Harvest"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:119
+msgid "Owner wants to get fruits"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:134
+msgid "Comments"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:156
+msgid "by"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:177
+msgid "New comment"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:184
+#: harvest/templates/harvest/detail.html:276
+#: harvest/templates/harvest/detail.html:401
+#: harvest/templates/harvest/detail.html:454
+#: harvest/templates/harvest/detail_public.html:98
+#: harvest/templates/organizations/detail.html:279
+#: harvest/templates/properties/detail.html:92
+msgid "Save"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:198
+#: harvest/templates/harvest/list.html:48
+#: harvest/templates/harvest/list.html:58
+#: harvest/templates/properties/detail.html:298
+#: harvest/templates/stats/stats.html:76
+msgid "Pickers"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:213
+msgid "Picker"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:214
+msgid "Number of people"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:215
+#: harvest/templates/harvest/list.html:46
+#: harvest/templates/harvest/list.html:56
+#: harvest/templates/organizations/detail.html:211
+#: harvest/templates/participation/list.html:32
+#: harvest/templates/properties/detail.html:299
+#: harvest/templates/properties/list.html:44
+msgid "Status"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:216
+msgid "Requested on"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:218
+msgid "First time"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:219
+msgid "Comment from picker"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:220
+msgid "Comment from pick leader"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:238
+msgid "Refused"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:253
+msgid "Yes!"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:255
+msgid "No, "
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:269
+msgid "Manage request"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:299
+msgid "Property information"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:343
+msgid "more info..."
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:356
+msgid "Distribution of fruits"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:394
+#: harvest/templates/harvest_yield/update.html:15
+msgid "Edit recipient"
+msgstr ""
+
+#: harvest/templates/harvest/detail.html:439
+msgid "Add picker(s)"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:10
+msgid "Harvest detail"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:12
+msgid "Participate to the harvest"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:21
+msgid "Start"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:22
+msgid "End"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:25
+msgid "Number of participation request"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:35
+msgid "Pick-leader"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:41
+msgid "About"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:46
+#: harvest/templates/organizations/detail.html:151
+#: harvest/templates/properties/detail.html:117
+msgid "Trees"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:59
+msgid "Reserved equipment"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:74
+msgid "No reserved equipment for the moment"
+msgstr ""
+
+#: harvest/templates/harvest/detail_public.html:91
+msgid "New application request"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:6 harvest/templates/harvest/list.html:22
+#: harvest/templates/participation/list.html:10
+#: harvest/templates/stats/stats.html:71
+msgid "Harvests"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:27
+#: harvest/templates/properties/list.html:26
+msgid "Add new"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:47
+msgid "Leader"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:49
+#: harvest/templates/harvest/list.html:59
+#: harvest/templates/organizations/detail.html:210
+#: harvest/templates/properties/detail.html:300
+msgid "Date"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:57
+msgid "Pick Leader"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:124
+#: harvest/templates/harvest/list.html:125
+#: harvest/templates/organizations/detail.html:209
+#: harvest/templates/participation/list.html:28
+#: harvest/templates/properties/detail.html:296
+#: harvest/templates/properties/detail.html:323
+#: harvest/templates/properties/detail.html:324
+msgid "Pickleader"
+msgstr ""
+
+#: harvest/templates/harvest/list.html:166
+#: harvest/templates/properties/list.html:129
+msgid "Filter"
+msgstr ""
+
+#: harvest/templates/harvest_yield/create.html:15
+msgid "New recipient"
+msgstr ""
+
+#: harvest/templates/organizations/add_image.html:10
+#: harvest/templates/organizations/detail.html:53
+#: harvest/templates/properties/detail.html:108
+msgid "Add an image"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:14
+msgid "Edit this property"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:17
+msgid "Add harvest"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:91
+#: harvest/templates/properties/detail.html:170
+msgid "Access to neighbors terrain"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:106
+#: harvest/templates/properties/detail.html:102
+msgid "About this property"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:110
+msgid " pickers are recommended at this property!"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:121
+#: harvest/templates/properties/detail.html:238
+msgid "Owner information"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:128
+#: harvest/templates/properties/detail.html:259
+msgid "Personal address"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:132
+#: harvest/templates/properties/detail.html:263
+msgid "Preferred language"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:134
+#: harvest/templates/properties/detail.html:265
+msgid "Additional comments"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:139
+#: harvest/templates/properties/detail.html:270
+msgid "Contact person"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:140
+#: harvest/templates/properties/detail.html:271
+msgid "Address"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:161
+#: harvest/templates/properties/detail.html:124
+msgid "No tree in this property."
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:191
+msgid "No equipment available at this property."
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:201
+#: harvest/templates/properties/detail.html:284
+msgid "Harvests at this property"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:208
+#: harvest/templates/participation/list.html:26
+msgid "Id"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:212
+#: harvest/templates/participation/list.html:27
+msgid "Tree(s)"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:238
+msgid "History"
+msgstr ""
+
+#: harvest/templates/organizations/detail.html:272
+#: harvest/templates/properties/detail.html:85
+msgid "New image"
+msgstr ""
+
+#: harvest/templates/organizations/list.html:5
+#: harvest/templates/organizations/list.html:21
+msgid "Beneficiaries"
+msgstr ""
+
+#: harvest/templates/organizations/list.html:47
+msgid "Organization"
+msgstr ""
+
+#: harvest/templates/organizations/list.html:49
+msgid "Contact"
+msgstr ""
+
+#: harvest/templates/participation/create.html:15
+msgid "Request"
+msgstr ""
+
+#: harvest/templates/participation/list.html:11
+msgid "New harvest"
+msgstr ""
+
+#: harvest/templates/participation/list.html:31
+msgid "Scheduled to"
+msgstr ""
+
+#: harvest/templates/participation/list.html:33
+#: harvest/templates/participation/list.html:58
+msgid "Edit"
+msgstr ""
+
+#: harvest/templates/properties/create.html:16
+msgid "Property record"
+msgstr ""
+
+#: harvest/templates/properties/create.html:21
+msgid ""
+"Please enter data for your property below. Your name, address and contact "
+"information will remain private in our database and will not be made public."
+msgstr ""
+
+#: harvest/templates/properties/detail.html:6
+msgid "Property details"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:104
+msgid "Edit Property"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:134
+msgid "Validated"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:137
+msgid "Not yet authorized"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:139
+msgid "Authorized for the current season"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:141
+msgid "Not authorized for this season"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:144
+msgid "Inactive"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:149
+msgid "Does not produce fruits every year"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:152
+msgid "pickers needed"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:154
+msgid "No number of pickers specified"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:157
+msgid "Ladder available"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:159
+msgid "Ladder available for outside picks"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:162
+msgid "No ladder available"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:167
+msgid "Not publicly accessible"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:172
+msgid "No permission to access neighbors terrain"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:177
+msgid "No compost bin closeby"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:195
+msgid "Contact information"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:216
+msgid "Once this contact is validated, make sure to:"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:218
+msgid "Add a new Person/Auth User with the provided information"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:219
+msgid "Edit this property:"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:221
+msgid "Associate the newly created Person as the Property Owner"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:222
+msgid "Set the property 'pending' status to False"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:226
+msgid "You should only contact validated properties."
+msgstr ""
+
+#: harvest/templates/properties/detail.html:286
+msgid "Add a harvest"
+msgstr ""
+
+#: harvest/templates/properties/detail.html:311
+msgid "missing leader"
+msgstr ""
+
+#: harvest/templates/properties/list.html:5
+#: harvest/templates/properties/list.html:21
+msgid "Properties"
+msgstr ""
+
+#: harvest/templates/properties/list.html:46
+msgid "Picks"
+msgstr ""
+
+#: harvest/templates/properties/list.html:47
+msgid "Last pick"
+msgstr ""
+
+#: harvest/templates/properties/list.html:65
+msgid "pending"
+msgstr ""
+
+#: harvest/templates/properties/list.html:67
+msgid "validated"
+msgstr ""
+
+#: harvest/templates/properties/list.html:70
+msgid "not yet authorized"
+msgstr ""
+
+#: harvest/templates/properties/list.html:72
+msgid "authorized"
+msgstr ""
+
+#: harvest/templates/properties/list.html:74
+msgid "unauthorized"
+msgstr ""
+
+#: harvest/templates/properties/thanks.html:17
+msgid "Thank you!"
+msgstr ""
+
+#: harvest/templates/properties/thanks.html:18
+msgid "If you authorized a harvest this season, please read the "
+msgstr ""
+
+#: harvest/templates/properties/thanks.html:18
+msgid "Tree Owner Welcome Notice"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:18
+msgid "Statistics"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:27
+msgid "Select season"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:54
+msgid "All"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:78
+msgid "Participated"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:81
+msgid "Beneficiary"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:83
+msgid "Organizations"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:86
+msgid "Total weight"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:98
+msgid "Total per fruit"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:121
+msgid "Total per beneficiary"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:154
+msgid "Total per neighborhood"
+msgstr ""
+
+#: harvest/templates/stats/stats.html:183
+msgid "Total per picker"
+msgstr ""
