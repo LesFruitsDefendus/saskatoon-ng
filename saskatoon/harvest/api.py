@@ -2,19 +2,19 @@ from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from rest_framework.response import Response
-from harvest.forms import EquipmentForm #, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
-from .models import Harvest, Property, Equipment, TreeType
 from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
 from rest_framework import viewsets, permissions
-# import django_filters.rest_framework
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView
-from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
-    CommunitySerializer, BeneficiarySerializer )
 from django.views.generic import TemplateView, CreateView
 from django_filters import rest_framework as filters
+
+from harvest.forms import EquipmentForm #, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
+
 from member.models import AuthUser, Organization, Actor, Person
+from .models import Harvest, Property, Equipment, TreeType
+from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
+    CommunitySerializer, BeneficiarySerializer )
 
 
 # Harvest Viewset

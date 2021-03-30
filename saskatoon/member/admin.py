@@ -2,10 +2,11 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, \
-    ReadOnlyPasswordHashField
-from member.models import *
+from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm, 
+        ReadOnlyPasswordHashField )
 from django import forms
+
+from member.models import (AuthUser, Actor, Language, Person, Organization, Neighborhood, City, State, Country)
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
