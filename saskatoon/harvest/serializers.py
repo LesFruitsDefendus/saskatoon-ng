@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
-from member.models import Neighborhood
+from member.models import Neighborhood, AuthUser, Person, Organization
 
 # Neighborhood serializer
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -58,4 +58,34 @@ class HarvestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Harvest
+        fields = '__all__'
+
+# Person serializer
+class PersonSerializer(serializers.ModelSerializer):
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = serializers.ReadOnlyField(source='get_properties')
+    harvests = serializers.ReadOnlyField(source='get_harvests')
+    full_name = serializers.ReadOnlyField(source='name')
+
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+# Community serializer
+class CommunitySerializer(serializers.ModelSerializer):
+    person_name = serializers.ReadOnlyField(source='get_full_name')
+    as_leader = serializers.ReadOnlyField(source='harvests_as_pickleader')
+    person = PersonSerializer(many=False, read_only=True)
+    class Meta:
+        model = AuthUser
+        fields = '__all__'
+
+# Equipment serializer
+class BeneficiarySerializer(serializers.ModelSerializer):
+    property = PropertySerializer(many=False, read_only=True)
+    contact_person = PersonSerializer(many=False, read_only=True)
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Organization
         fields = '__all__'

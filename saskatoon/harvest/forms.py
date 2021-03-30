@@ -15,6 +15,7 @@ from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
 
 
+
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(
         help_text=_("Enter a valid email address, please."),
@@ -588,7 +589,6 @@ class EquipmentForm(forms.ModelForm):
             raise forms.ValidationError(
                 _('Fill in one of the two fields: property or owner.')
             )
-
         return cleaned_data
 
     class Meta:
