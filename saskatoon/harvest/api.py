@@ -11,7 +11,6 @@ from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
 from django_filters import rest_framework as filters
 
-
 #@method_decorator(login_required, name='dispatch')
 class IndexView(TemplateView):
     template_name = 'app/index.html'
@@ -44,9 +43,25 @@ class HarvestViewset(viewsets.ModelViewSet):
 
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
-            return response
+            return Response(response.data)
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
+
+# Harvest details Viewset
+class HarvestDetailsViewset(viewsets.ModelViewSet):
+    permission_classes = [
+      permissions.AllowAny
+    ]
+
+    serializer_class = HarvestSerializer
+    template_name = 'app/harvest_details.html'
+
+    def list(self, request, *args, **kwargs):
+        response = super(HarvestDetailsViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response.data
+        # default request format is html:
+        return Response({'data': response.data})
 
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
@@ -63,7 +78,7 @@ class PropertyViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = PropertySerializer
-    template_name = 'properties/list.html'
+    template_name = 'app/property_list.html'
 
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET

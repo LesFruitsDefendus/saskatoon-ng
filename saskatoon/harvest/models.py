@@ -350,14 +350,16 @@ class Property(models.Model):
         else:
             return self.street
 
+    # Returns a few fields only, useful for property list view
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self).order_by('-start_date')
+        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date', 'pick_leader__person__first_name').order_by('-start_date')
         return harvests_list
 
     def get_last_succeeded_harvest(self):
         last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
         if last_harvest:
-            return last_harvest[0]
+            # FIXME: format YYYY-MM-DD HH:MM
+            return last_harvest[0].start_date
 
     @property
     def get_owner_name(self):
