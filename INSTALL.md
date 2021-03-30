@@ -24,12 +24,12 @@ Please follow each part of this documentation in order to run your own instance 
     ```
     sudo apt install libtiff5-dev libjpeg-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
-    libharfbuzz-dev libfribidi-dev libxcb1-dev libcharls2
+    libharfbuzz-dev libfribidi-dev libxcb1-dev libcharls2 redis-server
     ```
 
     For MacOS:
     ```
-    brew install libtiff libjpeg webp little-cms2 zlib
+    brew install libtiff libjpeg webp little-cms2 zlib redis
     echo 'export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/Cellar/zlib/1.2.11/lib/pkgconfig"' >> ~/.zshrc
     source ~/.zshrc
     ```

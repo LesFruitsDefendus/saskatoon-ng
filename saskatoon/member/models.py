@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
-from harvest.models import RequestForParticipation
+from harvest.models import RequestForParticipation, Harvest, Property
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -50,8 +50,13 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
 
+    #TODO: this should go to 'Person' class
+    def harvests_as_pickleader(self):
+        harvests = Harvest.objects.filter(pick_leader=self)
+        return harvests
+
     def get_full_name(self):
-        return self.email
+        return self.person.name
 
     def get_short_name(self):
         return self.email
@@ -213,6 +218,16 @@ class Person(Actor):
             is_accepted=True
         ).count()
         return count
+
+    def get_properties(self):
+        properties = Property.objects.filter(owner=self)
+        return properties
+
+    # get harvests in which the person participated in
+    def get_harvests(self):
+        requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
+        return requests
+
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
