@@ -1,0 +1,38 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load bootstrap %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+
+{{ form.media }}
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-example-wrap">
+                        <div class="cmp-tb-hd">
+                            <h2>Add a new property</h2>
+                        </div>
+                        <div class="form-example-int">
+                            <div class="form-group">
+                                  <form method="post">
+                                      {% csrf_token %}
+                                      {% bootstrap_form form %}
+                                      {% buttons %}
+                                          <button type="submit" class="btn btn-primary">Enregistrer</button>
+                                          <button type="reset" class="btn btn-danger">Réinitialiser</button>
+                                      {% endbuttons %}
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>
+
+{% endblock content %}
