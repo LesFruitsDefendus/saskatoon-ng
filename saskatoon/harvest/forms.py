@@ -559,7 +559,7 @@ class HarvestForm(forms.ModelForm):
 
         if not instance.id:
             instance.save()
-        instance.trees = trees
+        instance.trees.set(trees)
         instance.save()
 
         return instance

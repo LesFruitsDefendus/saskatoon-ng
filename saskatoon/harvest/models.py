@@ -383,7 +383,9 @@ class Harvest(models.Model):
 
     trees = models.ManyToManyField(
         'TreeType',
-        verbose_name=_("Fruit trees")
+        verbose_name=_("Fruit trees"),
+        null=True,
+        blank=True
     )
 
     owner_present = models.BooleanField(

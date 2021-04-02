@@ -4,7 +4,7 @@ from django.urls import reverse_lazy
 from rest_framework.response import Response
 from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
-from .models import Harvest, Property, Equipment
+from .models import Harvest, Property, Equipment, TreeType
 from harvest.filters import *
 from rest_framework import viewsets, permissions
 from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer, \
@@ -195,6 +195,13 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
+class HarvestCreateView(SuccessMessageMixin, CreateView):
+    model = Harvest
+    form_class = HarvestForm
+    template_name = 'app/harvest_create.html'
+    success_url = reverse_lazy('harvest-list')
+    success_message = "Harvest created successfully!"
+
 ################ AUTOCOMPLETE ###############################
 
 class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
@@ -226,8 +233,8 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
-        # if not self.request.user.is_authenticated:
-        #     return Actor.objects.none()
+        if not self.request.user.is_authenticated:
+            return Actor.objects.none()
 
         qs = Actor.objects.all()
         list_actor = []
