@@ -173,13 +173,19 @@ class CommunityViewset(viewsets.ModelViewSet):
 class IndexView(TemplateView):
     template_name = 'app/index.html'
 
-
 class EquipmentCreateView(SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/equipment_create.html'
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
+
+class PropertyCreateView(SuccessMessageMixin, CreateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'app/property_create.html'
+    success_url = reverse_lazy('property-list')
+    success_message = "Property created successfully!"
 
 ################ AUTOCOMPLETE ###############################
 
