@@ -187,6 +187,14 @@ class PropertyCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
+class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
+    model = Property
+    form_class = PublicPropertyForm
+    template_name = 'app/property_create_public.html'
+    #FIXME: add a public page as response
+    success_url = reverse_lazy('property-list')
+    success_message = "Property created successfully!"
+
 ################ AUTOCOMPLETE ###############################
 
 class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
