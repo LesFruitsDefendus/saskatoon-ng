@@ -218,8 +218,8 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated:
-            return Actor.objects.none()
+        # if not self.request.user.is_authenticated:
+        #     return Actor.objects.none()
 
         qs = Actor.objects.all()
         list_actor = []

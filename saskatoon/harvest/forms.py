@@ -302,9 +302,9 @@ class PropertyForm(forms.ModelForm):
             'city',
             'state',
             'country',
-            'longitude',
-            'latitude',
-            'geom',
+            # 'longitude',
+            # 'latitude',
+            # 'geom',
             'additional_info',
         )
 
