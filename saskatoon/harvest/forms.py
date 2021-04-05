@@ -156,7 +156,6 @@ class RequestForm(forms.ModelForm):
             'picker_email',
             'picker_phone',
             'comment',
-            'harvest_id',
             'notes_from_pickleader'
         ]
 

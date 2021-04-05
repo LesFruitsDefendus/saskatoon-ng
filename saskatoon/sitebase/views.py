@@ -20,7 +20,7 @@ def index(request):
 ############ sitebase views ####################
 #@login_required
 
-@method_decorator(login_required, name='dispatch')
+# @method_decorator(login_required, name='dispatch')
 class Calendar(generic.TemplateView):
     template_name = 'app/calendar.html'
 
@@ -92,11 +92,8 @@ class JsonCalendar(generic.View):
                     tz_end_date = harvest.end_date - datetime.timedelta(hours=4)
                     event["end"] = tz_end_date
                     event["end_time"] = tz_end_date.strftime("%H:%M")
-                # #FIXME
-                # event["url"] = reverse(
-                #    'participation-create',
-                #    kwargs={'pk': harvest.id}
-                # )
+
+                event["url"] = '/participation/create?hid='+str(harvest.id)
                 event["color"] = color
                 event["textColor"] = text_color
                 events.append(event)
