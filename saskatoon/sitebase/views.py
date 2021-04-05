@@ -39,9 +39,10 @@ class JsonCalendar(generic.View):
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
-        ed = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-        sd = datetime.datetime.strptime(start_date, '%Y-%m-%d')
-        harvests = Harvest.objects.filter(end_date__lte=ed, start_date__gte=sd)
+        print("START / END DATE: ", start_date, end_date)
+        # ed = datetime.datetime.strptime(end_date, '%Y-%m-%d')
+        # sd = datetime.datetime.strptime(start_date, '%Y-%m-%d')
+        harvests = Harvest.objects.filter(end_date__lte=end_date, start_date__gte=start_date)
         events = []
         for harvest in harvests:
             if (harvest.start_date and
@@ -91,11 +92,11 @@ class JsonCalendar(generic.View):
                     tz_end_date = harvest.end_date - datetime.timedelta(hours=4)
                     event["end"] = tz_end_date
                     event["end_time"] = tz_end_date.strftime("%H:%M")
-                #FIXME
-                #event["url"] = reverse(
-                #    'participation_create',
+                # #FIXME
+                # event["url"] = reverse(
+                #    'participation-create',
                 #    kwargs={'pk': harvest.id}
-                #)
+                # )
                 event["color"] = color
                 event["textColor"] = text_color
                 events.append(event)

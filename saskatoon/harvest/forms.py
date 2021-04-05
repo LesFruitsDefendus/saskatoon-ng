@@ -13,6 +13,7 @@ from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
 
+# Request for participation
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(
         help_text=_("Enter a valid email address, please."),

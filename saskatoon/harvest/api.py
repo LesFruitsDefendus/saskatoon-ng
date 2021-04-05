@@ -4,11 +4,11 @@ from django.urls import reverse_lazy
 from rest_framework.response import Response
 from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
     HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
-from .models import Harvest, Property, Equipment, TreeType
+from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from harvest.filters import *
 from rest_framework import viewsets, permissions
 from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer, \
-    BeneficiarySerializer
+    BeneficiarySerializer, RequestForParticipationSerializer
 import django_filters.rest_framework
 from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView
@@ -117,6 +117,26 @@ class EquipmentViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data})
 
+# RequestForParticipation Viewset
+class RequestForParticipationViewset(viewsets.ModelViewSet):
+    queryset = RequestForParticipation.objects.all().order_by('-id')
+
+    permission_classes = [
+      permissions.AllowAny
+    ]
+
+    serializer_class = RequestForParticipationSerializer
+    template_name = 'app/participation_list.html'
+
+    def list(self, request, *args, **kwargs):
+        # filter_request = self.request.GET
+
+        response = super(RequestForParticipationViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data})
+
 # Beneficiary Viewset
 class BeneficiaryViewset(viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
@@ -201,6 +221,13 @@ class HarvestCreateView(SuccessMessageMixin, CreateView):
     template_name = 'app/harvest_create.html'
     success_url = reverse_lazy('harvest-list')
     success_message = "Harvest created successfully!"
+
+class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
+    model = RequestForParticipation
+    template_name = 'app/participation_create.html'
+    form_class = RequestForm
+    success_url = reverse_lazy('calendar')
+    success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
 
 ################ AUTOCOMPLETE ###############################
 

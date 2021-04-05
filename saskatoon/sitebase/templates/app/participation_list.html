@@ -1,0 +1,48 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<!-- Data Table area Start-->
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Equipment" %}</th>
+                                <th>{% trans "Description" %}</th>
+                                <th style="width: 12%">{% trans "Property" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                                <th>{% trans "Shared" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for equipment in data %}
+                            <tr>
+                                <td>{{ equipment.id }}</td>
+                                <td>{{ equipment.type.name }}</td>
+                                <td>
+                                    <a href='/equipment/{{equipment.id}}'>{{ equipment.description }}</a>
+                                </td>
+                                <td>{{ equipment.property.title }}</td>
+                                <td>{{ equipment.property.neighborhood.name }}</td>
+                                <td>{{ equipment.shared }}</td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+<!-- Data Table area End-->
