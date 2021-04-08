@@ -6,8 +6,6 @@
 
 {% block content %}
 
-{{ property }}
-
 <div class="breadcomb-area">
     <div class="container">
         <div class="row">
@@ -72,9 +70,10 @@
                         <h2>{% trans "Contact" %}</h2>
                     </div>
 
+                         <p class="lead">{{ property.owner.name }}</p>
                     {% with property.owner|is_person as is_person %}
                     {% if is_person == True %}
-                         <p class="lead">{{ property.owner.person.name }}</p>
+                         <p class="lead">{{ property.owner.name }}</p>
 
                     <table class="table">
                         <tbody>

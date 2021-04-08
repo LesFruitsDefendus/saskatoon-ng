@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
-from member.models import Neighborhood, AuthUser, Person, Organization
+from member.models import Actor, Neighborhood, AuthUser, Person, Organization
 
 # RequestForParticipation serializer
 class RequestForParticipationSerializer(serializers.ModelSerializer):
@@ -14,6 +14,21 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         model = Neighborhood
         fields = '__all__'
 
+class PersonSerializer(serializers.ModelSerializer):
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = serializers.ReadOnlyField(source='get_properties')
+    harvests = serializers.ReadOnlyField(source='get_harvests')
+    full_name = serializers.ReadOnlyField(source='name')
+
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+class ActorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = '__all__'
+
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
@@ -21,6 +36,7 @@ class PropertySerializer(serializers.ModelSerializer):
     harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
     trees = serializers.StringRelatedField(many=True)
+    owner = ActorSerializer(many=False, read_only=True)
     class Meta:
         model = Property
         fields = '__all__'
@@ -67,16 +83,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Person serializer
-class PersonSerializer(serializers.ModelSerializer):
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    properties = serializers.ReadOnlyField(source='get_properties')
-    harvests = serializers.ReadOnlyField(source='get_harvests')
-    full_name = serializers.ReadOnlyField(source='name')
-
-    class Meta:
-        model = Person
-        fields = '__all__'
-
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
     person_name = serializers.ReadOnlyField(source='get_full_name')
