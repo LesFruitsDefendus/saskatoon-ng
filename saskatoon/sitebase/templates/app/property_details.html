@@ -1,0 +1,335 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load is_person %}
+{% load bootstrap3 %}
+
+{% block content %}
+
+{{ property }}
+
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h2>{{ property.title }}</h2>
+                                    {% if property.last_succeeded_harvest %}
+                                    <p>{% trans "Last succeeded harvest" %} on {{ property.last_succeeded_harvest|date }}</p>
+                                    {% else %}
+                                    <p>No succeeded harvest on this property so far</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <div class="breadcomb-report">
+                                <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"> edit</i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="search-engine-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="search-engine-int">
+                    <div class="contact-hd search-hd-eg">
+                        <h2>About this property</h2>
+                        <p>{{ property.additional_info|default:"" }}</p>
+                        <hr>
+                        <div class="tpgp-ele-tx">
+                            <h2>Available tree(s)</h2>
+
+                            <ul>
+                                {% for tree in property.trees %}
+                                <li>{{ tree }}</li>
+                                {% endfor %}
+                            </ul>
+                            {% if property.trees_location %}
+                            <br>
+                            <strong>{% trans "Notes" %} :</strong> {{ property.trees_location }}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
+                    <div class="contact-hd search-hd-eg">
+                        <h2>{% trans "Contact" %}</h2>
+                    </div>
+
+                    {% with property.owner|is_person as is_person %}
+                    {% if is_person == True %}
+                         <p class="lead">{{ property.owner.person.name }}</p>
+
+                    <table class="table">
+                        <tbody>
+                        {% if property.owner.person.address %}
+                        <tr>
+                            <td>{% trans "Personal address" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.address }}</h4>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        <tr>
+                            <td>{% trans "Phone" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner__person__phone }}</h4>
+                            </td>
+                        </tr>
+                        {% trans "Email" %} : {{ property.owner.person.email }}<br>
+                        {% trans "Preferred language" %} : {{ property.owner.person.language|default:" ? " }}<br>
+                        {% if property.owner.person.comments %}
+                        {% trans "Additional comments" %} : <i>{{ property.owner.person.comments }}</i><br>
+                        {% endif %}
+                        {% elif is_person == False %}
+                        <strong>{{ property.owner.organization.name }}</strong><br>
+                        <strong>{% trans "Description" %} : </strong>{{ property.owner.organization.description }}<br>
+                        <strong>{% trans "Contact person" %} : </strong>{{ property.owner.organization.contact_person }}<br>
+                        <strong>{% trans "Address" %} : </strong>{{ property.owner.organization.address }}<br>
+                        <strong>{% trans "Phone" %} : </strong>{{ property.owner.organization.phone }}<br>
+                        <strong>{% trans "Language" %} : </strong>{{ property.owner.organization.contact.language|default:"" }}<br>
+                        {% endif %}
+                        {% endwith %}
+                        <div class="search-eg-table">
+
+                            <tr>
+                                <td>Page Speed Score</td>
+                                <td class="text-right">
+                                    <h4>87</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Citation Flow</td>
+                                <td class="text-right">
+                                    <h4>987</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Mozrank</td>
+                                <td class="text-right">
+                                    <h4>9.43</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Domain Authority</td>
+                                <td class="text-right">
+                                    <h4>455</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="analysis-rd-mg">Alexa Rank</td>
+                                <td class="text-right analysis-rd-mg">
+                                    <h4>342,234</h4>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+            <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+                <div class="contact-hd search-hd-eg">
+                    <h2>Property features</h2>
+                </div>
+                <div class="search-eg-table">
+                    <table class="table">
+                        <tbody>
+                        {% if property.is_active %}
+                        {% if property.pending %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Pending validation" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Validated" %}</td></tr>
+                        {% endif %}
+                        {% if property.authorized is None %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Not yet authorized" %}</td></tr>
+                        {% elif property.authorized %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Authorized for the current season" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Not authorized for this season" %}</td></tr>
+                        {% endif %}
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "This property is marked as inactive" %}</td></tr>
+                        {% endif %}
+                        {% if property.harvest_every_year %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Produces fruits every year" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Does not produce fruits every year" %}</td></tr>
+                        {% endif %}
+                        {% if property.avg_nb_required_pickers %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {{ property.avg_nb_required_pickers }} {% trans "picker(s) needed" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Number of pickers not specified" %}</td></tr>
+                        {% endif %}
+                        {% if property.ladder_available %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Ladder available" %}</td></tr>
+                        {% if property.ladder_available_for_outside_picks %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Ladder available for outside picks" %}</td></tr>
+                        {% endif %}
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "No ladder available" %}</td></tr>
+                        {% endif %}
+                        {% if property.public_access %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Publicly accessible" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Not publicly accessible" %}</td></tr>
+                        {% endif %}
+                        {% if property.neighbor_access %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Access to neighbors terrain" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "No permission to access neighbors terrain" %}</td></tr>
+                        {% endif %}
+                        {% if property.compost_bin %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Compost bin closeby" %}</td></tr>
+                        {% else %}
+                        <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "No compost bin closeby" %}</td></tr>
+                        {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+<!-- Data Table area Start-->
+<div class="search-engine-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th style="width: 12%">{% trans "Pickleader" %}</th>
+                                <th>{% trans "Pickers" %}</th>
+                                <th style="width: 12%">{% trans "Status" %}</th>
+                                <th style="width: 20%">{% trans "Date" %}</th>
+                            </tr>
+                            </thead>
+                            {% for harvest in property.harvests %}
+                            <tr>
+                                <td>{{ harvest.pick_leader__person__first_name }}</td>
+                                <td>
+                                    <ul>
+                                        {% for p in harvest.get_pickers %}
+                                        <li>
+                                            <a href="#" data-toggle="tooltip" data-placement="top" title="{{ p.picker }}">
+                                                <img src="/static/images/user.png" class="avatar" alt="{{ p.picker }}">
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    {% if harvest.status == "Succeeded" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Succeeded" %}</div>
+                                            <div class="progress-bar wow fadeInLeft"
+                                                 data-progress="100%" data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s" style="width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "Cancelled" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Cancelled" %}</div>
+                                            <div class="progress-bar wow fadeInLeft"
+                                                 data-progress="100%"
+                                                 data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s"
+                                                 style="background-color: #f44336; width: 100%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "Orphan" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Orphan" %}</div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="0%"
+                                                 data-wow-delay="1.2s" data-wow-duration="1.5s"
+                                                 style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "Adopted" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Adopted" %}</div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="20%"
+                                                 data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s"
+                                                 style="background-color: #FFC30F; width: 20%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "To-be-confirmed" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Pending auth." %}</div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="40%"
+                                                 data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s"
+                                                 style="background-color: #FFC30F; width: 40%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "Date-scheduled" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Scheduled" %}</div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="60%"
+                                                 data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s"
+                                                 style="background-color: #FFC30F; width: 60%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                    {% if harvest.status == "Ready" %}
+                                    <div class="skill">
+                                        <div class="progress">
+                                            <div class="lead-content">{% trans "Ready" %}</div>
+                                            <div class="progress-bar wow fadeInLeft" data-progress="80%"
+                                                 data-wow-delay="1.2s"
+                                                 data-wow-duration="1.5s"
+                                                 style="background-color: #FFC30F; width: 80%;"></div>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </td>
+                                <td>{{ harvest.start_date }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

@@ -36,6 +36,7 @@ setup(
         "pytz==2020.1",
         "six==1.15.0",
         "sqlparse==0.3.1",
-        "django-redis"
+        "django-redis",
+        "python-dotenv",
     ],
 )

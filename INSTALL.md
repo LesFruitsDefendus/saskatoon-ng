@@ -50,25 +50,40 @@ To install Python requirements use :
 pip3 install .
 ```
 
-## Database
+## Database and other settings
 
-Edit the DB path file at `saskatoon/saskatoon/settings.py`, section `DATABASES`:
+To set new settings, adapt the following ``.env`` 
+file and place it inside `saskatoon/` project directory. 
 
 ```
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': '/YOURDBPATH/sqlite3.db',
-    }
-}
+# SECURITY WARNING: keep the secret key used in production secret!
+# More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
+SASKATOON_SECRET_KEY=<KEY>
+
+# SECURITY WARNING: don't run with debug turned on in production!
+SASKATOON_DEBUG=no
+
+# Database settings - sqlite3 (dev)
+SASKATOON_DB_ENGINE=django.db.backends.sqlite3
+SASKATOON_DB_NAME=/YOURDBPATH/sqlite3.db
+
+# Database settings - mysql (prod)
+#SASKATOON_DB_ENGINE=django.db.backends.mysql
+#SASKATOON_DB_NAME=saskatoon_prod
+#SASKATOON_DB_USER=saskatoon
+#SASKATOON_DB_PASSWORD=
+#SASKATOON_DB_HOST=127.0.0.1
+
+# Misc
+SASKATOON_TIME_ZONE=UTC
 ```
+
 You can optionnaly configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#databases).
 
 To initiate the database use:
 
 ```
-cd saskatoon
-python3 manage.py migrate --skip-checks
+python3 saskatoon/manage.py migrate --skip-checks
 ```
 
 ## Create administrator account
@@ -79,8 +94,7 @@ This admin panel allow you to see all data of the DB and make some action on it.
 
 To create a new administrator account use :
 ```
-cd saskatoon
-python3 manage.py createsuperuser
+python3 saskatoon/manage.py createsuperuser
 ```
 
 To access the admin panel go on :
@@ -93,6 +107,5 @@ localhost:8000/admin
 You can use Django embedded server for development purpose:
 
 ```
-cd saskatoon
-python3 manage.py runserver 8000
+python3 saskatoon/manage.py runserver 8000
 ```

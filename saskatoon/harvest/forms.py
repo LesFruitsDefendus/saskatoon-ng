@@ -13,8 +13,7 @@ from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
 
-
-
+# Request for participation
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(
         help_text=_("Enter a valid email address, please."),
@@ -157,7 +156,6 @@ class RequestForm(forms.ModelForm):
             'picker_email',
             'picker_phone',
             'comment',
-            'harvest_id',
             'notes_from_pickleader'
         ]
 
@@ -302,9 +300,9 @@ class PropertyForm(forms.ModelForm):
             'city',
             'state',
             'country',
-            'longitude',
-            'latitude',
-            'geom',
+            # 'longitude',
+            # 'latitude',
+            # 'geom',
             'additional_info',
         )
 
@@ -559,7 +557,7 @@ class HarvestForm(forms.ModelForm):
 
         if not instance.id:
             instance.save()
-        instance.trees = trees
+        instance.trees.set(trees)
         instance.save()
 
         return instance

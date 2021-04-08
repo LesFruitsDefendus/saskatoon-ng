@@ -2,6 +2,12 @@ from rest_framework import serializers
 from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
 from member.models import Neighborhood, AuthUser, Person, Organization
 
+# RequestForParticipation serializer
+class RequestForParticipationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestForParticipation
+        fields = '__all__'
+
 # Neighborhood serializer
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
