@@ -4,10 +4,10 @@ import pathlib
 
 setup(
     name                =   "Saskatoon",
-    description         =   "The new generation Saskatoon harverst management system",
+    description         =   "Saskatoon - harverst management system",
     url                 =   "https://github.com/LesFruitsDefendus/saskatoon-ng",
     maintainer          =   "Les Fruits Défendus",
-    author              =   "Tiago Vaz",
+    author              =   "Tassia Camoes Araujo, Tiago Bortoletto Vaz, Tristan Landes-Tremblay",
     version             =   "2.dev0",
     classifiers         =   ["Programming Language :: Python :: 3"],
     license             =   "GNU AFFERO GENERAL PUBLIC LICENSE",
@@ -17,7 +17,7 @@ setup(
         "asgiref>=3.2.7",
         "cffi==1.14.0",
         "cryptography>=3.3.2",
-        "Django==3.0.7",
+        "Django>=3.0.14",
         "django-geojson==3.0.0",
         "django-leaflet==0.26.0",
         "django-rest-knox==4.1.0",
