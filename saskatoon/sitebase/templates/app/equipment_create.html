@@ -15,9 +15,7 @@
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <div class="form-example-wrap">
                         <div class="cmp-tb-hd">
-                            <h2>Equipment</h2>
-                            <p>Individual form controls automatically receive some global styling. All textual 'input', 'textarea', and 'select' elements with <code>.form-control</code> are set to width: 100%; by default. Wrap labels and controls in <code>.form-group</code> for optimum
-                                spacing.</p>
+                            <h2>Add new equipment</h2>
                         </div>
                         <div class="form-example-int">
                             <div class="form-group">
@@ -25,8 +23,8 @@
                                       {% csrf_token %}
                                       {% bootstrap_form form %}
                                       {% buttons %}
-                                          <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                          <button type="reset" class="btn btn-danger">Réinitialiser</button>
+                                          <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
+                                          <button type="reset" class="btn btn-danger">{% trans 'Reset' %}</button>
                                       {% endbuttons %}
                                   </form>
                             </div>

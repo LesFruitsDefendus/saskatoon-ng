@@ -1,7 +1,11 @@
 from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
+from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
+from rest_framework.decorators import action
+from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
+
 from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
 from rest_framework import viewsets, permissions
 # from django.utils.decorators import method_decorator
@@ -9,12 +13,17 @@ from rest_framework import viewsets, permissions
 from django.views.generic import TemplateView, CreateView
 from django_filters import rest_framework as filters
 
-from harvest.forms import EquipmentForm #, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 
-from member.models import AuthUser, Organization, Actor, Person
-from .models import Harvest, Property, Equipment, TreeType
+from harvest.forms import EquipmentForm, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
+
+from member.models import AuthUser, Organization, Actor, Person, City
+from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
-    CommunitySerializer, BeneficiarySerializer )
+    CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
+
+
 
 
 # Harvest Viewset
@@ -32,9 +41,19 @@ class HarvestViewset(viewsets.ModelViewSet):
     ]
 
     serializer_class = HarvestSerializer
-    template_name = 'app/harvest_list.html'
+
+    # Harvest detail
+    def retrieve(self, request, format='html', pk=None):
+        self.template_name = 'app/harvest_details.html'
+        pk = self.get_object().pk
+        response = super(HarvestViewset, self).retrieve(request, pk=pk)
+        if format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data})
 
     def list(self, request, *args, **kwargs):
+        self.template_name = 'app/harvest_list.html'
         filter_request = self.request.GET
 
         # only way I found to generate the filter form
@@ -49,21 +68,11 @@ class HarvestViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
 
-# Harvest details Viewset
-class HarvestDetailsViewset(viewsets.ModelViewSet):
-    permission_classes = [
-      permissions.AllowAny
-    ]
-
-    serializer_class = HarvestSerializer
-    template_name = 'app/harvest_details.html'
-
-    def list(self, request, *args, **kwargs):
-        response = super(HarvestDetailsViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
-            return response.data
-        # default request format is html:
-        return Response({'data': response.data})
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, City):
+            return str(obj)
+        return super().default(obj)
 
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
@@ -78,11 +87,33 @@ class PropertyViewset(viewsets.ModelViewSet):
     permission_classes = [
       permissions.AllowAny
     ]
-
     serializer_class = PropertySerializer
-    template_name = 'app/property_list.html'
 
-    def list(self, request, *args, **kwargs):
+    # Property detail
+    def retrieve(self, request, format='html', pk=None):
+        self.template_name = 'app/property_details.html'
+        pk = self.get_object().pk
+        response = super(PropertyViewset, self).retrieve(request, pk=pk)
+
+        # This workaround will check if property owner (which is an Actor)
+        # is a subclass Person or Organization and will serialize the result.
+        # I couldn't find a way to make it happen in the PropertySerializer class.
+        #entity = Person.objects.filter(actor_id=response.data['owner'])
+        #if not entity:
+        #    entity = Organization.objects.filter(actor_id=response.data['owner'])
+
+        #entity_serialized = serialize('json', entity, fields=('city__name'))
+        #print(entity_serialized)
+        #response.data['owner'] = entity_serialized
+
+        if format == 'json':
+            return response
+        # default request format is html:
+        return Response({'property': response.data})
+
+    # Properties list
+    def list(self, request):
+        self.template_name = 'app/property_list.html'
         filter_request = self.request.GET
 
         # only way I found to generate the filter form
@@ -91,7 +122,7 @@ class PropertyViewset(viewsets.ModelViewSet):
             self.queryset
         )
 
-        response = super(PropertyViewset, self).list(request, *args, **kwargs)
+        response = super(PropertyViewset, self).list(request)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
@@ -112,6 +143,26 @@ class EquipmentViewset(viewsets.ModelViewSet):
         # filter_request = self.request.GET
 
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == 'json':
+            return response
+        # default request format is html:
+        return Response({'data': response.data})
+
+# RequestForParticipation Viewset
+class RequestForParticipationViewset(viewsets.ModelViewSet):
+    queryset = RequestForParticipation.objects.all().order_by('-id')
+
+    permission_classes = [
+      permissions.AllowAny
+    ]
+
+    serializer_class = RequestForParticipationSerializer
+    template_name = 'app/participation_list.html'
+
+    def list(self, request, *args, **kwargs):
+        # filter_request = self.request.GET
+
+        response = super(RequestForParticipationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
@@ -173,13 +224,41 @@ class CommunityViewset(viewsets.ModelViewSet):
 class IndexView(TemplateView):
     template_name = 'app/index.html'
 
-
 class EquipmentCreateView(SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/equipment_create.html'
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
+
+class PropertyCreateView(SuccessMessageMixin, CreateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'app/property_create.html'
+    success_url = reverse_lazy('property-list')
+    success_message = "Property created successfully!"
+
+class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
+    model = Property
+    form_class = PublicPropertyForm
+    template_name = 'app/property_create_public.html'
+    #FIXME: add a public page as response
+    success_url = reverse_lazy('property-list')
+    success_message = "Property created successfully!"
+
+class HarvestCreateView(SuccessMessageMixin, CreateView):
+    model = Harvest
+    form_class = HarvestForm
+    template_name = 'app/harvest_create.html'
+    success_url = reverse_lazy('harvest-list')
+    success_message = "Harvest created successfully!"
+
+class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
+    model = RequestForParticipation
+    template_name = 'app/participation_create.html'
+    form_class = RequestForm
+    success_url = reverse_lazy('calendar')
+    success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
 
 ################ AUTOCOMPLETE ###############################
 

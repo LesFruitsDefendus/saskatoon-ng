@@ -1,12 +1,45 @@
 from rest_framework import serializers
 from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
-from member.models import Neighborhood, AuthUser, Person, Organization
+from member.models import Actor, Neighborhood, AuthUser, Person, Organization
+from django.core.serializers import serialize
+import json
+
+# RequestForParticipation serializer
+class RequestForParticipationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequestForParticipation
+        fields = '__all__'
 
 # Neighborhood serializer
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Neighborhood
         fields = '__all__'
+
+class PersonSerializer(serializers.ModelSerializer):
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = serializers.ReadOnlyField(source='get_properties')
+    harvests = serializers.ReadOnlyField(source='get_harvests')
+    full_name = serializers.ReadOnlyField(source='name')
+
+    class Meta:
+        model = Person
+        fields = '__all__'
+
+# Actor serializer
+class ActorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = '__all__'
+#
+# class OwnerFieldsSerializer(serializers.RelatedField):
+#     def to_representation(self, value):
+#         print("VALUE: ", value.__class__.__name__)
+#         p = Person(value)
+#         if hasattr(p, 'first_name'):
+#             serializer = PersonSerializer(p)
+#         print("SERIALIZER: ", p.__class__.__name__)
+#         return p
 
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
@@ -15,9 +48,30 @@ class PropertySerializer(serializers.ModelSerializer):
     harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
     trees = serializers.StringRelatedField(many=True)
+    owner = serializers.SerializerMethodField()
+
     class Meta:
         model = Property
         fields = '__all__'
+
+    def get_owner(self, obj):
+        # This will check if property owner (which is an Actor)
+        # is a Person or an Organization and will serialize the result.
+        # A solution could also be something like this
+        # https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer/33137535#33137535
+        entity = Person.objects.filter(actor_id=obj.owner.actor_id)
+        if not entity:
+            entity = Organization.objects.filter(actor_id=obj.owner.actor_id)
+        entity_serialized = serialize('json', entity)
+
+        j = json.loads(entity_serialized[1:-1])
+        j['fields']['neighborhood'] = str(entity[0].neighborhood)
+        j['fields']['city'] = str(entity[0].city)
+        j['fields']['state'] = str(entity[0].state)
+        j['fields']['country'] = str(entity[0].country)
+        j['fields']['language'] = str(entity[0].language)
+
+        return j
 
 # Property info serializer
 # This is needed for HarvestSerializer
@@ -61,16 +115,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Person serializer
-class PersonSerializer(serializers.ModelSerializer):
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    properties = serializers.ReadOnlyField(source='get_properties')
-    harvests = serializers.ReadOnlyField(source='get_harvests')
-    full_name = serializers.ReadOnlyField(source='name')
-
-    class Meta:
-        model = Person
-        fields = '__all__'
-
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
     person_name = serializers.ReadOnlyField(source='get_full_name')
