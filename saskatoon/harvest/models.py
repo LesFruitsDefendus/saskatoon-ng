@@ -1,4 +1,5 @@
 # coding: utf-8
+
 from harvest import signals
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
@@ -360,6 +361,13 @@ class Property(models.Model):
         if last_harvest:
             # FIXME: format YYYY-MM-DD HH:MM
             return last_harvest[0].start_date
+    #
+    # def get_owner_subclass(self):
+    #     from member.models import Person, Organization
+    #     try:
+    #         return Person(self.owner)
+    #     except Person.DoesNotExist:
+    #         return Organization(self.owner)
 
     @property
     def get_owner_name(self):

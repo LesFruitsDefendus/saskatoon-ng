@@ -24,10 +24,20 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = '__all__'
 
+# Actor serializer
 class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = '__all__'
+#
+# class OwnerFieldsSerializer(serializers.RelatedField):
+#     def to_representation(self, value):
+#         print("VALUE: ", value.__class__.__name__)
+#         p = Person(value)
+#         if hasattr(p, 'first_name'):
+#             serializer = PersonSerializer(p)
+#         print("SERIALIZER: ", p.__class__.__name__)
+#         return p
 
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
@@ -36,10 +46,16 @@ class PropertySerializer(serializers.ModelSerializer):
     harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
     trees = serializers.StringRelatedField(many=True)
-    owner = ActorSerializer(many=False, read_only=True)
+    # owner_person = serializers.SerializerMethodField()
+    # owner = OwnerFieldsSerializer(many=False, read_only=True)
+
     class Meta:
         model = Property
         fields = '__all__'
+
+    def get_owner_person(self, obj):
+        p = Person.objects.get(actor_id=obj.owner.actor_id)
+        return p
 
 # Property info serializer
 # This is needed for HarvestSerializer
