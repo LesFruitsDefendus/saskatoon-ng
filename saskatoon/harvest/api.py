@@ -19,7 +19,9 @@ from django.utils.decorators import method_decorator
 from django.views.generic import TemplateView, CreateView, UpdateView
 from django.contrib.auth.decorators import login_required
 from django_filters import rest_framework as filters
-from member.models import AuthUser, Organization, Actor
+from member.models import AuthUser, Organization, Actor, Person
+from django.core.serializers import serialize
+from django.core.serializers.json import DjangoJSONEncoder
 
 
 # Harvest Viewset
@@ -64,6 +66,12 @@ class HarvestViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
 
+class LazyEncoder(DjangoJSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, 'City'):
+            return str(obj)
+        return super().default(obj)
+
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
     queryset = Property.objects.all().order_by('-id')
@@ -84,6 +92,18 @@ class PropertyViewset(viewsets.ModelViewSet):
         self.template_name = 'app/property_details.html'
         pk = self.get_object().pk
         response = super(PropertyViewset, self).retrieve(request, pk=pk)
+
+        # This workaround will check if property owner (which is an Actor)
+        # is a subclass Person or Organization and will serialize the result.
+        # I couldn't find a way to make it happen in the PropertySerializer class.
+        #entity = Person.objects.filter(actor_id=response.data['owner'])
+        #if not entity:
+        #    entity = Organization.objects.filter(actor_id=response.data['owner'])
+
+        #entity_serialized = serialize('json', entity, fields=('city__name'))
+        #print(entity_serialized)
+        #response.data['owner'] = entity_serialized
+
         if format == 'json':
             return response
         # default request format is html:
