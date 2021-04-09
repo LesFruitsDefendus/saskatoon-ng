@@ -34,7 +34,7 @@ file and place it inside `saskatoon/` project directory.
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv
+from dotenv import load_dotenv, find_dotenv #type: ignore
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -51,7 +51,10 @@ if file:
 SECRET_KEY = os.getenv('SASKATOON_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('SASKATOON_DEBUG').lower() in ['yes', 'true'] if os.getenv('SASKATOON_DEBUG') else False
+if os.getenv('SASKATOON_DEBUG') is not None:
+    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'] 
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
