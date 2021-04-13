@@ -5,23 +5,25 @@ from django.urls import reverse_lazy
 from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
-    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
-from rest_framework.views import APIView
 
-from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
-from harvest.filters import *
+from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
 from rest_framework import viewsets, permissions
-from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer, \
-    BeneficiarySerializer, RequestForParticipationSerializer
-import django_filters.rest_framework
-from django.utils.decorators import method_decorator
-from django.views.generic import TemplateView, CreateView, UpdateView
-from django.contrib.auth.decorators import login_required
+# from django.utils.decorators import method_decorator
+# from django.contrib.auth.decorators import login_required
+from django.views.generic import TemplateView, CreateView
 from django_filters import rest_framework as filters
-from member.models import AuthUser, Organization, Actor, Person
+
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
+
+from harvest.forms import EquipmentForm, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
+
+from member.models import AuthUser, Organization, Actor, Person, City
+from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
+from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
+    CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
+
+
 
 
 # Harvest Viewset
@@ -68,7 +70,7 @@ class HarvestViewset(viewsets.ModelViewSet):
 
 class LazyEncoder(DjangoJSONEncoder):
     def default(self, obj):
-        if isinstance(obj, 'City'):
+        if isinstance(obj, City):
             return str(obj)
         return super().default(obj)
 
@@ -138,7 +140,7 @@ class EquipmentViewset(viewsets.ModelViewSet):
     template_name = 'app/equipment_list.html'
 
     def list(self, request, *args, **kwargs):
-        filter_request = self.request.GET
+        # filter_request = self.request.GET
 
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
