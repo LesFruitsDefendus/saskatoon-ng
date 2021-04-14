@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
-from member.models import Actor, Neighborhood, AuthUser, Person, Organization
+from member.models import Actor, Neighborhood, AuthUser, Person, Organization, City, State, Country
 from django.core.serializers import serialize
 import json
 
@@ -31,22 +31,34 @@ class ActorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actor
         fields = '__all__'
-#
-# class OwnerFieldsSerializer(serializers.RelatedField):
-#     def to_representation(self, value):
-#         print("VALUE: ", value.__class__.__name__)
-#         p = Person(value)
-#         if hasattr(p, 'first_name'):
-#             serializer = PersonSerializer(p)
-#         print("SERIALIZER: ", p.__class__.__name__)
-#         return p
+
+# City serializer
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
+
+# State serializer
+class StateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = State
+        fields = '__all__'
+# Country serializer
+class CountrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Country
+        fields = '__all__'
 
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    city = CitySerializer(many=False, read_only=True)
+    state = StateSerializer(many=False, read_only=True)
+    country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
     harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
+    address = serializers.ReadOnlyField(source="short_address")
     trees = serializers.StringRelatedField(many=True)
     owner = serializers.SerializerMethodField()
 
@@ -69,11 +81,13 @@ class PropertySerializer(serializers.ModelSerializer):
 
             j = json.loads(entity_serialized[1:-1])
             j['fields']['neighborhood'] = str(entity[0].neighborhood)
+            j['fields']['name'] = str(entity[0].name())
             j['fields']['city'] = str(entity[0].city)
             j['fields']['state'] = str(entity[0].state)
             j['fields']['country'] = str(entity[0].country)
             if isinstance(entity[0], Person):
                 j['fields']['language'] = str(entity[0].language)
+                j['fields']['email'] = str(entity[0].email())
 
             return j
         else:

@@ -210,7 +210,11 @@ class Person(Actor):
 
     def email(self):
         auth_obj = AuthUser.objects.get(person=self)
-        return auth_obj.email
+        print("MERDA", auth_obj)
+        if auth_obj is not None:
+            return auth_obj.email
+        else:
+            return None
 
     def participation_count(self):
         count = RequestForParticipation.objects.filter(
