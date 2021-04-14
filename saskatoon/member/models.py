@@ -210,8 +210,8 @@ class Person(Actor):
 
     def email(self):
         auth_obj = AuthUser.objects.filter(person=self)
-        if isinstance(auth_obj, AuthUser):
-            return auth_obj
+        if auth_obj:
+            return auth_obj[0].email
         else:
             return None
 
