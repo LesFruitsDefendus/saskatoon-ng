@@ -209,10 +209,9 @@ class Person(Actor):
         return u"%s %s" % (self.first_name, self.family_name)
 
     def email(self):
-        auth_obj = AuthUser.objects.get(person=self)
-        print("MERDA", auth_obj)
-        if auth_obj is not None:
-            return auth_obj.email
+        auth_obj = AuthUser.objects.filter(person=self)
+        if isinstance(auth_obj, AuthUser):
+            return auth_obj
         else:
             return None
 
