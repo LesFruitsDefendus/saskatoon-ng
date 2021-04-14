@@ -59,19 +59,25 @@ class PropertySerializer(serializers.ModelSerializer):
         # is a Person or an Organization and will serialize the result.
         # A solution could also be something like this
         # https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer/33137535#33137535
-        entity = Person.objects.filter(actor_id=obj.owner.actor_id)
-        if not entity:
-            entity = Organization.objects.filter(actor_id=obj.owner.actor_id)
-        entity_serialized = serialize('json', entity)
+        
+        if isinstance(obj.owner, Actor):
+            entity = Person.objects.filter(actor_id=obj.owner.actor_id)
+            if not entity:
+                entity = Organization.objects.filter(actor_id=obj.owner.actor_id)
 
-        j = json.loads(entity_serialized[1:-1])
-        j['fields']['neighborhood'] = str(entity[0].neighborhood)
-        j['fields']['city'] = str(entity[0].city)
-        j['fields']['state'] = str(entity[0].state)
-        j['fields']['country'] = str(entity[0].country)
-        j['fields']['language'] = str(entity[0].language)
+            entity_serialized = serialize('json', entity)
 
-        return j
+            j = json.loads(entity_serialized[1:-1])
+            j['fields']['neighborhood'] = str(entity[0].neighborhood)
+            j['fields']['city'] = str(entity[0].city)
+            j['fields']['state'] = str(entity[0].state)
+            j['fields']['country'] = str(entity[0].country)
+            if isinstance(entity[0], Person):
+                j['fields']['language'] = str(entity[0].language)
+
+            return j
+        else:
+            return None
 
 # Property info serializer
 # This is needed for HarvestSerializer
