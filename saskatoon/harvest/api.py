@@ -1,7 +1,7 @@
 from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
@@ -10,7 +10,7 @@ from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
 from rest_framework import viewsets, permissions
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, CreateView
+from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
 
 from django.core.serializers import serialize
@@ -67,6 +67,9 @@ class HarvestViewset(viewsets.ModelViewSet):
             return Response(response.data)
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
+
+    def update(request, *args, **kwargs):
+        pass
 
 class LazyEncoder(DjangoJSONEncoder):
     def default(self, obj):
@@ -231,12 +234,30 @@ class EquipmentCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
 
+class EquipmentUpdateView(SuccessMessageMixin, UpdateView):
+    model = Equipment
+    form_class = EquipmentForm
+    template_name = 'app/equipment_create.html'
+    success_message = "Equipment updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
+
 class PropertyCreateView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
+
+class PropertyUpdateView(SuccessMessageMixin, UpdateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'app/property_create.html'
+    success_message = "Property updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
@@ -252,6 +273,15 @@ class HarvestCreateView(SuccessMessageMixin, CreateView):
     template_name = 'app/harvest_create.html'
     success_url = reverse_lazy('harvest-list')
     success_message = "Harvest created successfully!"
+
+class HarvestUpdateView(SuccessMessageMixin, UpdateView):
+    model = Harvest
+    form_class = HarvestForm
+    template_name = 'app/harvest_create.html'
+    success_message = "Harvest updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
