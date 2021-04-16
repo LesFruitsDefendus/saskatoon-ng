@@ -22,7 +22,7 @@
                                 <div class="breadcomb-ctn">
                                     <h2>{{ property.title }}</h2>
                                     {% if property.last_succeeded_harvest %}
-                                    <p>{% trans "Last succeeded harvest" %} on {{ property.last_succeeded_harvest|date }}</p>
+                                    <p>{% trans "Last succeeded harvest"  %} on {{ property.last_succeeded_harvest|date }}</p>
                                     {% else %}
                                     <p>No succeeded harvest on this property so far</p>
                                     {% endif %}
