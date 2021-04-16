@@ -98,6 +98,7 @@ class PropertySerializer(serializers.ModelSerializer):
 class PropertyInfoSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
+    address = serializers.ReadOnlyField(source="short_address")
     class Meta:
         model = Property
         fields = '__all__'
@@ -122,6 +123,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     # three different ways of getting a multimodel serializer:
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
+    total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
+    status = serializers.ReadOnlyField(source='get_status_l10n')
     start_date = serializers.DateTimeField(format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='start_date', format="%H:%M")
     # # 2) get string rather than id from a pk

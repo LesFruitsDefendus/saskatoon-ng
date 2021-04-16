@@ -16,15 +16,12 @@ from django_filters import rest_framework as filters
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
-from harvest.forms import EquipmentForm, HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, HarvestForm, PropertyImageForm, RFPManageForm
+from harvest.forms import *
 
 from member.models import AuthUser, Organization, Actor, Person, City
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
-
-
-
 
 # Harvest Viewset
 class HarvestViewset(viewsets.ModelViewSet):
@@ -49,8 +46,26 @@ class HarvestViewset(viewsets.ModelViewSet):
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
         if format == 'json':
             return response
+
         # default request format is html:
-        return Response({'data': response.data})
+        # FIXME: serialize all this
+
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = RequestForParticipation.objects.filter(harvest=harvest)
+        distribution = HarvestYield.objects.filter(harvest=harvest)
+        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
+        property = harvest.property
+
+        return Response({'harvest': response.data,
+                         'form_request': RequestForm(),
+                         'form_comment': CommentForm(),
+                         'form_manage_request': RFPManageForm(),
+                         'requests': requests,
+                         'distribution': distribution,
+                         'comments': comments,
+                         'property': property,
+                         'form_edit_recipient': HarvestYieldForm(),
+                        })
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/harvest_list.html'
@@ -70,12 +85,6 @@ class HarvestViewset(viewsets.ModelViewSet):
 
     def update(request, *args, **kwargs):
         pass
-
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, City):
-            return str(obj)
-        return super().default(obj)
 
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
