@@ -1,28 +1,27 @@
 from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from rest_framework.decorators import action
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
-from harvest.forms import HarvestYieldForm, CommentForm, RequestForm, PropertyForm, PublicPropertyForm, \
-    HarvestForm, PropertyImageForm, EquipmentForm, RFPManageForm, HarvestYieldForm
-from rest_framework.views import APIView
 
-from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
-from harvest.filters import *
+from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
 from rest_framework import viewsets, permissions
-from .serializers import HarvestSerializer, PropertySerializer, EquipmentSerializer, CommunitySerializer, \
-    BeneficiarySerializer, RequestForParticipationSerializer
-import django_filters.rest_framework
-from django.utils.decorators import method_decorator
+# from django.utils.decorators import method_decorator
+# from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, CreateView, UpdateView
-from django.contrib.auth.decorators import login_required
 from django_filters import rest_framework as filters
-from member.models import AuthUser, Organization, Actor, Person
+
 from django.core.serializers import serialize
 from django.core.serializers.json import DjangoJSONEncoder
 
+from harvest.forms import *
+
+from member.models import AuthUser, Organization, Actor, Person, City
+from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
+from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
+    CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
 
 # Harvest Viewset
 class HarvestViewset(viewsets.ModelViewSet):
@@ -47,8 +46,26 @@ class HarvestViewset(viewsets.ModelViewSet):
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
         if format == 'json':
             return response
+
         # default request format is html:
-        return Response({'data': response.data})
+        # FIXME: serialize all this
+
+        harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        requests = RequestForParticipation.objects.filter(harvest=harvest)
+        distribution = HarvestYield.objects.filter(harvest=harvest)
+        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
+        property = harvest.property
+
+        return Response({'harvest': response.data,
+                         'form_request': RequestForm(),
+                         'form_comment': CommentForm(),
+                         'form_manage_request': RFPManageForm(),
+                         'requests': requests,
+                         'distribution': distribution,
+                         'comments': comments,
+                         'property': property,
+                         'form_edit_recipient': HarvestYieldForm(),
+                        })
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/harvest_list.html'
@@ -66,11 +83,8 @@ class HarvestViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
 
-class LazyEncoder(DjangoJSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, 'City'):
-            return str(obj)
-        return super().default(obj)
+    def update(request, *args, **kwargs):
+        pass
 
 # Property Viewset
 class PropertyViewset(viewsets.ModelViewSet):
@@ -138,7 +152,7 @@ class EquipmentViewset(viewsets.ModelViewSet):
     template_name = 'app/equipment_list.html'
 
     def list(self, request, *args, **kwargs):
-        filter_request = self.request.GET
+        # filter_request = self.request.GET
 
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
@@ -229,12 +243,30 @@ class EquipmentCreateView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
 
+class EquipmentUpdateView(SuccessMessageMixin, UpdateView):
+    model = Equipment
+    form_class = EquipmentForm
+    template_name = 'app/equipment_create.html'
+    success_message = "Equipment updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
+
 class PropertyCreateView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
+
+class PropertyUpdateView(SuccessMessageMixin, UpdateView):
+    model = Property
+    form_class = PropertyForm
+    template_name = 'app/property_create.html'
+    success_message = "Property updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
@@ -250,6 +282,15 @@ class HarvestCreateView(SuccessMessageMixin, CreateView):
     template_name = 'app/harvest_create.html'
     success_url = reverse_lazy('harvest-list')
     success_message = "Harvest created successfully!"
+
+class HarvestUpdateView(SuccessMessageMixin, UpdateView):
+    model = Harvest
+    form_class = HarvestForm
+    template_name = 'app/harvest_create.html'
+    success_message = "Harvest updated successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation

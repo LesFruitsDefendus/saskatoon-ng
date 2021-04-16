@@ -1,14 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+"""
+Models registration. 
+"""
 
-from leaflet.admin import LeafletGeoAdmin
+from leaflet.admin import LeafletGeoAdmin # type: ignore
 from django.contrib import admin
-
-from member.models import *
-from harvest.models import *
-from harvest.forms import *
+from member.models import (Actor, Language, Person, Organization, Neighborhood, City, State, Country)
+from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment, PropertyImage)
+from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 class PropertyInline(admin.TabularInline):
     model = Property

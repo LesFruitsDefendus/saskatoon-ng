@@ -6,22 +6,282 @@
 
 {% block content %}
 
-
-{{ form.media }}
-
-<div class="form-example-area">
+<!-- Start Status area -->
+<div class="notika-status-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-example-wrap">
-                        <div class="cmp-tb-hd">
-                            <h2>Harvest details</h2>
-                            <p>{{ data }}</p>
-                        </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <p>{{ harvest.status }}</p>
+                        <h2><span class="counter">{{ harvest.total_distribution }}</span> lbs</h2>
                     </div>
+                    <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <p>Havest date</p>
+                        <h2>{{ harvest.start_date }}</h2>
+                    </div>
+                    <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <p>{% trans "Pickers requests" %}</p>
+                        <h2><span class="counter">{{ requests.count }}</span></h2>
+                    </div>
+                    <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
+                    <div class="website-traffic-ctn">
+                        <p>{% trans "Pick leader" %}</p>
+                        {% if harvest.pick_leader != None %}
+                        <h2>{{ harvest.pick_leader }}</h2>
+                        {% else %}
+                        <h2>{% trans "Missing" %}</h2>
+                        {% endif %}
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
+<!-- End Status area-->
+
+<!-- Start About harvest area-->
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                <div class="curved-inner-pro">
+                    <div class="curved-ctn">
+                        <h2>{% trans "Public announcement" %}</h2>
+                        <br>
+                        <p><strong>{% for f in harvest.trees %}
+                            {{ f }},
+                            {% endfor %}
+                            {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}</strong></p>
+                        <br>
+                        <p>{{ harvest.about|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                <div class="contact-hd search-hd-eg">
+                    <h2>Property information</h2>
+                </div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>{% trans "Contact" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner }}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Phone" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.phone }}</h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>{% trans "Email" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.email }}</h4>
+                            </td>
+                        </tr>
+
+                        {% if property.owner.person.language != 'None' %}
+                        <tr>
+                            <td>{% trans "Language" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.language }}</h4>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        {% if property.owner.person.comments %}
+                        <tr>
+                            <td>{% trans "Comments" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.comments }}</h4>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                    </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- End Realtime sts area-->
+
+<!--FIXME -->
+&nbsp;
+<!--FIXME -->
+
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="basic-tb-hd">
+                        <h2>Pickers requests</h2>
+                    </div>
+                    <div class="table-responsive">
+                        <table id="data-table-basic" class="table compact">
+                            <tr>
+                                <th>{% trans "Contact" %}</th>
+                                <th style="width: 7%">{% trans "# pickers" %}</th>
+                                <th style="width: 9%">{% trans "Status" %}</th>
+                                <th style="width: 10%">{% trans "Requested on" %}</th>
+                                <th style="width: 10%">{% trans "Accepted on" %}</th>
+                                <th style="width: 12%">{% trans "First time?" %}</th>
+                                <th>{% trans "Msg from picker" %}</th>
+                                <th>{% trans "Msg from pick leader" %}</th>
+                                <th>{% trans "Action" %}</th>
+                            </tr>
+                            {% for r in requests %}
+                            <tr>
+                                <td>{{ r.picker }}
+                                    {% if r.picker.phone %}
+                                    <br>{{ r.picker.phone }}
+                                    {% endif %}
+                                    {% if r.picker.email %}
+                                    <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ r.number_of_people }}</td>
+                                <td>
+                                    {% if r.is_accepted == None %}
+                                    <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                                    {% elif r.is_accepted == False %}
+                                    <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                                    {% elif r.is_accepted == True %}
+                                    <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                                    {% endif %}
+                                </td>
+                                <td>{{ r.creation_date }}</td>
+                                <td>
+                                    {% if r.acceptation_date %}
+                                    {{ r.acceptation_date }}
+                                    {% else %}
+                                    <i class="fa fa-times" style="color:red"></i>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
+                                    <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
+                                    {% else  %}
+                                    <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
+                                    {% endif %}
+                                </td>
+                                <td>{{ r.comment }}</td>
+                                <td>{{ r.notes_from_pickleader }}</td>
+                                <td>
+                                    <a href="">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                <div class="contact-hd search-hd-eg">
+                    <h2>Fruit distribution</h2>
+                </div>
+                <div class="search-eg-table">
+                    <table class="table">
+                        <tbody>
+                        {% for d in distribution %}
+                    <tr>
+                      <td class="col-md-6">{{ d.recipient }}</td>
+                      <td class="col-md-4">{{ d.tree.fruit_name }}</td>
+                      <td class="col-md-2">{{ d.total_in_lb }}</td>
+                      <td>
+                        <a href=''>
+                               <i class="fa fa-pencil"></i>
+                        </a>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
+                <div class="realtime-ctn">
+                    <div class="realtime-title">
+                        <h2>Comments</h2>
+                    </div>
+                </div>
+                <div class="card-box">
+                    <div class="chat-conversation">
+                        <div class="widgets-chat-scrollbar">
+                            <ul class="conversation-list ">
+                                {% for comment in comments %}
+                                {% if forloop.counter|divisibleby:2 %}
+                                <li class="clearfix odd">
+                                    {% else %}
+                                <li class="clearfix">
+                                    {% endif %}
+                                    <div class="chat-avatar">
+                                        <img src="{% static 'img/user.png' %}" alt="">
+                                    </div>
+                                    <div class="conversation-text">
+                                        {% if forloop.counter|divisibleby:2 %}
+                                            <div class="ctext-wrap chat-widgets-cn">
+                                         {% else %}
+                                            <div class="ctext-wrap">
+                                                {% endif %}
+                                                <i>{{ comment.author }}</i>
+                                                <p><small>{{ comment.created_date }}</small></p>
+                                                <p>
+                                                    {{ comment.content }}
+                                                </p>
+                                            </div>
+                                     </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 {% endblock content %}
+
