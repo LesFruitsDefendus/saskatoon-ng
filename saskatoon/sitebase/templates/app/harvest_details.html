@@ -65,12 +65,12 @@
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="curved-inner-pro">
                     <div class="curved-ctn">
-                        <h2>{% for f in harvest.trees %}
+                        <h2>{% trans "Public announcement" %}</h2>
+                        <br>
+                        <p><strong>{% for f in harvest.trees %}
                             {{ f }},
                             {% endfor %}
-                            {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}
-                        </h2>
-                        <p><strong>{% trans "Public announcement" %}: </strong></p>
+                            {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}</strong></p>
                         <br>
                         <p>{{ harvest.about|safe }}</p>
                     </div>
