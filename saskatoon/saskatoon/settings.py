@@ -77,7 +77,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'bootstrap3',
-    'bootstrapform'
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
@@ -185,12 +185,12 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 AUTH_USER_MODEL = "member.AuthUser"
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-    'PAGINATE_BY': 10,
-    'DEFAULT_RENDERER_CLASSES': (
-    'rest_framework.renderers.TemplateHTMLRenderer',
-    'rest_framework.renderers.JSONRenderer',
- )
+   'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+   'PAGINATE_BY': 10,
+   'DEFAULT_RENDERER_CLASSES': (
+   'rest_framework.renderers.TemplateHTMLRenderer',
+   'rest_framework.renderers.JSONRenderer',
+)
 }
 
 CACHES = {
