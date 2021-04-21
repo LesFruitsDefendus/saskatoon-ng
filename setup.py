@@ -39,4 +39,5 @@ setup(
         "django-redis",
         "python-dotenv",
     ],
+    extras_require      =   {'test': ['pytest', 'selenium', 'pytest-django']},
 )
