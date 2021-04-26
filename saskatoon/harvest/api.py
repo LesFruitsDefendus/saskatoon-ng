@@ -123,6 +123,8 @@ class PropertyViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
 
+
+
 # Equipment Viewset
 class EquipmentViewset(viewsets.ModelViewSet):
     queryset = Equipment.objects.all().order_by('-id')
@@ -299,6 +301,27 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     form_class = RequestForm
     success_url = reverse_lazy('calendar')
     success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
+
+class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
+    model = HarvestYield
+    form_class = HarvestYieldForm
+    template_name = 'app/yield_create.html'
+    success_message = "Harvest distribution created successfully!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
+class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
+    model = HarvestYield
+    form_class = HarvestYieldForm
+    template_name = 'app/yield_create.html'
+    success_message = "Harvest distribution updated successfully!"
+
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
 ################ AUTOCOMPLETE ###############################
 

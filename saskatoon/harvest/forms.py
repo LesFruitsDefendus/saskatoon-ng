@@ -563,7 +563,6 @@ class HarvestForm(forms.ModelForm):
 
         return instance
 
-
 class HarvestYieldForm(forms.ModelForm):
     class Meta:
         model = HarvestYield

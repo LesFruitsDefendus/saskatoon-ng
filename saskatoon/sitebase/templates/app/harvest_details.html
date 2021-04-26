@@ -213,6 +213,7 @@
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="contact-hd search-hd-eg">
                     <h2>Fruit distribution</h2>
+                    <a href="/harvest_yield/create?h={{ harvest.id }}">New distribution</a>
                 </div>
                 <div class="search-eg-table">
                     <table class="table">
@@ -223,7 +224,7 @@
                       <td class="col-md-4">{{ d.tree.fruit_name }}</td>
                       <td class="col-md-2">{{ d.total_in_lb }}</td>
                       <td>
-                        <a href=''>
+                        <a href="/harvest_yield/update/{{ d.id }}?h={{ harvest.id }}">
                                <i class="fa fa-pencil"></i>
                         </a>
                         {% endfor %}
