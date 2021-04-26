@@ -18,12 +18,11 @@
                         </div>
                         <div class="form-example-int">
                             <div class="form-group">
-                                  <form method="post" action="/participation/create">
+                                  <form method="post">
                                       {% csrf_token %}
                                       {{ form|crispy }}
                                       <input type="hidden" name="harvest_id" value="{{ request.GET.hid }}" id="harvest_id" />
-
-                                          <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
+                                      <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
                                   </form>
                             </div>
                         </div>

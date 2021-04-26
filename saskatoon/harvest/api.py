@@ -299,14 +299,22 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
-    success_url = "/calendar"
     success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
 
-    # FIXME: same as others but won't work
-    # def get_success_url(self):
-    #     request = self.request.GET
-    #     print(request)
-    #     # return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+    def get_success_url(self):
+        request = self.request.GET
+        print(request)
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+
+class RequestForParticipationUpdateView(SuccessMessageMixin, UpdateView):
+    model = RequestForParticipation
+    form_class = RFPManageForm
+    template_name = 'app/participation_create.html'
+    success_message = "Request updated successfully!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
 class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
     model = HarvestYield
