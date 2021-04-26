@@ -299,8 +299,14 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
-    success_url = reverse_lazy('calendar')
+    success_url = "/calendar"
     success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
+
+    # FIXME: same as others but won't work
+    # def get_success_url(self):
+    #     request = self.request.GET
+    #     print(request)
+    #     # return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
 class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
     model = HarvestYield
@@ -317,7 +323,6 @@ class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
     form_class = HarvestYieldForm
     template_name = 'app/yield_create.html'
     success_message = "Harvest distribution updated successfully!"
-
 
     def get_success_url(self):
         request = self.request.GET

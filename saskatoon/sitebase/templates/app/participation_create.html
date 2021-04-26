@@ -1,8 +1,8 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
-{% load bootstrap %}
-{% load bootstrap3 %}
+{% load crispy_forms_tags %}
+
 
 {% block content %}
 
@@ -20,12 +20,10 @@
                             <div class="form-group">
                                   <form method="post" action="/participation/create">
                                       {% csrf_token %}
-                                      {% bootstrap_form form %}
+                                      {{ form|crispy }}
                                       <input type="hidden" name="harvest_id" value="{{ request.GET.hid }}" id="harvest_id" />
-                                      {% buttons %}
+
                                           <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
-                                          <button type="reset" class="btn btn-danger">{% trans 'Reset' %}</button>
-                                      {% endbuttons %}
                                   </form>
                             </div>
                         </div>
