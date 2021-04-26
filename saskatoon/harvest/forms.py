@@ -600,3 +600,4 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
         fields = '__all__'
+

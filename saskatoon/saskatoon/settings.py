@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'bootstrap3',
+    'crispy_forms',
     'bootstrapform',
 ]
 
@@ -202,3 +203,6 @@ CACHES = {
         }
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
