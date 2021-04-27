@@ -146,12 +146,8 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data, 'form': filter_form.form})
 
 # RequestForParticipation Viewset
-class RequestForParticipationViewset(viewsets.ModelViewSet):
+class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = RequestForParticipation.objects.all().order_by('-id')
-
-    permission_classes = [
-      permissions.AllowAny
-    ]
 
     serializer_class = RequestForParticipationSerializer
     template_name = 'app/participation_list.html'
@@ -278,7 +274,7 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
-class RequestForParticipationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
@@ -286,8 +282,10 @@ class RequestForParticipationCreateView(LoginRequiredMixin, SuccessMessageMixin,
 
     def get_success_url(self):
         request = self.request.GET
-        print(request)
-        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+        if self.request.user.is_authenticated:
+            return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+        else:
+            return reverse_lazy('calendar')
 
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
