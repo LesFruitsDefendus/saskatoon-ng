@@ -109,3 +109,20 @@ You can use Django embedded server for development purpose:
 ```
 python3 saskatoon/manage.py runserver 8000
 ```
+
+## Running tests
+
+Tests will look for the config file `test.env`. This minimal configuration us required to run tests:
+
+```
+SASKATOON_DB_ENGINE=django.db.backends.sqlite3
+SASKATOON_DB_NAME=/YOURPATH/sqlite3-testing.db
+```
+
+Tests are located inside `saskatoon/tests` folder. 
+
+Run tests with:
+
+```
+tox -e test
+```

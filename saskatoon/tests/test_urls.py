@@ -6,13 +6,13 @@ from .conftest import login
 
 # List of (url, expected_html_body_parts, needs_auth)
 urls = [
-    ('/calendar', [''], False),
-    ('/harvest', [''], True),
-    ('/property', [''], True),
-    ('/equipment', [''], True),
-    ('/beneficiary', [''], True),
-    ('/community', [''], True),
-    ('/participation', [''], True),
+    ('/calendar', ['html'], False),
+    ('/harvest', ['html'], True),
+    ('/property', ['html'], True),
+    ('/equipment', ['hmtl'], True),
+    ('/beneficiary', ['html'], True),
+    ('/community', ['html'], True),
+    ('/participation', ['html'], True),
 ]
 
 def test_urls(driver: webdriver.Chrome) -> None:
