@@ -71,7 +71,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 a {transition: all 0.3s ease 0s;text-decoration:none;}
 a:hover {
-  color: #00c292;
+  color: #2A3F54;
   text-decoration: none;
 }
 a:active, a:hover, a:focus {
@@ -184,7 +184,7 @@ body {}
 /*  2.  Header Top CSS
 /*----------------------------------------*/
 .header-top-area, .footer-copyright-area{
-	background:#00c292;
+	background:#2A3F54;
 }
 .logo-area{
 	padding:14px 0px;
@@ -193,13 +193,13 @@ body {}
 	float: right;
 }
 .nav.notika-top-nav .open>a, .nav.notika-top-nav .open>a:focus, .nav.notika-top-nav .open>a:hover {
-    background: #00c292;
-    border-color: 0px solid #00c292;
+    background: #2A3F54;
+    border-color: 0px solid #2A3F54;
 	
 }
 .nav.notika-top-nav>li>a:focus, .nav.notika-top-nav>li>a:hover {
     text-decoration: none;
-    background-color: #00c292;
+    background-color: #2A3F54;
 }
 .navbar-nav>li>a{
 	color:#fff;
@@ -304,7 +304,7 @@ body {}
     margin-top: 15px;
 }
 .header-top-menu .nav.notika-top-nav li .message-dd .hd-mg-va a:hover{
-    color: #00c292;
+    color: #2A3F54;
 }
 .hd-task-info {
     overflow: hidden;
@@ -356,7 +356,7 @@ body {}
     top: 0px;
     right: 0px;
     font-size: 12px;
-	color:#00c292;
+	color:#2A3F54;
 }
 .ntd-ctn {
 	position: absolute;
@@ -497,7 +497,7 @@ ul.notika-menu-wrap li a{
     color: #333;
 }
 .mean-container .mean-nav ul li a:hover {
-    color: #00c292;
+    color: #2A3F54;
 }
 .box-layout .header-top-area {
 		width: 1200px;
@@ -563,7 +563,7 @@ ul.notika-menu-wrap li a{
 	margin-left:10px;
 }
 .recent-post-icon a:hover, .curved-icon a:hover, .recent-items-icon a:hover, .realtime-icon a:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .past-day-statis p, .past-statistic-ctn p, .email-ctn-nock p, .blog-ctn p, .animation-ctn-hd p{
@@ -681,11 +681,11 @@ ul.notika-menu-wrap li a{
 	transition:all .4s ease 0s;
 }
 .recent-post-flex.rc-ps-vw .recent-post-line p:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .recent-post-items .recent-post-signle:hover .recent-post-it-ctn h2, .blog-ctn .vw-at:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .rct-pt-mg {
@@ -752,7 +752,7 @@ ul.notika-menu-wrap li a{
     position: absolute;
     left: 10px;
     border-radius: 3px;
-    background: #00c292;
+    background: #2A3F54;
     padding: 3px;
     color: white;
     cursor: pointer;
@@ -839,8 +839,8 @@ ul.notika-menu-wrap li a{
     font-size: 14px;
 }
 .checkbox-primary input[type="checkbox"]:checked + label::before {
-    background-color: #00c292;
-    border-color: #00c292;
+    background-color: #2A3F54;
+    border-color: #2A3F54;
 }
 .checkbox label::before {
     -o-transition: 0.3s ease-in-out;
@@ -882,11 +882,11 @@ ul.notika-menu-wrap li a{
 	font-size:14px;
 	color:#fff;
 	border:none;
-	background:#00c292;
+	background:#2A3F54;
 }
 .notika-todo-btn a:hover, .notika-todo-btn a:active, .notika-todo-btn a:focus, .notika-add-todo:hover, .notika-add-todo:active, .notika-add-todo:focus, .notika-add-todo:visited, .notika-chat-btn:hover, .notika-chat-btn:active, .notika-chat-btn:focus, .notika-chat-btn:visited{
 	color:#fff;
-	background:#00c292;
+	background:#2A3F54;
 	outline:none;
 }
 .notika-todo-scrollbar .mCSB_outside+.mCSB_scrollTools, .widgets-chat-scrollbar .mCSB_outside+.mCSB_scrollTools{
@@ -952,7 +952,7 @@ ul.notika-menu-wrap li a{
     margin-top: -5px;
 }
 .conversation-list .odd .ctext-wrap {
-    background: #00c292 !important;
+    background: #2A3F54 !important;
 }
 .conversation-list li {
     margin-bottom: 24px;
@@ -974,7 +974,7 @@ ul.notika-menu-wrap li a{
 }
 .conversation-list .odd .ctext-wrap:after {
     border-color: rgba(238, 238, 242, 0) !important;
-    border-left-color: #00c292 !important;
+    border-left-color: #2A3F54 !important;
     left: 100% !important;
     top: 20% !important;
 }
@@ -993,7 +993,7 @@ ul.notika-menu-wrap li a{
 .widget-signup-list a{
 	height: 46px;
     border-radius: 50%;
-    background: #00c292;
+    background: #2A3F54;
     width: 46px;
     display: inline-block;
     margin: 7.2px 4.4px 7.2px 0px;
@@ -1071,7 +1071,7 @@ ul.notika-menu-wrap li a{
     margin-bottom: 25px;
 }
 .skill .progress:nth-child(1) .progress-bar {
-    background: #00c292;
+    background: #2A3F54;
 }
 .skill .progress:nth-child(2) .progress-bar {
     background: #fb9678;
@@ -1095,7 +1095,7 @@ ul.notika-menu-wrap li a{
 	transition:all .4s ease 0s;
 }
 .view-all-onging a:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .flot-chart--xs {
@@ -1159,7 +1159,7 @@ ul.notika-menu-wrap li a{
 	transition:all .4s ease 0s;
 }
 .form-single input[type="text"]:focus, .form-single input[type="email"]:focus, .form-single input[type="number"]:focus, .form-single textarea:focus{
-    border: 1px solid #00c292;
+    border: 1px solid #2A3F54;
 	transition:all .4s ease 0s;
 }
 .form-single textarea{
@@ -1173,7 +1173,7 @@ ul.notika-menu-wrap li a{
 	transition:all .4s ease 0s;
 }
 .button.btn{
-	background:#00c292;
+	background:#2A3F54;
 	border-radius:2px;
 	outline:none;
 	color:#fff;
@@ -1203,7 +1203,7 @@ ul.notika-menu-wrap li a{
 	margin-top:20px;
 }
 .widget-tabs-list .nav-tabs:not([data-tab-color])>li>a:after, .wizard-cts-st .nav.nav-pills:not([data-tab-color])>li>a:after {
-    background: #00c292;
+    background: #2A3F54;
 }
 .widget-tabs-list .nav-tabs li.active>a:after, .wizard-cts-st .nav.nav-pills>li.active>a:after {
     -webkit-transform: scale(1);
@@ -1299,7 +1299,7 @@ ul.tab-ctn-list li:last-child{
 	margin-bottom: 0px;
 }
 .search-eg-table i{
-	color: #00c292;
+	color: #2A3F54;
     margin-left: 2px;
 }
 .search-eg-table .notika-down-arrow{
@@ -1450,7 +1450,7 @@ ul.wizard-nav-ac li a{
 	height:35px;
 	width:35px;
 	border-radius:50%;
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 	display:inline-block;
 }
@@ -1537,7 +1537,7 @@ ul.wizard-nav-ac li .disabled{
 	display:inline-block;
 }
 .dropdown-trig-sgn .btn{
-	background:#00c292;
+	background:#2A3F54;
 	border:none;
 	border-radius:3px;
 	outline:none;
@@ -1546,7 +1546,7 @@ ul.wizard-nav-ac li .disabled{
 	box-shadow: 0 2px 10px rgba(0,0,0,.2);
 }
 .dropdown-trig-sgn .btn:hover, .dropdown-trig-sgn .btn:focus, .dropdown-trig-sgn .btn:active{
-	background:#00c292;
+	background:#2A3F54;
 	border:none;
 	outline:none;
 }
@@ -1634,7 +1634,7 @@ ul.wizard-nav-ac li .disabled{
 	text-align:right;
 }
 .modal-ft .btn-modal, .modals-default-cl .btn-info, .modal-sm .modal-footer .btn-default, .modal-large .modal-footer .btn-default, .modals-default .modal-footer .btn-default{
-	background:#00c292;
+	background:#2A3F54;
 	outline:none;
 	color:#fff;
 	border-radius:3px;
@@ -1650,7 +1650,7 @@ ul.wizard-nav-ac li .disabled{
 	margin-left:10px;
 }
 .modal-ft .btn-modal:focus, .modal-ft .btn-modal:active, .modal-ft .btn-modal:hover, .modals-default-cl .btn-info:focus, .modals-default-cl .btn-info:active, .modals-default-cl .btn-info:hover, .modals-default .modal-footer .btn-default:focus, .modals-default .modal-footer .btn-default:active, .modals-default .modal-footer .btn-default:hover, .modal-sm .modal-footer .btn-default:focus, .modal-sm .modal-footer .btn-default:active, .modal-sm .modal-footer .btn-default:hover, .modal-large .modal-footer .btn-default:focus, .modal-large .modal-footer .btn-default:active, .modal-large .modal-footer .btn-default:hover{
-	background:#00c292;
+	background:#2A3F54;
 	outline:none;
 	color:#fff;
 	box-shadow:none;
@@ -1659,7 +1659,7 @@ ul.wizard-nav-ac li .disabled{
 	position: absolute;
     right: -15px;
     top: -15px;
-    background: #00c292;
+    background: #2A3F54;
     opacity: 1;
     color: #fff;
     height: 26px;
@@ -1693,7 +1693,7 @@ ul.wizard-nav-ac li .disabled{
 	color:#333;
 }
 .modals-hd a:hover, .accordion-hd a:hover, .tab-hd a:hover{
-	color:#00c292;
+	color:#2A3F54;
 }
 .modals-default-cl .nk-red.btn-info{
 	background:#F44336;
@@ -1844,7 +1844,7 @@ ul.wizard-nav-ac li .disabled{
     background:#2196F3
 }
 .panel-group[data-collapse-color=nk-green] .panel-collapse .panel-heading.active .panel-title>a:after{
-    background:#00c292
+    background:#2A3F54
 }
 .panel-group[data-collapse-color=nk-red] .panel-collapse .panel-heading.active .panel-title>a:after{
     background:#F44336
@@ -1901,29 +1901,29 @@ ul.wizard-nav-ac li .disabled{
 }
 .tooltip-inner{
 	padding:5px 15px;
-	background:#00c292;
+	background:#2A3F54;
 }
 .tooltip.right .tooltip-arrow{
-    border-right-color: #00c292;
+    border-right-color: #2A3F54;
 }
 .tooltip.bottom .tooltip-arrow{
-	border-bottom-color: #00c292;
+	border-bottom-color: #2A3F54;
 }
 .tooltip.top .tooltip-arrow{
-	border-top-color: #00c292;
+	border-top-color: #2A3F54;
 }
 .tooltip.left .tooltip-arrow{
-	border-left-color: #00c292;
+	border-left-color: #2A3F54;
 }
 .tooltip.in{
 	opacity:1;
 }
 .tooltips-ctn a{
-	color:#00c292;
+	color:#2A3F54;
 }
 .tooltips-static .btn-primary, .popover-cl-pro .btn-primary{
 	font-size:14px;
-	background:#00c292;
+	background:#2A3F54;
 	border:none;
 	border-radius:3px;
 	outline:none;
@@ -1932,7 +1932,7 @@ ul.wizard-nav-ac li .disabled{
 	box-shadow: 0 2px 10px rgba(0,0,0,.2);
 }
 .tooltips-static .btn-primary:hover, .tooltips-static .btn-primary:focus, .tooltips-static .btn-primary:active, .popover-cl-pro .btn-primary:hover, .popover-cl-pro .btn-primary:focus, .popover-cl-pro .btn-primary:active{
-	background:#00c292;
+	background:#2A3F54;
 	box-shadow: 0 2px 10px rgba(0,0,0,.2);
 	outline:none;
 }
@@ -2216,7 +2216,7 @@ ol, ul{
     display: block;
     height: 30px;
     width: 30px;
-    background: #00c292;
+    background: #2A3F54;
     border-radius: 50%;
     color: #fff;
     margin: 5px 0px;
@@ -2248,7 +2248,7 @@ ol, ul{
 	display:block;
 }
 .inbox-status ul.inbox-st-nav li i{
-	color:#00c292;
+	color:#2A3F54;
 	margin-right: 5px;
 	font-size:16px;
 }
@@ -2268,7 +2268,7 @@ hr {
 }
 .search-input .search-ib{
 	border: none;
-    background: #00c292;
+    background: #2A3F54;
     font-size: 14px;
     position: absolute;
     right: 0;
@@ -2281,7 +2281,7 @@ hr {
 }
 .search-input .search-ib:hover, .search-input .search-ib:focus, .search-input .search-ib:active{
 	border: none;
-    background: #00c292;
+    background: #2A3F54;
     border-radius: 0px;
 	box-shadow:none;
 	outline:none;
@@ -2395,7 +2395,7 @@ hr {
 	color: #fff !important;
 }
 .pagination-inbox ul.wizard-nav-ac li.active a{
-	background: #00c292;
+	background: #2A3F54;
 }
 .pagination-inbox{
 	margin-top:20px;
@@ -2411,9 +2411,9 @@ hr {
 	color: #333;
 }
 .active-hook .btn-default:hover, .active-hook .btn-default:active, .active-hook .btn-default:focus {
-    background: #00c292;
+    background: #2A3F54;
     color: #fff;
-    border: 1px solid #00c292;
+    border: 1px solid #2A3F54;
     transition: all .4s ease 0s;
 	outline:none;
 }
@@ -2445,7 +2445,7 @@ hr {
     margin: 20px 0px;
 }
 .mail-ads a, .view-mail-atn a, .cmp-int-box a{
-	color: #00c292;
+	color: #2A3F54;
 }
 .view-mail-atn h2, .cmp-int-box h5{
 	font-size:16px;
@@ -2474,7 +2474,7 @@ hr {
     font-size: 20px;
 }
 .dw-atc-sn .dw-al-ft{
-	background: #00c292;
+	background: #2A3F54;
     color: #fff;
     padding: 0px 10px;
     font-size: 14px;
@@ -2486,7 +2486,7 @@ hr {
 .compose-ml .btn{
 	width:100%;
 	padding:5px 15px;
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 	border-radius:2px;
 	outline:none;
@@ -2524,7 +2524,7 @@ hr {
 	transition:all .4s ease 0s;
 }
 .cmp-int-in input[type="text"]:focus{
-    border: 1px solid #00c292;
+    border: 1px solid #2A3F54;
     outline: none;
 	transition:all .4s ease 0s;
 }
@@ -2546,11 +2546,11 @@ hr {
 	border: 1px solid #ccc;
 }
 .cmp-int-box .note-editor.note-frame:focus{
-	border: 1px solid #00c292;
+	border: 1px solid #2A3F54;
 	outline:none;
 }
 .multiupload-sys .dropzone.dropzone-custom{
-	border: 2px dashed #00c292;
+	border: 2px dashed #2A3F54;
 }
 .multiupload-sys i{
 	font-size:30px;
@@ -2626,7 +2626,7 @@ hr {
     border-bottom: 0px solid #ddd;
 }
 .table.table-cl>tbody>tr.active>td, .table.table-cl>tbody>tr.active>th, .table.table-cl>tbody>tr>td.active, .table.table-cl>tbody>tr>th.active, .table.table-cl>tfoot>tr.active>td, .table.table-cl>tfoot>tr.active>th, .table.table-cl>tfoot>tr>td.active, .table.table-cl>tfoot>tr>th.active, .table.table-cl>thead>tr.active>td, .table.table-cl>thead>tr.active>th, .table.table-cl>thead>tr>td.active, .table.table-cl>thead>tr>th.active{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 }
 .table.table-cl>tbody>tr.info>td, .table.table-cl>tbody>tr.info>th, .table.table-cl>tbody>tr>td.info, .table.table-cl>tbody>tr>th.info, .table.table-cl>tfoot>tr.info>td, .table.table-cl>tfoot>tr.info>th, .table.table-cl>tfoot>tr>td.info, .table.table-cl>tfoot>tr>th.info, .table.table-cl>thead>tr.info>td, .table.table-cl>thead>tr.info>th, .table.table-cl>thead>tr>td.info, .table.table-cl>thead>tr>th.info{
@@ -2682,7 +2682,7 @@ hr {
 	outline:none;
 }
 .dataTables_filter input:focus, .dataTables_filter select:focus, .dataTables_length input:focus, .dataTables_length select:focus, .dataTables_length option:focus {
-    border: 1px solid #00c292;
+    border: 1px solid #2A3F54;
 }
 .dataTables_wrapper .dataTables_filter {
     width: 40%;
@@ -2721,7 +2721,7 @@ hr {
     content: '\e91e';
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:focus, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-    background: #00c292;
+    background: #2A3F54;
     color: #fff!important;
 }
 .dataTables_wrapper .dataTables_paginate .paginate_button {
@@ -2739,7 +2739,7 @@ hr {
 .dataTables_wrapper .dataTables_paginate .paginate_button:hover, .dataTables_wrapper .dataTables_paginate .paginate_button:focus {
     color: white !important;
     border: 0px solid #ccc;
-    background: #00c292 !important;
+    background: #2A3F54 !important;
 }
 #data-table-basic {
     padding: 20px 0px;
@@ -2771,7 +2771,7 @@ hr {
     vertical-align: top;
 }
 .nk-int-st:not([class*=has-]):after {
-    background: #00c292;
+    background: #2A3F54;
 }
 .nk-int-st:not(.disabled):after, .nk-int-st:not(.readonly):after {
     position: absolute;
@@ -2994,7 +2994,7 @@ textarea.auto-size {
     border: 0px solid #ccc;
 }
 .bootstrap-select .dropdown-menu>.active>a, .bootstrap-select .dropdown-menu>.active>a:focus, .bootstrap-select .dropdown-menu>.active>a:hover {
-    background-color: #00c292;
+    background-color: #2A3F54;
 }
 .bootstrap-select .bs-searchbox {
     padding: 5px 5px 5px 40px;
@@ -3059,7 +3059,7 @@ textarea.auto-size {
 	top:0px;
 }
 .chosen-select-act .chosen-container .chosen-results li.highlighted{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 }
 .chosen-select-act .chosen-container .chosen-results li{
@@ -3119,7 +3119,7 @@ textarea.auto-size {
 	background: #fff;
 }
 .bootstrap-select .dropdown-menu>li>a:focus, .bootstrap-select .dropdown-menu>li>a:hover, .bootstrap-select .dropdown-menu>li>a:active {
-    background-color: #00c292 !important;
+    background-color: #2A3F54 !important;
 	color:#fff !important;
 }
 .chosen-select-act .chosen-container-multi .chosen-choices{
@@ -3135,7 +3135,7 @@ textarea.auto-size {
     border-right: 0px solid #ccc;
     border-bottom: 1px solid #ccc;
 	border-radius: 2px;
-	background-color: #00c292;
+	background-color: #2A3F54;
 	background-image:none;
 	color:#fff;
 	padding: 5px 10px;
@@ -3235,7 +3235,7 @@ textarea.auto-size {
     background:#22deb0;
 }
 .nk-toggle-switch:not([data-ts-color]) input:not(:disabled):checked+.ts-helper:before{
-    background:#00c292;
+    background:#2A3F54;
 }
 .nk-toggle-switch:not([data-ts-color]) input:not(:disabled):checked+.ts-helper:active:before{
     box-shadow:0 2px 8px rgba(0,0,0,.28),0 0 0 20px rgba(0,150,136,.2);
@@ -3311,7 +3311,7 @@ textarea.auto-size {
     background:#22deb0;
 }
 .nk-toggle-switch[data-ts-color=green] input:not(:disabled):checked+.ts-helper:before{
-    background:#00c292;
+    background:#2A3F54;
 }
 .nk-toggle-switch[data-ts-color=green] input:not(:disabled):checked+.ts-helper:active:before{
     box-shadow:0 2px 8px rgba(0,0,0,.28),0 0 0 20px rgba(76,175,80,.2);
@@ -3361,7 +3361,7 @@ textarea.auto-size {
 	width: 300px;
 }
 .datepicker-days  .table-condensed thead tr{
-	background:#00c292;
+	background:#2A3F54;
 	color: #fff;
 }
 .datepicker-days  .table-condensed thead tr:first-child{
@@ -3378,11 +3378,11 @@ textarea.auto-size {
     display:none;
 }
 .datepicker thead tr:first-child th:hover, .datepicker tfoot tr th:hover{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 }
 .datepicker table tr td.active:hover, .datepicker table tr td.active:hover:hover, .datepicker table tr td.active.disabled:hover, .datepicker table tr td.active.disabled:hover:hover, .datepicker table tr td.active:focus, .datepicker table tr td.active:hover:focus, .datepicker table tr td.active.disabled:focus, .datepicker table tr td.active.disabled:hover:focus, .datepicker table tr td.active:active, .datepicker table tr td.active:hover:active, .datepicker table tr td.active.disabled:active, .datepicker table tr td.active.disabled:hover:active, .datepicker table tr td.active.active, .datepicker table tr td.active:hover.active, .datepicker table tr td.active.disabled.active, .datepicker table tr td.active.disabled:hover.active, .open .dropdown-toggle.datepicker table tr td.active, .open .dropdown-toggle.datepicker table tr td.active:hover, .open .dropdown-toggle.datepicker table tr td.active.disabled, .open .dropdown-toggle.datepicker table tr td.active.disabled:hover{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 }
 .datepicker-dropdown:after, .datepicker-dropdown:before{
@@ -3403,12 +3403,12 @@ textarea.auto-size {
     font-size: 16px;
 }
 .datepicker table tr td span.active:hover, .datepicker table tr td span.active:hover:hover, .datepicker table tr td span.active.disabled:hover, .datepicker table tr td span.active.disabled:hover:hover, .datepicker table tr td span.active:focus, .datepicker table tr td span.active:hover:focus, .datepicker table tr td span.active.disabled:focus, .datepicker table tr td span.active.disabled:hover:focus, .datepicker table tr td span.active:active, .datepicker table tr td span.active:hover:active, .datepicker table tr td span.active.disabled:active, .datepicker table tr td span.active.disabled:hover:active, .datepicker table tr td span.active.active, .datepicker table tr td span.active:hover.active, .datepicker table tr td span.active.disabled.active, .datepicker table tr td span.active.disabled:hover.active, .open .dropdown-toggle.datepicker table tr td span.active, .open .dropdown-toggle.datepicker table tr td span.active:hover, .open .dropdown-toggle.datepicker table tr td span.active.disabled, .open .dropdown-toggle.datepicker table tr td span.active.disabled:hover{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 }
 .datepicker-months .table-condensed thead tr, .datepicker-years .table-condensed thead tr {
     height: 70px;
-    background: #00c292;
+    background: #2A3F54;
 	color:#fff;
 }
 .datepicker.dropdown-menu .datepicker-months th, .datepicker.dropdown-menu .datepicker-months td {
@@ -3451,7 +3451,7 @@ textarea.auto-size {
     font-size: 12px;
 }
 .summernote-clickable .btn-primary, .summernote-clickable .btn-success, .modal-footer .btn-primary{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 	border:none;
 	border-radius:2px;
@@ -3460,7 +3460,7 @@ textarea.auto-size {
 	box-shadow: 0 2px 5px rgba(0,0,0,.16), 0 2px 10px rgba(0,0,0,.12);
 }
 .summernote-clickable .btn-primary:active, .summernote-clickable .btn-primary:focus, .summernote-clickable .btn-success:focus, .summernote-clickable .btn-success:active, .modal-footer .btn-primary:focus, .modal-footer .btn-primary:active{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 	border:none;
 	border-radius:2px;
@@ -3518,7 +3518,7 @@ textarea.auto-size {
     border: 0px solid #ccc;
 }
 .dropzone.dropzone-nk {
-	border: 2px dashed #00c292;
+	border: 2px dashed #2A3F54;
 }
 .dropzone.dropzone-nk i{
 	font-size:30px;
@@ -3572,7 +3572,7 @@ textarea.auto-size {
 .login-content, .error-page-area{
     min-height:100vh;
     text-align:center;
-    background-color:#00c292;
+    background-color:#2A3F54;
 }
 .login-content:before, .error-page-area:before{
     content:'';
@@ -3708,15 +3708,15 @@ textarea.auto-size {
     color:#fff;
 }
 .btn-login.btn-success, .images-cropper-pro .btn, .images-action-pro .btn, .notika-todo-btn .btn, .btn.notika-add-todo, .btn.notika-chat-btn{
-	background-color: #00c292;
-    border-color: #00c292;
+	background-color: #2A3F54;
+    border-color: #2A3F54;
 	border:0px solid #ccc;
 	outline:none;
 	box-shadow:none;
 }
 .btn-login.btn-success:hover, .btn-login.btn-success:focus, .btn-login.btn-success:active, .images-cropper-pro .btn:hover, .images-cropper-pro .btn:focus, .images-cropper-pro .btn:active, .images-action-pro .btn:hover, .images-action-pro .btn:focus, .images-action-pro .btn:active, .notika-todo-btn .btn:hover, .notika-todo-btn .btn:focus, .notika-todo-btn .btn:active, .btn.notika-add-todo:hover, .btn.notika-add-todo:focus, .btn.notika-add-todo:active, .btn.notika-chat-btn:hover, .btn.notika-chat-btn:focus, .btn.notika-chat-btn:active{
-	background-color: #00c292;
-    border-color: #00c292;
+	background-color: #2A3F54;
+    border-color: #2A3F54;
 	border:0px solid #ccc;
 	outline:none;
 	box-shadow:none;
@@ -3737,7 +3737,7 @@ textarea.auto-size {
 /*  39.  Invoice CSS
 /*----------------------------------------*/
 .invoice-img{
-	background:#00c292;
+	background:#2A3F54;
 	text-align:center;
 	padding: 40px 0px;
 }
@@ -3767,7 +3767,7 @@ textarea.auto-size {
 	margin:20px 0px;
 }
 .invoice-hs{
-	background:#00c292;
+	background:#2A3F54;
 	padding: 20px 30px;
 }
 .invoice-hs span{
@@ -3805,7 +3805,7 @@ textarea.auto-size {
 .invoice-print .btn{
 	height: 50px;
     width: 50px;
-    background: #00c292;
+    background: #2A3F54;
     color: #fff;
     border-radius: 50%;
     line-height: 40px;
@@ -3840,7 +3840,7 @@ textarea.auto-size {
 	line-height:24px;
 }
 .error-page-wrap .btn{
-	background:#00c292;
+	background:#2A3F54;
 	color:#fff;
 	border-radius:2px;
 	box-shadow: 0 2px 5px rgba(0,0,0,.16), 0 2px 10px rgba(0,0,0,.12);
@@ -3849,11 +3849,11 @@ textarea.auto-size {
 	font-size:14px;
 }
 .error-page-wrap .counter{
-	color:#00c292;
+	color:#2A3F54;
 }
 .error-page-wrap i{
 	font-size: 40px;
-    color: #00c292;
+    color: #2A3F54;
     padding-bottom: 15px !important;
     display: block;
 }
@@ -3888,7 +3888,7 @@ textarea.auto-size {
 	margin-right:3px;
 }
 .main-menu-lv-int ul.main-menu-lv > li:hover > a{
-    color: #00c292;
+    color: #2A3F54;
 	transition:all .4s ease 0s;
 }
 .main-menu-lv-int ul.main-menu-lv li ul.menu-dp-lt{
@@ -3903,7 +3903,7 @@ textarea.auto-size {
 	opacity:0;
 	visibility:hidden;
 	transition:all .4s ease 0s;
-	border-top:2px solid #00c292;
+	border-top:2px solid #2A3F54;
 }
 .main-menu-lv-int ul.main-menu-lv li:hover ul.menu-dp-lt{
 	z-index:9;
@@ -3919,11 +3919,11 @@ textarea.auto-size {
 	transition:all .4s ease 0s;
 }
 .main-menu-lv-int ul.main-menu-lv li:hover ul.menu-dp-lt li a:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .main-menu-lv-int ul.main-menu-lv li ul.menu-dp-lt li a:hover{
-	color:#00c292;
+	color:#2A3F54;
 	padding: 8px 5px;
 	transition:all .4s ease 0s;
 }
@@ -3969,7 +3969,7 @@ textarea.auto-size {
 	color:#fff;
 }
 .nk-cd-ed-wp .cm-s-ambiance .CodeMirror-gutters{
-	background:#00c292;
+	background:#2A3F54;
 }
 /*----------------------------------------*/
 /*  45. Bar Chart CSS
@@ -4010,7 +4010,7 @@ textarea.auto-size {
 	margin-bottom:0px;
 }
 .form-single.widget-form input[type="text"]:focus{
-	border: 0px solid #00c292;
+	border: 0px solid #2A3F54;
 }
 .form-single.widget-form {
    padding: 0px 0px;
@@ -4037,8 +4037,8 @@ textarea.auto-size {
 	border: 1px solid transparent;
 }
 .btn-group.nk-email-inbox .btn-default:hover{
-	background: #00c292;
-	border: 1px solid #00c292;
+	background: #2A3F54;
+	border: 1px solid #2A3F54;
 }
 .cmp-int-box .note-popover .popover .popover-content>.btn-group, .cmp-int-box .panel-heading.note-toolbar>.btn-group{
 	margin-right: 2px;
@@ -4067,7 +4067,7 @@ textarea.auto-size {
     background: url(chosen-sprite.png) no-repeat 100% -45px;
 }
 .modal-footer .btn-primary[disabled]:focus, .modal-footer .btn-primary[disabled]:hover{
-	background: #00c292;
+	background: #2A3F54;
 }
 .menu-it-icon-pro i{
 	font-size: 18px;
@@ -4076,7 +4076,7 @@ textarea.auto-size {
     top: 2px;
 }
 .menu-it-icon-pro.mn-ic-cl i{
-	color:#00c292;
+	color:#2A3F54;
 }
 /*----------------------------------------*/
 /*  47. Sidebar Left CSS
@@ -4132,7 +4132,7 @@ textarea.auto-size {
 }
 .sidebar-nav.left-sidebar-menu-pro .metismenu a:hover, .sidebar-nav.left-sidebar-menu-pro .metismenu a:focus, .sidebar-nav.left-sidebar-menu-pro .metismenu a:active {
     color: #fff;
-    background: #00c292;
+    background: #2A3F54;
 }
 .sidebar-nav.left-sidebar-menu-pro .metismenu li a:hover .icon-wrap, .sidebar-nav.left-sidebar-menu-pro .metismenu li a:focus .icon-wrap, .sidebar-nav.left-sidebar-menu-pro .metismenu li a:active .icon-wrap {
     color: #fff;
@@ -4166,7 +4166,7 @@ textarea.auto-size {
 	transition:all .4s ease 0s;
 }
 .profile-action ul.pro-action-mn li a:hover{
-	color:#00c292;
+	color:#2A3F54;
 	transition:all .4s ease 0s;
 }
 .sidebar-nav.left-sidebar-menu-pro .metismenu .has-arrow:after{
@@ -4192,7 +4192,7 @@ textarea.auto-size {
 	padding: 4px 0px;
 }
 .menu-switcher-pro .btn.bar-button-pro{
-	background:#00c292;
+	background:#2A3F54;
 	border:none;
 	outline:none;
 	box-shadow:none;
@@ -4201,7 +4201,7 @@ textarea.auto-size {
 	left:3px;
 }
 .menu-switcher-pro .btn.bar-button-pro:hover, .menu-switcher-pro .btn.bar-button-pro:focus, .menu-switcher-pro .btn.bar-button-pro:active{
-	background:#00c292;
+	background:#2A3F54;
 	border:none;
 	outline:none;
 	box-shadow:none;
@@ -4567,7 +4567,7 @@ body.box-layout {
 }
 .breadcomb-icon i{
 	font-size: 20px;
-    color: #00c292;
+    color: #2A3F54;
     padding: 15px;
     position: relative;
     border-radius: 50%;
@@ -4596,14 +4596,14 @@ body.box-layout {
 	text-align: right;
 }
 .breadcomb-report .btn{
-	background: #00c292;
+	background: #2A3F54;
     color: #fff;
     box-shadow: none;
     border-radius: 3px;
     outline: none;
 }
 .breadcomb-report .btn:focus, .breadcomb-report .btn:active, .breadcomb-report .btn:hover{
-	background: #00c292;
+	background: #2A3F54;
     box-shadow: none;
     outline: none;
 }
@@ -4629,5 +4629,5 @@ body.box-layout {
 /*----------------------------------------*/
 /*  59. Notika custom scrollbar CSS
 /*----------------------------------------*/
-.mCS-light-1.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: #00c292; }
+.mCS-light-1.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar{ background-color: #2A3F54; }
 .mCS-light-1.mCSB_scrollTools .mCSB_draggerRail{ background-color: #ccc; }
