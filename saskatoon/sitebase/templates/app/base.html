@@ -93,13 +93,13 @@
     <div class="header-top-area">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="logo-area">
 <!--                        <a href="/index"><img src="{% static 'img/logo/logo.png' %}" alt="" /></a>-->
-                        <h3 style="color:white">SASKATOON-NG - alpha</h3>
+                        <h3 style="color:white">SASKATOON - Harvest management system</h3>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
                             {% if user.is_authenticated %}
@@ -134,7 +134,7 @@
                             {% endif %}
                             <li class="nav-item">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="menu-it-icon-pro">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
+                                    <span class="menu-it-icon-pro"><small>{% translate "Language" %}: {{ LANGUAGE_CODE }} </small><i class="fa fa-caret-down"></i></span>
                                     <form action="{% url 'set_language' %}" method="post" style="display: none" id="change_language_form">
                                         {% csrf_token %}
                                         <input type="hidden" value="" name="language" id="language" />
