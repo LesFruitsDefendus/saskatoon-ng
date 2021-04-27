@@ -20,6 +20,7 @@ urlpatterns = [
     path(r'harvest/create', api.HarvestCreateView.as_view()),
     path(r'harvest_yield/create', api.HarvestYieldCreateView.as_view()),
     path(r'participation/create', api.RequestForParticipationCreateView.as_view()),
+    path(r'comment/create', api.CommentCreateView.as_view()),
 
     # UPDATE VIEWS
     re_path(r'^property/update/(?P<pk>\d+)/$', api.PropertyUpdateView.as_view(), name='property-update'),

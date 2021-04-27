@@ -336,6 +336,22 @@ class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
+class CommentCreateView(SuccessMessageMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'app/comment_create.html'
+    success_message = "Comment added!"
+
+    def form_valid(self, form):
+        request = self.request.GET
+        form.instance.author = self.request.user
+        form.instance.harvest = Harvest.objects.get(id=request['h'])
+        return super(CommentCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
 ################ AUTOCOMPLETE ###############################
 
 class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
