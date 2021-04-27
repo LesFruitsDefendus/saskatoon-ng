@@ -18,9 +18,8 @@ def index(request):
     return HttpResponse(template.render(context, request))
 
 ############ sitebase views ####################
-#@login_required
 
-# @method_decorator(login_required, name='dispatch')
+@method_decorator(login_required, name='dispatch')
 class Calendar(generic.TemplateView):
     template_name = 'app/calendar.html'
 

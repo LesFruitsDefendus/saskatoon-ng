@@ -16,9 +16,11 @@ from member.models import AuthUser, Organization, Actor, Person, City
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Harvest Viewset
-class HarvestViewset(viewsets.ModelViewSet):
+class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Harvest.objects.all().order_by('-id')
 
     ######### Integrating DRF to django-filter #########
@@ -26,10 +28,6 @@ class HarvestViewset(viewsets.ModelViewSet):
     filterset_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about', 'status', 'start_date')
     filterset_class = HarvestFilter
     ####################################################
-
-    permission_classes = [
-      permissions.AllowAny
-    ]
 
     serializer_class = HarvestSerializer
 
@@ -81,7 +79,7 @@ class HarvestViewset(viewsets.ModelViewSet):
         pass
 
 # Property Viewset
-class PropertyViewset(viewsets.ModelViewSet):
+class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Property.objects.all().order_by('-id')
 
     ######### Integrating DRF to django-filter #########
@@ -90,9 +88,6 @@ class PropertyViewset(viewsets.ModelViewSet):
     filterset_class = PropertyFilter
     ####################################################
 
-    permission_classes = [
-      permissions.AllowAny
-    ]
     serializer_class = PropertySerializer
 
     # Property detail
@@ -126,17 +121,13 @@ class PropertyViewset(viewsets.ModelViewSet):
 
 
 # Equipment Viewset
-class EquipmentViewset(viewsets.ModelViewSet):
+class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Equipment.objects.all().order_by('-id')
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = EquipmentFilter
     ####################################################
-
-    permission_classes = [
-      permissions.AllowAny
-    ]
 
     serializer_class = EquipmentSerializer
     template_name = 'app/equipment_list.html'
@@ -173,17 +164,13 @@ class RequestForParticipationViewset(viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 # Beneficiary Viewset
-class BeneficiaryViewset(viewsets.ModelViewSet):
+class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
     ####################################################
-
-    permission_classes = [
-      permissions.AllowAny
-    ]
 
     serializer_class = BeneficiarySerializer
     template_name = 'app/beneficiary_list.html'
@@ -204,17 +191,13 @@ class BeneficiaryViewset(viewsets.ModelViewSet):
         return Response({'data': response.data, 'form': filter_form.form})
 
 # Community Viewset
-class CommunityViewset(viewsets.ModelViewSet):
+class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CommunityFilter
     ####################################################
-
-    permission_classes = [
-      permissions.AllowAny
-    ]
 
     serializer_class = CommunitySerializer
     template_name = 'app/community_list.html'
@@ -236,17 +219,17 @@ class CommunityViewset(viewsets.ModelViewSet):
 
 ############### STANDARD VIEWS #####################
 
-class IndexView(TemplateView):
+class IndexView(LoginRequiredMixin, TemplateView):
     template_name = 'app/index.html'
 
-class EquipmentCreateView(SuccessMessageMixin, CreateView):
+class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/equipment_create.html'
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
 
-class EquipmentUpdateView(SuccessMessageMixin, UpdateView):
+class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/equipment_create.html'
@@ -255,14 +238,14 @@ class EquipmentUpdateView(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
             return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
 
-class PropertyCreateView(SuccessMessageMixin, CreateView):
+class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
-class PropertyUpdateView(SuccessMessageMixin, UpdateView):
+class PropertyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
@@ -279,14 +262,14 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
-class HarvestCreateView(SuccessMessageMixin, CreateView):
+class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/harvest_create.html'
     success_url = reverse_lazy('harvest-list')
     success_message = "Harvest created successfully!"
 
-class HarvestUpdateView(SuccessMessageMixin, UpdateView):
+class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/harvest_create.html'
@@ -295,7 +278,7 @@ class HarvestUpdateView(SuccessMessageMixin, UpdateView):
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
-class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
+class RequestForParticipationCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
@@ -306,7 +289,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
         print(request)
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
-class RequestForParticipationUpdateView(SuccessMessageMixin, UpdateView):
+class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
     form_class = RFPManageForm
     template_name = 'app/participation_create.html'
@@ -316,7 +299,7 @@ class RequestForParticipationUpdateView(SuccessMessageMixin, UpdateView):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
-class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
+class HarvestYieldCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = HarvestYield
     form_class = HarvestYieldForm
     template_name = 'app/yield_create.html'
@@ -326,7 +309,7 @@ class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
-class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
+class HarvestYieldUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = HarvestYield
     form_class = HarvestYieldForm
     template_name = 'app/yield_create.html'
@@ -336,7 +319,7 @@ class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
-class CommentCreateView(SuccessMessageMixin, CreateView):
+class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'app/comment_create.html'
