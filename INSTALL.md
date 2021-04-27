@@ -86,6 +86,16 @@ To initiate the database use:
 python3 saskatoon/manage.py migrate --skip-checks
 ```
 
+ps: in case you have an error similar to this one:
+
+```django.db.utils.OperationalError: (1071, 'Specified key was too long; max key length is 767 bytes')```
+
+then you'll need to set your database to UTF-8:
+
+```
+ALTER DATABASE 'your_saskatoon_database' CHARACTER SET utf8;
+```
+
 ## Create administrator account
 
 This part is optionnal but you can create a new administrator account to access the admin panel.
