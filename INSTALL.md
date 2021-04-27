@@ -122,7 +122,16 @@ python3 saskatoon/manage.py runserver 8000
 
 ## Running tests
 
-Tests will look for the config file `test.env`. This minimal configuration us required to run tests:
+Note that you currently need a running instance of Saskatoon to be able to run the tests.
+
+Install test requirements with:
+
+```
+pip3 install '.[test]'
+```
+
+Tests will look for the config file `test.env`. 
+This minimal configuration is required to run tests:
 
 ```
 SASKATOON_URL=http://localhost:8000
@@ -134,7 +143,13 @@ SASKATOON_DB_NAME=/YOURPATH/sqlite3-testing.db
 
 Tests are located inside `saskatoon/tests` folder. 
 
-Run tests with:
+Ensure that your test superuser is created with the following command:
+
+```
+python3 ./saskatoon/tests/createtestsuperuser.py
+```
+
+Then run tests with:
 
 ```
 tox -e test
