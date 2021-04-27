@@ -76,9 +76,7 @@ INSTALLED_APPS = [
     'harvest',
     'rest_framework',
     'django_filters',
-    'bootstrap3',
     'crispy_forms',
-    'bootstrapform',
 ]
 
 MIDDLEWARE = [

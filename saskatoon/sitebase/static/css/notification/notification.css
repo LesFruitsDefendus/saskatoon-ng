@@ -28,7 +28,7 @@
     color:#e6e6e6
 }
 .alert-info{
-    background-color:#00c292;
+    background-color:#2A3F54;
     color:#fff
 }
 .alert-info .alert-link{
@@ -97,10 +97,10 @@
 	color:#fff;
 }
 .notification-demo .btn-info{
-	background:#00c292;
+	background:#2A3F54;
 }
 .notification-demo .btn-info:hover{
-	background:#00c292;
+	background:#2A3F54;
 }
 .notification-demo .btn-info:hover, .notification-demo .btn-inverse:hover, .notification-demo .btn-success:hover, .notification-demo .btn-warning:hover, .notification-demo .btn-danger:hover{
 	border:none;

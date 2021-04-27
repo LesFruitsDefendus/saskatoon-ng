@@ -26,8 +26,6 @@ setup(
         "django-select2",
         "django-ckeditor",
         "django-filter",
-        "django-bootstrap3",
-        "django-bootstrap-form",
         "django-crequest",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
@@ -38,5 +36,6 @@ setup(
         "sqlparse==0.3.1",
         "django-redis",
         "python-dotenv",
+        "django-crispy-forms",
     ],
 )

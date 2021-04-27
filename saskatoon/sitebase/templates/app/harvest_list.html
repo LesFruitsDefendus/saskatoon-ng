@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
-{% load bootstrap %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -30,7 +30,7 @@
                                                     <div class="panel-body">
                                                         <form role="form">
                                                             {% csrf_token %}
-                                                            {{ form|bootstrap }}
+                                                            {{ form|crispy }}
                                                             <div class="form-group">
                                                                 <button class="btn btn-primary" type="submit">{% trans "Filter" %}
                                                                 </button>
