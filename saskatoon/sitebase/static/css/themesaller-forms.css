@@ -1448,7 +1448,7 @@ margin: 0 auto; }
 	height: 1.5em;
 	cursor: default;
 	background:#fff;
-	border:3px solid #00c292;
+	border:3px solid #2A3F54;
 	-webkit-border-radius:20px;
 	-moz-border-radius:20px;
 	-o-border-radius:20px;
@@ -1464,7 +1464,7 @@ margin: 0 auto; }
     width: 7px;
     height: 7px;
 	position:absolute;
-    background-color: #00c292;
+    background-color: #2A3F54;
   	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px; 
 	-o-border-radius: 10px; 
@@ -1481,7 +1481,7 @@ margin: 0 auto; }
 	display: block;
 	border: 0;
 	background-position: 0 0;
-	background-color: #00c292;
+	background-color: #2A3F54;
 }
 
 .themesaller-forms .ui-slider.ui-state-disabled .ui-slider-handle,
@@ -1497,7 +1497,7 @@ margin: 0 auto; }
 .themesaller-forms .ui-slider-vertical .ui-slider-range { left: 0; width: 100%; }
 .themesaller-forms .ui-slider-vertical .ui-slider-range-min { bottom: 0; }
 .themesaller-forms .ui-slider-vertical .ui-slider-range-max { top: 0; }
-.themesaller-forms .slider-input{  color:#00c292!important; border:0; background:none; }
+.themesaller-forms .slider-input{  color:#2A3F54!important; border:0; background:none; }
 .themesaller-forms .slider-group .sliderv-wrapper{ height:150px; float:left; margin:0px 15px;   }
 .themesaller-forms .ui-slider .ui-state-active {
 	cursor: -webkit-grabbing;
@@ -1541,18 +1541,18 @@ margin: 0 auto; }
 
 /* @ui slider themes
 ------------------------------------------------------*/
-.themesaller-forms .yellow-slider .ui-slider .ui-slider-handle{ border-color:#00c292; }
+.themesaller-forms .yellow-slider .ui-slider .ui-slider-handle{ border-color:#2A3F54; }
 .themesaller-forms .yellow-slider .ui-slider .ui-slider-handle:before,
-.themesaller-forms .yellow-slider .ui-slider .ui-slider-range { background-color: #00c292;  }
+.themesaller-forms .yellow-slider .ui-slider .ui-slider-range { background-color: #2A3F54;  }
 .themesaller-forms .red-slider .ui-slider .ui-slider-handle{ border-color:#ee4f3d; }
 .themesaller-forms .red-slider .ui-slider .ui-slider-handle:before,
 .themesaller-forms .red-slider .ui-slider .ui-slider-range { background-color:#ee4f3d;  }
-.themesaller-forms .purple-slider .ui-slider .ui-slider-handle{ border-color:#00c292; }
+.themesaller-forms .purple-slider .ui-slider .ui-slider-handle{ border-color:#2A3F54; }
 .themesaller-forms .purple-slider .ui-slider .ui-slider-handle:before,
-.themesaller-forms .purple-slider .ui-slider .ui-slider-range { background-color:#00c292;  }
-.themesaller-forms .blue-slider .ui-slider .ui-slider-handle{ border-color:#00c292; }
+.themesaller-forms .purple-slider .ui-slider .ui-slider-range { background-color:#2A3F54;  }
+.themesaller-forms .blue-slider .ui-slider .ui-slider-handle{ border-color:#2A3F54; }
 .themesaller-forms .blue-slider .ui-slider .ui-slider-handle:before,
-.themesaller-forms .blue-slider .ui-slider .ui-slider-range { background-color:#00c292;  }
+.themesaller-forms .blue-slider .ui-slider .ui-slider-range { background-color:#2A3F54;  }
 .themesaller-forms .black-slider .ui-slider .ui-slider-handle{ border-color:#505558; }
 .themesaller-forms .black-slider .ui-slider .ui-slider-handle:before,
 .themesaller-forms .black-slider .ui-slider .ui-slider-range { background-color:#505558;  }

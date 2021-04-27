@@ -1,13 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
 from django_filters import rest_framework as filters
-from django_filters.widgets import BooleanWidget
-from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property
-from member.models import Language, AuthUser, Neighborhood
+from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property, Equipment,  EquipmentType
+from member.models import Language, AuthUser, Neighborhood, Organization
 from django.db.models.query_utils import Q
 
-
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
-#FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
 
 class HarvestFilter(filters.FilterSet):
     seasons = []
@@ -134,3 +131,28 @@ class CommunityFilter(filters.FilterSet):
         'person__family_name',
         'person__property',
         ]
+
+# FIXME: won't filter
+class OrganizationFilter(filters.FilterSet):
+    neighborhood = filters.ModelChoiceFilter(
+        queryset=Neighborhood.objects.all(),
+        label=_("Neighborhood"),
+        help_text="",
+        required=False
+    )
+
+    class Meta:
+        model = Organization
+        fields = ['neighborhood', 'is_beneficiary']
+
+class EquipmentFilter(filters.FilterSet):
+    shared = filters.BooleanFilter(help_text="")
+    type = filters.ModelChoiceFilter(
+        queryset=EquipmentType.objects.all(),
+        label=_("Type"),
+        help_text="",
+        required=False
+    )
+    class Meta:
+        model = Equipment
+        fields = ['type', 'shared']

@@ -1,11 +1,9 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
-{% load bootstrap %}
-{% load bootstrap3 %}
+{% load crispy_forms_tags %}
 
 {% block content %}
-
 
 {{ form.media }}
 
@@ -21,11 +19,8 @@
                             <div class="form-group">
                                   <form method="post">
                                       {% csrf_token %}
-                                      {% bootstrap_form form %}
-                                      {% buttons %}
+                                      {{ form|crispy }}
                                           <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
-                                          <button type="reset" class="btn btn-danger">{% trans 'Reset' %}</button>
-                                      {% endbuttons %}
                                   </form>
                             </div>
                         </div>

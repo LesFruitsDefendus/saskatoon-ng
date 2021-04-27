@@ -1,20 +1,14 @@
 from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy, reverse
-from rest_framework.decorators import action
-from rest_framework.renderers import TemplateHTMLRenderer
+from django.urls import reverse_lazy
 from rest_framework.response import Response
 
-from harvest.filters import HarvestFilter, PropertyFilter, CommunityFilter
+from harvest.filters import *
 from rest_framework import viewsets, permissions
 # from django.utils.decorators import method_decorator
 # from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
-
-from django.core.serializers import serialize
-from django.core.serializers.json import DjangoJSONEncoder
 
 from harvest.forms import *
 
@@ -107,17 +101,6 @@ class PropertyViewset(viewsets.ModelViewSet):
         pk = self.get_object().pk
         response = super(PropertyViewset, self).retrieve(request, pk=pk)
 
-        # This workaround will check if property owner (which is an Actor)
-        # is a subclass Person or Organization and will serialize the result.
-        # I couldn't find a way to make it happen in the PropertySerializer class.
-        #entity = Person.objects.filter(actor_id=response.data['owner'])
-        #if not entity:
-        #    entity = Organization.objects.filter(actor_id=response.data['owner'])
-
-        #entity_serialized = serialize('json', entity, fields=('city__name'))
-        #print(entity_serialized)
-        #response.data['owner'] = entity_serialized
-
         if format == 'json':
             return response
         # default request format is html:
@@ -140,9 +123,16 @@ class PropertyViewset(viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data, 'form': filter_form.form})
 
+
+
 # Equipment Viewset
 class EquipmentViewset(viewsets.ModelViewSet):
     queryset = Equipment.objects.all().order_by('-id')
+
+    ######### Integrating DRF to django-filter #########
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = EquipmentFilter
+    ####################################################
 
     permission_classes = [
       permissions.AllowAny
@@ -152,13 +142,17 @@ class EquipmentViewset(viewsets.ModelViewSet):
     template_name = 'app/equipment_list.html'
 
     def list(self, request, *args, **kwargs):
-        # filter_request = self.request.GET
+        filter_request = self.request.GET
+        filter_form = EquipmentFilter(
+            filter_request,
+            self.queryset
+        )
 
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data})
+        return Response({'data': response.data, 'form': filter_form.form})
 
 # RequestForParticipation Viewset
 class RequestForParticipationViewset(viewsets.ModelViewSet):
@@ -172,8 +166,6 @@ class RequestForParticipationViewset(viewsets.ModelViewSet):
     template_name = 'app/participation_list.html'
 
     def list(self, request, *args, **kwargs):
-        # filter_request = self.request.GET
-
         response = super(RequestForParticipationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
@@ -183,6 +175,11 @@ class RequestForParticipationViewset(viewsets.ModelViewSet):
 # Beneficiary Viewset
 class BeneficiaryViewset(viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
+
+    ######### Integrating DRF to django-filter #########
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = OrganizationFilter
+    ####################################################
 
     permission_classes = [
       permissions.AllowAny
@@ -194,11 +191,17 @@ class BeneficiaryViewset(viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         filter_request = self.request.GET
 
+        # only way I found to generate the filter form
+        filter_form = OrganizationFilter(
+            filter_request,
+            self.queryset
+        )
+
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data})
+        return Response({'data': response.data, 'form': filter_form.form})
 
 # Community Viewset
 class CommunityViewset(viewsets.ModelViewSet):
@@ -296,8 +299,58 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
-    success_url = reverse_lazy('calendar')
     success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        print(request)
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+
+class RequestForParticipationUpdateView(SuccessMessageMixin, UpdateView):
+    model = RequestForParticipation
+    form_class = RFPManageForm
+    template_name = 'app/participation_create.html'
+    success_message = "Request updated successfully!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+
+class HarvestYieldCreateView(SuccessMessageMixin, CreateView):
+    model = HarvestYield
+    form_class = HarvestYieldForm
+    template_name = 'app/yield_create.html'
+    success_message = "Harvest distribution created successfully!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
+class HarvestYieldUpdateView(SuccessMessageMixin, UpdateView):
+    model = HarvestYield
+    form_class = HarvestYieldForm
+    template_name = 'app/yield_create.html'
+    success_message = "Harvest distribution updated successfully!"
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
+class CommentCreateView(SuccessMessageMixin, CreateView):
+    model = Comment
+    form_class = CommentForm
+    template_name = 'app/comment_create.html'
+    success_message = "Comment added!"
+
+    def form_valid(self, form):
+        request = self.request.GET
+        form.instance.author = self.request.user
+        form.instance.harvest = Harvest.objects.get(id=request['h'])
+        return super(CommentCreateView, self).form_valid(form)
+
+    def get_success_url(self):
+        request = self.request.GET
+        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
 ################ AUTOCOMPLETE ###############################
 

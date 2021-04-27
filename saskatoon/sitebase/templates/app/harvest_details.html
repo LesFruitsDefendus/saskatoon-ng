@@ -1,8 +1,6 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
-{% load bootstrap %}
-{% load bootstrap3 %}
 
 {% block content %}
 
@@ -15,7 +13,7 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{{ harvest.status }}</p>
-                        <h2><span class="counter">{{ harvest.total_distribution }}</span> lbs</h2>
+                        <h2><span class="counter">{{ harvest.total_distribution|floatformat:1 }}</span> lbs</h2>
                     </div>
                     <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
                 </div>
@@ -139,7 +137,9 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="data-table-list">
                     <div class="basic-tb-hd">
-                        <h2>Pickers requests</h2>
+                        <h2>Pickers requests
+                            <a href="/participation/create?hid={{ harvest.id }}" class="btn btn-xs"><i class="fa fa-plus"></i></a>
+                        </h2>
                     </div>
                     <div class="table-responsive">
                         <table id="data-table-basic" class="table compact">
@@ -192,7 +192,7 @@
                                 <td>{{ r.comment }}</td>
                                 <td>{{ r.notes_from_pickleader }}</td>
                                 <td>
-                                    <a href="">
+                                    <a href="/participation/update/{{ r.id }}/?hid={{ harvest.id }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
                                 </td>
@@ -212,23 +212,25 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="contact-hd search-hd-eg">
-                    <h2>Fruit distribution</h2>
-                </div>
-                <div class="search-eg-table">
-                    <table class="table">
-                        <tbody>
-                        {% for d in distribution %}
-                    <tr>
-                      <td class="col-md-6">{{ d.recipient }}</td>
-                      <td class="col-md-4">{{ d.tree.fruit_name }}</td>
-                      <td class="col-md-2">{{ d.total_in_lb }}</td>
-                      <td>
-                        <a href=''>
-                               <i class="fa fa-pencil"></i>
-                        </a>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                        <h2>Fruit distribution
+                            <a href="/harvest_yield/create?h={{ harvest.id }}" class="btn btn-xs"><i class="fa fa-plus"></i></a>
+                        </h2>
+                    <div class="search-eg-table">
+                        <table class="table">
+                            <tbody>
+                            {% for d in distribution %}
+                            <tr>
+                                <td class="col-md-6">{{ d.recipient }}</td>
+                                <td class="col-md-4">{{ d.tree.fruit_name }}</td>
+                                <td class="col-md-2">{{ d.total_in_lb }}</td>
+                                <td>
+                                    <a href="/harvest_yield/update/{{ d.id }}?h={{ harvest.id }}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                    {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -237,7 +239,9 @@
             <div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
                 <div class="realtime-ctn">
                     <div class="realtime-title">
-                        <h2>Comments</h2>
+                        <h2>Comments
+                            <a href="/comment/create?h={{ harvest.id }}" class="btn btn-xs"><i class="fa fa-plus"></i></a>
+                        </h2>
                     </div>
                 </div>
                 <div class="card-box">

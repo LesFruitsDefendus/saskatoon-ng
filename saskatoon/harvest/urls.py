@@ -12,14 +12,24 @@ router.register('participation', api.RequestForParticipationViewset, 'participat
 
 urlpatterns = [
     path(r'', api.IndexView.as_view()),
+
+    # CREATE VIEWS
     path(r'equipment/create', api.EquipmentCreateView.as_view()),
     path(r'property/create', api.PropertyCreateView.as_view()),
     path(r'property/create_public', api.PropertyCreatePublicView.as_view()),
     path(r'harvest/create', api.HarvestCreateView.as_view()),
+    path(r'harvest_yield/create', api.HarvestYieldCreateView.as_view()),
     path(r'participation/create', api.RequestForParticipationCreateView.as_view()),
+    path(r'comment/create', api.CommentCreateView.as_view()),
+
+    # UPDATE VIEWS
     re_path(r'^property/update/(?P<pk>\d+)/$', api.PropertyUpdateView.as_view(), name='property-update'),
+    re_path(r'^participation/update/(?P<pk>\d+)/$', api.RequestForParticipationUpdateView.as_view(), name='participation-update'),
     re_path(r'^harvest/update/(?P<pk>\d+)/$', api.HarvestUpdateView.as_view(), name='harvest-update'),
+    re_path(r'^harvest_yield/update/(?P<pk>\d+)/$', api.HarvestYieldUpdateView.as_view(), name='harvest_yield-update'),
     re_path(r'^equipment/update/(?P<pk>\d+)/$', api.EquipmentUpdateView.as_view(), name='equipment-update'),
+
+    # AUTO-COMPLET VIEWS
     re_path(r'^actor-autocomplete/$', api.ActorAutocomplete.as_view(), name='actor-autocomplete'),
     re_path(r'^property-autocomplete/$', api.PropertyAutocomplete.as_view(), name='property-autocomplete'),
     re_path(r'^tree-autocomplete/$', api.TreeAutocomplete.as_view(), name='tree-autocomplete'),

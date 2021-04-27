@@ -13,7 +13,7 @@
 }
 .swal2-modal .styled{
 	border: none !important;
-    background: #00c292 !important;
+    background: #2A3F54 !important;
     padding: 5px 30px;
     font-size: 14px;
     border-radius: 2px;
@@ -31,12 +31,12 @@
     font-size: 14px;
     margin-right: 20px;
     color: #fff;
-	background: #00c292;
+	background: #2A3F54;
 }
 .dialog-pro .btn-info:hover{
     border: none;
     outline: none !important;
-	background: #00c292;
+	background: #2A3F54;
 }
 .swal2-modal .swal2-content{
 	color: #fff;
@@ -51,8 +51,8 @@
 	background:#444;
 }
 .swal2-icon.swal2-success .line{
-	background-color: #00c292;
+	background-color: #2A3F54;
 }
 .swal2-icon.swal2-success {
-    border-color: #00c292;
+    border-color: #2A3F54;
 }

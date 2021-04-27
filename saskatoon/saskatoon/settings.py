@@ -76,8 +76,7 @@ INSTALLED_APPS = [
     'harvest',
     'rest_framework',
     'django_filters',
-    'bootstrap3',
-    'bootstrapform',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -202,3 +201,6 @@ CACHES = {
         }
     }
 }
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

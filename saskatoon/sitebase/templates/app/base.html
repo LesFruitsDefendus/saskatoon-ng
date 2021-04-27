@@ -70,6 +70,11 @@
                 ============================================ -->
     <link href="{% static 'js/fullcalendar/lib/main.min.css' %}" rel="stylesheet">
 
+        <!-- DatePicker
+                ============================================ -->
+    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
+
+
         <!-- Modernizr
                 ============================================ -->
     <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
@@ -307,6 +312,31 @@
   <!-- FullCalendar -->
   <script src="{% static 'js/moment/min/moment.min.js' %}"></script>
   <script src="{% static 'js/fullcalendar/lib/main.min.js' %}"></script>
+
+  <!-- DatePicker JavaScript -->
+  <script type="text/javascript" src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
+
+<script>
+  $(function () {
+    $("#id_start_date").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+    $(function () {
+    $("#id_end_date").datetimepicker({
+      format: 'd/m/Y H:i',
+    });
+  });
+</script>
+
+<!--  <script type="text/javascript">-->
+<!--        $(function () {-->
+<!--            $('#id_start_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
+<!--        });-->
+<!--        $(function () {-->
+<!--            $('#id_end_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
+<!--        });-->
+<!--  </script>-->
 
     <!-- Language selection -->
     <script>

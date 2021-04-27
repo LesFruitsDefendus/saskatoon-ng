@@ -87,11 +87,11 @@ class RequestForm(forms.ModelForm):
 
         # check if the email is already registered
         auth_user_count = AuthUser.objects.filter(email=email).count()
+        instance.harvest = harvest_obj
 
         if auth_user_count > 0:  # user is already in the database
             auth_user = AuthUser.objects.get(email=email)
             instance.picker = auth_user.person
-            instance.harvest = harvest_obj
         else:
             # user is not in the database, so create a
             # new one and link it to Person obj
@@ -157,6 +157,7 @@ class RequestForm(forms.ModelForm):
             'picker_email',
             'picker_phone',
             'comment',
+            'harvest_id',
             'notes_from_pickleader'
         ]
 
@@ -245,7 +246,6 @@ class RFPManageForm(forms.ModelForm):
 
         instance.save()
         return instance
-
 
 # Used in admin interface
 class RFPForm(forms.ModelForm):
@@ -527,19 +527,8 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
-
-    end_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
+    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
@@ -562,7 +551,6 @@ class HarvestForm(forms.ModelForm):
         instance.save()
 
         return instance
-
 
 class HarvestYieldForm(forms.ModelForm):
     class Meta:
@@ -600,3 +588,4 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
         fields = '__all__'
+

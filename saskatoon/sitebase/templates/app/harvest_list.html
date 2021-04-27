@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 {% load i18n %}
 {% load static %}
-{% load bootstrap %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -30,7 +30,7 @@
                                                     <div class="panel-body">
                                                         <form role="form">
                                                             {% csrf_token %}
-                                                            {{ form|bootstrap }}
+                                                            {{ form|crispy }}
                                                             <div class="form-group">
                                                                 <button class="btn btn-primary" type="submit">{% trans "Filter" %}
                                                                 </button>
@@ -46,8 +46,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
                             <div class="breadcomb-report">
-                                <button class="btn" data-placement="left" data-toggle="tooltip" title="Download Report">
-                                    <i class="notika-icon notika-sent"></i></button>
+                                <a href="/harvest/create" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
                             </div>
                         </div>
                     </div>
