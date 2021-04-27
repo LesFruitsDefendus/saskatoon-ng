@@ -125,6 +125,9 @@ python3 saskatoon/manage.py runserver 8000
 Tests will look for the config file `test.env`. This minimal configuration us required to run tests:
 
 ```
+SASKATOON_URL=http://localhost:8000
+SASKATOON_EMAIL=admin@just-testing.org
+SASKATOON_PASSWORD=password1234
 SASKATOON_DB_ENGINE=django.db.backends.sqlite3
 SASKATOON_DB_NAME=/YOURPATH/sqlite3-testing.db
 ```

@@ -1,9 +1,16 @@
 import os
+import sys
+from pathlib import Path
 import pytest
 from django.conf import settings
 from selenium import webdriver
 
 from dotenv import load_dotenv, find_dotenv #type: ignore
+
+# Appending saskatoon project to the python PATH for testing
+# sys.path.append(Path(__file__).parent.as_posix())
+
+# pytest_plugins = ("pytest_django",)
 
 # Load the environment variables from .env file. 
 file = find_dotenv(filename='test.env', raise_error_if_not_found=True,)
@@ -25,10 +32,5 @@ def django_db_setup():
 @pytest.fixture(scope="module")
 def driver():
     driver = webdriver.Chrome()
-    yield driver
-    driver.quit()
-
-# Helper method to get an authenticated driver.
-def login(driver: webdriver.Chrome) -> webdriver.Chrome:
-    pass
+    return driver
 

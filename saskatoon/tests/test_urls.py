@@ -2,14 +2,14 @@ import pytest
 import os
 from selenium import webdriver
 
-from .conftest import login
+from .helpers import login
 
 # List of (url, expected_html_body_parts, needs_auth)
 urls = [
     ('/calendar', ['html'], False),
     ('/harvest', ['html'], True),
     ('/property', ['html'], True),
-    ('/equipment', ['hmtl'], True),
+    ('/equipment', ['html'], True),
     ('/beneficiary', ['html'], True),
     ('/community', ['html'], True),
     ('/participation', ['html'], True),

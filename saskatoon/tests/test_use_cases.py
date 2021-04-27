@@ -2,7 +2,7 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 
-from .conftest import login
+from .helpers import login
 
 def test_login_logoff(driver: webdriver.Chrome) -> None:
     pass
