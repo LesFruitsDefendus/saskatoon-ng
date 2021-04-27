@@ -527,19 +527,8 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
-
-    end_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
+    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
