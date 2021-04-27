@@ -19,7 +19,7 @@ def index(request):
 
 ############ sitebase views ####################
 
-@method_decorator(login_required, name='dispatch')
+#@method_decorator(login_required, name='dispatch')
 class Calendar(generic.TemplateView):
     template_name = 'app/calendar.html'
 
