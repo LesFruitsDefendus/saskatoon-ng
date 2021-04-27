@@ -1,17 +1,18 @@
 #!/usr/bin/env python
 """
-Invoke command to create a super user. 
+Command to create a test super user. 
 """
-import pathlib
-import invoke
-import os
-import sys
-
-if len(sys.argv) != 3:
-    print("Usage: createtestsuperuser.py <email> <password>")
-    exit(1)
-
 if __name__ == "__main__":
+
+    import pathlib
+    import invoke
+    import os
+    import sys
+
+    if len(sys.argv) != 3:
+        print("Usage: createtestsuperuser.py <email> <password>")
+        exit(1)
+
     ctx = invoke.context.Context()
     ctx.cd(pathlib.Path(__file__).parent.parent.as_posix())
 
