@@ -40,7 +40,7 @@ from dotenv import load_dotenv, find_dotenv #type: ignore
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the environment variables from .env file. 
-file = find_dotenv()
+file = find_dotenv(raise_error_if_not_found=True)
 if file:
     load_dotenv(dotenv_path=file)
 
