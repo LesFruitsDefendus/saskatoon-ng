@@ -134,7 +134,7 @@
                             {% endif %}
                             <li class="nav-item">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="menu-it-icon-pro">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
+                                    <span class="menu-it-icon-pro"><small>{% translate "Language" %}: {{ LANGUAGE_CODE }} </small><i class="fa fa-caret-down"></i></span>
                                     <form action="{% url 'set_language' %}" method="post" style="display: none" id="change_language_form">
                                         {% csrf_token %}
                                         <input type="hidden" value="" name="language" id="language" />
