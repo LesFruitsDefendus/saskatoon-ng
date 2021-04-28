@@ -2,6 +2,7 @@ from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from rest_framework.response import Response
+from django.shortcuts import render
 
 from harvest.filters import *
 from rest_framework import viewsets, permissions
@@ -279,6 +280,12 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     template_name = 'app/participation_create.html'
     form_class = RequestForm
     success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
+
+    # Overriding to serve harvest info along with the form
+    def get(self, request, *args, **kwargs):
+        harvest_obj = Harvest.objects.get(id=request.GET['hid'])
+        context = {'form': RequestForm(), 'harvest': harvest_obj}
+        return render(request, 'app/participation_create.html', context)
 
     def get_success_url(self):
         request = self.request.GET
