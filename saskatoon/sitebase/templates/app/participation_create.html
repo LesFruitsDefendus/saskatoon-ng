@@ -8,6 +8,8 @@
 
 {{ form.media }}
 
+{% if harvest.is_open_to_requests == True %}
+
 <div class="breadcomb-area">
     <div class="container">
         <div class="row">
@@ -62,4 +64,19 @@
      </div>
 </div>
 
+{% else %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="text-center alert alert-danger" role="alert">{% trans "Sorry, this harvest is not open for requests." %}</div>
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}
+
 {% endblock content %}
+
+
