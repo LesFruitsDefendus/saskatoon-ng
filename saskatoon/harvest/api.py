@@ -279,7 +279,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
-    success_message = "Your request of participation has been sent.\n The pick leader will contact you soon!"
+    success_message = "Thanks for your interest in participating in this harvest! Your request has been sent and a pick leader will contact you soon."
 
     # Overriding to serve harvest info along with the form
     def get(self, request, *args, **kwargs):
