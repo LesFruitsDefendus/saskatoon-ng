@@ -263,8 +263,10 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/harvest_create.html'
-    success_url = reverse_lazy('harvest-list')
     success_message = "Harvest created successfully!"
+
+    def get_success_url(self):
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
