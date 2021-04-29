@@ -13,12 +13,15 @@ if __name__ == "__main__":
         print("Usage: createtestsuperuser.py <email> <password>")
         exit(1)
 
-    ctx = invoke.context.Context()
-    ctx.cd(pathlib.Path(__file__).parent.parent.as_posix())
+    project_dir = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-    runner = invoke.runners.Local(ctx)
-    runner.run('./manage.py createsuperuser', pty=True, watchers=[
-        invoke.watchers.Responder('Email address:', sys.argv[1] + '\n'),
-        invoke.watchers.Responder('Password', sys.argv[2]+ '\n'),
-        invoke.watchers.Responder('Bypass password validation and create user anyway?', 'y\n'),
-    ], timeout=5)
+    invoke.run(f'{project_dir}/saskatoon/manage.py migrate --skip-checks',
+        env = {'SASKATOON_TESTING': 'yes'}, pty=True, )
+    invoke.run(f'{project_dir}/saskatoon/manage.py createsuperuser', 
+        env = {'SASKATOON_TESTING': 'yes'},
+        pty=True, 
+        watchers=[
+            invoke.watchers.Responder('Email address', sys.argv[1] + '\n'),
+            invoke.watchers.Responder('Password', sys.argv[2]+ '\n'),
+            invoke.watchers.Responder('Bypass password validation and create user anyway?', 'y\n'),
+        ], timeout=5)

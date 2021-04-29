@@ -122,31 +122,39 @@ python3 saskatoon/manage.py runserver 8000
 
 ## Running tests
 
-Note that you currently need a running instance of Saskatoon to be able to run the tests.
-
 Install test requirements with:
 
 ```
 pip3 install '.[test]'
 ```
 
-Tests will look for the config file `test.env`. 
-This minimal configuration is required to run tests:
+Extra configuration is required to run tests:
 
 ```
+# Testing settings
+
 SASKATOON_URL=http://localhost:8000
-SASKATOON_EMAIL=admin@just-testing.org
+SASKATOON_EMAIL=admin@example.com
 SASKATOON_PASSWORD=password1234
-SASKATOON_DB_ENGINE=django.db.backends.sqlite3
-SASKATOON_DB_NAME=/YOURPATH/sqlite3-testing.db
+
+# Database settings - sqlite3
+SASKATOON_TEST_DB_ENGINE=django.db.backends.sqlite3
+SASKATOON_TEST_DB_NAME=/YOURDBPATH/sqlite3-testing.db
+
+# Database settings - mysql
+#SASKATOON_TEST_DB_ENGINE=django.db.backends.mysql
+#SASKATOON_TEST_DB_NAME=saskatoon_prod
+#SASKATOON_TEST_DB_USER=saskatoon
+#SASKATOON_TEST_DB_PASSWORD=
+#SASKATOON_TEST_DB_HOST=127.0.0.1
 ```
 
 Tests are located inside `saskatoon/tests` folder. 
 
-Ensure that your test superuser is created with the following command:
+Created a test super user with the following command:
 
 ```
-python3 ./saskatoon/tests/createtestsuperuser.py
+python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
 ```
 
 Then run tests with:

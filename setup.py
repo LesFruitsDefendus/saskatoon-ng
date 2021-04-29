@@ -37,6 +37,7 @@ setup(
         "django-redis",
         "python-dotenv",
         "django-crispy-forms",
+        "attrs",
     ],
     extras_require      =   {'test': ['pytest', 'selenium', 'pytest-django', 'invoke']},
 )
