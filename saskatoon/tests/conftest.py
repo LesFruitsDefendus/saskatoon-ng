@@ -8,7 +8,7 @@ from selenium import webdriver
 from dotenv import load_dotenv, find_dotenv #type: ignore
 
 # Load the environment variables from .env file. 
-file = find_dotenv(filename='.env', raise_error_if_not_found=True,)
+file = find_dotenv()
 if file: load_dotenv(dotenv_path=file)
 
 # From https://pybit.es/selenium-pytest-and-django.html

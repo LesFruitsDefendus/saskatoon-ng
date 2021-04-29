@@ -18,7 +18,7 @@ from dotenv import load_dotenv, find_dotenv #type: ignore
 import attr
 
 # Load the environment variables from .env file. 
-file = find_dotenv(raise_error_if_not_found=True)
+file = find_dotenv()
 if file: load_dotenv(dotenv_path=file)
 
 @attr.s(auto_attribs=True)
