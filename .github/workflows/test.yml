@@ -35,7 +35,7 @@ jobs:
         python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
       env:
           SASKATOON_TEST_DB_ENGINE: django.db.backends.sqlite3
-          SASKATOON_TEST_DB_NAME: "~/test-database.db"
+          SASKATOON_TEST_DB_NAME: ~/test-database.db
           SASKATOON_TIME_ZONE: UTC
           SASKATOON_SECRET_KEY: 1234567890
           SASKATOON_DEBUG: no
@@ -45,7 +45,7 @@ jobs:
         tox -e test
       env:
           SASKATOON_TEST_DB_ENGINE: django.db.backends.sqlite3
-          SASKATOON_TEST_DB_NAME: "~/test-database.db"
+          SASKATOON_TEST_DB_NAME: ~/test-database.db
           SASKATOON_URL: http://localhost:8000
           SASKATOON_EMAIL: admin@example.com
           SASKATOON_PASSWORD: password1234
