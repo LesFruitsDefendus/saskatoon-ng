@@ -206,6 +206,9 @@ STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 AUTH_USER_MODEL = "member.AuthUser"
 
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
    'PAGINATE_BY': 10,
    'DEFAULT_RENDERER_CLASSES': (
