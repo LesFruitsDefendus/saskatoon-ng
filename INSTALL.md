@@ -162,3 +162,10 @@ Then run tests with:
 ```
 tox -e test
 ```
+
+Alternatively, run a test server with:
+
+```
+env SASKATOON_TESTING=yes python3 saskatoon/manage.py runserver 8000
+````
+
