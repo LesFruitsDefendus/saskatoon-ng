@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  static_checks:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -36,6 +36,9 @@ jobs:
       env:
           SASKATOON_TEST_DB_ENGINE: django.db.backends.sqlite3
           SASKATOON_TEST_DB_NAME: $GITHUB_WORKSPACE/test-database.db
+          SASKATOON_TIME_ZONE: UTC
+          SASKATOON_SECRET_KEY: 1234567890
+          SASKATOON_DEBUG: no
     
     - name: Run tests
       run: |
