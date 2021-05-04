@@ -136,17 +136,6 @@ Extra configuration is required to run tests:
 SASKATOON_URL=http://localhost:8000
 SASKATOON_EMAIL=admin@example.com
 SASKATOON_PASSWORD=password1234
-
-# Database settings - sqlite3
-SASKATOON_TEST_DB_ENGINE=django.db.backends.sqlite3
-SASKATOON_TEST_DB_NAME=/YOURDBPATH/sqlite3-testing.db
-
-# Database settings - mysql
-#SASKATOON_TEST_DB_ENGINE=django.db.backends.mysql
-#SASKATOON_TEST_DB_NAME=saskatoon_prod
-#SASKATOON_TEST_DB_USER=saskatoon
-#SASKATOON_TEST_DB_PASSWORD=
-#SASKATOON_TEST_DB_HOST=127.0.0.1
 ```
 
 Tests are located inside `saskatoon/tests` folder. 
