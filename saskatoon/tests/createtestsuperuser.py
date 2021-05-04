@@ -15,10 +15,8 @@ if __name__ == "__main__":
 
     project_dir = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-    invoke.run(f'{project_dir}/saskatoon/manage.py migrate --skip-checks',
-        env = {'SASKATOON_TESTING': 'yes'}, pty=True, )
+    invoke.run(f'{project_dir}/saskatoon/manage.py migrate --skip-checks', pty=True, )
     invoke.run(f'{project_dir}/saskatoon/manage.py createsuperuser', 
-        env = {'SASKATOON_TESTING': 'yes'},
         pty=True, 
         watchers=[
             invoke.watchers.Responder('Email address', sys.argv[1] + '\n'),
