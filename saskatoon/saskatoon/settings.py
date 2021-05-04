@@ -13,70 +13,26 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path
-from typing import Any, Optional
 from dotenv import load_dotenv, find_dotenv #type: ignore
-import attr
-
-# Load the environment variables from .env file. 
-file = find_dotenv()
-if file: load_dotenv(dotenv_path=file)
-
-@attr.s(auto_attribs=True)
-class SaskatoonSettings:
-
-    TIME_ZONE: str
-    SECRET_KEY: str
-
-    DB_ENGINE: str
-    DB_NAME: str
-    DB_USER: str
-    DB_PASSWORD: str
-    DB_HOST: str
-    
-    DEBUG: bool = attr.ib(default=False, converter=lambda strval: strval.lower() in ['yes', 'true'])
-    TESTING: bool = attr.ib(default=False, converter=lambda strval: strval.lower() in ['yes', 'true'])
-    
-    TEST_DB_ENGINE: Optional[str] = None
-    TEST_DB_NAME: Optional[str] = None
-    TEST_DB_USER: Optional[str] = None
-    TEST_DB_PASSWORD: Optional[str] = None
-    TEST_DB_HOST: Optional[str] = None
-
-    def get(self, name: str) -> Any:
-        if self.TESTING and hasattr(self, 'TEST_'+name):
-            return getattr(self, 'TEST_'+name)
-        return getattr(self, name)
-
-saskatoonSettings = SaskatoonSettings(
-    DEBUG           =os.getenv('SASKATOON_DEBUG') or 'no',
-    SECRET_KEY      =os.getenv('SASKATOON_SECRET_KEY'),
-    TIME_ZONE       =os.getenv('SASKATOON_TIME_ZONE') or 'UTC',
-
-    DB_ENGINE       =os.getenv('SASKATOON_DB_ENGINE'),
-    DB_NAME         =os.getenv('SASKATOON_DB_NAME'),
-    DB_USER         =os.getenv('SASKATOON_DB_USER'),
-    DB_PASSWORD     =os.getenv('SASKATOON_DB_PASSWORD'),
-    DB_HOST         =os.getenv('SASKATOON_DB_HOST'),
-    
-    TESTING         =os.getenv('SASKATOON_TESTING') or 'no',
-    TEST_DB_ENGINE  =os.getenv('SASKATOON_TEST_DB_ENGINE'),
-    TEST_DB_NAME    =os.getenv('SASKATOON_TEST_DB_NAME'),
-    TEST_DB_USER    =os.getenv('SASKATOON_TEST_DB_USER'),
-    TEST_DB_PASSWORD=os.getenv('SASKATOON_TEST_DB_PASSWORD'),
-    TEST_DB_HOST    =os.getenv('SASKATOON_TEST_DB_HOST'),
-)
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Load the environment variables from .env file. 
+file = find_dotenv(raise_error_if_not_found=True)
+if file: load_dotenv(dotenv_path=file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = saskatoonSettings.get('SECRET_KEY')
+SECRET_KEY = os.getenv('SASKATOON_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = saskatoonSettings.get('DEBUG')
+if os.getenv('SASKATOON_DEBUG') is not None:
+    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'] 
+else:
+    DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -138,11 +94,11 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': saskatoonSettings.get('DB_ENGINE'),
-        'NAME': saskatoonSettings.get('DB_NAME'),
-        'USER': saskatoonSettings.get('DB_USER'),
-        'PASSWORD': saskatoonSettings.get('DB_PASSWORD'),
-        'HOST': saskatoonSettings.get('DB_HOST'),
+        'ENGINE': os.getenv('SASKATOON_DB_ENGINE'),
+        'NAME': os.getenv('SASKATOON_DB_NAME'),
+        'USER': os.getenv('SASKATOON_DB_USER'),
+        'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),
+        'HOST': os.getenv('SASKATOON_DB_HOST'),
     }
 }
 
@@ -185,7 +141,7 @@ LOCALE_PATHS = [
 
 CSRF_COOKIE_SECURE = True
 
-TIME_ZONE = saskatoonSettings.get('TIME_ZONE')
+TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
 
 USE_I18N = True
 
@@ -228,4 +184,3 @@ CACHES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
