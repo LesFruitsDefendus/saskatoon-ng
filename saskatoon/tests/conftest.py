@@ -1,6 +1,4 @@
 import os
-import sys
-from pathlib import Path
 import pytest
 from django.conf import settings
 from selenium import webdriver
@@ -26,5 +24,6 @@ def django_db_setup():
 @pytest.fixture(scope="module")
 def driver():
     driver = webdriver.Chrome()
-    return driver
+    yield driver
+    driver.quit()
 
