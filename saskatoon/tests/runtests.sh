@@ -6,7 +6,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 PROJECT_DIR=$( dirname "${SCRIPT_DIR}" )
 
 # Start a server in the background
-env SASKATOON_TESTING=yes python3 "$PROJECT_DIR/manage.py" runserver 8000 &
+python3 "$PROJECT_DIR/manage.py" runserver 8000 &
 
 testserverpid=$!
 
