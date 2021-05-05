@@ -4,7 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
-def login(driver: webdriver.Chrome) -> webdriver.Chrome:
+def login(driver: webdriver.Chrome) -> None:
     """
     Helper method to authenticate a driver.
     """
@@ -33,7 +33,7 @@ def login(driver: webdriver.Chrome) -> webdriver.Chrome:
             raise RuntimeError("Login failed") from e
         else: raise
 
-def logoff(driver: webdriver.Chrome) -> webdriver.Chrome:
+def logoff(driver: webdriver.Chrome) -> None:
     """
     """
     # TODO
