@@ -7,7 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
-from .helpers import login
+from . import PAGE_LOAD_TIMEOUT
+from .helpers import login, logoff
 
 # List of (url, expected_html_body_parts, needs_auth)
 # TODO
@@ -20,10 +21,13 @@ urls = [
 ]
 
 def test_urls(driver: webdriver.Chrome) -> None:
+    driver.implicitly_wait(PAGE_LOAD_TIMEOUT)
 
     def test_url(url_part, expected_html_body_parts):
+        
         driver.get(os.getenv('SASKATOON_URL') + url_part)
-        WebDriverWait(driver, 3).until(EC.visibility_of_element_located ((By.CLASS_NAME, "main-menu-area")), "Can't locate main menu")
+        
+        WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,  "footer-copyright-area")), "Can't locate footer")
         
         assert url_part in driver.current_url
 
@@ -38,6 +42,7 @@ def test_urls(driver: webdriver.Chrome) -> None:
             if needs_auth:
                 login(driver)
                 test_url(url_part, expected_html_body_parts)
+                logoff(driver)
             else:
                 raise
         
