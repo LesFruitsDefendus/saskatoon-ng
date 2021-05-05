@@ -14,11 +14,11 @@ if file: load_dotenv(dotenv_path=file)
 @pytest.fixture(scope='session')
 def django_db_setup():
     settings.DATABASES['default'] = {
-        'ENGINE': os.getenv('SASKATOON_TEST_DB_ENGINE'),
-        'NAME': os.getenv('SASKATOON_TEST_DB_NAME'),
-        'USER': os.getenv('SASKATOON_TEST_DB_USER'),
-        'PASSWORD': os.getenv('SASKATOON_TEST_DB_PASSWORD'),
-        'HOST': os.getenv('SASKATOON_TEST_DB_HOST'),
+        'ENGINE': os.getenv('SASKATOON_DB_ENGINE'),
+        'NAME': os.getenv('SASKATOON_DB_NAME'),
+        'USER': os.getenv('SASKATOON_DB_USER'),
+        'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),
+        'HOST': os.getenv('SASKATOON_DB_HOST'),
     }
 
 @pytest.fixture(scope="module")
