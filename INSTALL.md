@@ -135,7 +135,7 @@ Extra configuration is required to run tests:
 
 SASKATOON_URL=http://localhost:8000
 SASKATOON_EMAIL=admin@example.com
-SASKATOON_PASSWORD=password1234
+SASKATOON_PASSWORD=testing1234
 ```
 
 Tests are located inside `saskatoon/tests` folder. 
