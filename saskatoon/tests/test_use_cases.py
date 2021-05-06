@@ -18,9 +18,11 @@ def test_add_property(driver: webdriver.Chrome) -> None:
     pass
 
 def test_add_harvest(driver: webdriver.Chrome) -> None:
-    pass
-    # driver.get(os.getenv('SASKATOON_URL')+'/harvest/create')
+    driver.get(os.getenv('SASKATOON_URL')+'/harvest/create')
     
+    "#id_status > option:nth-child(2)"
+
+
 
 def test_add_beneficiary(driver: webdriver.Chrome) -> None:
     pass
