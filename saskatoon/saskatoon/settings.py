@@ -9,15 +9,14 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 
-To set new settings, adapt the following ``.env`` 
-file and place it inside `saskatoon/` project directory. 
+To set new settings, adapt the following ``.env``
+file and place it inside `saskatoon/` project directory.
 
 ::
-    
     # SECURITY WARNING: keep the secret key used in production secret!
     # More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
-    SASKATOON_SECRET_KEY=<KEY>
-    
+    SASKATOON_SECRET_KEY='<KEY>'
+
     # SECURITY WARNING: don't run with debug turned on in production!
     SASKATOON_DEBUG=no
 
@@ -39,7 +38,7 @@ from dotenv import load_dotenv, find_dotenv #type: ignore
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# Load the environment variables from .env file. 
+# Load the environment variables from .env file.
 file = find_dotenv()
 if file:
     load_dotenv(dotenv_path=file)
@@ -52,7 +51,7 @@ SECRET_KEY = os.getenv('SASKATOON_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv('SASKATOON_DEBUG') is not None:
-    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'] 
+    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true']
 else:
     DEBUG = False
 
@@ -124,6 +123,9 @@ DATABASES = {
     }
 }
 
+# Remove WARNINGS due to changes in Django3.2 where the type for primary keys can
+# now be customized (set by default to BigAutoField starting in Django 3.2):
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -206,4 +208,3 @@ CACHES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
