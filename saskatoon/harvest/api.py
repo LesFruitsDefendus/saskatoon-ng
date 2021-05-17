@@ -85,7 +85,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('s_active','authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
+    filterset_fields = ('is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
     filterset_class = PropertyFilter
     ####################################################
 
