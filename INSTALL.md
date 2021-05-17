@@ -115,11 +115,6 @@ $ mysql -u root -p
 
 ```
 
-To import a *.sql* database (dump):
-```
-TODO
-```
-
 Example *.env* file for a local mysql configuration:
 ```
 SASKATOON_SECRET_KEY='<KEY>'
@@ -134,12 +129,16 @@ SASKATOON_DB_HOST=127.0.0.1
 SASKATOON_TIME_ZONE=UTC
 ```
 
+NB: to import a *.sql* dump file into an **empty** database:
+```
+$ mysql -u <user> -p <db_name> < dump_file.sql
+```
 
 ## Django setup
 
 To initiate the database:
 ```
-$ source venv/bin/activate
+$ . venv/bin/activate
 $(venv) python3 saskatoon/manage.py migrate --skip-checks
 ```
 
