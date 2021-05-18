@@ -129,10 +129,6 @@ SASKATOON_DB_HOST=127.0.0.1
 SASKATOON_TIME_ZONE=UTC
 ```
 
-NB: to import a *.sql* dump file into an **empty** database:
-```
-$ mysql -u <user> -p <db_name> < dump_file.sql
-```
 
 ## Django setup
 
@@ -178,3 +174,22 @@ python3 saskatoon/manage.py runserver 8000
 ```
 
 NB: to access the admin panel visit [localhost:8000/admin](http://127.0.0.1:8000/admin)
+
+
+## Import/export database
+
+To export a dump file of the database: (TODO check)
+```
+mysqldump -u <user> -p <db_name> > dump_file.sql
+```
+
+To import a *.sql* dump file into an **empty** database:
+```
+$ mysql -u <user> -p <db_name> < dump_file.sql
+```
+
+*Warning*: was only able to import a dump file into a database of the **same name**. To get the original database name from the dump file:
+```
+$ head -n 5 dump_file.sql
+```
+
