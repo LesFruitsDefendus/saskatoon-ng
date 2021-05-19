@@ -8,7 +8,6 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
-
 """
 
 import os
@@ -18,9 +17,11 @@ from dotenv import load_dotenv, find_dotenv #type: ignore
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+
 # Load the environment variables from .env file. 
 file = find_dotenv(raise_error_if_not_found=True)
 if file: load_dotenv(dotenv_path=file)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -30,7 +31,7 @@ SECRET_KEY = os.getenv('SASKATOON_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 if os.getenv('SASKATOON_DEBUG') is not None:
-    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'] 
+    DEBUG = os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true']
 else:
     DEBUG = False
 
@@ -102,6 +103,9 @@ DATABASES = {
     }
 }
 
+# Remove WARNINGS due to changes in Django3.2 where the type for primary keys can
+# now be customized (set by default to BigAutoField starting in Django 3.2):
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators

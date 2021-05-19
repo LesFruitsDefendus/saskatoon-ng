@@ -85,7 +85,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('s_active','authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
+    filterset_fields = ('is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
     filterset_class = PropertyFilter
     ####################################################
 
@@ -242,6 +242,13 @@ class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
+class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
+    model = Property
+    form_class = PublicPropertyForm
+    template_name = 'app/property_create_public.html'
+    success_url = 'app/property_thanks'
+    success_message = 'Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">Tree Owner Welcome Notice</a>.'
+
 class PropertyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Property
     form_class = PropertyForm
@@ -251,13 +258,6 @@ class PropertyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_success_url(self):
             return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
-class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
-    model = Property
-    form_class = PublicPropertyForm
-    template_name = 'app/property_create_public.html'
-    #FIXME: add a public page as response
-    success_url = reverse_lazy('property-list')
-    success_message = "Property created successfully!"
 
 class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
