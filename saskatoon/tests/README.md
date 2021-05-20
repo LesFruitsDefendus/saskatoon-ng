@@ -13,9 +13,9 @@ $(venv) pip3 install 'Saskatoon[test]'
 Add these lines to your local ~saskatoon/.env~ file:
 ```
 SASKATOON_TEST_WEBDRIVER=Chrome
-SASKATOON_URL="http://127.0.0.1:8000"
-SASKATOON_ADMIN_EMAIL="<email>"
-SASKATOON_ADMIN_PASSWORD="<password>"
+SASKATOON_URL=http://127.0.0.1:8000
+SASKATOON_ADMIN_EMAIL=<email>
+SASKATOON_ADMIN_PASSWORD=<password>
 ```
 
 NB: a superuser must be created with the *<email>* and *<password>* credentials:

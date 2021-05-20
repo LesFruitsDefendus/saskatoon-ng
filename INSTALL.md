@@ -207,8 +207,8 @@ Extra configuration is required in `.env` to run tests:
 # Testing settings
 
 SASKATOON_URL=http://localhost:8000
-SASKATOON_EMAIL=admin@example.com
-SASKATOON_PASSWORD=testing1234
+SASKATOON_ADMIN_EMAIL=admin@example.com
+SASKATOON_ADMIN_PASSWORD=testing1234
 ```
 
 Tests are located inside `saskatoon/tests` folder. 
