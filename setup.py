@@ -2,6 +2,9 @@
 from setuptools import setup, find_packages
 import pathlib
 
+# To install basic requirements: (venv)$ pip3 install .
+# To install 'test' extra packages: (venv)$ pip3 install 'Saskatoon[test]'
+
 setup(
     name                =   "Saskatoon",
     description         =   "Saskatoon - harverst management system",
@@ -38,5 +41,7 @@ setup(
         "python-dotenv",
         "django-crispy-forms",
     ],
-    extras_require      =   {'test': ['pytest', 'selenium', 'pytest-django', 'invoke']},
+    extras_require      =   {
+        'test': ['pytest', 'selenium', 'pytest-django', 'invoke']
+    },
 )
