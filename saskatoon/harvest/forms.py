@@ -5,7 +5,7 @@ from time import timezone
 import datetime
 from django import forms
 from dal import autocomplete
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment, 
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)

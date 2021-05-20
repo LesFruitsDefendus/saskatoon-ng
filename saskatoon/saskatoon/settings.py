@@ -29,6 +29,7 @@ file and place it inside `saskatoon/` project directory.
 
     # Misc
     SASKATOON_TIME_ZONE=UTC
+=======
 """
 
 import os
@@ -39,9 +40,8 @@ from dotenv import load_dotenv, find_dotenv #type: ignore
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the environment variables from .env file.
-file = find_dotenv()
-if file:
-    load_dotenv(dotenv_path=file)
+file = find_dotenv(raise_error_if_not_found=True)
+if file: load_dotenv(dotenv_path=file)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
