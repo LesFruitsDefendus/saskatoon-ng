@@ -1,22 +1,27 @@
 import os
-# from selenium import webdriver
-from .conftest import testdriver
+import time
+
+from selenium.webdriver import Remote
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
 from . import PAGE_LOAD_TIMEOUT
 
-def login(driver: testdriver) -> None:
+def login(driver: Remote) -> None:
     """
     Helper method to authenticate a driver.
     """
     # Manually login into Saskatoon
+    driver.implicitly_wait(PAGE_LOAD_TIMEOUT)
 
     # TODO: README.md
     saskatoon_url = os.getenv('SASKATOON_URL')
     saskatoon_email = os.getenv('SASKATOON_ADMIN_EMAIL')
     saskatoon_pass = os.getenv('SASKATOON_ADMIN_PASSWORD')
+
+    assert saskatoon_email is not None
+    assert saskatoon_pass is not None
 
     driver.get(saskatoon_url+"/accounts/login/?next=/")
 
@@ -29,6 +34,7 @@ def login(driver: testdriver) -> None:
     driver.find_element_by_id ("id_password").send_keys(saskatoon_pass)
 
     # Click on login button
+    time.sleep(0.25)
     driver.find_element_by_css_selector("#l-login > form > div.nk-form > button").click()
 
     try: WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_element_located ((By.CLASS_NAME, "main-menu-area")), "Can't locate main menu")
@@ -38,7 +44,7 @@ def login(driver: testdriver) -> None:
             raise RuntimeError("Login failed") from e
         else: raise
 
-def logoff(driver: testdriver) -> None:
+def logoff(driver: Remote) -> None:
     """
     Helper method to logoff a driver.
     """
