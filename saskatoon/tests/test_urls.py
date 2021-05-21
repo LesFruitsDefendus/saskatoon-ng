@@ -1,7 +1,7 @@
 import pytest
 import os
 import time
-from .conftest import testdriver
+from selenium.webdriver import Remote
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -21,7 +21,7 @@ urls = [
     ('/calendar', ['html'], False),
 ]
 
-def test_urls(driver: testdriver) -> None:
+def test_urls(driver: Remote) -> None:
     driver.implicitly_wait(PAGE_LOAD_TIMEOUT)
 
     def test_url(url_part, expected_html_body_parts):
