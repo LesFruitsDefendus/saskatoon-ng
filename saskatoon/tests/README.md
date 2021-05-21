@@ -37,7 +37,7 @@ E.g. to install Chrome Webdriver:
 
 ## To run tests manually
 
-- start a local server :`$(venv) python3 saskatoon/manage.py runserver 5000`
+- start a local server :`$(venv) python3 saskatoon/manage.py runserver 8000`
 - run a single test: `$ (venv) python3 -m pytest saskatoon/test/test_urls.py`
 - run all tests (as defined in *pytest.ini*): `$(venv) python3 -m pytest -s`
 
