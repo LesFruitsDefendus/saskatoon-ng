@@ -20,8 +20,5 @@ sleep 5
 
 cd "$PROJECT_DIR"
 
-# Launch the tests
-env PYTHONWARNINGS=all \
-    PYTHONPATH="${PROJECT_DIR}" \
-    DJANGO_SETTINGS_MODULE=saskatoon.settings \
-    python3 -m pytest
+# Launch the test. 
+python3 -m pytest
