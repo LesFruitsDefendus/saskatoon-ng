@@ -30,7 +30,7 @@ jobs:
             --project-base-dir="$(pwd)" \
             --docformat=restructuredtext \
             --intersphinx=https://docs.python.org/3/objects.inv \
-            ./saskatoon/app ./saskatoon/harvest ./saskatoon/member ./saskatoon/saskatoon
+            ./saskatoon/sitebase ./saskatoon/harvest ./saskatoon/member ./saskatoon/saskatoon ./saskatoon/tests
 
     - name: Publish apidocs to the gh-pages branch
       uses: peaceiris/actions-gh-pages@v3
