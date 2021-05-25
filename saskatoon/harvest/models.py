@@ -94,9 +94,10 @@ class Property(models.Model):
         default=True
     )
 
-    authorized = models.NullBooleanField(
+    authorized = models.BooleanField(
         verbose_name=_("Authorized for this season"),
         help_text=_("Harvest in this property has been authorized for the current season by its owner"),
+        null=True,
         default=None
     )
 
@@ -610,14 +611,14 @@ class RequestForParticipation(models.Model):
         blank=True
     )
 
-    is_accepted = models.NullBooleanField(
+    is_accepted = models.BooleanField(
         verbose_name=_("Accepted"),
         default=None,
         null=True,
         blank=True
     )
 
-    showed_up = models.NullBooleanField(
+    showed_up = models.BooleanField(
         verbose_name=_("Showed up"),
         default=None,
         null=True,
@@ -818,4 +819,3 @@ models.signals.post_save.connect(
     receiver=signals.clear_cache_equipment,
     sender=Equipment
 )
-
