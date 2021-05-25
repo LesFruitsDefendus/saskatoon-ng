@@ -77,11 +77,15 @@ class Actor(models.Model):
         verbose_name_plural = _("actors")
 
     def __str__(self):
-        try:
-            return u"%s" % (self.person)
-        except Person.DoesNotExist:
-            # if it is not a person it must be an organization
-            return u"%s" % (self.organization)
+
+        if Person.objects.filter(actor_id = self.actor_id).exists():
+            p = Person.objects.get(actor_id = self.actor_id)
+            return p.__str__()
+        elif Organization.objects.filter(actor_id = self.actor_id).exists():
+            o = Organization.objects.get(actor_id = self.actor_id)
+            return o.__str__()
+        else:
+            return u"Unknown Actor: %i" % self.actor_id
 
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
