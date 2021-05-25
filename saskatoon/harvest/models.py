@@ -767,6 +767,9 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
+    def __str__(self):
+        return self.property.__str__()
+
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
         Harvest,
@@ -776,6 +779,9 @@ class HarvestImage(models.Model):
     image = models.ImageField(
         upload_to='harvests_images',
     )
+
+    def __str__(self):
+        return self.harvest.__str__()
 
 
 ####### SIGNALS ##################

@@ -1,13 +1,13 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Models registration. 
+Models registration.
 """
 
 from leaflet.admin import LeafletGeoAdmin # type: ignore
 from django.contrib import admin
 from member.models import (Actor, Language, Person, Organization, Neighborhood, City, State, Country)
-from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment, PropertyImage)
+from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment, PropertyImage, HarvestImage)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 class PropertyInline(admin.TabularInline):
@@ -34,11 +34,14 @@ class HarvestYieldInline(admin.TabularInline):
     model = HarvestYield
     form = HarvestYieldForm
 
+class HarvestImageInline(admin.TabularInline):
+    model = HarvestImage
+    extra = 3
 
 class HarvestAdmin(admin.ModelAdmin):
     # form = HarvestForm
     model = Harvest
-    inlines = (PersonInline, HarvestYieldInline)
+    inlines = (PersonInline, HarvestYieldInline, HarvestImageInline)
 
 
 class RequestForParticipationAdmin(admin.ModelAdmin):
@@ -52,7 +55,6 @@ class EquipmentAdmin(admin.ModelAdmin):
 class PropertyImageInline(admin.TabularInline):
     model = PropertyImage
     extra = 3
-
 
 class PropertyAdmin(LeafletGeoAdmin):
     model = Property
