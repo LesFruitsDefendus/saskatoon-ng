@@ -1,0 +1,32 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+{{ form.media }}
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-example-wrap">
+                        <div class="cmp-tb-hd">
+                            <h2>Add a new harvest</h2>
+                        </div>
+                        <div class="form-example-int">
+                            <div class="form-group">
+                                  <form method="post">
+                                      {% csrf_token %}
+                                      {{ form|crispy }}
+                                          <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>
+
+{% endblock content %}

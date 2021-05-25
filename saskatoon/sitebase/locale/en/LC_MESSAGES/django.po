@@ -1,0 +1,195 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-28 16:48+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: sitebase/templates/app/calendar.html:14
+msgid "Harvest calendar"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:39
+msgid "Schedule"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:41
+msgid "to"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:60
+#: sitebase/templates/app/calendar.html:113
+msgid "View harvest details"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:65
+msgid "Request to participate"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:72
+msgid "Send"
+msgstr ""
+
+#: sitebase/templates/app/calendar.html:101
+msgid "Total harvested"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:35
+#: sitebase/templates/app/harvest_list.html:35
+#: sitebase/templates/app/property_list.html:35
+msgid "Filter"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:73
+msgid "Person"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:74
+msgid "Roles"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:75
+#: sitebase/templates/app/equipment_list.html:21
+#: sitebase/templates/app/harvest_list.html:75
+#: sitebase/templates/app/property_list.html:74
+msgid "Neighborhood"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:76
+msgid "Picks leading"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:77
+msgid "Properties"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:92
+msgid "Tree owner"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:95
+msgid "Pick leader"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:98
+msgid "Staff"
+msgstr ""
+
+#: sitebase/templates/app/community_list.html:101
+msgid "Picker"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:18
+msgid "Equipment"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:19
+msgid "Description"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:20
+#: sitebase/templates/app/property_list.html:73
+msgid "Property"
+msgstr ""
+
+#: sitebase/templates/app/equipment_list.html:22
+msgid "Shared"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:73
+msgid "Harvest details"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:74
+#: sitebase/templates/app/property_list.html:76
+msgid "Tree"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:76
+#: sitebase/templates/app/property_list.html:75
+msgid "Status"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:77
+msgid "Leader"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:78
+msgid "Date"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:98
+msgid "Succeeded"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:108
+msgid "Cancelled"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:120
+msgid "Orphan"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:130
+msgid "Adopted"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:141
+msgid "Pending auth."
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:152
+msgid "Scheduled"
+msgstr ""
+
+#: sitebase/templates/app/harvest_list.html:163
+msgid "Ready"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:77
+msgid "Picks"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:78
+msgid "Last pick"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:93
+msgid "pending"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:95
+msgid "validated"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:98
+msgid "not yet authorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:100
+msgid "authorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:102
+msgid "unauthorized"
+msgstr ""
+
+#: sitebase/templates/app/property_list.html:105
+msgid "inactive"
+msgstr ""
+
+#: sitebase/templates/registration/login.html:105
+msgid "Login"
+msgstr ""

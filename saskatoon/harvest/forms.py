@@ -5,15 +5,16 @@ from time import timezone
 import datetime
 from django import forms
 from dal import autocomplete
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
-from harvest.models import *
-from member.models import *
+from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment, 
+                            Equipment, PropertyImage, HarvestImage, TreeType, Property)
+from member.models import AuthUser, Person
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
 
-
+# Request for participation
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(
         help_text=_("Enter a valid email address, please."),
@@ -86,11 +87,11 @@ class RequestForm(forms.ModelForm):
 
         # check if the email is already registered
         auth_user_count = AuthUser.objects.filter(email=email).count()
+        instance.harvest = harvest_obj
 
         if auth_user_count > 0:  # user is already in the database
             auth_user = AuthUser.objects.get(email=email)
             instance.picker = auth_user.person
-            instance.harvest = harvest_obj
         else:
             # user is not in the database, so create a
             # new one and link it to Person obj
@@ -246,7 +247,6 @@ class RFPManageForm(forms.ModelForm):
         instance.save()
         return instance
 
-
 # Used in admin interface
 class RFPForm(forms.ModelForm):
     class Meta:
@@ -301,9 +301,9 @@ class PropertyForm(forms.ModelForm):
             'city',
             'state',
             'country',
-            'longitude',
-            'latitude',
-            'geom',
+            # 'longitude',
+            # 'latitude',
+            # 'geom',
             'additional_info',
         )
 
@@ -527,19 +527,8 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
-
-    end_date = forms.DateTimeField(
-        input_formats=('%Y-%m-%d %H:%M',),
-        widget=forms.DateInput(
-            format='%Y-%m-%d %H:%M',
-        )
-    )
+    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
@@ -550,7 +539,7 @@ class HarvestForm(forms.ModelForm):
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             # if publication_date is None:
-            instance.publication_date = timezone.now()
+            instance.publication_date = datetime.datetime.now()
 
         if status in ["To-be-confirmed", "Orphan", "Adopted"]:
             if publication_date is not None:
@@ -558,11 +547,10 @@ class HarvestForm(forms.ModelForm):
 
         if not instance.id:
             instance.save()
-        instance.trees = trees
+        instance.trees.set(trees)
         instance.save()
 
         return instance
-
 
 class HarvestYieldForm(forms.ModelForm):
     class Meta:
@@ -587,7 +575,6 @@ class EquipmentForm(forms.ModelForm):
             raise forms.ValidationError(
                 _('Fill in one of the two fields: property or owner.')
             )
-
         return cleaned_data
 
     class Meta:
@@ -601,3 +588,4 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
         fields = '__all__'
+

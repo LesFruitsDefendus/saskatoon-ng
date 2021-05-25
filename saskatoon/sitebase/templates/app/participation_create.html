@@ -1,0 +1,82 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{{ form.media }}
+
+{% if harvest.is_open_to_requests == True %}
+
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h1>#{{ harvest.id }}: 
+                                               {% for f in harvest.trees.all %}
+                                                  {{ f }},
+                                               {% endfor %}
+                                               {{ harvest.property.short_address }}, {{ harvest.property.neighborhood.name }}
+                                    </h1>
+                                    <p>{% trans "Scheduled to:" %} {{ harvest.start_date}} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="form-example-wrap">
+                        <div class="cmp-tb-hd">
+                            <h2>{% trans "Request to join this harvest" %}</h2>
+                        </div>
+                        <div class="form-example-int">
+                            <div class="form-group">
+                                  <form method="post">
+                                      {% csrf_token %}
+                                      {{ form|crispy }}
+                                      <input type="hidden" name="harvest_id" value="{{ request.GET.hid }}" id="harvest_id" />
+                                      <button type="submit" class="btn btn-primary">{% trans 'Send' %}</button>
+                                  </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>
+
+{% else %}
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="text-center alert alert-danger" role="alert">{% trans "Sorry, this harvest is not open for requests. You can check the <a href='/calendar'>calendar</a> for other harvests." %}</div>
+            </div>
+        </div>
+    </div>
+
+
+{% endif %}
+
+{% endblock content %}
+
+

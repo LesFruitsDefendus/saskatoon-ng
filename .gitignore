@@ -1,5 +1,14 @@
-# pydoctor generated files
+# API documentation
 apidocs
+
+# .db files
+*.db
+
+# DS Store files
+.DS_Store
+
+# Settings file
+.env
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -130,3 +139,4 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+

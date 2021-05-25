@@ -1,0 +1,104 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      expandRows: true,
+      slotMinTime: '08:00',
+      slotMaxTime: '20:00',
+      headerToolbar: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      },
+      initialView: 'dayGridMonth',
+      navLinks: true, // can click day/week names to navigate views
+      nowIndicator: true,
+      dayMaxEvents: true, // allow "more" link when too many events
+      events: '/jsoncal/',
+    });
+
+    calendar.render();
+  });
+
+</script>
+
+
+
+
+<!--    <script>-->
+<!--        $(document).ready(function() {-->
+<!--            $('#calendar').fullCalendar({-->
+<!--                events: '/jsoncal/',-->
+<!--                header: {-->
+<!--                    left: 'prev,next today',-->
+<!--                    center: 'title',-->
+<!--                    right: 'month,basicWeek,basicDay,mylist'-->
+<!--                },-->
+<!--                views: {-->
+<!--                  mylist: {-->
+<!--                    type: 'listWeek',-->
+<!--                    duration: { days: 30 },-->
+<!--                    buttonText: 'list'-->
+<!--                  }-->
+<!--                },-->
+<!--                eventLimit: true,-->
+<!--                eventClick:  function(event, jsEvent, view) {-->
+<!--                    if (event.status==="Succeeded"||event.status==="Cancelled"||event.status==="Ready"){-->
+<!--                        if (event.status==="Succeeded"){-->
+<!--                            $('#status').html('<div class="count green">'+event.status+'</div>');-->
+<!--                        } else if (event.status==="Cancelled"){-->
+<!--                            $('#status').html('<div class="count red">'+event.status+'</div>');-->
+<!--                        } else {-->
+<!--                            $('#status').html('<div class="count">'+event.status+'</div>');-->
+<!--                        }-->
+<!--                        $('#title_closed').html(event.title);-->
+<!--                        $('#total_harvested').html(event.total_harvested);-->
+<!--                        $('#description_closed').html(event.description);-->
+<!--                        $('#harvest_url_closed').attr('href', "/harvest/"+event.harvest_id);-->
+<!--                        $('#ClosedModal').modal();-->
+<!--                    } else {-->
+<!--                        $('#title').html(event.title);-->
+<!--                        $('#harvest_id').attr('value', event.harvest_id);-->
+<!--                        $('#description').html(event.description);-->
+<!--                        $('#trees').html(event.trees);-->
+<!--                        $('#nb_required_pickers').html(event.nb_required_pickers);-->
+<!--                        $('#nb_requests').html(event.nb_requests);-->
+<!--                        $('#start_date_str').html(event.start_date_str);-->
+<!--                        $('#start_time').html(event.start_time);-->
+<!--                        $('#end_time').html(event.end_time);-->
+<!--                        $('#harvest_url').attr('href', "/harvest/"+event.harvest_id);-->
+<!--                        $('#form_request').attr('action', event.url);-->
+<!--                        $('#OpenModal').modal();-->
+<!--                    }-->
+<!--                    return false;-->
+<!--                }-->
+<!--            });-->
+<!--        });-->
+<!--    </script>-->
+
+    <div class="wizard-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="wizard-wrap-int">
+                        <div class="wizard-hd">
+                            <h1>{% trans "Harvest calendar" %}</h1>
+                            <hr>
+                            <div id='calendar'></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Wizard area End-->
+
+{% endblock content %}

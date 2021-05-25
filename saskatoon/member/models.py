@@ -1,11 +1,11 @@
 # coding: utf-8
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
-from harvest.models import RequestForParticipation
+from harvest.models import RequestForParticipation, Harvest, Property
 
 class AuthUserManager(BaseUserManager):
     def create_user(self, email, password=None):
@@ -50,8 +50,13 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
 
+    #TODO: this should go to 'Person' class
+    def harvests_as_pickleader(self):
+        harvests = Harvest.objects.filter(pick_leader=self)
+        return harvests
+
     def get_full_name(self):
-        return self.email
+        return self.person.name
 
     def get_short_name(self):
         return self.email
@@ -72,11 +77,15 @@ class Actor(models.Model):
         verbose_name_plural = _("actors")
 
     def __str__(self):
-        try:
-            return u"%s" % (self.person)
-        except Person.DoesNotExist:
-            # if it is not a person it must be an organization
-            return u"%s" % (self.organization)
+
+        if Person.objects.filter(actor_id = self.actor_id).exists():
+            p = Person.objects.get(actor_id = self.actor_id)
+            return p.__str__()
+        elif Organization.objects.filter(actor_id = self.actor_id).exists():
+            o = Organization.objects.get(actor_id = self.actor_id)
+            return o.__str__()
+        else:
+            return u"Unknown Actor: %i" % self.actor_id
 
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
@@ -204,8 +213,11 @@ class Person(Actor):
         return u"%s %s" % (self.first_name, self.family_name)
 
     def email(self):
-        auth_obj = AuthUser.objects.get(person=self)
-        return auth_obj.email
+        auth_obj = AuthUser.objects.filter(person=self)
+        if auth_obj:
+            return auth_obj[0].email
+        else:
+            return None
 
     def participation_count(self):
         count = RequestForParticipation.objects.filter(
@@ -213,6 +225,16 @@ class Person(Actor):
             is_accepted=True
         ).count()
         return count
+
+    def get_properties(self):
+        properties = Property.objects.filter(owner=self)
+        return properties
+
+    # get harvests in which the person participated in
+    def get_harvests(self):
+        requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
+        return requests
+
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(

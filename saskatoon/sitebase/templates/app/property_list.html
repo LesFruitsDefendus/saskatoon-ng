@@ -1,0 +1,153 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<!-- Breadcomb area Start-->
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-ctn">
+                                    <div class="accordion-stn">
+                                        <div aria-multiselectable="true" class="panel-group"
+                                             data-collapse-color="nk-green"
+                                             id="accordionGreen" role="tablist">
+                                            <div class="panel panel-collapse notika-accrodion-cus">
+                                                <div class="panel-heading" role="tab">
+                                                    <h4 class="panel-title">
+                                                        <a aria-expanded="true" data-parent="#accordionGreen"
+                                                           data-toggle="collapse" href="#accordionGreen-one">Filters</a>
+                                                    </h4>
+                                                </div>
+                                                <div class="collapse" id="accordionGreen-one" role="tabpanel">
+                                                    <div class="panel-body">
+                                                        <form role="form">
+                                                            {% csrf_token %}
+                                                            {{ form|crispy }}
+                                                            <div class="form-group">
+                                                                <button class="btn btn-primary" type="submit">{% trans "Filter" %}
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                            <div class="breadcomb-report">
+                                <a href="/property/create" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans "New property" %}</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Breadcomb area End-->
+
+<!-- Data Table area Start-->
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Property" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                                <th style="width: 12%">{% trans "Status" %}</th>
+                                <th>{% trans "Tree" %}</th>
+                                <th>{% trans "Picks" %}</th>
+                                <th>{% trans "Last pick" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for property in data %}
+                            <tr>
+                                <td>{{ property.id }}</td>
+                                <td>
+                                    <a href='/property/{{property.id}}'>{{ property.title }}</a>
+                                </td>
+                                <td>{{ property.neighborhood.name }}</td>
+                                <td>
+                                    <ul class="list-unstyled">
+                                        {% if property.is_active %}
+                                        {% if property.pending %}
+                                            <span class="label label-warning">{% trans "pending" %}</span>
+                                        {% else %}
+                                            <span class="label label-success">{% trans "validated" %}</span>
+                                        {% endif %}
+                                        {% if property.authorized is None %}
+                                            <span class="label label-warning">{% trans "not yet authorized" %}</span>
+                                        {% elif property.authorized %}
+                                            <span class="label label-success">{% trans "authorized" %}</span>
+                                        {% else %}
+                                            <span class="label label-danger">{% trans "unauthorized" %}</span>
+                                        {% endif %}
+                                        {% else %}
+                                            <span class="label label-danger">{% trans "inactive" %}</span><br/>
+                                        {% endif %}
+                                        {% if property.owner.person.about %}
+                                            <li><i class="fa fa-envelope"></i> {{ property.owner.person.email }}</li>
+                                        {% endif %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    {% for tree in property.trees %}
+                                    <div class="text-nowrap">{{ tree }}</div>
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <ul class="list-inline">
+                                        {% for harvest in property.harvests %}
+                                        <li>
+                                            <a data-placement="top" data-toggle="tooltip" href='/harvest/harvest.id'
+                                               title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
+                                                {% if harvest.status == "Succeeded" %}
+                                                <i class="fa fa-shopping-basket fa-lg text-success"
+                                                   style="padding-top:7px;"></i>
+                                                {% elif harvest.status == "Cancelled" %}
+                                                <i class="fa fa-shopping-basket fa-lg text-danger"
+                                                   style="padding-top:7px;"></i>
+                                                {% else %}
+                                                <i class="fa fa-shopping-basket fa-lg text-warning"
+                                                   style="padding-top:7px;"></i>
+                                                {% endif %}
+                                            </a>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td>
+                                    <div class="text-nowrap">{{ property.last_succeeded_harvest|date:"Y-m-d g:i A" }}</div>
+                                    <small>{{ harvest.start_time }}</small>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+<!-- Data Table area End-->

@@ -1,0 +1,168 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-28 20:38+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: member/models.py:76
+msgid "actor"
+msgstr ""
+
+#: member/models.py:77
+msgid "actors"
+msgstr ""
+
+#: member/models.py:88 member/models.py:239
+msgid "Redmine contact"
+msgstr ""
+
+#: member/models.py:94
+msgid "First name"
+msgstr ""
+
+#: member/models.py:99
+msgid "Family name"
+msgstr ""
+
+#: member/models.py:106 member/models.py:255
+msgid "Phone"
+msgstr ""
+
+#: member/models.py:113 member/models.py:275
+msgid "Number"
+msgstr ""
+
+#: member/models.py:120 member/models.py:282
+msgid "Street"
+msgstr ""
+
+#: member/models.py:127 member/models.py:289
+msgid "Complement"
+msgstr ""
+
+#: member/models.py:134 member/models.py:296
+msgid "Postal code"
+msgstr ""
+
+#: member/models.py:142 member/models.py:304
+msgid "Neighborhood"
+msgstr ""
+
+#: member/models.py:149 member/models.py:311
+msgid "City"
+msgstr ""
+
+#: member/models.py:157 member/models.py:319
+msgid "State"
+msgstr ""
+
+#: member/models.py:165 member/models.py:327
+msgid "Country"
+msgstr ""
+
+#: member/models.py:172
+msgid "Newsletter subscription"
+msgstr ""
+
+#: member/models.py:177 member/models.py:334
+msgid "Longitude"
+msgstr ""
+
+#: member/models.py:183 member/models.py:340
+msgid "Latitude"
+msgstr ""
+
+#: member/models.py:192
+msgid "Preferred language"
+msgstr ""
+
+#: member/models.py:197
+msgid "Comments"
+msgstr ""
+
+#: member/models.py:202
+msgid "person"
+msgstr ""
+
+#: member/models.py:203
+msgid "people"
+msgstr ""
+
+#: member/models.py:234
+msgid "is beneficiary"
+msgstr ""
+
+#: member/models.py:245 member/models.py:378 member/models.py:392
+#: member/models.py:405 member/models.py:417 member/models.py:430
+msgid "Name"
+msgstr ""
+
+#: member/models.py:250
+msgid "Description"
+msgstr ""
+
+#: member/models.py:263
+msgid "Contact person"
+msgstr ""
+
+#: member/models.py:268
+msgid "Contact person role"
+msgstr ""
+
+#: member/models.py:367
+msgid "organization"
+msgstr ""
+
+#: member/models.py:368
+msgid "organizations"
+msgstr ""
+
+#: member/models.py:383
+msgid "neighborhood"
+msgstr ""
+
+#: member/models.py:384
+msgid "neighborhoods"
+msgstr ""
+
+#: member/models.py:397
+msgid "city"
+msgstr ""
+
+#: member/models.py:398
+msgid "cities"
+msgstr ""
+
+#: member/models.py:410
+msgid "states"
+msgstr ""
+
+#: member/models.py:422
+msgid "country"
+msgstr ""
+
+#: member/models.py:423
+msgid "countries"
+msgstr ""
+
+#: member/models.py:435
+msgid "language"
+msgstr ""
+
+#: member/models.py:436
+msgid "languages"
+msgstr ""

@@ -1,11 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
 from django_filters import rest_framework as filters
-from django_filters.widgets import BooleanWidget
-from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property
-from member.models import AuthUser, Neighborhood
+from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property, Equipment,  EquipmentType
+from member.models import Language, AuthUser, Neighborhood, Organization
+from django.db.models.query_utils import Q
 
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
-FILTER_HARVEST_CHOICES.insert(0, ('', '---------'))
 
 class HarvestFilter(filters.FilterSet):
     seasons = []
@@ -86,3 +85,74 @@ class PropertyFilter(filters.FilterSet):
     class Meta:
         model = Property
         fields = ['is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks']
+
+class CommunityFilter(filters.FilterSet):
+    person__neighborhood = filters.ModelChoiceFilter(
+        queryset=Neighborhood.objects.all(),
+        label=_("Neighborhood"),
+        help_text="",
+        required=False
+    )
+
+    person__language = filters.ModelChoiceFilter(
+        queryset=Language.objects.all(),
+        label=_("Language"),
+        help_text="",
+        required=False
+    )
+
+    person__first_name = filters.CharFilter(label="First name", method='custom_person_first_name_filter')
+    person__family_name = filters.CharFilter(label="Family name", method='custom_person_family_name_filter')
+    person__property = filters.BooleanFilter(label="Has property", method='custom_person_property_filter')
+
+
+    def custom_person_first_name_filter(self, queryset, name, value):
+        query = (Q(person__first_name__icontains=value))
+        return queryset.filter(query)
+
+    def custom_person_family_name_filter(self, queryset, name, value):
+        query = (Q(person__family_name__icontains=value))
+        return queryset.filter(query)
+
+    def custom_person_property_filter(self, queryset, name, value):
+        #TODO: fix this epic workaround
+        if value is True:
+            query = (Q(person__property__isnull=False))
+        elif value is False:
+            query = (Q(person__property__isnull=True))
+        return queryset.filter(query)
+
+    class Meta:
+        model = AuthUser
+        fields = [
+        'person__neighborhood',
+        'person__language',
+        'person__first_name',
+        'person__family_name',
+        'person__property',
+        ]
+
+# FIXME: won't filter
+class OrganizationFilter(filters.FilterSet):
+    neighborhood = filters.ModelChoiceFilter(
+        queryset=Neighborhood.objects.all(),
+        label=_("Neighborhood"),
+        help_text="",
+        required=False
+    )
+
+    class Meta:
+        model = Organization
+        fields = ['neighborhood', 'is_beneficiary']
+
+class EquipmentFilter(filters.FilterSet):
+    shared = filters.BooleanFilter(help_text="")
+    type = filters.ModelChoiceFilter(
+        queryset=EquipmentType.objects.all(),
+        label=_("Type"),
+        help_text="",
+        required=False
+    )
+    class Meta:
+        model = Equipment
+        fields = ['type', 'shared']

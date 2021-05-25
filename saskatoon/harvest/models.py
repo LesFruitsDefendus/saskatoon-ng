@@ -1,9 +1,10 @@
 # coding: utf-8
+
 from harvest import signals
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 import datetime
 from djgeojson.fields import PointField
 
@@ -93,9 +94,10 @@ class Property(models.Model):
         default=True
     )
 
-    authorized = models.NullBooleanField(
+    authorized = models.BooleanField(
         verbose_name=_("Authorized for this season"),
         help_text=_("Harvest in this property has been authorized for the current season by its owner"),
+        null=True,
         default=None
     )
 
@@ -350,14 +352,22 @@ class Property(models.Model):
         else:
             return self.street
 
+    # Returns a few fields only, useful for property list view
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self).order_by('-start_date')
+        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date', 'pick_leader__person__first_name').order_by('-start_date')
         return harvests_list
 
     def get_last_succeeded_harvest(self):
         last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
         if last_harvest:
-            return last_harvest[0]
+            return last_harvest[0].start_date
+    #
+    # def get_owner_subclass(self):
+    #     from member.models import Person, Organization
+    #     try:
+    #         return Person(self.owner)
+    #     except Person.DoesNotExist:
+    #         return Organization(self.owner)
 
     @property
     def get_owner_name(self):
@@ -601,14 +611,14 @@ class RequestForParticipation(models.Model):
         blank=True
     )
 
-    is_accepted = models.NullBooleanField(
+    is_accepted = models.BooleanField(
         verbose_name=_("Accepted"),
         default=None,
         null=True,
         blank=True
     )
 
-    showed_up = models.NullBooleanField(
+    showed_up = models.BooleanField(
         verbose_name=_("Showed up"),
         default=None,
         null=True,
@@ -701,6 +711,7 @@ class Equipment(models.Model):
     shared = models.BooleanField(
         verbose_name=_("Shared"),
         help_text=_("Can be used in harvests outside of property"),
+        # FIXME? is quoted boolean OK?
         default='False'
     )
 
@@ -756,6 +767,9 @@ class PropertyImage(models.Model):
         upload_to='properties_images',
     )
 
+    def __str__(self):
+        return self.property.__str__()
+
 class HarvestImage(models.Model):
     harvest = models.ForeignKey(
         Harvest,
@@ -765,6 +779,9 @@ class HarvestImage(models.Model):
     image = models.ImageField(
         upload_to='harvests_images',
     )
+
+    def __str__(self):
+        return self.harvest.__str__()
 
 
 ####### SIGNALS ##################
@@ -808,4 +825,3 @@ models.signals.post_save.connect(
     receiver=signals.clear_cache_equipment,
     sender=Equipment
 )
-
