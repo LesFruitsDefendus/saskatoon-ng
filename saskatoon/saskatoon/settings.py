@@ -29,7 +29,7 @@ file and place it inside `saskatoon/` project directory.
 
     # Misc
     SASKATOON_TIME_ZONE=UTC
-=======
+
 """
 
 import os
