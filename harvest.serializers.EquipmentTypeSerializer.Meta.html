@@ -2,28 +2,120 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <title>harvest.serializers.EquipmentTypeSerializer.Meta : API documentation</title>
+  
 
+  <head>
+    
+    <title>harvest.serializers.EquipmentTypeSerializer.Meta</title>
+    <meta name="generator" content="pydoctor 21.2.2"> 
+        
+    </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
-  </head>
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
   <body>
 
+    
+
     <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header navbar-brand">
-          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>
-          <a href="index.html">API Documentation</a>
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <form action="search-results.html" id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" title="Search"><img src="fonts/search.svg" alt="Search!" /></button>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help!" /></a>
+            </span>
+          </div>
+        </form>
+
+        <div class="rst-admonition hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”:
+                  <br /> <code>'+foo bar -baz'</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”:
+                  <br /> <code>'foo*'</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all documents 
+                  that contains "foo" in their full dotted name and with “bar” in any field:
+                  <br /> <code>'+fullName:*foo* +bar'</code>
+
+                  <p>
+                    Possible fields: 'name', 'docstring', 'fullName'.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”:
+                  <br /> <code>'foo~1'</code>
+                </li>
+            </ul>
+
+          </p>
         </div>
+
       </div>
-    </nav>
+
+
+    </div>
+  </div>
+
+  <script>
+ 
+    function toggleSearchHelpText() {
+        document.body.classList.toggle("search-help-hidden");
+    }
+    // Init search and help text
+    document.getElementById('search-box-container').style.display = 'block';
+    document.getElementById('search-help-box').style.display = 'block';
+    document.body.classList.add("search-help-hidden");
+
+  </script>
+
+</nav>
+
+    
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code>.<code><a href="harvest.serializers.html">serializers</a></code>.<code><a href="harvest.serializers.EquipmentTypeSerializer.html">EquipmentTypeSerializer</a></code>.<code><a href="harvest.serializers.EquipmentTypeSerializer.Meta.html">Meta</a></code></code></h1>
+        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.serializers.html">serializers</a></code><wbr></wbr>.<code><a href="harvest.serializers.EquipmentTypeSerializer.html">EquipmentTypeSerializer</a></code><wbr></wbr>.<code><a href="harvest.serializers.EquipmentTypeSerializer.Meta.html">Meta</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -34,7 +126,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Meta</span>: <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/harvest/serializers.py#L24">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Meta</span>: <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L108" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#harvest.serializers.EquipmentTypeSerializer.Meta">View In Hierarchy</a></p>
       </div>
 
@@ -43,7 +135,8 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id69">
+        <table class="children sortable" id="id125">
+  
   
   <tr class="classvariable">
     
@@ -61,6 +154,7 @@
 
         <div class="baseclassvariable">
   
+  
   <a name="harvest.serializers.EquipmentTypeSerializer.Meta.fields">
     
   </a>
@@ -69,8 +163,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">fields</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/harvest/serializers.py#L26">
+    <span class="py-defname">fields</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L110">
       
       (source)
     </a>
@@ -78,16 +172,21 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div>
 
       </div>
-      <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-04-12 02:02:29.
-      </address>
-
     </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.2.2 at 2021-05-26 12:04:57.
+  </div>
+</footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
 

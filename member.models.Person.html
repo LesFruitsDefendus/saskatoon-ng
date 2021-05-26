@@ -2,28 +2,120 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <title>member.models.Person : API documentation</title>
+  
 
+  <head>
+    
+    <title>member.models.Person</title>
+    <meta name="generator" content="pydoctor 21.2.2"> 
+        
+    </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
-  </head>
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
   <body>
 
+    
+
     <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header navbar-brand">
-          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>
-          <a href="index.html">API Documentation</a>
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <form action="search-results.html" id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" title="Search"><img src="fonts/search.svg" alt="Search!" /></button>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help!" /></a>
+            </span>
+          </div>
+        </form>
+
+        <div class="rst-admonition hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”:
+                  <br /> <code>'+foo bar -baz'</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”:
+                  <br /> <code>'foo*'</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all documents 
+                  that contains "foo" in their full dotted name and with “bar” in any field:
+                  <br /> <code>'+fullName:*foo* +bar'</code>
+
+                  <p>
+                    Possible fields: 'name', 'docstring', 'fullName'.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”:
+                  <br /> <code>'foo~1'</code>
+                </li>
+            </ul>
+
+          </p>
         </div>
+
       </div>
-    </nav>
+
+
+    </div>
+  </div>
+
+  <script>
+ 
+    function toggleSearchHelpText() {
+        document.body.classList.toggle("search-help-hidden");
+    }
+    // Init search and help text
+    document.getElementById('search-box-container').style.display = 'block';
+    document.getElementById('search-help-box').style.display = 'block';
+    document.body.classList.add("search-help-hidden");
+
+  </script>
+
+</nav>
+
+    
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="member.html">member</a></code>.<code><a href="member.models.html">models</a></code>.<code><a href="member.models.Person.html">Person</a></code></code></h1>
+        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.models.html">models</a></code><wbr></wbr>.<code><a href="member.models.Person.html">Person</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -34,7 +126,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">Person</span>(<a href="member.models.Actor.html" title="member.models.Actor">Actor</a>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L81">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">Person</span>(<a href="member.models.Actor.html" title="member.models.Actor">Actor</a>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L90" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#member.models.Person">View In Hierarchy</a></p>
       </div>
 
@@ -43,7 +135,8 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id84">
+        <table class="children sortable" id="id153">
+  
   
   <tr class="classvariable">
     
@@ -155,13 +248,24 @@
     <td>Method</td>
     <td><code><a href="#participation_count">participation_count</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_properties">get_properties</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_harvests">get_harvests</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
           <p class="inheritedFrom">
             Inherited from <code><a href="member.models.Actor.html">Actor</a></code>:
           </p>
-          <table class="children sortable" id="id85">
+          <table class="children sortable" id="id154">
+  
   
   <tr class="baseclassvariable">
     
@@ -179,6 +283,7 @@
 
         <div class="baseclassvariable">
   
+  
   <a name="member.models.Person.redmine_contact_id">
     
   </a>
@@ -188,7 +293,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">redmine_contact_id</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L82">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L91">
       
       (source)
     </a>
@@ -199,6 +304,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.first_name">
     
@@ -209,7 +315,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">first_name</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L88">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L97">
       
       (source)
     </a>
@@ -220,6 +326,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.family_name">
     
@@ -230,7 +337,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">family_name</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L93">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L102">
       
       (source)
     </a>
@@ -241,6 +348,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.phone">
     
@@ -251,7 +359,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">phone</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L100">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L109">
       
       (source)
     </a>
@@ -262,6 +370,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.street_number">
     
@@ -272,7 +381,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">street_number</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L107">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L116">
       
       (source)
     </a>
@@ -283,6 +392,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.street">
     
@@ -293,7 +403,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">street</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L114">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L123">
       
       (source)
     </a>
@@ -304,6 +414,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.complement">
     
@@ -314,7 +425,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">complement</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L121">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L130">
       
       (source)
     </a>
@@ -325,6 +436,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.postal_code">
     
@@ -335,7 +447,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">postal_code</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L128">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L137">
       
       (source)
     </a>
@@ -346,6 +458,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.neighborhood">
     
@@ -356,7 +469,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">neighborhood</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L135">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L144">
       
       (source)
     </a>
@@ -367,6 +480,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.city">
     
@@ -377,7 +491,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">city</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L142">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L151">
       
       (source)
     </a>
@@ -388,6 +502,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.state">
     
@@ -398,7 +513,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">state</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L150">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L159">
       
       (source)
     </a>
@@ -409,6 +524,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.country">
     
@@ -419,7 +535,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">country</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L158">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L167">
       
       (source)
     </a>
@@ -430,6 +546,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.newsletter_subscription">
     
@@ -440,7 +557,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">newsletter_subscription</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L166">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L175">
       
       (source)
     </a>
@@ -451,6 +568,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.longitude">
     
@@ -461,7 +579,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">longitude</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L171">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L180">
       
       (source)
     </a>
@@ -472,6 +590,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.latitude">
     
@@ -482,7 +601,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">latitude</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L177">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L186">
       
       (source)
     </a>
@@ -493,6 +612,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="baseclassvariable">
+  
   
   <a name="member.models.Person.language">
     
@@ -503,7 +623,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">language</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L183">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L192">
       
       (source)
     </a>
@@ -515,6 +635,7 @@
   </div>
 </div><div class="baseclassvariable">
   
+  
   <a name="member.models.Person.comments">
     
   </a>
@@ -524,7 +645,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">comments</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L191">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L200">
       
       (source)
     </a>
@@ -536,6 +657,7 @@
   </div>
 </div><div class="basemethod">
   
+  
   <a name="member.models.Person.__str__">
     
   </a>
@@ -545,7 +667,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">__str__</span>(self):
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L200">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L209">
       
       (source)
     </a>
@@ -557,6 +679,7 @@
   </div>
 </div><div class="basemethod">
   
+  
   <a name="member.models.Person.name">
     
   </a>
@@ -566,7 +689,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">name</span>(self):
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L203">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L212">
       
       (source)
     </a>
@@ -577,6 +700,7 @@
     <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basemethod">
+  
   
   <a name="member.models.Person.email">
     
@@ -587,7 +711,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">email</span>(self):
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L206">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L215">
       
       (source)
     </a>
@@ -599,6 +723,7 @@
   </div>
 </div><div class="basemethod">
   
+  
   <a name="member.models.Person.participation_count">
     
   </a>
@@ -608,7 +733,51 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">participation_count</span>(self):
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/member/models.py#L210">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L222">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="member.models.Person.get_properties">
+    
+  </a>
+  <a name="get_properties">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_properties</span>(self):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L229">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="member.models.Person.get_harvests">
+    
+  </a>
+  <a name="get_harvests">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_harvests</span>(self):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/models.py#L234">
       
       (source)
     </a>
@@ -621,11 +790,16 @@
 </div>
 
       </div>
-      <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-04-12 02:02:29.
-      </address>
-
     </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.2.2 at 2021-05-26 12:04:57.
+  </div>
+</footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
 

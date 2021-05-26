@@ -2,28 +2,120 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "DTD/xhtml1-strict.dtd">
 <html>
-  <head>
-    <title>saskatoon.settings : API documentation</title>
+  
 
+  <head>
+    
+    <title>saskatoon.settings</title>
+    <meta name="generator" content="pydoctor 21.2.2"> 
+        
+    </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
-  </head>
+    <link rel="stylesheet" type="text/css" href="extra.css" />
+</head>
+
   <body>
 
+    
+
     <nav class="navbar navbar-default">
-      <div class="container">
-        <div class="navbar-header navbar-brand">
-          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>
-          <a href="index.html">API Documentation</a>
+  
+  <div class="container">
+
+    <div class="navbar-header">
+      
+      <div class="navlinks">
+        <span class="navbar-brand">
+          <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a> <a href="index.html">API Documentation</a>
+        </span>
+
+        <a href="moduleIndex.html">
+          Modules
+        </a>
+
+        <a href="classIndex.html">
+          Classes
+        </a>
+
+        <a href="nameIndex.html">
+          Names
+        </a>
+
+        <form action="search-results.html" id="search-box-container">
+          <div class="input-group">
+            <input id="search-box" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" />
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="submit" title="Search"><img src="fonts/search.svg" alt="Search!" /></button>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help!" /></a>
+            </span>
+          </div>
+        </form>
+
+        <div class="rst-admonition hint" id="search-help-box">
+          <p class="rst-last">
+      
+            Search bar offers the following options:
+            <ul>   
+                <li>
+                  <strong>Term presence.</strong> The below example searches for documents that 
+                    must contain “foo”, might contain “bar” and must not contain “baz”:
+                  <br /> <code>'+foo bar -baz'</code>
+                </li> 
+
+                <li>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”:
+                  <br /> <code>'foo*'</code>
+                </li> 
+
+                <li>
+                  <strong>Search in specific fields.</strong> The following search matches all documents 
+                  that contains "foo" in their full dotted name and with “bar” in any field:
+                  <br /> <code>'+fullName:*foo* +bar'</code>
+
+                  <p>
+                    Possible fields: 'name', 'docstring', 'fullName'.
+                  </p>
+                </li>
+
+                <li>
+                  <strong>Fuzzy matches.</strong> The following search matches all documents 
+                  that have a word within 1 edit distance of “foo”:
+                  <br /> <code>'foo~1'</code>
+                </li>
+            </ul>
+
+          </p>
         </div>
+
       </div>
-    </nav>
+
+
+    </div>
+  </div>
+
+  <script>
+ 
+    function toggleSearchHelpText() {
+        document.body.classList.toggle("search-help-hidden");
+    }
+    // Init search and help text
+    document.getElementById('search-box-container').style.display = 'block';
+    document.getElementById('search-help-box').style.display = 'block';
+    document.body.classList.add("search-help-hidden");
+
+  </script>
+
+</nav>
+
+    
 
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="saskatoon.html">saskatoon</a></code>.<code><a href="saskatoon.settings.html">settings</a></code></code></h1>
+        <h1 class="module"><code><code><a href="saskatoon.html">saskatoon</a></code><wbr></wbr>.<code><a href="saskatoon.settings.html">settings</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -34,7 +126,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py">(source)</a>
+        <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -45,16 +137,42 @@
 <a class="rst-reference external" href="https://docs.djangoproject.com/en/3.0/topics/settings/" target="_top">https://docs.djangoproject.com/en/3.0/topics/settings/</a></p>
 <p>For the full list of settings and their values, see
 <a class="rst-reference external" href="https://docs.djangoproject.com/en/3.0/ref/settings/" target="_top">https://docs.djangoproject.com/en/3.0/ref/settings/</a></p>
+<p>To set new settings, adapt the following <tt class="rst-docutils literal">.env</tt>
+file and place it inside <tt class="rst-docutils literal">saskatoon/</tt> project directory.</p>
+<pre class="rst-literal-block">
+# SECURITY WARNING: keep the secret key used in production secret!
+# More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
+SASKATOON_SECRET_KEY='&lt;KEY&gt;'
+
+# SECURITY WARNING: don't run with debug turned on in production!
+SASKATOON_DEBUG=no
+
+# Database settings
+SASKATOON_DB_ENGINE=django.db.backends.mysql
+SASKATOON_DB_NAME=saskatoon_prod
+SASKATOON_DB_USER=saskatoon
+SASKATOON_DB_PASSWORD=
+SASKATOON_DB_HOST=127.0.0.1
+
+# Misc
+SASKATOON_TIME_ZONE=UTC
+</pre>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id102">
+        <table class="children sortable" id="id171">
+  
   
   <tr class="variable">
     
     <td>Variable</td>
     <td><code><a href="#BASE_DIR">BASE_DIR</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#file">file</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -104,12 +222,32 @@
   </tr><tr class="variable">
     
     <td>Variable</td>
+    <td><code><a href="#DEFAULT_AUTO_FIELD">DEFAULT_AUTO_FIELD</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
     <td><code><a href="#AUTH_PASSWORD_VALIDATORS">AUTH_PASSWORD_VALIDATORS</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
     <td><code><a href="#LANGUAGE_CODE">LANGUAGE_CODE</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#LANGUAGES">LANGUAGES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#LOCALE_PATHS">LOCALE_PATHS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#CSRF_COOKIE_SECURE">CSRF_COOKIE_SECURE</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -139,12 +277,32 @@
   </tr><tr class="variable">
     
     <td>Variable</td>
+    <td><code><a href="#PROJECT_DIR">PROJECT_DIR</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#STATIC_ROOT">STATIC_ROOT</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
     <td><code><a href="#AUTH_USER_MODEL">AUTH_USER_MODEL</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
     <td><code><a href="#REST_FRAMEWORK">REST_FRAMEWORK</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#CACHES">CACHES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#CRISPY_TEMPLATE_PACK">CRISPY_TEMPLATE_PACK</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -157,6 +315,7 @@
 
         <div class="basevariable">
   
+  
   <a name="saskatoon.settings.BASE_DIR">
     
   </a>
@@ -166,7 +325,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">BASE_DIR</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L16">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L41">
       
       (source)
     </a>
@@ -178,6 +337,29 @@
   </div>
 </div><div class="basevariable">
   
+  
+  <a name="saskatoon.settings.file">
+    
+  </a>
+  <a name="file">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">file</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L44">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
   <a name="saskatoon.settings.SECRET_KEY">
     
   </a>
@@ -187,7 +369,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">SECRET_KEY</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L23">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L51">
       
       (source)
     </a>
@@ -195,9 +377,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.DEBUG">
     
@@ -207,8 +390,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">DEBUG</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L26">
+    <span class="py-defname">DEBUG</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L55">
       
       (source)
     </a>
@@ -216,9 +399,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.ALLOWED_HOSTS">
     
@@ -228,8 +412,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">ALLOWED_HOSTS</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L28">
+    <span class="py-defname">ALLOWED_HOSTS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L59">
       
       (source)
     </a>
@@ -237,9 +421,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.INSTALLED_APPS">
     
@@ -249,8 +434,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">INSTALLED_APPS</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L33">
+    <span class="py-defname">INSTALLED_APPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L63">
       
       (source)
     </a>
@@ -258,9 +443,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.MIDDLEWARE">
     
@@ -270,8 +456,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">MIDDLEWARE</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L54">
+    <span class="py-defname">MIDDLEWARE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L82">
       
       (source)
     </a>
@@ -279,9 +465,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.ROOT_URLCONF">
     
@@ -291,8 +478,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">ROOT_URLCONF</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L64">
+    <span class="py-defname">ROOT_URLCONF</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L93">
       
       (source)
     </a>
@@ -300,9 +487,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.TEMPLATES">
     
@@ -312,8 +500,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">TEMPLATES</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L66">
+    <span class="py-defname">TEMPLATES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L95">
       
       (source)
     </a>
@@ -321,9 +509,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.WSGI_APPLICATION">
     
@@ -333,8 +522,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">WSGI_APPLICATION</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L82">
+    <span class="py-defname">WSGI_APPLICATION</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L111">
       
       (source)
     </a>
@@ -342,9 +531,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.DATABASES">
     
@@ -355,7 +545,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">DATABASES</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L88">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L117">
       
       (source)
     </a>
@@ -363,9 +553,32 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.DEFAULT_AUTO_FIELD">
+    
+  </a>
+  <a name="DEFAULT_AUTO_FIELD">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DEFAULT_AUTO_FIELD</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L129">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.AUTH_PASSWORD_VALIDATORS">
     
@@ -375,8 +588,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">AUTH_PASSWORD_VALIDATORS</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L98">
+    <span class="py-defname">AUTH_PASSWORD_VALIDATORS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L134">
       
       (source)
     </a>
@@ -384,9 +597,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.LANGUAGE_CODE">
     
@@ -396,8 +610,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">LANGUAGE_CODE</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L117">
+    <span class="py-defname">LANGUAGE_CODE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L153">
       
       (source)
     </a>
@@ -405,9 +619,76 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.LANGUAGES">
+    
+  </a>
+  <a name="LANGUAGES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LANGUAGES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L155">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.LOCALE_PATHS">
+    
+  </a>
+  <a name="LOCALE_PATHS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOCALE_PATHS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L160">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.CSRF_COOKIE_SECURE">
+    
+  </a>
+  <a name="CSRF_COOKIE_SECURE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CSRF_COOKIE_SECURE</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L167">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.TIME_ZONE">
     
@@ -418,7 +699,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">TIME_ZONE</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L119">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L169">
       
       (source)
     </a>
@@ -426,9 +707,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.USE_I18N">
     
@@ -438,8 +720,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">USE_I18N</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L121">
+    <span class="py-defname">USE_I18N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L171">
       
       (source)
     </a>
@@ -447,9 +729,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.USE_L10N">
     
@@ -459,8 +742,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">USE_L10N</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L123">
+    <span class="py-defname">USE_L10N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L173">
       
       (source)
     </a>
@@ -468,9 +751,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.USE_TZ">
     
@@ -480,8 +764,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">USE_TZ</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L125">
+    <span class="py-defname">USE_TZ</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L175">
       
       (source)
     </a>
@@ -489,9 +773,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.STATIC_URL">
     
@@ -501,8 +786,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">STATIC_URL</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L131">
+    <span class="py-defname">STATIC_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L181">
       
       (source)
     </a>
@@ -510,9 +795,54 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.PROJECT_DIR">
+    
+  </a>
+  <a name="PROJECT_DIR">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">PROJECT_DIR</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L182">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.STATIC_ROOT">
+    
+  </a>
+  <a name="STATIC_ROOT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">STATIC_ROOT</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L183">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.AUTH_USER_MODEL">
     
@@ -522,8 +852,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">AUTH_USER_MODEL</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L135">
+    <span class="py-defname">AUTH_USER_MODEL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L187">
       
       (source)
     </a>
@@ -531,9 +861,10 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div><div class="basevariable">
+  
   
   <a name="saskatoon.settings.REST_FRAMEWORK">
     
@@ -543,8 +874,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">REST_FRAMEWORK</span> =
-    <a class="functionSourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/b739b2f20c332305f19fd116def47e5ecae0a53f/saskatoon/saskatoon/settings.py#L137">
+    <span class="py-defname">REST_FRAMEWORK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L189">
       
       (source)
     </a>
@@ -552,16 +883,65 @@
   <div class="functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div> (type: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code>)
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.CACHES">
+    
+  </a>
+  <a name="CACHES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CACHES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L201">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.CRISPY_TEMPLATE_PACK">
+    
+  </a>
+  <a name="CRISPY_TEMPLATE_PACK">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CRISPY_TEMPLATE_PACK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L211">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div>
 
       </div>
-      <address>
-        <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon-Dev</a>, generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a> 21.2.2 at 2021-04-12 02:02:29.
-      </address>
-
     </div>
+
+    <footer class="navbar navbar-default">
+  
+  <div class="container">
+    <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
+  generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
+    21.2.2 at 2021-05-26 12:04:57.
+  </div>
+</footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
 
