@@ -1,0 +1,30 @@
+[
+{
+  "model": "member.city",
+  "pk": 1,
+  "fields": {
+    "name": "Montreal"
+  }
+},
+{
+  "model": "member.city",
+  "pk": 2,
+  "fields": {
+    "name": "Île-Perrot"
+  }
+},
+{
+  "model": "member.city",
+  "pk": 3,
+  "fields": {
+    "name": "Repentigny"
+  }
+},
+{
+  "model": "member.city",
+  "pk": 4,
+  "fields": {
+    "name": "Sainte-Therese"
+  }
+}
+]

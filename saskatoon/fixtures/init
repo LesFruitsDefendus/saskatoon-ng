@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Load initial fixtures from .json files
+
+# get script directory no matter where it's called from (doesn't work w/ symlinks)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+# migrate database in case it was not already done
+../manage.py migrate --skip-check
+
+# initial sequence order does matter!
+seq=(member-city member-neighborhood member-state member-country member-language member-actor member-person member-organization member-authuser harvest-property harvest-equipmenttype harvest-treetype harvest-equipment harvest-harvest)
+ignore="-e ^saskatoon"
+
+# fixtures defined in sequence
+for fix in "${seq[@]}"
+do
+    echo "Loading $fix"
+    ./loaddata $fix
+    ignore="$ignore -e ^$fix"
+done
+
+# unused .json files
+unused=$(ls *.json | grep -v $ignore)
+echo "Unused .json fixtures:"; echo $unused
+
+# for fix in $unused
+# do
+#     echo "Loading $fix"
+#     ./loaddata $fix
+# done
+
+

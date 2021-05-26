@@ -1,0 +1,13 @@
+[
+{
+  "model": "harvest.equipment",
+  "pk": 1,
+  "fields": {
+    "type": 3,
+    "description": "Belle échelle jaune de 10 pieds",
+    "owner": null,
+    "property": 3,
+    "shared": false
+  }
+}
+]

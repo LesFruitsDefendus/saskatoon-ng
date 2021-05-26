@@ -1,0 +1,9 @@
+[
+{
+  "model": "member.state",
+  "pk": 1,
+  "fields": {
+    "name": "Quebec"
+  }
+}
+]

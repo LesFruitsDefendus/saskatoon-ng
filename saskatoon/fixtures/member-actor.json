@@ -1,0 +1,17 @@
+[
+{
+  "model": "member.actor",
+  "pk": 1,
+  "fields": {}
+},
+{
+  "model": "member.actor",
+  "pk": 2,
+  "fields": {}
+},
+{
+  "model": "member.actor",
+  "pk": 3,
+  "fields": {}
+}
+]

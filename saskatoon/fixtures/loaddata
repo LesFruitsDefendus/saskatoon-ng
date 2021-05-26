@@ -1,0 +1,30 @@
+#!/bin/bash
+
+# Load model instance(s) from .json file
+# https://docs.djangoproject.com/en/dev/howto/initial-data/
+#
+# Usage examples:
+# - single fixture   $ ./loaddata member-city
+# - all fixtures     $ ./loaddata all
+# - whole database   $ ./loaddata saskatoon
+
+# get script directory no matter where it's called from (doesn't work w/ symlinks)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+
+cd $SCRIPT_DIR
+
+error="Error: no database fixture specified."
+usage="Usage: $0 <app or instance or "all">"
+[ -z "$1" ] && { echo $error; echo $usage; exit 1; }
+
+if [ $1 == "all" ]; then
+    # get all .json files in fixtures/ except saskatoon files
+    for f in $(ls *.json | grep -v "^saskatoon")
+    do
+        echo "Loading $f ..."
+        ../manage.py loaddata "${f%.*}"
+    done
+else
+    ../manage.py loaddata $1
+fi
+

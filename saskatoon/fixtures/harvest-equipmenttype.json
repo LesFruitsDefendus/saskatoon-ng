@@ -1,0 +1,93 @@
+[
+{
+  "model": "harvest.equipmenttype",
+  "pk": 1,
+  "fields": {
+    "name": "Vélo"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 2,
+  "fields": {
+    "name": "Remorque"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 3,
+  "fields": {
+    "name": "Échelle"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 4,
+  "fields": {
+    "name": "Pochette des documents logistiques"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 5,
+  "fields": {
+    "name": "Balance"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 6,
+  "fields": {
+    "name": "Trousse de premiers soins"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 7,
+  "fields": {
+    "name": "Cueille-fruits"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 8,
+  "fields": {
+    "name": "Étuis à crayon et outils"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 9,
+  "fields": {
+    "name": "Hitch à vélo"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 10,
+  "fields": {
+    "name": "Caisses en bois"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 11,
+  "fields": {
+    "name": "Ciseaux"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 12,
+  "fields": {
+    "name": "Gants"
+  }
+},
+{
+  "model": "harvest.equipmenttype",
+  "pk": 13,
+  "fields": {
+    "name": "Bacs en plastic"
+  }
+}
+]

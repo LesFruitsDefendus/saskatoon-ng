@@ -1,0 +1,18 @@
+[
+{
+  "model": "member.authuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$B4izrSL5cMDhpz76Ml8oAd$y+vALyJB3hKoOGYietAefzmZQMA0TSPrbGq4WLI7yvs=",
+    "last_login": null,
+    "is_superuser": true,
+    "person": 3,
+    "email": "info@lesfruitsdefendus.org",
+    "date_joined": "2021-05-26T21:26:41.699Z",
+    "is_active": true,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+}
+]
