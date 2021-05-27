@@ -10,7 +10,21 @@ cd $SCRIPT_DIR
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(member-city member-neighborhood member-state member-country member-language member-actor member-person member-organization member-authuser harvest-property harvest-equipmenttype harvest-treetype harvest-equipment harvest-harvest)
+seq=(member-city \
+         member-neighborhood \
+         member-state \
+         member-country \
+         member-language \
+         member-actor \
+         member-person \
+         member-organization \
+         member-authuser \
+         harvest-property \
+         harvest-equipmenttype \
+         harvest-treetype \
+         harvest-equipment \
+         harvest-harvest)
+
 ignore="-e ^saskatoon"
 
 # fixtures defined in sequence
