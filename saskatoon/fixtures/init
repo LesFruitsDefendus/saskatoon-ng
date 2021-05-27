@@ -7,7 +7,7 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR
 
 # migrate database in case it was not already done
-../manage.py migrate --skip-check
+../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
 seq=(member-city member-neighborhood member-state member-country member-language member-actor member-person member-organization member-authuser harvest-property harvest-equipmenttype harvest-treetype harvest-equipment harvest-harvest)
