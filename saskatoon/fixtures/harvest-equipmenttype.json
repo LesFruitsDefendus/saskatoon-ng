@@ -87,7 +87,7 @@
   "model": "harvest.equipmenttype",
   "pk": 13,
   "fields": {
-    "name": "Bacs en plastic"
+    "name": "Bacs en plastique"
   }
 }
 ]
