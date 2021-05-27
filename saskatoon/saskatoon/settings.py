@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 
 To set new settings, adapt the following ``.env``
-file and place it inside `saskatoon/` project directory.
+file and place it inside ``saskatoon/`` project directory.
 
 ::
+
     # SECURITY WARNING: keep the secret key used in production secret!
     # More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
     SASKATOON_SECRET_KEY='<KEY>'
@@ -29,7 +30,7 @@ file and place it inside `saskatoon/` project directory.
 
     # Misc
     SASKATOON_TIME_ZONE=UTC
-=======
+
 """
 
 import os
