@@ -224,7 +224,7 @@ For example, running `saskatoon/fixtures/dumpdata member.city` will create a `me
 
 ## Import/export MySQL database
 
-To export a dump file of the database: (TODO check)
+To export a dump file of the database:
 ```
 mysqldump -u <user> -p <db_name> > dump_file.sql
 ```

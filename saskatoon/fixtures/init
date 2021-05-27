@@ -24,6 +24,7 @@ seq=(member-city \
      harvest-treetype \
      harvest-equipment \
      harvest-harvest \
+     harvest-harvestyield \
     )
 
 ignore="-e ^saskatoon"

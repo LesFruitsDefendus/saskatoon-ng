@@ -5,12 +5,12 @@
   "fields": {
     "password": "pbkdf2_sha256$260000$B4izrSL5cMDhpz76Ml8oAd$y+vALyJB3hKoOGYietAefzmZQMA0TSPrbGq4WLI7yvs=",
     "last_login": null,
-    "is_superuser": true,
+    "is_superuser": false,
     "person": 3,
-    "email": "info@lesfruitsdefendus.org",
+    "email": "pick@leader.com",
     "date_joined": "2021-05-26T21:26:41.699Z",
     "is_active": true,
-    "is_staff": true,
+    "is_staff": false,
     "groups": [],
     "user_permissions": []
   }

@@ -4,8 +4,8 @@
   "pk": 1,
   "fields": {
     "redmine_contact_id": null,
-    "first_name": "Julie",
-    "family_name": "Tremblay",
+    "first_name": "Nice",
+    "family_name": "Owner",
     "phone": "514-666-1234",
     "street_number": "123",
     "street": "av. Mont-Royal",
@@ -27,8 +27,8 @@
   "pk": 3,
   "fields": {
     "redmine_contact_id": null,
-    "first_name": "Super",
-    "family_name": "User",
+    "first_name": "Pick",
+    "family_name": "Leader",
     "phone": null,
     "street_number": null,
     "street": null,

@@ -4,9 +4,9 @@
   "pk": 1,
   "fields": {
     "harvest": 1,
-    "tree": 14,
-    "total_in_lb": 4.0,
-    "recipient": 2
+    "tree": 9,
+    "total_in_lb": 3.0,
+    "recipient": 1
   }
 },
 {
@@ -15,8 +15,8 @@
   "fields": {
     "harvest": 1,
     "tree": 14,
-    "total_in_lb": 3.0,
-    "recipient": 1
+    "total_in_lb": 6.0,
+    "recipient": 2
   }
 },
 {
@@ -27,6 +27,16 @@
     "tree": 9,
     "total_in_lb": 4.0,
     "recipient": 3
+  }
+},
+{
+  "model": "harvest.harvestyield",
+  "pk": 4,
+  "fields": {
+    "harvest": 1,
+    "tree": 14,
+    "total_in_lb": 2.0,
+    "recipient": 1
   }
 }
 ]
