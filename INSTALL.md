@@ -161,9 +161,8 @@ $(venv) python3 saskatoon/manage.py createsuperuser --skip-checks
 
 For Django to serve static files during development `SASKATOON_DEBUG` must be set to `yes`.
 
-WARNING: This is not suitable for production use!
+WARNING: This is not suitable for production use! (See [issue 86](https://github.com/LesFruitsDefendus/saskatoon-ng/issues/86))
 
-TODO: consider [Whitenoise](http://whitenoise.evans.io/en/stable/django.html#django-middleware) for static files handling?
 
 
 ### Launch the server on localhost
