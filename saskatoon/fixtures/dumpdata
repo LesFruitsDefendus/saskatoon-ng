@@ -7,10 +7,10 @@
 # - whole database  $ ./dumpdata
 # - app fixture     $ ./dumpdata member
 # - table fixture   $ ./dumpdata harvest.equipmenttype
+# - all tables      $ ./dumpdata all
 
 # get script directory no matter where it's called from (doesn't work w/ symlinks)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
-
 cd $SCRIPT_DIR
 
 if [ -z "$1" ]; then
@@ -21,7 +21,17 @@ if [ -z "$1" ]; then
     fi
     ../manage.py dumpdata  --indent 2 > "saskatoon.json"
 else
-    ../manage.py dumpdata $1  --indent 2 > "${1//./-}.json"
+    if [ $1 == "all" ]; then
+        # replace all .json files in fixtures/ except saskatoon files
+        for d in $(ls *.json | grep -v "^saskatoon")
+        do
+            f="${d%.*}"
+            echo "Dumping $d ..."
+            ../manage.py dumpdata "${f//-/.}" --indent 2 > $d
+        done
+    else
+        ../manage.py dumpdata $1  --indent 2 > "${1//./-}.json"
+    fi
 fi
 
 

@@ -11,19 +11,20 @@ cd $SCRIPT_DIR
 
 # initial sequence order does matter!
 seq=(member-city \
-         member-neighborhood \
-         member-state \
-         member-country \
-         member-language \
-         member-actor \
-         member-person \
-         member-organization \
-         member-authuser \
-         harvest-property \
-         harvest-equipmenttype \
-         harvest-treetype \
-         harvest-equipment \
-         harvest-harvest)
+     member-neighborhood \
+     member-state \
+     member-country \
+     member-language \
+     member-actor \
+     member-person \
+     member-organization \
+     member-authuser \
+     harvest-property \
+     harvest-equipmenttype \
+     harvest-treetype \
+     harvest-equipment \
+     harvest-harvest \
+    )
 
 ignore="-e ^saskatoon"
 
