@@ -184,7 +184,7 @@ NB: to access the admin panel visit [localhost:8000/admin](http://127.0.0.1:8000
 To initialize the database with the `saskatoon.json` dump file:
 ```
 (venv)$ python3 saskatoon/manage.py migrate --skip-check
-(venv)$ python3 saskatoon/manage.py loaddata saskatoon/fixture/saskatoon.json
+(venv)$ python3 saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
 ```
 
 Alternatively you could audit/modify the individual .json files located in `saskatoon/fixtures` and run:
