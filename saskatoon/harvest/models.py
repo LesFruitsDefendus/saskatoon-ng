@@ -220,7 +220,7 @@ class Property(models.Model):
     )
 
     fruits_height = models.PositiveIntegerField(
-        verbose_name=_("Height of lowest fruits"),
+        verbose_name=_("Height of lowest fruits (meters)"),
         blank=True,
         null=True
     )
@@ -405,7 +405,7 @@ class Harvest(models.Model):
     )
 
     owner_fruit = models.BooleanField(
-        verbose_name=_("Owner want his share of fruits"),
+        verbose_name=_("Owner want their share of fruits"),
         default=False
     )
 
@@ -675,7 +675,7 @@ class HarvestYield(models.Model):
         verbose_name_plural = _("harvest yields")
 
     def __str__(self):
-        return "%.2f kg of %s to %s" % \
+        return "%.2f lbs of %s to %s" % \
                (self.total_in_lb, self.tree.fruit_name, self.recipient)
 
 
