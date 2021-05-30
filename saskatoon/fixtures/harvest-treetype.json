@@ -1,0 +1,302 @@
+[
+{
+  "model": "harvest.treetype",
+  "pk": 1,
+  "fields": {
+    "name": "Abricotier",
+    "image": "",
+    "fruit_name": "Abricot",
+    "season_start": "9999-07-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 2,
+  "fields": {
+    "name": "Amélanchier",
+    "image": "fruits_images/Saskatoon_Berries_in_Alberta.jpg",
+    "fruit_name": "Amélanche",
+    "season_start": "9999-06-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 3,
+  "fields": {
+    "name": "Cerisier sucré",
+    "image": "fruits_images/220px-Prunus_avium_fruit.jpg",
+    "fruit_name": "Cerise sucrée",
+    "season_start": "9999-06-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 4,
+  "fields": {
+    "name": "Cerisier griotte",
+    "image": "fruits_images/Italienische_Süßkirschen.JPG",
+    "fruit_name": "Cerise griotte",
+    "season_start": "9999-06-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 5,
+  "fields": {
+    "name": "Fraisier",
+    "image": "",
+    "fruit_name": "Fraise",
+    "season_start": "9999-06-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 6,
+  "fields": {
+    "name": "Framboisier",
+    "image": "",
+    "fruit_name": "Framboise",
+    "season_start": "9999-06-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 7,
+  "fields": {
+    "name": "Groseillier",
+    "image": "",
+    "fruit_name": "Groseille",
+    "season_start": "9999-07-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 8,
+  "fields": {
+    "name": "Blackberry",
+    "image": "fruits_images/220px-Ripe_ripening_and_green_blackberries.jpg",
+    "fruit_name": "Blackberry",
+    "season_start": "9999-08-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 9,
+  "fields": {
+    "name": "Noyer",
+    "image": "",
+    "fruit_name": "Noix de Grenoble",
+    "season_start": "9999-09-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 10,
+  "fields": {
+    "name": "Pêcher",
+    "image": "",
+    "fruit_name": "Pêche",
+    "season_start": "9999-07-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 11,
+  "fields": {
+    "name": "Poirier rouge",
+    "image": "fruits_images/af46a7028cb06aaa46e9357ca4d9cde0.jpe",
+    "fruit_name": "Poire rouge",
+    "season_start": "9999-08-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 12,
+  "fields": {
+    "name": "Poirier jaune",
+    "image": "fruits_images/pear_tree_l1.jpg",
+    "fruit_name": "Poire jaune",
+    "season_start": "9999-08-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 13,
+  "fields": {
+    "name": "Poirier vert",
+    "image": "fruits_images/234px-Lukas_pear.jpg",
+    "fruit_name": "Poire verte",
+    "season_start": "9999-08-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 14,
+  "fields": {
+    "name": "Pommier vert",
+    "image": "fruits_images/Granny_smith.jpg",
+    "fruit_name": "Pomme verte",
+    "season_start": "9999-08-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 15,
+  "fields": {
+    "name": "Pommier rouge",
+    "image": "fruits_images/320px-Sampion_cultivar.jpg",
+    "fruit_name": "Pomme rouge",
+    "season_start": "9999-08-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 16,
+  "fields": {
+    "name": "Pommier jaune",
+    "image": "fruits_images/220px-Golden_delicious_apple.jpg",
+    "fruit_name": "Pomme jaune",
+    "season_start": "9999-07-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 17,
+  "fields": {
+    "name": "Pommettier",
+    "image": "",
+    "fruit_name": "Pommette",
+    "season_start": "9999-07-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 18,
+  "fields": {
+    "name": "Purple plum tree",
+    "image": "fruits_images/img018_IFXEa0p.jpg",
+    "fruit_name": "Purple plum",
+    "season_start": "2019-08-20"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 19,
+  "fields": {
+    "name": "Green grapevine",
+    "image": "fruits_images/download.jpg",
+    "fruit_name": "Green grape",
+    "season_start": "9999-08-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 20,
+  "fields": {
+    "name": "Vigne à raisin bleu",
+    "image": "fruits_images/170px-Wine_grapes03.jpg",
+    "fruit_name": "Raisin mauve (bleu)",
+    "season_start": "9999-08-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 21,
+  "fields": {
+    "name": "Rhubarbe",
+    "image": "",
+    "fruit_name": "Rhubarbe",
+    "season_start": "9999-08-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 22,
+  "fields": {
+    "name": "Sureau",
+    "image": "",
+    "fruit_name": "Sureau",
+    "season_start": "9999-08-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 23,
+  "fields": {
+    "name": "Figuier",
+    "image": "",
+    "fruit_name": "Figue",
+    "season_start": "9999-09-01"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 24,
+  "fields": {
+    "name": "Blackcurrant",
+    "image": "fruits_images/220px-Ribes_nigrum_a1.JPG",
+    "fruit_name": "Blackcurrant",
+    "season_start": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 25,
+  "fields": {
+    "name": "Aronia bush",
+    "image": "fruits_images/img018.jpg",
+    "fruit_name": "Aronia berry",
+    "season_start": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 26,
+  "fields": {
+    "name": "Mulberry tree",
+    "image": "fruits_images/img018_zxA4Kdu.jpg",
+    "fruit_name": "Mulberry",
+    "season_start": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 27,
+  "fields": {
+    "name": "Red grapevine",
+    "image": "fruits_images/img018_x8DeipW.jpg",
+    "fruit_name": "Red grapes",
+    "season_start": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 28,
+  "fields": {
+    "name": "Yellow plum tree",
+    "image": "fruits_images/img018_qOrAW2L.jpg",
+    "fruit_name": "Yellow plum",
+    "season_start": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 29,
+  "fields": {
+    "name": "Asian pear tree",
+    "image": "fruits_images/img018_JG8lVhr.jpg",
+    "fruit_name": "Asian pear",
+    "season_start": "2019-09-15"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 30,
+  "fields": {
+    "name": "Green plum tree",
+    "image": "fruits_images/img018_OX0YSyP.jpg",
+    "fruit_name": "Green plum",
+    "season_start": "2019-09-06"
+  }
+}
+]

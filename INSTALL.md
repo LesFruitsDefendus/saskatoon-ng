@@ -161,9 +161,8 @@ $(venv) python3 saskatoon/manage.py createsuperuser --skip-checks
 
 For Django to serve static files during development `SASKATOON_DEBUG` must be set to `yes`.
 
-WARNING: This is not suitable for production use!
+WARNING: This is not suitable for production use! (See [issue 86](https://github.com/LesFruitsDefendus/saskatoon-ng/issues/86))
 
-TODO: consider [Whitenoise](http://whitenoise.evans.io/en/stable/django.html#django-middleware) for static files handling?
 
 
 ### Launch the server on localhost
@@ -176,9 +175,56 @@ python3 saskatoon/manage.py runserver 8000
 NB: to access the admin panel visit [localhost:8000/admin](http://127.0.0.1:8000/admin)
 
 
-## Import/export database
+## Loading initial data (fixtures)
 
-To export a dump file of the database: (TODO check)
+[Providing initial data for models](https://docs.djangoproject.com/en/dev/howto/initial-data/)
+
+
+To initialize the database with the `saskatoon.json` dump file:
+```
+(venv)$ python3 saskatoon/manage.py migrate --skip-check
+(venv)$ python3 saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
+```
+
+Alternatively you could audit/modify the individual .json files located in `saskatoon/fixtures` and run:
+```
+(venv)$ saskatoon/fixtures/init
+```
+
+>  Warning: each time you run loaddata, the data will be read from the fixture and re-loaded into the database. Note this means that if you change one of the rows created by a fixture and then run loaddata again, you’ll wipe out any changes you’ve made.
+
+
+To load all .json files located in `saskatoon/fixtures`:
+```
+(venv)$ saskatoon/fixtures/loaddata all
+```
+Note: this does not include .json files of the type: `saskatoon*.json`
+
+
+To load a single app or model instance:
+```
+(venv)$ saskatoon/fixtures/loaddata <instance>
+```
+For example, running `saskatoon/fixtures/loaddata member-city` will load the `member-city.json` file into the database.
+
+
+To export all data from a pre-populated database:
+```
+(venv)$ saskatoon/fixtures/dumpdata
+```
+This will create `saksatoon/fixtures/saksatoon.json`
+
+
+To export data from a specific app or table:
+```
+(venv)$ saskatoon/fixtures/dumpdata <app or instance>
+```
+For example, running `saskatoon/fixtures/dumpdata member.city` will create a `member-city.json` file containing all instances from the `City` model (defined in `members.model.py`) currently stored in the database.
+
+
+## Import/export MySQL database
+
+To export a dump file of the database:
 ```
 mysqldump -u <user> -p <db_name> > dump_file.sql
 ```
@@ -192,6 +238,7 @@ $ mysql -u <user> -p <db_name> < dump_file.sql
 ```
 $ head -n 5 dump_file.sql
 ```
+
 
 ## Running tests
 

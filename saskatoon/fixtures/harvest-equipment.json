@@ -1,0 +1,13 @@
+[
+{
+  "model": "harvest.equipment",
+  "pk": 1,
+  "fields": {
+    "type": 3,
+    "description": "10ft aluminim step ladder",
+    "owner": null,
+    "property": 3,
+    "shared": false
+  }
+}
+]

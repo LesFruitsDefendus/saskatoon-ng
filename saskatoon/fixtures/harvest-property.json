@@ -1,0 +1,47 @@
+[
+{
+  "model": "harvest.property",
+  "pk": 3,
+  "fields": {
+    "is_active": true,
+    "authorized": true,
+    "pending": true,
+    "pending_contact_name": "",
+    "pending_contact_phone": "",
+    "pending_contact_email": null,
+    "pending_newsletter": false,
+    "pending_recurring": false,
+    "geom": null,
+    "owner": 1,
+    "trees_location": "Backyard",
+    "trees_accessibility": "Passer par l'arrière",
+    "avg_nb_required_pickers": 2,
+    "public_access": false,
+    "neighbor_access": false,
+    "compost_bin": true,
+    "ladder_available": true,
+    "ladder_available_for_outside_picks": false,
+    "harvest_every_year": false,
+    "number_of_trees": 2,
+    "approximative_maturity_date": "2021-06-06",
+    "fruits_height": 2,
+    "street_number": "123",
+    "street": "av. Mont-Royal",
+    "complement": "apt. 4",
+    "postal_code": "H2T 1V8",
+    "publishable_location": "Mont-Royal, coin Buillon",
+    "neighborhood": 19,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "longitude": null,
+    "latitude": null,
+    "additional_info": "Je peux aider pour la ceuillète",
+    "changed_by": null,
+    "trees": [
+      9,
+      14
+    ]
+  }
+}
+]
