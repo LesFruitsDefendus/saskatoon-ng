@@ -1,13 +1,14 @@
 from dal import autocomplete
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from rest_framework.response import Response
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from harvest.filters import *
 from rest_framework import viewsets, permissions
 # from django.utils.decorators import method_decorator
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
 
@@ -310,15 +311,32 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
+
+@login_required
+def harvest_yield_create(request, harvest_id, actor_id, tree_id, weight):
+        print("NEW harvest yield")
+        actor = Actor.objects.get(actor_id=actor_id)
+        print("actor", actor)
+        tree = TreeType.objects.get(id=tree_id)
+        print("tree", tree)
+        weight = float(weight)
+        print("weight", weight*20.0/2)
+
+        # return redirect("/harvest/" + harvest_id)
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
 class HarvestYieldCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = HarvestYield
     form_class = HarvestYieldForm
     template_name = 'app/yield_create.html'
     success_message = "Harvest distribution created successfully!"
 
+
     def get_success_url(self):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
 
 class HarvestYieldUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = HarvestYield
