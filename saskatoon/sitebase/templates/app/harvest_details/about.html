@@ -1,0 +1,75 @@
+{% load i18n %}
+{% load static %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                <div class="curved-inner-pro">
+                    <div class="curved-ctn">
+                        <h2>{% trans "Public announcement" %}</h2>
+                        <br>
+                        <p><strong>{% for f in harvest.trees %}
+                            {{ f }},
+                            {% endfor %}
+                            {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}
+                        </strong></p>
+                        <br>
+                        <p>{{ harvest.about|safe }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="sale-statistic-inner notika-shadow mg-tb-30">
+                <div class="contact-hd search-hd-eg">
+                    <h2>Property information</h2>
+                </div>
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td>{% trans "Contact" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner }}</h4>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>{% trans "Phone" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.phone }}</h4>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>{% trans "Email" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.email }}</h4>
+                            </td>
+                        </tr>
+
+                        {% if property.owner.person.language != 'None' %}
+                        <tr>
+                            <td>{% trans "Language" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.language }}</h4>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                        {% if property.owner.person.comments %}
+                        <tr>
+                            <td>{% trans "Comments" %}</td>
+                            <td class="text-right">
+                                <h4>{{ property.owner.person.comments }}</h4>
+                            </td>
+                        </tr>
+                        {% endif %}
+
+                    </table>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+<!-- End Realtime sts area-->

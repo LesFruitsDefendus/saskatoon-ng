@@ -15,7 +15,7 @@ from harvest.forms import *
 
 from member.models import AuthUser, Organization, Actor, Person, City
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
-from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
+from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +34,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/harvest_details.html'
+        self.template_name = 'app/harvest_details/view.html'
         pk = self.get_object().pk
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
         if format == 'json':

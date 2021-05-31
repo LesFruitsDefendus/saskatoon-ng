@@ -1,0 +1,25 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+{% include 'app/harvest_details/breadcomb.html' %}
+
+{% include 'app/harvest_details/status.html' %}
+
+{% include 'app/harvest_details/about.html' %}
+
+{% include 'app/harvest_details/data_table.html' %}
+
+<div class="container">
+    <div class="row">
+
+        {% include 'app/harvest_details/distribution.html' %}
+
+        {% include 'app/harvest_details/comments.html' %}
+
+    </div>
+</div>
+
+{% endblock content %}
