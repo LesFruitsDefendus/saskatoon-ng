@@ -1,0 +1,6 @@
+{% load static %}
+<select id="trees" class="form-control">
+    {% for t in harvest.trees %}
+        <option value={{ t.id }}>{{ t }}</option>
+    {% endfor %}
+</select>

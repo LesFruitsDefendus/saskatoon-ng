@@ -1,0 +1,6 @@
+{% load static %}
+<select id="organizations" class="form-control">
+    {% for o in organizations %}
+        <option value={{ o.pk }}>{{ o }}</option>
+    {% endfor %}
+</select>
