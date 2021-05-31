@@ -14,10 +14,10 @@
   }
 },
 {
-    "model": "member.language",
-    "pk": 3,
-    "fields": {
-        "name": "Español"
-    }
+  "model": "member.language",
+  "pk": 3,
+  "fields": {
+    "name": "Español"
+  }
 }
 ]
