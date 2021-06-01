@@ -7,7 +7,7 @@
                 </h2>
             <div class="search-eg-table">
 
-                <h5> Add new Picker recipient COLLAPSE
+                <h5> Add NEW recipient COLLAPSE
                 <a href="TODO" class="btn btn-xs"><i class="fa fa-plus" style="color:blue"></i></a>
                 </h5>
                 <table class="table">
@@ -19,37 +19,12 @@
                     </tr>
                     <tbody>
                         <tr>
-                            <td> {% include 'app/harvest_details/picker_select.html' %} </td>
+                            <td> {% include 'app/harvest_details/recipient_select.html' %} </td>
                             <td> {% include 'app/harvest_details/tree_select.html' %} </td>
                             <td> {% include 'app/harvest_details/weight_select.html' %} </td>
                             <td>
                                 <!-- <a href="/yield/create/?a=2/?t=3/?h={{harvest.id}}/"> -->
                                 <a href="/yield/create/{{harvest.id}}/2/3/2.35/">
-                                    <i class="fa fa-check"></i>
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <br>
-                <h5> Add new Organization recipient COLLAPSE
-                    <a href="TODO" class="btn btn-xs"><i class="fa fa-plus" style="color:blue"></i></a>
-                </h5>
-                <table class="table">
-                    <tr>
-                        <th class="col-md-5"> Recipient </th>
-                        <th class="col-md-4"> Tree </th>
-                        <th class="col-md-2" Weight (lbs) </th>
-                        <th class="col-md-1" Add </th>
-                    </tr>
-                    <tbody>
-                        <tr>
-                            <td> {% include 'app/harvest_details/organization_select.html' %} </td>
-                            <td> {% include 'app/harvest_details/tree_select.html' %} </td>
-                            <td> {% include 'app/harvest_details/weight_select.html' %} </td>
-                            <td>
-                                <a href="TODO/harvest_yield/update/{{ d.id }}?h={{ harvest.id }}">
                                     <i class="fa fa-check"></i>
                                 </a>
                             </td>

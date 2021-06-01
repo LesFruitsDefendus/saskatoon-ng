@@ -1,0 +1,12 @@
+{% load static %}
+<select id="pickers" class="form-control">
+    <option selected disabled>Pickers</option>
+    {% for p in pickers %}
+        <option value={{ p.pk }}>{{ p }}</option>
+    {% endfor %}
+    <option selected disabled>Organizations</option>
+    {% for o in organizations %}
+    <option value={{ o.pk }}>{{ o }}</option>
+    {% endfor %}
+    <option selected disabled hidden>Select a Recipient</option>
+</select>
