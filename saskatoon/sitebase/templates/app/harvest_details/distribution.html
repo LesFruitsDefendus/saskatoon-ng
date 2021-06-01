@@ -2,54 +2,31 @@
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div class="sale-statistic-inner notika-shadow mg-tb-30">
         <div class="contact-hd search-hd-eg">
-                <h2>Fruit distribution
-                    <!-- <a href="/harvest_yield/create?h={{ harvest.id }}" class="btn btn-xs"><i class="fa fa-plus"></i></a> -->
-                </h2>
+                <h2>Fruit distribution </h2>
+                <table class="table">
+                    <tbody>
+                        {% for d in distribution %}
+                        <tr>
+                            <td class="col-md-6">{{ d.recipient }}</td>
+                            <td class="col-md-4">{{ d.tree.fruit_name }}</td>
+                            <td class="col-md-2">{{ d.total_in_lb }}</td>
+                            <td>
+                                <a href="/yield/delete/{{d.id}}">
+                                    <i class="fa fa-times" style="color:red"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
             <div class="search-eg-table">
 
                 <h5> Add NEW recipient COLLAPSE
                 <a href="TODO" class="btn btn-xs"><i class="fa fa-plus" style="color:blue"></i></a>
                 </h5>
-                <table class="table">
-                    <tr>
-                        <th class="col-md-5"> Recipient </th>
-                        <th class="col-md-4"> Tree </th>
-                        <th class="col-md-2" Weight (lbs) </th>
-                        <th class="col-md-1" Add </th>
-                    </tr>
-                    <tbody>
-                        <tr>
-                        <form action="/yield/create/" method="post" validate>
-                        {% csrf_token %}
-                            <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
-                            <td> {% include 'app/harvest_details/recipient_select.html' %} </td>
-                            <td> {% include 'app/harvest_details/tree_select.html' %} </td>
-                            <td> {% include 'app/harvest_details/weight_input.html' %} </td>
-                            <td> <button type="submit"><i class="fa fa-check"></i></button> </td>
-                        </form>
-                        </tr>
-                    </tbody>
-                </table>
 
-                <br>
-                <br>
-                <h5> Distribution  </h5>
-                <table class="table">
-                    <tbody>
-                    {% for d in distribution %}
-                    <tr>
-                        <td class="col-md-6">{{ d.recipient }}</td>
-                        <td class="col-md-4">{{ d.tree.fruit_name }}</td>
-                        <td class="col-md-2">{{ d.total_in_lb }}</td>
-                        <td>
-                            <a href="TODO/harvest_yield/update/{{ d.id }}?h={{ harvest.id }}">
-                                <i class="fa fa-times" style="color:red"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-                </table>
+                {% include 'app/harvest_details/create_yield.html' %}
             </div>
         </div>
     </div>

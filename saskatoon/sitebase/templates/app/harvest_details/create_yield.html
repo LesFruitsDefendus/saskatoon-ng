@@ -1,0 +1,21 @@
+{% load static %}
+<table class="table">
+    <tr>
+        <th class="col-md-5"> Recipient </th>
+        <th class="col-md-4"> Tree </th>
+        <th class="col-md-2" Weight (lbs) </th>
+        <th class="col-md-1" Add </th>
+    </tr>
+    <tbody>
+        <tr>
+        <form action="/yield/create/" method="post" validate>
+        {% csrf_token %}
+            <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
+            <td> {% include 'app/harvest_details/recipient_select.html' %} </td>
+            <td> {% include 'app/harvest_details/tree_select.html' %} </td>
+            <td> {% include 'app/harvest_details/weight_input.html' %} </td>
+            <td> <button type="submit"><i class="fa fa-check"></i></button> </td>
+        </form>
+        </tr>
+    </tbody>
+</table>

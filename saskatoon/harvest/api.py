@@ -313,14 +313,23 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
+@login_required
+def harvest_yield_delete(request, id):
+    """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
+    try:
+        old_yield = HarvestYield.objects.get(id=id)
+        old_yield.delete()
+        messages.warning(request, "Fruit Distribution Deleted")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    except Exception as e:
+        raise
 
 @login_required
 def harvest_yield_create(request):
-    """ handles app/harvest/distribution.html form """
+    """ handles new fruit distribution form (app/harvest/create_yield.html)"""
 
     if request.method == 'POST':
         data = request.POST
-        print("data", data)
         try:
             actor_id = data['actor'] # can be empty
         except KeyError:
