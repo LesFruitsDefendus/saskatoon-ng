@@ -19,15 +19,14 @@
                     </tr>
                     <tbody>
                         <tr>
+                        <form action="/yield/create/" method="post" validate>
+                        {% csrf_token %}
+                            <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
                             <td> {% include 'app/harvest_details/recipient_select.html' %} </td>
                             <td> {% include 'app/harvest_details/tree_select.html' %} </td>
-                            <td> {% include 'app/harvest_details/weight_select.html' %} </td>
-                            <td>
-                                <!-- <a href="/yield/create/?a=2/?t=3/?h={{harvest.id}}/"> -->
-                                <a href="/yield/create/{{harvest.id}}/2/3/2.35/">
-                                    <i class="fa fa-check"></i>
-                                </a>
-                            </td>
+                            <td> {% include 'app/harvest_details/weight_input.html' %} </td>
+                            <td> <button type="submit"><i class="fa fa-check"></i></button> </td>
+                        </form>
                         </tr>
                     </tbody>
                 </table>

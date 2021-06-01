@@ -7,9 +7,9 @@ from django import forms
 from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
-from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment, 
+from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
-from member.models import AuthUser, Person
+from member.models import AuthUser, Person, Organization
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
@@ -588,4 +588,3 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
         fields = '__all__'
-

@@ -1,4 +1,5 @@
 from dal import autocomplete
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -52,7 +53,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
         organizations = Organization.objects.filter(is_beneficiary=True)
 
-        return Response({'harvest': response.data,
+        # return Response({'harvest': response.data, #Not sure what was the purpose of this?
+        return Response({'harvest': harvest,
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
@@ -313,16 +315,35 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
 
 
 @login_required
-def harvest_yield_create(request, harvest_id, actor_id, tree_id, weight):
-        print("NEW harvest yield")
-        actor = Actor.objects.get(actor_id=actor_id)
-        print("actor", actor)
-        tree = TreeType.objects.get(id=tree_id)
-        print("tree", tree)
-        weight = float(weight)
-        print("weight", weight*20.0/2)
+def harvest_yield_create(request):
+    """ handles app/harvest/distribution.html form """
 
-        # return redirect("/harvest/" + harvest_id)
+    if request.method == 'POST':
+        data = request.POST
+        print("data", data)
+        try:
+            actor_id = data['actor'] # can be empty
+        except KeyError:
+            #message.error doesn't show red for some reason..
+            messages.warning(request, "New Fruit Distribution Failed: Please select a recipient")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        try:
+            harvest_id = data['harvest']
+            tree_id = data['tree']
+            weight = float(data['weight'])
+        except Exception as e:
+            raise
+
+        if weight <= 0:
+            messages.warning(request, "New Fruit Distribution Failed: Weight must be positive")
+        else:
+            new_yield = HarvestYield(harvest_id = harvest_id,
+                                        recipient_id = actor_id,
+                                        tree_id = tree_id,
+                                        total_in_lb = weight)
+            new_yield.save()
+            messages.success(request, 'New Fruit Recipient successfully added!')
+
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
