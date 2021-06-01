@@ -4,16 +4,23 @@
         <div class="contact-hd search-hd-eg">
                 <h2>Fruit distribution </h2>
                 <table class="table">
+                    <tr>
+                        <!-- cols should add up to 12... -->
+                        <th class="col-md-5"> Recipient </th>
+                        <th class="col-md-4"> Tree </th>
+                        <th class="col-md-3"> Weight </th>
+                        <th class="col-md-1"> Delete </th>
+                    </tr>
                     <tbody>
                         {% for d in distribution %}
                         <tr>
-                            <td class="col-md-6">{{ d.recipient }}</td>
-                            <td class="col-md-4">{{ d.tree.fruit_name }}</td>
-                            <td class="col-md-2">{{ d.total_in_lb }}</td>
+                            <td> {{ d.recipient }} </td>
+                            <td> {{ d.tree.fruit_name }} </td>
+                            <td> {{ d.total_in_lb }} lbs</td>
                             <td>
-                                <a href="/yield/delete/{{d.id}}">
-                                    <i class="fa fa-times" style="color:red"></i>
-                                </a>
+                            <button><a href="/yield/delete/{{d.id}}">
+                                <i class="fa fa-times" style="color:red"></i> </a></button>
+                            <td>
                             </td>
                         </tr>
                         {% endfor %}
