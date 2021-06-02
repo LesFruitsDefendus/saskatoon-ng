@@ -317,8 +317,8 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
 def harvest_yield_delete(request, id):
     """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
     try:
-        old_yield = HarvestYield.objects.get(id=id)
-        old_yield.delete()
+        _yield = HarvestYield.objects.get(id=id)
+        _yield.delete()
         messages.warning(request, "Fruit Distribution Deleted")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     except Exception as e:
@@ -346,11 +346,11 @@ def harvest_yield_create(request):
         if weight <= 0:
             messages.warning(request, "New Fruit Distribution Failed: Weight must be positive")
         else:
-            new_yield = HarvestYield(harvest_id = harvest_id,
+            _yield = HarvestYield(harvest_id = harvest_id,
                                         recipient_id = actor_id,
                                         tree_id = tree_id,
                                         total_in_lb = weight)
-            new_yield.save()
+            _yield.save()
             messages.success(request, 'New Fruit Recipient successfully added!')
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

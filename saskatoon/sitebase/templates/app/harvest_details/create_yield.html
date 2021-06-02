@@ -4,8 +4,8 @@
         <!-- cols should add up to 12... -->
         <th class="col-md-5"> Recipient </th>
         <th class="col-md-4"> Tree </th>
-        <th class="col-md-3"> Weight (lbs) </th>
-        <th class="col-md-1"> Add </th>
+        <th class="col-md-2"> lbs </th>
+        <th class="col-md-1 text-center"> Save </th>
     </tr>
     <tbody>
         <tr>
@@ -15,7 +15,9 @@
             <td> {% include 'app/harvest_details/recipient_select.html' %} </td>
             <td> {% include 'app/harvest_details/tree_select.html' %} </td>
             <td> {% include 'app/harvest_details/weight_input.html' %} </td>
-            <td> <button type="submit"><i class="fa fa-check"></i></button> </td>
+            <td class="col-md-1 text-center">
+                <button type="submit" class="btn"><i class="fa fa-check"></i></button>
+            </td>
         </form>
         </tr>
     </tbody>

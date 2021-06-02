@@ -8,8 +8,8 @@
                         <!-- cols should add up to 12... -->
                         <th class="col-md-5"> Recipient </th>
                         <th class="col-md-4"> Tree </th>
-                        <th class="col-md-3"> Weight </th>
-                        <th class="col-md-1"> Delete </th>
+                        <th class="col-md-2"> Weight </th>
+                        <th class="col-md-1 text-center"> Delete </th>
                     </tr>
                     <tbody>
                         {% for d in distribution %}
@@ -17,24 +17,25 @@
                             <td> {{ d.recipient }} </td>
                             <td> {{ d.tree.fruit_name }} </td>
                             <td> {{ d.total_in_lb }} lbs</td>
-                            <td>
-                            <button><a href="/yield/delete/{{d.id}}">
-                                <i class="fa fa-times" style="color:red"></i> </a></button>
-                            <td>
+                            <td class="text-center">
+                            <a href="/yield/delete/{{d.id}}">
+                                <i class="fa fa-times" style="color:red;"></i>
+                            </a>
                             </td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
 
-            <div class="search-eg-table">
-
-                <h5> Add NEW recipient COLLAPSE
-                <a href="TODO" class="btn btn-xs"><i class="fa fa-plus" style="color:blue"></i></a>
+                <h5> Add new recipient
+                    <a data-toggle="collapse" href="#new-recipient">
+                        &nbsp;
+                        <i class="fa fa-plus" style="color:blue"></i>
+                    </a>
                 </h5>
-
-                {% include 'app/harvest_details/create_yield.html' %}
-            </div>
+                <div class="collapse" id="new-recipient">
+                    {% include 'app/harvest_details/create_yield.html' %}
+                </div>
         </div>
     </div>
 </div>
