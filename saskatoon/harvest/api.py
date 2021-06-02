@@ -53,8 +53,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
         organizations = Organization.objects.filter(is_beneficiary=True)
 
-        # return Response({'harvest': response.data, #Not sure what was the purpose of this?
-        return Response({'harvest': harvest,
+        return Response({'harvest': response.data,
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
