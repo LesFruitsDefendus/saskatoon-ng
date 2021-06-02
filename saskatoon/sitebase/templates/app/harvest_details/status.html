@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load l10n %}
 {% load static %}
 <div class="notika-status-area">
     <div class="container">
@@ -8,7 +9,9 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{{ harvest.status }}</p>
-                        <h2><span class="counter">{{ harvest.total_distribution|floatformat:1 }}</span> lbs</h2>
+                        {% if harvest.status == "Succeeded" %}
+                        <h2><span class="counter">{{  harvest.total_distribution|unlocalize }}</span> lbs</h2>
+                        {% endif %}
                     </div>
                     <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
                 </div>
