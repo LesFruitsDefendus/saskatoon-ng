@@ -52,6 +52,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         property = harvest.property
         pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
         organizations = Organization.objects.filter(is_beneficiary=True)
+        trees = harvest.trees.all()
 
         return Response({'harvest': response.data,
                          'form_request': RequestForm(),
@@ -63,6 +64,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'property': property,
                          'pickers': pickers,
                          'organizations': organizations,
+                         'trees': trees,
                          'form_edit_recipient': HarvestYieldForm(),
                         })
 
