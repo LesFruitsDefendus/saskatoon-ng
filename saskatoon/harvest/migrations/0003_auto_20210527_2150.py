@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='owner_fruit',
-            field=models.BooleanField(default=False, verbose_name='Owner want their share of fruits'),
+            field=models.BooleanField(default=False, verbose_name='Owner wants their share of fruits'),
         ),
         migrations.AlterField(
             model_name='property',
