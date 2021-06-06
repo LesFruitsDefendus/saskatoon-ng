@@ -1,5 +1,7 @@
 {% load static %}
 <select name="actor" id="recipient-select" class="form-control required">
+    <option selected disabled>Owner</option>
+    <option value={{ property.owner.pk }}>{{ property.owner }}</option>
     <option selected disabled>Pickers</option>
     {% for p in pickers %}
         <option value={{ p.pk }}>{{ p }}</option>
