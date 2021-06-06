@@ -10,7 +10,7 @@
     "email": "pick@leader.com",
     "date_joined": "2021-05-26T21:26:41.699Z",
     "is_active": true,
-    "is_staff": false,
+    "is_staff": true,
     "groups": [],
     "user_permissions": []
   }
