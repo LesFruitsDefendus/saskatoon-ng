@@ -1,4 +1,5 @@
 {% load static %}
+
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div class="sale-statistic-inner notika-shadow mg-tb-30">
         <div class="contact-hd search-hd-eg">
@@ -18,9 +19,9 @@
                             <td> {{ d.tree.fruit_name }} </td>
                             <td> {{ d.total_in_lb }} lbs</td>
                             <td class="text-center">
-                            <a href="/yield/delete/{{d.id}}">
-                                <i class="fa fa-times" style="color:red;"></i>
-                            </a>
+                                <a href="/yield/delete/{{d.id}}" onclick="confirmDelete();">
+                                    <i class="fa fa-times" style="color:red;"></i>
+                                </a>
                             </td>
                         </tr>
                         {% endfor %}
