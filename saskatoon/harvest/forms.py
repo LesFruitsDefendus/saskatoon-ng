@@ -187,12 +187,16 @@ class RFPManageForm(forms.ModelForm):
             _('Picker showed up')
         ),
         (
-            'didnt_showed_up',
+            'didnt_show_up',
             _("Picker didn't show up")
         ),
         (
             'cancelled',
             _("Picker cancelled in advance")
+        ),
+        (
+            '',
+            _('Not Applicable')
         )
     ]
 
@@ -231,9 +235,8 @@ class RFPManageForm(forms.ModelForm):
 
     def save(self):
         instance = super(RFPManageForm, self).save(commit=False)
-        status = self.cleaned_data['status']
-        accept = self.cleaned_data['accept']
 
+        accept = self.cleaned_data['accept']
         if accept == 'yes':
             instance.acceptation_date = datetime.datetime.now()
             instance.is_accepted = True
@@ -243,6 +246,17 @@ class RFPManageForm(forms.ModelForm):
         elif accept == 'pending':
             instance.acceptation_date = None
             instance.is_accepted = None
+
+        status = self.cleaned_data['status']
+        if status == 'showed_up':
+            instance.showed_up = True
+        elif status == 'didnt_show_up':
+            instance.showed_up = False
+        elif status == 'cancelled':
+            instance.is_cancelled = True
+        else:
+            instance.showed_up = None
+            instance.is_cancelled = False
 
         instance.save()
         return instance

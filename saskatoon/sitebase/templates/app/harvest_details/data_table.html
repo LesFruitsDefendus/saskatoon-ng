@@ -19,10 +19,10 @@
                                 <th style="width: 9%">{% trans "Status" %}</th>
                                 <th style="width: 10%">{% trans "Requested on" %}</th>
                                 <th style="width: 10%">{% trans "Accepted on" %}</th>
-                                <th style="width: 12%">{% trans "First time?" %}</th>
+                                <th style="width: 8%">{% trans "First time?" %}</th>
                                 <th>{% trans "Msg from picker" %}</th>
                                 <th>{% trans "Msg from pick leader" %}</th>
-                                <th>{% trans "Action" %}</th>
+                                <th>{% trans "Manage" %}</th>
                             </tr>
                             {% for r in requests %}
                             <tr>
@@ -34,7 +34,7 @@
                                     <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
                                     {% endif %}
                                 </td>
-                                <td>{{ r.number_of_people }}</td>
+                                <td style="text-align: center;">{{ r.number_of_people }}</td>
                                 <td>
                                     {% if r.is_accepted == None %}
                                     <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
@@ -61,7 +61,7 @@
                                 </td>
                                 <td>{{ r.comment }}</td>
                                 <td>{{ r.notes_from_pickleader }}</td>
-                                <td>
+                                <td style="text-align: center;">
                                     <a href="/participation/update/{{ r.id }}/?hid={{ harvest.id }}">
                                         <i class="fa fa-pencil"></i>
                                     </a>

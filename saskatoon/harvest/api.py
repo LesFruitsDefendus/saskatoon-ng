@@ -307,8 +307,33 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
     form_class = RFPManageForm
-    template_name = 'app/participation_create.html'
+    template_name = 'app/participation_review.html'
     success_message = "Request updated successfully!"
+
+    # Prefill form based on request for participation (rfp) instance
+    def get(self, request, pk, *args, **kwargs):
+        rfp = RequestForParticipation.objects.get(id=pk)
+        if rfp.is_accepted == True:
+            accept = 'yes'
+        elif rfp.is_accepted == False:
+            accept = 'no'
+        else:
+            accept = 'pending'
+
+        if rfp.is_cancelled == True:
+            status = 'cancelled'
+        elif rfp.showed_up == True:
+            status = 'showed_up'
+        elif rfp.showed_up == False:
+            status = 'didnt_show_up'
+        else:
+            status = None
+
+        context = {'form': RFPManageForm(initial={'accept': accept,
+                                                  'status': status,
+                                                  'notes_from_pickleader': rfp.notes_from_pickleader}),
+                   'rfp': rfp}
+        return render(request, 'app/participation_manage.html', context)
 
     def get_success_url(self):
         request = self.request.GET
