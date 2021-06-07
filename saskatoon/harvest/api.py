@@ -307,7 +307,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
     form_class = RFPManageForm
-    template_name = 'app/participation_review.html'
+    template_name = 'app/participation_manage.html'
     success_message = "Request updated successfully!"
 
     # Prefill form based on request for participation (rfp) instance
