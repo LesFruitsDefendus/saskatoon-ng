@@ -544,6 +544,13 @@ class HarvestForm(forms.ModelForm):
     start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
     end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
 
+    def clean_pick_leader(self):
+        '''check if pick-leader was selected'''
+        pickleader = self.cleaned_data['pick_leader']
+        status = self.cleaned_data['status']
+        if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
+            raise forms.ValidationError("*You must choose a pick leader or change harvest status")
+
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
 
