@@ -32,7 +32,7 @@
                                         <td> {{ rfp.picker }} </td>
                                     </tr>
                                     <tr>
-                                        <th> nb. of pickers: </th>
+                                        <th> nb. of pickers </th>
                                         <td> {{ rfp.number_of_people }} </td>
                                     </tr>
                                     <tr>
@@ -55,22 +55,17 @@
                                     <table class="table">
                                         <tbody>
                                             <tr>
-                                                <th class="col-lg-3"> Request status: </th>
-                                                <td class="col-lg-9"> {{ form.accept }} </td>
-                                            </tr>
-
-                                            <tr>
-                                                <th> Participation feedback:</th>
-                                                <td> {{ form.status }} </td>
+                                                <th class="col-lg-3"> {{ form.status.label }} </th>
+                                                <td class="col-lg-9"> {{ form.status }} </td>
                                             </tr>
                                             <tr>
-                                                <th> Notes from the pick leader:</th>
+                                                <th> Pick leader notes</th>
                                                 <td> {{ form.notes_from_pickleader }} </td>
                                             </tr>
                                             <tr>
                                                 <th> </th>
                                                 <td>
-                                                <button type="submit" class="btn btn-primary">{% trans 'Save' %}</button>
+                                                <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
                                                 </td>
                                             </tr>
                                         </tbody>

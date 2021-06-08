@@ -313,25 +313,18 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
     # Prefill form based on request for participation (rfp) instance
     def get(self, request, pk, *args, **kwargs):
         rfp = RequestForParticipation.objects.get(id=pk)
-        if rfp.is_accepted == True:
-            accept = 'yes'
-        elif rfp.is_accepted == False:
-            accept = 'no'
-        else:
-            accept = 'pending'
 
         if rfp.is_cancelled == True:
             status = 'cancelled'
-        elif rfp.showed_up == True:
-            status = 'showed_up'
-        elif rfp.showed_up == False:
-            status = 'didnt_show_up'
+        elif rfp.is_accepted == True:
+            status = 'accepted'
+        elif rfp.is_accepted == False:
+            status = 'refused'
         else:
-            status = None
+            status = 'pending'
 
-        context = {'form': RFPManageForm(initial={'accept': accept,
-                                                  'status': status,
-                                                  'notes_from_pickleader': rfp.notes_from_pickleader}),
+        context = {'form': RFPManageForm(initial={'status': status,
+                                'notes_from_pickleader': rfp.notes_from_pickleader}),
                    'rfp': rfp}
         return render(request, 'app/participation_manage.html', context)
 

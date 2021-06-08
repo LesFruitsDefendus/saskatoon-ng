@@ -183,81 +183,40 @@ class CommentForm(forms.ModelForm):
 class RFPManageForm(forms.ModelForm):
     STATUS_CHOICES = [
         (
-            'showed_up',
-            _('Picker showed up')
+            'pending',
+            _("Pending")
         ),
         (
-            'didnt_show_up',
-            _("Picker didn't show up")
-        ),
-        (
-            'cancelled',
-            _("Picker cancelled in advance")
-        ),
-        (
-            '',
-            _('Not Applicable')
-        )
-    ]
-
-    ACCEPT_CHOICES = [
-        (
-            'yes',
+            'accepted',
             _('Accept this request')
         ),
         (
-            'no',
+            'refused',
             _("Refuse this request")
         ),
         (
-            'pending',
-            _("Pending")
+            'cancelled',
+            _("Canceled by picker")
         )
     ]
 
-    accept = forms.ChoiceField(
-        label=_('Please accept or refuse this request :'),
-        choices=ACCEPT_CHOICES,
-        widget=forms.RadioSelect(),
-        required=False
-    )
-
     status = forms.ChoiceField(
-        label=_('About the picker participation :'),
+        label=_('Participation request status'),
         choices=STATUS_CHOICES,
         widget=forms.RadioSelect(),
-        required=False
+        required=True
     )
 
     class Meta:
         model = RequestForParticipation
-        fields = ['accept', 'status', 'notes_from_pickleader']
+        fields = ['status', 'notes_from_pickleader']
 
     def save(self):
         instance = super(RFPManageForm, self).save(commit=False)
-
-        accept = self.cleaned_data['accept']
-        if accept == 'yes':
-            instance.acceptation_date = datetime.datetime.now()
-            instance.is_accepted = True
-        elif accept == 'no':
-            instance.acceptation_date = None
-            instance.is_accepted = False
-        elif accept == 'pending':
-            instance.acceptation_date = None
-            instance.is_accepted = None
-
         status = self.cleaned_data['status']
-        if status == 'showed_up':
-            instance.showed_up = True
-        elif status == 'didnt_show_up':
-            instance.showed_up = False
-        elif status == 'cancelled':
-            instance.is_cancelled = True
-        else:
-            instance.showed_up = None
-            instance.is_cancelled = False
-
+        instance.is_cancelled = (status == 'cancelled')
+        instance.acceptation_date = datetime.datetime.now() if status == 'accepted' else None
+        instance.is_accepted = {'accepted': True, 'refused': False}.get(status, None)
         instance.save()
         return instance
 
