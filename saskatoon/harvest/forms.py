@@ -500,8 +500,8 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
-    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
+    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
 
     def clean_pick_leader(self):
         '''check if pick-leader was selected'''
