@@ -36,12 +36,18 @@
                                 </td>
                                 <td style="text-align: center;">{{ r.number_of_people }}</td>
                                 <td>
-                                    {% if r.is_accepted == None %}
-                                    <i class="fa fa-question" style="color:orange"></i> {% trans "Pending" %}
+                                    {% if r.is_cancelled == True %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                        {% trans "Canceled" %}
+                                    {% elif r.is_accepted == None %}
+                                        <i class="fa fa-question" style="color:orange"></i>
+                                        {% trans "Pending" %}
                                     {% elif r.is_accepted == False %}
-                                    <i class="fa fa-times" style="color:red"></i> {% trans "Refused" %}
+                                        <i class="fa fa-times" style="color:red"></i>
+                                        {% trans "Refused" %}
                                     {% elif r.is_accepted == True %}
-                                    <i class="fa fa-check" style="color:green"></i> {% trans "Accepted" %}
+                                        <i class="fa fa-check" style="color:green"></i>
+                                        {% trans "Accepted" %}
                                     {% endif %}
                                 </td>
                                 <td>{{ r.creation_date }}</td>
