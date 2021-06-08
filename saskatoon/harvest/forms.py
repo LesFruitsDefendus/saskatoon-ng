@@ -550,6 +550,7 @@ class HarvestForm(forms.ModelForm):
         status = self.cleaned_data['status']
         if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
             raise forms.ValidationError("*You must choose a pick leader or change harvest status")
+        return pickleader
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
