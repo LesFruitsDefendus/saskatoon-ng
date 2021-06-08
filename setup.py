@@ -32,7 +32,7 @@ setup(
         "django-crequest",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
-        "Pillow==8.1.1",
+        "Pillow==8.2.0",
         "pycparser==2.20",
         "pytz==2020.1",
         "six==1.15.0",
