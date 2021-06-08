@@ -7,13 +7,18 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    {% if harvest.status == "Succeeded" %}
                     <div class="website-traffic-ctn">
                         <p>{{ harvest.status }}</p>
-                        {% if harvest.status == "Succeeded" %}
                         <h2><span class="counter">{{  harvest.total_distribution|unlocalize }}</span> lbs</h2>
-                        {% endif %}
                     </div>
-                    <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                        <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                    {% else %}
+                        <div class="website-traffic-ctn">
+                            <p>Harvest status</p>
+                            <h2>{{ harvest.status }}</h2>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -21,9 +26,9 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>Havest date</p>
-                        <h2>{{ harvest.start_date }}</h2>
+                        <h2>{{ harvest_date }}</h2>
                     </div>
-                    <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div>
+                    <!-- <div class="sparkline-bar-stats1">9,4,8,6,5,6,4,8,3,5,9,5</div> -->
                 </div>
             </div>
 
