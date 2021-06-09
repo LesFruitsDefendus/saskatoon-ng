@@ -46,6 +46,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # FIXME: serialize all this
 
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
+        harvest_date = harvest.start_date.strftime("%b. %d, %Y at %H:%M")
         requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
         comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
@@ -55,6 +56,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         trees = harvest.trees.all()
 
         return Response({'harvest': response.data,
+                         'harvest_date': harvest_date,
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
