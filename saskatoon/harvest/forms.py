@@ -7,9 +7,9 @@ from django import forms
 from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
-from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment, 
+from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
-from member.models import AuthUser, Person
+from member.models import AuthUser, Person, Organization
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
@@ -183,67 +183,40 @@ class CommentForm(forms.ModelForm):
 class RFPManageForm(forms.ModelForm):
     STATUS_CHOICES = [
         (
-            'showed_up',
-            _('Picker showed up')
+            'pending',
+            _("Pending")
         ),
         (
-            'didnt_showed_up',
-            _("Picker didn't show up")
-        ),
-        (
-            'cancelled',
-            _("Picker cancelled in advance")
-        )
-    ]
-
-    ACCEPT_CHOICES = [
-        (
-            'yes',
+            'accepted',
             _('Accept this request')
         ),
         (
-            'no',
+            'refused',
             _("Refuse this request")
         ),
         (
-            'pending',
-            _("Pending")
+            'cancelled',
+            _("Canceled by picker")
         )
     ]
 
-    accept = forms.ChoiceField(
-        label=_('Please accept or refuse this request :'),
-        choices=ACCEPT_CHOICES,
-        widget=forms.RadioSelect(),
-        required=False
-    )
-
     status = forms.ChoiceField(
-        label=_('About the picker participation :'),
+        label=_('Participation request status'),
         choices=STATUS_CHOICES,
         widget=forms.RadioSelect(),
-        required=False
+        required=True
     )
 
     class Meta:
         model = RequestForParticipation
-        fields = ['accept', 'status', 'notes_from_pickleader']
+        fields = ['status', 'notes_from_pickleader']
 
     def save(self):
         instance = super(RFPManageForm, self).save(commit=False)
         status = self.cleaned_data['status']
-        accept = self.cleaned_data['accept']
-
-        if accept == 'yes':
-            instance.acceptation_date = datetime.datetime.now()
-            instance.is_accepted = True
-        elif accept == 'no':
-            instance.acceptation_date = None
-            instance.is_accepted = False
-        elif accept == 'pending':
-            instance.acceptation_date = None
-            instance.is_accepted = None
-
+        instance.is_cancelled = (status == 'cancelled')
+        instance.acceptation_date = datetime.datetime.now() if status == 'accepted' else None
+        instance.is_accepted = {'accepted': True, 'refused': False}.get(status, None)
         instance.save()
         return instance
 
@@ -527,8 +500,16 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
-    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M'])
+    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
+    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
+
+    def clean_pick_leader(self):
+        '''check if pick-leader was selected'''
+        pickleader = self.cleaned_data['pick_leader']
+        status = self.cleaned_data['status']
+        if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
+            raise forms.ValidationError("*You must choose a pick leader or change harvest status")
+        return pickleader
 
     def save(self):
         instance = super(HarvestForm, self).save(commit=False)
@@ -588,4 +569,3 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
         fields = '__all__'
-

@@ -1,13 +1,15 @@
 from dal import autocomplete
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from rest_framework.response import Response
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from harvest.filters import *
 from rest_framework import viewsets, permissions
 # from django.utils.decorators import method_decorator
-# from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required
 from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
 
@@ -15,7 +17,7 @@ from harvest.forms import *
 
 from member.models import AuthUser, Organization, Actor, Person, City
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
-from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer, 
+from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -34,7 +36,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/harvest_details.html'
+        self.template_name = 'app/harvest_details/view.html'
         pk = self.get_object().pk
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
         if format == 'json':
@@ -48,6 +50,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         distribution = HarvestYield.objects.filter(harvest=harvest)
         comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
         property = harvest.property
+        pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
+        organizations = Organization.objects.filter(is_beneficiary=True)
+        trees = harvest.trees.all()
 
         return Response({'harvest': response.data,
                          'form_request': RequestForm(),
@@ -57,6 +62,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'distribution': distribution,
                          'comments': comments,
                          'property': property,
+                         'pickers': pickers,
+                         'organizations': organizations,
+                         'trees': trees,
                          'form_edit_recipient': HarvestYieldForm(),
                         })
 
@@ -299,12 +307,73 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
     form_class = RFPManageForm
-    template_name = 'app/participation_create.html'
+    template_name = 'app/participation_manage.html'
     success_message = "Request updated successfully!"
+
+    # Prefill form based on request for participation (rfp) instance
+    def get(self, request, pk, *args, **kwargs):
+        rfp = RequestForParticipation.objects.get(id=pk)
+
+        if rfp.is_cancelled == True:
+            status = 'cancelled'
+        elif rfp.is_accepted == True:
+            status = 'accepted'
+        elif rfp.is_accepted == False:
+            status = 'refused'
+        else:
+            status = 'pending'
+
+        context = {'form': RFPManageForm(initial={'status': status,
+                                'notes_from_pickleader': rfp.notes_from_pickleader}),
+                   'rfp': rfp}
+        return render(request, 'app/participation_manage.html', context)
 
     def get_success_url(self):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+
+@login_required
+def harvest_yield_delete(request, id):
+    """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
+    try:
+        _yield = HarvestYield.objects.get(id=id)
+        _yield.delete()
+        messages.warning(request, "Fruit Distribution Deleted")
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    except Exception as e:
+        raise
+
+@login_required
+def harvest_yield_create(request):
+    """ handles new fruit distribution form (app/harvest/create_yield.html)"""
+
+    if request.method == 'POST':
+        data = request.POST
+        try:
+            actor_id = data['actor'] # can be empty
+        except KeyError:
+            #message.error doesn't show red for some reason..
+            messages.warning(request, "New Fruit Distribution Failed: Please select a recipient")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        try:
+            harvest_id = data['harvest']
+            tree_id = data['tree']
+            weight = float(data['weight'])
+        except Exception as e:
+            raise
+
+        if weight <= 0:
+            messages.warning(request, "New Fruit Distribution Failed: Weight must be positive")
+        else:
+            _yield = HarvestYield(harvest_id = harvest_id,
+                                        recipient_id = actor_id,
+                                        tree_id = tree_id,
+                                        total_in_lb = weight)
+            _yield.save()
+            messages.success(request, 'New Fruit Recipient successfully added!')
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
 
 class HarvestYieldCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = HarvestYield
@@ -312,9 +381,11 @@ class HarvestYieldCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView
     template_name = 'app/yield_create.html'
     success_message = "Harvest distribution created successfully!"
 
+
     def get_success_url(self):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+
 
 class HarvestYieldUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = HarvestYield

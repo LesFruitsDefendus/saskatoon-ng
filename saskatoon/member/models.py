@@ -205,6 +205,7 @@ class Person(Actor):
     class Meta:
         verbose_name = _("person")
         verbose_name_plural = _("people")
+        ordering = ["first_name"]
 
     def __str__(self):
         return u"%s %s" % (self.first_name, self.family_name)
@@ -373,6 +374,7 @@ class Organization(Actor):
     class Meta:
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
+        ordering = ["civil_name"]
 
     def __str__(self):
         return u"%s" % self.civil_name
@@ -414,7 +416,8 @@ class State(models.Model):
     )
 
     class Meta:
-        verbose_name = _("states")
+        verbose_name = _("state")
+        verbose_name_plural = _("states")
 
     def __str__(self):
         return self.name
