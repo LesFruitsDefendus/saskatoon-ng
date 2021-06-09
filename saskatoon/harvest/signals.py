@@ -1,6 +1,7 @@
 from crequest.middleware import CrequestMiddleware
 from django.core.mail import send_mail
 from django.core.cache import cache
+from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
 
 def clear_cache_property(sender, instance, **kwargs):
     cache.delete_pattern("*property*")
@@ -22,9 +23,9 @@ def _send_mail(subject, message, mail_to):
     send_mail(
             subject,
             message,
-            'info@lesfruitsdefendus.org',  # FIXME: add email address to settings
+            None, # Using DEFAULT_FROM_EMAIL from settings.py
             mail_to,
-            fail_silently=False,
+            fail_silently=SEND_MAIL_FAIL_SILENTLY,
         )
 
 def changed_by(sender, instance, **kwargs):
