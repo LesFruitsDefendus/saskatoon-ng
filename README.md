@@ -11,7 +11,7 @@ It is based on the [Django](https://www.djangoproject.com/) web framework.
 
 ## Installation
 
-Please refer to the `INSTALL.md` file.
+Please refer to the [INSTALL.md](INSTALL.md) file.
 
 
 ## Database Model

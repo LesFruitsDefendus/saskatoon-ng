@@ -147,6 +147,7 @@ then you'll need to set your database to UTF-8:
 ALTER DATABASE 'your_saskatoon_database' CHARACTER SET utf8;
 ```
 
+
 ### Create administrator account
 
 This part is optional but you can create a new administrator account to access the admin panel.
@@ -157,12 +158,12 @@ To create a new administrator account use :
 $(venv) python3 saskatoon/manage.py createsuperuser --skip-checks
 ```
 
+
 ### Static files
 
 For Django to serve static files during development `SASKATOON_DEBUG` must be set to `yes`.
 
 WARNING: This is not suitable for production use! (See [issue 86](https://github.com/LesFruitsDefendus/saskatoon-ng/issues/86))
-
 
 
 ### Launch the server on localhost
@@ -193,6 +194,7 @@ Alternatively you could audit/modify the individual .json files located in `sask
 
 >  Warning: each time you run loaddata, the data will be read from the fixture and re-loaded into the database. Note this means that if you change one of the rows created by a fixture and then run loaddata again, you’ll wipe out any changes you’ve made.
 
+Note: If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. One way to ignore this issue is to set `fail_silently=True` in `send_mail()` from` `saskatoon/harvest/signals.py`. (TODO CLARIFY THIS)
 
 To load all .json files located in `saskatoon/fixtures`:
 ```
@@ -238,6 +240,39 @@ $ mysql -u <user> -p <db_name> < dump_file.sql
 ```
 $ head -n 5 dump_file.sql
 ```
+
+## Migrate from old generation
+
+To migrate MySQL database from old generation [saskatoon](https://github.com/LesFruitsDefendus/saskatoon) project:
+
+1. create an empty database  and import .sql dump file
+```
+$ mysql -u root -p
+> CREATE DATABASE saskatoon_prod;
+> exit;
+$ mysql -u <user> -p saskatoon_prod < saskatoon_prod_dump.sql
+```
+
+2. comment out `auth` dependency in `saskatoon/member/migrations/0001_initial.py`:
+```
+class Migration(migrations.Migration):
+
+initial = True
+
+dependencies = [
+    # ('auth', '0012_alter_user_first_name_max_length'),
+]
+
+operations = [
+...
+```
+
+3. run migrations
+```
+(venv)$ python3 saskatoon/manage.py migrate
+```
+
+Note: `auth` dependency in `saskatoon/member/migrations/0001_initial.py` is absolutely needed for migrating from a fresh database.
 
 
 ## Running tests
