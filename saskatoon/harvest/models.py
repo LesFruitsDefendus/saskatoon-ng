@@ -489,7 +489,7 @@ class Harvest(models.Model):
     def __str__(self):
         if self.start_date:
             return u"Harvest on %s at %s" % (
-                self.start_date,
+                self.start_date.strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
         else:
