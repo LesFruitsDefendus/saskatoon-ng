@@ -19,7 +19,7 @@ if [ -z "$1" ]; then
         echo "Aborting"
         exit 1
     fi
-    ../manage.py dumpdata  --indent 2 > "saskatoon.json"
+    ../manage.py dumpdata > "saskatoon.json"
 else
     if [ $1 == "all" ]; then
         # replace all .json files in fixtures/ except saskatoon files
@@ -33,6 +33,3 @@ else
         ../manage.py dumpdata $1  --indent 2 > "${1//./-}.json"
     fi
 fi
-
-
-

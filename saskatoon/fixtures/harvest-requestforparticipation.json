@@ -1,0 +1,18 @@
+[
+{
+  "model": "harvest.requestforparticipation",
+  "pk": 1,
+  "fields": {
+    "picker": 4,
+    "number_of_people": 1,
+    "comment": "I live in the neighborhood and could bring a small step ladder.",
+    "notes_from_pickleader": "",
+    "harvest": 1,
+    "creation_date": "2021-05-31T13:38:14.221Z",
+    "acceptation_date": null,
+    "is_accepted": null,
+    "showed_up": null,
+    "is_cancelled": false
+  }
+}
+]
