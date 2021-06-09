@@ -44,5 +44,28 @@
     "language": null,
     "comments": ""
   }
+},
+{
+  "model": "member.person",
+  "pk": 4,
+  "fields": {
+    "redmine_contact_id": null,
+    "first_name": "Volunteer",
+    "family_name": "Picker",
+    "phone": "438-666-1234",
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": null,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "language": null,
+    "comments": ""
+  }
 }
 ]

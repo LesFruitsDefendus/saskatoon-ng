@@ -25,6 +25,8 @@ seq=(member-city \
      harvest-equipment \
      harvest-harvest \
      harvest-harvestyield \
+     harvest-comment \
+     harvest-requestforparticipation \
     )
 
 ignore="-e ^saskatoon"
@@ -46,5 +48,3 @@ echo "Unused .json fixtures:"; echo $unused
 #     echo "Loading $fix"
 #     ./loaddata $fix
 # done
-
-

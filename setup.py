@@ -30,6 +30,7 @@ setup(
         "django-ckeditor",
         "django-filter",
         "django-crequest",
+        "django-debug-toolbar",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
         "Pillow==8.1.1",

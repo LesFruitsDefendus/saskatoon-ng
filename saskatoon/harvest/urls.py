@@ -30,6 +30,10 @@ urlpatterns = [
     re_path(r'^harvest_yield/update/(?P<pk>\d+)/$', api.HarvestYieldUpdateView.as_view(), name='harvest_yield-update'),
     re_path(r'^equipment/update/(?P<pk>\d+)/$', api.EquipmentUpdateView.as_view(), name='equipment-update'),
 
+    # Fruit Distributions
+    path('yield/create/', api.harvest_yield_create, name='harvest-yield-create'),
+    path('yield/delete/<int:id>', api.harvest_yield_delete, name='harvest-yield-delete'),
+
     # AUTO-COMPLET VIEWS
     re_path(r'^actor-autocomplete/$', api.ActorAutocomplete.as_view(), name='actor-autocomplete'),
     re_path(r'^property-autocomplete/$', api.PropertyAutocomplete.as_view(), name='property-autocomplete'),
