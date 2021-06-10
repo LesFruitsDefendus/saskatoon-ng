@@ -52,31 +52,11 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## .env settings
 
-Adapt the following `.env` file and place it inside `saskatoon/` project directory.
-```
-# SECURITY WARNING: keep the secret key used in production secret!
-# More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
-SASKATOON_SECRET_KEY='<KEY>'
+Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs. 
 
-# SECURITY WARNING: don't run with debug turned on in production!
-SASKATOON_DEBUG=no
+WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
-# Database settings - sqlite3 (dev)
-SASKATOON_DB_ENGINE=django.db.backends.sqlite3
-SASKATOON_DB_NAME=/YOURDBPATH/sqlite3.db
-
-# Database settings - mysql (prod)
-#SASKATOON_DB_ENGINE=django.db.backends.mysql
-#SASKATOON_DB_NAME=saskatoon_prod
-#SASKATOON_DB_USER=saskatoon
-#SASKATOON_DB_PASSWORD=
-#SASKATOON_DB_HOST=127.0.0.1
-
-# Misc
-SASKATOON_TIME_ZONE=UTC
-```
-
-NB: to generate a new random secret key, you can run this python script:
+Note: to generate a new random secret key, you can run this python script:
 ```
 from django.core.management import utils
 
@@ -115,20 +95,15 @@ $ mysql -u root -p
 
 ```
 
-Example *.env* file for a local mysql configuration:
+Example mysql configuration in *.env* file:
 ```
-SASKATOON_SECRET_KEY='<KEY>'
-SASKATOON_DEBUG=yes
-
+# Database
 SASKATOON_DB_ENGINE=django.db.backends.mysql
 SASKATOON_DB_NAME=saskatoon_dev
 SASKATOON_DB_USER=<user>
 SASKATOON_DB_PASSWORD=<password>
 SASKATOON_DB_HOST=127.0.0.1
-
-SASKATOON_TIME_ZONE=UTC
 ```
-
 
 ## Django setup
 
@@ -194,7 +169,7 @@ Alternatively you could audit/modify the individual .json files located in `sask
 
 >  Warning: each time you run loaddata, the data will be read from the fixture and re-loaded into the database. Note this means that if you change one of the rows created by a fixture and then run loaddata again, you’ll wipe out any changes you’ve made.
 
-Note: If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. One way to ignore this issue is to set `fail_silently=True` in `send_mail()` from` `saskatoon/harvest/signals.py`. (TODO CLARIFY THIS)
+Note: If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. One way to ignore this issue is to keep the `EMAIL_HOST=` variable empty in your `.env` file. (see `saskatoon/harvest/signals.py` for more details)
 
 To load all .json files located in `saskatoon/fixtures`:
 ```

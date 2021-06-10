@@ -9,28 +9,8 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 
-To set new settings, adapt the following ``.env``
-file and place it inside ``saskatoon/`` project directory.
-
-::
-
-    # SECURITY WARNING: keep the secret key used in production secret!
-    # More infos: https://docs.djangoproject.com/fr/3.1/ref/settings/#secret-key
-    SASKATOON_SECRET_KEY='<KEY>'
-
-    # SECURITY WARNING: don't run with debug turned on in production!
-    SASKATOON_DEBUG=no
-
-    # Database settings
-    SASKATOON_DB_ENGINE=django.db.backends.mysql
-    SASKATOON_DB_NAME=saskatoon_prod
-    SASKATOON_DB_USER=saskatoon
-    SASKATOON_DB_PASSWORD=
-    SASKATOON_DB_HOST=127.0.0.1
-
-    # Misc
-    SASKATOON_TIME_ZONE=UTC
-
+``python-dotenv`` is used to load environment variables from
+the ``saskatoon/.env`` file. Please check INSTALL.md for more details.
 """
 
 import os
@@ -38,8 +18,8 @@ from pathlib import Path
 from dotenv import load_dotenv, find_dotenv #type: ignore
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Load the environment variables from .env file.
 file = find_dotenv(raise_error_if_not_found=True)
 if file: load_dotenv(dotenv_path=file)
@@ -188,12 +168,16 @@ PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
 
 
-# EMAIL SERVER (TODO)
-DEFAULT_FROM_EMAIL = os.getenv('SASKATOON_FROM_EMAIL')
+# EMAIL SERVER
+EMAIL_BACKEND = os.getenv('SASKATOON_EMAIL_BACKEND')
+EMAIL_USE_TLS = os.getenv('SASKATOON_EMAIL_USE_TLS')
+EMAIL_HOST = os.getenv('SASKATOON_EMAIL_HOST')
+EMAIL_PORT = os.getenv('SASKATOON_EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('SASKATOON_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('SASKATOON_EMAIL_HOST_PASSWORD')
-SEND_MAIL_FAIL_SILENTLY = not EMAIL_HOST_USER or not EMAIL_HOST_PASSWORD
+DEFAULT_FROM_EMAIL = os.getenv('SASKATOON_EMAIL_FROM')
 
+SEND_MAIL_FAIL_SILENTLY = not EMAIL_HOST
 
 # CUSTOM STUFF
 
