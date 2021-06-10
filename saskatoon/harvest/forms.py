@@ -44,23 +44,12 @@ class RequestForm(forms.ModelForm):
 
     def clean(self):
         email = self.cleaned_data['picker_email']
-        auth_user_count = AuthUser.objects.filter(email=email).count()
-        if auth_user_count > 0:
-            # check if email is already in the database
-            auth_user = AuthUser.objects.get(email=email)
+        if AuthUser.objects.filter(email=email).exists():
+            auth_user = AuthUser.objects.get(email=email) #email field is unique
 
-            harvest_obj = Harvest.objects.get(
-                id=self.cleaned_data['harvest_id']
-            )
-
-            request_same_user_count = RequestForParticipation.objects.\
-                filter(
-                    picker=auth_user.person,
-                    harvest=harvest_obj
-                ).count()
-
-            if request_same_user_count > 0:
-                # check if email has requested for the same harvest
+            # check if email already requested for the same harvest
+            if RequestForParticipation.objects.filter(picker=auth_user.person,
+                    harvest_id=self.cleaned_data['harvest_id']).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
                 )
