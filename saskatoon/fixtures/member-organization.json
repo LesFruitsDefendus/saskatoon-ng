@@ -1,0 +1,25 @@
+[
+{
+  "model": "member.organization",
+  "pk": 2,
+  "fields": {
+    "is_beneficiary": true,
+    "redmine_contact_id": null,
+    "civil_name": "Les Fruits Défendus",
+    "description": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
+    "phone": "514-360-8566",
+    "contact_person": 1,
+    "contact_person_role": "Fake person",
+    "street_number": "111",
+    "street": "rue Roy Est",
+    "complement": null,
+    "postal_code": "H2W 1M1",
+    "neighborhood": 19,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "longitude": null,
+    "latitude": null
+  }
+}
+]

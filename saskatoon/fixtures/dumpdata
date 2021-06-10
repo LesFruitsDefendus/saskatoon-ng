@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Dump model instance(s) to .json file
+# https://docs.djangoproject.com/en/dev/howto/initial-data/
+#
+# Usage examples:
+# - whole database  $ ./dumpdata
+# - app fixture     $ ./dumpdata member
+# - table fixture   $ ./dumpdata harvest.equipmenttype
+# - all tables      $ ./dumpdata all
+
+# get script directory no matter where it's called from (doesn't work w/ symlinks)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+if [ -z "$1" ]; then
+    read -p "Are you sure you want to export all tables to saskatoon.json ? [Y/n] " -n 1 -r && echo
+    if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+        echo "Aborting"
+        exit 1
+    fi
+    ../manage.py dumpdata > "saskatoon.json"
+else
+    if [ $1 == "all" ]; then
+        # replace all .json files in fixtures/ except saskatoon files
+        for d in $(ls *.json | grep -v "^saskatoon")
+        do
+            f="${d%.*}"
+            echo "Dumping $d ..."
+            ../manage.py dumpdata "${f//-/.}" --indent 2 > $d
+        done
+    else
+        ../manage.py dumpdata $1  --indent 2 > "${1//./-}.json"
+    fi
+fi

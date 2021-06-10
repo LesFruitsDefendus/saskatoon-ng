@@ -1,0 +1,12 @@
+[
+{
+  "model": "harvest.comment",
+  "pk": 1,
+  "fields": {
+    "content": "Everything went smoothly. Owner was very helpful.",
+    "created_date": "2021-05-31T13:35:30.088Z",
+    "author": 2,
+    "harvest": 1
+  }
+}
+]

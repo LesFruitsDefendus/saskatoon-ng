@@ -1,0 +1,82 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block content %}
+
+{{ form.media }}
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="form-example-wrap">
+                    <div class="cmp-tb-hd">
+                        <h2>Partcipation Request Review</h2><br>
+
+                                <!-- Request info header -->
+                                <table class="table">
+                                    <tbody>
+                                    <tr>
+                                        <th class="col-lg-3"> harvest location </th>
+                                        <td class="col-lg-9"> {{ rfp.harvest.property }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> harvest date </th>
+                                        <td> {{ rfp.harvest.start_date }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> participant </th>
+                                        <td> {{ rfp.picker }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> nb. of pickers </th>
+                                        <td> {{ rfp.number_of_people }} </td>
+                                    </tr>
+                                    <tr>
+                                        <th> phone </th>
+                                        <td> {{ rfp.picker.phone }} </td>
+                                    </tr>
+                                    {% if rfp.picker.email %}
+                                        <tr>
+                                            <th> email </th>
+                                            <td><a href="mailto:{{ rfp.picker.email }}">{{ rfp.picker.email }}</a></td>
+                                        </tr>
+                                    {% endif %}
+                                    </tbody>
+                                </table>
+
+                                <!-- RFPManageForm -->
+                                <div class="form-group">
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <table class="table">
+                                        <tbody>
+                                            <tr>
+                                                <th class="col-lg-3"> {{ form.status.label }} </th>
+                                                <td class="col-lg-9"> {{ form.status }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th> Pick leader notes</th>
+                                                <td> {{ form.notes_from_pickleader }} </td>
+                                            </tr>
+                                            <tr>
+                                                <th> </th>
+                                                <td>
+                                                <button type="submit" class="btn btn-primary">{% trans 'Update' %}</button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </form>
+                                </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

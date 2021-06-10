@@ -44,7 +44,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="breadcomb-report">
                                 <a href="/harvest/create" class="btn btn-success btn-xs"><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
                             </div>
@@ -85,7 +85,7 @@
                                     <a href='/harvest/{{harvest.id}}'>{{ harvest.property.title }}</a>
                                 </td>
                                 <td>
-                                    {% for tree in harvest.trees %}
+                                    {% for tree in harvest.trees.all %}
                                     <div class="text-nowrap">{{ tree }}</div>
                                     {% endfor %}
                                 </td>

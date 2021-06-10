@@ -1,0 +1,71 @@
+[
+{
+  "model": "member.person",
+  "pk": 1,
+  "fields": {
+    "redmine_contact_id": null,
+    "first_name": "Nice",
+    "family_name": "Owner",
+    "phone": "514-666-1234",
+    "street_number": "123",
+    "street": "av. Mont-Royal",
+    "complement": "apt. 4",
+    "postal_code": "H2T 1V8",
+    "neighborhood": 19,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "language": 1,
+    "comments": "Passer par l'arrière ruelle"
+  }
+},
+{
+  "model": "member.person",
+  "pk": 3,
+  "fields": {
+    "redmine_contact_id": null,
+    "first_name": "Pick",
+    "family_name": "Leader",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": 34,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "language": null,
+    "comments": ""
+  }
+},
+{
+  "model": "member.person",
+  "pk": 4,
+  "fields": {
+    "redmine_contact_id": null,
+    "first_name": "Volunteer",
+    "family_name": "Picker",
+    "phone": "438-666-1234",
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": null,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "language": null,
+    "comments": ""
+  }
+}
+]

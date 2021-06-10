@@ -1,0 +1,9 @@
+[
+{
+  "model": "member.country",
+  "pk": 1,
+  "fields": {
+    "name": "Canada"
+  }
+}
+]
