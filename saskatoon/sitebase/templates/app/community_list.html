@@ -106,7 +106,7 @@
                                     <ul class="list-inline">
                                         {% for harvest in user.as_leader %}
                                         <li>
-                                            <a data-placement="top" data-toggle="tooltip" href='/harvest/harvest.id'
+                                            <a data-placement="top" data-toggle="tooltip" href='/harvest/{{ harvest.id }}'
                                                title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
                                                 {% if harvest.status == "Succeeded" %}
                                                 <i class="fa fa-shopping-basket fa-lg text-success"
