@@ -58,8 +58,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     def get_full_name(self):
         return self.person.name
 
-    def get_short_name(self):
-        return self.email
+    def is_core(self):
+        ''' check if user is a core member or superuser'''
+        belongs = self.groups.filter(name="core").exists()
+        return self.is_superuser or belongs
+    is_core.boolean = True
 
     def __str__(self):
         if self.person:

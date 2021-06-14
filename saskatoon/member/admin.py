@@ -2,7 +2,7 @@
 
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm, 
+from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm,
         ReadOnlyPasswordHashField )
 from django import forms
 
@@ -71,9 +71,9 @@ class AuthUserAdmin(UserAdmin):
     search_fields = ('email', 'person__first_name', 'person__family_name')
     ordering = ('email', 'person')
     filter_horizontal = ('groups', 'user_permissions',)
-
-    list_display = ('email', 'person', 'is_staff', 'is_superuser', 'is_active')
+    list_display = ('email', 'person', 'is_staff', 'is_core', 'is_superuser', 'is_active')
     list_filter = ('is_staff', 'is_superuser', 'is_active')
+
 
     fieldsets = (
         (
@@ -91,8 +91,9 @@ class AuthUserAdmin(UserAdmin):
             {
                 'fields': (
                     'is_active',
+                    'is_staff',
                     'is_superuser',
-                    'is_staff'
+                    'groups'
                 )
             }
         ),
@@ -107,7 +108,8 @@ class AuthUserAdmin(UserAdmin):
                     'password1',
                     'password2',
                     'is_staff',
-                    'is_superuser'
+                    'is_superuser',
+                    'groups'
                 )
             }
         ),
