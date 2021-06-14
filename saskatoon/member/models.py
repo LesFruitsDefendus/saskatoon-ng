@@ -50,12 +50,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
 
-    #TODO: this should go to 'Person' class
     def harvests_as_pickleader(self):
         harvests = Harvest.objects.filter(pick_leader=self)
         return harvests
 
-    def get_full_name(self):
+    def get_person_name(self):
         return self.person.name
 
     def is_core(self):

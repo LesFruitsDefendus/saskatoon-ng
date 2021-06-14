@@ -71,7 +71,7 @@ class PropertySerializer(serializers.ModelSerializer):
         # is a Person or an Organization and will serialize the result.
         # A solution could also be something like this
         # https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer/33137535#33137535
-        
+
         if isinstance(obj.owner, Actor):
             entity = Person.objects.filter(actor_id=obj.owner.actor_id)
             if not entity:
@@ -140,7 +140,7 @@ class HarvestSerializer(serializers.ModelSerializer):
 # Person serializer
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
-    person_name = serializers.ReadOnlyField(source='get_full_name')
+    person_name = serializers.ReadOnlyField(source='get_person_name')
     as_leader = serializers.ReadOnlyField(source='harvests_as_pickleader')
     person = PersonSerializer(many=False, read_only=True)
     class Meta:
