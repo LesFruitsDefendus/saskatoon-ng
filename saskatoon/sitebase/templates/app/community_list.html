@@ -105,7 +105,9 @@
                                         {% if user.as_leader %}
                                             <li>{% trans "Pick leader" %}</li>
                                         {% endif %}
-                                        {% if user.is_staff %}
+                                        {% if user.is_core_member %}
+                                            <li>{% trans "Core Member" %}</li>
+                                        {% elif user.is_staff %}
                                             <li>{% trans "Staff" %}</li>
                                         {% endif %}
                                         {% if user.person.harvests %}

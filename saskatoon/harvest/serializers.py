@@ -142,6 +142,7 @@ class HarvestSerializer(serializers.ModelSerializer):
 class CommunitySerializer(serializers.ModelSerializer):
     person_name = serializers.ReadOnlyField(source='get_person_name')
     as_leader = serializers.ReadOnlyField(source='harvests_as_pickleader')
+    is_core_member = serializers.ReadOnlyField(source='is_core')
     person = PersonSerializer(many=False, read_only=True)
     class Meta:
         model = AuthUser
