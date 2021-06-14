@@ -18,5 +18,10 @@
   "model": "member.actor",
   "pk": 4,
   "fields": {}
+},
+{
+  "model": "member.actor",
+  "pk": 5,
+  "fields": {}
 }
 ]

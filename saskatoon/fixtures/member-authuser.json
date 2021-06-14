@@ -30,5 +30,23 @@
     "groups": [],
     "user_permissions": []
   }
+},
+{
+  "model": "member.authuser",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$XSSo62sasEikkh7QT6pmhP$0euWqhRjDM+odkonz31c62r3ozp5Nm2tB6UyB20d7PA=",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 5,
+    "email": "core@member.com",
+    "date_joined": "2021-06-14T18:16:06.369Z",
+    "is_active": true,
+    "is_staff": true,
+    "groups": [
+      1
+    ],
+    "user_permissions": []
+  }
 }
 ]
