@@ -17,7 +17,13 @@
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h1>{{ property.title }}</h1>
+                                    <h1>{% if property.pending %}
+                                            PENDING - {{ property.pending_contact_name }}
+                                            at {{ property.address }}
+                                        {% else %}
+                                            {{ property.title }}
+                                        {% endif %}
+                                    </h1>
                                     {% if property.last_succeeded_harvest %}
                                     <p>{% trans "Last succeeded harvest"  %} on {{ property.last_succeeded_harvest|date }}</p>
                                     {% else %}
@@ -54,7 +60,7 @@
                             <p>{{ property.address }}</p>
                             <p>{{ property.neighborhood.name }}</p>
                             <br>
-                            
+
                             <h2>Available tree(s)</h2>
 
                             <ul>
@@ -75,31 +81,48 @@
                     <div class="contact-hd search-hd-eg">
                         <h2>{% trans "Contact" %}</h2>
                     </div>
-
-                         <p class="lead">{{ property.owner.fields.name }}</p>
-
+                    <p class="lead">
+                    {% if property.pending %}
+                        {{ property.pending_contact_name }}
+                    {% else %}
+                        {{ property.owner.fields.name }}
+                    {% endif %}
+                    </p>
                     <table class="table">
                         <tbody>
-
                         <tr>
                             <td>{% trans "Phone" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.fields.phone }}</h4>
+                                <h5>
+                                {% if property.pending %}
+                                    {{ property.pending_contact_phone }}
+                                {% else %}
+                                    {{ property.owner.fields.phone }}
+                                {% endif %}
+                                </h5>
                             </td>
                         </tr>
 
                         <tr>
                             <td>{% trans "Email" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.fields.email }}</h4>
+                                <h5>
+                                {% if property.pending %}
+                                    {{ property.pending_contact_email }}
+                                {% else %}
+                                    {{ property.owner.fields.email }}
+                                {% endif %}
+                                </h5>
                             </td>
                         </tr>
 
-                        {% if property.owner.fields.language != 'None' %}
+                        {% if property.pending %}
+                            <!-- TODO: preferred language -->
+                        {% elif property.owner.fields.language != 'None' %}
                         <tr>
                             <td>{% trans "Language" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.fields.language }}</h4>
+                                <h5>{{ property.owner.fields.language }}</h5>
                             </td>
                         </tr>
                         {% endif %}
@@ -108,7 +131,7 @@
                         <tr>
                             <td>{% trans "Comments" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.fields.comments }}</h4>
+                                <p>{{ property.owner.fields.comments }}</p>
                             </td>
                         </tr>
                         {% endif %}
@@ -130,6 +153,9 @@
                         <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i> {% trans "Pending validation" %}</td></tr>
                         {% else %}
                         <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Validated" %}</td></tr>
+                        {% endif %}
+                        {% if property.pending and property.pending_recurring %}
+                        <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> <b class="text-warning">{% trans "Has already been registered in the past" %}</b></td></tr>
                         {% endif %}
                         {% if property.authorized is None %}
                         <tr><td class="text-right"><i class="notika-icon notika-up-arrow"></i> {% trans "Not yet authorized" %}</td></tr>
