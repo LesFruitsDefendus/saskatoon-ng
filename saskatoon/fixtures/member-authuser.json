@@ -4,7 +4,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$260000$B4izrSL5cMDhpz76Ml8oAd$y+vALyJB3hKoOGYietAefzmZQMA0TSPrbGq4WLI7yvs=",
-    "last_login": "2021-05-31T13:34:39.971Z",
+    "last_login": "2021-06-15T21:26:05.253Z",
     "is_superuser": false,
     "person": 3,
     "email": "pick@leader.com",
@@ -36,7 +36,7 @@
   "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$260000$XSSo62sasEikkh7QT6pmhP$0euWqhRjDM+odkonz31c62r3ozp5Nm2tB6UyB20d7PA=",
-    "last_login": null,
+    "last_login": "2021-06-15T21:30:30.795Z",
     "is_superuser": false,
     "person": 5,
     "email": "core@member.com",
@@ -46,6 +46,22 @@
     "groups": [
       1
     ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$x6u0VuwTbimW0Or07AA0Pz$Y3O+P8b9QPZSvDDgTS/+KE9gJX6o1C+4PC5Zv3n9Oqg=",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 1,
+    "email": "nice@owner.com",
+    "date_joined": "2021-06-15T22:10:28.308Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
     "user_permissions": []
   }
 }
