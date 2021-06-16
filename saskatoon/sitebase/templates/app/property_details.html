@@ -37,9 +37,12 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
+                                {% if perms.harvest.change_property %}
                                 <a href="/property/update/{{ property.id }}">
-                                <button data-placement="left" title="Edit property" class="btn">Edit</button>
+                                    <button data-placement="left" title="Edit property" class="btn">
+                                        Edit</button>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -93,7 +96,7 @@
                             </h2>
                         {% else %}
                             <h2>{% trans "Contact" %}
-                            {% if perms.member.change_person %}
+                            {% if perms.member.add_person %}
                                 &nbsp;
                                 <small><a href="/person/create/?pid={{property.id}}">
                                         <i class="fa fa-pencil"></i> register

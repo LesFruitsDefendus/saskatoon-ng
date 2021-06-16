@@ -1,6 +1,7 @@
 from dal import autocomplete
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from rest_framework.response import Response
@@ -259,7 +260,8 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     success_url = 'thanks'
     success_message = 'Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">Tree Owner Welcome Notice</a>.'
 
-class PropertyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
