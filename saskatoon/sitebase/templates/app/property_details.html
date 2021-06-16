@@ -18,7 +18,6 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>
-                                    {% if property.pending %} PENDING - {% endif %}
                                     {% if property.owner %}
                                         {{ property.title }}
                                     {% else %}
@@ -26,7 +25,9 @@
                                         at {{ property.address }}
                                     {% endif %}
                                     </h1>
-                                    {% if property.last_succeeded_harvest %}
+                                    {% if property.pending %}
+                                        <h4>** PENDING **</h4>
+                                    {% elif property.last_succeeded_harvest %}
                                     <p>{% trans "Last succeeded harvest"  %} on {{ property.last_succeeded_harvest|date }}</p>
                                     {% else %}
                                     <p>No succeeded harvest on this property so far</p>
