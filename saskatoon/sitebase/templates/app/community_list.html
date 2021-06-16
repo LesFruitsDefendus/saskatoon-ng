@@ -82,14 +82,14 @@
                                 <td>{{ user.person.actor_id }}</td>
                                 <td>
                                     <span><b>{{ user.person_name }}</b> &nbsp;
-                                    {% if request.user.is_core %}
-                                        <small><a href="/admin/member/person/{{user.person.actor_id}}">
+                                    {% if perms.member.change_person %}
+                                        <small><a href="/person/update/{{user.person.actor_id}}">
                                             <i class="fa fa-pencil"></i>
                                         </a></small>
                                     {% endif %}
                                     </span><br>
                                     <small><a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
-                                    {% if request.user.is_core %}
+                                    {% if perms.member.change_authuser %}
                                     <a href="/admin/member/authuser/{{user.id}}">
                                         <i class="fa fa-pencil"></i>
                                     </a>
