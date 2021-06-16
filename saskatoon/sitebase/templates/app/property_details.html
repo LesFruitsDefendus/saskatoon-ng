@@ -85,8 +85,8 @@
                             <h2>{% trans "Owner" %}
                             {% if perms.member.change_person %}
                                 &nbsp;
-                                <small><a href="/person/update/{{owner.id}}">
-                                        <i class="fa fa-pencil"></i>TODO
+                                <small><a href="/person/update/{{property.owner.pk}}">
+                                        <i class="fa fa-pencil"></i> {% trans "edit" %}
                                 </a></small>
                             {% endif %}
                             </h2>
@@ -96,10 +96,6 @@
                                 &nbsp;
                                 <small><a href="/person/create/?pid={{property.id}}">
                                         <i class="fa fa-pencil"></i> register
-                                </a></small>
-                                &nbsp;
-                                <small><a href="/owner/assign/{{property.id}}">
-                                    <i class="fa fa-plus"></i> assign(TODO)
                                 </a></small>
                             {% endif %}
                             </h2>

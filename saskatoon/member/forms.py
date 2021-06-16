@@ -4,7 +4,7 @@ from django import forms
 from harvest.models import Property
 from member.models import AuthUser, Person
 
-class PersonForm(forms.ModelForm):
+class PersonCreateForm(forms.ModelForm):
 
     class Meta:
         model = Person
@@ -33,7 +33,7 @@ class PersonForm(forms.ModelForm):
     def save(self):
 
         # create Person instance
-        instance = super(PersonForm, self).save()
+        instance = super(PersonCreateForm, self).save()
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(
@@ -52,3 +52,11 @@ class PersonForm(forms.ModelForm):
             except Exception as e: print(e)
 
         return instance
+
+class PersonUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+
+    field_order = ['first_name', 'family_name', 'language']
