@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>member.forms.PersonForm</title>
+    <title>member.api.PersonUpdateView</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.forms.html">forms</a></code><wbr></wbr>.<code><a href="member.forms.PersonForm.html">PersonForm</a></code></code></h1>
+        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.api.html">api</a></code><wbr></wbr>.<code><a href="member.api.PersonUpdateView.html">PersonUpdateView</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,8 +126,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PersonForm</span>(<span title="django.forms.ModelForm">forms.ModelForm</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L7" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#member.forms.PersonForm">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">PersonUpdateView</span>(<span title="django.contrib.auth.mixins.LoginRequiredMixin">LoginRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.UpdateView">UpdateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L53" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#member.api.PersonUpdateView">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -135,38 +135,23 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id150">
+        <table class="children sortable" id="id147">
   
   
-  <tr class="class">
+  <tr class="classvariable">
     
-    <td>Class</td>
-    <td><code><a href="member.forms.PersonForm.Meta.html">Meta</a></code></td>
+    <td>Class Variable</td>
+    <td><code><a href="#template_name">template_name</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#email">email</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#pending_property_id">pending_property_id</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#field_order">field_order</a></code></td>
+    <td><code><a href="#success_message">success_message</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#clean_email">clean_email</a></code></td>
-    <td><span>check if email address already exists</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#save">save</a></code></td>
+    <td><code><a href="#get_success_url">get_success_url</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -180,16 +165,16 @@
         <div class="baseclassvariable">
   
   
-  <a name="member.forms.PersonForm.email">
+  <a name="member.api.PersonUpdateView.template_name">
     
   </a>
-  <a name="email">
+  <a name="template_name">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">email</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L13">
+    <span class="py-defname">template_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L56">
       
       (source)
     </a>
@@ -202,38 +187,16 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="member.forms.PersonForm.pending_property_id">
+  <a name="member.api.PersonUpdateView.success_message">
     
   </a>
-  <a name="pending_property_id">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">pending_property_id</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L19">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="member.forms.PersonForm.field_order">
-    
-  </a>
-  <a name="field_order">
+  <a name="success_message">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">field_order</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L24">
+    <span class="py-defname">success_message</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L57">
       
       (source)
     </a>
@@ -246,38 +209,16 @@
 </div><div class="basemethod">
   
   
-  <a name="member.forms.PersonForm.clean_email">
+  <a name="member.api.PersonUpdateView.get_success_url">
     
   </a>
-  <a name="clean_email">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">clean_email</span>(self):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L26">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div>check if email address already exists</div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="member.forms.PersonForm.save">
-    
-  </a>
-  <a name="save">
+  <a name="get_success_url">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">save</span>(self):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/forms.py#L33">
+    <span class="py-keyword">def</span> <span class="py-defname">get_success_url</span>(self):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L59">
       
       (source)
     </a>
@@ -297,7 +238,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-06-16 20:04:03.
+    21.2.2 at 2021-06-16 20:30:19.
   </div>
 </footer>
 
