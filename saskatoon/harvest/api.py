@@ -1,27 +1,27 @@
 from dal import autocomplete
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+from rest_framework import viewsets, permissions
+# from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from rest_framework.response import Response
 from django.shortcuts import render, redirect
 
 from harvest.filters import *
-from rest_framework import viewsets, permissions
-# from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
+from django.views.generic import TemplateView, CreateView, UpdateView
+# from django.utils.decorators import method_decorator
 
 from harvest.forms import *
-
 from member.models import AuthUser, Organization, Actor, Person, City
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Harvest Viewset
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
