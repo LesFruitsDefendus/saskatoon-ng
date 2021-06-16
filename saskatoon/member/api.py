@@ -1,6 +1,6 @@
 
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render
@@ -10,7 +10,8 @@ from .models import Person
 from harvest.models import Property
 from .forms import PersonCreateForm, PersonUpdateForm
 
-class PersonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'member.add_person'
     model = Person
     form_class = PersonCreateForm
     template_name = 'app/generic/model_form.html'
@@ -50,7 +51,8 @@ class PersonCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         except KeyError:
             return reverse_lazy('home')
 
-class PersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'member.change_person'
     model = Person
     form_class = PersonUpdateForm
     template_name = 'app/generic/model_form.html'
