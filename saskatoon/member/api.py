@@ -36,11 +36,15 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
                         'comments': p.additional_info,
                         'pending_property_id': p.id
             }
+            cancel_url = '/property/' + str(p.id)
         except KeyError:
             initial = None
+            cancel_url = '/'
 
         title = "Person Registration"
-        context = {'form': PersonCreateForm(initial=initial), 'title': title}
+        context = {'form': PersonCreateForm(initial=initial),
+                   'title': title,
+                   'cancel_url': cancel_url}
 
         return render(request, 'app/generic/model_form.html', context)
 
@@ -59,5 +63,8 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     success_message = "Person updated successfully!"
 
     def get_success_url(self):
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-            # return reverse_lazy('home-detail', kwargs={'pk': self.object.pk})
+        try:
+            property_id = self.request.GET['pid']
+            return reverse_lazy('property-detail', kwargs={'pk': property_id})
+        except KeyError:
+            return reverse_lazy('home')

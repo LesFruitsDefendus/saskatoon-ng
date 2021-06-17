@@ -20,11 +20,16 @@
                         <div class="form-example-int">
                             <div class="form-group">
                                   <form method="post">
-                                      {% csrf_token %}
-                                      {{ form|crispy }}
-                                      <button type="submit" class="btn btn-primary">
-                                          {% trans 'Submit' %}
-                                      </button>
+                                        {% csrf_token %}
+                                        {{ form|crispy }}
+                                        <button type="submit" class="btn btn-primary">
+                                            {% trans 'Save' %}
+                                        </button>
+                                        {% if cancel_url %}
+                                        <button type="button" class="btn btn-default" style="margin-left:1rem;">
+                                            <a href="{{ cancel_url }}">Cancel</a>
+                                        {% endif %}
+                                        </button>
                                   </form>
                             </div>
                         </div>
