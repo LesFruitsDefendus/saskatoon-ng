@@ -110,7 +110,10 @@
                             {% if user.is_authenticated %}
                                 <li class="nav-item dropdown">
                                     <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                        <span><i class="notika-icon notika-support"></i></span>
+                                        <span class="menu-it-icon-pro">
+                                            <span class="h5">{{ user }}</span>
+                                        <i class="notika-icon notika-support"></i>
+                                        </span>
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="/admin/password_change/">{% translate "Change password" %}</a></li>
@@ -139,7 +142,7 @@
                             {% endif %}
                             <li class="nav-item">
                                 <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="menu-it-icon-pro"><small>{% translate "Language" %}: {{ LANGUAGE_CODE }} </small><i class="fa fa-caret-down"></i></span>
+                                    <span class="menu-it-icon-pro h5">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
                                     <form action="{% url 'set_language' %}" method="post" style="display: none" id="change_language_form">
                                         {% csrf_token %}
                                         <input type="hidden" value="" name="language" id="language" />
