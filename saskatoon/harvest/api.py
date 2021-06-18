@@ -247,9 +247,15 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyForm
-    template_name = 'app/property_create.html'
+    template_name = 'app/generic/model_form.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add a new property"
+        context['cancel_url'] = reverse_lazy('property-list')
+        return context
 
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
@@ -262,8 +268,15 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
     permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
-    template_name = 'app/property_create.html'
+    template_name = 'app/generic/model_form.html'
     success_message = "Property updated successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        property_id = context['property'].id
+        context['title'] = "Edit property"
+        context['cancel_url'] = reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
+        return context
 
     def get_success_url(self):
             return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
