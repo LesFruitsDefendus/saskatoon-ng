@@ -52,7 +52,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             property_id = self.request.GET['pid']
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
-            return reverse_lazy('home')
+            return reverse_lazy('community-list')
 
 class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_person'
@@ -61,9 +61,15 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     template_name = 'app/generic/model_form.html'
     success_message = "Person updated successfully!"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Person Update"
+        context['cancel_url'] = reverse_lazy('community-list')
+        return context
+
     def get_success_url(self):
         try:
             property_id = self.request.GET['pid']
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
-            return reverse_lazy('home')
+            return reverse_lazy('community-list')
