@@ -17,14 +17,17 @@
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h1>{% if property.pending %}
-                                            PENDING - {{ property.pending_contact_name }}
-                                            at {{ property.address }}
-                                        {% else %}
-                                            {{ property.title }}
-                                        {% endif %}
+                                    <h1>
+                                    {% if property.owner %}
+                                        {{ property.title }}
+                                    {% else %}
+                                        {{ property.pending_contact_name }}
+                                        at {{ property.address }}
+                                    {% endif %}
                                     </h1>
-                                    {% if property.last_succeeded_harvest %}
+                                    {% if property.pending %}
+                                        <h4>** PENDING **</h4>
+                                    {% elif property.last_succeeded_harvest %}
                                     <p>{% trans "Last succeeded harvest"  %} on {{ property.last_succeeded_harvest|date }}</p>
                                     {% else %}
                                     <p>No succeeded harvest on this property so far</p>
@@ -34,9 +37,12 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
+                                {% if perms.harvest.change_property %}
                                 <a href="/property/update/{{ property.id }}">
-                                <button data-placement="left" title="Edit property" class="btn">Edit</button>
+                                    <button data-placement="left" title="Edit property" class="btn">
+                                        Edit</button>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
@@ -79,13 +85,32 @@
             <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
                 <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
                     <div class="contact-hd search-hd-eg">
-                        <h2>{% trans "Contact" %}</h2>
+                        {% if property.owner %}
+                            <h2>{% trans "Owner" %}
+                            {% if perms.member.change_person %}
+                                &nbsp;
+                                <small><a href="/person/update/{{property.owner.pk}}/?pid={{property.id}}">
+                                        <i class="fa fa-pencil"></i> {% trans "edit" %}
+                                </a></small>
+                            {% endif %}
+                            </h2>
+                        {% else %}
+                            <h2>{% trans "Contact" %}
+                            {% if perms.member.add_person %}
+                                &nbsp;
+                                <small><a href="/person/create/?pid={{property.id}}">
+                                        <i class="fa fa-pencil"></i> register
+                                </a></small>
+                            {% endif %}
+                            </h2>
+                        {% endif %}
+                        </h2>
                     </div>
                     <p class="lead">
-                    {% if property.pending %}
-                        {{ property.pending_contact_name }}
-                    {% else %}
+                    {% if property.owner %}
                         {{ property.owner.fields.name }}
+                    {% else %}
+                        {{ property.pending_contact_name }}
                     {% endif %}
                     </p>
                     <table class="table">
@@ -94,10 +119,10 @@
                             <td>{% trans "Phone" %}</td>
                             <td class="text-right">
                                 <h5>
-                                {% if property.pending %}
-                                    {{ property.pending_contact_phone }}
-                                {% else %}
+                                {% if property.owner %}
                                     {{ property.owner.fields.phone }}
+                                {% else %}
+                                    {{ property.pending_contact_phone }}
                                 {% endif %}
                                 </h5>
                             </td>
@@ -107,24 +132,26 @@
                             <td>{% trans "Email" %}</td>
                             <td class="text-right">
                                 <h5>
-                                {% if property.pending %}
-                                    {{ property.pending_contact_email }}
-                                {% else %}
+                                {% if property.owner %}
                                     {{ property.owner.fields.email }}
+                                {% else %}
+                                    {{ property.pending_contact_email }}
                                 {% endif %}
                                 </h5>
                             </td>
                         </tr>
 
-                        {% if property.pending %}
+                        {% if property.owner %}
+                            {% if property.owner.fields.language != 'None' %}
+                                <tr>
+                                    <td>{% trans "Language" %}</td>
+                                    <td class="text-right">
+                                        <h5>{{ property.owner.fields.language }}</h5>
+                                    </td>
+                                </tr>
+                            {% endif %}
+                        {% else %}
                             <!-- TODO: preferred language -->
-                        {% elif property.owner.fields.language != 'None' %}
-                        <tr>
-                            <td>{% trans "Language" %}</td>
-                            <td class="text-right">
-                                <h5>{{ property.owner.fields.language }}</h5>
-                            </td>
-                        </tr>
                         {% endif %}
 
                         {% if property.owner.fields.comments %}

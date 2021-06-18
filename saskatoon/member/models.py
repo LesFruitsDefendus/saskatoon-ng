@@ -59,8 +59,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     def is_core(self):
         ''' check if user is a core member or superuser'''
-        belongs = self.groups.filter(name="core").exists()
-        return self.is_superuser or belongs
+        return self.groups.filter(name="core").exists()
     is_core.boolean = True
 
     def __str__(self):

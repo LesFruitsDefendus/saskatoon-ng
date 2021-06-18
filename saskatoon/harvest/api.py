@@ -1,26 +1,25 @@
 from dal import autocomplete
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.decorators import login_required
+
+from rest_framework import viewsets
+from rest_framework.response import Response
+
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from rest_framework.response import Response
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from harvest.filters import *
-from rest_framework import viewsets, permissions
-# from django.utils.decorators import method_decorator
-from django.contrib.auth.decorators import login_required
-from django.views.generic import TemplateView, CreateView, UpdateView
 from django_filters import rest_framework as filters
+from django.views.generic import TemplateView, CreateView, UpdateView
 
 from harvest.forms import *
-
-from member.models import AuthUser, Organization, Actor, Person, City
+from member.models import Actor, AuthUser, Organization, Person
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
-from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 # Harvest Viewset
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -259,7 +258,8 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     success_url = 'thanks'
     success_message = 'Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">Tree Owner Welcome Notice</a>.'
 
-class PropertyUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
     template_name = 'app/property_create.html'
