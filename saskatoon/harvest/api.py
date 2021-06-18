@@ -4,21 +4,19 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 
-from rest_framework import viewsets, permissions
-# from rest_framework.permissions import IsAuthenticated
+from rest_framework import viewsets
 from rest_framework.response import Response
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from harvest.filters import *
 from django_filters import rest_framework as filters
 from django.views.generic import TemplateView, CreateView, UpdateView
-# from django.utils.decorators import method_decorator
 
 from harvest.forms import *
-from member.models import AuthUser, Organization, Actor, Person, City
+from member.models import Actor, AuthUser, Organization, Person
 from .models import Harvest, Property, Equipment, TreeType, RequestForParticipation
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
