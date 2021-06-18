@@ -231,15 +231,27 @@ class IndexView(LoginRequiredMixin, TemplateView):
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
-    template_name = 'app/equipment_create.html'
+    template_name = 'app/generic/model_form.html'
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add new equipment"
+        context['cancel_url'] = reverse_lazy('equipment-list')
+        return context
 
 class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Equipment
     form_class = EquipmentForm
-    template_name = 'app/equipment_create.html'
+    template_name = 'app/generic/model_form.html'
     success_message = "Equipment updated successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Edit equipment"
+        context['cancel_url'] = reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
+        return context
 
     def get_success_url(self):
             return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
@@ -273,7 +285,6 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        property_id = context['property'].id
         context['title'] = "Edit property"
         context['cancel_url'] = reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
         return context
