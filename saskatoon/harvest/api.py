@@ -250,7 +250,7 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = "Edit equipment"
-        context['cancel_url'] = reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
+        context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
     def get_success_url(self):
