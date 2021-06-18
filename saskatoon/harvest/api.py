@@ -438,8 +438,15 @@ class HarvestYieldUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView
 class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    template_name = 'app/comment_create.html'
+    template_name = 'app/generic/model_form.html'
     success_message = "Comment added!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        harvest_id = self.request.GET['h']
+        context['title'] = "Add new comment"
+        context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': harvest_id})
+        return context
 
     def form_valid(self, form):
         request = self.request.GET
