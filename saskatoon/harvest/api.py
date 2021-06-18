@@ -296,8 +296,14 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
 class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
     form_class = HarvestForm
-    template_name = 'app/harvest_create.html'
+    template_name = 'app/generic/model_form.html'
     success_message = "Harvest created successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add a new harvest"
+        context['cancel_url'] = reverse_lazy('harvest-list')
+        return context
 
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
@@ -305,8 +311,14 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
     form_class = HarvestForm
-    template_name = 'app/harvest_create.html'
+    template_name = 'app/generic/model_form.html'
     success_message = "Harvest updated successfully!"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Edit harvest"
+        context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
+        return context
 
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
