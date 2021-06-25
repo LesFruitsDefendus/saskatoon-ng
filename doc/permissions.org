@@ -1,0 +1,82 @@
+
+#+Title: Saskatoon-ng Auth.groups
+#+Author: 2ynn
+#+OPTIONS: toc:nil title:nil num:nil
+
+#+LaTeX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LaTeX_HEADER: \pagenumbering{gobble}
+
+* Saskatoon-ng Auth.groups
+
+  #+begin_export latex
+  \vspace{12pt}
+  #+end_export
+
+*** harvest app
+
+ #+TBLNAME: harvest
+ \small
+ #+ATTR_LATEX: :align |l|l|c|c| :center nil
+  |-----------------+----------+---------------+---------------|
+  |                 |          |               |               |
+  | *model*         | *action* | *pick-leader* | *core-member* |
+  |                 |          |               |               |
+  |-----------------+----------+---------------+---------------|
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      | x             | x             |
+  | Harvest         | Change   | x             | x             |
+  |                 | Delete   |               | x             |
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      |               | x             |
+  | Property        | Change   | x             | x             |
+  |                 | Delete   |               | x             |
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      | x             | x             |
+  | RequestForPart. | Change   | x             | x             |
+  |                 | Delete   |               | x             |
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      | x             | x             |
+  | HarvestYield    | Change   | x             | x             |
+  |                 | Delete   | x             | x             |
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      | x             | x             |
+  | Comment         | Change   | x             | x             |
+  |                 | Delete   |               | x             |
+  |-----------------+----------+---------------+---------------|
+  |                 | Add      | x             | x             |
+  | Equipment       | Change   | x             | x             |
+  |                 | Delete   |               | x             |
+  |-----------------+----------+---------------+---------------|
+  #+END:
+
+  #+begin_export latex
+  \vspace{12pt}
+  #+end_export
+*** member app
+
+ #+TBLNAME: member
+ \small
+ #+ATTR_LATEX: :align |l|l|c|c| :center nil
+  |--------------+----------+---------------+---------------|
+  |              |          |               |               |
+  | *model*      | *action* | *pick-leader* | *core-member* |
+  |              |          |               |               |
+  |--------------+----------+---------------+---------------|
+  |--------------+----------+---------------+---------------|
+  |              | Add      |               | x             |
+  | Actor        | Change   |               | x             |
+  |              | Delete   |               | x             |
+  |--------------+----------+---------------+---------------|
+  |              | Add      |               | x             |
+  | Person       | Change   |               | x             |
+  |              | Delete   |               | x             |
+  |--------------+----------+---------------+---------------|
+  |              | Add      |               | x             |
+  | AuthUser     | Change   |               | x             |
+  |              | Delete   |               | x             |
+  |--------------+----------+---------------+---------------|
+  |              | Add      |               | x             |
+  | Neighborhood | Change   |               |               |
+  |              | Delete   |               |               |
+  |--------------+----------+---------------+---------------|
+  #+END:
