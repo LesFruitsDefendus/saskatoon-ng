@@ -36,7 +36,15 @@ if os.getenv('SASKATOON_DEBUG') is not None:
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ALLOWED_HOSTS
+
+SERVER_IP = os.getenv('SASKATOON_SERVER_IP', '')
+if SERVER_IP:
+    ALLOWED_HOSTS.append(SERVER_IP)
+DOMAIN_NAME = os.getenv('SASKATOON_DOMAIN_NAME', '')
+if DOMAIN_NAME:
+    ALLOWED_HOSTS.append(DOMAIN_NAME)
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
