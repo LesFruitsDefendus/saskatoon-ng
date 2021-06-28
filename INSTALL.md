@@ -151,7 +151,12 @@ $(venv) python3 saskatoon/manage.py createsuperuser --skip-checks
 
 For Django to serve static files during development `SASKATOON_DEBUG` must be set to `yes`.
 
-WARNING: This is not suitable for production use! (See [issue 86](https://github.com/LesFruitsDefendus/saskatoon-ng/issues/86))
+This is not suitable for production however. To collect all files from static folders (defined by `STATIC_URL` in `settings.py`) into the `STATIC_ROOT` directory:
+```
+$(venv) python3 saskatoon/manage.py collectstatic
+```
+
+See [https://docs.djangoproject.com/en/3.0/howto/static-files/](Django doc: managing static files) for more details.
 
 
 ### Launch the server on localhost
