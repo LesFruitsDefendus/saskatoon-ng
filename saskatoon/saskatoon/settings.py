@@ -9,20 +9,23 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 
-``python-dotenv`` is used to load environment variables from
-the ``saskatoon/.env`` file. Please check INSTALL.md for more details.
+``django-dotenv`` is used to load environment variables from the
+``saskatoon/.env`` file. Please check INSTALL.md for more details.
 """
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv #type: ignore
+from dotenv import read_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Load the environment variables from .env file.
-file = find_dotenv(raise_error_if_not_found=True)
-if file: load_dotenv(dotenv_path=file)
+dotenv = os.path.join(BASE_DIR, '.env')
+if os.path.exists(dotenv):
+    read_dotenv(dotenv=dotenv)
+else:
+    raise IOError('.env file not found!')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -45,6 +48,7 @@ if SERVER_IP:
 DOMAIN_NAME = os.getenv('SASKATOON_DOMAIN_NAME', '')
 if DOMAIN_NAME:
     ALLOWED_HOSTS.append(DOMAIN_NAME)
+print("ALLOWED_HOSTS", ALLOWED_HOSTS)
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']

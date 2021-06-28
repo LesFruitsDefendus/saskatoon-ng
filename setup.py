@@ -39,7 +39,7 @@ setup(
         "six==1.15.0",
         "sqlparse==0.3.1",
         "django-redis",
-        "python-dotenv",
+        "django-dotenv",
         "django-crispy-forms",
     ],
     extras_require      =   {
