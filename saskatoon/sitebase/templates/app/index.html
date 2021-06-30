@@ -4,29 +4,15 @@
 
 {% block content %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                   <div class="text-center alert alert-danger" role="alert">
-
-                    {% if LANGUAGE_CODE == "en" %}              
-
-Please read, complete and return to
-<a href = "mailto:info@lesfruitsdefendus.org">info@lesfruitsdefendus.org</a>
-the <a href = "https://drive.google.com/file/d/1-OwAVnD-8Zex_NNLRInf0HU1D7WfcUbv/view?usp=sharing">COVID-19 Protocol for Les Fruits défendus in Montreal</a>
- before proceeding with picks. Thank you very much!
-                    {% else %}
-Merci de lire, compléter et renvoyer à
-<a href = "mailto:info@lesfruitsdefendus.org">info@lesfruitsdefendus.org</a> le <a href = "https://drive.google.com/file/d/1-OwAVnD-8Zex_NNLRInf0HU1D7WfcUbv/view?usp=sharing">Protocole COVID-19 pour Les Fruits défendus à Montréal</a> avant de procéder à une cueillette. Merci beaucoup !
-
-                    {% endif %}                    
-
-
-</div>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="mg-t-20 text-center alert alert-danger" role="alert">
+                {% include 'app/home/warning.html' %}
             </div>
-
         </div>
     </div>
+</div>
 
 <div class="breadcomb-area">
     <div class="container">
@@ -40,34 +26,14 @@ Merci de lire, compléter et renvoyer à
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h1>{% trans "Welcome!" %}</h1>
-                                     <hr>
-                                    <b>{% trans "2021 Pick-leader guides" %}:</b>
-                                    <div class="panel-body">
-                                        <div class="list-group">
-                                            {% trans "Volunteer Waiver" as waiver %}
-                                            {% trans "Pre-pick Guide" as prepick %}
-                                            {% trans "Equipment Points (Annex B)" as annexB %}
-                                            {% trans "Planning Harvests Using the Properties List (Annex D)" as annexD %}
-                                            {% trans "Harvest Guide" as harvest %}
-                                            {% trans "Map: Equipment Points, Beneficiary Organizations & Community Fridges" as map %}
-                                           <ul>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/kGdMRpLDB6pKbMi">{{waiver}}</a></li>
-                                            {% if LANGUAGE_CODE == "en" %}      	
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/EzxazYFo9yKknzf">{{prepick}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/XF9BsA2E3XtSt4k">{{annexB}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/tfBdJpT7XwdwqNk">{{annexD}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/cJQPc82H7C9zzNB">{{harvest}}</a></li>
-                                            {% else %}      	
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/WGLxswS9tx7jDkE">{{prepick}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/4AqHtTn4K9oCeDY">{{annexB}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/g9kMGsnr8g2e857">{{annexD}}</a></li>
-                                            	<li><a href="https://core.lesfruitsdefendus.org/s/JA2sP6dQgkdkLNH">{{harvest}}</a></li>
-                                            {% endif %}
-                                            	<li><a href="https://drive.google.com/open?id=1VJbxaFKosG7gLgfvYJZ9m6rhTg0M3ZDy&usp=sharing">{{map}}</a></li>
-                                            </ul>
-                                        </div>
-                                    </div>
+
+                                    {% if user.is_authenticated %}
+                                        <h1>{% trans "Hi" %} {{user}} !</h1>
+                                        <hr>
+                                        {% include 'app/home/pickleader.html' %}
+                                    {% else %}
+                                        {% include 'app/home/welcome.html' %}
+                                    {% endif %}
 
                                 </div>
                             </div>
