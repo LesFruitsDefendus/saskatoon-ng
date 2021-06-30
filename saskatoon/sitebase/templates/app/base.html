@@ -13,199 +13,23 @@
     <title>Saskatoon - Les Fruits Défendus</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- favicon
-		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico ' %}">
-    <!-- Google Fonts
-		============================================ -->
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,900" rel="stylesheet">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- Bootstrap CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/font-awesome.min.css' %}">
-    <!-- owl.carousel CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/owl.carousel.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.theme.css' %}">
-    <link rel="stylesheet" href="{% static 'css/owl.transitions.css' %}">
-    <!-- meanmenu CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/meanmenu/meanmenu.min.css' %}">
-    <!-- animate CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
-    <!-- normalize CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-    <!-- mCustomScrollbar CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/scrollbar/jquery.mCustomScrollbar.min.css' %}">
-    <!-- jvectormap CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/jvectormap/jquery-jvectormap-2.0.3.css' %}">
-    <!-- notika icon CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/notika-custom-icon.css' %}">
-    <!-- wave CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/wave/waves.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/wave/button.css' %}">
-    <!-- main CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
-    <!-- style CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <!-- responsive CSS
-		============================================ -->
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
-    <!-- modernizr JS
-		============================================ -->
-    <!-- Data Table JS
-        ============================================ -->
-    <link rel="stylesheet" href="{% static 'css/jquery.dataTables.min.css' %}">
-    <!-- FullCalendar
-        ============================================ -->
-    <link href="{% static 'js/fullcalendar/lib/main.min.css' %}" rel="stylesheet">
-    <!-- DatePicker
-        ============================================ -->
-    <link rel="stylesheet" href="{% static 'css/jquery.datetimepicker.min.css' %}">
-    <!-- Modernizr
-        ============================================ -->
-    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
-    <!-- jquery in the head due to django autocomplete
-		============================================ -->
-    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
+
+    {% include 'app/base/styles.html' %}
+
+    {% include 'app/base/scripts.html' %}
+
 </head>
 
 <body>
     <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-    <!-- Start Header Top Area -->
-    <div class="header-top-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
-                    <div class="logo-area">
-                        <a href="/"><img src="{% static 'img/logo.png' %}" alt="Les Fruits Defendus - Saskatoon" /></a>
-                    </div>
-                </div>
-                <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
-                    <div class="logo-area">
-                        <h2 style="color:white">Les Fruits Défendus</h2>
-                        <p style="color:white"><i>Collectif montréalais de cueillette urbaine de fruits</i></p>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="header-top-menu">
-                        <ul class="nav navbar-nav notika-top-nav">
-                            {% if user.is_authenticated %}
-                                <li class="nav-item dropdown">
-                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                        <span class="menu-it-icon-pro">
-                                            <span class="h5">{{ user }}</span>
-                                        <i class="notika-icon notika-support"></i>
-                                        </span>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/admin/password_change/">{% translate "Change password" %}</a></li>
-                                        <li><a href={% url "logout" %}>{% translate "Logout" %}</a></li>
-                                    </ul>
-                                </li>
-                                {% if user.is_staff %}
-                                    <li class="nav-item dropdown">
-                                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                            <span><i class="notika-icon notika-app"></i></span></a>
-                                        </a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="/admin/member/authuser/add/">{% translate "Add user" %}</a></li>
-                                            <li><a href="/admin/member/authuser/">{% translate "Manage user" %}</a></li>
-                                            <li><a href="/admin/member/organization/">{% translate "Manage beneficiary" %}</a></li>
-                                            <li><a href="/admin/">{% translate "Full admin" %}</a></li>
-                                        </ul>
-                                    </li>
-                                {% endif %}
-                            {% else %}
-                                <li>
-                                    <a href='/login'>
-                                        <i class="notika-icon notika-support"></i>
-                                    </a>
-                                </li>
-                            {% endif %}
-                            <li class="nav-item">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                    <span class="menu-it-icon-pro h5">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
-                                    <form action="{% url 'set_language' %}" method="post" style="display: none" id="change_language_form">
-                                        {% csrf_token %}
-                                        <input type="hidden" value="" name="language" id="language" />
-                                    </form>
-                                </a>
+    {% include 'app/base/header.html' %}
 
-                                <ul class="dropdown-menu">
-                                {% for language in languages %}
-                                    <li><a lang_code="{{ language.code }}" class="change_language">{{ language.name_local |title }} ({{ language.code }})</a></li>
-                                {% endfor %}
-                                </ul>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Header Top Area -->
-    <!-- Mobile Menu start -->
+    <!-- Menu -->
     {% if user.is_authenticated %}
-    <div class="mobile-menu-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="mobile-menu">
-                        <nav id="dropdown">
-                            <ul class="mobile-menu-nav">
-                                <li><a href="/calendar">{% translate "Calendar" %}</a></li>
-                                <li><a href="/harvest">{% translate "Harvests" %}</a></li>
-                                <li><a href="/property">{% translate "Properties" %}</a></li>
-                                <li><a href="/beneficiary">{% translate "Beneficiaries" %}</a></li>
-                                <li><a href="/community">{% translate "Community" %}</a></li>
-                                <li><a href="/equipment">{% translate "Equipment" %}</a></li>
-                                <li><a href="/stats">{% translate "Statistics" %}</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Mobile Menu end -->
-    <!-- Main Menu area start-->
-    <div class="main-menu-area mg-tb-40">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
-                        <li class="active"><a href="/calendar"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
-                        </li>
-                        <li><a href="/harvest"><i class="fa fa-shopping-basket"></i> {% translate "Harvests" %}</a>
-                        </li>
-                        <li><a href="/property"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
-                        </li>
-                        <li><a href="/beneficiary"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
-                        </li>
-                        <li><a href="/community"><i class="fa fa-users"></i> {% translate "Community" %}</a>
-                        </li>
-                        <li><a href="/equipment"><i class="fa fa-scissors"></i> {% translate "Equipment" %}</a>
-                        </li>
-                        <li><a href="/stats"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+        {% include 'app/base/menu.html' %}
     {% endif %}
 
     {% if messages %}
@@ -220,11 +44,13 @@
     </div>
     {% endif %}
 
-    <!-- Main Menu area End-->
-          {% block content %}
-            <!-- {{ content }} -->
-          {% endblock content %}
-    <!-- Start Footer area-->
+    <!-- Content -->
+    {% block content %}
+    <!-- {{ content }} -->
+    {% endblock content %}
+
+
+    <!-- Footer-->
     <div class="navbar-fixed-bottom footer-copyright-area"
         <div class="container">
             <div class="row">
@@ -237,125 +63,6 @@
         </div>
     </div>
 
-    <!-- End Footer area-->
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <!-- wow JS
-		============================================ -->
-    <script src="{% static 'js/wow.min.js' %}"></script>
-    <!-- price-slider JS
-		============================================ -->
-    <script src="{% static 'js/jquery-price-slider.js' %}"></script>
-    <!-- owl.carousel JS
-		============================================ -->
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
-    <!-- scrollUp JS
-		============================================ -->
-    <script src="{% static 'js/jquery.scrollUp.min.js' %}"></script>
-    <!-- meanmenu JS
-		============================================ -->
-    <script src="{% static 'js/meanmenu/jquery.meanmenu.js' %}"></script>
-    <!-- counterup JS
-		============================================ -->
-    <script src="{% static 'js/counterup/jquery.counterup.min.js' %}"></script>
-    <script src="{% static 'js/counterup/waypoints.min.js' %}"></script>
-    <script src="{% static 'js/counterup/counterup-active.js' %}"></script>
-    <!-- mCustomScrollbar JS
-		============================================ -->
-    <script src="{% static 'js/scrollbar/jquery.mCustomScrollbar.concat.min.js' %}"></script>
-    <!-- jvectormap JS
-		============================================ -->
-    <script src="{% static 'js/jvectormap/jquery-jvectormap-2.0.2.min.js' %}"></script>
-    <script src="{% static 'js/jvectormap/jquery-jvectormap-world-mill-en.js' %}"></script>
-    <script src="{% static 'js/jvectormap/jvectormap-active.js' %}"></script>
-    <!-- sparkline JS
-		============================================ -->
-    <script src="{% static 'js/sparkline/jquery.sparkline.min.js' %}"></script>
-    <script src="{% static 'js/sparkline/sparkline-active.js' %}"></script>
-    <!-- sparkline JS
-		============================================ -->
-    <script src="{% static 'js/flot/jquery.flot.js' %}"></script>
-    <script src="{% static 'js/flot/jquery.flot.resize.js' %}"></script>
-    <script src="{% static 'js/flot/curvedLines.js' %}"></script>
-    <script src="{% static 'js/flot/flot-active.js' %}"></script>
-    <!-- knob JS
-		============================================ -->
-    <script src="{% static 'js/knob/jquery.knob.js' %}"></script>
-    <script src="{% static 'js/knob/jquery.appear.js' %}"></script>
-    <script src="{% static 'js/knob/knob-active.js' %}"></script>
-    <!--  wave JS
-		============================================ -->
-    <script src="{% static 'js/wave/waves.min.js' %}"></script>
-    <script src="{% static 'js/wave/wave-active.js' %}"></script>
-    <!--  todo JS
-		============================================ -->
-    <script src="{% static 'js/todo/jquery.todo.js' %}"></script>
-    <!-- plugins JS
-		============================================ -->
-    <script src="{% static 'js/plugins.js' %}"></script>
-    <!-- Data Table JS
-                ============================================ -->
-    <script src="{% static 'js/data-table/jquery.dataTables.min.js' %}"></script>
-    <script src="{% static 'js/data-table/data-table-act.js' %}"></script>
-	<!--  Chat JS
-		============================================ -->
-    <script src="{% static 'js/chat/moment.min.js' %}"></script>
-    <script src="{% static 'js/chat/jquery.chat.js' %}"></script>
-    <!-- main JS
-		============================================ -->
-    <script src="{% static 'js/main.js' %}"></script>
-	<!-- tawk chat JS
-		============================================ -->
-    <script src="{% static 'js/tawk-chat.js' %}"></script>
-    <!-- icheck JS
-		============================================ -->
-    <script src="{% static 'js/icheck/icheck.min.js' %}"></script>
-    <script src="{% static 'js/icheck/icheck-active.js' %}"></script>
-    <!-- Login JS
-		============================================ -->
-    <script src="{% static 'js/login/login-action.js' %}"></script>
-    <!-- bootstrap JS
-		============================================ -->
-    <script src="{% static 'js/django_select2/django_select2.js' %}"></script>
-
-  <!-- FullCalendar -->
-  <script src="{% static 'js/moment/min/moment.min.js' %}"></script>
-  <script src="{% static 'js/fullcalendar/lib/main.min.js' %}"></script>
-
-  <!-- DatePicker JavaScript -->
-  <script type="text/javascript" src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
-
-<script>
-  $(function () {
-    $("#id_start_date").datetimepicker({
-      format: 'd/m/Y H:i',
-    });
-  });
-    $(function () {
-    $("#id_end_date").datetimepicker({
-      format: 'd/m/Y H:i',
-    });
-  });
-</script>
-
-<!--  <script type="text/javascript">-->
-<!--        $(function () {-->
-<!--            $('#id_start_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
-<!--        });-->
-<!--        $(function () {-->
-<!--            $('#id_end_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
-<!--        });-->
-<!--  </script>-->
-
-    <!-- Language selection -->
-    <script>
-    $('.change_language').click(function(e){
-        e.preventDefault();
-        $('#language').val($(this).attr('lang_code'));
-        $('#change_language_form').submit();
-    });
-    </script>
 </body>
 
 </html>
