@@ -4,23 +4,16 @@ from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-from django.views import generic
+from django.views.generic import View, TemplateView
 from harvest.models import Harvest, Property, RequestForParticipation
 from harvest.forms import RequestForm
 from django.contrib.auth.decorators import login_required
 
-########## Original template views #############
-
-#@login_required
-def index(request):
-    context = {}
-    template = loader.get_template('app/index.html')
-    return HttpResponse(template.render(context, request))
-
-############ sitebase views ####################
+class Index(TemplateView):
+    template_name = 'app/index.html'
 
 #@method_decorator(login_required, name='dispatch')
-class Calendar(generic.TemplateView):
+class Calendar(TemplateView):
     template_name = 'app/calendar.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -34,7 +27,7 @@ class Calendar(generic.TemplateView):
 
         return context
 
-class JsonCalendar(generic.View):
+class JsonCalendar(View):
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')

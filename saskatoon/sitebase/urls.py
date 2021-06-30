@@ -6,10 +6,10 @@ from sitebase import views
 
 urlpatterns = [
 
-    # The home page
-    url(r'^$', views.index, name='index'),
-    path('accounts/login/', auth_views.LoginView.as_view()),
-    path('i18n/', include('django.conf.urls.i18n')),
+    url(r'^$', views.Index.as_view(), name='home'),
+    url(r'^calendar$', views.Calendar.as_view(), name='calendar'),
+    url(r'^jsoncal', views.JsonCalendar.as_view(), name='calendarJSON'),
+
     # url(
     #     r'^password_reset/$',
     #     auth_views.PasswordResetView,
@@ -30,14 +30,4 @@ urlpatterns = [
     #     auth_views.PasswordResetCompleteView,
     #     name='password_reset_complete'
     # ),
-    url(
-        r'^calendar$',
-        views.Calendar.as_view(),
-        name='calendar'
-    ),
-    url(
-        r'^jsoncal',
-        views.JsonCalendar.as_view(),
-        name='calendarJSON'
-    ),
 ]

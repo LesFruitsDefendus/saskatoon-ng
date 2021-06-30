@@ -225,9 +225,6 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
 ############### STANDARD VIEWS #####################
 
-class IndexView(LoginRequiredMixin, TemplateView):
-    template_name = 'app/index.html'
-
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm

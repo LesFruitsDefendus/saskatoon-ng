@@ -4,10 +4,12 @@ import debug_toolbar
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('', include('sitebase.urls')),
     path('', include('harvest.urls')),
     path('', include('member.urls')),
-    path('', include('sitebase.urls')),
     path('',include('django.contrib.auth.urls')),
+    path('admin/', admin.site.urls),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('i18n/', include('django.conf.urls.i18n')),
     path('__debug__/', include(debug_toolbar.urls)),
 ]

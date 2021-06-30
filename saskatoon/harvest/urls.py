@@ -12,8 +12,6 @@ router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
 urlpatterns = [
-    path(r'', api.IndexView.as_view(), name='home'),
-
     # CREATE VIEWS
     path(r'equipment/create', api.EquipmentCreateView.as_view()),
     path(r'property/create', api.PropertyCreateView.as_view()),

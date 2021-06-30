@@ -87,7 +87,11 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+# URLs
 ROOT_URLCONF = 'saskatoon.urls'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/calendar'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
