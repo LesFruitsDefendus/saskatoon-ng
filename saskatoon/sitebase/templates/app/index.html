@@ -28,11 +28,13 @@
                                 <div class="breadcomb-ctn">
 
                                     {% if user.is_authenticated %}
-                                        <h1>{% trans "Hi" %} {{user}} !</h1>
+                                        <h2>{% trans "Hi" %} {{user}} !</h2>
                                         <hr>
                                         {% include 'app/home/pickleader.html' %}
                                     {% else %}
-                                        {% include 'app/home/welcome.html' %}
+                                        <h2>{% trans "Welcome to Les Fruits Défendus!" %}</h2>
+                                        <hr>
+                                        {% include 'app/home/volunteer.html' %}
                                     {% endif %}
 
                                 </div>
