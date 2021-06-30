@@ -22,7 +22,7 @@
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h1>#{{ harvest.id }}: 
+                                    <h1>#{{ harvest.id }}:
                                                {% for f in harvest.trees.all %}
                                                   {{ f }},
                                                {% endfor %}
@@ -79,7 +79,16 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="text-center alert alert-danger" role="alert">
-                    {{ form.non_field_errors }}
+                    {% if form.non_field_errors %}
+                        {{ form.non_field_errors }}
+                    {% else %}
+                        {% trans "Sorry, this Harvest is not opened for requests" %}
+                    {% endif %}
+                </div>
+            </div>
+            <div class="breadcomb-report">
+                <div class="text-center mg-t-30">
+                    <a href="/calendar" class="btn btn-md" role="button">Back to Calendar</a>
                 </div>
             </div>
         </div>
@@ -87,5 +96,3 @@
 {% endif %}
 
 {% endblock content %}
-
-
