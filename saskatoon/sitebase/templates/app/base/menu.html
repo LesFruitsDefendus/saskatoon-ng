@@ -1,0 +1,50 @@
+{% load static %}
+{% load i18n %}
+
+    <div class="mobile-menu-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="mobile-menu">
+                        <nav id="dropdown">
+                            <ul class="mobile-menu-nav">
+                                <li><a href="/calendar">{% translate "Calendar" %}</a></li>
+                                <li><a href="/harvest">{% translate "Harvests" %}</a></li>
+                                <li><a href="/property">{% translate "Properties" %}</a></li>
+                                <li><a href="/beneficiary">{% translate "Beneficiaries" %}</a></li>
+                                <li><a href="/community">{% translate "Community" %}</a></li>
+                                <li><a href="/equipment">{% translate "Equipment" %}</a></li>
+                                <li><a href="/stats">{% translate "Statistics" %}</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu end -->
+    <!-- Main Menu area start-->
+    <div class="main-menu-area mg-tb-40">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                        <li class="active"><a href="/calendar"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
+                        </li>
+                        <li><a href="/harvest"><i class="fa fa-shopping-basket"></i> {% translate "Harvests" %}</a>
+                        </li>
+                        <li><a href="/property"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
+                        </li>
+                        <li><a href="/beneficiary"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
+                        </li>
+                        <li><a href="/community"><i class="fa fa-users"></i> {% translate "Community" %}</a>
+                        </li>
+                        <li><a href="/equipment"><i class="fa fa-scissors"></i> {% translate "Equipment" %}</a>
+                        </li>
+                        <li><a href="/stats"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
