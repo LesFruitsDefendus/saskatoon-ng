@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="mg-t-20 text-center alert alert-danger" role="alert">
-                {% include 'app/home/warning.html' %}
+                {% include 'app/index/warning.html' %}
             </div>
         </div>
     </div>
@@ -30,11 +30,11 @@
                                     {% if user.is_authenticated %}
                                         <h2>{% trans "Hi" %} {{user}} !</h2>
                                         <hr>
-                                        {% include 'app/home/pickleader.html' %}
+                                        {% include 'app/index/pickleader.html' %}
                                     {% else %}
                                         <h2>{% trans "Welcome to Les Fruits Défendus!" %}</h2>
                                         <hr>
-                                        {% include 'app/home/volunteer.html' %}
+                                        {% include 'app/index/volunteer.html' %}
                                     {% endif %}
 
                                 </div>
