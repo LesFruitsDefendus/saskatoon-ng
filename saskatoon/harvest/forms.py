@@ -232,7 +232,7 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
-    trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
+    # trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
 
     class Meta:
         model = Property

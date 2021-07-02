@@ -65,6 +65,7 @@ class TreeType(models.Model):
     class Meta:
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
