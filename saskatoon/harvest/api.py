@@ -410,28 +410,6 @@ def harvest_yield_create(request):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
-class HarvestYieldCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
-    model = HarvestYield
-    form_class = HarvestYieldForm
-    template_name = 'app/yield_create.html'
-    success_message = "Harvest distribution created successfully!"
-
-
-    def get_success_url(self):
-        request = self.request.GET
-        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
-
-
-class HarvestYieldUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = HarvestYield
-    form_class = HarvestYieldForm
-    template_name = 'app/yield_create.html'
-    success_message = "Harvest distribution updated successfully!"
-
-    def get_success_url(self):
-        request = self.request.GET
-        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
-
 class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
