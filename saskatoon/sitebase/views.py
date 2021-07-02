@@ -1,5 +1,5 @@
 import datetime
-
+from django.utils import timezone as tz
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
@@ -31,9 +31,6 @@ class JsonCalendar(View):
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
-        print("START / END DATE: ", start_date, end_date)
-        # ed = datetime.datetime.strptime(end_date, '%Y-%m-%d')
-        # sd = datetime.datetime.strptime(start_date, '%Y-%m-%d')
         harvests = Harvest.objects.filter(end_date__lte=end_date, start_date__gte=start_date)
         events = []
         for harvest in harvests:
@@ -71,19 +68,15 @@ class JsonCalendar(View):
 
                 event["total_harvested"] = harvest.get_total_distribution()
 
-                # FIXME: see
-                # http://fullcalendar.io/docs/event_rendering/eventRender/
-                if harvest.start_date:
-                    tz_start_date = harvest.start_date - datetime.timedelta(hours=4)
-                    event["start"] = tz_start_date
-                    event["start_date_str"] = tz_start_date.strftime("%Y-%m-%d")
-                    event["start_time"] = tz_start_date.strftime("%H:%M")
-                # FIXME: ugly hack, needs proper interaction with calendar
+                # https://fullcalendar.io/docs/v4/event-object
                 # http://fullcalendar.io/docs/timezone/timezone/
+                local_tz = tz.get_current_timezone()
+                if harvest.start_date:
+                    start = local_tz.localize(harvest.start_date.replace(tzinfo=None))
+                    event["start"] = start
                 if harvest.end_date:
-                    tz_end_date = harvest.end_date - datetime.timedelta(hours=4)
-                    event["end"] = tz_end_date
-                    event["end_time"] = tz_end_date.strftime("%H:%M")
+                    end = local_tz.localize(harvest.end_date.replace(tzinfo=None))
+                    event["end"] = end
 
                 event["url"] = '/participation/create?hid='+str(harvest.id)
                 event["color"] = color
