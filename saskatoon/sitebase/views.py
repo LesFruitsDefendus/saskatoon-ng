@@ -1,5 +1,4 @@
 import datetime
-from django.utils import timezone as tz
 from django.http import HttpResponse, JsonResponse
 from django.template import loader
 from django.urls import reverse
@@ -70,13 +69,10 @@ class JsonCalendar(View):
 
                 # https://fullcalendar.io/docs/v4/event-object
                 # http://fullcalendar.io/docs/timezone/timezone/
-                local_tz = tz.get_current_timezone()
                 if harvest.start_date:
-                    start = local_tz.localize(harvest.start_date.replace(tzinfo=None))
-                    event["start"] = start
+                    event["start"] = harvest.get_local_start()
                 if harvest.end_date:
-                    end = local_tz.localize(harvest.end_date.replace(tzinfo=None))
-                    event["end"] = end
+                    event["end"] = harvest.get_local_end()
 
                 event["url"] = '/participation/create?hid='+str(harvest.id)
                 event["color"] = color

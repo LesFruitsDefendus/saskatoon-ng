@@ -483,6 +483,14 @@ class Harvest(models.Model):
             total += y.total_in_lb
         return total
 
+    def get_local_start(self):
+        tz = timezone.get_current_timezone()
+        return tz.localize(self.start_date.replace(tzinfo=None))
+
+    def get_local_end(self):
+        tz = timezone.get_current_timezone()
+        return tz.localize(self.end_date.replace(tzinfo=None))
+
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
