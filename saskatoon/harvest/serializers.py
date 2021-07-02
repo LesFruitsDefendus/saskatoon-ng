@@ -124,7 +124,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
-    status = serializers.ReadOnlyField(source='get_status_l10n')
+    # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
+    status = serializers.StringRelatedField(many=False)
     start_date = serializers.DateTimeField(format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='start_date', format="%H:%M")
     # # 2) get string rather than id from a pk
