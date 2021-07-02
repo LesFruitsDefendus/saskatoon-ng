@@ -15,8 +15,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico ' %}">
 
+    <!-- CSS -->
     {% include 'app/base/styles.html' %}
 
+    <!-- Javascript (1/2) -->
+    <!-- Modernizr
+         ============================================ -->
+    <script src="{% static 'js/vendor/modernizr-2.8.3.min.js' %}"></script>
+    <!-- jquery in the head due to django autocomplete
+	     ============================================ -->
+    <script src="{% static 'js/vendor/jquery-1.12.4.min.js' %}"></script>
 
 </head>
 
@@ -62,7 +70,8 @@
         </div>
     </div>
 
-{% include 'app/base/scripts.html' %}
+    <!-- Javascript (2/2) -->
+    {% include 'app/base/scripts.html' %}
 </body>
 
 </html>
