@@ -1,0 +1,88 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+<script>
+
+  document.addEventListener('DOMContentLoaded', function() {
+
+
+      var calendarEl = document.getElementById('calendar');
+
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+          expandRows: true,
+          slotMinTime: '08:00',
+          slotMaxTime: '20:00',
+          headerToolbar: {
+              left: 'prev,next today',
+              center: 'title',
+              right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+          },
+          initialView: 'dayGridMonth',
+          navLinks: true, // can click day/week names to navigate views
+          nowIndicator: true,
+          dayMaxEvents: true, // allow "more" link when too many events
+          events: '/jsoncal/',
+
+          eventClick: function(info) {
+              info.jsEvent.preventDefault(); // don't link to event['url']
+
+              /* filling modal template */
+              $('#harvest_id').attr('value', info.event.extendedProps.harvest_id);
+              $('#harvest_url').attr('href', "/harvest/"+info.event.extendedProps.harvest_id);
+              $('#rfp_url').attr('href', info.event.url);
+
+              $('#harvest_title').html(info.event.title);
+              $('#harvest_date').html(info.event.start);
+              $('#start_time').html(info.event.start_time);
+              $('#end_time').html(info.event.end);
+              $('#description').html(info.event.extendedProps.description);
+              $('#status').html(info.event.extendedProps.status);
+              $('#nb_required_pickers').html(info.event.extendedProps.nb_required_pickers);
+              $('#nb_requests').html(info.event.extendedProps.nb_requests);
+              $('#trees').html(info.event.extendedProps.trees);
+              $('#total_harvested').html(info.event.extendedProps.total_harvested);
+
+              switch(info.event.extendedProps.status){
+                  case "Date-scheduled":
+                      $('#scheduledModal').modal();
+                      break;
+                  case "Ready":
+                      $('#readyModal').modal();
+                      break;
+                  case "Succeeded":
+                      $('#succeededModal').modal();
+                      break;
+                  case "Cancelled":
+                      $('#cancelledModal').modal();
+                      break;
+              }
+        }
+    });
+    calendar.render();
+  });
+
+</script>
+
+<div class="wizard-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="wizard-wrap-int">
+                    <div class="wizard-hd">
+                        <h1>{% trans "Harvest calendar" %}</h1>
+                        <hr>
+                        <div id='calendar'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'app/calendar/scheduled-modal.html' %}
+
+
+{% endblock content %}

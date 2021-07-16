@@ -13,70 +13,63 @@ class Index(TemplateView):
 
 #@method_decorator(login_required, name='dispatch')
 class Calendar(TemplateView):
-    template_name = 'app/calendar.html'
+    template_name = 'app/calendar/view.html'
 
     def dispatch(self, request, *args, **kwargs):
         return super(Calendar, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
         context = super(Calendar, self).get_context_data(**kwargs)
-
         context['view'] = "calendar"
-        context['form_request'] = RequestForm()
-
+        # context['form_request'] = RequestForm()
         return context
-
 class JsonCalendar(View):
+
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
         harvests = Harvest.objects.filter(end_date__lte=end_date, start_date__gte=start_date)
         events = []
         for harvest in harvests:
-            if (harvest.start_date and
-                    harvest.end_date and
-                    self.request.user.is_staff) \
-                    or harvest.is_publishable():
-                text_color = "#ffffff"
-                if harvest.status == "Date-scheduled":
-                    color = "#f0ad4e"
-                elif harvest.status == "Ready":
-                    color = "#337ab7"
-                elif harvest.status == "Succeeded":
-                    color = "#26B99A"
-                elif harvest.status == "Cancelled":
-                    color = "#D9534F"
-                else:
-                    color = "#ededed"
-                    text_color = "#333"
-                event = dict()
-                event["harvest_id"] = harvest.id
-                event["allday"] = "false"
-                event["description"] = harvest.about
-                event["status"] = harvest.status
-                event["nb_required_pickers"] = harvest.nb_required_pickers
-                requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
-                event["nb_requests"] = requests_count
-                trees_list = []
-                for t in harvest.trees.all():
-                    trees_list.append(t.fruit_name)
-                event["trees"] = trees_list
-                event["title"] = ", ".join(trees_list)
-                if harvest.property.neighborhood.name != "Other":
-                    event["title"] += " @ "+harvest.property.neighborhood.name
 
-                event["total_harvested"] = harvest.get_total_distribution()
-
+            if (harvest.start_date and harvest.end_date and
+                    self.request.user.is_staff) or harvest.is_publishable():
                 # https://fullcalendar.io/docs/v4/event-object
+                event = dict()
+                event['url'] = '/participation/create?hid='+str(harvest.id)
+                colors = {'Date-scheduled': "#f0ad4e",
+                          'Ready': "#337ab7",
+                          'Succeeded': "26B99A",
+                          'Cancelled': "#D9534F"}
+                event['color'] = colors.get(harvest.status, "#ededed")
+                event['textColor'] = "#111"
+
+                trees = [t.fruit_name for t in harvest.trees.all()]
+                event["title"] = ", ".join(trees)
+                if harvest.property.neighborhood.name != "Other":
+                    event["title"] += " - "+harvest.property.neighborhood.name
+
                 # http://fullcalendar.io/docs/timezone/timezone/
+                event['allday'] = "false"
                 if harvest.start_date:
                     event["start"] = harvest.get_local_start()
                 if harvest.end_date:
                     event["end"] = harvest.get_local_end()
 
-                event["url"] = '/participation/create?hid='+str(harvest.id)
-                event["color"] = color
-                event["textColor"] = text_color
+                # additional info passed to 'extendedProps'
+                requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
+                print("requests_count", requests_count)
+
+                event['extendedProps'] = {
+                    'harvest_id': harvest.id,
+                    'description': harvest.about,
+                    'status': harvest.status,
+                    'nb_required_pickers': harvest.nb_required_pickers,
+                    'nb_requests': requests_count,
+                    'trees': trees,
+                    'total_harvested': harvest.get_total_distribution()
+               }
+
                 events.append(event)
                 del event
 
