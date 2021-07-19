@@ -42,7 +42,6 @@ class JsonCalendar(View):
                            'Succeeded': "#9CF0DB",
                            'Cancelled': "#ED6D62"})
                 event['color'] = colors.get(harvest.status, "#ededed")
-                print("event['color']", event['color'])
                 event['textColor'] = "#111"
 
                 trees = [t.fruit_name for t in harvest.trees.all()]
@@ -59,7 +58,6 @@ class JsonCalendar(View):
 
                 # additional info passed to 'extendedProps'
                 requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
-                print("requests_count", requests_count)
 
                 event['extendedProps'] = {
                     'start_date': event['start'].strftime("%a %b %-d %Y"),
