@@ -37,30 +37,35 @@ class JsonCalendar(View):
                 # https://fullcalendar.io/docs/v4/event-object
                 event = dict()
                 event['url'] = '/participation/create?hid='+str(harvest.id)
-                colors = {'Date-scheduled': "#f0ad4e",
-                          'Ready': "#337ab7",
-                          'Succeeded': "26B99A",
-                          'Cancelled': "#D9534F"}
+                colors = ({'Date-scheduled': "#FFE180",
+                           'Ready': "#BADDFF",
+                           'Succeeded': "#9CF0DB",
+                           'Cancelled': "#ED6D62"})
                 event['color'] = colors.get(harvest.status, "#ededed")
+                print("event['color']", event['color'])
                 event['textColor'] = "#111"
 
                 trees = [t.fruit_name for t in harvest.trees.all()]
-                event["title"] = ", ".join(trees)
+                event['title'] = ", ".join(trees)
                 if harvest.property.neighborhood.name != "Other":
-                    event["title"] += " - "+harvest.property.neighborhood.name
+                    event['title'] += " - "+harvest.property.neighborhood.name
 
                 # http://fullcalendar.io/docs/timezone/timezone/
                 event['allday'] = "false"
                 if harvest.start_date:
-                    event["start"] = harvest.get_local_start()
+                    event['start'] = harvest.get_local_start()
                 if harvest.end_date:
-                    event["end"] = harvest.get_local_end()
+                    event['end'] = harvest.get_local_end()
 
                 # additional info passed to 'extendedProps'
                 requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
                 print("requests_count", requests_count)
 
                 event['extendedProps'] = {
+                    'start_date': event['start'].strftime("%a %b %-d %Y"),
+                    #TODO handle scenario when end_date > start_date
+                    'start_time': event['start'].strftime("%-I:%M %p"),
+                    'end_time': event['end'].strftime("%-I:%M %p"),
                     'harvest_id': harvest.id,
                     'description': harvest.about,
                     'status': harvest.status,

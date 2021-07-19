@@ -35,9 +35,9 @@
               $('#rfp_url').attr('href', info.event.url);
 
               $('#harvest_title').html(info.event.title);
-              $('#harvest_date').html(info.event.start);
-              $('#start_time').html(info.event.start_time);
-              $('#end_time').html(info.event.end);
+              $('#harvest_date').html(info.event.extendedProps.start_date);
+              $('#start_time').html(info.event.extendedProps.start_time);
+              $('#end_time').html(info.event.extendedProps.end_time);
               $('#description').html(info.event.extendedProps.description);
               $('#status').html(info.event.extendedProps.status);
               $('#nb_required_pickers').html(info.event.extendedProps.nb_required_pickers);

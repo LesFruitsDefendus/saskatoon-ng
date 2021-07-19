@@ -4,22 +4,25 @@
 <div id="scheduledModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harvestModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" style="border-bottom: 0 none">
                 <span class="h4 modal-title" id="harvest_title"></span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                <div><i class="text-info"> {% trans "this harvest is open for participation requests" %} </i></div>
             </div>
-
             <div class="modal-body">
-
-                <!-- top tiles -->
                 <div class="row tile_count">
                     <div class="col-md-6 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-clock-o"></i> {% trans "Scheduled" %}</span>
-                        <div class="count" id="harvest_date"></div>
-                        <span class="count_bottom"><i id="start_time"></i><i> {% trans "to" %} </i>
-                            <i id="end_time"></i></span>
+                        <div>
+                            <span class="count" id="harvest_date"> </span>
+                            <span class="count_bottom">
+                                <b id="start_time"></b>
+                                <span> {% trans "to" %} </span>
+                                <b id="end_time"></b>
+                            </span>
+                        </div>
                     </div>
                     <div class="col-md-3 col-sm-4 col-xs-6 tile_stats_count">
                         <span class="count_top"><i class="fa fa-user"></i> Pickers required</span>
@@ -30,21 +33,18 @@
                         <div class="count green" id="nb_requests"></div>
                     </div>
                 </div>
-                <!-- /top tiles -->
 
                 <hr>
-
                 <blockquote>
                     <p id="description"></p>
                 </blockquote>
-
                 <hr>
 
                 {% if perms.harvest.view_harvest %}
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a id="rfp_url" class="btn btn-success " href="">
-                            {% trans "Paricipate" %}
+                        <a id="rfp_url" class="btn btn-primary waves-effect" href="">
+                            {% trans "Participate" %}
                         </a>
                         {% if perms.harvest.view_harvest %}
                         <a id="harvest_url" class="btn btn-default " href="">
