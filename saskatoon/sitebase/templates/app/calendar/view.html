@@ -30,20 +30,20 @@
               info.jsEvent.preventDefault(); // don't link to event['url']
 
               /* filling modal template */
-              $('#harvest_id').attr('value', info.event.extendedProps.harvest_id);
-              $('#harvest_url').attr('href', "/harvest/"+info.event.extendedProps.harvest_id);
-              $('#rfp_url').attr('href', info.event.url);
+              $('.harvest-id').attr('value', info.event.extendedProps.harvest_id);
+              $('.harvest-url').attr('href', "/harvest/"+info.event.extendedProps.harvest_id);
+              $('.rfp-url').attr('href', info.event.url);
 
-              $('#harvest_title').html(info.event.title);
-              $('#harvest_date').html(info.event.extendedProps.start_date);
-              $('#start_time').html(info.event.extendedProps.start_time);
-              $('#end_time').html(info.event.extendedProps.end_time);
-              $('#description').html(info.event.extendedProps.description);
-              $('#status').html(info.event.extendedProps.status);
-              $('#nb_required_pickers').html(info.event.extendedProps.nb_required_pickers);
-              $('#nb_requests').html(info.event.extendedProps.nb_requests);
-              $('#trees').html(info.event.extendedProps.trees);
-              $('#total_harvested').html(info.event.extendedProps.total_harvested);
+              $('.modal-title').html(info.event.title);
+              $('.start-date').html(info.event.extendedProps.start_date);
+              $('.start-time').html(info.event.extendedProps.start_time);
+              $('.end-time').html(info.event.extendedProps.end_time);
+              $('.description').html(info.event.extendedProps.description);
+              $('.nb-required').html(info.event.extendedProps.nb_required_pickers);
+              $('.nb-requests').html(info.event.extendedProps.nb_requests);
+
+              $('.tree-list').html(info.event.extendedProps.trees);
+              $('.total-harvested').html(info.event.extendedProps.total_harvested);
 
               switch(info.event.extendedProps.status){
                   case "Date-scheduled":
