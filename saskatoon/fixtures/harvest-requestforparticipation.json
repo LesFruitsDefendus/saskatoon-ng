@@ -14,5 +14,21 @@
     "showed_up": null,
     "is_cancelled": false
   }
+},
+{
+  "model": "harvest.requestforparticipation",
+  "pk": 3,
+  "fields": {
+    "picker": 4,
+    "number_of_people": 2,
+    "comment": "Nous serons deux!",
+    "notes_from_pickleader": "There will be two of them",
+    "harvest": 2,
+    "creation_date": "2021-07-19T19:44:53.537Z",
+    "acceptation_date": "2021-07-19T20:10:40.567Z",
+    "is_accepted": true,
+    "showed_up": null,
+    "is_cancelled": false
+  }
 }
 ]
