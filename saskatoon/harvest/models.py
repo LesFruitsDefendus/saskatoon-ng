@@ -485,11 +485,11 @@ class Harvest(models.Model):
 
     def get_local_start(self):
         tz = timezone.get_current_timezone()
-        return tz.localize(self.start_date.replace(tzinfo=None))
+        return self.start_date.astimezone(tz)
 
     def get_local_end(self):
         tz = timezone.get_current_timezone()
-        return tz.localize(self.end_date.replace(tzinfo=None))
+        return self.end_date.astimezone(tz)
 
     class Meta:
         verbose_name = _("harvest")
@@ -497,12 +497,12 @@ class Harvest(models.Model):
 
     def __str__(self):
         if self.start_date:
-            return u"Harvest on %s at %s" % (
-                self.start_date.strftime("%d/%m/%Y %H:%M"),
+            return u"Harvest on %s for %s" % (
+                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
         else:
-            return u"Harvest at %s" % self.property
+            return u"Harvest for %s" % self.property
 
     def get_pickers(self):
         requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
