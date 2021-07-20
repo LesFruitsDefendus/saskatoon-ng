@@ -25,11 +25,10 @@
           nowIndicator: true,
           dayMaxEvents: true, // allow "more" link when too many events
           events: '/jsoncal/',
-
           eventClick: function(info) {
               info.jsEvent.preventDefault(); // don't link to event['url']
 
-              /* filling modal template */
+              /* filling modal templates*/
               $('.harvest-id').attr('value', info.event.extendedProps.harvest_id);
               $('.harvest-url').attr('href', "/harvest/"+info.event.extendedProps.harvest_id);
               $('.rfp-url').attr('href', info.event.url);
@@ -59,11 +58,16 @@
                       $('#cancelledModal').modal();
                       break;
               }
-        }
-    });
-    calendar.render();
-  });
+          },
+          eventMouseEnter: function(info) {
+              info.el.title = info.event.title + "\n" +
+                              info.event.extendedProps.start_time +
+                              " - " + info.event.extendedProps.end_time;
+          }
+      });
 
+      calendar.render();
+  });
 </script>
 
 <div class="wizard-area">
