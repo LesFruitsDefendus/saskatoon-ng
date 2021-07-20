@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load static %}
+<table id="calendar-legend" class="table table-dark">
+    <tbody>
+        <tr>
+            <th style="background-color: #BADDFF; opacity: 0.9"> {% trans "Full" %} </th>
+            <td> {% trans "Enough pickers have been registered" %} </td>
+        </tr>
+        <tr>
+            <th style="background-color: #FFE180; opacity: 0.9"> {% trans "Open" %} </th>
+            <td><b> {% trans "still accepts participation requests" %} </b></td>
+        </tr>
+        <tr>
+            <th style="background-color: #9CF0DB; opacity: 0.9"> {% trans "Succeeded" %} </th>
+            <td> {% trans "harvest completed successfully" %} </td>
+        </tr>
+        {% if user.is_authenticated %}
+        <tr>
+            <th style="background-color: #ED6D62; opacity: 0.9"> {% trans "Cancelled" %} </th>
+            <td> {% trans "will no longer take place" %} </td>
+        <tr>
+        {% endif %}
+    </tbody>
+</table>

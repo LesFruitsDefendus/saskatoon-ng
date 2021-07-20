@@ -8,7 +8,6 @@
 
   document.addEventListener('DOMContentLoaded', function() {
 
-
       var calendarEl = document.getElementById('calendar');
 
       var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -78,6 +77,17 @@
                     <div class="wizard-hd">
                         <h1>{% trans "Harvest calendar" %}</h1>
                         <hr>
+                        <div class="row">
+                            <div class="col-xs-4" >
+                                <h5>{% trans "LEGEND" %} </h5>
+                                {% include 'app/calendar/legend.html' %}
+                            </div>
+                            <div class="col-xs-8" >
+                                <h5>{% trans "INSTRUCTIONS" %} </h5>
+                                {% include 'app/calendar/instructions.html' %}
+                            </div>
+                        </div>
+                        <br>
                         <div id='calendar'></div>
                     </div>
                 </div>

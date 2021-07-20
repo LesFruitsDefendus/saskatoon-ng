@@ -34,20 +34,22 @@ class JsonCalendar(View):
 
             if (harvest.start_date and harvest.end_date and
                     self.request.user.is_staff) or harvest.is_publishable():
-                # https://fullcalendar.io/docs/v4/event-object
+                # https://fullcalendar.io/docs/event-object
                 event = dict()
                 event['url'] = '/participation/create?hid='+str(harvest.id)
                 colors = ({'Date-scheduled': "#FFE180",
                            'Ready': "#BADDFF",
                            'Succeeded': "#9CF0DB",
                            'Cancelled': "#ED6D62"})
-                event['color'] = colors.get(harvest.status, "#ededed")
-                event['textColor'] = "#111"
+                event['display'] = "block"
+                event['backgroundColor'] = colors.get(harvest.status, "#ededed")
+                event['borderColor'] = event['backgroundColor']
+                event['textColor'] = "#2A3F54"
 
                 trees = [t.fruit_name for t in harvest.trees.all()]
                 event['title'] = ", ".join(trees)
                 if harvest.property.neighborhood.name != "Other":
-                    event['title'] += " - "+harvest.property.neighborhood.name
+                    event['title'] += " @ "+harvest.property.neighborhood.name
 
                 # http://fullcalendar.io/docs/timezone/timezone/
                 event['allday'] = "false"
