@@ -7,12 +7,12 @@
                 <div class="curved-inner-pro">
                     <div class="curved-ctn">
                         <h2>{% trans "Public announcement" %}</h2>
+                        <hr><br>
+                        <h5>{% for f in trees %} {{ f }},{% endfor %}
+                            {{ harvest.property.neighborhood.name }}</h5>
                         <br>
-                        <p><strong>{% for f in harvest.trees.all %}
-                            {{ f }},
-                            {% endfor %}
-                            {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}
-                        </strong></p>
+                        <h4>{{harvest_date}}</h4>
+                        <h5>{{harvest_start}} {% trans "to" %} {{harvest_end}}</h5>
                         <br>
                         <p>{{ harvest.about|safe }}</p>
                     </div>
@@ -20,13 +20,19 @@
             </div>
         </div>
 
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="contact-hd search-hd-eg">
                     <h2>Property information</h2>
                 </div>
                     <table class="table">
                         <tbody>
+                        <tr>
+                            <td>{% trans "Adresss" %}</td>
+                            <td class="text-right">
+                                <h4>{{ harvest.property.address }}</h4>
+                            </td>
+                        </tr>
                         <tr>
                             <td>{% trans "Contact" %}</td>
                             <td class="text-right">

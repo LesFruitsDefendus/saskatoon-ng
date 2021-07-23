@@ -12,10 +12,11 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>#{{ harvest.id }}:
-                                               {% for f in harvest.trees.all %}
-                                                  {{ f }},
-                                               {% endfor %}
-                                               {{ harvest.property.address }}, {{ harvest.property.neighborhood.name }}
+                                        {% for f in trees %}
+                                            {{ f }},
+                                        {% endfor %}
+                                        {{ harvest.property.address }},
+                                        {{ harvest.property.neighborhood.name }}
                                     </h1>
                                 </div>
                             </div>
