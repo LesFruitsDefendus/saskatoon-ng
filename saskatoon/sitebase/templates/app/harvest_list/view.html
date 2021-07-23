@@ -1,0 +1,40 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+
+{% include 'app/harvest_list/breadcomb.html' %}
+
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Harvest details" %}</th>
+                                <th>{% trans "Tree" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                                <th style="width: 12%">{% trans "Status" %}</th>
+                                <th>{% trans "Leader" %}</th>
+                                <th>{% trans "Date" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for harvest in data %}
+                                {% include 'app/harvest_list/data_row.html' %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

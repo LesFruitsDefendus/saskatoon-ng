@@ -127,6 +127,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
     start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='get_local_start', format="%H:%M")
+    end_time = serializers.DateTimeField(source='get_local_end', format="%H:%M")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
     pick_leader = serializers.StringRelatedField(many=False)

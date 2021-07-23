@@ -71,7 +71,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         })
 
     def list(self, request, *args, **kwargs):
-        self.template_name = 'app/harvest_list.html'
+        self.template_name = 'app/harvest_list/view.html'
         filter_request = self.request.GET
 
         # only way I found to generate the filter form
