@@ -8,7 +8,7 @@
                     <div class="curved-ctn">
                         <h2>{% trans "Public announcement" %}</h2>
                         <hr><br>
-                        <h5>{% for f in trees %} {{ f }},{% endfor %}
+                        <h5>{% for t in harvest.trees %} {{ t }},{% endfor %}
                             {{ harvest.property.neighborhood.name }}</h5>
                         <br>
                         <h4>{{harvest_date}}</h4>

@@ -7,7 +7,7 @@
         <a href='/harvest/{{harvest.id}}'>{{ harvest.property.title }}</a>
     </td>
     <td>
-        {% for tree in harvest.trees.all %}
+        {% for tree in harvest.trees %}
         <div class="text-nowrap">{{ tree }}</div>
         {% endfor %}
     </td>
