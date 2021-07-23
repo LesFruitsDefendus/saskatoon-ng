@@ -508,12 +508,11 @@ class HarvestForm(forms.ModelForm):
         trees = self.cleaned_data['trees']
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
-            # if publication_date is None:
-            instance.publication_date = datetime.datetime.now()
+            if publication_date is None:
+                instance.publication_date = datetime.datetime.now()
 
         if status in ["To-be-confirmed", "Orphan", "Adopted"]:
-            if publication_date is not None:
-                instance.publication_date = None
+            instance.publication_date = None
 
         if not instance.id:
             instance.save()

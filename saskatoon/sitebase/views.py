@@ -31,9 +31,8 @@ class JsonCalendar(View):
         harvests = Harvest.objects.filter(end_date__lte=end_date, start_date__gte=start_date)
         events = []
         for harvest in harvests:
-
-            if (harvest.start_date and harvest.end_date and
-                    self.request.user.is_staff) or harvest.is_publishable():
+            if ( harvest.start_date and harvest.end_date and
+                    (self.request.user.is_staff or harvest.is_publishable()) ):
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
                 event['url'] = '/participation/create?hid='+str(harvest.id)

@@ -527,42 +527,15 @@ class Harvest(models.Model):
 
             if self.status == 'Ready' and day_before_harvest == 0:
                 return True
-
         return False
 
     def is_publishable(self):
-        now = datetime.datetime.now()
-        publication_hour = 18  # FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
-        print("Publication date: ", self.publication_date)
-        if self.publication_date is not None:
-            is_good_day = self.publication_date.day == now.day
-            print(
-                self.publication_date.day,
-                now.day,
-                "<== PUBLICATION DAY & NOW DAY"
-            )
-            is_good_month = self.publication_date.month == now.month
-            print(self.publication_date.month)
-            is_good_year = self.publication_date.year == now.year
-            print(self.publication_date.year)
-
-            print(is_good_day, is_good_month, is_good_year)
-
-            print("TODAY: ", now)
-            if is_good_day and is_good_month and is_good_year:
-                is_today = True
-            else:
-                is_today = False
-
-            if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
-                return True
-            else:
-                # do not publish if harvest
-                # is not ready/scheduled/succeeded
-                return False
+        if self.publication_date:
+            pub = self.publication_date
+            now = datetime.datetime.now().astimezone(pub.tzinfo)
+            return (now > pub)
         else:
             return False
-            # do not publish if there's no publication_date
 
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()
