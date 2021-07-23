@@ -54,7 +54,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         trees = harvest.trees.all()
 
         return Response({'harvest': response.data,
-                         'harvest_date': harvest.get_local_start().strftime("%b. %d, %Y"),
+                         'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
                          'harvest_start': harvest.get_local_start().strftime("%-I:%M %p"),
                          'harvest_end': harvest.get_local_end().strftime("%-I:%M %p"),
                          'form_request': RequestForm(),

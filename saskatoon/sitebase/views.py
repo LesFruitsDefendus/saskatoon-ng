@@ -62,7 +62,7 @@ class JsonCalendar(View):
                 requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
 
                 event['extendedProps'] = {
-                    'start_date': event['start'].strftime("%a %b %-d %Y"),
+                    'start_date': event['start'].strftime("%a. %b. %-d, %Y"),
                     #TODO handle scenario when end_date > start_date
                     'start_time': event['start'].strftime("%-I:%M %p"),
                     'end_time': event['end'].strftime("%-I:%M %p"),
