@@ -13,7 +13,7 @@
 <div class="breadcomb-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
                 <div class="breadcomb-list">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -23,12 +23,17 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>#{{ harvest.id }}:
-                                               {% for f in harvest.trees.all %}
-                                                  {{ f }},
-                                               {% endfor %}
-                                               {{ harvest.property.short_address }}, {{ harvest.property.neighborhood.name }}
+                                        {% for t in harvest.trees.all %} {{ t }}, {% endfor %}
+                                        {{ harvest.property.neighborhood.name }}
                                     </h1>
-                                    <p>{% trans "Scheduled to:" %} {{ harvest.start_date}} </p>
+                                    <h4>
+                                        {{ harvest.start_date|date:'l F j, Y' }}
+                                    </h4>
+                                    <p>
+                                        {{ harvest.start_date|date:'f A' }}
+                                        {% trans "to" %}
+                                        {{ harvest.end_date|date:'f A' }}
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -43,7 +48,7 @@
 <div class="form-example-area">
     <div class="container">
         <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
                     <div class="form-example-wrap">
                         <div class="cmp-tb-hd">
                             <h2>{% trans "Request to join this harvest" %}</h2>
