@@ -37,10 +37,19 @@
                                         <span><i class="notika-icon notika-app"></i></span></a>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="/admin/member/authuser/add/">{% translate "Add user" %}</a></li>
-                                        <li><a href="/admin/member/authuser/">{% translate "Manage user" %}</a></li>
-                                        <li><a href="/admin/member/organization/">{% translate "Manage beneficiary" %}</a></li>
-                                        <li><a href="/admin/">{% translate "Full admin" %}</a></li>
+                                        {% if perms.member.add_authuser %}
+                                            <li> <a href="/admin/member/authuser/add/">
+                                                {% translate "Add user" %}</a></li>
+                                        {% endif %}
+                                        {% if perms.member.change_authuser %}
+                                            <li><a href="/admin/member/authuser/">
+                                                {% translate "Manage user" %}</a></li>
+                                        {% endif %}
+                                        {% if perms.member.change_organization %}
+                                            <li><a href="/admin/member/organization/">
+                                                {% translate "Manage beneficiary" %}</a></li>
+                                        {% endif %}
+                                        <li><a href="/admin/">{% translate "Admin panel" %}</a></li>
                                     </ul>
                                 </li>
                             {% endif %}
