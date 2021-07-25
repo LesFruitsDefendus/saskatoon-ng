@@ -27,9 +27,9 @@
                             <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                                 <a href="/equipment">{% translate "Equipment" %}</a>
                             </li>
-                            <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                                <a href="/stats">{% translate "Statistics" %}</a>
-                            </li>
+                            <!-- <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                                 <a href="/stats">{% translate "Statistics" %}</a>
+                                 </li> -->
                         </ul>
                     </nav>
                 </div>
@@ -43,7 +43,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
+                <ul class="nav nav-tabs tab-nav-center notika-menu-wrap menu-it-icon-pro">
                     <li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
                         <a href="/calendar"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
                     </li>
@@ -62,9 +62,9 @@
                     <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                         <a href="/equipment"><i class="fa fa-scissors"></i> {% translate "Equipment" %}</a>
                     </li>
-                    <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                        <a href="/stats"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
-                    </li>
+                    <!-- <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                         <a href="/stats"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+                         </li> -->
                 </ul>
             </div>
         </div>
