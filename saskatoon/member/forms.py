@@ -1,8 +1,30 @@
 # coding: utf-8
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from harvest.models import Property
 from member.models import AuthUser, Person
+
+from django.contrib.auth.models import Group
+
+AUTH_GROUPS = (
+    ('core', _("Core Member")),
+    ('pickleader', _("Pick Leader")),
+    ('volunteer', _("Volunteer Picker")),
+    ('owner', _("Property Owner")),
+    ('contact', _("Contact Person")),
+)
+
+def set_person_roles(person, roles):
+    ''' updates auth_user groups
+        :param person: Person instance
+        :param roles: list of group names (see AUTH_GROUPS)
+    '''
+    auth_user = AuthUser.objects.get(person=person)
+    auth_user.groups.clear()
+    for role in roles:
+        group, __ =  Group.objects.get_or_create(name=role)
+        auth_user.groups.add(group)
 
 class PersonCreateForm(forms.ModelForm):
 
@@ -21,7 +43,13 @@ class PersonCreateForm(forms.ModelForm):
         required=False
     )
 
-    field_order = ['first_name', 'family_name', 'email', 'language']
+    roles =  forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=AUTH_GROUPS,
+        required=True
+    )
+
+    field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
 
     def clean_email(self):
         ''' check if email address already exists'''
@@ -41,6 +69,7 @@ class PersonCreateForm(forms.ModelForm):
                 person=instance
         )
         auth_user.save()
+        set_person_roles(instance, self.cleaned_data['roles'])
 
         # associate pending_property (if any)
         pid = self.cleaned_data['pending_property_id']
@@ -59,4 +88,28 @@ class PersonUpdateForm(forms.ModelForm):
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
 
-    field_order = ['first_name', 'family_name', 'language']
+    roles =  forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+        choices=AUTH_GROUPS,
+        required=True
+    )
+
+    field_order = ['roles', 'first_name', 'family_name', 'language']
+
+    def __init__(self, *args, **kwargs):
+        super(PersonUpdateForm, self).__init__(*args, **kwargs)
+        try:
+            auth_user = AuthUser.objects.get(person=self.instance)
+            self.initial['roles'] = [g for g in auth_user.groups.all()]
+        except ObjectDoesNotExist:
+            self.fields.pop('roles')
+            # TODO: log this warning in a file
+            print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+
+    def save(self):
+        try:
+            set_person_roles(self.instance, self.cleaned_data['roles'])
+        except KeyError:
+            pass
+
+        return self.instance
