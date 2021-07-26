@@ -15,6 +15,8 @@ AUTH_GROUPS = (
     ('contact', _("Contact Person")),
 )
 
+STAFF_GROUPS = ['core', 'pickleader']
+
 def set_person_roles(person, roles):
     ''' updates auth_user groups
         :param person: Person instance
@@ -25,6 +27,9 @@ def set_person_roles(person, roles):
     for role in roles:
         group, __ =  Group.objects.get_or_create(name=role)
         auth_user.groups.add(group)
+
+    auth_user.is_staff = any([r in STAFF_GROUPS for r in roles])
+    auth_user.save()
 
 class PersonCreateForm(forms.ModelForm):
 
