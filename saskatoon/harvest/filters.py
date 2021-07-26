@@ -3,6 +3,7 @@ from django_filters import rest_framework as filters
 from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property, Equipment,  EquipmentType
 from member.models import Language, AuthUser, Neighborhood, Organization
 from django.db.models.query_utils import Q
+from django.contrib.auth.models import Group
 
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
 
@@ -84,9 +85,25 @@ class PropertyFilter(filters.FilterSet):
 
     class Meta:
         model = Property
-        fields = ['is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks']
+        fields = [
+            'is_active',
+            'authorized',
+            'neighborhood',
+            'trees',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'pending',
+            ]
 
 class CommunityFilter(filters.FilterSet):
+
+    groups = filters.ModelChoiceFilter(
+        queryset=Group.objects.all(),
+        label=_("Role"),
+        help_text="",
+        required=False
+    )
+
     person__neighborhood = filters.ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
@@ -101,10 +118,20 @@ class CommunityFilter(filters.FilterSet):
         required=False
     )
 
-    person__first_name = filters.CharFilter(label="First name", method='custom_person_first_name_filter')
-    person__family_name = filters.CharFilter(label="Family name", method='custom_person_family_name_filter')
-    person__property = filters.BooleanFilter(label="Has property", method='custom_person_property_filter')
+    person__first_name = filters.CharFilter(
+        label=_("First name"),
+        method='custom_person_first_name_filter'
+    )
 
+    person__family_name = filters.CharFilter(
+        label=_("Last name"),
+        method='custom_person_family_name_filter'
+    )
+
+    person__property = filters.BooleanFilter(
+        label="Has property",
+        method='custom_person_property_filter'
+    )
 
     def custom_person_first_name_filter(self, queryset, name, value):
         query = (Q(person__first_name__icontains=value))
@@ -124,13 +151,16 @@ class CommunityFilter(filters.FilterSet):
 
     class Meta:
         model = AuthUser
-        fields = [
-        'person__neighborhood',
-        'person__language',
-        'person__first_name',
-        'person__family_name',
-        'person__property',
-        ]
+        fields = {
+            'groups',
+            'person__neighborhood',
+            'person__language',
+            'person__first_name',
+            'person__family_name',
+            'person__property',
+        }
+
+
 
 # FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
