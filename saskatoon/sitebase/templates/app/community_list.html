@@ -96,16 +96,17 @@
                                 <td>
                                     <span><b>{{ user.person_name }}</b> &nbsp;
                                     {% if perms.member.change_person %}
-                                        <small><a href="/person/update/{{user.person.actor_id}}">
+                                        <small><a href="/person/update/{{user.person.actor_id}}"
+                                               title="edit">
                                             <i class="fa fa-pencil"></i>
                                         </a></small>
                                     {% endif %}
                                     </span><br>
                                     <small><a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
-                                    {% if perms.member.change_authuser %}
-                                    <a href="/admin/member/authuser/{{user.id}}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
+                                    {% if perms.member.change_authuser and not user.password %}
+                                        <a href="/admin/member/authuser/{{user.id}}/password/"
+                                            title="register">
+                                            <i class="fa fa-plus"></i> </a>
                                     {% endif %}
                                     </small>
                                     <br><small>{{ user.person.phone|default:"" }}</small>
