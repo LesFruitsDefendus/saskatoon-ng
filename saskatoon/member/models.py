@@ -7,6 +7,16 @@ from django.contrib.auth.models import AbstractBaseUser, \
 from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation, Harvest, Property
 
+AUTH_GROUPS = (
+    ('core', _("Core Member")),
+    ('pickleader', _("Pick Leader")),
+    ('volunteer', _("Volunteer Picker")),
+    ('owner', _("Property Owner")),
+    ('contact', _("Contact Person")),
+)
+
+STAFF_GROUPS = ['core', 'pickleader']
+
 class AuthUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
@@ -54,11 +64,18 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         harvests = Harvest.objects.filter(pick_leader=self)
         return harvests
 
-    def get_person_name(self):
-        return self.person.name
+    def roles(self):
+        ''' lists user's groups'''
+        roles = []
+        for group in self.groups.all():
+            for name, Name in AUTH_GROUPS:
+                if name == group.name:
+                    roles.append(Name)
+                    break
+        return roles
 
     def is_core(self):
-        ''' check if user is a core member or superuser'''
+        ''' check if user is a core member'''
         return self.groups.filter(name="core").exists()
     is_core.boolean = True
 

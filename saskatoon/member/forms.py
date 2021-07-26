@@ -3,19 +3,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from harvest.models import Property
-from member.models import AuthUser, Person
-
+from member.models import AuthUser, Person, AUTH_GROUPS, STAFF_GROUPS
 from django.contrib.auth.models import Group
-
-AUTH_GROUPS = (
-    ('core', _("Core Member")),
-    ('pickleader', _("Pick Leader")),
-    ('volunteer', _("Volunteer Picker")),
-    ('owner', _("Property Owner")),
-    ('contact', _("Contact Person")),
-)
-
-STAFF_GROUPS = ['core', 'pickleader']
 
 def set_person_roles(person, roles):
     ''' updates auth_user groups

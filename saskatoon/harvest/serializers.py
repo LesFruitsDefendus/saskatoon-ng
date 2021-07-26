@@ -20,7 +20,7 @@ class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = serializers.ReadOnlyField(source='get_properties')
     harvests = serializers.ReadOnlyField(source='get_harvests')
-    full_name = serializers.ReadOnlyField(source='name')
+    name = serializers.ReadOnlyField()
 
     class Meta:
         model = Person
@@ -142,10 +142,9 @@ class HarvestSerializer(serializers.ModelSerializer):
 # Person serializer
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
-    person_name = serializers.ReadOnlyField(source='get_person_name')
-    as_leader = serializers.ReadOnlyField(source='harvests_as_pickleader')
-    is_core_member = serializers.ReadOnlyField(source='is_core')
+    harvests_as_pickleader = serializers.ReadOnlyField()
     person = PersonSerializer(many=False, read_only=True)
+    roles = serializers.ReadOnlyField()
     class Meta:
         model = AuthUser
         fields = '__all__'

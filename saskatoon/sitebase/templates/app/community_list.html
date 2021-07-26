@@ -94,7 +94,7 @@
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <span><b>{{ user.person_name }}</b> &nbsp;
+                                    <span><b>{{ user.person.name }}</b> &nbsp;
                                     {% if perms.member.change_person %}
                                         <small><a href="/person/update/{{user.person.actor_id}}"
                                                title="edit">
@@ -113,26 +113,30 @@
                                 </td>
                                 <td>
                                     <ul>
-                                        {% if user.person.properties %}
-                                            <li>{% trans "Tree owner"%}</li>
-                                        {% endif %}
-                                        {% if user.as_leader %}
-                                            <li>{% trans "Pick leader" %}</li>
-                                        {% endif %}
-                                        {% if user.is_core_member %}
-                                            <li>{% trans "Core Member" %}</li>
-                                        {% elif user.is_staff %}
-                                            <li>{% trans "Staff" %}</li>
-                                        {% endif %}
-                                        {% if user.person.harvests %}
-                                            <li>{% trans "Picker" %}</li>
-                                        {% endif %}
+                                        {% for role in user.roles %}
+                                            <li>{{ role }}</li>
+                                        {% endfor %}
+
+                                            <!-- {% if user.person.properties %}
+                                                 <li>{% trans "Tree owner"%}</li>
+                                                 {% endif %}
+                                                 {% if user.as_leader %}
+                                                 <li>{% trans "Pick leader" %}</li>
+                                                 {% endif %}
+                                                 {% if user.is_core_member %}
+                                                 <li>{% trans "Core Member" %}</li>
+                                                 {% elif user.is_staff %}
+                                                 <li>{% trans "Staff" %}</li>
+                                                 {% endif %}
+                                                 {% if user.person.harvests %}
+                                                 <li>{% trans "Picker" %}</li>
+                                                 {% endif %} -->
                                     </ul>
                                 </td>
                                 <td>{{ user.person.neighborhood.name }}</td>
                                 <td>
                                     <ul class="list-inline">
-                                        {% for harvest in user.as_leader %}
+                                        {% for harvest in user.harvests_as_pickleader %}
                                         <li>
                                             <a data-placement="top" data-toggle="tooltip" href='/harvest/{{ harvest.id }}'
                                                title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
