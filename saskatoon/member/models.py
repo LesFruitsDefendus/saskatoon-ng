@@ -146,6 +146,7 @@ class Person(Actor):
         'Neighborhood',
         verbose_name=_("Neighborhood"),
         null=True,
+        blank=True,
         on_delete=models.CASCADE,
     )
 
