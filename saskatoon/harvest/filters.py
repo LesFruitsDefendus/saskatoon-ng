@@ -128,11 +128,6 @@ class CommunityFilter(filters.FilterSet):
         method='custom_person_family_name_filter'
     )
 
-    person__property = filters.BooleanFilter(
-        label="Has property",
-        method='custom_person_property_filter'
-    )
-
     def custom_person_first_name_filter(self, queryset, name, value):
         query = (Q(person__first_name__icontains=value))
         return queryset.filter(query)
@@ -141,26 +136,16 @@ class CommunityFilter(filters.FilterSet):
         query = (Q(person__family_name__icontains=value))
         return queryset.filter(query)
 
-    def custom_person_property_filter(self, queryset, name, value):
-        #TODO: fix this epic workaround
-        if value is True:
-            query = (Q(person__property__isnull=False))
-        elif value is False:
-            query = (Q(person__property__isnull=True))
-        return queryset.filter(query)
-
     class Meta:
         model = AuthUser
-        fields = {
+        fields = [
             'groups',
-            'person__neighborhood',
-            'person__language',
             'person__first_name',
             'person__family_name',
+            'person__neighborhood',
+            'person__language',
             'person__property',
-        }
-
-
+        ]
 
 # FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
