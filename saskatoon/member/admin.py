@@ -1,12 +1,14 @@
 # coding: utf-8
 
+from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm,
-        ReadOnlyPasswordHashField )
-from django import forms
-from member.models import (AuthUser, Actor, Language, Person, Organization, Neighborhood, City, State, Country)
+from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
+                                        ReadOnlyPasswordHashField)
+from member.models import (AuthUser, Actor, Language, Person, Organization,
+                           Neighborhood, City, State, Country)
 from member.filters import GroupFilter, PropertyFilter, PickLeaderFilter, VolunteerFilter
+from django.contrib.auth.models import Group
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
@@ -145,6 +147,61 @@ class AuthUserAdmin(UserAdmin):
         ),
     )
 
+    # ACTIONS
+    def clear_groups(self, request, queryset):
+        for u in queryset:
+            u.groups.clear()
+            u.is_superuser = False
+            u.is_staff = False
+            u.save()
+
+    def add_to_staff(self, user):
+        user.is_staff = True
+        user.save()
+
+    def add_to_group(self, user, name):
+        group, __ = Group.objects.get_or_create(name=name)
+        user.groups.add(group)
+
+    def add_to_admin(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'admin')
+            u.is_superuser = True
+            self.add_to_staff(u)
+
+    def add_to_core(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'core')
+            self.add_to_staff(u)
+
+    def add_to_pickleader(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'pickleader')
+            self.add_to_staff(user)
+
+    def add_to_volunteer(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'volunteer')
+
+    def add_to_owner(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'owner')
+
+    def deactivate_account(self, request, queryset):
+        for u in queryset:
+            if not u.is_superuser:
+                u.is_active = False
+                u.save()
+
+    actions = [
+        clear_groups,
+        add_to_admin,
+        add_to_core,
+        add_to_pickleader,
+        add_to_volunteer,
+        add_to_owner,
+        deactivate_account,
+    ]
 
 
 # admin.site.register(Notification)
