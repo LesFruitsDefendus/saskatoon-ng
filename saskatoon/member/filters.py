@@ -1,6 +1,6 @@
 from django.contrib.admin import SimpleListFilter
 from member.models import AuthUser, AUTH_GROUPS, Person, Actor
-from harvest.models import Property, Harvest
+from harvest.models import Property, Harvest, RequestForParticipation
 from django.contrib.auth.models import Group
 
 class GroupFilter(SimpleListFilter):
@@ -49,5 +49,21 @@ class PickLeaderFilter(SimpleListFilter):
             harvests = Harvest.objects.filter(pick_leader__isnull=False)
             leaders = set([h.pick_leader.person for h in harvests])
             users = queryset.filter(person__in=leaders)
+            return users
+        return queryset
+
+class VolunteerFilter(SimpleListFilter):
+    title = 'Volunteer Filter'
+    parameter_name = 'picker'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [ ('1', 'has volunteered')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            requests = RequestForParticipation.objects.filter(is_accepted=True)
+            pickers = [r.picker for r in requests]
+            users = queryset.filter(person__in=pickers)
             return users
         return queryset

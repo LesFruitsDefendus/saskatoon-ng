@@ -6,7 +6,7 @@ from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm,
         ReadOnlyPasswordHashField )
 from django import forms
 from member.models import (AuthUser, Actor, Language, Person, Organization, Neighborhood, City, State, Country)
-from member.filters import GroupFilter, PropertyFilter, PickLeaderFilter
+from member.filters import GroupFilter, PropertyFilter, PickLeaderFilter, VolunteerFilter
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
@@ -99,6 +99,7 @@ class AuthUserAdmin(UserAdmin):
     list_filter = (GroupFilter,
                    PropertyFilter,
                    PickLeaderFilter,
+                   VolunteerFilter,
                    'is_staff',
                    'is_superuser',
                    'is_active'
