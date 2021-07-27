@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>harvest.admin.PersonInline</title>
+    <title>member.filters.VolunteerFilter</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.admin.html">admin</a></code><wbr></wbr>.<code><a href="harvest.admin.PersonInline.html">PersonInline</a></code></code></h1>
+        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.filters.html">filters</a></code><wbr></wbr>.<code><a href="member.filters.VolunteerFilter.html">VolunteerFilter</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,8 +126,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PersonInline</span>(<span title="django.contrib.admin.TabularInline">admin.TabularInline</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L17" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#harvest.admin.PersonInline">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">VolunteerFilter</span>(<span title="django.contrib.admin.SimpleListFilter">SimpleListFilter</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L55" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#member.filters.VolunteerFilter">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -135,28 +135,33 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id14">
+        <table class="children sortable" id="id154">
   
   
   <tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#verbose_name">verbose_name</a></code></td>
+    <td><code><a href="#title">title</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#verbose_name_plural">verbose_name_plural</a></code></td>
+    <td><code><a href="#parameter_name">parameter_name</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#exclude">exclude</a></code></td>
+    <td><code><a href="#default_value">default_value</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
+  </tr><tr class="method">
     
-    <td>Class Variable</td>
-    <td><code><a href="#extra">extra</a></code></td>
+    <td>Method</td>
+    <td><code><a href="#lookups">lookups</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#queryset">queryset</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -170,16 +175,16 @@
         <div class="baseclassvariable">
   
   
-  <a name="harvest.admin.PersonInline.verbose_name">
+  <a name="member.filters.VolunteerFilter.title">
     
   </a>
-  <a name="verbose_name">
+  <a name="title">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">verbose_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L19">
+    <span class="py-defname">title</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L56">
       
       (source)
     </a>
@@ -192,16 +197,16 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="harvest.admin.PersonInline.verbose_name_plural">
+  <a name="member.filters.VolunteerFilter.parameter_name">
     
   </a>
-  <a name="verbose_name_plural">
+  <a name="parameter_name">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">verbose_name_plural</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L20">
+    <span class="py-defname">parameter_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L57">
       
       (source)
     </a>
@@ -214,16 +219,16 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="harvest.admin.PersonInline.exclude">
+  <a name="member.filters.VolunteerFilter.default_value">
     
   </a>
-  <a name="exclude">
+  <a name="default_value">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">exclude</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L22">
+    <span class="py-defname">default_value</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L58">
       
       (source)
     </a>
@@ -233,24 +238,46 @@
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
-</div><div class="baseclassvariable">
+</div><div class="basemethod">
   
   
-  <a name="harvest.admin.PersonInline.extra">
+  <a name="member.filters.VolunteerFilter.lookups">
     
   </a>
-  <a name="extra">
+  <a name="lookups">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">extra</span>: <code><a href="https://docs.python.org/3/library/functions.html#int">int</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L23">
+    <span class="py-keyword">def</span> <span class="py-defname">lookups</span>(self, request, model_admin):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L60">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="member.filters.VolunteerFilter.queryset">
+    
+  </a>
+  <a name="queryset">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">queryset</span>(self, request, queryset):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L63">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
     
     
     <div><p class="undocumented">Undocumented</p></div>
