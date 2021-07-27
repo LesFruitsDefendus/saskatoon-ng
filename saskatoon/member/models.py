@@ -74,11 +74,6 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
                     break
         return roles
 
-    def is_core(self):
-        ''' check if user is a core member'''
-        return self.groups.filter(name="core").exists()
-    is_core.boolean = True
-
     def __str__(self):
         if self.person:
             return u"%s" % self.person

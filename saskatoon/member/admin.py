@@ -5,8 +5,8 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm,
         ReadOnlyPasswordHashField )
 from django import forms
-
 from member.models import (AuthUser, Actor, Language, Person, Organization, Neighborhood, City, State, Country)
+from member.filters import GroupFilter
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
@@ -65,15 +65,42 @@ class CustomUserChangeForm(UserChangeForm):
         return self.initial["password"]
 
 
+@admin.register(AuthUser)
 class AuthUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     search_fields = ('email', 'person__first_name', 'person__family_name')
     ordering = ('email', 'person')
     filter_horizontal = ('groups', 'user_permissions',)
-    list_display = ('email', 'person', 'is_staff', 'is_core', 'is_superuser', 'is_active')
-    list_filter = ('is_staff', 'is_superuser', 'is_active')
+    list_display = ('email',
+                    'person',
+                    'get_groups',
+                    'is_staff',
+                    'is_core',
+                    'is_admin',
+                    'is_active'
+                    )
 
+    def is_core(self, user):
+        return user.groups.filter(name="core").exists()
+    is_core.short_description = "core"
+    is_core.boolean = True
+
+    def is_admin(self, user):
+        return user.is_superuser
+    is_admin.short_description = "admin"
+    is_admin.boolean = True
+
+    def get_groups(self, user):
+        return ' + '.join([g.name for g in user.groups.all()])
+    get_groups.short_description = "group(s)"
+
+
+    list_filter = (GroupFilter,
+                   'is_staff',
+                   'is_superuser',
+                   'is_active'
+                   )
 
     fieldsets = (
         (
@@ -116,8 +143,9 @@ class AuthUserAdmin(UserAdmin):
     )
 
 
-admin.site.register(AuthUser, AuthUserAdmin)
+
 # admin.site.register(Notification)
+# admin.site.register(AuthUserAdmin)
 admin.site.register(Actor)
 admin.site.register(Language)
 admin.site.register(Person)
