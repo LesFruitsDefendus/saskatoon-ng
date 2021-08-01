@@ -1,24 +1,24 @@
 from django.urls import path, re_path
-from . import api, autocomplete
+from . import views, autocomplete
 
 urlpatterns = [
 
     # CREATE VIEWS
     path('person/create/',
-         api.PersonCreateView.as_view(),
+         views.PersonCreateView.as_view(),
          name='person-create'),
 
     path('organization/create/',
-         api.OrganizationCreateView.as_view(),
+         views.OrganizationCreateView.as_view(),
          name='organization-create'),
 
     # UPDATE VIEWS
     path('person/update/<int:pk>/',
-         api.PersonUpdateView.as_view(),
+         views.PersonUpdateView.as_view(),
          name='person-update'),
 
     path('organization/update/<int:pk>/',
-         api.OrganizationUpdateView.as_view(),
+         views.OrganizationUpdateView.as_view(),
          name='organization-update'),
 
 
