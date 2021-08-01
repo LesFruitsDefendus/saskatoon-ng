@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>harvest.api.PersonAutocomplete</title>
+    <title>harvest.views.HarvestCreateView</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.api.html">api</a></code><wbr></wbr>.<code><a href="harvest.api.PersonAutocomplete.html">PersonAutocomplete</a></code></code></h1>
+        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.views.html">views</a></code><wbr></wbr>.<code><a href="harvest.views.HarvestCreateView.html">HarvestCreateView</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,8 +126,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PersonAutocomplete</span>(<span title="dal.autocomplete.Select2QuerySetView">autocomplete.Select2QuerySetView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L452" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#harvest.api.PersonAutocomplete">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">HarvestCreateView</span>(<span title="django.contrib.auth.mixins.LoginRequiredMixin">LoginRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.CreateView">CreateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L82" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#harvest.views.HarvestCreateView">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -135,13 +135,28 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id38">
+        <table class="children sortable" id="id132">
   
   
-  <tr class="method">
+  <tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#template_name">template_name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#success_message">success_message</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#get_queryset">get_queryset</a></code></td>
+    <td><code><a href="#get_context_data">get_context_data</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#get_success_url">get_success_url</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -152,19 +167,85 @@
 
       <div id="childList">
 
-        <div class="basemethod">
+        <div class="baseclassvariable">
   
   
-  <a name="harvest.api.PersonAutocomplete.get_queryset">
+  <a name="harvest.views.HarvestCreateView.template_name">
     
   </a>
-  <a name="get_queryset">
+  <a name="template_name">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">get_queryset</span>(self):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L453">
+    <span class="py-defname">template_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L85">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.views.HarvestCreateView.success_message">
+    
+  </a>
+  <a name="success_message">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">success_message</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L86">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="harvest.views.HarvestCreateView.get_context_data">
+    
+  </a>
+  <a name="get_context_data">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_context_data</span>(self, **kwargs):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L88">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="harvest.views.HarvestCreateView.get_success_url">
+    
+  </a>
+  <a name="get_success_url">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_success_url</span>(self):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L94">
       
       (source)
     </a>
@@ -184,7 +265,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-01 20:23:10.
+    21.2.2 at 2021-08-01 22:23:36.
   </div>
 </footer>
 

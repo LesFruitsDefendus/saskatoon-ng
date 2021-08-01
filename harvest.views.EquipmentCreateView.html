@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>member.api.PersonCreateView</title>
+    <title>harvest.views.EquipmentCreateView</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.api.html">api</a></code><wbr></wbr>.<code><a href="member.api.PersonCreateView.html">PersonCreateView</a></code></code></h1>
+        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.views.html">views</a></code><wbr></wbr>.<code><a href="harvest.views.EquipmentCreateView.html">EquipmentCreateView</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,8 +126,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PersonCreateView</span>(<span title="django.contrib.auth.mixins.PermissionRequiredMixin">PermissionRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.CreateView">CreateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L13" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#member.api.PersonCreateView">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">EquipmentCreateView</span>(<span title="django.contrib.auth.mixins.LoginRequiredMixin">LoginRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.CreateView">CreateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L17" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#harvest.views.EquipmentCreateView">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -135,18 +135,18 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id146">
+        <table class="children sortable" id="id127">
   
   
   <tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#permission_required">permission_required</a></code></td>
+    <td><code><a href="#template_name">template_name</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#template_name">template_name</a></code></td>
+    <td><code><a href="#success_url">success_url</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
@@ -156,17 +156,7 @@
   </tr><tr class="method">
     
     <td>Method</td>
-    <td><code><a href="#get">get</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
     <td><code><a href="#get_context_data">get_context_data</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#get_success_url">get_success_url</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -180,29 +170,7 @@
         <div class="baseclassvariable">
   
   
-  <a name="member.api.PersonCreateView.permission_required">
-    
-  </a>
-  <a name="permission_required">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">permission_required</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L14">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="member.api.PersonCreateView.template_name">
+  <a name="harvest.views.EquipmentCreateView.template_name">
     
   </a>
   <a name="template_name">
@@ -211,7 +179,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">template_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L17">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L20">
       
       (source)
     </a>
@@ -224,7 +192,29 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="member.api.PersonCreateView.success_message">
+  <a name="harvest.views.EquipmentCreateView.success_url">
+    
+  </a>
+  <a name="success_url">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">success_url</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L21">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.views.EquipmentCreateView.success_message">
     
   </a>
   <a name="success_message">
@@ -232,8 +222,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">success_message</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L18">
+    <span class="py-defname">success_message</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L22">
       
       (source)
     </a>
@@ -246,29 +236,7 @@
 </div><div class="basemethod">
   
   
-  <a name="member.api.PersonCreateView.get">
-    
-  </a>
-  <a name="get">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">get</span>(self, request, *args, **kwargs):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L20">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="member.api.PersonCreateView.get_context_data">
+  <a name="harvest.views.EquipmentCreateView.get_context_data">
     
   </a>
   <a name="get_context_data">
@@ -277,29 +245,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_context_data</span>(self, **kwargs):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L51">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basemethod">
-  
-  
-  <a name="member.api.PersonCreateView.get_success_url">
-    
-  </a>
-  <a name="get_success_url">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-keyword">def</span> <span class="py-defname">get_success_url</span>(self):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/api.py#L58">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L24">
       
       (source)
     </a>
@@ -319,7 +265,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-01 20:23:10.
+    21.2.2 at 2021-08-01 22:23:36.
   </div>
 </footer>
 

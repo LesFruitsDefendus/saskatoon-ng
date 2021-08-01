@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>harvest.api.PropertyUpdateView</title>
+    <title>harvest.views.CommentCreateView</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.api.html">api</a></code><wbr></wbr>.<code><a href="harvest.api.PropertyUpdateView.html">PropertyUpdateView</a></code></code></h1>
+        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.views.html">views</a></code><wbr></wbr>.<code><a href="harvest.views.CommentCreateView.html">CommentCreateView</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,8 +126,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PropertyUpdateView</span>(<span title="django.contrib.auth.mixins.PermissionRequiredMixin">PermissionRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.UpdateView">UpdateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L277" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#harvest.api.PropertyUpdateView">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">CommentCreateView</span>(<span title="django.contrib.auth.mixins.LoginRequiredMixin">LoginRequiredMixin</span>, <span title="django.contrib.messages.views.SuccessMessageMixin">SuccessMessageMixin</span>, <span title="django.views.generic.CreateView">CreateView</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L159" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#harvest.views.CommentCreateView">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -135,15 +135,10 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id31">
+        <table class="children sortable" id="id136">
   
   
   <tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#permission_required">permission_required</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
     
     <td>Class Variable</td>
     <td><code><a href="#template_name">template_name</a></code></td>
@@ -157,6 +152,11 @@
     
     <td>Method</td>
     <td><code><a href="#get_context_data">get_context_data</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#form_valid">form_valid</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
@@ -175,29 +175,7 @@
         <div class="baseclassvariable">
   
   
-  <a name="harvest.api.PropertyUpdateView.permission_required">
-    
-  </a>
-  <a name="permission_required">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">permission_required</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L278">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.api.PropertyUpdateView.template_name">
+  <a name="harvest.views.CommentCreateView.template_name">
     
   </a>
   <a name="template_name">
@@ -206,7 +184,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">template_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L281">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L162">
       
       (source)
     </a>
@@ -219,7 +197,7 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="harvest.api.PropertyUpdateView.success_message">
+  <a name="harvest.views.CommentCreateView.success_message">
     
   </a>
   <a name="success_message">
@@ -228,7 +206,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">success_message</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L282">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L163">
       
       (source)
     </a>
@@ -241,7 +219,7 @@
 </div><div class="basemethod">
   
   
-  <a name="harvest.api.PropertyUpdateView.get_context_data">
+  <a name="harvest.views.CommentCreateView.get_context_data">
     
   </a>
   <a name="get_context_data">
@@ -250,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_context_data</span>(self, **kwargs):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L284">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L165">
       
       (source)
     </a>
@@ -263,7 +241,29 @@
 </div><div class="basemethod">
   
   
-  <a name="harvest.api.PropertyUpdateView.get_success_url">
+  <a name="harvest.views.CommentCreateView.form_valid">
+    
+  </a>
+  <a name="form_valid">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">form_valid</span>(self, form):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L172">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="harvest.views.CommentCreateView.get_success_url">
     
   </a>
   <a name="get_success_url">
@@ -272,7 +272,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">get_success_url</span>(self):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/api.py#L290">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L178">
       
       (source)
     </a>
@@ -292,7 +292,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2021-08-01 20:23:10.
+    21.2.2 at 2021-08-01 22:23:36.
   </div>
 </footer>
 
