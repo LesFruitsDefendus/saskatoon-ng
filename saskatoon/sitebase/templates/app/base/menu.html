@@ -18,7 +18,7 @@
                             <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                                 <a href="/property">{% translate "Properties" %}</a>
                             </li>
-                            <li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
+                            <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                                 <a href="/beneficiary">{% translate "Beneficiaries" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
@@ -53,7 +53,7 @@
                     <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                         <a href="/property"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
                     </li>
-                    <li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
+                    <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                         <a href="/beneficiary"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
