@@ -1,20 +1,13 @@
 from dal import autocomplete
 from .models import AuthUser, Person, Actor
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 
-class PickLeaderAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
-        if not self.request.user.is_authenticated:
-            return Person.objects.none()
-
-        qs = AuthUser.objects.filter(is_staff=True)
-
-        if self.q:
-            qs = qs.filter(person__first_name__istartswith=self.q)
-
-        return qs
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
+    def __init__(self, role=None):
+        self.role = role
+
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
         if not self.request.user.is_authenticated:
@@ -22,10 +15,30 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Person.objects.all()
 
+        if self.role:
+            group, __ =  Group.objects.get_or_create(name=self.role)
+            qs = qs.filter(authuser__groups=group)
+
         if self.q:
             qs = qs.filter(first_name__icontains=self.q)
 
         return qs
+
+class PickLeaderAutocomplete(PersonAutocomplete):
+    ''' Pick Leader '''
+    def __init__(self):
+        super(ContactAutocomplete, self).__init__('pickleader')
+
+class OwnerAutocomplete(PersonAutocomplete):
+    ''' Property owner '''
+    def __init__(self):
+        super(ContactAutocomplete, self).__init__('owner')
+
+class ContactAutocomplete(PersonAutocomplete):
+    ''' Organization contact person'''
+    def __init__(self):
+        super(ContactAutocomplete, self).__init__('contact')
+
 
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):

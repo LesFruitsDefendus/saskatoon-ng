@@ -34,4 +34,12 @@ urlpatterns = [
     re_path(r'^pickleader-autocomplete/$',
             autocomplete.PickLeaderAutocomplete.as_view(),
             name='pickleader-autocomplete'),
+
+    re_path(r'^owner-autocomplete/$',
+            autocomplete.OwnerAutocomplete.as_view(),
+            name='owner-autocomplete'),
+
+    re_path(r'^contact-autocomplete/$',
+            autocomplete.ContactAutocomplete.as_view(),
+            name='contact-autocomplete'),
 ]

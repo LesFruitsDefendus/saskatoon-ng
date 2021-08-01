@@ -120,7 +120,7 @@ class OrganizationCreateForm(forms.ModelForm):
 
         widgets = {
             'contact_person': autocomplete.ModelSelect2(
-               'person-autocomplete'
+               'contact-autocomplete'
             ),
         }
 
