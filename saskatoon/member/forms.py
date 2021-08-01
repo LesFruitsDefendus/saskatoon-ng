@@ -2,8 +2,9 @@
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from dal import autocomplete
 from harvest.models import Property
-from member.models import AuthUser, Person, AUTH_GROUPS, STAFF_GROUPS
+from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
 from django.contrib.auth.models import Group
 
 def set_person_roles(person, roles):
@@ -107,3 +108,56 @@ class PersonUpdateForm(forms.ModelForm):
             pass
 
         return self.instance
+
+class OrganizationCreateForm(forms.ModelForm):
+
+    class Meta:
+        model = Organization
+        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        labels = {
+            'is_beneficiary': "Beneficiary organization",
+        }
+
+        widgets = {
+            'contact_person': autocomplete.ModelSelect2(
+               'actor-autocomplete'
+            ),
+        }
+
+    # field_order = ['civil_name', 'is_beneficiary', 'description']
+
+    # is_beneficiary = forms.BooleanField(
+    #     label=_("Beneficiary organization"),
+    #     required=False
+    # )
+
+
+    # def clean_email(self):
+    #     ''' check if email address already exists'''
+    #     email = self.cleaned_data['email']
+    #     if AuthUser.objects.filter(email=email).exists():
+    #         raise forms.ValidationError("This email address is already registered")
+    #     return email
+
+    # def save(self):
+
+        # # create Person instance
+        # instance = super(PersonCreateForm, self).save()
+
+        # # create associated auth.user
+        # auth_user = AuthUser.objects.create(
+        #         email=self.cleaned_data['email'],
+        #         person=instance
+        # )
+        # auth_user.save()
+        # set_person_roles(instance, self.cleaned_data['roles'])
+
+        # # associate pending_property (if any)
+        # pid = self.cleaned_data['pending_property_id']
+        # if pid:
+        #     try:
+        #         pending_property = Property.objects.get(id=pid)
+        #         pending_property.owner = instance
+        #         pending_property.save()
+        #     except Exception as e: print(e)
+        # return instance

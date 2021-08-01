@@ -6,9 +6,9 @@ from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
 
-from .models import Person
+from .models import Person, Organization
 from harvest.models import Property
-from .forms import PersonCreateForm, PersonUpdateForm
+from .forms import PersonCreateForm, PersonUpdateForm, OrganizationCreateForm
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'member.add_person'
@@ -81,3 +81,36 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
             return reverse_lazy('community-list')
+
+class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'member.change_person'
+    model = Person
+    form_class = PersonUpdateForm
+    template_name = 'app/generic/model_form.html'
+    success_message = _("Person updated successfully!")
+    permission_required = 'member.add_organization'
+    model = Organization
+    form_class = OrganizationCreateForm
+    template_name = 'app/generic/model_form.html'
+    success_message = _("New Organization registered successfully!")
+    success_url = reverse_lazy('beneficiary-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Organization Registration")
+        context['cancel_url'] = reverse_lazy('beneficiary-list')
+        return context
+
+class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'member.change_organization'
+    model = Organization
+    form_class = OrganizationCreateForm
+    template_name = 'app/generic/model_form.html'
+    success_message = _("Organization updated successfully!")
+    success_url = reverse_lazy('beneficiary-list')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Organization Update")
+        context['cancel_url'] = reverse_lazy('beneficiary-list')
+        return context
