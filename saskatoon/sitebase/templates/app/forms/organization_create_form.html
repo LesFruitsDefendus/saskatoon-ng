@@ -1,0 +1,108 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{{ form.media }}
+
+
+{% if form.non_field_errors %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center alert alert-warning" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
+                    <div class="form-example-wrap">
+                        <div class="cmp-tb-hd">
+                            <h2>{{ title }}</h2>
+                        </div>
+                        <div class="form-example-int">
+                            <form method="post">
+
+                                {% csrf_token %}
+
+                                {{ form.is_beneficiary|as_crispy_field }}
+                                {{ form.civil_name|as_crispy_field }}
+                                {{ form.description|as_crispy_field }}
+
+                                {{ form.phone|as_crispy_field }}
+                                {{ form.street_number|as_crispy_field }}
+                                {{ form.street|as_crispy_field }}
+                                {{ form.complement|as_crispy_field }}
+                                {{ form.postal_code|as_crispy_field }}
+                                {{ form.neighborhood|as_crispy_field }}
+                                {{ form.city|as_crispy_field }}
+                                {{ form.state|as_crispy_field }}
+                                {{ form.country|as_crispy_field }}
+
+                                <br><hr>
+                                <h5>{% trans "Contact Person" %}</h5>
+
+                                {{ form.create_new_person|as_crispy_field }}
+
+                                <div id="existing-contact">
+                                    {{ form.contact_person|as_crispy_field }}
+                                </div>
+
+                                <div class="collapse" id="new-contact">
+                                    {{ form.contact_first_name|as_crispy_field }}
+                                    {{ form.contact_last_name|as_crispy_field }}
+                                    {{ form.contact_email|as_crispy_field }}
+                                    {{ form.contact_phone|as_crispy_field }}
+                                </div>
+
+                                {{ form.contact_person_role|as_crispy_field }}
+
+                                <br>
+                                <button type="submit" class="btn btn-primary">
+                                    {% trans 'Save' %}
+                                </button>
+                                {% if cancel_url %}
+                                <button type="button" class="btn btn-default" style="margin-left:1rem;">
+                                    <a href="{{ cancel_url }}">Cancel</a>
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>
+
+<script>
+
+ function createNewContact(){
+     if ($('#id_create_new_person').is(":checked")) {
+         $('#existing-contact').hide();
+         $('#new-contact').collapse('show');
+     } else {
+         $('#existing-contact').show();
+         $('#new-contact').collapse('hide');
+     }
+ }
+
+ $(function() {
+     createNewContact();
+
+ });
+
+ $('#id_create_new_person').change(function() {
+     createNewContact();
+ });
+
+</script>
+
+{% endblock content %}
