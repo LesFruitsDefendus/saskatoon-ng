@@ -7,12 +7,22 @@
 
 {{ form.media }}
 
-{{ form.non_field_errors }}
+{% if form.non_field_errors %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center alert alert-warning" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 
 <div class="form-example-area">
     <div class="container">
         <div class="row">
-                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-12">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
                     <div class="form-example-wrap">
                         <div class="cmp-tb-hd">
                             <h2>{{ title }}</h2>

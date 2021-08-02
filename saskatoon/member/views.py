@@ -14,7 +14,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
     permission_required = 'member.add_person'
     model = Person
     form_class = PersonCreateForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = _("New Person registered successfully!")
 
     def get(self, request, *args, **kwargs):
@@ -46,7 +46,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
                    'title': title,
                    'cancel_url': cancel_url}
 
-        return render(request, 'app/generic/model_form.html', context)
+        return render(request, 'app/forms/model_form.html', context)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -66,7 +66,7 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     permission_required = 'member.change_person'
     model = Person
     form_class = PersonUpdateForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = _("Person updated successfully!")
 
     def get_context_data(self, **kwargs):
@@ -86,12 +86,12 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
     permission_required = 'member.change_person'
     model = Person
     form_class = PersonUpdateForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = _("Person updated successfully!")
     permission_required = 'member.add_organization'
     model = Organization
     form_class = OrganizationCreateForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/organization_create_form.html'
     success_message = _("New Organization registered successfully!")
     success_url = reverse_lazy('beneficiary-list')
 
@@ -105,7 +105,7 @@ class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, Updat
     permission_required = 'member.change_organization'
     model = Organization
     form_class = OrganizationCreateForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = _("Organization updated successfully!")
     success_url = reverse_lazy('beneficiary-list')
 

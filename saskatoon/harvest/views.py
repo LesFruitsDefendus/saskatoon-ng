@@ -17,7 +17,7 @@ from .models import Equipment, Harvest, Property, RequestForParticipation, Comme
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Equipment
     form_class = EquipmentForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_url = reverse_lazy('equipment-list')
     success_message = "Equipment created successfully!"
 
@@ -30,7 +30,7 @@ class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Equipment
     form_class = EquipmentForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = "Equipment updated successfully!"
 
     def get_context_data(self, **kwargs):
@@ -45,7 +45,7 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
@@ -66,7 +66,7 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
     permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = "Property updated successfully!"
 
     def get_context_data(self, **kwargs):
@@ -82,7 +82,7 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
 class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
     form_class = HarvestForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = "Harvest created successfully!"
 
     def get_context_data(self, **kwargs):
@@ -97,7 +97,7 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
     form_class = HarvestForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = "Harvest updated successfully!"
 
     def get_context_data(self, **kwargs):
@@ -159,7 +159,7 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
 class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
-    template_name = 'app/generic/model_form.html'
+    template_name = 'app/forms/model_form.html'
     success_message = "Comment added!"
 
     def get_context_data(self, **kwargs):
