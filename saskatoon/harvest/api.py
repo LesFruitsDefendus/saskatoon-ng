@@ -7,10 +7,10 @@ from django_filters import rest_framework as filters
 from .filters import ( HarvestFilter, PropertyFilter, EquipmentFilter,
                        OrganizationFilter, CommunityFilter)
 
-from .forms import ( RequestForm, RFPManageForm, CommentForm )
+from .forms import ( RequestForm, RFPManageForm, CommentForm, HarvestYieldForm )
 
 from member.models import AuthUser, Organization
-from .models import Equipment, Harvest, Property, RequestForParticipation, Comment
+from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
 
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )

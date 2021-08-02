@@ -9,7 +9,7 @@
     </tr>
     <tbody>
         <tr>
-        <form action="/yield/create/" method="post" validate>
+        <form action="/yield/create" method="post" validate>
         {% csrf_token %}
             <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
             <td> {% include 'app/harvest_details/distribution/recipient_select.html' %} </td>

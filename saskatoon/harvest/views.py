@@ -11,7 +11,7 @@ from django.views.generic import TemplateView, CreateView, UpdateView
 
 from harvest.forms import (EquipmentForm, PropertyForm, PublicPropertyForm,
                            HarvestForm, RequestForm, RFPManageForm, CommentForm)
-from .models import Equipment, Harvest, Property, RequestForParticipation, Comment
+from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
 
 
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
