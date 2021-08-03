@@ -1,0 +1,67 @@
+{% load i18n %}
+{% load static %}
+<tr>
+    <td>
+        {{ user.person.actor_id }} <br>
+        {% if perms.member.delete_actor %}
+        <small>
+            <a href="/admin/member/actor/{{user.person.actor_id}}/delete"
+                onclick="return confirm('Are you really sure you want to delete this actor?');">
+                <i class="fa fa-trash text-danger"></i>
+            </a>
+        </small>
+        {% endif %}
+    </td>
+    <td>
+        <span><b>{{ user.person.name }}</b> &nbsp;
+        {% if perms.member.change_person %}
+            <small><a href="/person/update/{{user.person.actor_id}}"
+                    title="edit">
+                <i class="fa fa-pencil"></i>
+            </a></small>
+        {% endif %}
+        </span><br>
+        <small><a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
+        {% if perms.member.change_authuser and not user.password %}
+            <a href="/admin/member/authuser/{{user.id}}/password/"
+                title="register">
+                <i class="fa fa-plus"></i> </a>
+        {% endif %}
+        </small>
+        <br><small>{{ user.person.phone|default:"" }}</small>
+    </td>
+    <td>
+        <ul>
+            {% for role in user.roles %}
+                <li>{{ role }}</li>
+            {% endfor %}
+        </ul>
+    </td>
+    <td>{{ user.person.neighborhood.name }}</td>
+    <td>
+        <ul class="list-inline">
+            {% for harvest in user.harvests_as_pickleader %}
+            <li>
+                <a data-placement="top" data-toggle="tooltip" href='/harvest/{{ harvest.id }}'
+                    title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
+                    {% if harvest.status == "Succeeded" %}
+                    <i class="fa fa-shopping-basket fa-lg text-success"
+                        style="padding-top:7px;"></i>
+                    {% elif harvest.status == "Cancelled" %}
+                    <i class="fa fa-shopping-basket fa-lg text-danger"
+                        style="padding-top:7px;"></i>
+                    {% else %}
+                    <i class="fa fa-shopping-basket fa-lg text-warning"
+                        style="padding-top:7px;"></i>
+                    {% endif %}
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </td>
+    <td>
+        {% for property in user.person.properties %}
+            <p><a href="/property/{{ property.id }}">{{ property.short_address }}</a></p>
+        {% endfor %}
+    </td>
+</tr>

@@ -1,0 +1,66 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{% include 'app/list_views/breadcomb/filters.html' %}
+
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Equipment" %}</th>
+                                <th>{% trans "Description" %}</th>
+                                <th style="width: 16%">{% trans "Property" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                                <th style="width: 8%">{% trans "Shared" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for equipment in data %}
+
+
+                                {% include 'app/list_views/equipment/data_row.html' %}
+
+                            <tr>
+                                <td>{{ equipment.id }}</td>
+                                <td>{{ equipment.type.name }}</td>
+                                <td>
+                                    <span>{{ equipment.description }}
+                                        {% if perms.harvest.change_equipment %}
+                                        <a href="/equipment/update/{{equipment.id}}">
+                                            &nbsp; <i class="fa fa-pencil"></i></a>
+                                        {% endif %}
+                                    </span><br>
+                                </td>
+
+                                <td>{{ equipment.property.title }}</td>
+                                <td>{{ equipment.property.neighborhood.name }}</td>
+                                <td>
+                                    {% if equipment.share %}
+                                        <i class="fa fa-check text-success"></i>
+                                    {% else %}
+                                        <i class="fa fa-times text-danger"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+<!-- Data Table area End-->

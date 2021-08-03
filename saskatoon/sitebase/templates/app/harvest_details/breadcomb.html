@@ -1,3 +1,4 @@
+{% load i18n %}
 {% load static %}
 <div class="breadcomb-area">
     <div class="container">
@@ -22,7 +23,9 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 <a href="/harvest/update/{{ harvest.id }}">
-                                <button data-placement="left" title="Edit harvest" class="btn">Edit</button>
+                                    <button data-placement="left" title="Edit harvest" class="btn">
+                                       {% trans "Edit" %}
+                                    </button>
                                 </a>
                             </div>
                         </div>

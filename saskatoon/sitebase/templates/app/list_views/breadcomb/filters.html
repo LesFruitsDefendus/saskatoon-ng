@@ -42,7 +42,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                             <div class="breadcomb-report">
-                                <a href="/harvest/create" class="btn btn-sm"><i class="fa fa-plus"></i> {% trans "New harvest" %}</a>
+                                <a href="{{ new.url }}" class="btn btn-sm">
+                                    <i class="fa fa-plus"></i>
+                                    {{ new.title }}
+                                </a>
                             </div>
                         </div>
                     </div>
