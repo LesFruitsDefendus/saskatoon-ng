@@ -19,60 +19,15 @@
                                 <th style="width: 9%">{% trans "Status" %}</th>
                                 <th style="width: 10%">{% trans "Requested on" %}</th>
                                 <th style="width: 10%">{% trans "Accepted on" %}</th>
-                                <th style="width: 8%">{% trans "First time?" %}</th>
+                                <th style="width: 8%">{% trans "Experience" %}</th>
                                 <th>{% trans "Msg from picker" %}</th>
                                 <th>{% trans "Msg from pick leader" %}</th>
                                 <th>{% trans "Manage" %}</th>
                             </tr>
                             {% for r in requests %}
-                            <tr>
-                                <td>{{ r.picker }}
-                                    {% if r.picker.phone %}
-                                    <br>{{ r.picker.phone }}
-                                    {% endif %}
-                                    {% if r.picker.email %}
-                                    <br><a href="mailto:{{ r.picker.email }}">{{ r.picker.email }}</a>
-                                    {% endif %}
-                                </td>
-                                <td style="text-align: center;">{{ r.number_of_people }}</td>
-                                <td>
-                                    {% if r.is_cancelled == True %}
-                                        <i class="fa fa-times" style="color:red"></i>
-                                        {% trans "Canceled" %}
-                                    {% elif r.is_accepted == None %}
-                                        <i class="fa fa-question" style="color:orange"></i>
-                                        {% trans "Pending" %}
-                                    {% elif r.is_accepted == False %}
-                                        <i class="fa fa-times" style="color:red"></i>
-                                        {% trans "Refused" %}
-                                    {% elif r.is_accepted == True %}
-                                        <i class="fa fa-check" style="color:green"></i>
-                                        {% trans "Accepted" %}
-                                    {% endif %}
-                                </td>
-                                <td>{{ r.creation_date }}</td>
-                                <td>
-                                    {% if r.acceptation_date %}
-                                    {{ r.acceptation_date }}
-                                    {% else %}
-                                    <i class="fa fa-times" style="color:red"></i>
-                                    {% endif %}
-                                </td>
-                                <td>
-                                    {% if r.picker.participation_count == 1 and r.is_accepted == True or r.picker.participation_count == 0 %}
-                                    <i class="fa fa-check" style="color:green"></i> {% trans "Yes!" %}
-                                    {% else  %}
-                                    <i class="fa fa-times" style="color:red"></i> {% trans "No, " %}<strong> {{r.picker.participation_count}}</strong> accepted request(s).
-                                    {% endif %}
-                                </td>
-                                <td>{{ r.comment }}</td>
-                                <td>{{ r.notes_from_pickleader }}</td>
-                                <td style="text-align: center;">
-                                    <a href="/participation/update/{{ r.id }}/?hid={{ harvest.id }}">
-                                        <i class="fa fa-pencil"></i>
-                                    </a>
-                                </td>
-                            </tr>
+
+                                {% include 'app/harvest_details/data_row.html' %}
+
                             {% endfor %}
                         </table>
                     </div>

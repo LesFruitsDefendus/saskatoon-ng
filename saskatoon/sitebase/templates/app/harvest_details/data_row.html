@@ -1,0 +1,54 @@
+{% load i18n %}
+{% load static %}
+<tr>
+    <td>
+        <b>{{ r.picker }}</b><br>
+        {% if r.picker.email %}
+            <a href="mailto:{{ r.picker.email }}">
+                {{ r.picker.email }}
+            </a>
+            <br>
+        {% endif %}
+        {{ r.picker.phone|default:"" }}
+    </td>
+    <td style="text-align: center;">{{ r.number_of_people }}</td>
+    <td>
+        {% if r.is_cancelled == True %}
+            <i class="fa fa-times text-danger"></i>
+            {% trans "Canceled" %}
+        {% elif r.is_accepted == None %}
+            <i class="fa fa-question text-warning"></i>
+            {% trans "Pending" %}
+        {% elif r.is_accepted == False %}
+            <i class="fa fa-times text-danger"></i>
+            {% trans "Refused" %}
+        {% elif r.is_accepted == True %}
+            <i class="fa fa-check text-success"></i>
+            {% trans "Accepted" %}
+        {% endif %}
+    </td>
+    <td>{{ r.creation_date }}</td>
+    <td>
+        {% if r.acceptation_date %}
+            {{ r.acceptation_date }}
+        {% else %}
+            <i class="fa fa-times text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        {% if r.picker.harvests_as_volunteer.count > 1 %}
+            {% trans "First time!" %}
+        {% else  %}
+            <i class="fa fa-thumbs-o-up"></i>
+            <b>{{r.picker.harvests_as_volunteer.count}}</b>
+            {% trans "harvest(s)" %}
+        {% endif %}
+    </td>
+    <td>{{ r.comment }}</td>
+    <td>{{ r.notes_from_pickleader }}</td>
+    <td style="text-align: center;">
+        <a href="/participation/update/{{ r.id }}/?hid={{ harvest.id }}">
+            <i class="fa fa-pencil"></i>
+        </a>
+    </td>
+</tr>
