@@ -18,9 +18,11 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    properties = serializers.ReadOnlyField(source='get_properties')
-    harvests = serializers.ReadOnlyField(source='get_harvests')
+    # FIXME
+    # properties = serializers.ReadOnlyField(source='get_properties')
+    # harvests = serializers.ReadOnlyField(source='get_harvests')
     name = serializers.ReadOnlyField()
+    email = serializers.ReadOnlyField()
 
     class Meta:
         model = Person
@@ -139,7 +141,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
-# Person serializer
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
     harvests_as_pickleader = serializers.ReadOnlyField()
@@ -149,9 +150,9 @@ class CommunitySerializer(serializers.ModelSerializer):
         model = AuthUser
         fields = '__all__'
 
-# Equipment serializer
+
+# Beneficiary serializer
 class BeneficiarySerializer(serializers.ModelSerializer):
-    property = PropertySerializer(many=False, read_only=True)
     contact_person = PersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
 

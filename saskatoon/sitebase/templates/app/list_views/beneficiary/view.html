@@ -16,15 +16,15 @@
                         <table class="table table-striped" id="data-table-basic">
                             <thead>
                             <tr>
-                                <th>#</th>
-                                <th>{% trans "Organization" %}</th>
-                                <th  style="width: 22%">{% trans "Description" %}</th>
-                                <th>{% trans "Contact" %}</th>
-                                <th>{% trans "Neighborhood" %}</th>
+                                <th class="col-xs-1">#</th>
+                                <th class="col-xs-3">{% trans "Organization" %}</th>
+                                <th class="col-xs-4">{% trans "Description" %}</th>
+                                <th class="col-xs-2">{% trans "Contact" %}</th>
+                                <th class="col-xs-2">{% trans "Neighborhood" %}</th>
                             </tr>
                             </thead>
                             <tbody>
-                            {% for beneficiary in data %}
+                            {% for org in data %}
 
                                 {% include 'app/list_views/beneficiary/data_row.html' %}
 

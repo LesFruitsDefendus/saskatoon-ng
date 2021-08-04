@@ -62,7 +62,6 @@ class PersonCreateForm(forms.ModelForm):
         return validate_email(self.cleaned_data['email'])
 
     def save(self):
-
         # create Person instance
         instance = super(PersonCreateForm, self).save()
 
@@ -111,11 +110,11 @@ class PersonUpdateForm(forms.ModelForm):
             print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
 
     def save(self):
+        super(PersonUpdateForm, self).save()
         try:
             set_person_roles(self.instance, self.cleaned_data['roles'])
         except KeyError:
             pass
-
         return self.instance
 
 
@@ -145,6 +144,7 @@ class OrganizationCreateForm(forms.ModelForm):
 
     contact_first_name = forms.CharField(
         label=_("First Name"),
+        help_text=_("This field is required"),
         required=False
     )
 
@@ -155,6 +155,7 @@ class OrganizationCreateForm(forms.ModelForm):
 
     contact_email = forms.EmailField(
         label=_("Email"),
+        help_text=_("This field is required"),
         required=False
     )
 

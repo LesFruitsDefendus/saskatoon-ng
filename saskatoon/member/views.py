@@ -8,7 +8,8 @@ from django.utils.translation import gettext_lazy as _
 
 from .models import Person, Organization
 from harvest.models import Property
-from .forms import PersonCreateForm, PersonUpdateForm, OrganizationCreateForm
+from .forms import ( PersonCreateForm, PersonUpdateForm,
+                     OrganizationCreateForm, OrganizationUpdateForm )
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'member.add_person'
@@ -104,7 +105,7 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
 class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_organization'
     model = Organization
-    form_class = OrganizationCreateForm
+    form_class = OrganizationUpdateForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Organization updated successfully!")
     success_url = reverse_lazy('beneficiary-list')
