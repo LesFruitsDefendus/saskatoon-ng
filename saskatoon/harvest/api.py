@@ -18,7 +18,13 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('pick_leader','owner_fruit', 'nb_required_pickers', 'property', 'about', 'status', 'start_date')
+    filterset_fields = ('pick_leader',
+                        'owner_fruit',
+                        'nb_required_pickers',
+                        'property',
+                        'about',
+                        'status',
+                        'start_date')
     filterset_class = HarvestFilter
     ####################################################
 
@@ -63,20 +69,15 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
-        filter_request = self.request.GET
 
-        # only way I found to generate the filter form
-        filter_form = HarvestFilter(
-            filter_request,
-            self.queryset
-        )
+        filter_form = HarvestFilter(self.request.GET, self.queryset).form
 
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return Response(response.data)
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form.form,
+                         'form': filter_form,
                          'new': {'url': '/harvest/create',
                                  'title': _("New Harvest")
                                  }
@@ -91,7 +92,13 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     ######### Integrating DRF to django-filter #########
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_fields = ('is_active', 'authorized', 'pending', 'neighborhood', 'trees', 'ladder_available', 'ladder_available_for_outside_picks')
+    filterset_fields = ('is_active',
+                        'authorized',
+                        'pending',
+                        'neighborhood',
+                        'trees',
+                        'ladder_available',
+                        'ladder_available_for_outside_picks')
     filterset_class = PropertyFilter
     ####################################################
 
@@ -109,27 +116,21 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'property': response.data})
 
     # Properties list
-    def list(self, request):
+    def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
-        filter_request = self.request.GET
 
-        # only way I found to generate the filter form
-        filter_form = PropertyFilter(
-            filter_request,
-            self.queryset
-        )
+        filter_form = PropertyFilter(self.request.GET, self.queryset).form
 
         response = super(PropertyViewset, self).list(request)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form.form,
+                         'form': filter_form,
                          'new': {'url': '/property/create',
                                  'title': _("New Property")
                                  }
                          })
-
 
 # Equipment Viewset
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -144,17 +145,13 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     template_name = 'app/list_views/equipment/view.html'
 
     def list(self, request, *args, **kwargs):
-        filter_request = self.request.GET
-        filter_form = EquipmentFilter(
-            filter_request,
-            self.queryset
-        )
+        filter_form = EquipmentFilter(self.request.GET, self.queryset).form
 
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data, 'form': filter_form.form})
+        return Response({'data': response.data, 'form': filter_form})
 
 # RequestForParticipation Viewset
 class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -170,6 +167,8 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data})
 
+
+from django.forms.models import model_to_dict
 # Beneficiary Viewset
 class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
@@ -183,20 +182,16 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     template_name = 'app/list_views/beneficiary/view.html'
 
     def list(self, request, *args, **kwargs):
-        filter_request = self.request.GET
 
-        # only way I found to generate the filter form
-        filter_form = OrganizationFilter(
-            filter_request,
-            self.queryset
-        )
+
+        filter_form = OrganizationFilter(self.request.GET, self.queryset).form
 
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form.form,
+                         'form': filter_form,
                          'new': {'url': '/organization/create',
                                  'title': _("New Organization")
                                  }
@@ -215,20 +210,14 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     template_name = 'app/list_views/community/view.html'
 
     def list(self, request, *args, **kwargs):
-        filter_request = self.request.GET
-
-        # only way I found to generate the filter form
-        filter_form = CommunityFilter(
-            filter_request,
-            self.queryset
-        )
+        filter_form = CommunityFilter(self.request.GET, self.queryset).form
 
         response = super(CommunityViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form.form,
+                         'form': filter_form,
                          'new': {'url': '/person/create',
                                  'title': _("New Person")
                                  }
