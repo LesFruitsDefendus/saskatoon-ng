@@ -18,15 +18,17 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    # FIXME
-    # properties = serializers.ReadOnlyField(source='get_properties')
-    # harvests = serializers.ReadOnlyField(source='get_harvests')
     name = serializers.ReadOnlyField()
     email = serializers.ReadOnlyField()
+    properties = serializers.ReadOnlyField()
+    harvests_as_volunteer = serializers.ReadOnlyField()
+    harvests_as_pickleader = serializers.ReadOnlyField()
 
     class Meta:
         model = Person
-        fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood']
+        fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
+                  'harvests_as_pickleader', 'harvests_as_volunteer',
+                  'properties']
 
 # Actor serializer
 class ActorSerializer(serializers.ModelSerializer):
@@ -143,7 +145,7 @@ class HarvestSerializer(serializers.ModelSerializer):
 
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
-    harvests_as_pickleader = serializers.ReadOnlyField()
+    # properties = serializers.ReadOnlyField()
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
     class Meta:

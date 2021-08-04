@@ -16,8 +16,8 @@ AUTH_GROUPS = (
 )
 
 STAFF_GROUPS = ['core', 'pickleader']
-
 class AuthUserManager(BaseUserManager):
+
     def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
@@ -38,7 +38,12 @@ class AuthUserManager(BaseUserManager):
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
 
-    person = models.OneToOneField('Person', on_delete=models.CASCADE, null=True)
+    person = models.OneToOneField(
+        'Person',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='auth_user'
+    )
 
     alphanumeric = RegexValidator(
         r'^[0-9a-zA-Z]*$',
@@ -59,10 +64,6 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
-
-    def harvests_as_pickleader(self):
-        harvests = Harvest.objects.filter(pick_leader=self)
-        return harvests
 
     def roles(self):
         ''' lists user's groups'''
@@ -234,22 +235,20 @@ class Person(Actor):
         else:
             return None
 
-    def participation_count(self):
-        count = RequestForParticipation.objects.filter(
-            picker=self,
-            is_accepted=True
-        ).count()
-        return count
+    def properties(self):
+        return Property.objects.filter(owner=self)
 
-    def get_properties(self):
-        properties = Property.objects.filter(owner=self)
-        return properties
+    def harvests_as_pickleader(self):
+        return Harvest.objects.filter(pick_leader=self.auth_user)
 
-    # get harvests in which the person participated in
-    def get_harvests(self):
+    def harvests_as_volunteer(self):
         requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
-        return requests
+        harvests = Harvest.objects.filter(request_for_participation__in=requests)
+        print("harvests", harvests)
+        return harvests
 
+    def participation_count(self):
+        return self.harvests_as_volunteer().count()
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
