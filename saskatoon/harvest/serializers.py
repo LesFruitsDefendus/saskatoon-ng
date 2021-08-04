@@ -26,7 +26,7 @@ class PersonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Person
-        fields = '__all__'
+        fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood']
 
 # Actor serializer
 class ActorSerializer(serializers.ModelSerializer):
@@ -158,4 +158,5 @@ class BeneficiarySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organization
-        fields = '__all__'
+        fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
+                  'is_beneficiary', 'contact_person', 'neighborhood']

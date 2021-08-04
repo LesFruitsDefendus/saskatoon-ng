@@ -16,7 +16,6 @@
     </td>
     <td>
         <span>
-
             <b>{{ org.civil_name }}</b>
             {% if org.is_beneficiary %}
                 <i class="fa fa-gift"></i>
@@ -28,11 +27,15 @@
                     <i class="fa fa-pencil"></i>
                 </a></small>
             {% endif %}
-
-        </span><br>
-        <i class="fa fa-phone text-muted"></i> {{ org.phone }}
+        </span>
+        <br> <i class="fa fa-phone text-muted"></i>&nbsp; {{ org.phone }}
+        {% if org.short_address %}
+            <br> <i class="fa fa-envelope-o text-muted"></i> {{ org.short_address }}
+        {% endif %}
+    </td>
 
     <td>{{ org.description }}</td>
+
     <td>
         <b>{{ org.contact_person.name }}</b>
 
@@ -43,10 +46,11 @@
                 <i class="fa fa-pencil"></i>
             </a></small>
         {% endif %}
-        <br>
         {% if org.contact_person.phone %}
-            {{ org.contact_person.phone }}<br>
+            <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
+            {{ org.contact_person.phone }}
         {% endif %}
+        <br>
         <a href="mailto:{{org.contact_person.email}}">
             {{ org.contact_person.email }}
         </a>
