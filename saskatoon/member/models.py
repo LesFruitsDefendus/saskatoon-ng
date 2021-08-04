@@ -247,8 +247,6 @@ class Person(Actor):
         print("harvests", harvests)
         return harvests
 
-    def participation_count(self):
-        return self.harvests_as_volunteer().count()
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
