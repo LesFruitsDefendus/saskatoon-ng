@@ -1,40 +1,25 @@
-{% extends 'app/base.html' %}
+{% extends 'app/list_views/base.html' %}
 {% load i18n %}
 {% load static %}
 
-{% block content %}
+{% block table %}
 
-{% include 'app/list_views/breadcomb/filters.html' %}
+<thead>
+    <tr>
+        <th>#</th>
+        <th>{% trans "Harvest details" %}</th>
+        <th>{% trans "Tree" %}</th>
+        <th>{% trans "Neighborhood" %}</th>
+        <th style="width: 12%">{% trans "Status" %}</th>
+        <th>{% trans "Leader" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+</thead>
+    <tbody>
+        {% for harvest in data %}
+            {% include 'app/list_views/harvest/data_row.html' %}
+        {% endfor %}
+    </tbody>
+</table>
 
-<div class="data-table-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="data-table-list">
-                    <div class="table-responsive">
-                        <table class="table table-striped" id="data-table-basic">
-                            <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>{% trans "Harvest details" %}</th>
-                                <th>{% trans "Tree" %}</th>
-                                <th>{% trans "Neighborhood" %}</th>
-                                <th style="width: 12%">{% trans "Status" %}</th>
-                                <th>{% trans "Leader" %}</th>
-                                <th>{% trans "Date" %}</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {% for harvest in data %}
-                                {% include 'app/list_views/harvest/data_row.html' %}
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-{% endblock content %}
+{% endblock table %}
