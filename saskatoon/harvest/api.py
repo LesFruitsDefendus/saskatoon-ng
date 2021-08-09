@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
@@ -11,6 +12,16 @@ from .models import Equipment, Harvest, HarvestYield, Property, RequestForPartic
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
 
+def get_filter_context(viewset):
+    ''' create filters dictionary for list views
+    @param {obj} viewset: rest_framework.viewsets.ModelViewSet subclass instance
+    @returns {dic} filters: filters template dictionary
+    '''
+    f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
+    dic = {'form': f.form}
+    if any(field in viewset.request.GET for field in set(f.get_fields())):
+        dic['reset'] = reverse(viewset.basename + '-list')
+    return dic
 
 # Harvest Viewset
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -70,14 +81,12 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
 
-        filter_form = HarvestFilter(self.request.GET, self.queryset).form
-
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return Response(response.data)
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form,
+                         'filter': get_filter_context(self),
                          'new': {'url': '/harvest/create',
                                  'title': _("New Harvest")
                                  }
@@ -118,15 +127,12 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     # Properties list
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
-
-        filter_form = PropertyFilter(self.request.GET, self.queryset).form
-
         response = super(PropertyViewset, self).list(request)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form,
+                         'filter': get_filter_context(self),
                          'new': {'url': '/property/create',
                                  'title': _("New Property")
                                  }
@@ -145,13 +151,13 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     template_name = 'app/list_views/equipment/view.html'
 
     def list(self, request, *args, **kwargs):
-        filter_form = EquipmentFilter(self.request.GET, self.queryset).form
-
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data, 'form': filter_form})
+        return Response({'data': response.data,
+                         'filter': get_filter_context(self)
+                         })
 
 # RequestForParticipation Viewset
 class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -168,7 +174,7 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 
-from django.forms.models import model_to_dict
+
 # Beneficiary Viewset
 class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
@@ -181,17 +187,18 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = BeneficiarySerializer
     template_name = 'app/list_views/beneficiary/view.html'
 
+
     def list(self, request, *args, **kwargs):
 
-
-        filter_form = OrganizationFilter(self.request.GET, self.queryset).form
-
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
+
         if request.accepted_renderer.format == 'json':
             return response
+
+        print(self)
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form,
+                         'filter': get_filter_context(self),
                          'new': {'url': '/organization/create',
                                  'title': _("New Organization")
                                  }
@@ -210,14 +217,12 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     template_name = 'app/list_views/community/view.html'
 
     def list(self, request, *args, **kwargs):
-        filter_form = CommunityFilter(self.request.GET, self.queryset).form
-
         response = super(CommunityViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
         return Response({'data': response.data,
-                         'form': filter_form,
+                         'filter': get_filter_context(self),
                          'new': {'url': '/person/create',
                                  'title': _("New Person")
                                  }
