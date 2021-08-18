@@ -12,9 +12,9 @@
         <form action="/yield/create" method="post" validate>
         {% csrf_token %}
             <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
-            <td> {% include 'app/harvest_details/distribution/recipient_select.html' %} </td>
-            <td> {% include 'app/harvest_details/distribution/tree_select.html' %} </td>
-            <td> {% include 'app/harvest_details/distribution/weight_input.html' %} </td>
+            <td> {% include 'app/detail_views/harvest/distribution/recipient_select.html' %} </td>
+            <td> {% include 'app/detail_views/harvest/distribution/tree_select.html' %} </td>
+            <td> {% include 'app/detail_views/harvest/distribution/weight_input.html' %} </td>
             <td class="col-md-1 text-center">
                 <button type="submit" class="btn"><i class="fa fa-check"></i></button>
             </td>

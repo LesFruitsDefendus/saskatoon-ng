@@ -43,7 +43,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/harvest_details/view.html'
+        self.template_name = 'app/detail_views/harvest/view.html'
         pk = self.get_object().pk
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
         if format == 'json':
@@ -115,7 +115,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     # Property detail
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/property_details/view.html'
+        self.template_name = 'app/detail_views/property/view.html'
         pk = self.get_object().pk
         response = super(PropertyViewset, self).retrieve(request, pk=pk)
 
