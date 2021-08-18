@@ -7,9 +7,8 @@ from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
 from django.contrib.auth.models import Group
 
-
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Row, Column
+# from crispy_forms.helper import FormHelper
+# from crispy_forms.layout import Layout, Submit, Row, Column
 
 def set_person_roles(person, roles):
     ''' updates auth_user groups
@@ -117,17 +116,22 @@ class PersonUpdateForm(forms.ModelForm):
             pass
         return self.instance
 
-
-class OrganizationCreateForm(forms.ModelForm):
+class OrganizationForm(forms.ModelForm):
 
     class Meta:
         model = Organization
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
         labels = {
             'is_beneficiary': _("Beneficiary organization"),
-            'contact_person_role': _("Position/Role"),
+            'contact_person_role': _("Contact Position/Role"),
         }
 
+        widgets = {
+            'contact_person': autocomplete.ModelSelect2('contact-autocomplete'),
+        }
+
+
+class OrganizationCreateForm(OrganizationForm):
 
     contact_person = forms.ModelChoiceField(
         queryset=Person.objects.all(),
@@ -199,20 +203,3 @@ class OrganizationCreateForm(forms.ModelForm):
         instance.save()
 
         return instance
-
-
-class OrganizationUpdateForm(forms.ModelForm):
-
-    class Meta:
-        model = Organization
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
-        labels = {
-            'is_beneficiary': _("Beneficiary organization"),
-            'contact_person_role': _("Contact Position/Role"),
-        }
-
-        widgets = {
-            'contact_person': autocomplete.ModelSelect2(
-               'contact-autocomplete'
-            ),
-        }
