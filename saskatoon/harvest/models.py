@@ -109,12 +109,14 @@ class Property(models.Model):
     )
 
     pending_contact_name = models.CharField(
+        blank=True,
         verbose_name=_("Contact name"),
         help_text=_("Name of the person to be contacted for confirmation"),
         max_length=50
     )
 
     pending_contact_phone = models.CharField(
+        blank=True,
         verbose_name=_("Contact phone number"),
         help_text=_("Phone number to be used for confirmation"),
         max_length=50

@@ -59,7 +59,7 @@ class PropertyImageInline(admin.TabularInline):
 class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
-    form = PropertyForm
+    exclude = ['longitude', 'latitude', 'geom']
 
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(Harvest, HarvestAdmin)
