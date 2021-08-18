@@ -15,9 +15,11 @@
                                     <h1>
                                     {% if property.owner %}
                                         {{ property.title }}
-                                    {% else %}
+                                    {% elif property.pending_contact_name %}
                                         {{ property.pending_contact_name }}
                                         at {{ property.address }}
+                                    {% else %}
+                                        {{ property.address }}
                                     {% endif %}
                                     </h1>
                                     {% if property.pending %}
