@@ -134,7 +134,6 @@ class OrganizationCreateForm(forms.ModelForm):
         label=_("Select Person"),
         widget=autocomplete.ModelSelect2('contact-autocomplete'),
         required=False,
-        # help_text="FDODFlasdflasfjaslf"
     )
 
     create_new_person = forms.BooleanField(

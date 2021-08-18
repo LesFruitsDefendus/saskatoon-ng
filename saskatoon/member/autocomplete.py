@@ -17,7 +17,7 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.role:
             group, __ =  Group.objects.get_or_create(name=self.role)
-            qs = qs.filter(authuser__groups=group)
+            qs = qs.filter(auth_user__groups=group)
 
         if self.q:
             qs = qs.filter(first_name__icontains=self.q)
@@ -27,12 +27,12 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 class PickLeaderAutocomplete(PersonAutocomplete):
     ''' Pick Leader '''
     def __init__(self):
-        super(ContactAutocomplete, self).__init__('pickleader')
+        super(PickLeaderAutocomplete, self).__init__('pickleader')
 
 class OwnerAutocomplete(PersonAutocomplete):
     ''' Property owner '''
     def __init__(self):
-        super(ContactAutocomplete, self).__init__('owner')
+        super(OwnerAutocomplete, self).__init__('owner')
 
 class ContactAutocomplete(PersonAutocomplete):
     ''' Organization contact person'''
