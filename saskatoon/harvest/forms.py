@@ -6,13 +6,13 @@ import datetime
 from django import forms
 from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
-from django_select2.forms import Select2MultipleWidget
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
 from member.models import AuthUser, Person, Organization
 from django.core.mail import send_mail
 from ckeditor.widgets import CKEditorWidget
 from django.utils.safestring import mark_safe
+from member.forms import validate_email
 
 # Request for participation
 class RequestForm(forms.ModelForm):
@@ -232,53 +232,21 @@ class HarvestImageForm(forms.ModelForm):
         ]
 
 class PropertyForm(forms.ModelForm):
-    # trees = forms.ModelMultipleChoiceField(queryset=TreeType.objects.all(), widget=Select2MultipleWidget)
-
     class Meta:
         model = Property
-        fields = (
-            'owner',
-            'is_active',
-            'authorized',
-            'pending',
-            'trees',
-            'trees_location',
-            'avg_nb_required_pickers',
-            'public_access',
-            'trees_accessibility',
-            'neighbor_access',
-            'compost_bin',
-            'ladder_available',
-            'ladder_available_for_outside_picks',
-            'harvest_every_year',
-            'number_of_trees',
-            'approximative_maturity_date',
-            'fruits_height',
-            'street_number',
-            'street',
-            'complement',
-            'postal_code',
-            'publishable_location',
-            'neighborhood',
-            'city',
-            'state',
-            'country',
-            # 'longitude',
-            # 'latitude',
-            # 'geom',
-            'additional_info',
-        )
+        exclude = ['longitude', 'latitude', 'geom', 'changed_by',
+                   'pending_contact_name', 'pending_contact_phone', 'pending_contact_email',
+                   'pending_recurring', 'pending_newsletter']
 
         widgets = {
-            'owner': autocomplete.ModelSelect2(
-               'actor-autocomplete'
-            ),
-            'trees': autocomplete.ModelSelect2Multiple(
-                'tree-autocomplete'
-            ),
+            'owner': autocomplete.ModelSelect2('owner-autocomplete'),
+            'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
             'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput()
         }
+
+
+    field_order = ['pending', 'is_active', 'authorized', 'owner']
 
     approximative_maturity_date = forms.DateField(
         input_formats=('%Y-%m-%d',),
@@ -287,6 +255,71 @@ class PropertyForm(forms.ModelForm):
             format='%Y-%m-%d',
         )
     )
+
+class PropertyCreateForm(PropertyForm):
+
+    create_new_owner = forms.BooleanField(
+        label=_("Register new owner"),
+        required=False
+
+    )
+    owner_first_name = forms.CharField(
+        label=_("First Name"),
+        help_text=_("This field is required"),
+        required=False
+    )
+
+    owner_last_name = forms.CharField(
+        label=_("Last Name"),
+        required=False
+    )
+
+    owner_phone = forms.CharField(
+        label=_("Phone"),
+        required=False
+    )
+
+    owner_email = forms.EmailField(
+        label=_("Email"),
+        help_text=_("This field is required"),
+        required=False
+    )
+
+
+    def clean(self):
+        data = super().clean()
+        if not data['owner']:
+            if data['owner_email'] and data['owner_first_name']:
+                validate_email(data['owner_email'])
+            else:
+                raise forms.ValidationError(
+                    _("ERROR: You must either select an Owner \
+                    or create a new one and provide their personal information"))
+        return data
+
+
+    def save(self):
+        # # create Property instance
+        instance = super(PropertyCreateForm, self).save()
+
+        # # create Owner Person/AuthUser
+        person = Person.objects.create(
+            first_name=self.cleaned_data['owner_first_name'],
+            family_name=self.cleaned_data['owner_last_name'],
+            phone=self.cleaned_data['owner_phone'])
+        person.save()
+
+        auth_user = AuthUser.objects.create(
+            email=self.cleaned_data['owner_email'],
+            person=person)
+        auth_user.set_roles(['owner'])
+
+        # # associate Owner to Property
+        instance.owner = person
+        instance.save()
+
+        return instance
+
 
 class PublicPropertyForm(forms.ModelForm):
     class Meta:

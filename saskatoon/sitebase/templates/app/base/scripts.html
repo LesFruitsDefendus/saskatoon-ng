@@ -88,27 +88,22 @@
      ============================================ -->
 <script src="{% static 'js/jquery.datetimepicker.full.min.js' %}"></script>
 
+<!-- DateTime Pickers -->
 <script>
  $(function () {
      $("#id_start_date").datetimepicker({
          format: 'd/m/Y H:i',
      });
- });
- $(function () {
+
      $("#id_end_date").datetimepicker({
          format: 'd/m/Y H:i',
      });
+
+     $("#id_approximative_maturity_date").datetimepicker({
+         format: 'Y-m-d',
+     });
  });
 </script>
-
-<!--  <script type="text/javascript">-->
-<!--        $(function () {-->
-<!--            $('#id_start_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
-<!--        });-->
-<!--        $(function () {-->
-<!--            $('#id_end_date').datetimepicker({sideBySide: true, format: 'YYYY-MM-DD HH:mm'});-->
-<!--        });-->
-<!--  </script>-->
 
 <!-- Language selection -->
 <script>

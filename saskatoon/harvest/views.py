@@ -9,8 +9,8 @@ from django.shortcuts import render
 
 from django.views.generic import TemplateView, CreateView, UpdateView
 
-from harvest.forms import (EquipmentForm, PropertyForm, PublicPropertyForm,
-                           HarvestForm, RequestForm, RFPManageForm, CommentForm)
+from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
+                           EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
 from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
 
 
@@ -44,8 +44,8 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property
-    form_class = PropertyForm
-    template_name = 'app/forms/model_form.html'
+    form_class = PropertyCreateForm
+    template_name = 'app/forms/property_create_form.html'
     success_url = reverse_lazy('property-list')
     success_message = "Property created successfully!"
 
