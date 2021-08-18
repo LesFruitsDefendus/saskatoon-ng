@@ -1,0 +1,48 @@
+{% load i18n %}
+{% load static %}
+<div class="breadcomb-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h1>
+                                    {% if property.owner %}
+                                        {{ property.title }}
+                                    {% else %}
+                                        {{ property.pending_contact_name }}
+                                        at {{ property.address }}
+                                    {% endif %}
+                                    </h1>
+                                    {% if property.pending %}
+                                        <h4>** PENDING **</h4>
+                                    {% elif property.last_succeeded_harvest %}
+                                    <p>{% trans "Last succeeded harvest"  %} on {{ property.last_succeeded_harvest|date }}</p>
+                                    {% else %}
+                                    <p>No succeeded harvest on this property so far</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <div class="breadcomb-report">
+                                {% if perms.harvest.change_property %}
+                                <a href="/property/update/{{ property.id }}">
+                                    <button data-placement="left" title="Edit property" class="btn">
+                                        Edit</button>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

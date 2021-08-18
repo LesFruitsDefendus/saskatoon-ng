@@ -1,0 +1,27 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int">
+    <div class="contact-hd search-hd-eg">
+        <h2>About this property</h2>
+        <p>{{ property.additional_info|default:"" }}</p>
+        <hr>
+        <div class="tpgp-ele-tx">
+            <h2>Address</h2>
+            <p>{{ property.address }}</p>
+            <p>{{ property.neighborhood.name }}</p>
+            <br>
+
+            <h2>Available tree(s)</h2>
+
+            <ul>
+                {% for tree in property.trees %}
+                <li>{{ tree }}</li>
+                {% endfor %}
+            </ul>
+            {% if property.trees_location %}
+            <br>
+            <strong>{% trans "Notes" %} :</strong> {{ property.trees_location }}
+            {% endif %}
+        </div>
+    </div>
+</div>

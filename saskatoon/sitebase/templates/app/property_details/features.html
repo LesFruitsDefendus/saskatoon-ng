@@ -1,0 +1,136 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+
+    <div class="contact-hd search-hd-eg">
+        <h2>Property features</h2>
+    </div>
+
+    <div class="search-eg-table">
+        <table class="table">
+            <tbody>
+            {% if property.is_active %}
+
+                {% if property.pending %}
+                    <tr> <td class="text-right">
+                            <i class="notika-icon notika-down-arrow"></i>
+                            {% trans "Pending validation" %}
+                    </td></tr>
+                {% else %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-up-arrow"></i>
+                        {% trans "Validated" %}
+                    </td></tr>
+                {% endif %}
+
+                {% if property.pending and property.pending_recurring %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-up-arrow"></i>
+                        <b class="text-warning">
+                            {% trans "Has already been registered in the past" %}
+                        </b>
+                    </td></tr>
+                {% endif %}
+
+                {% if property.authorized is None %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-up-arrow"></i>
+                        {% trans "Not yet authorized" %}
+                    </td></tr>
+                {% elif property.authorized %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-up-arrow"></i>
+                        {% trans "Authorized for the current season" %}
+                    </td></tr>
+                {% else %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-down-arrow"></i>
+                        {% trans "Not authorized for this season" %}
+                    </td></tr>
+                {% endif %}
+
+            {% else %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-down-arrow"></i>
+                    {% trans "This property is marked as inactive" %}
+                </td></tr>
+            {% endif %}
+
+            {% if property.harvest_every_year %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {% trans "Produces fruits every year" %}
+                </td></tr>
+            {% else %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-down-arrow"></i>
+                    {% trans "Does not produce fruits every year" %}
+                </td></tr>
+            {% endif %}
+
+            {% if property.avg_nb_required_pickers %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {{ property.avg_nb_required_pickers }}
+                    {% trans "picker(s) needed" %}
+                </td></tr>
+            {% else %}
+                <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i>
+                    {% trans "Number of pickers not specified" %}
+                </td></tr>
+            {% endif %}
+
+            {% if property.ladder_available %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {% trans "Ladder available" %}
+                </td></tr>
+                {% if property.ladder_available_for_outside_picks %}
+                    <tr><td class="text-right">
+                        <i class="notika-icon notika-up-arrow"></i>
+                        {% trans "Ladder available for outside picks" %}
+                    </td></tr>
+                {% endif %}
+            {% else %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-down-arrow"></i>
+                    {% trans "No ladder available" %}</td></tr>
+            {% endif %}
+
+            {% if property.public_access %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {% trans "Publicly accessible" %}
+                </td></tr>
+            {% else %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-down-arrow"></i>
+                    {% trans "Not publicly accessible" %}
+                </td></tr>
+            {% endif %}
+
+            {% if property.neighbor_access %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {% trans "Access to neighbors terrain" %}
+                </td></tr>
+            {% else %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-down-arrow"></i>
+                    {% trans "No permission to access neighbors terrain" %}
+                </td></tr>
+            {% endif %}
+
+            {% if property.compost_bin %}
+                <tr><td class="text-right">
+                    <i class="notika-icon notika-up-arrow"></i>
+                    {% trans "Compost bin closeby" %}</td></tr>
+            {% else %}
+                <tr><td class="text-right"><i class="notika-icon notika-down-arrow"></i>
+                    {% trans "No compost bin closeby" %}
+                </td></tr>
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>

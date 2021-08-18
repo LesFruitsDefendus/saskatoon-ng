@@ -115,7 +115,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     # Property detail
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/property_details.html'
+        self.template_name = 'app/property_details/view.html'
         pk = self.get_object().pk
         response = super(PropertyViewset, self).retrieve(request, pk=pk)
 

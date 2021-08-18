@@ -1,0 +1,30 @@
+{% extends 'app/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load is_person %}
+
+{% block content %}
+
+{% include 'app/property_details/breadcomb.html' %}
+
+<div class="search-engine-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/property_details/about.html' %}
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/property_details/contact.html' %}
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/property_details/features.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'app/property_details/data_table.html' %}
+
+{% endblock content %}
