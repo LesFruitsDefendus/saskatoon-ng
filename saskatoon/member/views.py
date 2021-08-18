@@ -22,7 +22,8 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         try:
             # registering new owner based on pending property
             p = Property.objects.get(id=request.GET['pid'])
-            initial = { 'first_name': p.pending_contact_name,
+            initial = { 'roles': ['owner'],
+                        'first_name': p.pending_contact_name,
                         'phone': p.pending_contact_phone.replace(" ", "-"),
                         'email': p.pending_contact_email,
                         'street_number': p.street_number,
