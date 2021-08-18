@@ -58,7 +58,7 @@ class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PublicPropertyForm
-    template_name = 'app/property_create_public.html'
+    template_name = 'app/forms/property_create_public.html'
     success_url = 'thanks'
     success_message = 'Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">Tree Owner Welcome Notice</a>.'
 
