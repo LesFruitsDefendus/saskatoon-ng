@@ -6,6 +6,7 @@ from django.contrib.auth.models import AbstractBaseUser, \
     PermissionsMixin, BaseUserManager
 from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation, Harvest, Property
+from django.contrib.auth.models import Group
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -64,6 +65,18 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
+
+    def set_roles(self, roles):
+        ''' updates user's groups
+            :param roles: list of group names (see AUTH_GROUPS)
+        '''
+        self.groups.clear()
+        for role in roles:
+            group, __ =  Group.objects.get_or_create(name=role)
+            self.groups.add(group)
+
+        self.is_staff = any([r in STAFF_GROUPS for r in roles])
+        self.save()
 
     def roles(self):
         ''' lists user's groups'''

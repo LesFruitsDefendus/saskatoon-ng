@@ -5,24 +5,6 @@ from django import forms
 from dal import autocomplete
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
-from django.contrib.auth.models import Group
-
-# from crispy_forms.helper import FormHelper
-# from crispy_forms.layout import Layout, Submit, Row, Column
-
-def set_person_roles(person, roles):
-    ''' updates auth_user groups
-        :param person: Person instance
-        :param roles: list of group names (see AUTH_GROUPS)
-    '''
-    auth_user = AuthUser.objects.get(person=person)
-    auth_user.groups.clear()
-    for role in roles:
-        group, __ =  Group.objects.get_or_create(name=role)
-        auth_user.groups.add(group)
-
-    auth_user.is_staff = any([r in STAFF_GROUPS for r in roles])
-    auth_user.save()
 
 def validate_email(email):
     ''' check if a user with same email address is already registered'''
@@ -69,9 +51,7 @@ class PersonCreateForm(forms.ModelForm):
                 email=self.cleaned_data['email'],
                 person=instance
         )
-        auth_user.save()
-
-        set_person_roles(instance, self.cleaned_data['roles'])
+        auth_user.set_roles(self.cleaned_data['roles'])
 
         # associate pending_property (if any)
         pid = self.cleaned_data['pending_property_id']
@@ -111,7 +91,8 @@ class PersonUpdateForm(forms.ModelForm):
     def save(self):
         super(PersonUpdateForm, self).save()
         try:
-            set_person_roles(self.instance, self.cleaned_data['roles'])
+            auth_user = AuthUser.objects.get(person=self.instance)
+            auth_user.set_roles(self.cleaned_data['roles'])
         except KeyError:
             pass
         return self.instance
@@ -194,9 +175,7 @@ class OrganizationCreateForm(OrganizationForm):
         auth_user = AuthUser.objects.create(
             email=self.cleaned_data['contact_email'],
             person=person)
-        auth_user.save()
-
-        set_person_roles(person, ['contact'])
+        auth_user.set_roles(['contact'])
 
         # # associate Contact to Organization
         instance.contact_person = person
