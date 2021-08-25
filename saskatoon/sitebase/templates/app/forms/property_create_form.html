@@ -99,7 +99,7 @@
 
 <script>
 
- function createNewOwner(){
+ function collapseOwner(){
      if ($('#id_create_new_owner').is(":checked")) {
          $('#existing-owner').hide();
          $('#new-owner').collapse('show');
@@ -110,11 +110,11 @@
  }
 
  $(function() {
-     createNewOwner();
- });
+     collapseOwner();
 
- $('#id_create_new_owner').change(function() {
-     createNewOwner();
+    $('#id_create_new_owner').change(function() {
+        collapseOwner();
+    });
  });
 
 </script>

@@ -84,7 +84,7 @@
 
 <script>
 
- function createNewContact(){
+ function collapseContactPerson(){
      if ($('#id_create_new_person').is(":checked")) {
          $('#existing-contact').hide();
          $('#new-contact').collapse('show');
@@ -95,12 +95,12 @@
  }
 
  $(function() {
-     createNewContact();
+     collapseContactPerson();
 
- });
+    $('#id_create_new_person').change(function() {
+        collapseContactPerson();
+    });
 
- $('#id_create_new_person').change(function() {
-     createNewContact();
  });
 
 </script>
