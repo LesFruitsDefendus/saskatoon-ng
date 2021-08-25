@@ -177,7 +177,7 @@ class AuthUserAdmin(UserAdmin):
     def add_to_pickleader(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'pickleader')
-            self.add_to_staff(user)
+            self.add_to_staff(u)
 
     def add_to_volunteer(self, request, queryset):
         for u in queryset:
