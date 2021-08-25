@@ -11,7 +11,9 @@ from django.views.generic import TemplateView, CreateView, UpdateView
 
 from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
                            EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
-from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
+from harvest.models import (Equipment, Harvest, HarvestYield, Property,
+                            RequestForParticipation, Comment)
+from member.models import AuthUser
 
 
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -86,9 +88,26 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     success_message = "Harvest created successfully!"
 
     def get_context_data(self, **kwargs):
+
+        try: # registering new harvest for specific property
+            p = Property.objects.get(id=self.request.GET['pid'])
+            initial = {'property': p,
+                       'trees': p.trees.all()
+                       }
+            cancel_url = '/property/' + str(p.id)
+        except KeyError:
+            initial = {}
+            cancel_url = reverse_lazy('harvest-list')
+
+        # pre-filling pick-leader
+        u = AuthUser.objects.get(id=self.request.user.id)
+        if 'Pick Leader' in u.roles():
+            initial['pick_leader'] = u
+
         context = super().get_context_data(**kwargs)
         context['title'] = "Add a new harvest"
-        context['cancel_url'] = reverse_lazy('harvest-list')
+        context['form'] = HarvestForm(initial=initial)
+        context['cancel_url'] = cancel_url
         return context
 
     def get_success_url(self):

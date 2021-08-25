@@ -14,32 +14,32 @@ router.register('participation', api.RequestForParticipationViewset, 'participat
 
 urlpatterns = [
     # CREATE VIEWS
-    path(r'equipment/create',
+    path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
          name='equipment-create'),
 
-    path(r'property/create',
+    path(r'property/create/',
          views.PropertyCreateView.as_view(),
          name='property-create'),
 
-    path(r'property/create_public',
+    path(r'property/create_public/',
          views.PropertyCreatePublicView.as_view(),
          name='property-create-public'),
 
-    path(r'harvest/create',
+    path(r'harvest/create/',
          views.HarvestCreateView.as_view(),
          name='harvest-create'
          ),
 
-    path(r'participation/create',
+    path(r'participation/create/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
 
-    path(r'comment/create',
+    path(r'comment/create/',
          views.CommentCreateView.as_view(),
          name='comment-create'),
 
-    path(r'yield/create',
+    path(r'yield/create/',
          views.harvest_yield_create,
          name='harvest-yield-create'),
 
@@ -76,11 +76,11 @@ urlpatterns = [
 
 
     # MISC
-    path(r'property/thanks',
+    path(r'property/thanks/',
          views.TemplateView.as_view(template_name='app/property_thanks.html'),
          name='property-thanks'),
 
-    path(r'stats',
+    path(r'stats/',
          views.TemplateView.as_view(template_name='app/stats.html'),
          name='statistics'),
 

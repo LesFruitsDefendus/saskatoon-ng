@@ -502,9 +502,6 @@ class HarvestForm(forms.ModelForm):
             'trees': autocomplete.ModelSelect2Multiple(
                 'tree-autocomplete'
             ),
-            'pickers': autocomplete.ModelSelect2Multiple(
-                'person-autocomplete'
-            ),
             'pick_leader': autocomplete.ModelSelect2(
                 'pickleader-autocomplete'
             ),
