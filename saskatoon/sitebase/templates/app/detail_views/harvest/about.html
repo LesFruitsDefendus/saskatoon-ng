@@ -23,7 +23,15 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="contact-hd search-hd-eg">
-                    <h2>Property information</h2>
+                    <h2>Property information
+                    {% if perms.harvest.change_property %}
+                        &nbsp;
+                        <a href="/property/update/{{harvest.property.id}}"
+                                title="edit">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                    {% endif %}
+                    </h2>
                 </div>
                     <table class="table">
                         <tbody>
