@@ -35,10 +35,10 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.harvest.change_property %}
-                                <a href="/property/update/{{ property.id }}">
-                                    <button data-placement="left" title="Edit property" class="btn">
-                                        Edit</button>
-                                </a>
+                                    <a href="/property/update/{{ property.id }}">
+                                        <button title="Edit Property" class="btn">
+                                            {% trans "Edit Property" %}</button>
+                                    </a>
                                 {% endif %}
                             </div>
                         </div>

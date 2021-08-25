@@ -10,18 +10,18 @@
     <td>
         <ul class="list-unstyled">
             {% if property.is_active %}
-            {% if property.pending %}
-                <span class="label label-warning">{% trans "pending" %}</span>
-            {% else %}
-                <span class="label label-success">{% trans "validated" %}</span>
-            {% endif %}
-            {% if property.authorized is None %}
-                <span class="label label-warning">{% trans "not yet authorized" %}</span>
-            {% elif property.authorized %}
-                <span class="label label-success">{% trans "authorized" %}</span>
-            {% else %}
-                <span class="label label-danger">{% trans "unauthorized" %}</span>
-            {% endif %}
+                {% if property.pending %}
+                    <span class="label label-warning">{% trans "pending" %}</span>
+                {% else %}
+                    <span class="label label-success">{% trans "validated" %}</span>
+                {% endif %}
+                {% if property.authorized is None %}
+                    <span class="label label-warning">{% trans "not yet authorized" %}</span>
+                {% elif property.authorized %}
+                    <span class="label label-success">{% trans "authorized" %}</span>
+                {% else %}
+                    <span class="label label-danger">{% trans "unauthorized" %}</span>
+                {% endif %}
             {% else %}
                 <span class="label label-danger">{% trans "inactive" %}</span><br/>
             {% endif %}
