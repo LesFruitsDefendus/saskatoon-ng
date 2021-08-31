@@ -1,3 +1,4 @@
+from django.utils.translation import ugettext_lazy as _
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
@@ -21,11 +22,11 @@ class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
     success_url = reverse_lazy('equipment-list')
-    success_message = "Equipment created successfully!"
+    success_message = _("Equipment created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Add new equipment"
+        context['title'] = _("Add new equipment")
         context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
@@ -33,11 +34,11 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
-    success_message = "Equipment updated successfully!"
+    success_message = _("Equipment updated successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Edit equipment"
+        context['title'] = _("Edit equipment")
         context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
@@ -49,11 +50,11 @@ class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     form_class = PropertyCreateForm
     template_name = 'app/forms/property_create_form.html'
     success_url = reverse_lazy('property-list')
-    success_message = "Property created successfully!"
+    success_message = _("Property created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Add a new property"
+        context['title'] = _("Add a new property")
         context['cancel_url'] = reverse_lazy('property-list')
         return context
 
@@ -62,18 +63,18 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
     success_url = 'thanks'
-    success_message = 'Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href="https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm">Tree Owner Welcome Notice</a>.'
+    success_message = _("Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>.")
 
 class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
     template_name = 'app/forms/model_form.html'
-    success_message = "Property updated successfully!"
+    success_message = _("Property updated successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Edit property"
+        context['title'] = _("Edit property")
         context['cancel_url'] = reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
         return context
 
@@ -85,7 +86,7 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/forms/model_form.html'
-    success_message = "Harvest created successfully!"
+    success_message = _("Harvest created successfully!")
 
     def get_context_data(self, **kwargs):
 
@@ -105,7 +106,7 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             initial['pick_leader'] = u
 
         context = super().get_context_data(**kwargs)
-        context['title'] = "Add a new harvest"
+        context['title'] = _("Add a new harvest")
         context['form'] = HarvestForm(initial=initial)
         context['cancel_url'] = cancel_url
         return context
@@ -117,11 +118,11 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/forms/model_form.html'
-    success_message = "Harvest updated successfully!"
+    success_message = _("Harvest updated successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "Edit harvest"
+        context['title'] = _("Edit harvest")
         context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
         return context
 
@@ -132,7 +133,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/participation_create.html'
     form_class = RequestForm
-    success_message = "Thanks for your interest in participating in this harvest! Your request has been sent and a pick leader will contact you soon."
+    success_message = _("Thanks for your interest in participating in this harvest! Your request has been sent and a pick leader will contact you soon.")
 
     # Overriding to serve harvest info along with the form
     def get(self, request, *args, **kwargs):
@@ -151,7 +152,7 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
     model = RequestForParticipation
     form_class = RFPManageForm
     template_name = 'app/participation_manage.html'
-    success_message = "Request updated successfully!"
+    success_message = _("Request updated successfully!")
 
     # Prefill form based on request for participation (rfp) instance
     def get(self, request, pk, *args, **kwargs):
@@ -179,12 +180,12 @@ class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
     template_name = 'app/forms/model_form.html'
-    success_message = "Comment added!"
+    success_message = _("Comment added!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         harvest_id = self.request.GET['h']
-        context['title'] = "Add new comment"
+        context['title'] = _("Add new comment")
         context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': harvest_id})
         return context
 
@@ -212,14 +213,14 @@ def harvest_yield_delete(request, id):
 @login_required
 def harvest_yield_create(request):
     """ handles new fruit distribution form (app/harvest/create_yield.html)"""
-
     if request.method == 'POST':
         data = request.POST
         try:
             actor_id = data['actor'] # can be empty
         except KeyError:
             #message.error doesn't show red for some reason..
-            messages.warning(request, "New Fruit Distribution Failed: Please select a recipient")
+            messages.warning(request,
+                             _("New Fruit Distribution Failed: Please select a recipient"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         try:
             harvest_id = data['harvest']
@@ -229,13 +230,14 @@ def harvest_yield_create(request):
             raise
 
         if weight <= 0:
-            messages.warning(request, "New Fruit Distribution Failed: Weight must be positive")
+            messages.warning(request,
+                             _("New Fruit Distribution Failed: Weight must be positive"))
         else:
             _yield = HarvestYield(harvest_id = harvest_id,
                                         recipient_id = actor_id,
                                         tree_id = tree_id,
                                         total_in_lb = weight)
             _yield.save()
-            messages.success(request, 'New Fruit Recipient successfully added!')
+            messages.success(request, _("New Fruit Recipient successfully added!"))
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
