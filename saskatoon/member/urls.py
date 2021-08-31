@@ -8,18 +8,18 @@ urlpatterns = [
          views.PersonCreateView.as_view(),
          name='person-create'),
 
-    path('organization/create/',
+    path('beneficiary/create/',
          views.OrganizationCreateView.as_view(),
-         name='organization-create'),
+         name='beneficiary-create'),
 
     # UPDATE VIEWS
     path('person/update/<int:pk>/',
          views.PersonUpdateView.as_view(),
          name='person-update'),
 
-    path('organization/update/<int:pk>/',
+    path('beneficiary/update/<int:pk>/',
          views.OrganizationUpdateView.as_view(),
-         name='organization-update'),
+         name='beneficiary-update'),
 
 
     # AUTO-COMPLETE VIEWS
