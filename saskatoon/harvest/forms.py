@@ -468,10 +468,6 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
 class HarvestForm(forms.ModelForm):
-    about = forms.CharField(
-        widget=CKEditorWidget(),
-        label=mark_safe(_("Public announcement"))
-    )
 
     class Meta:
         model = Harvest
@@ -513,6 +509,11 @@ class HarvestForm(forms.ModelForm):
             ),
             'nb_required_pickers': forms.NumberInput()
         }
+
+    about = forms.CharField(
+        widget=CKEditorWidget(),
+        label=mark_safe(_("Public announcement"))
+    )
 
     publication_date = forms.DateTimeField(
         widget=forms.HiddenInput(),
