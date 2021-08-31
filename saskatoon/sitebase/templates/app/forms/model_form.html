@@ -1,52 +1,21 @@
-{% extends 'app/base.html' %}
+{% extends 'app/forms/base.html' %}
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block form %}
 
-{{ form.media }}
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">
+            {% trans 'Save' %}
+        </button>
+        {% if cancel_url %}
+        <button type="button" class="btn btn-default" style="margin-left:1rem;">
+            <a href="{{ cancel_url }}">Cancel</a>
+        {% endif %}
+        </button>
+    </form>
 
-{% if form.non_field_errors %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center alert alert-warning" role="alert">
-                {{ form.non_field_errors }}
-            </div>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-<div class="form-example-area">
-    <div class="container">
-        <div class="row">
-                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
-                    <div class="form-example-wrap">
-                        <div class="cmp-tb-hd">
-                            <h2>{{ title }}</h2>
-                        </div>
-                        <div class="form-example-int">
-                            <div class="form-group">
-                                  <form method="post">
-                                        {% csrf_token %}
-                                        {{ form|crispy }}
-                                        <button type="submit" class="btn btn-primary">
-                                            {% trans 'Save' %}
-                                        </button>
-                                        {% if cancel_url %}
-                                        <button type="button" class="btn btn-default" style="margin-left:1rem;">
-                                            <a href="{{ cancel_url }}">Cancel</a>
-                                        {% endif %}
-                                        </button>
-                                  </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-     </div>
-</div>
-
-{% endblock content %}
+{% endblock form %}

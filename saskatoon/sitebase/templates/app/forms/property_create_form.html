@@ -1,122 +1,92 @@
-{% extends 'app/base.html' %}
+{% extends 'app/forms/base.html' %}
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
 
-{% block content %}
+{% block form %}
 
-{{ form.media }}
+    <form method="post">
+        {% csrf_token %}
+        <br>
+        <h5>{% trans "Status" %}</h5>
+        {{ form.is_active|as_crispy_field }}
+        {{ form.authorized|as_crispy_field }}
 
+        <br><hr>
+        <h5>{% trans "Trees" %}</h5>
+        {{ form.trees|as_crispy_field }}
+        {{ form.trees_location|as_crispy_field }}
+        {{ form.avg_nb_required_pickers|as_crispy_field }}
+        {{ form.trees_accessibility|as_crispy_field }}
+        {{ form.public_access|as_crispy_field }}
+        {{ form.neighbor_access|as_crispy_field }}
+        {{ form.compost_bin|as_crispy_field }}
+        {{ form.ladder_available|as_crispy_field }}
+        {{ form.ladder_available_for_outside_picks|as_crispy_field }}
+        {{ form.harvest_every_year|as_crispy_field }}
+        {{ form.number_of_trees|as_crispy_field }}
+        {{ form.approximative_maturity_date|as_crispy_field }}
+        {{ form.fruits_height|as_crispy_field }}
+        {{ form.additional_info|as_crispy_field }}
 
-{% if form.non_field_errors %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center alert alert-warning" role="alert">
-                {{ form.non_field_errors }}
-            </div>
+        <br><hr>
+        <h5>{% trans "Owner" %}</h5>
+        {{ form.create_new_owner|as_crispy_field }}
+
+        <div id="existing-owner">
+            {{ form.owner|as_crispy_field }}
         </div>
-    </div>
-</div>
-{% endif %}
 
-<div class="form-example-area">
-    <div class="container">
-        <div class="row">
-                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
-                    <div class="form-example-wrap">
-                        <div class="cmp-tb-hd">
-                            <h2>{{ title }}</h2>
-                        </div>
-                        <div class="form-example-int">
-                            <form method="post">
-                                {% csrf_token %}
-                                <br>
-                                <h5>{% trans "Status" %}</h5>
-                                {{ form.is_active|as_crispy_field }}
-                                {{ form.authorized|as_crispy_field }}
+        <div class="collapse" id="new-owner">
+            {{ form.owner_first_name|as_crispy_field }}
+            {{ form.owner_last_name|as_crispy_field }}
+            {{ form.owner_email|as_crispy_field }}
+            {{ form.owner_phone|as_crispy_field }}
+        </div>
 
-                                <br><hr>
-                                <h5>{% trans "Trees" %}</h5>
-                                {{ form.trees|as_crispy_field }}
-                                {{ form.trees_location|as_crispy_field }}
-                                {{ form.avg_nb_required_pickers|as_crispy_field }}
-                                {{ form.trees_accessibility|as_crispy_field }}
-                                {{ form.public_access|as_crispy_field }}
-                                {{ form.neighbor_access|as_crispy_field }}
-                                {{ form.compost_bin|as_crispy_field }}
-                                {{ form.ladder_available|as_crispy_field }}
-                                {{ form.ladder_available_for_outside_picks|as_crispy_field }}
-                                {{ form.harvest_every_year|as_crispy_field }}
-                                {{ form.number_of_trees|as_crispy_field }}
-                                {{ form.approximative_maturity_date|as_crispy_field }}
-                                {{ form.fruits_height|as_crispy_field }}
-                                {{ form.additional_info|as_crispy_field }}
+        <br><hr>
+        <h5>{% trans "Address" %}</h5>
+            {{ form.street_number|as_crispy_field }}
+            {{ form.street|as_crispy_field }}
+            {{ form.complement|as_crispy_field }}
+            {{ form.postal_code|as_crispy_field }}
+            {{ form.neighborhood|as_crispy_field }}
+            {{ form.city|as_crispy_field }}
+            {{ form.state|as_crispy_field }}
+            {{ form.country|as_crispy_field }}
+            {{ form.publishable_location|as_crispy_field }}
 
-                                <br><hr>
-                                <h5>{% trans "Owner" %}</h5>
-                                {{ form.create_new_owner|as_crispy_field }}
+        <br>
+        <button type="submit" class="btn btn-primary">
+            {% trans 'Save' %}
+        </button>
+        {% if cancel_url %}
+        <button type="button" class="btn btn-default" style="margin-left:1rem;">
+            <a href="{{ cancel_url }}">Cancel</a>
+            {% endif %}
+        </button>
+    </form>
 
-                                <div id="existing-owner">
-                                    {{ form.owner|as_crispy_field }}
-                                </div>
+    <script>
 
-                                <div class="collapse" id="new-owner">
-                                    {{ form.owner_first_name|as_crispy_field }}
-                                    {{ form.owner_last_name|as_crispy_field }}
-                                    {{ form.owner_email|as_crispy_field }}
-                                    {{ form.owner_phone|as_crispy_field }}
-                                </div>
+    function collapseOwner(){
+        if ($('#id_create_new_owner').is(":checked")) {
+            $('#existing-owner').hide();
+            $('#new-owner').collapse('show');
+        } else {
+            $('#existing-owner').show();
+            $('#new-owner').collapse('hide');
+        }
+    }
 
-                                <br><hr>
-                                <h5>{% trans "Address" %}</h5>
-                                    {{ form.street_number|as_crispy_field }}
-                                    {{ form.street|as_crispy_field }}
-                                    {{ form.complement|as_crispy_field }}
-                                    {{ form.postal_code|as_crispy_field }}
-                                    {{ form.neighborhood|as_crispy_field }}
-                                    {{ form.city|as_crispy_field }}
-                                    {{ form.state|as_crispy_field }}
-                                    {{ form.country|as_crispy_field }}
-                                    {{ form.publishable_location|as_crispy_field }}
-
-                                <br>
-                                <button type="submit" class="btn btn-primary">
-                                    {% trans 'Save' %}
-                                </button>
-                                {% if cancel_url %}
-                                <button type="button" class="btn btn-default" style="margin-left:1rem;">
-                                    <a href="{{ cancel_url }}">Cancel</a>
-                                    {% endif %}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-     </div>
-</div>
-
-<script>
-
- function collapseOwner(){
-     if ($('#id_create_new_owner').is(":checked")) {
-         $('#existing-owner').hide();
-         $('#new-owner').collapse('show');
-     } else {
-         $('#existing-owner').show();
-         $('#new-owner').collapse('hide');
-     }
- }
-
- $(function() {
-     collapseOwner();
-
-    $('#id_create_new_owner').change(function() {
+    $(function() {
         collapseOwner();
+
+        $('#id_create_new_owner').change(function() {
+            collapseOwner();
+        });
     });
- });
 
-</script>
+    </script>
 
-{% endblock content %}
+{% endblock form %}
