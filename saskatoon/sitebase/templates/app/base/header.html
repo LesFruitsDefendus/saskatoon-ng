@@ -4,18 +4,18 @@
 <div class="header-top-area">
     <div class="container">
         <div class="row">
-            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+            <div class="col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
                 <div class="logo-area">
                     <a href="/"><img src="{% static 'img/logo.png' %}" alt="Les Fruits Defendus - Saskatoon" /></a>
                 </div>
             </div>
-            <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+            <div class="col-md-5 col-xs-12">
                 <div class="logo-area">
                     <h2 style="color:white">Les Fruits Défendus</h2>
                     <p style="color:white"><i>Collectif montréalais de cueillette urbaine de fruits</i></p>
                 </div>
             </div>
-            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+            <div class="col-md-6 col-xs-12">
                 <div class="header-top-menu">
                     <ul class="nav navbar-nav notika-top-nav">
                         {% if user.is_authenticated %}
@@ -64,18 +64,26 @@
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                <span class="menu-it-icon-pro h5">{% translate "Language" %}: {{ LANGUAGE_CODE }} <i class="fa fa-caret-down"></i></span>
-                                <form action="{% url 'set_language' %}" method="post" style="display: none" id="change_language_form">
+                            <a href="#" data-toggle="dropdown" role="button"
+                               aria-expanded="false" class="nav-link dropdown-toggle">
+                                <span class="menu-it-icon-pro h5">
+                                    <span class="language-title">
+                                        {% translate "Languague" %}:</span>
+                                        {{ LANGUAGE_CODE }}
+                                    <i class="fa fa-caret-down"></i>
+                                </span>
+                                <form action="{% url 'set_language' %}" method="post"
+                                      style="display: none" id="change_language_form">
                                     {% csrf_token %}
                                     <input type="hidden" value="" name="language" id="language" />
                                 </form>
                             </a>
-
                             <ul class="dropdown-menu">
-                            {% for language in languages %}
-                                <li><a lang_code="{{ language.code }}" class="change_language">{{ language.name_local |title }} ({{ language.code }})</a></li>
-                            {% endfor %}
+                                {% for language in languages %}
+                                <li><a lang_code="{{ language.code }}" class="change_language">
+                                    {{ language.name_local|title }} ({{ language.code }})
+                                </a></li>
+                                {% endfor %}
                             </ul>
                         </li>
                     </ul>
