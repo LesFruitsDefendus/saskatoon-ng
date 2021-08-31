@@ -28,8 +28,7 @@ urlpatterns = [
 
     path(r'harvest/create/',
          views.HarvestCreateView.as_view(),
-         name='harvest-create'
-         ),
+         name='harvest-create'),
 
     path(r'participation/create/',
          views.RequestForParticipationCreateView.as_view(),

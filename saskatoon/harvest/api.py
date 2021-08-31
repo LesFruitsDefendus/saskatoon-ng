@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
@@ -87,7 +87,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
-                         'new': {'url': '/harvest/create',
+                         'new': {'url': reverse_lazy('harvest-create'),
                                  'title': _("New Harvest")
                                  }
                          })
@@ -133,7 +133,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
-                         'new': {'url': '/property/create',
+                         'new': {'url': reverse_lazy('property-create'),
                                  'title': _("New Property")
                                  }
                          })
@@ -199,7 +199,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
-                         'new': {'url': '/organization/create',
+                         'new': {'url': reverse_lazy('beneficiary-create'),
                                  'title': _("New Organization")
                                  }
                          })
@@ -223,7 +223,7 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
-                         'new': {'url': '/person/create',
+                         'new': {'url': reverse_lazy('person-create'),
                                  'title': _("New Person")
                                  }
                          })
