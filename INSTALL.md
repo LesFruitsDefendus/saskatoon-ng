@@ -98,7 +98,7 @@ $ sudo mysql_secure_installation
 
 To create an empty database:
 ```
-$ mysql -u root -p
+$ sudo mysql -u root -p
 > CREATE USER '<user>'@'localhost' IDENTIFIED BY '<password>';
 > SELECT user FROM mysql.user;   // show all users
 > CREATE DATABASE saskatoon_dev;
