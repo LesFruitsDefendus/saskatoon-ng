@@ -2,7 +2,18 @@
 {% load static %}
 
 <tr>
-    <td>{{ property.id }}</td>
+    <td>
+        {{ property.id }}
+    {% if perms.harvest.delete_property %}
+    &nbsp;
+    <small>
+        <a href="/admin/harvest/property/{{property.id}}/delete"
+           onclick="return confirm('Are you really sure you want to delete this property?');">
+            <i class="fa fa-trash text-danger"></i>
+        </a>
+    </small>
+    {% endif %}
+    </td>
     <td>
         <a href='/property/{{property.id}}'>{{ property.title }}</a>
     </td>
