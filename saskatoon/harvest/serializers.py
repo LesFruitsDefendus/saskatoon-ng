@@ -16,13 +16,9 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         model = Neighborhood
         fields = '__all__'
 
+# Person serializer
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    name = serializers.ReadOnlyField()
-    email = serializers.ReadOnlyField()
-    properties = serializers.ReadOnlyField()
-    harvests_as_volunteer = serializers.ReadOnlyField()
-    harvests_as_pickleader = serializers.ReadOnlyField()
 
     class Meta:
         model = Person
@@ -30,8 +26,20 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_pickleader', 'harvests_as_volunteer',
                   'properties']
 
+# Beneficiary serializer
+class BeneficiarySerializer(serializers.ModelSerializer):
+    contact_person = PersonSerializer(many=False, read_only=True)
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Organization
+        fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
+                  'is_beneficiary', 'contact_person', 'neighborhood']
+
 # Actor serializer
 class ActorSerializer(serializers.ModelSerializer):
+    person = PersonSerializer(source='get_person', many=False, read_only=True)
+    organization = BeneficiarySerializer(source='get_organization', many=False, read_only=True)
     class Meta:
         model = Actor
         fields = '__all__'
@@ -47,6 +55,7 @@ class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = State
         fields = '__all__'
+
 # Country serializer
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -117,6 +126,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
 class EquipmentSerializer(serializers.ModelSerializer):
     property = PropertySerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
+    owner = ActorSerializer(many=False, read_only=True)
     class Meta:
         model = Equipment
         fields = '__all__'
@@ -145,20 +155,8 @@ class HarvestSerializer(serializers.ModelSerializer):
 
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
-    # properties = serializers.ReadOnlyField()
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
     class Meta:
         model = AuthUser
         fields = '__all__'
-
-
-# Beneficiary serializer
-class BeneficiarySerializer(serializers.ModelSerializer):
-    contact_person = PersonSerializer(many=False, read_only=True)
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Organization
-        fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
-                  'is_beneficiary', 'contact_person', 'neighborhood']

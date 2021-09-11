@@ -35,6 +35,7 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Equipment updated successfully!")
+    success_url = reverse_lazy('equipment-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -42,8 +43,8 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
-    def get_success_url(self):
-            return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
+    # def get_success_url(self):
+    #     return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
 
 class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property

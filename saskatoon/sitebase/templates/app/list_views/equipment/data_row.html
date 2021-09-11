@@ -13,10 +13,42 @@
         </span><br>
     </td>
 
-    <td>{{ equipment.property.title }}</td>
-    <td>{{ equipment.property.neighborhood.name }}</td>
     <td>
-        {% if equipment.share %}
+
+        {% if equipment.owner.person %}
+            {{ equipment.owner.person.name }}<br>
+            <a href='mailto:{{equipment.owner.person.email}}'>
+                {{ equipment.owner.person.email }}</a><br>
+            {{ user.person.phone|default:"" }}
+        {% elif equipment.owner.organization %}
+            {{ equipment.owner.organization.civil_name }}
+            <a href='mailto:{{equipment.owner.organization.contact_person.email}}'>
+                {{ equipment.owner.organization.contact_person.email }}</a><br>
+            {{ equipment.owner.organization.phone|default:"" }}
+        {% elif equipment.property %}
+            {{ equipment.property.owner.fields.name }}
+            <a href='mailto:{{equipment.property.owner.fields.email}}'>
+                {{ equipment.property.owner.fields.email}} </a><br>
+        {% endif %}
+
+    </td>
+    <td>
+        <a href="/property/{{equipment.property.id}}">
+        {{ equipment.property.address }}
+        </a>
+    </td>
+    <td>
+        {% if equipment.owner.person %}
+         {{ equipment.owner.person.neighborhood.name }}
+        {% elif equipment.owner.organization %}
+            {{ equipment.owner.organization.neighborhood.name }}
+        {% elif equipment.property %}
+            {{ equipment.property.neighborhood.name }}
+        {% endif %}
+    </td>
+
+    <td>
+        {% if equipment.shared %}
             <i class="fa fa-check text-success"></i>
         {% else %}
             <i class="fa fa-times text-danger"></i>

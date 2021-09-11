@@ -364,6 +364,7 @@ class Property(models.Model):
         last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
         if last_harvest:
             return last_harvest[0].start_date
+        return None
     #
     # def get_owner_subclass(self):
     #     from member.models import Person, Organization
@@ -695,8 +696,7 @@ class Equipment(models.Model):
     shared = models.BooleanField(
         verbose_name=_("Shared"),
         help_text=_("Can be used in harvests outside of property"),
-        # FIXME? is quoted boolean OK?
-        default='False'
+        default=False
     )
 
     class Meta:

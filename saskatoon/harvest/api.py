@@ -156,6 +156,9 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             return response
         # default request format is html:
         return Response({'data': response.data,
+                         'new': {'url': reverse_lazy('equipment-create'),
+                                 'title': _("New Equipment"),
+                                 },
                          'filter': get_filter_context(self)
                          })
 
