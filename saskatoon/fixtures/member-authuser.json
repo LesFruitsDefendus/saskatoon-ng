@@ -11,7 +11,9 @@
     "date_joined": "2021-05-26T21:26:41.699Z",
     "is_active": true,
     "is_staff": true,
-    "groups": [],
+    "groups": [
+      3
+    ],
     "user_permissions": []
   }
 },
@@ -27,7 +29,9 @@
     "date_joined": "2021-05-31T13:38:14.213Z",
     "is_active": true,
     "is_staff": false,
-    "groups": [],
+    "groups": [
+      4
+    ],
     "user_permissions": []
   }
 },
@@ -36,7 +40,7 @@
   "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$260000$XSSo62sasEikkh7QT6pmhP$0euWqhRjDM+odkonz31c62r3ozp5Nm2tB6UyB20d7PA=",
-    "last_login": "2021-06-15T21:30:30.795Z",
+    "last_login": "2021-09-20T00:08:21.765Z",
     "is_superuser": false,
     "person": 5,
     "email": "core@member.com",
@@ -61,7 +65,9 @@
     "date_joined": "2021-06-15T22:10:28.308Z",
     "is_active": true,
     "is_staff": false,
-    "groups": [],
+    "groups": [
+      2
+    ],
     "user_permissions": []
   }
 }
