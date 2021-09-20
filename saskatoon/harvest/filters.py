@@ -144,7 +144,6 @@ class CommunityFilter(filters.FilterSet):
             'person__family_name',
             'person__neighborhood',
             'person__language',
-            'person__property',
         ]
 
 # FIXME: won't filter
