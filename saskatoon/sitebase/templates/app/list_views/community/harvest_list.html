@@ -1,0 +1,16 @@
+
+<li>
+    <a data-placement="top" data-toggle="tooltip" href='/harvest/{{ harvest.id }}'
+       title="{{harvest}} lead by {{ harvest.pick_leader.person.name }}">
+        {% if harvest.status == "Succeeded" %}
+            <i class="fa fa-shopping-basket fa-lg text-success"
+               style="padding-top:7px;"></i>
+        {% elif harvest.status == "Cancelled" %}
+            <i class="fa fa-shopping-basket fa-lg text-danger"
+            style="padding-top:7px;"></i>
+        {% else %}
+            <i class="fa fa-shopping-basket fa-lg text-warning"
+            style="padding-top:7px;"></i>
+        {% endif %}
+    </a>
+</li>

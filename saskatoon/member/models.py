@@ -78,15 +78,15 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         self.is_staff = any([r in STAFF_GROUPS for r in roles])
         self.save()
 
+    @property
+    def role_groups(self):
+        ''' return user's role groups'''
+        return self.groups.filter(name__in=[t[0] for t in AUTH_GROUPS])
+
+    @property
     def roles(self):
-        ''' lists user's groups'''
-        roles = []
-        for group in self.groups.all():
-            for name, Name in AUTH_GROUPS:
-                if name == group.name:
-                    roles.append(Name)
-                    break
-        return roles
+        ''' lists user's role names'''
+        return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
 
     def __str__(self):
         if self.person:
@@ -251,16 +251,22 @@ class Person(Actor):
         else:
             return None
 
+    @property
     def properties(self):
         return Property.objects.filter(owner=self)
 
+    @property
     def harvests_as_pickleader(self):
         return Harvest.objects.filter(pick_leader=self.auth_user)
 
+    @property
     def harvests_as_volunteer(self):
         requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
-        harvests = Harvest.objects.filter(request_for_participation__in=requests)
-        return harvests
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_owner(self):
+        return Harvest.objects.filter(property__in=self.properties)
 
 
 class Organization(Actor):

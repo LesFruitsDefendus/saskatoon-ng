@@ -24,7 +24,7 @@ class PersonSerializer(serializers.ModelSerializer):
         model = Person
         fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
                   'harvests_as_pickleader', 'harvests_as_volunteer',
-                  'properties']
+                  'harvests_as_owner', 'properties']
 
 # Beneficiary serializer
 class BeneficiarySerializer(serializers.ModelSerializer):
@@ -157,6 +157,10 @@ class HarvestSerializer(serializers.ModelSerializer):
 class CommunitySerializer(serializers.ModelSerializer):
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
+    role_codes = serializers.SerializerMethodField()
     class Meta:
         model = AuthUser
         fields = '__all__'
+
+    def get_role_codes(self, instance):
+        return [g.name for g in instance.role_groups]
