@@ -6,7 +6,7 @@
         {% if perms.member.delete_actor %}
             <small>
                 <a href="/admin/member/actor/{{org.actor_id}}/delete"
-                onclick="return confirm('Are you really sure you want to delete this actor?');">
+                onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             &nbsp;
