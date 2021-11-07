@@ -103,7 +103,7 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 
         # pre-filling pick-leader
         u = AuthUser.objects.get(id=self.request.user.id)
-        if 'Pick Leader' in u.roles():
+        if 'Pick Leader' in u.roles:
             initial['pick_leader'] = u
 
         context = super().get_context_data(**kwargs)

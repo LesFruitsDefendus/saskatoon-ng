@@ -1,5 +1,6 @@
 from dal import autocomplete
 from .models import TreeType, Property, Equipment
+from django.db.models.query_utils import Q
 
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
@@ -8,6 +9,7 @@ class TreeAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(name__icontains=self.q)
         return qs
+
 
 class PropertyAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
@@ -19,20 +21,12 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
         list_property = []
 
         if self.q:
-            first_name = qs.filter(
-                owner__person__first_name__icontains=self.q
-            )
-            family_name = qs.filter(
-                owner__person__family_name__icontains=self.q
-            )
+            q0 = Q(street_number__icontains=self.q)
+            q1 = Q(street__icontains=self.q)
+            q2 = Q(owner__person__first_name__icontains=self.q)
+            q3 = Q(owner__person__family_name__icontains=self.q)
+            qs = qs.filter(q0 | q1 | q2 | q3)
 
-            for actor in first_name:
-                if actor not in list_property:
-                    list_property.append(actor)
-
-            for actor in family_name:
-                if actor not in list_property:
-                    list_property.append(actor)
         return qs
 
 

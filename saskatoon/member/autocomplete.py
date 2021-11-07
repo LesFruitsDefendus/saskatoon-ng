@@ -2,11 +2,12 @@ from dal import autocomplete
 from .models import AuthUser, Person, Actor
 from django.contrib.auth.models import Group
 from django.contrib.auth.decorators import login_required
+from django.db.models.query_utils import Q
 
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
-    def __init__(self, role=None):
-        self.role = role
+    def __init__(self, roles=[]):
+        self.roles = roles
 
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor !
@@ -15,29 +16,34 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
 
         qs = Person.objects.all()
 
-        if self.role:
-            group, __ =  Group.objects.get_or_create(name=self.role)
-            qs = qs.filter(auth_user__groups=group)
+        if self.roles:
+            groups = [Group.objects.get(name=role).id for role in self.roles]
+            qs = qs.filter(auth_user__groups__in=groups)
 
         if self.q:
-            qs = qs.filter(first_name__icontains=self.q)
+            q0 = Q(first_name__icontains=self.q)
+            q1 = Q(family_name__icontains=self.q)
+            qs = qs.filter(q0 | q1)
 
         return qs
 
+
 class PickLeaderAutocomplete(PersonAutocomplete):
-    ''' Pick Leader '''
+    ''' Pick Leader + Core Members'''
     def __init__(self):
-        super(PickLeaderAutocomplete, self).__init__('pickleader')
+        super(PickLeaderAutocomplete, self).__init__(['pickleader', 'core'])
+
 
 class OwnerAutocomplete(PersonAutocomplete):
     ''' Property owner '''
     def __init__(self):
-        super(OwnerAutocomplete, self).__init__('owner')
+        super(OwnerAutocomplete, self).__init__(['owner'])
+
 
 class ContactAutocomplete(PersonAutocomplete):
     ''' Organization contact person'''
     def __init__(self):
-        super(ContactAutocomplete, self).__init__('contact')
+        super(ContactAutocomplete, self).__init__(['contact'])
 
 
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
@@ -47,32 +53,11 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
             return Actor.objects.none()
 
         qs = Actor.objects.all()
-        list_actor = []
 
         if self.q:
-            first_name = qs.filter(
-                person__first_name__icontains=self.q
-            )
-            family_name = qs.filter(
-                person__family_name__icontains=self.q
-            )
-            civil_name = qs.filter(
-                organization__civil_name__icontains=self.q
-            )
+            q0 = Q(person__first_name__icontains=self.q)
+            q1 = Q(person__family_name__icontains=self.q)
+            q2 = Q(organization__civil_name__icontains=self.q)
+            qs = qs.filter(q0 | q1 | q2)
 
-            for actor in first_name:
-                if actor not in list_actor:
-                    list_actor.append(actor)
-
-            for actor in family_name:
-                if actor not in list_actor:
-                    list_actor.append(actor)
-
-            for actor in civil_name:
-                if actor not in list_actor:
-                    list_actor.append(actor)
-
-        if not list_actor:
-            list_actor = qs
-
-        return list_actor
+        return qs
