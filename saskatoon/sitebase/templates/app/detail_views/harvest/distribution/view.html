@@ -20,8 +20,8 @@
                             <td> {{ d.tree.fruit_name }} </td>
                             <td> {{ d.total_in_lb }} lbs</td>
                             <td class="text-center">
-                                <a href="/yield/delete/{{d.id}}"
-                                   onclick="return confirm('Are you sure you want to delete this entry?');">
+                                <a href="/yield/delete/{{d.id}}/"
+                                   onclick="return confirm('{% trans "Are you sure you want to delete this entry?" %}');">
                                     <i class="fa fa-trash text-danger"></i>
                                 </a>
                             </td>

@@ -206,7 +206,7 @@ def harvest_yield_delete(request, id):
     try:
         _yield = HarvestYield.objects.get(id=id)
         _yield.delete()
-        messages.warning(request, "Fruit Distribution Deleted")
+        messages.warning(request, "Fruit distribution deleted!")
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     except Exception as e:
         raise
@@ -221,7 +221,7 @@ def harvest_yield_create(request):
         except KeyError:
             #message.error doesn't show red for some reason..
             messages.warning(request,
-                             _("New Fruit Distribution Failed: Please select a recipient"))
+                             _("New fruit distribution failed: please select a recipient"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         try:
             harvest_id = data['harvest']
@@ -232,7 +232,7 @@ def harvest_yield_create(request):
 
         if weight <= 0:
             messages.warning(request,
-                             _("New Fruit Distribution Failed: Weight must be positive"))
+                             _("New fruit distribution failed: weight must be positive"))
         else:
             _yield = HarvestYield(harvest_id = harvest_id,
                                         recipient_id = actor_id,

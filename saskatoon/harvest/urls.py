@@ -44,7 +44,7 @@ urlpatterns = [
 
 
     # DELETE VIEWS
-    path(r'yield/delete/<int:id>',
+    path(r'yield/delete/<int:id>/',
          views.harvest_yield_delete,
          name='harvest-yield-delete'),
 
