@@ -327,12 +327,10 @@ class Property(models.Model):
         verbose_name_plural = _("properties")
 
     def __str__(self):
-        if self.street_number:
-            return u"%s at %s %s" % \
-                   (self.owner, self.street_number, self.street)
-        else:
-            return u"%s at %s" % \
-                   (self.owner, self.street)
+        name = self.owner if self.owner else u"(%s)" % self.pending_contact_name
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % \
+            (name, _("at"), number, self.street)
 
     @property
     def short_address(self):
