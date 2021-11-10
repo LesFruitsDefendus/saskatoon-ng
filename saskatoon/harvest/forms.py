@@ -1,18 +1,16 @@
 # coding: utf-8
-
-from time import timezone
-
-import datetime
-from django import forms
+from ckeditor.widgets import CKEditorWidget
 from dal import autocomplete
+from datetime import datetime
+from django import forms
+from django.contrib.auth.models import Group
+from django.core.mail import send_mail
+from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
-from member.models import AuthUser, Person, Organization
-from django.core.mail import send_mail
-from ckeditor.widgets import CKEditorWidget
-from django.utils.safestring import mark_safe
 from member.forms import validate_email
+from member.models import AuthUser, Person, Organization
 
 # Request for participation
 class RequestForm(forms.ModelForm):
@@ -94,6 +92,9 @@ class RequestForm(forms.ModelForm):
                 email=email,
                 person=instance.picker
             )
+
+            group, __ = Group.objects.get_or_create(name='volunteer')
+            auth_user.groups.add(group)
 
         # Building email content
         pick_leader_email = list()
@@ -204,7 +205,7 @@ class RFPManageForm(forms.ModelForm):
         instance = super(RFPManageForm, self).save(commit=False)
         status = self.cleaned_data['status']
         instance.is_cancelled = (status == 'cancelled')
-        instance.acceptation_date = datetime.datetime.now() if status == 'accepted' else None
+        instance.acceptation_date = datetime.now() if status == 'accepted' else None
         instance.is_accepted = {'accepted': True, 'refused': False}.get(status, None)
         instance.save()
         return instance
@@ -540,7 +541,7 @@ class HarvestForm(forms.ModelForm):
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
             if publication_date is None:
-                instance.publication_date = datetime.datetime.now()
+                instance.publication_date = datetime.now()
 
         if status in ["To-be-confirmed", "Orphan", "Adopted"]:
             instance.publication_date = None
