@@ -51,8 +51,15 @@
                     {% include 'app/list_views/community/harvest_list.html' %}
                 {% endfor %}
             {% elif 'volunteer' in user.role_codes %}
-                {% for harvest in user.person.harvests_as_volunteer %}
+                {% for harvest in user.person.harvests_as_volunteer_accepted %}
                     {% include 'app/list_views/community/harvest_list.html' %}
+                {% endfor %}
+                {% for harvest in user.person.harvests_as_volunteer_pending %}
+                    {% include 'app/list_views/community/pending_list.html' %}
+                {% endfor %}
+                {% for harvest in user.person.harvests_as_volunteer_missed %}
+                    {{ harvest.request }}
+                    {% include 'app/list_views/community/missed_list.html' %}
                 {% endfor %}
             {% elif 'owner' in user.role_codes %}
                 {% for harvest in user.person.harvests_as_owner %}

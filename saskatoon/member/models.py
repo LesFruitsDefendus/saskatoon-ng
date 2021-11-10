@@ -1,12 +1,12 @@
 # coding: utf-8
 
 from django.db import models
+from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, \
-    PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import ( Group, AbstractBaseUser,
+                                         PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation, Harvest, Property
-from django.contrib.auth.models import Group
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -17,6 +17,7 @@ AUTH_GROUPS = (
 )
 
 STAFF_GROUPS = ['core', 'pickleader']
+
 class AuthUserManager(BaseUserManager):
 
     def create_user(self, email, password=None):
@@ -36,6 +37,7 @@ class AuthUserManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
 
@@ -93,6 +95,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
             return u"%s" % self.person
         else:
             return self.email
+
 
 class Actor(models.Model):
     actor_id = models.AutoField(
@@ -260,8 +263,22 @@ class Person(Actor):
         return Harvest.objects.filter(pick_leader=self.auth_user)
 
     @property
-    def harvests_as_volunteer(self):
-        requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
+    def requests_as_volunteer(self):
+        return RequestForParticipation.objects.filter(picker=self)
+
+    @property
+    def harvests_as_volunteer_accepted(self):
+        requests = self.requests_as_volunteer.filter(is_accepted=True)
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_volunteer_pending(self):
+        requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_volunteer_missed(self):
+        requests = self.requests_as_volunteer.filter(Q(is_accepted=False)|Q(is_cancelled=True))
         return Harvest.objects.filter(request_for_participation__in=requests)
 
     @property
