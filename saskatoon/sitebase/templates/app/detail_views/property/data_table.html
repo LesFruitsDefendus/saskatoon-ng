@@ -9,9 +9,14 @@
                         <h4> {% trans Harvests %}
                             {% if perms.harvest.add_harvest %}
                                 &nbsp;
-                                <small><a href="/harvest/create/?pid={{ property.id }}">
-                                    <i class="fa fa-plus"></i> {% trans "new" %}
-                                </a></small>
+                                <a href="/harvest/create/?pid={{ property.id }}">
+                                    <button title="New harvest"
+                                            class="btn btn-success notika-btn-success waves-effect">
+                                        <i class="fa fa-plus"></i>
+                                        {% trans "New Harvest" %}
+                                    </button>
+                                    <!-- </div> -->
+                                </a>
                             {% endif %}
                         </h4>
                         <table class="table table-striped" id="data-table-basic">
