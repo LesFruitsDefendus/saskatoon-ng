@@ -4,15 +4,20 @@
 Models registration.
 """
 
-from leaflet.admin import LeafletGeoAdmin # type: ignore
+from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin
-from member.models import (Actor, Language, Person, Organization, Neighborhood, City, State, Country)
-from harvest.models import (Property, Harvest, RequestForParticipation, TreeType, Equipment, EquipmentType, HarvestYield, Comment, PropertyImage, HarvestImage)
+from member.models import (Actor, Language, Person, Organization, Neighborhood,
+                           City, State, Country)
+from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
+                            Equipment, EquipmentType, HarvestYield, Comment,
+                            PropertyImage, HarvestImage)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
+
 
 class PropertyInline(admin.TabularInline):
     model = Property
     extra = 0
+
 
 class PersonInline(admin.TabularInline):
     model = RequestForParticipation
@@ -34,9 +39,11 @@ class HarvestYieldInline(admin.TabularInline):
     model = HarvestYield
     form = HarvestYieldForm
 
+
 class HarvestImageInline(admin.TabularInline):
     model = HarvestImage
     extra = 3
+
 
 class HarvestAdmin(admin.ModelAdmin):
     # form = HarvestForm
