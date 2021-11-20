@@ -5,6 +5,7 @@
     <div class="sale-statistic-inner notika-shadow mg-tb-30">
         <div class="contact-hd search-hd-eg">
                 <h2> {% trans "Fruit distribution" %} </h2>
+                <br>
                 <table class="table">
                     <tr>
                         <!-- cols should add up to 12... -->
@@ -29,13 +30,10 @@
                         {% endfor %}
                     </tbody>
                 </table>
-
-                <h5> {% trans "Add new recipient" %}
-                    <a data-toggle="collapse" href="#new-recipient">
-                        &nbsp;
-                        <i class="fa fa-plus" style="color:blue"></i>
-                    </a>
-                </h5>
+                <a data-toggle="collapse" href="#new-recipient"
+                    class="btn btn-success notika-btn-success waves-effect">
+                    <i class="fa fa-plus"></i> {% trans "New recipient" %}
+                </a>
                 <div class="collapse" id="new-recipient">
                     {% include 'app/detail_views/harvest/distribution/create_yield.html' %}
                 </div>
