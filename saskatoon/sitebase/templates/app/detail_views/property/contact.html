@@ -13,7 +13,7 @@
             {% endif %}
             </h2>
         {% else %}
-            <h2>{% trans "Contact" %}
+            <h2>{% trans "Unregistered owner" %}
             {% if perms.member.add_person %}
                 &nbsp;
                 <small><a href="/person/create/?pid={{property.id}}">
@@ -22,7 +22,7 @@
             {% endif %}
             </h2>
         {% endif %}
-        </h2>
+        </h2><hr>
     </div>
 
     <p class="lead">
