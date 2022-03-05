@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+
+<tr>
+    <td> {{property.id}} </td>
+    <td>
+        <a href="{% url 'property-detail' property.pk %}">
+            {{property}}
+        </a>
+    </td>
+    <td> {{ property.neighborhood }} </td>
+    <td> {% include 'app/list_views/property/status.html' %} </td>
+
+    <td>
+        {% if perms.member.change_person %}
+            {{ property.owner }} &nbsp;
+            <small><a href="/person/update/{{property.owner.pk}}" title="edit">
+                <i class="fa fa-pencil"></i>
+            </a></small>
+        {% endif %}
+    </td>
+    <td>
+        {% with property.owner.person as po %}
+            <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
+            {{ po.phone }}
+        {% endwith %}
+    </td>
+</tr>

@@ -1,0 +1,32 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <h4> {% trans "Similar properties" %} </h4>
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>{% trans "Property" %}</th>
+                                <th>{% trans "Neighborhood" %}</th>
+                                <th style="width: 12%">{% trans "Status" %}</th>
+                                <th>{% trans "Owner" %}</th>
+                                <th>{% trans "Contact" %}</th>
+                            </tr>
+                            </thead>
+                            {% for property in similar %}
+
+                                {% include 'app/detail_views/property/similar_row.html' %}
+
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

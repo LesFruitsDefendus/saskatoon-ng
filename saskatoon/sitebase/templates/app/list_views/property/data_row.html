@@ -19,27 +19,7 @@
     </td>
     <td>{{ property.neighborhood.name }}</td>
     <td>
-        <ul class="list-unstyled">
-            {% if property.is_active %}
-                {% if property.pending %}
-                    <span class="label label-warning">{% trans "PENDING" %}</span>
-                {% else %}
-                    <span class="label label-success">{% trans "validated" %}</span>
-                {% endif %}
-                {% if property.authorized is None %}
-                    <span class="label label-warning">{% trans "not yet authorized" %}</span>
-                {% elif property.authorized %}
-                    <span class="label label-success">{% trans "authorized" %}</span>
-                {% else %}
-                    <span class="label label-danger">{% trans "unauthorized" %}</span>
-                {% endif %}
-            {% else %}
-                <span class="label label-danger">{% trans "inactive" %}</span><br/>
-            {% endif %}
-            {% if property.owner.person.about %}
-                <li><i class="fa fa-envelope"></i> {{ property.owner.person.email }}</li>
-            {% endif %}
-        </ul>
+        {% include 'app/list_views/property/status.html' %}
     </td>
     <td>
         {% for tree in property.trees %}

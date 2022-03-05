@@ -80,7 +80,8 @@ class AuthUserAdmin(UserAdmin):
                     'is_staff',
                     'is_core',
                     'is_admin',
-                    'is_active'
+                    'is_active',
+                    'id'
                     )
 
     def is_core(self, user):

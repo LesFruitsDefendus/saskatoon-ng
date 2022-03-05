@@ -120,6 +120,7 @@ class Actor(models.Model):
         else:
             return u"Unknown Actor: %i" % self.actor_id
 
+
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
         verbose_name=_("Redmine contact"),
@@ -256,6 +257,7 @@ class Person(Actor):
 
     @property
     def properties(self):
+        # TODO set up reverse relationship instead
         return Property.objects.filter(owner=self)
 
     @property

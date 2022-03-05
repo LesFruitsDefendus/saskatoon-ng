@@ -11,6 +11,8 @@ from member.models import AuthUser, Organization
 from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
 from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
     CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
+from .utils import get_similar_properties
+
 
 def get_filter_context(viewset):
     ''' create filters dictionary for list views
@@ -23,12 +25,14 @@ def get_filter_context(viewset):
         dic['reset'] = reverse(viewset.basename + '-list')
     return dic
 
-# Harvest Viewset
-class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = Harvest.objects.all().order_by('-id')
 
-    ######### Integrating DRF to django-filter #########
+class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Harvest viewset"""
+
+    queryset = Harvest.objects.all().order_by('-id')
+    serializer_class = HarvestSerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = HarvestFilter
     filterset_fields = ('pick_leader',
                         'owner_fruit',
                         'nb_required_pickers',
@@ -36,10 +40,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'about',
                         'status',
                         'start_date')
-    filterset_class = HarvestFilter
-    ####################################################
-
-    serializer_class = HarvestSerializer
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):
@@ -95,12 +95,14 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     def update(request, *args, **kwargs):
         pass
 
-# Property Viewset
-class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = Property.objects.all().order_by('-id')
 
-    ######### Integrating DRF to django-filter #########
+class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Property viewset"""
+
+    queryset = Property.objects.all().order_by('-id')
+    serializer_class = PropertySerializer
     filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = PropertyFilter
     filterset_fields = ('is_active',
                         'authorized',
                         'pending',
@@ -108,21 +110,22 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'trees',
                         'ladder_available',
                         'ladder_available_for_outside_picks')
-    filterset_class = PropertyFilter
-    ####################################################
-
-    serializer_class = PropertySerializer
 
     # Property detail
     def retrieve(self, request, format='html', pk=None):
         self.template_name = 'app/detail_views/property/view.html'
+
         pk = self.get_object().pk
         response = super(PropertyViewset, self).retrieve(request, pk=pk)
 
         if format == 'json':
             return response
         # default request format is html:
-        return Response({'property': response.data})
+        similar = get_similar_properties(self.get_object())
+        print("similar", similar)
+        return Response({'property': response.data,
+                         'similar': get_similar_properties(self.get_object())
+                         })
 
     # Properties list
     def list(self, request, *args, **kwargs):
@@ -138,16 +141,14 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                                  }
                          })
 
-# Equipment Viewset
-class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = Equipment.objects.all().order_by('-id')
 
-    ######### Integrating DRF to django-filter #########
+class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Equipment viewset"""
+
+    queryset = Equipment.objects.all().order_by('-id')
+    serializer_class = EquipmentSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = EquipmentFilter
-    ####################################################
-
-    serializer_class = EquipmentSerializer
     template_name = 'app/list_views/equipment/view.html'
 
     def list(self, request, *args, **kwargs):
@@ -162,10 +163,11 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'filter': get_filter_context(self)
                          })
 
-# RequestForParticipation Viewset
-class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = RequestForParticipation.objects.all().order_by('-id')
 
+class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Request for participation viewset"""
+
+    queryset = RequestForParticipation.objects.all().order_by('-id')
     serializer_class = RequestForParticipationSerializer
     template_name = 'app/participation_list.html'
 
@@ -177,28 +179,19 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 
-
-# Beneficiary Viewset
 class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = Organization.objects.all().order_by('-actor_id')
+    """Beneficiary viewset"""
 
-    ######### Integrating DRF to django-filter #########
+    queryset = Organization.objects.all().order_by('-actor_id')
+    serializer_class = BeneficiarySerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
-    ####################################################
-
-    serializer_class = BeneficiarySerializer
     template_name = 'app/list_views/beneficiary/view.html'
 
-
     def list(self, request, *args, **kwargs):
-
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
-
         if request.accepted_renderer.format == 'json':
             return response
-
-        print(self)
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
@@ -207,16 +200,14 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                                  }
                          })
 
-# Community Viewset
-class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
 
-    ######### Integrating DRF to django-filter #########
+class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Community viewset"""
+
+    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
+    serializer_class = CommunitySerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = CommunityFilter
-    ####################################################
-
-    serializer_class = CommunitySerializer
     template_name = 'app/list_views/community/view.html'
 
     def list(self, request, *args, **kwargs):

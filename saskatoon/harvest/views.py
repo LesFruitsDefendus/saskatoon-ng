@@ -30,6 +30,7 @@ class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
+
 class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Equipment
     form_class = EquipmentForm
@@ -46,6 +47,7 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     # def get_success_url(self):
     #     return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
 
+
 class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Property
     form_class = PropertyCreateForm
@@ -59,12 +61,14 @@ class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         context['cancel_url'] = reverse_lazy('property-list')
         return context
 
+
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
     success_url = 'thanks'
     success_message = _("Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>.")
+
 
 class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'harvest.change_property'
@@ -115,6 +119,7 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
+
 class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Harvest
     form_class = HarvestForm
@@ -129,6 +134,7 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
+
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
@@ -148,6 +154,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
         else:
             return reverse_lazy('calendar')
+
 
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
@@ -177,6 +184,7 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
+
 class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Comment
     form_class = CommentForm
@@ -200,6 +208,7 @@ class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         request = self.request.GET
         return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
 
+
 @login_required
 def harvest_yield_delete(request, id):
     """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
@@ -210,6 +219,7 @@ def harvest_yield_delete(request, id):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
     except Exception as e:
         raise
+
 
 @login_required
 def harvest_yield_create(request):
