@@ -42,6 +42,7 @@ setup(
         "django-redis",
         "django-dotenv",
         "django-crispy-forms",
+        "django-rosetta==0.9.8"
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
