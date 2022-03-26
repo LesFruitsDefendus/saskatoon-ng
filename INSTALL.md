@@ -21,9 +21,10 @@ Please follow each part of this documentation in order to run your own instance 
 2. Python virtualenv
 
     To install Python requirements in a virtual environment:
+
+    For Ubuntu, Debian derivatives (for macOS, you should be able to use `pip`):
     ```
-    $ sudo apt install python3-dev
-    $ pip3 install virtualenv
+    $ sudo apt install -y python3-dev python3-virtualenv
     $ virtualenv venv
     $ . venv/bin/activate
     $(venv) pip3 install .
@@ -52,7 +53,7 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## .env settings
 
-Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs. 
+Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
 
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
@@ -268,7 +269,7 @@ SASKATOON_ADMIN_EMAIL=admin@example.com
 SASKATOON_ADMIN_PASSWORD=testing1234
 ```
 
-Tests are located inside `saskatoon/tests` folder. 
+Tests are located inside `saskatoon/tests` folder.
 
 Created a test super user with the following command:
 
