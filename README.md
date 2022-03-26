@@ -1,6 +1,6 @@
 # saskatoon-ng
 
-The new generation Saskatoon harverst management system
+The new generation Saskatoon harvest management system
 
 ## About
 
