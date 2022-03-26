@@ -15,7 +15,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from pathlib import Path
-from dotenv import read_dotenv
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Load the environment variables from .env file.
 dotenv = os.path.join(BASE_DIR, '.env')
 if os.path.exists(dotenv):
-    read_dotenv(dotenv=dotenv)
+    load_dotenv(dotenv_path=dotenv)
 else:
     raise IOError('.env file not found!')
 
