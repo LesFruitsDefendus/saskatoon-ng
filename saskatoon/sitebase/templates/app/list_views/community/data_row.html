@@ -27,11 +27,12 @@
             <a href="/admin/member/authuser/{{user.id}}/password/"
                onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
             {% if not user.password %}
-                title="register">
-                <small><i class="fa fa-plus"></i> </a></small>
+                title="register-user"
+                >
+                <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> Register User </a></small>
             {% else %}
                 title="reset-password">
-                <small><i class="fa fa-refresh"></i> </a></small>
+                <small><i class="fa fa-refresh"></i></a></small>
             {% endif %}
         {% endif %}
         <br>{{ user.person.phone|default:"" }}
