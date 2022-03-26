@@ -90,7 +90,7 @@ $ mysql -u root -p
 > SELECT user FROM mysql.user;   // show all users
 > CREATE DATABASE saskatoon_dev;
 > SHOW DATABASES;
-> GRANT ALL PRVILEGES ON saskatoon_dev.* TO '<user>'@'localhost';
+> GRANT ALL PRIVILEGES ON saskatoon_dev.* TO '<user>'@'localhost';
 > ALTER DATABASE saskatoon_dev CHARACTER SET utf8;
 
 ```
