@@ -39,8 +39,9 @@ Please follow each part of this documentation in order to run your own instance 
     $ sudo apt install redis-server
     $ sudo systemctl status redis-server
     ```
-    Note the Redis service will start automatically when the installation finishes (if using systemd):
+    Note the Redis service will start automatically when the installation finishes (if using systemd)
 
+    [For macOS](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/).
 
 4. Pillow
 
