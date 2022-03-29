@@ -53,7 +53,7 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## .env settings
 
-Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
+Saskatoon uses `django-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
 
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
