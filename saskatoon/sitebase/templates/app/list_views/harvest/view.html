@@ -1,0 +1,25 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block table %}
+
+<thead>
+    <tr>
+        <th>#</th>
+        <th>{% trans "Harvest details" %}</th>
+        <th>{% trans "Tree" %}</th>
+        <th>{% trans "Neighborhood" %}</th>
+        <th style="width: 12%">{% trans "Status" %}</th>
+        <th>{% trans "Leader" %}</th>
+        <th>{% trans "Date" %}</th>
+    </tr>
+</thead>
+    <tbody>
+        {% for harvest in data %}
+            {% include 'app/list_views/harvest/data_row.html' %}
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock table %}

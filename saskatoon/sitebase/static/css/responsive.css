@@ -272,7 +272,7 @@
 		float: unset;
 	}
 	.header-top-menu {
-		max-width: 255px;
+		max-width: 315px;
 		margin: 0 auto;
 	}
 	.header-top-menu.pull-left {
@@ -339,6 +339,9 @@
 	.logo-area{
 		text-align:center;
 	}
+    .language-title{
+        display:none;
+    }
 	.nav.navbar-nav.notika-top-nav {
 		float: unset;
 		margin:0px;

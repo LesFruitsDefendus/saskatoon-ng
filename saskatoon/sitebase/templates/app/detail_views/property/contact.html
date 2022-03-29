@@ -1,0 +1,87 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
+
+    <div class="contact-hd search-hd-eg">
+        {% if property.owner %}
+            <h2>{% trans "Owner" %}
+            {% if perms.member.change_person %}
+                &nbsp;
+                <small><a href="/person/update/{{property.owner.pk}}/?pid={{property.id}}">
+                        <i class="fa fa-pencil"></i> {% trans "edit" %}
+                </a></small>
+            {% endif %}
+            </h2>
+        {% else %}
+            <h2>{% trans "Unregistered owner" %}
+            {% if perms.member.add_person %}
+                &nbsp;
+                <small><a href="/person/create/?pid={{property.id}}">
+                        <i class="fa fa-pencil"></i> register
+                </a></small>
+            {% endif %}
+            </h2>
+        {% endif %}
+        </h2><hr>
+    </div>
+
+    <p class="lead">
+    {% if property.owner %}
+        {{ property.owner.fields.name }}
+    {% else %}
+        {{ property.pending_contact_name }}
+    {% endif %}
+    </p>
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td>{% trans "Phone" %}</td>
+            <td class="text-right">
+                <h5>
+                {% if property.owner %}
+                    {{ property.owner.fields.phone }}
+                {% else %}
+                    {{ property.pending_contact_phone }}
+                {% endif %}
+                </h5>
+            </td>
+        </tr>
+
+        <tr>
+            <td>{% trans "Email" %}</td>
+            <td class="text-right">
+                <h5>
+                {% if property.owner %}
+                    {{ property.owner.fields.email }}
+                {% else %}
+                    {{ property.pending_contact_email }}
+                {% endif %}
+                </h5>
+            </td>
+        </tr>
+
+        {% if property.owner %}
+            {% if property.owner.fields.language != 'None' %}
+                <tr>
+                    <td>{% trans "Language" %}</td>
+                    <td class="text-right">
+                        <h5>{{ property.owner.fields.language }}</h5>
+                    </td>
+                </tr>
+            {% endif %}
+        {% else %}
+            <!-- TODO: preferred language -->
+        {% endif %}
+
+        {% if property.owner.fields.comments %}
+        <tr>
+            <td>{% trans "Comments" %}</td>
+            <td class="text-right">
+                <p>{{ property.owner.fields.comments }}</p>
+            </td>
+        </tr>
+        {% endif %}
+    </table>
+
+</div>

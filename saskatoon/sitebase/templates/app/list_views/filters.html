@@ -1,0 +1,52 @@
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+<div class="accordion-stn">
+    <div aria-multiselectable="true" class="panel-group"
+            data-collapse-color="nk-green"
+            id="accordionGreen" role="tablist">
+        <div class="panel panel-collapse notika-accrodion-cus">
+            <div class="panel-heading" role="tab">
+                <h4 class="panel-title">
+                    <a class="collapsed" aria-expanded="false" data-parent="#accordionGreen"
+                        data-toggle="collapse" href="#accordionGreen-one">
+                        {% trans "Filters" %}
+                    </a>
+                </h4>
+            </div>
+            <div class="collapse" id="accordionGreen-one" role="tabpanel">
+                <div class="panel-body" style="display:inline-block;">
+                    <form role="form">
+                        {% csrf_token %}
+                        {{ filter.form|crispy }}
+                        <div class="form-group"
+                             style="margin-top:2rem;">
+                            <button class="align-center btn btn-success notika-btn-success"
+                               role="button" type="submit">
+                                {% trans "Filter" %}
+                            </button>
+                            {% if filter.reset %}
+                                <a class="btn btn-warning notika-btn-warning"
+                                href="{{filter.reset}}">
+                                    {% trans "Reset" %}
+                                </a>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+ $(function() {
+     console.log($(window).width());
+     if($(window).width() > 768){
+         $('.collapse').collapse('show');
+     }
+ });
+
+</script>

@@ -1,0 +1,113 @@
+{% load i18n %}
+{% load static %}
+
+<tr>
+    <td>{{ harvest.id }}
+    {% if perms.harvest.delete_harvest %}
+        &nbsp;
+        <small>
+            <a href="/admin/harvest/harvest/{{harvest.id}}/delete"
+            onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
+                <i class="fa fa-trash text-danger"></i>
+            </a>
+        </small>
+    {% endif %}
+    </td>
+    <td>
+        <a href='/harvest/{{harvest.id}}'>{{ harvest.property.title }}</a>
+    </td>
+    <td>
+        {% for tree in harvest.trees %}
+        <div class="text-nowrap">{{ tree }}</div>
+        {% endfor %}
+    </td>
+    <td>{{ harvest.property.neighborhood.name }}</td>
+    <td>
+        {% if harvest.status == "Succeeded" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Succeeded" %}</div>
+                <div class="progress-bar wow fadeInLeft"
+                        data-progress="100%" data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #9CF0DB; width: 100%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "Cancelled" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Cancelled" %}</div>
+                <div class="progress-bar wow fadeInLeft"
+                        data-progress="100%"
+                        data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #ED6D62; width: 100%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "Orphan" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Orphan" %}</div>
+                <div class="progress-bar wow fadeInLeft" data-progress="0%"
+                        data-wow-delay="1.2s" data-wow-duration="1.5s"
+                        style="width: 0%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "Adopted" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Adopted" %}</div>
+                <div class="progress-bar wow fadeInLeft" data-progress="20%"
+                        data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #FFE180; width: 20%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "To-be-confirmed" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Pending auth." %}</div>
+                <div class="progress-bar wow fadeInLeft" data-progress="40%"
+                        data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #FFE180; width: 40%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "Date-scheduled" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Scheduled" %}</div>
+                <div class="progress-bar wow fadeInLeft" data-progress="60%"
+                        data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #FFE180; width: 60%;"></div>
+            </div>
+        </div>
+        {% endif %}
+        {% if harvest.status == "Ready" %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{% trans "Ready" %}</div>
+                <div class="progress-bar wow fadeInLeft" data-progress="80%"
+                        data-wow-delay="1.2s"
+                        data-wow-duration="1.5s"
+                        style="background-color: #BADDFF; width: 80%;"></div>
+            </div>
+        </div>
+        {% endif %}
+    </td>
+    <td>
+        {% if harvest.pick_leader %}
+        {{ harvest.pick_leader|default:'' }}
+        {% endif %}
+    </td>
+    <td>
+        <div class="text-nowrap">{{ harvest.start_date }}</div>
+        <small>{{ harvest.start_time }} - {{ harvest.end_time }}</small>
+    </td>
+</tr>

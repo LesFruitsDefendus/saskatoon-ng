@@ -1,0 +1,45 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+{{ form.media }}
+
+{% if form.non_field_errors %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center alert alert-warning" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="form-example-area">
+    <div class="container">
+        <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
+                    <div class="form-example-wrap">
+                        <div class="cmp-tb-hd">
+                            <h2>{{ title }}</h2>
+                        </div>
+                        <div class="form-example-int">
+                            <div class="form-group">
+
+                                {% block form %}
+                                <!-- {{ form }} -->
+                                {% endblock form %}
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     </div>
+</div>
+
+{% endblock content %}

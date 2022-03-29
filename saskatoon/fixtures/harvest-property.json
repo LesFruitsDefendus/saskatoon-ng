@@ -5,7 +5,7 @@
   "fields": {
     "is_active": true,
     "authorized": true,
-    "pending": true,
+    "pending": false,
     "pending_contact_name": "",
     "pending_contact_phone": "",
     "pending_contact_email": null,
@@ -41,6 +41,51 @@
     "trees": [
       9,
       14
+    ]
+  }
+},
+{
+  "model": "harvest.property",
+  "pk": 4,
+  "fields": {
+    "is_active": true,
+    "authorized": true,
+    "pending": true,
+    "pending_contact_name": "Nouveau Proprio",
+    "pending_contact_phone": "438 987 6432",
+    "pending_contact_email": "nouveau@proprio.ca",
+    "pending_newsletter": false,
+    "pending_recurring": false,
+    "geom": null,
+    "owner": null,
+    "trees_location": "Backyard",
+    "trees_accessibility": "locked gate, back alley",
+    "avg_nb_required_pickers": 2,
+    "public_access": false,
+    "neighbor_access": false,
+    "compost_bin": true,
+    "ladder_available": false,
+    "ladder_available_for_outside_picks": false,
+    "harvest_every_year": false,
+    "number_of_trees": 3,
+    "approximative_maturity_date": "2021-08-01",
+    "fruits_height": 0,
+    "street_number": "555",
+    "street": "rue de Villeray",
+    "complement": null,
+    "postal_code": "H2R 1R3",
+    "publishable_location": null,
+    "neighborhood": 31,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "longitude": null,
+    "latitude": null,
+    "additional_info": null,
+    "changed_by": null,
+    "trees": [
+      8,
+      21
     ]
   }
 }

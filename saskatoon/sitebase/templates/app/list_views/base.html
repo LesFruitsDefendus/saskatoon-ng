@@ -1,0 +1,43 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="row breadcomb-list">
+        <div class="col-lg-2 col-md-3 col-xs-12">
+            <div class="row breadcomb-list">
+
+                <div class="col-md-12 col-sm-3 col-xs-6">
+                    <div class="breadcomb-wp" style="margin-bottom:2rem;">
+                        <a href="{{ new.url }}" class="btn btn-success notika-btn-success">
+                            <i class="fa fa-plus"></i>
+                            {{ new.title }}
+                        </a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-xs-6">
+                    {% include 'app/list_views/filters.html' %}
+                </div>
+
+            </div>
+        </div>
+        <div class="col-lg-10 col-md-9 col-xs-12">
+            <div class="data-table-area">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            {% block table %}
+                                <!-- table content -->
+                            {% endblock table %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
