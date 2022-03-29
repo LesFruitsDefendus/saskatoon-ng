@@ -137,13 +137,13 @@
 <a class="rst-reference external" href="https://docs.djangoproject.com/en/3.0/topics/settings/" target="_top">https://docs.djangoproject.com/en/3.0/topics/settings/</a></p>
 <p>For the full list of settings and their values, see
 <a class="rst-reference external" href="https://docs.djangoproject.com/en/3.0/ref/settings/" target="_top">https://docs.djangoproject.com/en/3.0/ref/settings/</a></p>
-<p><tt class="rst-docutils literal"><span class="pre">python-dotenv</span></tt> is used to load environment variables from
-the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt> file. Please check INSTALL.md for more details.</p>
+<p><tt class="rst-docutils literal"><span class="pre">django-dotenv</span></tt> is used to load environment variables from the
+<tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt> file. Please check INSTALL.md for more details.</p>
 </div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id175">
+        <table class="children sortable" id="id214">
   
   
   <tr class="variable">
@@ -154,7 +154,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   </tr><tr class="variable">
     
     <td>Variable</td>
-    <td><code><a href="#file">file</a></code></td>
+    <td><code><a href="#dotenv">dotenv</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -170,6 +170,16 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
     
     <td>Variable</td>
     <td><code><a href="#ALLOWED_HOSTS">ALLOWED_HOSTS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#SERVER_IP">SERVER_IP</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#DOMAIN_NAME">DOMAIN_NAME</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -190,6 +200,21 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
     
     <td>Variable</td>
     <td><code><a href="#ROOT_URLCONF">ROOT_URLCONF</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#LOGIN_URL">LOGIN_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#LOGIN_REDIRECT_URL">LOGIN_REDIRECT_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#LOGOUT_REDIRECT_URL">LOGOUT_REDIRECT_URL</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -264,12 +289,17 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   </tr><tr class="variable">
     
     <td>Variable</td>
-    <td><code><a href="#PROJECT_DIR">PROJECT_DIR</a></code></td>
+    <td><code><a href="#STATIC_ROOT">STATIC_ROOT</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
-    <td><code><a href="#STATIC_ROOT">STATIC_ROOT</a></code></td>
+    <td><code><a href="#MEDIA_URL">MEDIA_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#MEDIA_ROOT">MEDIA_ROOT</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -331,6 +361,11 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
     <td>Variable</td>
     <td><code><a href="#CRISPY_TEMPLATE_PACK">CRISPY_TEMPLATE_PACK</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#CKEDITOR_CONFIGS">CKEDITOR_CONFIGS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
         
@@ -352,7 +387,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">BASE_DIR</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L22">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L21">
       
       (source)
     </a>
@@ -365,15 +400,15 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
 </div><div class="basevariable">
   
   
-  <a name="saskatoon.settings.file">
+  <a name="saskatoon.settings.dotenv">
     
   </a>
-  <a name="file">
+  <a name="dotenv">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">file</span> =
+    <span class="py-defname">dotenv</span> =
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L24">
       
       (source)
@@ -396,7 +431,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">SECRET_KEY</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L31">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L34">
       
       (source)
     </a>
@@ -418,7 +453,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">DEBUG</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L35">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L38">
       
       (source)
     </a>
@@ -440,7 +475,51 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">ALLOWED_HOSTS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L39">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L42">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.SERVER_IP">
+    
+  </a>
+  <a name="SERVER_IP">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">SERVER_IP</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L45">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.DOMAIN_NAME">
+    
+  </a>
+  <a name="DOMAIN_NAME">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DOMAIN_NAME</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L48">
       
       (source)
     </a>
@@ -462,7 +541,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">INTERNAL_IPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L42">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L54">
       
       (source)
     </a>
@@ -484,7 +563,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">INSTALLED_APPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L46">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L58">
       
       (source)
     </a>
@@ -506,7 +585,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">MIDDLEWARE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L66">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L79">
       
       (source)
     </a>
@@ -528,7 +607,73 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">ROOT_URLCONF</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L78">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L92">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.LOGIN_URL">
+    
+  </a>
+  <a name="LOGIN_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGIN_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L93">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.LOGIN_REDIRECT_URL">
+    
+  </a>
+  <a name="LOGIN_REDIRECT_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGIN_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L94">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.LOGOUT_REDIRECT_URL">
+    
+  </a>
+  <a name="LOGOUT_REDIRECT_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGOUT_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L95">
       
       (source)
     </a>
@@ -550,7 +695,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">TEMPLATES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L80">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L97">
       
       (source)
     </a>
@@ -572,7 +717,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">WSGI_APPLICATION</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L96">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L113">
       
       (source)
     </a>
@@ -594,7 +739,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">DATABASES</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L102">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L119">
       
       (source)
     </a>
@@ -616,7 +761,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">DEFAULT_AUTO_FIELD</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L114">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L131">
       
       (source)
     </a>
@@ -638,7 +783,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">AUTH_PASSWORD_VALIDATORS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L119">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L136">
       
       (source)
     </a>
@@ -660,7 +805,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">LANGUAGE_CODE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L138">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L155">
       
       (source)
     </a>
@@ -682,7 +827,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">LANGUAGES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L140">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L157">
       
       (source)
     </a>
@@ -704,7 +849,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">LOCALE_PATHS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L145">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L162">
       
       (source)
     </a>
@@ -726,7 +871,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">CSRF_COOKIE_SECURE</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L152">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L169">
       
       (source)
     </a>
@@ -748,7 +893,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">TIME_ZONE</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L154">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L171">
       
       (source)
     </a>
@@ -770,7 +915,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">USE_I18N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L156">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L173">
       
       (source)
     </a>
@@ -792,7 +937,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">USE_L10N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L158">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L175">
       
       (source)
     </a>
@@ -814,7 +959,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">USE_TZ</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L160">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L177">
       
       (source)
     </a>
@@ -836,29 +981,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">STATIC_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L166">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.PROJECT_DIR">
-    
-  </a>
-  <a name="PROJECT_DIR">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">PROJECT_DIR</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L167">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L182">
       
       (source)
     </a>
@@ -880,7 +1003,51 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">STATIC_ROOT</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L168">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L183">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.MEDIA_URL">
+    
+  </a>
+  <a name="MEDIA_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">MEDIA_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L186">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.MEDIA_ROOT">
+    
+  </a>
+  <a name="MEDIA_ROOT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">MEDIA_ROOT</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L187">
       
       (source)
     </a>
@@ -902,7 +1069,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_BACKEND</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L172">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L190">
       
       (source)
     </a>
@@ -924,7 +1091,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_USE_TLS</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L173">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L191">
       
       (source)
     </a>
@@ -946,7 +1113,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_HOST</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L174">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L192">
       
       (source)
     </a>
@@ -968,7 +1135,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_PORT</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L175">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L193">
       
       (source)
     </a>
@@ -990,7 +1157,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_HOST_USER</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L176">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L194">
       
       (source)
     </a>
@@ -1012,7 +1179,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">EMAIL_HOST_PASSWORD</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L177">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L195">
       
       (source)
     </a>
@@ -1034,7 +1201,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">DEFAULT_FROM_EMAIL</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L178">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L196">
       
       (source)
     </a>
@@ -1056,7 +1223,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">SEND_MAIL_FAIL_SILENTLY</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L180">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L198">
       
       (source)
     </a>
@@ -1078,7 +1245,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">AUTH_USER_MODEL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L184">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L203">
       
       (source)
     </a>
@@ -1100,7 +1267,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">REST_FRAMEWORK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L186">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L205">
       
       (source)
     </a>
@@ -1122,7 +1289,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">CACHES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L198">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L217">
       
       (source)
     </a>
@@ -1144,7 +1311,29 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="functionHeader">
     
     <span class="py-defname">CRISPY_TEMPLATE_PACK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L208">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L227">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basevariable">
+  
+  
+  <a name="saskatoon.settings.CKEDITOR_CONFIGS">
+    
+  </a>
+  <a name="CKEDITOR_CONFIGS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CKEDITOR_CONFIGS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L229">
       
       (source)
     </a>
@@ -1164,7 +1353,7 @@ the <tt class="rst-docutils literal"><span class="pre">saskatoon/.env</span></tt
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2022-03-26 23:11:02.
+    21.2.2 at 2022-03-29 03:51:49.
   </div>
 </footer>
 
