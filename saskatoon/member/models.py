@@ -289,8 +289,8 @@ class Organization(Actor):
     street = models.CharField(
         verbose_name=_("Street"),
         max_length=50,
-        null=True,
-        blank=True
+#         null=True,
+#         blank=True
     )
 
     complement = models.CharField(
