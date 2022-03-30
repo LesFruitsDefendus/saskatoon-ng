@@ -19,7 +19,8 @@ class HarvestFilter(filters.FilterSet):
     seasons = list(set(seasons))
     seasons = sorted(seasons, key=lambda tup: tup[1])
 
-    start_date = filters.ChoiceFilter(
+    season = filters.ChoiceFilter(
+        field_name='start_date', 
         choices=seasons,
         label=_("Season"),
         lookup_expr='year',
@@ -55,13 +56,13 @@ class HarvestFilter(filters.FilterSet):
 
     class Meta:
         model = Harvest
-        fields = {
-        'status': ['exact'],
-        'pick_leader': ['exact'],
-        'trees': ['exact'],
-        'property__neighborhood': ['exact'],
-        'start_date': ['exact'],
-        }
+        fields = (
+            'status',
+            'pick_leader',
+            'trees',
+            'property__neighborhood',
+            'season',
+        )
 
 
 class PropertyFilter(filters.FilterSet):
