@@ -39,7 +39,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'property',
                         'about',
                         'status',
-                        'start_date')
+                        'season')
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):
