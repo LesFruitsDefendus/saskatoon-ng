@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>member.filters.PickLeaderFilter</title>
+    <title>member.filters.UserGroupAdminFilter</title>
     <meta name="generator" content="pydoctor 21.2.2"> 
         
     </meta>
@@ -115,7 +115,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.filters.html">filters</a></code><wbr></wbr>.<code><a href="member.filters.PickLeaderFilter.html">PickLeaderFilter</a></code></code></h1>
+        <h1 class="class"><code><code><a href="member.html">member</a></code><wbr></wbr>.<code><a href="member.filters.html">filters</a></code><wbr></wbr>.<code><a href="member.filters.UserGroupAdminFilter.html">UserGroupAdminFilter</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,16 +126,16 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PickLeaderFilter</span>(<span title="django.contrib.admin.SimpleListFilter">SimpleListFilter</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L39" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#member.filters.PickLeaderFilter">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">UserGroupAdminFilter</span>(<span title="django.contrib.admin.SimpleListFilter">SimpleListFilter</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L9" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#member.filters.UserGroupAdminFilter">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
-        <div><p class="undocumented">Undocumented</p></div>
+        <div>Checks if AuthUser belongs to Group</div>
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id165">
+        <table class="children sortable" id="id163">
   
   
   <tr class="classvariable">
@@ -175,7 +175,7 @@
         <div class="baseclassvariable">
   
   
-  <a name="member.filters.PickLeaderFilter.title">
+  <a name="member.filters.UserGroupAdminFilter.title">
     
   </a>
   <a name="title">
@@ -184,7 +184,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">title</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L40">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L12">
       
       (source)
     </a>
@@ -197,7 +197,7 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="member.filters.PickLeaderFilter.parameter_name">
+  <a name="member.filters.UserGroupAdminFilter.parameter_name">
     
   </a>
   <a name="parameter_name">
@@ -206,7 +206,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">parameter_name</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L41">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L13">
       
       (source)
     </a>
@@ -219,7 +219,7 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="member.filters.PickLeaderFilter.default_value">
+  <a name="member.filters.UserGroupAdminFilter.default_value">
     
   </a>
   <a name="default_value">
@@ -228,7 +228,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">default_value</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L42">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L14">
       
       (source)
     </a>
@@ -241,7 +241,7 @@
 </div><div class="basemethod">
   
   
-  <a name="member.filters.PickLeaderFilter.lookups">
+  <a name="member.filters.UserGroupAdminFilter.lookups">
     
   </a>
   <a name="lookups">
@@ -250,7 +250,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">lookups</span>(self, request, model_admin):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L44">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L16">
       
       (source)
     </a>
@@ -263,7 +263,7 @@
 </div><div class="basemethod">
   
   
-  <a name="member.filters.PickLeaderFilter.queryset">
+  <a name="member.filters.UserGroupAdminFilter.queryset">
     
   </a>
   <a name="queryset">
@@ -272,7 +272,7 @@
   <div class="functionHeader">
     
     <span class="py-keyword">def</span> <span class="py-defname">queryset</span>(self, request, queryset):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L47">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/filters.py#L22">
       
       (source)
     </a>
@@ -292,7 +292,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2022-03-29 18:43:34.
+    21.2.2 at 2022-03-30 01:32:53.
   </div>
 </footer>
 
