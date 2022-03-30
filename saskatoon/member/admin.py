@@ -5,6 +5,7 @@ from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import ( UserCreationForm, UserChangeForm, 
         ReadOnlyPasswordHashField )
 from django import forms
+from django.utils.translation import gettext_lazy as _
 
 from member.models import (AuthUser, Actor, Language, Person, Organization, Neighborhood, City, State, Country)
 
@@ -13,12 +14,12 @@ class CustomUserCreationForm(UserCreationForm):
     plus a repeated password."""
 
     password1 = forms.CharField(
-        label='Password',
+        label=_('Password'),
         widget=forms.PasswordInput,
         required=False
     )
     password2 = forms.CharField(
-        label='Password Confirmation',
+        label=_('Password Confirmation'),
         widget=forms.PasswordInput,
         required=False
     )
@@ -47,10 +48,10 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(
-        label="password",
-        help_text="""Raw passwords are not stored, so there is no way to
+        label=_("password"),
+        help_text=_("""Raw passwords are not stored, so there is no way to
         see this user's password, but you can change the password using
-        <a href=\"../password/\"> this form</a>."""
+        <a href=\"../password/\"> this form</a>.""")
     )
 
     class Meta(UserChangeForm.Meta):
