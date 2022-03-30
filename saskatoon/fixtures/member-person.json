@@ -67,5 +67,28 @@
     "language": null,
     "comments": ""
   }
+},
+{
+  "model": "member.person",
+  "pk": 5,
+  "fields": {
+    "redmine_contact_id": null,
+    "first_name": "Core",
+    "family_name": "Member",
+    "phone": "514-123-4321",
+    "street_number": "321",
+    "street": "av. du Parc",
+    "complement": null,
+    "postal_code": "H2V 4V4",
+    "neighborhood": 11,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "language": 2,
+    "comments": ""
+  }
 }
 ]

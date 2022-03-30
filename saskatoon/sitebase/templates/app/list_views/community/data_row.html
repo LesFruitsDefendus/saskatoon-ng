@@ -1,0 +1,77 @@
+{% load i18n %}
+{% load static %}
+<tr>
+    <td>
+        {{ user.person.actor_id }}
+        {% if perms.member.delete_actor %}
+            &nbsp;
+            <small>
+                <a href="/admin/member/actor/{{user.person.actor_id}}/delete"
+                    onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
+                    <i class="fa fa-trash text-danger"></i>
+                </a>
+            </small>
+        {% endif %}
+    </td>
+    <td>
+        <span><b>{{ user.person.name }}</b> &nbsp;
+        {% if perms.member.change_person %}
+            <small><a href="/person/update/{{user.person.actor_id}}"
+                    title="edit">
+                <i class="fa fa-pencil"></i>
+            </a></small>
+        {% endif %}
+        </span><br>
+        <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
+        {% if perms.member.change_authuser %}
+            <a href="/admin/member/authuser/{{user.id}}/password/"
+               onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
+            {% if not user.password %}
+                title="register">
+                <small><i class="fa fa-plus"></i> </a></small>
+            {% else %}
+                title="reset-password">
+                <small><i class="fa fa-refresh"></i> </a></small>
+            {% endif %}
+        {% endif %}
+        <br>{{ user.person.phone|default:"" }}
+    </td>
+    <td>
+        <ul>
+            {% for role in user.roles %}
+                <li>{{ role }}</li>
+            {% endfor %}
+        </ul>
+    </td>
+    <td>
+
+        <ul class="list-inline">
+            {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
+                {% for harvest in user.person.harvests_as_pickleader %}
+                    {% include 'app/list_views/community/harvest_list.html' %}
+                {% endfor %}
+            {% elif 'volunteer' in user.role_codes %}
+                {% for harvest in user.person.harvests_as_volunteer_accepted %}
+                    {% include 'app/list_views/community/harvest_list.html' %}
+                {% endfor %}
+                {% for harvest in user.person.harvests_as_volunteer_pending %}
+                    {% include 'app/list_views/community/pending_list.html' %}
+                {% endfor %}
+                {% for harvest in user.person.harvests_as_volunteer_missed %}
+                    {{ harvest.request }}
+                    {% include 'app/list_views/community/missed_list.html' %}
+                {% endfor %}
+            {% elif 'owner' in user.role_codes %}
+                {% for harvest in user.person.harvests_as_owner %}
+                    {% include 'app/list_views/community/harvest_list.html' %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+    </td>
+    <td>
+        {% for property in user.person.properties %}
+            <p><a href="/property/{{ property.id }}">{{ property.short_address }}</a></p>
+        {% endfor %}
+    </td>
+    <td>{{ user.person.neighborhood.name }}</td>
+</tr>

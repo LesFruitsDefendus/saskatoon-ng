@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load static %}
+<div class="data-table-area">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <div class="basic-tb-hd">
+                                    <h2>{% trans "Pickers requests" %}</h2>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <a href="/participation/create?hid={{ harvest.id }}"
+                                    class="btn btn-success notika-btn-success waves-effect"
+                                    style="float: right">
+                                    <i class="fa fa-plus"></i> {% trans "New request" %}
+                                </a>
+                            </div>
+                        </div>
+                    <div class="table-responsive">
+                        <table id="data-table-basic" class="table compact">
+                            <tr>
+                                <th>{% trans "Contact" %}</th>
+                                <th style="width: 7%">{% trans "# pickers" %}</th>
+                                <th style="width: 9%">{% trans "Status" %}</th>
+                                <th style="width: 10%">{% trans "Requested on" %}</th>
+                                <th style="width: 10%">{% trans "Accepted on" %}</th>
+                                <th style="width: 8%">{% trans "Experience" %}</th>
+                                <th>{% trans "Msg from picker" %}</th>
+                                <th>{% trans "Msg from pick leader" %}</th>
+                                <th>{% trans "Manage" %}</th>
+                            </tr>
+                            {% for r in requests %}
+                                {% include 'app/detail_views/harvest/data_row.html' %}
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

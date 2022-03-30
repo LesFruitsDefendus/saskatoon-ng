@@ -1,0 +1,75 @@
+{% extends 'app/forms/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block form %}
+    <form method="post">
+        {% csrf_token %}
+
+        {{ form.is_beneficiary|as_crispy_field }}
+        {{ form.civil_name|as_crispy_field }}
+        {{ form.description|as_crispy_field }}
+
+        {{ form.phone|as_crispy_field }}
+        {{ form.street_number|as_crispy_field }}
+        {{ form.street|as_crispy_field }}
+        {{ form.complement|as_crispy_field }}
+        {{ form.postal_code|as_crispy_field }}
+        {{ form.neighborhood|as_crispy_field }}
+        {{ form.city|as_crispy_field }}
+        {{ form.state|as_crispy_field }}
+        {{ form.country|as_crispy_field }}
+
+        <br><hr>
+        <h5>{% trans "Contact Person" %}</h5>
+
+        {{ form.create_new_person|as_crispy_field }}
+
+        <div id="existing-contact">
+            {{ form.contact_person|as_crispy_field }}
+        </div>
+
+        <div class="collapse" id="new-contact">
+            {{ form.contact_first_name|as_crispy_field }}
+            {{ form.contact_last_name|as_crispy_field }}
+            {{ form.contact_email|as_crispy_field }}
+            {{ form.contact_phone|as_crispy_field }}
+        </div>
+
+        {{ form.contact_person_role|as_crispy_field }}
+
+        <br>
+        <button type="submit" class="btn btn-primary">
+            {% trans 'Save' %}
+        </button>
+        {% if cancel_url %}
+        <button type="button" class="btn btn-default" style="margin-left:1rem;">
+            <a href="{{ cancel_url }}">Cancel</a>
+            {% endif %}
+        </button>
+    </form>
+
+
+    <script>
+        function collapseContactPerson(){
+            if ($('#id_create_new_person').is(":checked")) {
+                $('#existing-contact').hide();
+                $('#new-contact').collapse('show');
+            } else {
+                $('#existing-contact').show();
+                $('#new-contact').collapse('hide');
+            }
+        }
+
+        $(function() {
+            collapseContactPerson();
+
+            $('#id_create_new_person').change(function() {
+                collapseContactPerson();
+            });
+
+        });
+    </script>
+
+{% endblock form %}

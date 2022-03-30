@@ -6,11 +6,15 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR
 
+# automatically exit on error
+set -e
+
 # migrate database in case it was not already done
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(member-city \
+seq=(auth-group \
+     member-city \
      member-neighborhood \
      member-state \
      member-country \

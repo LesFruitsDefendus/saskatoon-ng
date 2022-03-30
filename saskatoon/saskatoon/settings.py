@@ -9,20 +9,23 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 
-``python-dotenv`` is used to load environment variables from
-the ``saskatoon/.env`` file. Please check INSTALL.md for more details.
+``django-dotenv`` is used to load environment variables from the
+``saskatoon/.env`` file. Please check INSTALL.md for more details.
 """
 
 import os
 from pathlib import Path
-from dotenv import load_dotenv, find_dotenv #type: ignore
+from dotenv import read_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
 # Load the environment variables from .env file.
-file = find_dotenv(raise_error_if_not_found=True)
-if file: load_dotenv(dotenv_path=file)
+dotenv = os.path.join(BASE_DIR, '.env')
+if os.path.exists(dotenv):
+    read_dotenv(dotenv=dotenv)
+else:
+    raise IOError('.env file not found!')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -36,7 +39,16 @@ if os.getenv('SASKATOON_DEBUG') is not None:
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+# https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ALLOWED_HOSTS
+
+SERVER_IP = os.getenv('SASKATOON_SERVER_IP', '')
+if SERVER_IP:
+    ALLOWED_HOSTS.append(SERVER_IP)
+DOMAIN_NAME = os.getenv('SASKATOON_DOMAIN_NAME', '')
+if DOMAIN_NAME:
+    ALLOWED_HOSTS.append(DOMAIN_NAME)
+#print("ALLOWED_HOSTS", ALLOWED_HOSTS)
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
@@ -61,6 +73,7 @@ INSTALLED_APPS = [
     'django_filters',
     'crispy_forms',
     'debug_toolbar',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -75,7 +88,11 @@ MIDDLEWARE = [
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
+# URLs
 ROOT_URLCONF = 'saskatoon.urls'
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 TEMPLATES = [
     {
@@ -162,11 +179,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-
 STATIC_URL = '/static/'
-PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+# user-uploaded files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # EMAIL SERVER
 EMAIL_BACKEND = os.getenv('SASKATOON_EMAIL_BACKEND')
@@ -178,6 +196,7 @@ EMAIL_HOST_PASSWORD = os.getenv('SASKATOON_EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('SASKATOON_EMAIL_FROM')
 
 SEND_MAIL_FAIL_SILENTLY = not EMAIL_HOST
+if not EMAIL_BACKEND: del EMAIL_BACKEND
 
 # CUSTOM STUFF
 
@@ -196,13 +215,19 @@ REST_FRAMEWORK = {
 }
 
 CACHES = {
-    "default": {
-        "BACKEND": "django_redis.cache.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/1",
-        "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+    'default': {
+        'BACKEND': "django_redis.cache.RedisCache",
+        'LOCATION': "redis://127.0.0.1:6379/1",
+        'OPTIONS': {
+            'CLIENT_CLASS': "django_redis.client.DefaultClient",
         }
     }
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'width': "100%"
+    },
+}

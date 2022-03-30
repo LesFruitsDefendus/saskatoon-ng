@@ -8,7 +8,7 @@ Please follow each part of this documentation in order to run your own instance 
 
     For Debian and derivatives:
     ```
-    sudo apt install libmysqlclient-dev
+    sudo apt install default-libmysqlclient-dev
     ```
 
     For MacOS:
@@ -21,9 +21,10 @@ Please follow each part of this documentation in order to run your own instance 
 2. Python virtualenv
 
     To install Python requirements in a virtual environment:
+
+    For Ubuntu, Debian derivatives (for macOS, you should be able to use `pip`):
     ```
-    $ sudo apt install python3-dev
-    $ pip3 install virtualenv
+
     $ virtualenv venv
     $ . venv/bin/activate
     $(venv) pip3 install .
@@ -31,7 +32,21 @@ Please follow each part of this documentation in order to run your own instance 
 
     See `setup.py` for more details on the project's package requirements
 
-    NB: you might run into issues when installing the `Pillow` package using `pip`, in which case installing the following dependencies should help:
+
+3. Redis server
+
+    `django-redis` is currently used as a caching backend with default configuration (see `CACHES` variable in `saskatoon/settings.py`). A Redis server must be run in the background:
+    ```
+    $ sudo apt install redis-server
+    $ sudo systemctl status redis-server
+    ```
+    Note the Redis service will start automatically when the installation finishes (if using systemd)
+
+    [For macOS](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/).
+
+4. Pillow
+
+    You might run into issues when installing the `Pillow` package using `pip`, in which case installing the following dependencies should help:
 
     For Debian and derivatives:
     ```
@@ -52,7 +67,9 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## .env settings
 
-Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs. 
+
+Saskatoon uses `django-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
+
 
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
@@ -74,9 +91,9 @@ You can optionally configure other database engines. Please refer to [this Djang
 
 2. MySQL
 
-On Debian and derivatives: (TODO: check)
+On Debian and derivatives:
 ```
-$ sudo apt install mysql-server
+$ sudo apt install default-mysql-server
 $ sudo systemctl start mysql
 $ sudo systemctl enable mysql
 $ sudo systemctl status mysql
@@ -85,7 +102,7 @@ $ sudo mysql_secure_installation
 
 To create an empty database:
 ```
-$ mysql -u root -p
+$ sudo mysql -u root -p
 > CREATE USER '<user>'@'localhost' IDENTIFIED BY '<password>';
 > SELECT user FROM mysql.user;   // show all users
 > CREATE DATABASE saskatoon_dev;
@@ -138,7 +155,12 @@ $(venv) python3 saskatoon/manage.py createsuperuser --skip-checks
 
 For Django to serve static files during development `SASKATOON_DEBUG` must be set to `yes`.
 
-WARNING: This is not suitable for production use! (See [issue 86](https://github.com/LesFruitsDefendus/saskatoon-ng/issues/86))
+This is not suitable for production however. To collect all files from static folders (defined by `STATIC_URL` in `settings.py`) into the `STATIC_ROOT` directory:
+```
+$(venv) python3 saskatoon/manage.py collectstatic
+```
+
+See [https://docs.djangoproject.com/en/3.0/howto/static-files/](Django doc: managing static files) for more details.
 
 
 ### Launch the server on localhost
@@ -268,7 +290,7 @@ SASKATOON_ADMIN_EMAIL=admin@example.com
 SASKATOON_ADMIN_PASSWORD=testing1234
 ```
 
-Tests are located inside `saskatoon/tests` folder. 
+Tests are located inside `saskatoon/tests` folder.
 
 Created a test super user with the following command:
 

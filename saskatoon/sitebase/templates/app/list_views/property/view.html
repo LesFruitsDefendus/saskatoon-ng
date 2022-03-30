@@ -1,0 +1,26 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block table %}
+
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>{% trans "Property" %}</th>
+            <th>{% trans "Neighborhood" %}</th>
+            <th style="width: 12%">{% trans "Status" %}</th>
+            <th>{% trans "Tree" %}</th>
+            <th>{% trans "Picks" %}</th>
+            <th>{% trans "Last pick" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for property in data %}
+
+            {% include 'app/list_views/property/data_row.html' %}
+
+        {% endfor %}
+    </tbody>
+
+{% endblock table %}

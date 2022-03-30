@@ -1,13 +1,25 @@
 # coding: utf-8
 
 from django.db import models
+from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import AbstractBaseUser, \
-    PermissionsMixin, BaseUserManager
+from django.contrib.auth.models import ( Group, AbstractBaseUser,
+                                         PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation, Harvest, Property
 
+AUTH_GROUPS = (
+    ('core', _("Core Member")),
+    ('pickleader', _("Pick Leader")),
+    ('volunteer', _("Volunteer Picker")),
+    ('owner', _("Property Owner")),
+    ('contact', _("Contact Person")),
+)
+
+STAFF_GROUPS = ['core', 'pickleader']
+
 class AuthUserManager(BaseUserManager):
+
     def create_user(self, email, password=None):
         if not email:
             raise ValueError('Users must have an email address')
@@ -26,9 +38,15 @@ class AuthUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class AuthUser(AbstractBaseUser, PermissionsMixin):
 
-    person = models.OneToOneField('Person', on_delete=models.CASCADE, null=True)
+    person = models.OneToOneField(
+        'Person',
+        on_delete=models.CASCADE,
+        null=True,
+        related_name='auth_user'
+    )
 
     alphanumeric = RegexValidator(
         r'^[0-9a-zA-Z]*$',
@@ -50,22 +68,34 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
 
-    #TODO: this should go to 'Person' class
-    def harvests_as_pickleader(self):
-        harvests = Harvest.objects.filter(pick_leader=self)
-        return harvests
+    def set_roles(self, roles):
+        ''' updates user's groups
+            :param roles: list of group names (see AUTH_GROUPS)
+        '''
+        self.groups.clear()
+        for role in roles:
+            group, __ =  Group.objects.get_or_create(name=role)
+            self.groups.add(group)
 
-    def get_full_name(self):
-        return self.person.name
+        self.is_staff = any([r in STAFF_GROUPS for r in roles])
+        self.save()
 
-    def get_short_name(self):
-        return self.email
+    @property
+    def role_groups(self):
+        ''' return user's role groups'''
+        return self.groups.filter(name__in=[t[0] for t in AUTH_GROUPS])
+
+    @property
+    def roles(self):
+        ''' lists user's role names'''
+        return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
 
     def __str__(self):
         if self.person:
             return u"%s" % self.person
         else:
             return self.email
+
 
 class Actor(models.Model):
     actor_id = models.AutoField(
@@ -76,16 +106,20 @@ class Actor(models.Model):
         verbose_name = _("actor")
         verbose_name_plural = _("actors")
 
-    def __str__(self):
+    def get_person(self):
+        return Person.objects.filter(actor_id=self.actor_id).first()
 
-        if Person.objects.filter(actor_id = self.actor_id).exists():
-            p = Person.objects.get(actor_id = self.actor_id)
-            return p.__str__()
-        elif Organization.objects.filter(actor_id = self.actor_id).exists():
-            o = Organization.objects.get(actor_id = self.actor_id)
-            return o.__str__()
+    def get_organization(self):
+        return Organization.objects.filter(actor_id=self.actor_id).first()
+
+    def __str__(self):
+        if self.get_person():
+            return self.get_person().__str__()
+        elif self.get_organization():
+            return self.get_organization().__str__()
         else:
             return u"Unknown Actor: %i" % self.actor_id
+
 
 class Person(Actor):
     redmine_contact_id = models.IntegerField(
@@ -145,6 +179,7 @@ class Person(Actor):
         'Neighborhood',
         verbose_name=_("Neighborhood"),
         null=True,
+        blank=True,
         on_delete=models.CASCADE,
     )
 
@@ -220,21 +255,37 @@ class Person(Actor):
         else:
             return None
 
-    def participation_count(self):
-        count = RequestForParticipation.objects.filter(
-            picker=self,
-            is_accepted=True
-        ).count()
-        return count
+    @property
+    def properties(self):
+        # TODO set up reverse relationship instead
+        return Property.objects.filter(owner=self)
 
-    def get_properties(self):
-        properties = Property.objects.filter(owner=self)
-        return properties
+    @property
+    def harvests_as_pickleader(self):
+        return Harvest.objects.filter(pick_leader=self.auth_user)
 
-    # get harvests in which the person participated in
-    def get_harvests(self):
-        requests = RequestForParticipation.objects.filter(picker=self).filter(is_accepted=True)
-        return requests
+    @property
+    def requests_as_volunteer(self):
+        return RequestForParticipation.objects.filter(picker=self)
+
+    @property
+    def harvests_as_volunteer_accepted(self):
+        requests = self.requests_as_volunteer.filter(is_accepted=True)
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_volunteer_pending(self):
+        requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_volunteer_missed(self):
+        requests = self.requests_as_volunteer.filter(Q(is_accepted=False)|Q(is_cancelled=True))
+        return Harvest.objects.filter(request_for_participation__in=requests)
+
+    @property
+    def harvests_as_owner(self):
+        return Harvest.objects.filter(property__in=self.properties)
 
 
 class Organization(Actor):

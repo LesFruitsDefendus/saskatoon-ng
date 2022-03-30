@@ -16,18 +16,31 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         model = Neighborhood
         fields = '__all__'
 
+# Person serializer
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    properties = serializers.ReadOnlyField(source='get_properties')
-    harvests = serializers.ReadOnlyField(source='get_harvests')
-    full_name = serializers.ReadOnlyField(source='name')
 
     class Meta:
         model = Person
-        fields = '__all__'
+        fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
+                  'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
+                  'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
+                  'harvests_as_owner', 'properties']
+
+# Beneficiary serializer
+class BeneficiarySerializer(serializers.ModelSerializer):
+    contact_person = PersonSerializer(many=False, read_only=True)
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Organization
+        fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
+                  'is_beneficiary', 'contact_person', 'neighborhood']
 
 # Actor serializer
 class ActorSerializer(serializers.ModelSerializer):
+    person = PersonSerializer(source='get_person', many=False, read_only=True)
+    organization = BeneficiarySerializer(source='get_organization', many=False, read_only=True)
     class Meta:
         model = Actor
         fields = '__all__'
@@ -43,6 +56,7 @@ class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = State
         fields = '__all__'
+
 # Country serializer
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
@@ -71,7 +85,7 @@ class PropertySerializer(serializers.ModelSerializer):
         # is a Person or an Organization and will serialize the result.
         # A solution could also be something like this
         # https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer/33137535#33137535
-        
+
         if isinstance(obj.owner, Actor):
             entity = Person.objects.filter(actor_id=obj.owner.actor_id)
             if not entity:
@@ -113,6 +127,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
 class EquipmentSerializer(serializers.ModelSerializer):
     property = PropertySerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
+    owner = ActorSerializer(many=False, read_only=True)
     class Meta:
         model = Equipment
         fields = '__all__'
@@ -124,10 +139,12 @@ class HarvestSerializer(serializers.ModelSerializer):
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
-    status = serializers.ReadOnlyField(source='get_status_l10n')
-    start_date = serializers.DateTimeField(format="%Y-%m-%d")
-    start_time = serializers.DateTimeField(source='start_date', format="%H:%M")
+    # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
+    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
+    start_time = serializers.DateTimeField(source='get_local_start', format="%H:%M")
+    end_time = serializers.DateTimeField(source='get_local_end', format="%H:%M")
     # # 2) get string rather than id from a pk
+    status = serializers.StringRelatedField(many=False)
     pick_leader = serializers.StringRelatedField(many=False)
     trees = serializers.StringRelatedField(many=True)
     # 3) get the full instance from another serializer class
@@ -137,22 +154,14 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
-# Person serializer
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
-    person_name = serializers.ReadOnlyField(source='get_full_name')
-    as_leader = serializers.ReadOnlyField(source='harvests_as_pickleader')
     person = PersonSerializer(many=False, read_only=True)
+    roles = serializers.ReadOnlyField()
+    role_codes = serializers.SerializerMethodField()
     class Meta:
         model = AuthUser
         fields = '__all__'
 
-# Equipment serializer
-class BeneficiarySerializer(serializers.ModelSerializer):
-    property = PropertySerializer(many=False, read_only=True)
-    contact_person = PersonSerializer(many=False, read_only=True)
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Organization
-        fields = '__all__'
+    def get_role_codes(self, instance):
+        return [g.name for g in instance.role_groups]

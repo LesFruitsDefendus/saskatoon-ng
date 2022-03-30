@@ -65,6 +65,7 @@ class TreeType(models.Model):
     class Meta:
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
@@ -108,12 +109,14 @@ class Property(models.Model):
     )
 
     pending_contact_name = models.CharField(
+        blank=True,
         verbose_name=_("Contact name"),
         help_text=_("Name of the person to be contacted for confirmation"),
         max_length=50
     )
 
     pending_contact_phone = models.CharField(
+        blank=True,
         verbose_name=_("Contact phone number"),
         help_text=_("Phone number to be used for confirmation"),
         max_length=50
@@ -324,12 +327,10 @@ class Property(models.Model):
         verbose_name_plural = _("properties")
 
     def __str__(self):
-        if self.street_number:
-            return u"%s at %s %s" % \
-                   (self.owner, self.street_number, self.street)
-        else:
-            return u"%s at %s" % \
-                   (self.owner, self.street)
+        name = self.owner if self.owner else u"(%s)" % self.pending_contact_name
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % \
+            (name, _("at"), number, self.street)
 
     @property
     def short_address(self):
@@ -361,6 +362,7 @@ class Property(models.Model):
         last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
         if last_harvest:
             return last_harvest[0].start_date
+        return None
     #
     # def get_owner_subclass(self):
     #     from member.models import Person, Organization
@@ -482,18 +484,26 @@ class Harvest(models.Model):
             total += y.total_in_lb
         return total
 
+    def get_local_start(self):
+        tz = timezone.get_current_timezone()
+        return self.start_date.astimezone(tz) if self.start_date else self.start_date
+
+    def get_local_end(self):
+        tz = timezone.get_current_timezone()
+        return self.end_date.astimezone(tz) if self.end_date else self.end_date
+
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
 
     def __str__(self):
         if self.start_date:
-            return u"Harvest on %s at %s" % (
-                self.start_date.strftime("%d/%m/%Y %H:%M"),
+            return u"Harvest on %s for %s" % (
+                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
         else:
-            return u"Harvest at %s" % self.property
+            return u"Harvest for %s" % self.property
 
     def get_pickers(self):
         requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
@@ -518,42 +528,15 @@ class Harvest(models.Model):
 
             if self.status == 'Ready' and day_before_harvest == 0:
                 return True
-
         return False
 
     def is_publishable(self):
-        now = datetime.datetime.now()
-        publication_hour = 18  # FIXME: add a model to set this up, btw this means the time the harvest will be available to volunteers to assign
-        print("Publication date: ", self.publication_date)
-        if self.publication_date is not None:
-            is_good_day = self.publication_date.day == now.day
-            print(
-                self.publication_date.day,
-                now.day,
-                "<== PUBLICATION DAY & NOW DAY"
-            )
-            is_good_month = self.publication_date.month == now.month
-            print(self.publication_date.month)
-            is_good_year = self.publication_date.year == now.year
-            print(self.publication_date.year)
-
-            print(is_good_day, is_good_month, is_good_year)
-
-            print("TODAY: ", now)
-            if is_good_day and is_good_month and is_good_year:
-                is_today = True
-            else:
-                is_today = False
-
-            if self.status in ["Ready", "Date-scheduled", "Succeeded"]:
-                return True
-            else:
-                # do not publish if harvest
-                # is not ready/scheduled/succeeded
-                return False
+        if self.publication_date:
+            pub = self.publication_date
+            now = datetime.datetime.now().astimezone(pub.tzinfo)
+            return (now > pub)
         else:
             return False
-            # do not publish if there's no publication_date
 
     def is_open_to_requests(self):
         now = datetime.datetime.now().date()
@@ -711,8 +694,7 @@ class Equipment(models.Model):
     shared = models.BooleanField(
         verbose_name=_("Shared"),
         help_text=_("Can be used in harvests outside of property"),
-        # FIXME? is quoted boolean OK?
-        default='False'
+        default=False
     )
 
     class Meta:

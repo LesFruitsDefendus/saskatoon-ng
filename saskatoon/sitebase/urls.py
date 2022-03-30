@@ -6,38 +6,24 @@ from sitebase import views
 
 urlpatterns = [
 
-    # The home page
-    url(r'^$', views.index, name='index'),
-    path('accounts/login/', auth_views.LoginView.as_view()),
-    path('i18n/', include('django.conf.urls.i18n')),
-    # url(
-    #     r'^password_reset/$',
-    #     auth_views.PasswordResetView,
-    #     name='password_reset'
-    # ),
-    # url(
-    #     r'^password_reset/done/$',
-    #     auth_views.PasswordResetDoneView,
-    #     name='password_reset_done'
-    # ),
-    # url(
-    #     r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
-    #     auth_views.PasswordResetConfirmView,
-    #     name='password_reset_confirm'
-    # ),
-    # url(
-    #     r'^reset/done/$',
-    #     auth_views.PasswordResetCompleteView,
-    #     name='password_reset_complete'
-    # ),
-    url(
-        r'^calendar$',
-        views.Calendar.as_view(),
-        name='calendar'
-    ),
-    url(
-        r'^jsoncal',
-        views.JsonCalendar.as_view(),
-        name='calendarJSON'
-    ),
+    url(r'^$', views.Index.as_view(), name='home'),
+    url(r'^calendar$', views.Calendar.as_view(), name='calendar'),
+    url(r'^jsoncal', views.JsonCalendar.as_view(), name='calendarJSON'),
+
+    path('reset_password/',
+         auth_views.PasswordResetView.as_view(),
+         name ='reset_password'),
+
+    path('reset_password_sent/',
+         auth_views.PasswordResetDoneView.as_view(),
+         name ='password_reset_done'),
+
+    path('reset/<uidb64>/<token>',
+         auth_views.PasswordResetConfirmView.as_view(),
+         name ='password_reset_confirm'),
+
+    path('reset_password_complete/',
+         auth_views.PasswordResetCompleteView.as_view(),
+         name ='password_reset_complete'),
+
 ]
