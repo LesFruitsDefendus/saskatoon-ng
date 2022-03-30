@@ -485,10 +485,14 @@ class Harvest(models.Model):
         return total
 
     def get_local_start(self):
+        if not self.start_date:
+            return None
         tz = timezone.get_current_timezone()
         return self.start_date.astimezone(tz)
 
     def get_local_end(self):
+        if not self.end_date:
+            return None
         tz = timezone.get_current_timezone()
         return self.end_date.astimezone(tz)
 
