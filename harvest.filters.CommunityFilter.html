@@ -7,11 +7,11 @@
   <head>
     
     <title>harvest.filters.CommunityFilter</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 22.3.0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
     <link rel="stylesheet" type="text/css" href="extra.css" />
@@ -44,70 +44,86 @@
           Names
         </a>
 
-        <form action="search-results.html" id="search-box-container">
+        <div id="search-box-container">
           <div class="input-group">
-            <input id="search-box" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" />
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
             <span class="input-group-btn">
-              <button class="btn btn-default" type="submit" title="Search"><img src="fonts/search.svg" alt="Search!" /></button>
-              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help!" /></a>
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
             </span>
           </div>
-        </form>
+        </div>
 
-        <div class="rst-admonition hint" id="search-help-box">
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
           <p class="rst-last">
       
             Search bar offers the following options:
             <ul>   
                 <li>
                   <strong>Term presence.</strong> The below example searches for documents that 
-                    must contain “foo”, might contain “bar” and must not contain “baz”:
-                  <br /> <code>'+foo bar -baz'</code>
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
                 </li> 
 
                 <li>
-                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”:
-                  <br /> <code>'foo*'</code>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
                 </li> 
 
                 <li>
-                  <strong>Search in specific fields.</strong> The following search matches all documents 
-                  that contains "foo" in their full dotted name and with “bar” in any field:
-                  <br /> <code>'+fullName:*foo* +bar'</code>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
 
                   <p>
-                    Possible fields: 'name', 'docstring', 'fullName'.
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
                   </p>
                 </li>
 
                 <li>
                   <strong>Fuzzy matches.</strong> The following search matches all documents 
-                  that have a word within 1 edit distance of “foo”:
-                  <br /> <code>'foo~1'</code>
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
                 </li>
             </ul>
 
           </p>
         </div>
 
-      </div>
+        <div id="search-status"> </div>
 
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
 
     </div>
   </div>
-
-  <script>
- 
-    function toggleSearchHelpText() {
-        document.body.classList.toggle("search-help-hidden");
-    }
-    // Init search and help text
-    document.getElementById('search-box-container').style.display = 'block';
-    document.getElementById('search-help-box').style.display = 'block';
-    document.body.classList.add("search-help-hidden");
-
-  </script>
-
 </nav>
 
     
@@ -115,7 +131,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html">harvest</a></code><wbr></wbr>.<code><a href="harvest.filters.html">filters</a></code><wbr></wbr>.<code><a href="harvest.filters.CommunityFilter.html">CommunityFilter</a></code></code></h1>
+        <h1 class="class"><code><code><a href="harvest.html" class="internal-link">harvest</a></code><wbr></wbr>.<code><a href="harvest.filters.html" class="internal-link" title="harvest.filters">filters</a></code><wbr></wbr>.<code><a href="harvest.filters.CommunityFilter.html" class="internal-link" title="harvest.filters.CommunityFilter">CommunityFilter</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -126,7 +142,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">CommunityFilter</span>(<span title="django_filters.rest_framework.FilterSet">filters.FilterSet</span>): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L99" class="sourceLink">(source)</a></code></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">CommunityFilter</span>(filters.FilterSet): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L99" class="sourceLink">(source)</a></code></p>
         <p><a href="classIndex.html#harvest.filters.CommunityFilter">View In Hierarchy</a></p>
       </div>
 
@@ -138,45 +154,45 @@
         <table class="children sortable" id="id38">
   
   
-  <tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#groups">groups</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#person__neighborhood">person__neighborhood</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#person__language">person__language</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#person__first_name">person__first_name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#person__family_name">person__family_name</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#custom_person_first_name_filter">custom_person_first_name_filter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="method">
-    
-    <td>Method</td>
-    <td><code><a href="#custom_person_family_name_filter">custom_person_family_name_filter</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="class">
+  <tr class="class">
     
     <td>Class</td>
-    <td><code><a href="harvest.filters.CommunityFilter.Meta.html">Meta</a></code></td>
+    <td><code><a href="harvest.filters.CommunityFilter.Meta.html" class="internal-link" title="harvest.filters.CommunityFilter.Meta">​Meta</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#custom_person_family_name_filter" class="internal-link" title="harvest.filters.CommunityFilter.custom_person_family_name_filter">custom​_person​_family​_name​_filter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#custom_person_first_name_filter" class="internal-link" title="harvest.filters.CommunityFilter.custom_person_first_name_filter">custom​_person​_first​_name​_filter</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#groups" class="internal-link" title="harvest.filters.CommunityFilter.groups">groups</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#person__family_name" class="internal-link" title="harvest.filters.CommunityFilter.person__family_name">person​_​_family​_name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#person__first_name" class="internal-link" title="harvest.filters.CommunityFilter.person__first_name">person​_​_first​_name</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#person__language" class="internal-link" title="harvest.filters.CommunityFilter.person__language">person​_​_language</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="classvariable">
+    
+    <td>Class Variable</td>
+    <td><code><a href="#person__neighborhood" class="internal-link" title="harvest.filters.CommunityFilter.person__neighborhood">person​_​_neighborhood</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -187,112 +203,24 @@
 
       <div id="childList">
 
-        <div class="baseclassvariable">
+        <div class="basemethod">
   
   
-  <a name="harvest.filters.CommunityFilter.groups">
+  <a name="harvest.filters.CommunityFilter.custom_person_family_name_filter">
     
   </a>
-  <a name="groups">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">groups</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L101">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.filters.CommunityFilter.person__neighborhood">
-    
-  </a>
-  <a name="person__neighborhood">
+  <a name="custom_person_family_name_filter">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">person__neighborhood</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L108">
+    <span class="py-keyword">def</span> <span class="py-defname">custom_person_family_name_filter</span>(self, queryset, name, value):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L136">
       
       (source)
     </a>
   </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.filters.CommunityFilter.person__language">
-    
-  </a>
-  <a name="person__language">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">person__language</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L115">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.filters.CommunityFilter.person__first_name">
-    
-  </a>
-  <a name="person__first_name">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">person__first_name</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L122">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.filters.CommunityFilter.person__family_name">
-    
-  </a>
-  <a name="person__family_name">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">person__family_name</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L127">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
+  <div class="docstring functionBody">
     
     
     <div><p class="undocumented">Undocumented</p></div>
@@ -319,27 +247,120 @@
     
     <div><p class="undocumented">Undocumented</p></div>
   </div>
-</div><div class="basemethod">
+</div><div class="baseclassvariable">
   
   
-  <a name="harvest.filters.CommunityFilter.custom_person_family_name_filter">
+  <a name="harvest.filters.CommunityFilter.groups">
     
   </a>
-  <a name="custom_person_family_name_filter">
+  <a name="groups">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">custom_person_family_name_filter</span>(self, queryset, name, value):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L136">
+    <span class="py-defname">groups</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L101">
       
       (source)
     </a>
   </div>
-  <div class="docstring functionBody">
+  <div class="functionBody">
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.filters.CommunityFilter.person__family_name">
+    
+  </a>
+  <a name="person__family_name">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">person__family_name</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L127">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.filters.CommunityFilter.person__first_name">
+    
+  </a>
+  <a name="person__first_name">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">person__first_name</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L122">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.filters.CommunityFilter.person__language">
+    
+  </a>
+  <a name="person__language">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">person__language</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L115">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="harvest.filters.CommunityFilter.person__neighborhood">
+    
+  </a>
+  <a name="person__neighborhood">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">person__neighborhood</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/filters.py#L108">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
   </div>
 </div>
 
@@ -347,12 +368,20 @@
     </div>
 
     <footer class="navbar navbar-default">
+
   
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2022-03-30 20:53:35.
+    22.3.0 at 2022-03-31 02:43:11.
   </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
 </footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>

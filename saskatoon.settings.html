@@ -7,11 +7,11 @@
   <head>
     
     <title>saskatoon.settings</title>
-    <meta name="generator" content="pydoctor 21.2.2"> 
+    <meta name="generator" content="pydoctor 22.3.0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=0.75" />
+    <meta name="viewport" content="width=device-width, initial-scale=1 maximum-scale=1" />
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="apidocs.css" />
     <link rel="stylesheet" type="text/css" href="extra.css" />
@@ -44,70 +44,86 @@
           Names
         </a>
 
-        <form action="search-results.html" id="search-box-container">
+        <div id="search-box-container">
           <div class="input-group">
-            <input id="search-box" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" />
+            <input id="search-box" type="search" name="search-query" placeholder="Search..." aria-label="Search" minlength="2" class="form-control" autocomplete="off" />
+            
             <span class="input-group-btn">
-              <button class="btn btn-default" type="submit" title="Search"><img src="fonts/search.svg" alt="Search!" /></button>
-              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help!" /></a>
+              <a style="display: none;" class="btn btn-default" id="search-clear-button" title="Clear" onclick="clearSearch()"><img src="fonts/x-circle.svg" alt="Clear" /></a>
+              <a class="btn btn-default" id="search-help-button" title="Help" onclick="toggleSearchHelpText()"><img src="fonts/info.svg" alt="Help" /></a>
             </span>
           </div>
-        </form>
+        </div>
 
-        <div class="rst-admonition hint" id="search-help-box">
+      </div>
+
+      <div id="search-results-container" style="display: none;">
+        
+        <div id="search-buttons">
+          <span class="label label-default" id="search-docstrings-button">
+          <label class="checkbox-inline">
+            <input type="checkbox" id="toggle-search-in-docstrings-checkbox" value="false" onclick="toggleSearchInDocstrings()">
+              search in docstrings
+            </input>
+          </label>
+          </span>
+          
+        </div>
+        
+        <noscript>
+            <h1>Cannot search: JavaScript is not supported/enabled in your browser.</h1>
+        </noscript>
+
+        <div class="hint" id="search-help-box">
           <p class="rst-last">
       
             Search bar offers the following options:
             <ul>   
                 <li>
                   <strong>Term presence.</strong> The below example searches for documents that 
-                    must contain “foo”, might contain “bar” and must not contain “baz”:
-                  <br /> <code>'+foo bar -baz'</code>
+                    must contain “foo”, might contain “bar” and must not contain “baz”: <code>+foo bar -baz</code>
                 </li> 
 
                 <li>
-                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”:
-                  <br /> <code>'foo*'</code>
+                  <strong>Wildcards.</strong> The below example searches for documents with words beginning with “foo”: <code>foo*</code>
                 </li> 
 
                 <li>
-                  <strong>Search in specific fields.</strong> The following search matches all documents 
-                  that contains "foo" in their full dotted name and with “bar” in any field:
-                  <br /> <code>'+fullName:*foo* +bar'</code>
+                  <strong>Search in specific fields.</strong> The following search matches all objects 
+                  in "twisted.mail" that matches “search”: <code>+qname:twisted.mail.* +search</code>
 
                   <p>
-                    Possible fields: 'name', 'docstring', 'fullName'.
+                    Possible fields: 'name', 'qname' (fully qualified name), 'docstring', and 'kind'.
+                    Last two fields are only applicable if "search in docstrings" is enabled.
                   </p>
                 </li>
 
                 <li>
                   <strong>Fuzzy matches.</strong> The following search matches all documents 
-                  that have a word within 1 edit distance of “foo”:
-                  <br /> <code>'foo~1'</code>
+                  that have a word within 1 edit distance of “foo”: <code>foo~1</code>
                 </li>
             </ul>
 
           </p>
         </div>
 
-      </div>
+        <div id="search-status"> </div>
 
+        <div class="warning" id="search-warn-box" style="display: none;">
+          <p class="rst-last"><span id="search-warn"></span></p>
+        </div>
+
+        <table id="search-results">
+          <!-- Filled dynamically by JS -->
+        </table>
+        
+        <div style="margin-top: 8px;">
+          <p>Results provided by <a href="https://lunrjs.com">Lunr.js</a></p>
+        </div>
+      </div>
 
     </div>
   </div>
-
-  <script>
- 
-    function toggleSearchHelpText() {
-        document.body.classList.toggle("search-help-hidden");
-    }
-    // Init search and help text
-    document.getElementById('search-box-container').style.display = 'block';
-    document.getElementById('search-help-box').style.display = 'block';
-    document.body.classList.add("search-help-hidden");
-
-  </script>
-
 </nav>
 
     
@@ -115,7 +131,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="saskatoon.html">saskatoon</a></code><wbr></wbr>.<code><a href="saskatoon.settings.html">settings</a></code></code></h1>
+        <h1 class="module"><code><code><a href="saskatoon.html" class="internal-link">saskatoon</a></code><wbr></wbr>.<code><a href="saskatoon.settings.html" class="internal-link" title="saskatoon.settings">settings</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -146,225 +162,225 @@
         <table class="children sortable" id="id214">
   
   
-  <tr class="variable">
+  <tr class="constant">
     
-    <td>Variable</td>
-    <td><code><a href="#BASE_DIR">BASE_DIR</a></code></td>
+    <td>Constant</td>
+    <td><code><a href="#ALLOWED_HOSTS" class="internal-link" title="saskatoon.settings.ALLOWED_HOSTS">ALLOWED​_HOSTS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#AUTH_PASSWORD_VALIDATORS" class="internal-link" title="saskatoon.settings.AUTH_PASSWORD_VALIDATORS">AUTH​_PASSWORD​_VALIDATORS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#AUTH_USER_MODEL" class="internal-link" title="saskatoon.settings.AUTH_USER_MODEL">AUTH​_USER​_MODEL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#BASE_DIR" class="internal-link" title="saskatoon.settings.BASE_DIR">BASE​_DIR</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#CACHES" class="internal-link" title="saskatoon.settings.CACHES">CACHES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#CKEDITOR_CONFIGS" class="internal-link" title="saskatoon.settings.CKEDITOR_CONFIGS">CKEDITOR​_CONFIGS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#CRISPY_TEMPLATE_PACK" class="internal-link" title="saskatoon.settings.CRISPY_TEMPLATE_PACK">CRISPY​_TEMPLATE​_PACK</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#CSRF_COOKIE_SECURE" class="internal-link" title="saskatoon.settings.CSRF_COOKIE_SECURE">CSRF​_COOKIE​_SECURE</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#DATABASES" class="internal-link" title="saskatoon.settings.DATABASES">DATABASES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#DEBUG" class="internal-link" title="saskatoon.settings.DEBUG">DEBUG</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#DEFAULT_AUTO_FIELD" class="internal-link" title="saskatoon.settings.DEFAULT_AUTO_FIELD">DEFAULT​_AUTO​_FIELD</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#DEFAULT_FROM_EMAIL" class="internal-link" title="saskatoon.settings.DEFAULT_FROM_EMAIL">DEFAULT​_FROM​_EMAIL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#DOMAIN_NAME" class="internal-link" title="saskatoon.settings.DOMAIN_NAME">DOMAIN​_NAME</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_BACKEND" class="internal-link" title="saskatoon.settings.EMAIL_BACKEND">EMAIL​_BACKEND</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_HOST" class="internal-link" title="saskatoon.settings.EMAIL_HOST">EMAIL​_HOST</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_HOST_PASSWORD" class="internal-link" title="saskatoon.settings.EMAIL_HOST_PASSWORD">EMAIL​_HOST​_PASSWORD</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_HOST_USER" class="internal-link" title="saskatoon.settings.EMAIL_HOST_USER">EMAIL​_HOST​_USER</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_PORT" class="internal-link" title="saskatoon.settings.EMAIL_PORT">EMAIL​_PORT</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#EMAIL_USE_TLS" class="internal-link" title="saskatoon.settings.EMAIL_USE_TLS">EMAIL​_USE​_TLS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#INSTALLED_APPS" class="internal-link" title="saskatoon.settings.INSTALLED_APPS">INSTALLED​_APPS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#INTERNAL_IPS" class="internal-link" title="saskatoon.settings.INTERNAL_IPS">INTERNAL​_IPS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LANGUAGE_CODE" class="internal-link" title="saskatoon.settings.LANGUAGE_CODE">LANGUAGE​_CODE</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LANGUAGES" class="internal-link" title="saskatoon.settings.LANGUAGES">LANGUAGES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LOCALE_PATHS" class="internal-link" title="saskatoon.settings.LOCALE_PATHS">LOCALE​_PATHS</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LOGIN_REDIRECT_URL" class="internal-link" title="saskatoon.settings.LOGIN_REDIRECT_URL">LOGIN​_REDIRECT​_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LOGIN_URL" class="internal-link" title="saskatoon.settings.LOGIN_URL">LOGIN​_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#LOGOUT_REDIRECT_URL" class="internal-link" title="saskatoon.settings.LOGOUT_REDIRECT_URL">LOGOUT​_REDIRECT​_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#MEDIA_ROOT" class="internal-link" title="saskatoon.settings.MEDIA_ROOT">MEDIA​_ROOT</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#MEDIA_URL" class="internal-link" title="saskatoon.settings.MEDIA_URL">MEDIA​_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#MIDDLEWARE" class="internal-link" title="saskatoon.settings.MIDDLEWARE">MIDDLEWARE</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#REST_FRAMEWORK" class="internal-link" title="saskatoon.settings.REST_FRAMEWORK">REST​_FRAMEWORK</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#ROOT_URLCONF" class="internal-link" title="saskatoon.settings.ROOT_URLCONF">ROOT​_URLCONF</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#SECRET_KEY" class="internal-link" title="saskatoon.settings.SECRET_KEY">SECRET​_KEY</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#SEND_MAIL_FAIL_SILENTLY" class="internal-link" title="saskatoon.settings.SEND_MAIL_FAIL_SILENTLY">SEND​_MAIL​_FAIL​_SILENTLY</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#SERVER_IP" class="internal-link" title="saskatoon.settings.SERVER_IP">SERVER​_IP</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#STATIC_ROOT" class="internal-link" title="saskatoon.settings.STATIC_ROOT">STATIC​_ROOT</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#STATIC_URL" class="internal-link" title="saskatoon.settings.STATIC_URL">STATIC​_URL</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#TEMPLATES" class="internal-link" title="saskatoon.settings.TEMPLATES">TEMPLATES</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#TIME_ZONE" class="internal-link" title="saskatoon.settings.TIME_ZONE">TIME​_ZONE</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#USE_I18N" class="internal-link" title="saskatoon.settings.USE_I18N">USE​_I18N</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#USE_L10N" class="internal-link" title="saskatoon.settings.USE_L10N">USE​_L10N</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#USE_TZ" class="internal-link" title="saskatoon.settings.USE_TZ">USE​_TZ</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="constant">
+    
+    <td>Constant</td>
+    <td><code><a href="#WSGI_APPLICATION" class="internal-link" title="saskatoon.settings.WSGI_APPLICATION">WSGI​_APPLICATION</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
-    <td><code><a href="#dotenv">dotenv</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#SECRET_KEY">SECRET_KEY</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#DEBUG">DEBUG</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#ALLOWED_HOSTS">ALLOWED_HOSTS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#SERVER_IP">SERVER_IP</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#DOMAIN_NAME">DOMAIN_NAME</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#INTERNAL_IPS">INTERNAL_IPS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#INSTALLED_APPS">INSTALLED_APPS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#MIDDLEWARE">MIDDLEWARE</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#ROOT_URLCONF">ROOT_URLCONF</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LOGIN_URL">LOGIN_URL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LOGIN_REDIRECT_URL">LOGIN_REDIRECT_URL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LOGOUT_REDIRECT_URL">LOGOUT_REDIRECT_URL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#TEMPLATES">TEMPLATES</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#WSGI_APPLICATION">WSGI_APPLICATION</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#DATABASES">DATABASES</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#DEFAULT_AUTO_FIELD">DEFAULT_AUTO_FIELD</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#AUTH_PASSWORD_VALIDATORS">AUTH_PASSWORD_VALIDATORS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LANGUAGE_CODE">LANGUAGE_CODE</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LANGUAGES">LANGUAGES</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#LOCALE_PATHS">LOCALE_PATHS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#CSRF_COOKIE_SECURE">CSRF_COOKIE_SECURE</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#TIME_ZONE">TIME_ZONE</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#USE_I18N">USE_I18N</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#USE_L10N">USE_L10N</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#USE_TZ">USE_TZ</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#STATIC_URL">STATIC_URL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#STATIC_ROOT">STATIC_ROOT</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#MEDIA_URL">MEDIA_URL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#MEDIA_ROOT">MEDIA_ROOT</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_BACKEND">EMAIL_BACKEND</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_USE_TLS">EMAIL_USE_TLS</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_HOST">EMAIL_HOST</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_PORT">EMAIL_PORT</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_HOST_USER">EMAIL_HOST_USER</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#EMAIL_HOST_PASSWORD">EMAIL_HOST_PASSWORD</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#DEFAULT_FROM_EMAIL">DEFAULT_FROM_EMAIL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#SEND_MAIL_FAIL_SILENTLY">SEND_MAIL_FAIL_SILENTLY</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#AUTH_USER_MODEL">AUTH_USER_MODEL</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#REST_FRAMEWORK">REST_FRAMEWORK</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#CACHES">CACHES</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#CRISPY_TEMPLATE_PACK">CRISPY_TEMPLATE_PACK</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="variable">
-    
-    <td>Variable</td>
-    <td><code><a href="#CKEDITOR_CONFIGS">CKEDITOR_CONFIGS</a></code></td>
+    <td><code><a href="#dotenv" class="internal-link" title="saskatoon.settings.dotenv">dotenv</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -375,7 +391,80 @@
 
       <div id="childList">
 
-        <div class="basevariable">
+        <div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.ALLOWED_HOSTS">
+    
+  </a>
+  <a name="ALLOWED_HOSTS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">ALLOWED_HOSTS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L42">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">localhost</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">127.0.0.1</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.AUTH_PASSWORD_VALIDATORS">
+    
+  </a>
+  <a name="AUTH_PASSWORD_VALIDATORS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">AUTH_PASSWORD_VALIDATORS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L137">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.password_validation.UserAttributeSimilarityValida</span><span class="rst-variable-linewrap">↵</span>
+<span class="rst-variable-string">tor</span><span class="rst-variable-quote">'</span>},
+ <wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.password_validation.MinimumLengthValidator</span><span class="rst-variable-quote">'</span>},
+ <wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.password_validation.CommonPasswordValidator</span><span class="rst-variable-quote">'</span>},
+ <wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.password_validation.NumericPasswordValidator</span><span class="rst-variable-quote">'</span>}]</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.AUTH_USER_MODEL">
+    
+  </a>
+  <a name="AUTH_USER_MODEL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">AUTH_USER_MODEL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L204">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">member.AuthUser</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
   
   
   <a name="saskatoon.settings.BASE_DIR">
@@ -396,6 +485,936 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" class="intersphinx-link">os.path.dirname</a>(<wbr></wbr><a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" class="intersphinx-link">os.path.dirname</a>(<wbr></wbr><a href="https://docs.python.org/3/library/os.path.html#os.path.abspath" class="intersphinx-link">os.path.abspath</a>(<wbr></wbr><a href="https://docs.python.org/3/reference/import.html#file__" class="intersphinx-link">__file__</a>)))</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.CACHES">
+    
+  </a>
+  <a name="CACHES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CACHES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L218">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BACKEND</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django_redis.cache.RedisCache</span><span class="rst-variable-quote">'</span>,
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">LOCATION</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">redis://127.0.0.1:6379/1</span><span class="rst-variable-quote">'</span>,
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">OPTIONS</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">CLIENT_CLASS</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django_redis.client.DefaultClient</span><span class="rst-variable-quote">'</span>}}}</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.CKEDITOR_CONFIGS">
+    
+  </a>
+  <a name="CKEDITOR_CONFIGS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CKEDITOR_CONFIGS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L230">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">width</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">100%</span><span class="rst-variable-quote">'</span>}}</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.CRISPY_TEMPLATE_PACK">
+    
+  </a>
+  <a name="CRISPY_TEMPLATE_PACK">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CRISPY_TEMPLATE_PACK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L228">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">bootstrap4</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.CSRF_COOKIE_SECURE">
+    
+  </a>
+  <a name="CSRF_COOKIE_SECURE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">CSRF_COOKIE_SECURE</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L170">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.DATABASES">
+    
+  </a>
+  <a name="DATABASES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DATABASES</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L120">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ENGINE</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_ENGINE</span><span class="rst-variable-quote">'</span>),
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_NAME</span><span class="rst-variable-quote">'</span>),
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">USER</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_USER</span><span class="rst-variable-quote">'</span>),
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">PASSWORD</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_PASSWORD</span><span class="rst-variable-quote">'</span>),
+             <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">HOST</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_HOST</span><span class="rst-variable-quote">'</span>)}}</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.DEBUG">
+    
+  </a>
+  <a name="DEBUG">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DEBUG</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L38">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'])</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.DEFAULT_AUTO_FIELD">
+    
+  </a>
+  <a name="DEFAULT_AUTO_FIELD">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DEFAULT_AUTO_FIELD</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L132">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.db.models.AutoField</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.DEFAULT_FROM_EMAIL">
+    
+  </a>
+  <a name="DEFAULT_FROM_EMAIL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DEFAULT_FROM_EMAIL</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L197">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_FROM</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.DOMAIN_NAME">
+    
+  </a>
+  <a name="DOMAIN_NAME">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DOMAIN_NAME</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L48">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DOMAIN_NAME</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_BACKEND">
+    
+  </a>
+  <a name="EMAIL_BACKEND">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_BACKEND</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L191">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_BACKEND</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_HOST">
+    
+  </a>
+  <a name="EMAIL_HOST">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_HOST</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L193">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_HOST_PASSWORD">
+    
+  </a>
+  <a name="EMAIL_HOST_PASSWORD">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_HOST_PASSWORD</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L196">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST_PASSWORD</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_HOST_USER">
+    
+  </a>
+  <a name="EMAIL_HOST_USER">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_HOST_USER</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L195">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST_USER</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_PORT">
+    
+  </a>
+  <a name="EMAIL_PORT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_PORT</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L194">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_PORT</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.EMAIL_USE_TLS">
+    
+  </a>
+  <a name="EMAIL_USE_TLS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">EMAIL_USE_TLS</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L192">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_USE_TLS</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.INSTALLED_APPS">
+    
+  </a>
+  <a name="INSTALLED_APPS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">INSTALLED_APPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L58">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">dal</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">dal_select2</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.admin</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.contenttypes</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.sessions</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.messages</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.INTERNAL_IPS">
+    
+  </a>
+  <a name="INTERNAL_IPS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">INTERNAL_IPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L54">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">127.0.0.1</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LANGUAGE_CODE">
+    
+  </a>
+  <a name="LANGUAGE_CODE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LANGUAGE_CODE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L156">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">en</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LANGUAGES">
+    
+  </a>
+  <a name="LANGUAGES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LANGUAGES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L158">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">fr</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Français</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">en</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">English</span><span class="rst-variable-quote">'</span>)]</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LOCALE_PATHS">
+    
+  </a>
+  <a name="LOCALE_PATHS">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOCALE_PATHS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L163">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">harvest/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">member/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">sitebase/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon/locale/</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LOGIN_REDIRECT_URL">
+    
+  </a>
+  <a name="LOGIN_REDIRECT_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGIN_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L95">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LOGIN_URL">
+    
+  </a>
+  <a name="LOGIN_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGIN_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L94">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/login</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.LOGOUT_REDIRECT_URL">
+    
+  </a>
+  <a name="LOGOUT_REDIRECT_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">LOGOUT_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L96">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.MEDIA_ROOT">
+    
+  </a>
+  <a name="MEDIA_ROOT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">MEDIA_ROOT</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L188">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#BASE_DIR" class="internal-link" title="saskatoon.settings.BASE_DIR">BASE_DIR</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">media</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.MEDIA_URL">
+    
+  </a>
+  <a name="MEDIA_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">MEDIA_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L187">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/media/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.MIDDLEWARE">
+    
+  </a>
+  <a name="MIDDLEWARE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">MIDDLEWARE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L80">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.middleware.security.SecurityMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.sessions.middleware.SessionMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.middleware.locale.LocaleMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.middleware.common.CommonMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.middleware.csrf.CsrfViewMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.middleware.AuthenticationMiddleware</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.messages.middleware.MessageMiddleware</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.REST_FRAMEWORK">
+    
+  </a>
+  <a name="REST_FRAMEWORK">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">REST_FRAMEWORK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L206">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_PERMISSION_CLASSES</span><span class="rst-variable-quote">'</span>: [<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.permissions.IsAuthenticated</span><span class="rst-variable-quote">'</span>],
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_FILTER_BACKENDS</span><span class="rst-variable-quote">'</span>: [<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django_filters.rest_framework.DjangoFilterBackend</span><span class="rst-variable-quote">'</span><span class="rst-variable-linewrap">↵</span>
+],
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">PAGINATE_BY</span><span class="rst-variable-quote">'</span>: 10,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_RENDERER_CLASSES</span><span class="rst-variable-quote">'</span>: (<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.renderers.TemplateHTMLRenderer</span><span class="rst-variable-quote">'</span>,
+                              <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.renderers.JSONRenderer</span><span class="rst-variable-quote">'</span>)}</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.ROOT_URLCONF">
+    
+  </a>
+  <a name="ROOT_URLCONF">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">ROOT_URLCONF</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L93">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon.urls</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.SECRET_KEY">
+    
+  </a>
+  <a name="SECRET_KEY">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">SECRET_KEY</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L34">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_SECRET_KEY</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.SEND_MAIL_FAIL_SILENTLY">
+    
+  </a>
+  <a name="SEND_MAIL_FAIL_SILENTLY">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">SEND_MAIL_FAIL_SILENTLY</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L199">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>not <a href="#EMAIL_HOST" class="internal-link" title="saskatoon.settings.EMAIL_HOST">EMAIL_HOST</a></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.SERVER_IP">
+    
+  </a>
+  <a name="SERVER_IP">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">SERVER_IP</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L45">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_SERVER_IP</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.STATIC_ROOT">
+    
+  </a>
+  <a name="STATIC_ROOT">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">STATIC_ROOT</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L184">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#BASE_DIR" class="internal-link" title="saskatoon.settings.BASE_DIR">BASE_DIR</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">static</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.STATIC_URL">
+    
+  </a>
+  <a name="STATIC_URL">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">STATIC_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L183">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/static/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.TEMPLATES">
+    
+  </a>
+  <a name="TEMPLATES">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">TEMPLATES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list" class="intersphinx-link">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L98">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BACKEND</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.template.backends.django.DjangoTemplates</span><span class="rst-variable-quote">'</span>,
+  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DIRS</span><span class="rst-variable-quote">'</span>: [],
+  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">APP_DIRS</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>,
+  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">OPTIONS</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">context_processors</span><span class="rst-variable-quote">'</span>: [<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.template.context_processors.debug</span><span class="rst-variable-quote">'</span>,
+                                     <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.template.context_processors.request</span><span class="rst-variable-quote">'</span><span class="rst-variable-linewrap">↵</span>
+,
+                                     <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.context_processors.aut</span><span class="rst-variable-linewrap">↵</span>
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.TIME_ZONE">
+    
+  </a>
+  <a name="TIME_ZONE">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">TIME_ZONE</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L172">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_TIME_ZONE</span><span class="rst-variable-quote">'</span>) or <span class="rst-variable-quote">'</span><span class="rst-variable-string">UTC</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.USE_I18N">
+    
+  </a>
+  <a name="USE_I18N">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">USE_I18N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L174">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.USE_L10N">
+    
+  </a>
+  <a name="USE_L10N">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">USE_L10N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L176">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.USE_TZ">
+    
+  </a>
+  <a name="USE_TZ">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">USE_TZ</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool" class="intersphinx-link">bool</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L178">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
+  </div>
+</div><div class="baseconstant">
+  
+  
+  <a name="saskatoon.settings.WSGI_APPLICATION">
+    
+  </a>
+  <a name="WSGI_APPLICATION">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">WSGI_APPLICATION</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L114">
+      
+      (source)
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon.wsgi.application</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
 </div><div class="basevariable">
   
@@ -418,930 +1437,7 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.SECRET_KEY">
     
-  </a>
-  <a name="SECRET_KEY">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">SECRET_KEY</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L34">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.DEBUG">
-    
-  </a>
-  <a name="DEBUG">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DEBUG</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L38">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.ALLOWED_HOSTS">
-    
-  </a>
-  <a name="ALLOWED_HOSTS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">ALLOWED_HOSTS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L42">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.SERVER_IP">
-    
-  </a>
-  <a name="SERVER_IP">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">SERVER_IP</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L45">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.DOMAIN_NAME">
-    
-  </a>
-  <a name="DOMAIN_NAME">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DOMAIN_NAME</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L48">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.INTERNAL_IPS">
-    
-  </a>
-  <a name="INTERNAL_IPS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">INTERNAL_IPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L54">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.INSTALLED_APPS">
-    
-  </a>
-  <a name="INSTALLED_APPS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">INSTALLED_APPS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L58">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.MIDDLEWARE">
-    
-  </a>
-  <a name="MIDDLEWARE">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">MIDDLEWARE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L80">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.ROOT_URLCONF">
-    
-  </a>
-  <a name="ROOT_URLCONF">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">ROOT_URLCONF</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L93">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LOGIN_URL">
-    
-  </a>
-  <a name="LOGIN_URL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LOGIN_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L94">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LOGIN_REDIRECT_URL">
-    
-  </a>
-  <a name="LOGIN_REDIRECT_URL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LOGIN_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L95">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LOGOUT_REDIRECT_URL">
-    
-  </a>
-  <a name="LOGOUT_REDIRECT_URL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LOGOUT_REDIRECT_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L96">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.TEMPLATES">
-    
-  </a>
-  <a name="TEMPLATES">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">TEMPLATES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L98">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.WSGI_APPLICATION">
-    
-  </a>
-  <a name="WSGI_APPLICATION">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">WSGI_APPLICATION</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L114">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.DATABASES">
-    
-  </a>
-  <a name="DATABASES">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DATABASES</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L120">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.DEFAULT_AUTO_FIELD">
-    
-  </a>
-  <a name="DEFAULT_AUTO_FIELD">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DEFAULT_AUTO_FIELD</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L132">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.AUTH_PASSWORD_VALIDATORS">
-    
-  </a>
-  <a name="AUTH_PASSWORD_VALIDATORS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">AUTH_PASSWORD_VALIDATORS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L137">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LANGUAGE_CODE">
-    
-  </a>
-  <a name="LANGUAGE_CODE">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LANGUAGE_CODE</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L156">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LANGUAGES">
-    
-  </a>
-  <a name="LANGUAGES">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LANGUAGES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L158">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.LOCALE_PATHS">
-    
-  </a>
-  <a name="LOCALE_PATHS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">LOCALE_PATHS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#list">list</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L163">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.CSRF_COOKIE_SECURE">
-    
-  </a>
-  <a name="CSRF_COOKIE_SECURE">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">CSRF_COOKIE_SECURE</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L170">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.TIME_ZONE">
-    
-  </a>
-  <a name="TIME_ZONE">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">TIME_ZONE</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L172">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.USE_I18N">
-    
-  </a>
-  <a name="USE_I18N">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">USE_I18N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L174">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.USE_L10N">
-    
-  </a>
-  <a name="USE_L10N">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">USE_L10N</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L176">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.USE_TZ">
-    
-  </a>
-  <a name="USE_TZ">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">USE_TZ</span>: <code><a href="https://docs.python.org/3/library/functions.html#bool">bool</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L178">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.STATIC_URL">
-    
-  </a>
-  <a name="STATIC_URL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">STATIC_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L183">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.STATIC_ROOT">
-    
-  </a>
-  <a name="STATIC_ROOT">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">STATIC_ROOT</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L184">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.MEDIA_URL">
-    
-  </a>
-  <a name="MEDIA_URL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">MEDIA_URL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L187">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.MEDIA_ROOT">
-    
-  </a>
-  <a name="MEDIA_ROOT">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">MEDIA_ROOT</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L188">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_BACKEND">
-    
-  </a>
-  <a name="EMAIL_BACKEND">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_BACKEND</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L191">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_USE_TLS">
-    
-  </a>
-  <a name="EMAIL_USE_TLS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_USE_TLS</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L192">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_HOST">
-    
-  </a>
-  <a name="EMAIL_HOST">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_HOST</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L193">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_PORT">
-    
-  </a>
-  <a name="EMAIL_PORT">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_PORT</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L194">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_HOST_USER">
-    
-  </a>
-  <a name="EMAIL_HOST_USER">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_HOST_USER</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L195">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.EMAIL_HOST_PASSWORD">
-    
-  </a>
-  <a name="EMAIL_HOST_PASSWORD">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">EMAIL_HOST_PASSWORD</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L196">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.DEFAULT_FROM_EMAIL">
-    
-  </a>
-  <a name="DEFAULT_FROM_EMAIL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DEFAULT_FROM_EMAIL</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L197">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.SEND_MAIL_FAIL_SILENTLY">
-    
-  </a>
-  <a name="SEND_MAIL_FAIL_SILENTLY">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">SEND_MAIL_FAIL_SILENTLY</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L199">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.AUTH_USER_MODEL">
-    
-  </a>
-  <a name="AUTH_USER_MODEL">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">AUTH_USER_MODEL</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L204">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.REST_FRAMEWORK">
-    
-  </a>
-  <a name="REST_FRAMEWORK">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">REST_FRAMEWORK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L206">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.CACHES">
-    
-  </a>
-  <a name="CACHES">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">CACHES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L218">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.CRISPY_TEMPLATE_PACK">
-    
-  </a>
-  <a name="CRISPY_TEMPLATE_PACK">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">CRISPY_TEMPLATE_PACK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L228">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basevariable">
-  
-  
-  <a name="saskatoon.settings.CKEDITOR_CONFIGS">
-    
-  </a>
-  <a name="CKEDITOR_CONFIGS">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">CKEDITOR_CONFIGS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L230">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
   </div>
 </div>
 
@@ -1349,12 +1445,20 @@
     </div>
 
     <footer class="navbar navbar-default">
+
   
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    21.2.2 at 2022-03-30 20:53:35.
+    22.3.0 at 2022-03-31 02:43:11.
   </div>
+
+  <!-- Search related scripts needs to be loaded at the end of HTML 
+    parsing not to introduce overhead and display HTML data asap -->
+  <script src="ajax.js" type="text/javascript"></script>
+  <script src="searchlib.js" type="text/javascript"></script>
+  <script src="search.js" type="text/javascript"></script>
+
 </footer>
 
     <script src="pydoctor.js" type="text/javascript"></script>
