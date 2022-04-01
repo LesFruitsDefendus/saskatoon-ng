@@ -74,10 +74,10 @@ Saskatoon uses `django-dotenv` to manage local environment settings. Copy the [s
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
 Note: to generate a new random secret key, you can run this python script:
-```
-from django.core.management import utils
 
-print(utils.get_random_secret_key())
+```
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
 ```
 
 ## local database
