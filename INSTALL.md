@@ -25,9 +25,9 @@ Please follow each part of this documentation in order to run your own instance 
     For Ubuntu, Debian derivatives (for macOS, you should be able to use `pip`):
     ```
 
-    $ virtualenv venv
-    $ . venv/bin/activate
-    $(venv) pip3 install .
+    virtualenv venv
+    . venv/bin/activate
+    (venv) pip3 install .
     ```
 
     See `setup.py` for more details on the project's package requirements
@@ -37,8 +37,8 @@ Please follow each part of this documentation in order to run your own instance 
 
     `django-redis` is currently used as a caching backend with default configuration (see `CACHES` variable in `saskatoon/settings.py`). A Redis server must be run in the background:
     ```
-    $ sudo apt install redis-server
-    $ sudo systemctl status redis-server
+    sudo apt install redis-server
+    sudo systemctl status redis-server
     ```
     Note the Redis service will start automatically when the installation finishes (if using systemd)
 
@@ -93,11 +93,11 @@ You can optionally configure other database engines. Please refer to [this Djang
 
 On Debian and derivatives:
 ```
-$ sudo apt install default-mysql-server
-$ sudo systemctl start mysql
-$ sudo systemctl enable mysql
-$ sudo systemctl status mysql
-$ sudo mysql_secure_installation
+sudo apt install default-mysql-server
+sudo systemctl start mysql
+sudo systemctl enable mysql
+sudo systemctl status mysql
+sudo mysql_secure_installation
 ```
 
 To create an empty database:
