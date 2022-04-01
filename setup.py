@@ -45,6 +45,6 @@ setup(
         "django-rosetta==0.9.8"
     ],
     extras_require      =   {
-        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
+        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox', 'python-dotenv']
     },
 )
