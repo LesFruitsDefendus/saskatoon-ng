@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
+from harvest.models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
 from member.models import Actor, Neighborhood, AuthUser, Person, Organization, City, State, Country
 from django.core.serializers import serialize
 import json
