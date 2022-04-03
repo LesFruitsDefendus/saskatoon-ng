@@ -87,20 +87,17 @@ class AuthUserAdmin(UserAdmin):
                     'id'
                     )
 
+    @admin.display(boolean=True, description="Core")
     def is_core(self, user):
         return user.groups.filter(name="core").exists()
-    is_core.short_description = "core"
-    is_core.boolean = True
 
+    @admin.display(boolean=True, description="Admin")
     def is_admin(self, user):
-        return user.is_superuser
-    is_admin.short_description = "admin"
-    is_admin.boolean = True
+        return user.groups.filter(name="admin").exists()
 
+    @admin.display(description="Group(s)")
     def get_groups(self, user):
         return ' + '.join([g.name for g in user.groups.all()])
-    get_groups.short_description = "group(s)"
-
 
     list_filter = (UserGroupAdminFilter,
                    UserHasPropertyAdminFilter,
