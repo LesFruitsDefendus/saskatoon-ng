@@ -21,9 +21,10 @@ Please follow each part of this documentation in order to run your own instance 
 2. Python virtualenv
 
     To install Python requirements in a virtual environment:
+
+    For Ubuntu, Debian derivatives (for macOS, you should be able to use `pip`):
     ```
-    $ sudo apt install python3-dev python3-pip
-    $ pip3 install virtualenv
+
     $ virtualenv venv
     $ . venv/bin/activate
     $(venv) pip3 install .
@@ -39,8 +40,9 @@ Please follow each part of this documentation in order to run your own instance 
     $ sudo apt install redis-server
     $ sudo systemctl status redis-server
     ```
-    Note the Redis service will start automatically when the installation finishes (if using systemd):
+    Note the Redis service will start automatically when the installation finishes (if using systemd)
 
+    [For macOS](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/).
 
 4. Pillow
 
@@ -65,15 +67,17 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## .env settings
 
-Saskatoon uses `python-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs. 
+
+Saskatoon uses `django-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
+
 
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
 Note: to generate a new random secret key, you can run this python script:
-```
-from django.core.management import utils
 
-print(utils.get_random_secret_key())
+```
+python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
+
 ```
 
 ## local database
@@ -103,7 +107,7 @@ $ sudo mysql -u root -p
 > SELECT user FROM mysql.user;   // show all users
 > CREATE DATABASE saskatoon_dev;
 > SHOW DATABASES;
-> GRANT ALL PRVILEGES ON saskatoon_dev.* TO '<user>'@'localhost';
+> GRANT ALL PRIVILEGES ON saskatoon_dev.* TO '<user>'@'localhost';
 > ALTER DATABASE saskatoon_dev CHARACTER SET utf8;
 
 ```
@@ -286,7 +290,7 @@ SASKATOON_ADMIN_EMAIL=admin@example.com
 SASKATOON_ADMIN_PASSWORD=testing1234
 ```
 
-Tests are located inside `saskatoon/tests` folder. 
+Tests are located inside `saskatoon/tests` folder.
 
 Created a test super user with the following command:
 

@@ -12,4 +12,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('i18n/', include('django.conf.urls.i18n')),
     path('__debug__/', include(debug_toolbar.urls)),
+    path('rosetta/', include('rosetta.urls'))
 ]
+

@@ -1,14 +1,17 @@
 # coding: utf-8
-
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
+from django.db.models import Value
+from django.db.models.functions import Replace
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
-from member.filters import GroupFilter, PropertyFilter, PickLeaderFilter, VolunteerFilter
+from member.filters import (UserGroupAdminFilter, UserHasPropertyAdminFilter,
+                            UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
 from django.contrib.auth.models import Group
+
 
 class CustomUserCreationForm(UserCreationForm):
     """A form for creating new users. Includes all the required fields,
@@ -99,10 +102,10 @@ class AuthUserAdmin(UserAdmin):
     get_groups.short_description = "group(s)"
 
 
-    list_filter = (GroupFilter,
-                   PropertyFilter,
-                   PickLeaderFilter,
-                   VolunteerFilter,
+    list_filter = (UserGroupAdminFilter,
+                   UserHasPropertyAdminFilter,
+                   UserHasLedPicksAdminFilter,
+                   UserHasVolunteeredAdminFilter,
                    'is_staff',
                    'is_superuser',
                    'is_active'
@@ -205,11 +208,45 @@ class AuthUserAdmin(UserAdmin):
     ]
 
 
+class PersonAdmin(admin.ModelAdmin):
+    list_display = (
+        '__str__',
+        'phone',
+        'email',
+        'street_number',
+        'street',
+        'neighborhood',
+        'postal_code',
+        'newsletter_subscription',
+        'language',
+    )
+    list_filter = (
+        'neighborhood',
+        'city',
+        'language',
+        'newsletter_subscription',
+    )
+    search_fields = (
+        'first_name',
+        'family_name',
+        'phone',
+        'postal_code_cleaned',
+        'auth_user__email',
+    )
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(
+            postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
+        )
+        return queryset
+
+
 # admin.site.register(Notification)
 # admin.site.register(AuthUserAdmin)
 admin.site.register(Actor)
 admin.site.register(Language)
-admin.site.register(Person)
+admin.site.register(Person, PersonAdmin)
 admin.site.register(Organization)
 admin.site.register(Neighborhood)
 admin.site.register(City)

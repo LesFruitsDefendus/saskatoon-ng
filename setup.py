@@ -20,7 +20,7 @@ setup(
         "asgiref>=3.2.7",
         "cffi>=1.14.0",
         "cryptography>=3.3.2",
-        "Django>=3.0.14",
+        "Django>=3.0.14,<4.0.0",
         "django-geojson==3.0.0",
         "django-leaflet==0.26.0",
         "django-rest-knox==4.1.0",
@@ -42,6 +42,7 @@ setup(
         "django-redis",
         "django-dotenv",
         "django-crispy-forms",
+        "django-rosetta==0.9.8"
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']

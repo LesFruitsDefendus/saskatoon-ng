@@ -74,6 +74,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'debug_toolbar',
     'django_extensions',
+    'rosetta'
 ]
 
 MIDDLEWARE = [

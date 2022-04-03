@@ -4,14 +4,16 @@ from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
-from .filters import ( HarvestFilter, PropertyFilter, EquipmentFilter,
-                       OrganizationFilter, CommunityFilter)
-from .forms import ( RequestForm, RFPManageForm, CommentForm, HarvestYieldForm )
+from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
+                             OrganizationFilter, CommunityFilter)
+from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from member.models import AuthUser, Organization
-from .models import Equipment, Harvest, HarvestYield, Property, RequestForParticipation, Comment
-from .serializers import ( HarvestSerializer, PropertySerializer, EquipmentSerializer,
-    CommunitySerializer, BeneficiarySerializer, RequestForParticipationSerializer )
-from .utils import get_similar_properties
+from harvest.models import (Equipment, Harvest, HarvestYield, Property,
+                            RequestForParticipation, Comment)
+from harvest.serializers import (HarvestSerializer, PropertySerializer, EquipmentSerializer,
+                                 CommunitySerializer, BeneficiarySerializer,
+                                 RequestForParticipationSerializer)
+from harvest.utils import get_similar_properties
 
 
 def get_filter_context(viewset):
@@ -39,7 +41,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'property',
                         'about',
                         'status',
-                        'start_date')
+                        'season')
 
     # Harvest detail
     def retrieve(self, request, format='html', pk=None):

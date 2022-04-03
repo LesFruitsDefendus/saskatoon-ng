@@ -1302,8 +1302,11 @@ ul.tab-ctn-list li:last-child{
 	color: #2A3F54;
     margin-left: 2px;
 }
-.search-eg-table .notika-down-arrow{
+.search-eg-table .notika-close{
 	color: #F44336;
+}
+.search-eg-table .notika-checked{
+	color: #5cb85c;
 }
 .search-eg-table .table tr, .search-eg-table .table td{
 	font-size:14px;

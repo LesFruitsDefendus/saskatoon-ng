@@ -3,7 +3,12 @@ from member.models import AuthUser, AUTH_GROUPS, Person, Actor
 from harvest.models import Property, Harvest, RequestForParticipation
 from django.contrib.auth.models import Group
 
-class GroupFilter(SimpleListFilter):
+
+# # ADMIN filters # #
+
+class UserGroupAdminFilter(SimpleListFilter):
+    """Checks if AuthUser belongs to Group"""
+
     title = 'Group Filter'
     parameter_name = 'group'
     default_value = None
@@ -19,13 +24,16 @@ class GroupFilter(SimpleListFilter):
             return queryset.filter(groups__in=self.value())
         return queryset
 
-class PropertyFilter(SimpleListFilter):
+
+class UserHasPropertyAdminFilter(SimpleListFilter):
+    """Checks if AuthUser is a property owner"""
+
     title = 'Property Filter'
     parameter_name = 'property'
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [ ('1', 'has a property')]
+        return [('1', 'has a property')]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -36,7 +44,10 @@ class PropertyFilter(SimpleListFilter):
             return users
         return queryset
 
-class PickLeaderFilter(SimpleListFilter):
+
+class UserHasLedPicksAdminFilter(SimpleListFilter):
+    """Checks if AuthUser is has led harvests"""
+
     title = 'Pick-Leader Filter'
     parameter_name = 'leader'
     default_value = None
@@ -52,7 +63,10 @@ class PickLeaderFilter(SimpleListFilter):
             return users
         return queryset
 
-class VolunteerFilter(SimpleListFilter):
+
+class UserHasVolunteeredAdminFilter(SimpleListFilter):
+    """Checks if AuthUser is has volunteered"""
+
     title = 'Volunteer Filter'
     parameter_name = 'picker'
     default_value = None
