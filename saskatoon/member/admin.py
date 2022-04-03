@@ -1,6 +1,6 @@
 # coding: utf-8
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
@@ -26,8 +26,8 @@ class CustomUserCreationForm(UserCreationForm):
         label='Password Confirmation',
         widget=forms.PasswordInput,
         required=False
-
     )
+
     class Meta(UserCreationForm.Meta):
         model = AuthUser
         fields = ('email',)
@@ -152,9 +152,12 @@ class AuthUserAdmin(UserAdmin):
     @admin.action(description="Deactivate account for selected User(s)")
     def deactivate_account(self, request, queryset):
         for u in queryset:
-            if not u.is_superuser:
-                u.is_active = False
-                u.save()
+            if u.is_superuser:
+                messages.add_message(request, messages.ERROR,
+                                     f"Cannot deactivate account for superuser {u}")
+                continue
+            u.is_active = False
+            u.save()
 
     @admin.action(description="Add staff status to selected User(s)")
     def add_to_staff(self, request, queryset):
