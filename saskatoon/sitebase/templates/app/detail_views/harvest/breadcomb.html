@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load get_fruit_name_icon %}
 <div class="breadcomb-area">
     <div class="container">
         <div class="row">
@@ -13,7 +14,7 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>#{{ harvest.id }}:
-                                        {% for t in harvest.trees %} {{ t }}, {% endfor %}
+                                        {% for tree in harvest.trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}, {% endfor %}
                                         {{ harvest.property.address }},
                                         {{ harvest.property.neighborhood.name }}
                                     </h1>
