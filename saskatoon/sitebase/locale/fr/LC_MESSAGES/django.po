@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-03-28 20:38+0000\n"
+"POT-Creation-Date: 2022-04-03 11:25-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,243 +17,765 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: sitebase/templates/app/base.html:106
-msgid "Language"
+#: sitebase/templates/app/base/header.html:30
+msgid "Change password"
+msgstr "Changer mot de passe"
+
+#: sitebase/templates/app/base/header.html:31
+msgid "Logout"
 msgstr ""
 
-#: sitebase/templates/app/base.html:134 sitebase/templates/app/base.html:151
+#: sitebase/templates/app/base/header.html:42
+msgid "Add user"
+msgstr ""
+
+#: sitebase/templates/app/base/header.html:46
+msgid "Manage user"
+msgstr ""
+
+#: sitebase/templates/app/base/header.html:50
+msgid "Manage beneficiary"
+msgstr ""
+
+#: sitebase/templates/app/base/header.html:52
+msgid "Admin panel"
+msgstr ""
+
+#: sitebase/templates/app/base/header.html:53
+msgid "Manage translations"
+msgstr ""
+
+#: sitebase/templates/app/base/header.html:72
+msgid "Languague"
+msgstr ""
+
+#: sitebase/templates/app/base/menu.html:13
+#: sitebase/templates/app/base/menu.html:48
 msgid "Calendar"
 msgstr "Calendrier"
 
-#: sitebase/templates/app/base.html:135 sitebase/templates/app/base.html:153
+#: sitebase/templates/app/base/menu.html:16
+#: sitebase/templates/app/base/menu.html:51
+#: sitebase/templates/app/list_views/community/view.html:12
 msgid "Harvests"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/base.html:136 sitebase/templates/app/base.html:155
-#: sitebase/templates/app/community_list.html:77
+#: sitebase/templates/app/base/menu.html:19
+#: sitebase/templates/app/base/menu.html:54
+#: sitebase/templates/app/list_views/community/view.html:13
 msgid "Properties"
 msgstr "Proriété"
 
-#: sitebase/templates/app/base.html:157
+#: sitebase/templates/app/base/menu.html:22
+#: sitebase/templates/app/base/menu.html:57
 msgid "Beneficiaries"
 msgstr "Bénéficiaires"
 
-#: sitebase/templates/app/base.html:159
+#: sitebase/templates/app/base/menu.html:25
+#: sitebase/templates/app/base/menu.html:60
 msgid "Community"
 msgstr "Communauté"
 
-#: sitebase/templates/app/base.html:161
-#: sitebase/templates/app/equipment_list.html:18
+#: sitebase/templates/app/base/menu.html:28
+#: sitebase/templates/app/base/menu.html:63
+#: sitebase/templates/app/list_views/equipment/view.html:10
+#: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
 
-#: sitebase/templates/app/base.html:163
-msgid "Analytics"
+#: sitebase/templates/app/base/menu.html:31
+#: sitebase/templates/app/base/menu.html:66
+msgid "Statistics"
 msgstr ""
 
-#: sitebase/templates/app/base.html:180
+#: sitebase/templates/app/base/view.html:65
 msgid "is a Free/Libre Software developed by the collective "
 msgstr ""
 
-#: sitebase/templates/app/base.html:180
+#: sitebase/templates/app/base/view.html:65
 msgid "Template by"
 msgstr ""
 
-#: sitebase/templates/app/calendar.html:14
-msgid "Harvest calendar"
-msgstr "Calendrier de récoltes"
+#: sitebase/templates/app/calendar/cancelled-modal.html:12
+msgid "this harvest has been cancelled"
+msgstr ""
 
-#: sitebase/templates/app/calendar.html:39
-msgid "Schedule"
-msgstr "Calendrier"
+#: sitebase/templates/app/calendar/cancelled-modal.html:19
+#: sitebase/templates/app/calendar/ready-modal.html:19
+#: sitebase/templates/app/calendar/scheduled-modal.html:19
+#: sitebase/templates/app/calendar/succeeded-modal.html:19
+#: sitebase/templates/app/detail_views/property/harvest_row.html:63
+#: sitebase/templates/app/list_views/harvest/data_row.html:84
+msgid "Scheduled"
+msgstr ""
 
-#: sitebase/templates/app/calendar.html:41
+#: sitebase/templates/app/calendar/cancelled-modal.html:25
+#: sitebase/templates/app/calendar/ready-modal.html:25
+#: sitebase/templates/app/calendar/scheduled-modal.html:25
+#: sitebase/templates/app/calendar/succeeded-modal.html:25
+#: sitebase/templates/app/detail_views/harvest/about.html:15
+#: sitebase/templates/app/detail_views/harvest/status.html:21
+#: sitebase/templates/app/participation_create.html:34
 msgid "to"
 msgstr "à"
 
-#: sitebase/templates/app/calendar.html:60
-#: sitebase/templates/app/calendar.html:113
-msgid "View harvest details"
+#: sitebase/templates/app/calendar/cancelled-modal.html:32
+#: sitebase/templates/app/calendar/ready-modal.html:38
+#: sitebase/templates/app/calendar/succeeded-modal.html:32
+#: sitebase/templates/app/detail_views/harvest/data_table.html:28
+#: sitebase/templates/app/detail_views/property/harvest_table.html:26
+#: sitebase/templates/app/detail_views/property/similar_table.html:16
+#: sitebase/templates/app/forms/property_create_form.html:11
+#: sitebase/templates/app/list_views/harvest/view.html:13
+#: sitebase/templates/app/list_views/property/view.html:12
+msgid "Status"
 msgstr ""
 
-#: sitebase/templates/app/calendar.html:65
-msgid "Request to participate"
+#: sitebase/templates/app/calendar/cancelled-modal.html:34
+#: sitebase/templates/app/calendar/legend.html:19
+#: sitebase/templates/app/detail_views/property/harvest_row.html:19
+#: sitebase/templates/app/list_views/harvest/data_row.html:40
+msgid "Cancelled"
 msgstr ""
 
-#: sitebase/templates/app/calendar.html:72
-msgid "Send"
-msgstr ""
-
-#: sitebase/templates/app/calendar.html:101
-msgid "Total harvested"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:35
-#: sitebase/templates/app/harvest_list.html:35
-#: sitebase/templates/app/property_list.html:35
-msgid "Filter"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:73
-msgid "Person"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:74
-msgid "Roles"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:75
-#: sitebase/templates/app/equipment_list.html:21
-#: sitebase/templates/app/harvest_list.html:75
-#: sitebase/templates/app/property_list.html:74
-msgid "Neighborhood"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:76
-msgid "Picks leading"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:92
-msgid "Tree owner"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:95
-#, fuzzy
-#| msgid "Pick-leader guides"
-msgid "Pick leader"
-msgstr "Guides de Chefs de Cueillette"
-
-#: sitebase/templates/app/community_list.html:98
-msgid "Staff"
-msgstr ""
-
-#: sitebase/templates/app/community_list.html:101
-msgid "Picker"
-msgstr ""
-
-#: sitebase/templates/app/equipment_list.html:19
-msgid "Description"
-msgstr ""
-
-#: sitebase/templates/app/equipment_list.html:20
-#: sitebase/templates/app/property_list.html:73
-msgid "Property"
-msgstr ""
-
-#: sitebase/templates/app/equipment_list.html:22
-msgid "Shared"
-msgstr ""
-
-#: sitebase/templates/app/harvest_list.html:73
+#: sitebase/templates/app/calendar/cancelled-modal.html:48
+#: sitebase/templates/app/calendar/ready-modal.html:54
+#: sitebase/templates/app/calendar/scheduled-modal.html:55
+#: sitebase/templates/app/calendar/succeeded-modal.html:54
+#: sitebase/templates/app/list_views/harvest/view.html:10
 #, fuzzy
 #| msgid "Harvest Guide"
 msgid "Harvest details"
 msgstr "Guide de Cueillette"
 
-#: sitebase/templates/app/harvest_list.html:74
-#: sitebase/templates/app/property_list.html:76
-msgid "Tree"
+#: sitebase/templates/app/calendar/instructions.html:4
+msgid "Look for harvests that are marked as <b>Open</b> (see legend)."
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:76
-#: sitebase/templates/app/property_list.html:75
-msgid "Status"
+#: sitebase/templates/app/calendar/instructions.html:5
+msgid "Click on the harvest that interests you to see more details."
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:77
-msgid "Leader"
+#: sitebase/templates/app/calendar/instructions.html:6
+msgid "If you would like to join the pick, click on <b>Participate</b>."
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:78
-msgid "Date"
+#: sitebase/templates/app/calendar/instructions.html:7
+msgid "Fill out the form with your contact information and submit it."
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:98
+#: sitebase/templates/app/calendar/instructions.html:8
+msgid "Wait for a confirmation from the pick-leader (by email or phone)"
+msgstr ""
+
+#: sitebase/templates/app/calendar/instructions.html:9
+msgid "If you have been accepted for a harvest, please show up!"
+msgstr ""
+
+#: sitebase/templates/app/calendar/legend.html:6
+msgid "Full"
+msgstr ""
+
+#: sitebase/templates/app/calendar/legend.html:7
+msgid "enough pickers have been registered"
+msgstr ""
+
+#: sitebase/templates/app/calendar/legend.html:10
+msgid "Open"
+msgstr ""
+
+#: sitebase/templates/app/calendar/legend.html:11
+msgid "still accepts participation requests"
+msgstr ""
+
+#: sitebase/templates/app/calendar/legend.html:14
+#: sitebase/templates/app/calendar/succeeded-modal.html:34
+#: sitebase/templates/app/detail_views/property/harvest_row.html:9
+#: sitebase/templates/app/list_views/harvest/data_row.html:29
 msgid "Succeeded"
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:108
-msgid "Cancelled"
+#: sitebase/templates/app/calendar/legend.html:15
+msgid "completed successfully"
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:120
-msgid "Orphan"
+#: sitebase/templates/app/calendar/legend.html:20
+msgid "will no longer take place"
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:130
-msgid "Adopted"
+#: sitebase/templates/app/calendar/ready-modal.html:12
+msgid "this pick no longer accepts requests for participation"
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:141
-msgid "Pending auth."
+#: sitebase/templates/app/calendar/ready-modal.html:32
+#: sitebase/templates/app/calendar/scheduled-modal.html:32
+msgid "Pickers required"
 msgstr ""
 
-#: sitebase/templates/app/harvest_list.html:152
-msgid "Scheduled"
-msgstr ""
-
-#: sitebase/templates/app/harvest_list.html:163
+#: sitebase/templates/app/calendar/ready-modal.html:40
+#: sitebase/templates/app/detail_views/property/harvest_row.html:74
+#: sitebase/templates/app/list_views/harvest/data_row.html:95
 msgid "Ready"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:77
-msgid "Picks"
+#: sitebase/templates/app/calendar/scheduled-modal.html:12
+msgid "this harvest is open for participation requests"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:78
-msgid "Last pick"
+#: sitebase/templates/app/calendar/scheduled-modal.html:51
+msgid "Participate"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:93
-msgid "pending"
+#: sitebase/templates/app/calendar/succeeded-modal.html:12
+msgid "this harvest has been successfully completed"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:95
+#: sitebase/templates/app/calendar/succeeded-modal.html:38
+msgid "Total harvested"
+msgstr ""
+
+#: sitebase/templates/app/calendar/view.html:78
+msgid "Harvest calendar"
+msgstr "Calendrier de récoltes"
+
+#: sitebase/templates/app/calendar/view.html:82
+msgid "LEGEND"
+msgstr ""
+
+#: sitebase/templates/app/calendar/view.html:86
+msgid "INSTRUCTIONS"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:9
+msgid "Public announcement"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:39
+msgid "Adresss"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:45
+#: sitebase/templates/app/detail_views/harvest/data_table.html:26
+#: sitebase/templates/app/detail_views/property/similar_table.html:18
+#: sitebase/templates/app/list_views/beneficiary/view.html:12
+msgid "Contact"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:51
+#: sitebase/templates/app/detail_views/property/contact.html:39
+msgid "Phone"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:58
+#: sitebase/templates/app/detail_views/property/contact.html:52
+#, fuzzy
+#| msgid "E-mail"
+msgid "Email"
+msgstr "Courriel"
+
+#: sitebase/templates/app/detail_views/harvest/about.html:66
+#: sitebase/templates/app/detail_views/property/contact.html:67
+msgid "Language"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/about.html:75
+#: sitebase/templates/app/detail_views/harvest/comments.html:9
+#: sitebase/templates/app/detail_views/property/contact.html:79
+#, fuzzy
+#| msgid "Community"
+msgid "Comments"
+msgstr "Communauté"
+
+#: sitebase/templates/app/detail_views/harvest/breadcomb.html:27
+#, fuzzy
+#| msgid "Harvests"
+msgid "Edit Harvest"
+msgstr "Récoltes"
+
+#: sitebase/templates/app/detail_views/harvest/comments.html:16
+msgid "New comment"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:18
+msgid "Canceled"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:21
+msgid "Pending"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:24
+msgid "Refused"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:27
+msgid "Accepted"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:40
+msgid "First time!"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_row.html:44
+#, fuzzy
+#| msgid "Harvests"
+msgid "harvest(s)"
+msgstr "Récoltes"
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:12
+#: sitebase/templates/app/detail_views/harvest/status.html:38
+msgid "Pickers requests"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:19
+msgid "New request"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:27
+msgid "# pickers"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:29
+msgid "Requested on"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:30
+msgid "Accepted on"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:31
+msgid "Experience"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:32
+msgid "Msg from picker"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:33
+#, fuzzy
+#| msgid "Pick-leader guides"
+msgid "Msg from pick leader"
+msgstr "Guides de Chefs de Cueillette"
+
+#: sitebase/templates/app/detail_views/harvest/data_table.html:34
+msgid "Manage"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:7
+msgid "Fruit distribution"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:12
+msgid "Recipient"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:13
+#: sitebase/templates/app/list_views/harvest/view.html:11
+#: sitebase/templates/app/list_views/property/view.html:13
+msgid "Tree"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:14
+msgid "Weight"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:15
+msgid "Delete"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:25
+msgid "Are you sure you want to delete this entry?"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:35
+msgid "New recipient"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/status.html:32
+msgid "Total harvested:"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/harvest/status.html:50
+#, fuzzy
+#| msgid "Pick-leader guides"
+msgid "Pick leader"
+msgstr "Guides de Chefs de Cueillette"
+
+#: sitebase/templates/app/detail_views/harvest/status.html:54
+msgid "Missing"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/breadcomb.html:28
+msgid "Last succeeded harvest"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/breadcomb.html:42
+#, fuzzy
+#| msgid "Properties"
+msgid "Edit Property"
+msgstr "Proriété"
+
+#: sitebase/templates/app/detail_views/property/contact.html:7
+#: sitebase/templates/app/detail_views/property/similar_table.html:17
+#: sitebase/templates/app/forms/property_create_form.html:33
+#: sitebase/templates/app/list_views/equipment/view.html:12
+msgid "Owner"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/contact.html:11
+msgid "edit"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/contact.html:16
+msgid "Unregistered owner"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:17
+msgid "Pending validation"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:25
+msgid "Has already been registered in the past"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:31
+msgid "Has never been registered before"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:38
+msgid "Validated"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:47
+msgid "Not yet authorized"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:53
+msgid "Authorized for the current season"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:59
+msgid "Not authorized for this season"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:68
+msgid "This property is marked as inactive"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:76
+msgid "Produces fruits every year"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:81
+msgid "Does not produce fruits every year"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:89
+msgid "picker(s) needed"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:94
+msgid "Number of pickers not specified"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:101
+msgid "Ladder available"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:106
+msgid "Ladder available for outside picks"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:112
+msgid "No ladder available"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:119
+msgid "Publicly accessible"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:124
+msgid "Not publicly accessible"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:131
+msgid "Access to neighbors terrain"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:136
+msgid "No permission to access neighbors terrain"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:143
+msgid "Compost bin closeby"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/features.html:148
+msgid "No compost bin closeby"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/harvest_row.html:31
+#: sitebase/templates/app/list_views/harvest/data_row.html:52
+msgid "Orphan"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/harvest_row.html:41
+#: sitebase/templates/app/list_views/harvest/data_row.html:62
+msgid "Adopted"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/harvest_row.html:52
+#: sitebase/templates/app/list_views/harvest/data_row.html:73
+msgid "Pending auth."
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/harvest_table.html:16
+#, fuzzy
+#| msgid "Harvests"
+msgid "New Harvest"
+msgstr "Récoltes"
+
+#: sitebase/templates/app/detail_views/property/harvest_table.html:25
+#, fuzzy
+#| msgid "Pick-leader guides"
+msgid "Pickleader"
+msgstr "Guides de Chefs de Cueillette"
+
+#: sitebase/templates/app/detail_views/property/harvest_table.html:27
+#: sitebase/templates/app/list_views/harvest/view.html:15
+msgid "Date"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/similar_table.html:9
+#, fuzzy
+#| msgid "Properties"
+msgid "Similar properties"
+msgstr "Proriété"
+
+#: sitebase/templates/app/detail_views/property/similar_table.html:14
+#: sitebase/templates/app/list_views/equipment/view.html:13
+#: sitebase/templates/app/list_views/property/view.html:10
+#: sitebase/templates/app/participation_list.html:20
+msgid "Property"
+msgstr ""
+
+#: sitebase/templates/app/detail_views/property/similar_table.html:15
+#: sitebase/templates/app/list_views/beneficiary/view.html:13
+#: sitebase/templates/app/list_views/community/view.html:14
+#: sitebase/templates/app/list_views/equipment/view.html:14
+#: sitebase/templates/app/list_views/harvest/view.html:12
+#: sitebase/templates/app/list_views/property/view.html:11
+#: sitebase/templates/app/participation_list.html:21
+msgid "Neighborhood"
+msgstr ""
+
+#: sitebase/templates/app/forms/model_form.html:12
+#: sitebase/templates/app/forms/organization_create_form.html:44
+#: sitebase/templates/app/forms/property_create_form.html:61
+msgid "Save"
+msgstr ""
+
+#: sitebase/templates/app/forms/organization_create_form.html:25
+msgid "Contact Person"
+msgstr ""
+
+#: sitebase/templates/app/forms/property_create_form.html:16
+msgid "Trees"
+msgstr ""
+
+#: sitebase/templates/app/forms/property_create_form.html:48
+msgid "Address"
+msgstr ""
+
+#: sitebase/templates/app/forms/property_create_public.html:24
+#: sitebase/templates/app/participation_create.html:62
+msgid "Send"
+msgstr ""
+
+#: sitebase/templates/app/index.html:21
+msgid "Hi"
+msgstr ""
+
+#: sitebase/templates/app/index.html:25
+msgid "Welcome to Les Fruits Défendus!"
+msgstr ""
+
+#: sitebase/templates/app/index/pickleader.html:3
+msgid "2021 Pick-leader resources"
+msgstr ""
+
+#: sitebase/templates/app/index/pickleader.html:5
+msgid "Volunteer Waiver"
+msgstr "Formulaire de Décharge Bénévole"
+
+#: sitebase/templates/app/index/pickleader.html:6
+msgid "Pre-pick Guide"
+msgstr "Guide de Pré-Cueillette"
+
+#: sitebase/templates/app/index/pickleader.html:7
+msgid "Equipment Points (Annex B)"
+msgstr "Points d'Equipement (Annexe B)"
+
+#: sitebase/templates/app/index/pickleader.html:8
+msgid "Planning Harvests Using the Properties List (Annex D)"
+msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
+
+#: sitebase/templates/app/index/pickleader.html:9
+#, fuzzy
+#| msgid "Harvest Guide"
+msgid "Harvest Guide"
+msgstr "Guide de Cueillette"
+
+#: sitebase/templates/app/index/pickleader.html:10
+msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
+msgstr ""
+"Carte: Points d'Equipement, Organismes Bénéficiaires & Frigos Communautaires"
+
+#: sitebase/templates/app/index/volunteer.html:4
+msgid "Please follow these steps to volunteer as a fruit picker"
+msgstr ""
+
+#: sitebase/templates/app/index/volunteer.html:7
+msgid ""
+"Take a look at our Harvest calendar. Note that new picks are published daily "
+"at 6 p.m."
+msgstr ""
+
+#: sitebase/templates/app/index/volunteer.html:8
+msgid "Click on the harvest that interests you to see the details."
+msgstr ""
+
+#: sitebase/templates/app/index/volunteer.html:9
+msgid ""
+"If you'd like to join the pick, fill out the short form and hit send to "
+"submit your request."
+msgstr ""
+
+#: sitebase/templates/app/index/volunteer.html:10
+msgid ""
+"Wait to be contacted (by email or phone) by the pick leader in charge to get "
+"a confirmation."
+msgstr ""
+
+#: sitebase/templates/app/index/volunteer.html:11
+msgid "If you have been accepted for a harvest, show up!"
+msgstr ""
+
+#: sitebase/templates/app/list_views/beneficiary/data_row.html:9
+#: sitebase/templates/app/list_views/community/data_row.html:10
+msgid "Are you really sure you want to delete this actor?"
+msgstr ""
+
+#: sitebase/templates/app/list_views/beneficiary/view.html:10
+msgid "Organization"
+msgstr ""
+
+#: sitebase/templates/app/list_views/beneficiary/view.html:11
+#: sitebase/templates/app/list_views/equipment/view.html:11
+#: sitebase/templates/app/participation_list.html:19
+msgid "Description"
+msgstr ""
+
+#: sitebase/templates/app/list_views/community/data_row.html:28
+msgid "Are you sure you want to reset this user password?"
+msgstr ""
+
+#: sitebase/templates/app/list_views/community/view.html:10
+msgid "Person"
+msgstr ""
+
+#: sitebase/templates/app/list_views/community/view.html:11
+msgid "Roles"
+msgstr ""
+
+#: sitebase/templates/app/list_views/equipment/view.html:15
+#: sitebase/templates/app/participation_list.html:22
+msgid "Shared"
+msgstr ""
+
+#: sitebase/templates/app/list_views/filters.html:14
+msgid "Filters"
+msgstr ""
+
+#: sitebase/templates/app/list_views/filters.html:27
+msgid "Filter"
+msgstr ""
+
+#: sitebase/templates/app/list_views/filters.html:32
+msgid "Reset"
+msgstr "Réinitialiser"
+
+#: sitebase/templates/app/list_views/harvest/data_row.html:10
+msgid "Are you really sure you want to delete this harvest?"
+msgstr ""
+
+#: sitebase/templates/app/list_views/harvest/view.html:14
+msgid "Leader"
+msgstr ""
+
+#: sitebase/templates/app/list_views/property/data_row.html:11
+msgid "Are you really sure you want to delete this property?"
+msgstr ""
+
+#: sitebase/templates/app/list_views/property/status.html:7
+msgid "PENDING"
+msgstr ""
+
+#: sitebase/templates/app/list_views/property/status.html:9
 msgid "validated"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:98
+#: sitebase/templates/app/list_views/property/status.html:12
 msgid "not yet authorized"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:100
+#: sitebase/templates/app/list_views/property/status.html:14
 msgid "authorized"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:102
+#: sitebase/templates/app/list_views/property/status.html:16
 msgid "unauthorized"
 msgstr ""
 
-#: sitebase/templates/app/property_list.html:105
+#: sitebase/templates/app/list_views/property/status.html:19
 msgid "inactive"
 msgstr ""
 
-#: sitebase/templates/registration/login.html:105
+#: sitebase/templates/app/list_views/property/view.html:14
+msgid "Picks"
+msgstr ""
+
+#: sitebase/templates/app/list_views/property/view.html:15
+msgid "Last pick"
+msgstr ""
+
+#: sitebase/templates/app/participation_create.html:54
+msgid "Request to join this harvest"
+msgstr ""
+
+#: sitebase/templates/app/participation_create.html:77
+msgid ""
+"Sorry, this harvest is not open for requests. You can check the <a href='/"
+"calendar'>calendar</a> for other harvests."
+msgstr ""
+
+#: sitebase/templates/app/participation_create.html:90
+msgid "Sorry, this Harvest is not opened for requests"
+msgstr ""
+
+#: sitebase/templates/app/participation_manage.html:68
+msgid "Update"
+msgstr ""
+
+#: sitebase/templates/registration/login.html:104
 msgid "Login"
 msgstr ""
 
-#~ msgid "Volunteer Waiver"
-#~ msgstr "Formulaire de Décharge Bénévole"
-
-#~ msgid "Pre-pick Guide"
-#~ msgstr "Guide de Pré-Cueillette"
-
-#~ msgid "Equipment Points (Annex B)"
-#~ msgstr "Points d'Equipement (Annexe B)"
-
-#~ msgid "Planning Harvests Using the Properties List (Annex D)"
-#~ msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
-
-#~ msgid "Map: Equipment Points, Beneficiary Organizations & Community Fridges"
-#~ msgstr ""
-#~ "Carte: Points d'Equipement, Organismes Bénéficiaires & Frigos "
-#~ "Communautaires"
+#~ msgid "Schedule"
+#~ msgstr "Calendrier"
 
 #~ msgid "Welcome"
 #~ msgstr "Bienvenu(e)"
-
-#~ msgid "Change password"
-#~ msgstr "Changer mot de passe"
 
 #~ msgid "Username"
 #~ msgstr "Nom d'utilisateur"
@@ -269,9 +791,3 @@ msgstr ""
 
 #~ msgid "Password reset"
 #~ msgstr "Réinitialiser mot de passe"
-
-#~ msgid "E-mail"
-#~ msgstr "Courriel"
-
-#~ msgid "Reset"
-#~ msgstr "Réinitialiser"
