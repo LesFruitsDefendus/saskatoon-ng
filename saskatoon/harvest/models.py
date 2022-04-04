@@ -774,6 +774,11 @@ models.signals.pre_save.connect(
     sender=Property
 )
 
+models.signals.pre_save.connect(
+    receiver=signals.notify_pending_status_update,
+    sender=Property
+)
+
 models.signals.post_save.connect(
     receiver=signals.clear_cache_property,
     sender=Property
