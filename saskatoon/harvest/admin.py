@@ -12,6 +12,7 @@ from harvest.models import (Property, Harvest, RequestForParticipation, TreeType
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
+from django.utils.translation import gettext_lazy as _
 
 
 class PropertyInline(admin.TabularInline):
@@ -21,8 +22,8 @@ class PropertyInline(admin.TabularInline):
 
 class PersonInline(admin.TabularInline):
     model = RequestForParticipation
-    verbose_name = "Cueilleurs pour cette récolte"
-    verbose_name_plural = "Cueilleurs pour cette récolte"
+    verbose_name = _("Cueilleurs pour cette récolte")
+    verbose_name_plural = _("Cueilleurs pour cette récolte")
     form = RFPForm
     exclude = ['creation_date', 'confirmation_date']
     extra = 3
