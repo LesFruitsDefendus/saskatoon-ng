@@ -68,7 +68,7 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
-    success_url = 'thanks'
+    success_url = reverse_lazy('property-thanks')
     success_message = _("Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>.")
 
 
