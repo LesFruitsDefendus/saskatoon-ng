@@ -375,6 +375,23 @@ class Property(models.Model):
     def get_owner_name(self):
         return self.owner.__str__()
 
+    @property
+    def get_owner_email(self):
+        if self.owner.is_person:
+            return self.owner.get_person().email()
+        elif self.owner.is_organization:
+            return self.owner.get_organization().email()
+        else:
+            return None
+
+    @property
+    def get_owner_phone(self):
+        if self.owner.is_person:
+            return self.owner.get_person().phone
+        elif self.owner.is_organization:
+            return self.owner.get_organization().phone
+        else:
+            return None
 
 class Harvest(models.Model):
     status = models.CharField(

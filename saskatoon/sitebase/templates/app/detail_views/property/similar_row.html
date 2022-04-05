@@ -20,9 +20,16 @@
         {% endif %}
     </td>
     <td>
-        {% with property.owner.person as po %}
-            <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
-            {{ po.phone }}
-        {% endwith %}
+        {% if property.owner.person %}
+            {% with property.owner.person as po %}
+                <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
+                {{ po.phone }}
+            {% endwith %}
+        {% elif property.owner.organization %}
+            {% with property.owner.organization.contact_person as po %}
+                <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
+                {{ po.phone }}
+            {% endwith %}
+        {% endif %}
     </td>
 </tr>

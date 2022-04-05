@@ -113,10 +113,22 @@ class Actor(models.Model):
     def get_organization(self):
         return Organization.objects.filter(actor_id=self.actor_id).first()
 
-    def __str__(self):
+    @property
+    def is_person(self):
         if self.get_person():
+            return True
+        return False
+
+    @property
+    def is_organization(self):
+        if self.get_organization():
+            return True
+        return False
+
+    def __str__(self):
+        if self.is_person:
             return self.get_person().__str__()
-        elif self.get_organization():
+        elif self.is_organization:
             return self.get_organization().__str__()
         else:
             return u"Unknown Actor: %i" % self.actor_id
@@ -431,6 +443,9 @@ class Organization(Actor):
 
     def name(self):
         return u"%s" % self.civil_name
+    
+    def email(self):
+        return self.contact_person.email()
 
 class Neighborhood(models.Model):
     name = models.CharField(

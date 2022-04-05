@@ -96,6 +96,8 @@ class PropertySerializer(serializers.ModelSerializer):
             entity = Person.objects.filter(actor_id=obj.owner.actor_id)
             if not entity:
                 entity = Organization.objects.filter(actor_id=obj.owner.actor_id)
+            if not entity:
+                return None
 
             entity_serialized = serialize('json', entity)
 
@@ -105,9 +107,9 @@ class PropertySerializer(serializers.ModelSerializer):
             j['fields']['city'] = str(entity[0].city)
             j['fields']['state'] = str(entity[0].state)
             j['fields']['country'] = str(entity[0].country)
+            j['fields']['email'] = str(entity[0].email())
             if isinstance(entity[0], Person):
                 j['fields']['language'] = str(entity[0].language)
-                j['fields']['email'] = str(entity[0].email())
 
             return j
         else:
