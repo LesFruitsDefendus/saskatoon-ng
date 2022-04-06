@@ -7,6 +7,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 import datetime
 from djgeojson.fields import PointField
+from phone_field import PhoneField
 
 HARVESTS_STATUS_CHOICES = (
     (
@@ -115,11 +116,10 @@ class Property(models.Model):
         max_length=50
     )
 
-    pending_contact_phone = models.CharField(
+    pending_contact_phone = PhoneField(
         blank=True,
         verbose_name=_("Contact phone number"),
         help_text=_("Phone number to be used for confirmation"),
-        max_length=50
     )
 
     pending_contact_email = models.EmailField(

@@ -1,7 +1,8 @@
 {% load static %}
+{% load get_fruit_name_icon %}
 
 <select name="tree" id="tree-select" class="form-control">
-    {% for t in trees %}
-        <option value="{{ t.id }}">{{ t }}</option>
+    {% for t in harvest.trees %}
+        <option value="{{ t.id }}">{{ t.name }} {{ t.fruit_name|get_fruit_name_icon }}</option>
     {% endfor %}
 </select>
