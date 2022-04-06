@@ -33,7 +33,7 @@ setup(
         "django-debug-toolbar",
         "django-extensions",
         "jsonfield==3.1.0",
-        "mysqlclient==1.4.6",
+        # "mysqlclient==1.4.6",
         "Pillow==8.3.2",
         "pycparser==2.20",
         "pytz==2020.1",

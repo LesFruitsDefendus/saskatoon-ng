@@ -121,9 +121,9 @@ DATABASES = {
     'default': {
         'ENGINE': os.getenv('SASKATOON_DB_ENGINE'),
         'NAME': os.getenv('SASKATOON_DB_NAME'),
-        'USER': os.getenv('SASKATOON_DB_USER'),
-        'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),
-        'HOST': os.getenv('SASKATOON_DB_HOST'),
+        # 'USER': os.getenv('SASKATOON_DB_USER'),
+        # 'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),
+        # 'HOST': os.getenv('SASKATOON_DB_HOST'),
     }
 }
 
