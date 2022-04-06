@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>tests.conftest</title>
+    <title>sitebase.templatetags.get_fruit_name_icon</title>
     <meta name="generator" content="pydoctor 22.4.0"> 
         
     </meta>
@@ -131,7 +131,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="module"><code><code><a href="tests.html" class="internal-link">tests</a></code><wbr></wbr>.<code><a href="tests.conftest.html" class="internal-link" title="tests.conftest">conftest</a></code></code></h1>
+        <h1 class="module"><code><code><a href="sitebase.html" class="internal-link">sitebase</a></code><wbr></wbr>.<code><a href="sitebase.templatetags.html" class="internal-link" title="sitebase.templatetags">templatetags</a></code><wbr></wbr>.<code><a href="sitebase.templatetags.get_fruit_name_icon.html" class="internal-link" title="sitebase.templatetags.get_fruit_name_icon">get_fruit_name_icon</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -142,7 +142,7 @@
       </div>
 
       <div class="extrasDocstring">
-        <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/tests/conftest.py" class="sourceLink">(source)</a>
+        <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/sitebase/templatetags/get_fruit_name_icon.py" class="sourceLink">(source)</a>
         <p></p>
       </div>
 
@@ -151,28 +151,23 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id223">
+        <table class="children sortable" id="id5">
   
   
   <tr class="function">
     
     <td>Function</td>
-    <td><code><a href="#django_db_setup" class="internal-link" title="tests.conftest.django_db_setup">django​_db​_setup</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="function">
-    
-    <td>Function</td>
-    <td><code><a href="#driver" class="internal-link" title="tests.conftest.driver">driver</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
+    <td><code><a href="#get_fruit_name_icon" class="internal-link" title="sitebase.templatetags.get_fruit_name_icon.get_fruit_name_icon">get​_fruit​_name​_icon</a></code></td>
+    <td>Returns the icon mapped to the tree's fruit name</td>
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#TESTDRIVER" class="internal-link" title="tests.conftest.TESTDRIVER">TESTDRIVER</a></code></td>
+    <td><code><a href="#FRUIT_NAME_ICONS" class="internal-link" title="sitebase.templatetags.get_fruit_name_icon.FRUIT_NAME_ICONS">FRUIT​_NAME​_ICONS</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
     <td>Variable</td>
-    <td><code><a href="#file" class="internal-link" title="tests.conftest.file">file</a></code></td>
+    <td><code><a href="#register" class="internal-link" title="sitebase.templatetags.get_fruit_name_icon.register">register</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -186,16 +181,16 @@
         <div class="basefunction">
   
   
-  <a name="tests.conftest.django_db_setup">
+  <a name="sitebase.templatetags.get_fruit_name_icon.get_fruit_name_icon">
     
   </a>
-  <a name="django_db_setup">
+  <a name="get_fruit_name_icon">
     
   </a>
   <div class="functionHeader">
-    @pytest.fixture(<wbr></wbr>scope=<span class="rst-variable-quote">'</span><span class="rst-variable-string">session</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">django_db_setup</span>():
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/tests/conftest.py#L18">
+    @register.filter<br />@stringfilter<br />
+    <span class="py-keyword">def</span> <span class="py-defname">get_fruit_name_icon</span>(fruit_name):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/sitebase/templatetags/get_fruit_name_icon.py#L47">
       
       (source)
     </a>
@@ -203,43 +198,21 @@
   <div class="docstring functionBody">
     
     
-    <div><p class="undocumented">Undocumented</p></div>
-  </div>
-</div><div class="basefunction">
-  
-  
-  <a name="tests.conftest.driver">
-    
-  </a>
-  <a name="driver">
-    
-  </a>
-  <div class="functionHeader">
-    @pytest.fixture(<wbr></wbr>scope=<span class="rst-variable-quote">'</span><span class="rst-variable-string">module</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">driver</span>():
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/tests/conftest.py#L28">
-      
-      (source)
-    </a>
-  </div>
-  <div class="docstring functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
+    <div>Returns the icon mapped to the tree's fruit name<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Parameters</td></tr><tr><td class="fieldArgContainer"><span class="fieldArg">fruit​_name:</span><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
   </div>
 </div><div class="baseconstant">
   
   
-  <a name="tests.conftest.TESTDRIVER">
+  <a name="sitebase.templatetags.get_fruit_name_icon.FRUIT_NAME_ICONS">
     
   </a>
-  <a name="TESTDRIVER">
+  <a name="FRUIT_NAME_ICONS">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">TESTDRIVER</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/tests/conftest.py#L12">
+    <span class="py-defname">FRUIT_NAME_ICONS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/sitebase/templatetags/get_fruit_name_icon.py#L6">
       
       (source)
     </a>
@@ -248,21 +221,28 @@
     
     
     <div><p class="undocumented">Undocumented</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_TEST_WEBDRIVER</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
+    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Grapes</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍇</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Melon</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍈</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Watermelon</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍉</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Tangerine</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍊</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Lemon</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍋</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Banana</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍌</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Pineapple</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">🍍</span><span class="rst-variable-quote">'</span>,
+<span class="rst-variable-ellipsis">...</span></code></pre></td></tr></table>
   </div>
 </div><div class="basevariable">
   
   
-  <a name="tests.conftest.file">
+  <a name="sitebase.templatetags.get_fruit_name_icon.register">
     
   </a>
-  <a name="file">
+  <a name="register">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">file</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/tests/conftest.py#L9">
+    <span class="py-defname">register</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/sitebase/templatetags/get_fruit_name_icon.py#L4">
       
       (source)
     </a>
