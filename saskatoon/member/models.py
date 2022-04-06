@@ -6,6 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import ( Group, AbstractBaseUser,
                                          PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
+from phone_field import PhoneField
 from harvest.models import RequestForParticipation, Harvest, Property
 
 AUTH_GROUPS = (
@@ -140,9 +141,8 @@ class Person(Actor):
         blank=True
     )
 
-    phone = models.CharField(
+    phone = PhoneField(
         verbose_name=_("Phone"),
-        max_length=30,
         null=True,
         blank=True
     )
@@ -310,9 +310,8 @@ class Organization(Actor):
         blank=True
     )
 
-    phone = models.CharField(
+    phone = PhoneField(
         verbose_name=_("Phone"),
-        max_length=50,
         null=True
     )
 

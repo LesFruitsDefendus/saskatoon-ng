@@ -34,7 +34,7 @@ setup(
         "django-extensions",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
-        "Pillow==8.3.2",
+        "Pillow==9.0.1",
         "pycparser==2.20",
         "pytz==2020.1",
         "six==1.15.0",
@@ -42,7 +42,8 @@ setup(
         "django-redis",
         "django-dotenv",
         "django-crispy-forms",
-        "django-rosetta==0.9.8"
+        "django-rosetta==0.9.8",
+        "django-phone-field==1.8.1"
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
