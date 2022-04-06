@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('harvest', '0006_alter_equipment_shared'),
+        ('harvest', '0007_alter_property_pending_contact_phone'),
     ]
 
     operations = [
