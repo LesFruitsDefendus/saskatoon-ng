@@ -10,7 +10,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Saskatoon - Les Fruits Défendus</title>
+    <title>{% block title %}Saskatoon - Les Fruits Défendus{% endblock %}</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/favicon.ico' %}">
@@ -39,17 +39,19 @@
         {% include 'app/base/menu.html' %}
     {% endif %}
 
-    {% if messages %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    {% for message in messages %}
-                <div class="text-center alert alert-{{message.tags}}" role="alert">{{ message|safe }}</div>
-                {% endfor %}
+    {% block message %}
+        {% if messages %}
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% for message in messages %}
+                    <div class="text-center alert alert-{{message.tags}}" role="alert">{{ message|safe }}</div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
-    </div>
-    {% endif %}
+        {% endif %}
+    {% endblock message %}
 
     <!-- Content -->
     {% block content %}
