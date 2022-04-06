@@ -42,7 +42,8 @@ setup(
         "django-redis",
         "django-dotenv",
         "django-crispy-forms",
-        "django-rosetta==0.9.8"
+        "django-rosetta==0.9.8",
+        "django-phone-field==1.8.1"
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
