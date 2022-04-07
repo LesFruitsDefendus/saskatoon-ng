@@ -26,8 +26,11 @@ Please follow each part of this documentation in order to run your own instance 
     ```
 
     $ virtualenv venv
+    
     $ . venv/bin/activate
+    
     $(venv) pip3 install .
+    
     ```
 
     See `setup.py` for more details on the project's package requirements
@@ -38,6 +41,9 @@ Please follow each part of this documentation in order to run your own instance 
     `django-redis` is currently used as a caching backend with default configuration (see `CACHES` variable in `saskatoon/settings.py`). A Redis server must be run in the background:
     ```
     $ sudo apt install redis-server
+    ```
+    checking  status of redis-server
+    ```
     $ sudo systemctl status redis-server
     ```
     Note the Redis service will start automatically when the installation finishes (if using systemd)
@@ -79,6 +85,8 @@ Note: to generate a new random secret key, you can run this script:
 python -c 'from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())'
 
 ```
+After Generating the Secret Key Copy and paste it in your ` .env ` file 
+
 
 ## local database
 
@@ -115,11 +123,11 @@ $ sudo mysql -u root -p
 Example mysql configuration in *.env* file:
 ```
 # Database
-SASKATOON_DB_ENGINE=django.db.backends.mysql
-SASKATOON_DB_NAME=saskatoon_dev
-SASKATOON_DB_USER=<user>
-SASKATOON_DB_PASSWORD=<password>
-SASKATOON_DB_HOST=127.0.0.1
+export SASKATOON_DB_ENGINE=django.db.backends.mysql
+export SASKATOON_DB_NAME=saskatoon_dev
+export SASKATOON_DB_USER=<user>
+export SASKATOON_DB_PASSWORD=<password>
+export SASKATOON_DB_HOST=127.0.0.1
 ```
 
 ## Django setup
@@ -285,9 +293,9 @@ Extra configuration is required in `.env` to run tests:
 ```
 # Testing settings
 
-SASKATOON_URL=http://localhost:8000
-SASKATOON_ADMIN_EMAIL=admin@example.com
-SASKATOON_ADMIN_PASSWORD=testing1234
+export SASKATOON_URL=http://localhost:8000
+export SASKATOON_ADMIN_EMAIL=admin@example.com
+export SASKATOON_ADMIN_PASSWORD=testing1234
 ```
 
 Tests are located inside `saskatoon/tests` folder.
