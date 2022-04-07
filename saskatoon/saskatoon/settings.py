@@ -21,7 +21,7 @@ from dotenv import read_dotenv
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Load the environment variables from .env file.
-dotenv = os.path.join(BASE_DIR, '.env')
+dotenv = os.path.join(BASE_DIR, 'saskatoon/.env')
 if os.path.exists(dotenv):
     read_dotenv(dotenv=dotenv)
 else:
