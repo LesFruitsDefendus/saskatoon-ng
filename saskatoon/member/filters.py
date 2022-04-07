@@ -14,13 +14,15 @@ class UserGroupAdminFilter(SimpleListFilter):
     default_value = None
 
     def lookups(self, request, model_admin):
-        list_of_roles = []
+        list_of_roles = [('0', '__none__')]
         for group in Group.objects.all():
             list_of_roles.append((str(group.id), group.name))
         return sorted(list_of_roles, key=lambda tp: tp[1])
 
     def queryset(self, request, queryset):
-        if self.value():
+        if self.value() == '0':
+            return queryset.filter(groups__isnull=True)
+        elif self.value():
             return queryset.filter(groups__in=self.value())
         return queryset
 

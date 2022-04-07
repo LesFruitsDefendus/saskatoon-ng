@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load get_fruit_name_icon %}
 <div class="search-engine-int">
     <div class="contact-hd search-hd-eg">
         <h2>About this property</h2>
@@ -13,7 +14,7 @@
             <h2>Available tree(s)</h2>
             <ul>
                 {% for tree in property.trees %}
-                    <li>- {{ tree }}</li>
+                <li>- {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</li>
                 {% endfor %}
             </ul>
             <br>

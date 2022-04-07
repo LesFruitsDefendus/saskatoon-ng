@@ -1,8 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.humanize.templatetags.humanize import ordinal
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
@@ -66,7 +68,7 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     model = Property
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
-    success_url = 'thanks'
+    success_url = reverse_lazy('property-thanks')
     success_message = _("Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>.")
 
 
@@ -131,6 +133,21 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         context['title'] = _("Edit harvest")
         context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
         return context
+
+    def get_success_message(self, cleaned_data) -> str:
+        harvests_as_pickleader = self.object.pick_leader.person.harvests_as_pickleader
+        harvests_this_year = harvests_as_pickleader.filter(
+            start_date__year=timezone.now().date().year
+        )
+        harvest_number: int = harvests_this_year.count()
+
+        success_message_harvest_successful: str = _(
+            "You’ve just led your {} fruit harvest! Thank you for supporting your community!"
+        ).format(ordinal(harvest_number))
+
+        if self.object.status == "Succeeded":
+            return success_message_harvest_successful % cleaned_data
+        return self.success_message % cleaned_data
 
     def get_success_url(self):
             return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})

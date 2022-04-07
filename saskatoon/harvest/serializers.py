@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation
+from harvest.models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation, TreeType
 from member.models import Actor, Neighborhood, AuthUser, Person, Organization, City, State, Country
 from django.core.serializers import serialize
 import json
@@ -63,6 +63,12 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = '__all__'
 
+
+class TreeTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TreeType
+        fields = '__all__'
+
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
@@ -73,7 +79,7 @@ class PropertySerializer(serializers.ModelSerializer):
     harvests = serializers.ReadOnlyField(source="get_harvests")
     last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
     address = serializers.ReadOnlyField(source="short_address")
-    trees = serializers.StringRelatedField(many=True)
+    trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
 
     class Meta:
@@ -146,8 +152,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
     pick_leader = serializers.StringRelatedField(many=False)
-    trees = serializers.StringRelatedField(many=True)
     # 3) get the full instance from another serializer class
+    trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertyInfoSerializer(many=False, read_only=True)
 
     class Meta:

@@ -6,6 +6,8 @@ Models registration.
 
 from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin
+from django.db.models import Value
+from django.db.models.functions import Replace
 from member.models import (Actor, Language, Person, Organization, Neighborhood,
                            City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
@@ -66,7 +68,45 @@ class PropertyImageInline(admin.TabularInline):
 class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
+    list_display = (
+        '__str__',
+        'authorized',
+        'pending',
+        'harvest_every_year', 
+        'approximative_maturity_date',
+        'avg_nb_required_pickers',
+        'neighborhood',
+        'city',
+        'postal_code',
+    )
+    list_filter = (
+        'authorized',
+        'pending',
+        'harvest_every_year',
+        'public_access',
+        'neighbor_access',
+        'compost_bin',
+        'ladder_available',
+        'ladder_available_for_outside_picks',
+        'trees',
+        'neighborhood',
+        'city',
+    )
+    search_fields = (
+        'street_number',
+        'street',
+        'postal_code_cleaned',
+        'owner__person__family_name',
+        'owner__person__auth_user__email',
+    )
     exclude = ['longitude', 'latitude', 'geom']
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(
+            postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
+        )
+        return queryset
 
 admin.site.register(Property, PropertyAdmin)
 admin.site.register(Harvest, HarvestAdmin)
