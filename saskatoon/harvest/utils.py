@@ -5,17 +5,12 @@ from harvest.models import Property
 from member.models import AuthUser, Person
 
 
-def clean_phone(phone):
-    return sub(r'\W', '', phone)
-
-
 def get_similar_properties(pending_property):
     """Look for potential property/owner duplicates
 
     TO BE IMPROVED
     - pending_contact_name needs to be split into 2 separate fields
     - pending_contact_phone should be formatted properly upon form saving
-    - person.phone should be a proper phone_field with consistent formatting
     """
 
     p = pending_property
@@ -34,10 +29,9 @@ def get_similar_properties(pending_property):
             # query |= Q(owner__person__first_name__icontains=first_name)
             # query |= Q(owner__person__last_name__icontains=last_name)
 
-        phone = clean_phone(p.pending_contact_phone)  # TODO use consistent phone format
+        phone = p.pending_contact_phone
         if phone:
-            pass
-            # query |= Q(owner__person__phone=phone)
+            query |= Q(owner__person__phone=phone)
 
         # address match
         q0 = Q(street__icontains=p.street)
