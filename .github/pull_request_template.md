@@ -32,4 +32,3 @@ e.g. `127.0.0.1:8000/harvest/`
 - [ ] I have made corresponding changes to the documentation.
 - [ ] My changes generate no new warnings.
 - [ ] New and existing unit tests pass locally with my changes.
-- [ ] Any dependent changes have been merged and published in downstream modules.
