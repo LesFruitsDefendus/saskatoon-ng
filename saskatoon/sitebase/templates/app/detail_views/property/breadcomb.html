@@ -23,13 +23,13 @@
                                     {% endif %}
                                     </h1>
                                     {% if property.pending %}
-                                        <h4>** PENDING **</h4>
+                                        <h4>** {% translate 'PENDING' %} **</h4>
                                     {% elif property.last_succeeded_harvest %}
                                         <p>{% trans "Last succeeded harvest"  %}
                                             on {{ property.last_succeeded_harvest|date }}
                                         </p>
                                     {% else %}
-                                        <p>No succeeded harvest on this property so far</p>
+                                        <p>{% translate 'No succeeded harvest on this property so far' %}</p>
                                     {% endif %}
                                 </div>
                             </div>

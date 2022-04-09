@@ -1,14 +1,14 @@
 {% load static %}
 <select name="actor" id="recipient-select" class="form-control required">
-    <option selected disabled>Owner</option>
+    <option selected disabled>{% translate 'Owner' %}</option>
     <option value={{ property.owner.pk }}>{{ property.owner }}</option>
-    <option selected disabled>Pickers</option>
+    <option selected disabled>{% translate 'Pickers' %}</option>
     {% for p in pickers %}
         <option value={{ p.pk }}>{{ p }}</option>
     {% endfor %}
-    <option selected disabled>Organizations</option>
+    <option selected disabled>{% translate 'Organizations' %}</option>
     {% for o in organizations %}
     <option value={{ o.pk }}>{{ o }}</option>
     {% endfor %}
-    <option selected disabled hidden>Select a Recipient</option>
+    <option selected disabled hidden>{% translate 'Select a Recipient' %}</option>
 </select>
