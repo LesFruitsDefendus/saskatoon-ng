@@ -233,3 +233,5 @@ CKEDITOR_CONFIGS = {
         'width': "100%"
     },
 }
+
+CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
