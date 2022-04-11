@@ -1,6 +1,6 @@
 from crequest.middleware import CrequestMiddleware
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.mail import send_mail
+from django.core.mail import send_mail, send_mass_mail
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 
@@ -39,6 +39,39 @@ def changed_by(sender, instance, **kwargs):
             instance.changed_by = current_request.user
     else:
         instance.changed_by = None
+
+def notify_unselected_pickers(sender, instance, **kwargs):
+    if instance.id:
+        try:
+            # this might raise DoesNotExist error while loading the fixtures
+            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 for more informations.
+            original_instance = sender.objects.get(id=instance.id)
+        except ObjectDoesNotExist:
+            return
+        if instance.status == "Ready" and original_instance.status == "Date-scheduled":
+            unselected_pickers = instance.get_unselected_pickers()
+            email_list = list()
+            mail_subject = _("[Saskatoon] Request for participation declined")
+            for p in unselected_pickers:
+                picker_name = p.picker.name
+                picker_email = list()
+                picker_email.append(p.picker.email)
+                harvest_details = instance.__str__()
+                message = (_("Hi {},\n\n" +
+                    "We are sorry but enough pickers have already been selected " +
+                    "for the {}. You may still be contacted by the pick-leader " +
+                    "if some of them end up cancelling. We will do our " +
+                    "best to prioritize your participation next time you submit a request " +
+                    "re-using the same email for another harvest.\n\n" +
+                    "Thanks for supporting your community!\n\n" +
+                    "Yours,\n" +
+                    "--\n" +
+                    "Saskatoon Harvest System")).format(
+                        picker_name,
+                        harvest_details
+                    )
+                email_list.append((mail_subject, message, None, picker_email))
+            send_mass_mail(email_list,fail_silently=SEND_MAIL_FAIL_SILENTLY,)
 
 def notify_pending_status_update(sender, instance, **kwargs):
     # Send email only if pending status is removed
