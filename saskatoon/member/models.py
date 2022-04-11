@@ -7,6 +7,11 @@ from django.contrib.auth.models import ( Group, AbstractBaseUser,
                                          PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
 from harvest.models import RequestForParticipation, Harvest, Property
+from django.dispatch import receiver
+from django.db.models.signals import pre_save, post_save
+from django.conf import settings
+from django.core.mail import send_mail
+
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -26,7 +31,7 @@ class AuthUserManager(BaseUserManager):
 
         user = self.model(email=self.normalize_email(email),
                           )
-        user.is_active = True
+        user.is_active = False
         user.set_password(password)
         user.save(using=self._db)
         return user
@@ -62,7 +67,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     # Our own fields
     date_joined = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True, null=False)
+    is_active = models.BooleanField(default=False, null=False)
     is_staff = models.BooleanField(default=False, null=False)
 
     objects = AuthUserManager()
@@ -254,6 +259,25 @@ class Person(Actor):
             return auth_obj[0].email
         else:
             return None
+
+#signal used for is_active=False to is_active=True
+@receiver(pre_save, sender=AuthUser, dispatch_uid='active')
+def active(sender, instance, **kwargs):
+    if instance.is_active and AuthUser.objects.filter(pk=instance.pk, is_active=False).exists():
+        subject = 'Active account'
+        message = '%s your account is now active. You can now login' %(instance.person)
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(subject, message, from_email, [instance.email], fail_silently=False)
+
+#signal to send an email to the admin when a user creates a new account
+@receiver(post_save, sender=AuthUser, dispatch_uid='register')
+def register(sender, instance, **kwargs):
+    if kwargs.get('created', False):
+        subject = 'Verificatión of  %s account' %(instance.person)
+        message = 'Approve %s account' %(instance.person)
+        from_email = settings.EMAIL_HOST_USER
+        send_mail(subject, message, from_email, [from_email], fail_silently=False)
+
 
     @property
     def properties(self):

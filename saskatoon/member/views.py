@@ -11,8 +11,7 @@ from harvest.models import Property
 from .forms import ( PersonCreateForm, PersonUpdateForm,
                      OrganizationCreateForm, OrganizationForm )
 
-class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'member.add_person'
+class PersonCreateView(SuccessMessageMixin, CreateView):
     model = Person
     form_class = PersonCreateForm
     template_name = 'app/forms/model_form.html'
@@ -53,7 +52,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             property_id = self.request.GET['pid']
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
-            return reverse_lazy('community-list')
+            return reverse_lazy('home')
 
 class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_person'
