@@ -81,6 +81,7 @@ class PropertySerializer(serializers.ModelSerializer):
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
+    pending_contact_name = serializers.ReadOnlyField()
 
     class Meta:
         model = Property

@@ -382,6 +382,16 @@ class Property(models.Model):
     def get_owner_name(self):
         return self.owner.__str__()
 
+    @property
+    def pending_contact_name(self):
+        if self.pending_contact_first_name and self.pending_contact_family_name:
+            return " ".join([self.pending_contact_first_name, self.pending_contact_family_name])
+        elif self.pending_contact_first_name:
+            return self.pending_contact_first_name
+        elif self.pending_contact_family_name:
+            return self.pending_contact_family_name
+        else:
+            return ""
 
 class Harvest(models.Model):
     status = models.CharField(
