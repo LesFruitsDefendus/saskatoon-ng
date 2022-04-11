@@ -5,7 +5,7 @@ Please fill out the neccessary sections, and delete unused ones.
 Fixes #issue-number
 ----------
 ## Type of change:
-- [ ] Bug fix (non-breaking change which fixes an issue).
+- [ ] Bug fix (change which fixes an issue).
 - [ ] New feature (change which adds functionality).
 - [ ] Changes to models (requires making migrations).
 - [ ] Documentation change.
