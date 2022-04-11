@@ -29,7 +29,7 @@
     {% if property.owner %}
         {{ property.owner.fields.name }}
     {% else %}
-        {{ property.pending_contact_name }}
+        {{ property.pending_contact_first_name }} {{ property.pending_contact_family_name }}
     {% endif %}
     </p>
 

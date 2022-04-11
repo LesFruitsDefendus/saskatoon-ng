@@ -109,10 +109,17 @@ class Property(models.Model):
         default=True
     )
 
-    pending_contact_name = models.CharField(
+    pending_contact_first_name = models.CharField(
         blank=True,
-        verbose_name=_("Contact name"),
-        help_text=_("Name of the person to be contacted for confirmation"),
+        verbose_name=_("Contact first name"),
+        help_text=_("First name of the person to be contacted for confirmation"),
+        max_length=50
+    )
+
+    pending_contact_family_name = models.CharField(
+        blank=True,
+        verbose_name=_("Contact family name"),
+        help_text=_("Family name of the person to be contacted for confirmation"),
         max_length=50
     )
 
@@ -327,7 +334,7 @@ class Property(models.Model):
         verbose_name_plural = _("properties")
 
     def __str__(self):
-        name = self.owner if self.owner else u"(%s)" % self.pending_contact_name
+        name = self.owner if self.owner else u"(%s %s)" % (self.pending_contact_first_name, self.pending_contact_family_name)
         number = self.street_number if self.street_number else ""
         return u"%s %s %s %s" % \
             (name, _("at"), number, self.street)

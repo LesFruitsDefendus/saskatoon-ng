@@ -236,7 +236,8 @@ class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = ['longitude', 'latitude', 'geom', 'changed_by',
-                   'pending_contact_name', 'pending_contact_phone', 'pending_contact_email',
+                   'pending_contact_first_name', 'pending_contact_family_name',
+                   'pending_contact_phone', 'pending_contact_email',
                    'pending_recurring', 'pending_newsletter']
 
         widgets = {
@@ -326,7 +327,8 @@ class PublicPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = (
-            'pending_contact_name',
+            'pending_contact_first_name',
+            'pending_contact_family_name',
             'pending_contact_phone',
             'pending_contact_email',
             'pending_recurring',
