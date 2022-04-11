@@ -39,8 +39,9 @@ class PersonCreateForm(forms.ModelForm):
 
     field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
 
-    def clean_email(self):
-        return validate_email(self.cleaned_data['email'])
+    def clean(self):
+        cleaned_data = super(PersonCreateForm, self).clean()
+        validate_email(cleaned_data['email'])
 
     def save(self):
         # create Person instance
