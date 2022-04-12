@@ -6,7 +6,7 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
 from django.db.models import Value
 from django.db.models.functions import Replace
-from member.models import (AuthUser, Actor, Language, Person, Organization,
+from member.models import (AuthUser, Actor, OrganizationContact, Language, Person, Organization,
                            Neighborhood, City, State, Country)
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter, UserHasPropertyAdminFilter,
                             UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
@@ -281,6 +281,7 @@ class ActorAdmin(admin.ModelAdmin):
 
 admin.site.register(Language)
 admin.site.register(Organization)
+admin.site.register(OrganizationContact)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
