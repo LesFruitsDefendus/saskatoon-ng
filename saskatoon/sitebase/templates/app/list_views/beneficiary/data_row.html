@@ -37,15 +37,17 @@
     <td>{{ org.description }}</td>
 
     <td>
-        <b>{{ org.contact_person.name }}</b>
+        {% for person in org.contact_persons %}
+            <b>{{ person.person.name }}</b>
 
-        {% if perms.member.change_person %}
-            &nbsp;
-            <small><a href="/person/update/{{org.contact_person.actor_id}}"
-                    title="edit">
-                <i class="fa fa-pencil"></i>
-            </a></small>
-        {% endif %}
+            {% if perms.member.change_person %}
+                &nbsp;
+                <small><a href="/person/update/{{person.person.actor_id}}"
+                        title="edit">
+                    <i class="fa fa-pencil"></i>
+                </a></small>
+            {% endif %},
+        {% endfor %}
         {% if org.contact_person.phone %}
             <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
             {{ org.contact_person.phone }}
