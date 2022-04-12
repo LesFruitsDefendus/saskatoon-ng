@@ -13,6 +13,7 @@ from member.models import (Actor, Language, Person, Organization, Neighborhood,
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
+from harvest.filters import PropertyOwnerTypeAdminFilter
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -69,25 +70,20 @@ class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
-        '__str__',
-        'authorized',
+        'short_address',
+        'owner',
         'pending',
-        'harvest_every_year', 
+        'authorized',
         'approximative_maturity_date',
-        'avg_nb_required_pickers',
         'neighborhood',
         'city',
         'postal_code',
+        'pk'
     )
     list_filter = (
+        PropertyOwnerTypeAdminFilter,
         'authorized',
         'pending',
-        'harvest_every_year',
-        'public_access',
-        'neighbor_access',
-        'compost_bin',
-        'ladder_available',
-        'ladder_available_for_outside_picks',
         'trees',
         'neighborhood',
         'city',

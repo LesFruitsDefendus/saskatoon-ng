@@ -1,9 +1,11 @@
+from django.contrib.admin import SimpleListFilter
+from django.contrib.auth.models import Group
+from django.db.models.query_utils import Q
 from django.utils.translation import ugettext_lazy as _
 from django_filters import rest_framework as filters
-from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property, Equipment,  EquipmentType
+from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
+                            Property, Equipment,  EquipmentType)
 from member.models import Language, AuthUser, Neighborhood, Organization
-from django.db.models.query_utils import Q
-from django.contrib.auth.models import Group
 
 FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
 
@@ -20,7 +22,7 @@ class HarvestFilter(filters.FilterSet):
     seasons = sorted(seasons, key=lambda tup: tup[1])
 
     season = filters.ChoiceFilter(
-        field_name='start_date', 
+        field_name='start_date',
         choices=seasons,
         label=_("Season"),
         lookup_expr='year',
@@ -96,6 +98,7 @@ class PropertyFilter(filters.FilterSet):
             'pending',
             ]
 
+
 class CommunityFilter(filters.FilterSet):
 
     groups = filters.ModelChoiceFilter(
@@ -147,6 +150,7 @@ class CommunityFilter(filters.FilterSet):
             'person__language',
         ]
 
+
 # FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
     neighborhood = filters.ModelChoiceFilter(
@@ -160,6 +164,7 @@ class OrganizationFilter(filters.FilterSet):
         model = Organization
         fields = ['neighborhood', 'is_beneficiary']
 
+
 class EquipmentFilter(filters.FilterSet):
     shared = filters.BooleanFilter(help_text="")
     type = filters.ModelChoiceFilter(
@@ -171,3 +176,28 @@ class EquipmentFilter(filters.FilterSet):
     class Meta:
         model = Equipment
         fields = ['type', 'shared']
+
+
+# # ADMIN filters # #
+
+class PropertyOwnerTypeAdminFilter(SimpleListFilter):
+    """Check is owner is a Person or an Organization"""
+
+    title = "Owner Type Filter"
+    parameter_name = 'owner'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'Unknown'),
+                ('1', 'Person'),
+                ('2', 'Organization')
+                ]
+
+    def queryset(self, request, queryset):
+        if self.value() == '0':
+            return queryset.filter(owner__isnull=True)
+        if self.value() == '1':
+            return queryset.filter(owner__person__isnull=False)
+        if self.value() == '2':
+            return queryset.filter(owner__organization__isnull=False)
+        return queryset
