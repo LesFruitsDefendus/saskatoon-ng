@@ -7,7 +7,7 @@ from django.contrib.auth.models import Group
 from django.core.mail import send_mail
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
+from harvest.models import (RequestForParticipation, Harvest, HarvestYield, HarvestComment,
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
@@ -154,7 +154,7 @@ class RequestForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
     class Meta:
-        model = Comment
+        model = HarvestComment
         fields = [
             'content',
         ]

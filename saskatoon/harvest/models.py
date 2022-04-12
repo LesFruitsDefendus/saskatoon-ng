@@ -712,7 +712,7 @@ class Equipment(models.Model):
         return "%s (%s)" % (self.description, self.type)
 
 
-class Comment(models.Model):
+class AbstractComment(models.Model):
     content = models.CharField(
         verbose_name=_("Content"),
         max_length=500
@@ -723,13 +723,14 @@ class Comment(models.Model):
         auto_now_add=True
     )
 
-    author = models.ForeignKey(
-        'member.AuthUser',
-        verbose_name=_("Author"),
-        related_name="Comment",
-        on_delete=models.CASCADE,
-    )
+    class Meta:
+        abstract = True
 
+    def __str__(self):
+        return self.content
+
+
+class HarvestComment(AbstractComment):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("harvest"),
@@ -737,12 +738,37 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    class Meta:
-        verbose_name = _("comment")
-        verbose_name_plural = _("comments")
+    author = models.ForeignKey(
+        'member.AuthUser',
+        verbose_name=_("Author"),
+        related_name="HarvestComment",
+        on_delete=models.CASCADE,
+    )
 
-    def __str__(self):
-        return self.content
+    class Meta:
+        verbose_name = _("harvest comment")
+        verbose_name_plural = _("harvest comments")
+
+
+class PropertyComment(AbstractComment):
+    property = models.ForeignKey(
+        'Property',
+        verbose_name=_("property"),
+        related_name="comment",
+        on_delete=models.CASCADE,
+    )
+
+    author = models.ForeignKey(
+        'member.AuthUser',
+        verbose_name=_("Author"),
+        related_name="PropertyComment",
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = _("property comment")
+        verbose_name_plural = _("property comments")
+
 
 
 class PropertyImage(models.Model):
@@ -789,7 +815,7 @@ models.signals.post_save.connect(
 # Send email on new comments
 models.signals.post_save.connect(
     signals.comment_send_mail,
-    sender=Comment
+    sender=HarvestComment
 )
 
 # Harvest signals

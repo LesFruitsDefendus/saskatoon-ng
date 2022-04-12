@@ -9,7 +9,7 @@ from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from member.models import AuthUser, Organization
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
-                            RequestForParticipation, Comment)
+                            RequestForParticipation, HarvestComment)
 from harvest.serializers import (HarvestSerializer, PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, BeneficiarySerializer,
                                  RequestForParticipationSerializer)
@@ -57,7 +57,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
         requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
-        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
+        comments = HarvestComment.objects.filter(harvest=harvest).order_by('-created_date')
         property = harvest.property
         pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
         organizations = Organization.objects.filter(is_beneficiary=True)

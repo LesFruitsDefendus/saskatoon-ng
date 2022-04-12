@@ -11,7 +11,7 @@ from django.db.models.functions import Replace
 from member.models import (Actor, Language, Person, Organization, Neighborhood,
                            City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
-                            Equipment, EquipmentType, HarvestYield, Comment,
+                            Equipment, EquipmentType, HarvestYield, HarvestComment,
                             PropertyImage, HarvestImage)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
@@ -115,5 +115,5 @@ admin.site.register(TreeType)
 admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
-admin.site.register(Comment)
+admin.site.register(HarvestComment)
 admin.site.register(PropertyImage)
