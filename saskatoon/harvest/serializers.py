@@ -1,3 +1,7 @@
+from rest_framework import serializers
+from harvest.models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation, TreeType
+from member.models import Actor, Neighborhood, AuthUser, Person, Organization, OrganizationContact, City, State, Country
+from django.core.serializers import serialize
 import json
 from django.core.serializers import serialize
 from django.utils.translation import gettext_lazy as _
@@ -31,14 +35,23 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_owner', 'properties', 'comments']
 
 
+
+class OrganizationContactSerializer(serializers.ModelSerializer):
+    person = PersonSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = OrganizationContact
+        fields = ['person' ,'person_role']
+
+# Beneficiary serializer
 class BeneficiarySerializer(serializers.ModelSerializer):
-    contact_person = PersonSerializer(many=False, read_only=True)
+    contact_persons = OrganizationContactSerializer(many=True, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
 
     class Meta:
         model = Organization
         fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
-                  'is_beneficiary', 'contact_person', 'neighborhood']
+                  'is_beneficiary', 'contact_persons', 'neighborhood']
 
 
 class ActorSerializer(serializers.ModelSerializer):
