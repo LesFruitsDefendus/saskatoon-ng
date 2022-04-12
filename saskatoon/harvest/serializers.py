@@ -103,11 +103,11 @@ class PropertySerializer(serializers.ModelSerializer):
 
             j = json.loads(entity_serialized[1:-1])
             j['fields']['neighborhood'] = str(entity[0].neighborhood)
-            j['fields']['name'] = str(entity[0].name())
+            j['fields']['name'] = str(entity[0].name)
             j['fields']['city'] = str(entity[0].city)
             j['fields']['state'] = str(entity[0].state)
             j['fields']['country'] = str(entity[0].country)
-            j['fields']['email'] = str(entity[0].email())
+            j['fields']['email'] = str(entity[0].email)
             if isinstance(entity[0], Person):
                 j['fields']['language'] = str(entity[0].language)
 

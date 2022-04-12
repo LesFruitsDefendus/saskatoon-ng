@@ -115,15 +115,11 @@ class Actor(models.Model):
 
     @property
     def is_person(self):
-        if self.get_person():
-            return True
-        return False
+        return hasattr(self, 'person')
 
     @property
     def is_organization(self):
-        if self.get_organization():
-            return True
-        return False
+        return hasattr(self, 'organization')
 
     def __str__(self):
         if self.is_person:
@@ -257,9 +253,11 @@ class Person(Actor):
     def __str__(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    @property
     def name(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    @property
     def email(self):
         auth_obj = AuthUser.objects.filter(person=self)
         if auth_obj:
@@ -441,11 +439,14 @@ class Organization(Actor):
     def __str__(self):
         return u"%s" % self.civil_name
 
+    @property
     def name(self):
         return u"%s" % self.civil_name
-    
+
+    @property
     def email(self):
-        return self.contact_person.email()
+        return self.contact_person.email
+
 
 class Neighborhood(models.Model):
     name = models.CharField(
