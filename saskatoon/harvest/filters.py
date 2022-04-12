@@ -188,10 +188,9 @@ class PropertyOwnerTypeAdminFilter(SimpleListFilter):
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [('0', 'Unknown'),
-                ('1', 'Person'),
-                ('2', 'Organization')
-                ]
+        return [('0', _("Unknown")),
+                ('1', _("Person")),
+                ('2', _("Organization"))]
 
     def queryset(self, request, queryset):
         if self.value() == '0':

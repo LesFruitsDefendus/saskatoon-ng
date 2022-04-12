@@ -8,7 +8,7 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
-from member.filters import (UserGroupAdminFilter, UserHasPropertyAdminFilter,
+from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter, UserHasPropertyAdminFilter,
                             UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
 from django.contrib.auth.models import Group
 
@@ -230,6 +230,7 @@ class AuthUserAdmin(UserAdmin):
     ]
 
 
+@admin.register(Person)
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
@@ -264,11 +265,21 @@ class PersonAdmin(admin.ModelAdmin):
         return queryset
 
 
-# admin.site.register(Notification)
-# admin.site.register(AuthUserAdmin)
-admin.site.register(Actor)
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'type', 'pk')
+    list_filter = (ActorTypeAdminFilter,)
+
+    @admin.display(description="Type")
+    def type(self, actor):
+        if actor.is_person:
+            return Person._meta.verbose_name.title()
+        if actor.is_organization:
+            return Organization._meta.verbose_name.title()
+        return None
+
+
 admin.site.register(Language)
-admin.site.register(Person, PersonAdmin)
 admin.site.register(Organization)
 admin.site.register(Neighborhood)
 admin.site.register(City)
