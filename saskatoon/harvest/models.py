@@ -370,35 +370,25 @@ class Property(models.Model):
         if last_harvest:
             return last_harvest[0].start_date
         return None
-    #
-    # def get_owner_subclass(self):
-    #     from member.models import Person, Organization
-    #     try:
-    #         return Person(self.owner)
-    #     except Person.DoesNotExist:
-    #         return Organization(self.owner)
 
-    @property
+    def get_owner_subclass(self):
+        if self.owner.is_person:
+            return self.owner.get_person()
+        if self.owner.is_organization:
+            return self.owner.get_organization()
+        return None
+
     def get_owner_name(self):
         return self.owner.__str__()
 
-    @property
     def get_owner_email(self):
-        if self.owner.is_person:
-            return self.owner.get_person().email()
-        elif self.owner.is_organization:
-            return self.owner.get_organization().email()
-        else:
-            return None
+        owner_subclass = self.get_owner_subclass()
+        return owner_subclass.email if owner_subclass else None
 
-    @property
     def get_owner_phone(self):
-        if self.owner.is_person:
-            return self.owner.get_person().phone
-        elif self.owner.is_organization:
-            return self.owner.get_organization().phone
-        else:
-            return None
+        owner_subclass = self.get_owner_subclass()
+        return owner_subclass.phone if owner_subclass else None
+
 
 class Harvest(models.Model):
     status = models.CharField(
