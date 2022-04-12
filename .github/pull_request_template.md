@@ -1,6 +1,6 @@
 <!-- 
 Thanks for your contribution!
-Please fill out the neccessary sections, and delete unused ones.
+Please fill out the necessary sections, and delete unused ones.
 -->
 Fixes #issue-number
 ----------
