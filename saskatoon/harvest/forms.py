@@ -470,6 +470,14 @@ class PublicPropertyForm(forms.ModelForm):
         required=False
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['avg_nb_required_pickers'].widget.attrs['min'] = 1
+        self.fields['number_of_trees'].widget.attrs['min'] = 1
+        self.fields['fruits_height'].widget.attrs['min'] = 1
+        self.fields['street_number'].widget.attrs['min'] = 0.0
+        self.fields['complement'].widget.attrs['min'] = 0.0
+
 class HarvestForm(forms.ModelForm):
 
     class Meta:
