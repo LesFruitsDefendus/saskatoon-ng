@@ -110,16 +110,17 @@ class OrganizationForm(forms.ModelForm):
         }
 
         widgets = {
-            'contact_person': autocomplete.ModelSelect2('contact-autocomplete'),
+            'contact_persons': autocomplete.ModelSelect2Multiple('contact-autocomplete'),
         }
 
 
 class OrganizationCreateForm(OrganizationForm):
+    people = Person.objects.all()
 
-    contact_person = forms.ModelChoiceField(
-        queryset=Person.objects.all(),
+    contact_persons = forms.ModelMultipleChoiceField(
+        queryset=people,
         label=_("Select Person"),
-        widget=autocomplete.ModelSelect2('contact-autocomplete'),
+        widget=autocomplete.ModelSelect2Multiple('contact-autocomplete'),
         required=False,
     )
 
@@ -152,7 +153,7 @@ class OrganizationCreateForm(OrganizationForm):
 
     def clean(self):
         data = super().clean()
-        person = data['contact_person']
+        person = data['contact_persons']
         if not person:
             if data['contact_email'] and data['contact_first_name']:
                 validate_email(data['contact_email'])
@@ -180,7 +181,7 @@ class OrganizationCreateForm(OrganizationForm):
         auth_user.set_roles(['contact'])
 
         # # associate Contact to Organization
-        instance.contact_person = person
+        instance.contact_persons.set(self.people)
         instance.save()
 
         return instance
