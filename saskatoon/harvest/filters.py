@@ -181,7 +181,7 @@ class EquipmentFilter(filters.FilterSet):
 # # ADMIN filters # #
 
 class PropertyOwnerTypeAdminFilter(SimpleListFilter):
-    """Check is owner is a Person or an Organization"""
+    """Check whether owner is a Person or an Organization"""
 
     title = "Owner Type Filter"
     parameter_name = 'owner'
