@@ -40,7 +40,7 @@ class PersonCreateForm(forms.ModelForm):
     field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
 
     def clean(self):
-        cleaned_data = super(PersonCreateForm, self).clean()
+        cleaned_data = super().clean()
         validate_email(cleaned_data['email'])
 
     def save(self):
@@ -52,11 +52,12 @@ class PersonCreateForm(forms.ModelForm):
                 email=self.cleaned_data['email'],
                 person=instance
         )
-        auth_user.set_roles(self.cleaned_data['roles'])
+        roles = self.cleaned_data['roles']
+        auth_user.set_roles(roles)
 
         # associate pending_property (if any)
         pid = self.cleaned_data['pending_property_id']
-        if pid:
+        if pid and 'owner' in roles:
             try:
                 pending_property = Property.objects.get(id=pid)
                 pending_property.owner = instance
