@@ -365,12 +365,6 @@ class Property(models.Model):
                                               status="Succeeded").order_by('start_date').last()
         return last_harvest.start_date if last_harvest else None
 
-    def get_owner_name(self):
-        if self.owner:
-            return self.owner.__str__()
-        return u"(%s %s)" % (self.pending_contact_first_name,
-                             self.pending_contact_family_name)
-
     def get_owner_subclass(self):
         if self.owner:
             if self.owner.is_person:
@@ -379,18 +373,26 @@ class Property(models.Model):
                 return self.owner.organization
         return None
 
-    def get_owner_email(self):
+    @property
+    def owner_email(self):
         owner_subclass = self.get_owner_subclass()
         return owner_subclass.email if owner_subclass else None
 
-    def get_owner_phone(self):
+    @property
+    def owner_phone(self):
         owner_subclass = self.get_owner_subclass()
         return owner_subclass.phone if owner_subclass else None
 
+    @property
+    def owner_name(self):
+        if self.owner:
+            return self.owner.__str__()
+        return u"(%s %s)" % (self.pending_contact_first_name,
+                             self.pending_contact_family_name)
+
     def __str__(self):
-        name = self.get_owner_name()
         number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % (name, _("at"), number, self.street)
+        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):

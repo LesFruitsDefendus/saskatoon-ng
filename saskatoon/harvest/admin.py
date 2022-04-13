@@ -74,6 +74,8 @@ class PropertyAdmin(LeafletGeoAdmin):
         'short_address',
         'owner_edit',
         'owner_type',
+        'owner_phone',
+        'owner_email',
         'pending',
         'authorized',
         'approximative_maturity_date',
