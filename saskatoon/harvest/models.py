@@ -333,12 +333,6 @@ class Property(models.Model):
         verbose_name = _("property")
         verbose_name_plural = _("properties")
 
-    def __str__(self):
-        name = self.owner if self.owner else u"(%s %s)" % (self.pending_contact_first_name, self.pending_contact_family_name)
-        number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % \
-            (name, _("at"), number, self.street)
-
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -362,24 +356,28 @@ class Property(models.Model):
 
     # Returns a few fields only, useful for property list view
     def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date', 'pick_leader__person__first_name').order_by('-start_date')
-        return harvests_list
+        return Harvest.objects.filter(property=self).values(
+            'id', 'status', 'start_date', 'pick_leader__person__first_name'
+        ).order_by('-start_date')
 
     def get_last_succeeded_harvest(self):
-        last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
-        if last_harvest:
-            return last_harvest[0].start_date
-        return None
-
-    def get_owner_subclass(self):
-        if self.owner.is_person:
-            return self.owner.get_person()
-        if self.owner.is_organization:
-            return self.owner.get_organization()
-        return None
+        last_harvest = Harvest.objects.filter(property=self,
+                                              status="Succeeded").order_by('start_date').last()
+        return last_harvest.start_date if last_harvest else None
 
     def get_owner_name(self):
-        return self.owner.__str__()
+        if self.owner:
+            return self.owner.__str__()
+        return u"(%s %s)" % (self.pending_contact_first_name,
+                             self.pending_contact_family_name)
+
+    def get_owner_subclass(self):
+        if self.owner:
+            if self.owner.is_person:
+                return self.owner.person
+            if self.owner.is_organization:
+                return self.owner.organization
+        return None
 
     def get_owner_email(self):
         owner_subclass = self.get_owner_subclass()
@@ -388,6 +386,11 @@ class Property(models.Model):
     def get_owner_phone(self):
         owner_subclass = self.get_owner_subclass()
         return owner_subclass.phone if owner_subclass else None
+
+    def __str__(self):
+        name = self.get_owner_name()
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % (name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):
