@@ -43,7 +43,7 @@ jobs:
 
     - name: Load all fixtures
       run: |
-        saskatoon/fixtures/loaddata all
+        saskatoon/fixtures/loaddata saskatoon
 
     - name: Run checks
       run: |
