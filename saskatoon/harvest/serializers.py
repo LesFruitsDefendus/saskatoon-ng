@@ -95,6 +95,19 @@ class OwnerTypeSerializer(serializers.ModelSerializer):
         fields = ['is_person', 'is_organization']
 
 
+class PropertyHarvestSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Harvest
+        fields = ['id', 'status', 'start_date', 'pick_leader']
+
+    pick_leader = serializers.SerializerMethodField()
+
+    def get_pick_leader(self, harvest):
+        if harvest.pick_leader:
+            return harvest.pick_leader.person.first_name
+        return None
+
+
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
@@ -102,8 +115,8 @@ class PropertySerializer(serializers.ModelSerializer):
     state = StateSerializer(many=False, read_only=True)
     country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
-    harvests = serializers.ReadOnlyField(source="get_harvests")
-    last_succeeded_harvest = serializers.ReadOnlyField(source="get_last_succeeded_harvest")
+    harvests = PropertyHarvestSerializer(many=True, read_only=True)
+    last_succeeded_harvest_date = serializers.ReadOnlyField()
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()

@@ -354,15 +354,10 @@ class Property(models.Model):
         else:
             return self.street
 
-    # Returns a few fields only, useful for property list view
-    def get_harvests(self):
-        return Harvest.objects.filter(property=self).values(
-            'id', 'status', 'start_date', 'pick_leader__person__first_name'
-        ).order_by('-start_date')
-
-    def get_last_succeeded_harvest(self):
-        last_harvest = Harvest.objects.filter(property=self,
-                                              status="Succeeded").order_by('start_date').last()
+    @property
+    def last_succeeded_harvest_date(self):
+        """Returns the start_date of the last successful Harvest in this Property"""
+        last_harvest = self.harvests.filter(status="Succeeded").order_by('start_date').last()
         return last_harvest.start_date if last_harvest else None
 
     def get_owner_subclass(self):
@@ -407,6 +402,7 @@ class Harvest(models.Model):
         'Property',
         null=True,
         verbose_name=_("Property"),
+        related_name='harvests',
         on_delete=models.CASCADE,
     )
 
@@ -514,6 +510,7 @@ class Harvest(models.Model):
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
+        ordering = ['-start_date']
 
     def __str__(self):
         if self.start_date:
