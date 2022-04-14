@@ -10,7 +10,7 @@ $(venv) pip3 install 'Saskatoon[test]'
 
 ## .env
 
-Add these lines to your local ~saskatoon/.env~ file:
+Add these lines to the ``saskatoon/.env`` file:
 ```
 SASKATOON_TEST_WEBDRIVER=Chrome
 SASKATOON_URL=http://127.0.0.1:8000
