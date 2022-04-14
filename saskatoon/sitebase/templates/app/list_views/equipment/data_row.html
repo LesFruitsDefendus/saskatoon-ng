@@ -27,8 +27,13 @@
             {{ equipment.owner.organization.phone|default:"" }}
         {% elif equipment.property %}
             {{ equipment.property.owner.name }}
-            <a href='mailto:{{equipment.property.owner.email}}'>
-                {{ equipment.property.owner.email}} </a><br>
+            {% if equipment.property.owner.email %}
+                <br><a href='mailto:{{equipment.property.owner.email}}'>
+                {{ equipment.property.owner.email}} </a>
+            {% endif %}
+            {% if equipment.property.owner.phone %}
+                <br>{{ equipment.property.owner.phone}}
+            {% endif %}
         {% endif %}
 
     </td>
