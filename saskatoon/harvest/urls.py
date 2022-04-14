@@ -1,7 +1,8 @@
 from django.urls import include, path, re_path
 from rest_framework import routers
 from django.views.generic import TemplateView
-from . import api, views, autocomplete
+from django.views.generic.base import RedirectView
+from harvest import api, views, autocomplete
 
 # REST FRAMEWORK VIEWS
 router = routers.DefaultRouter()
@@ -25,6 +26,10 @@ urlpatterns = [
     path(r'property/create_public/',
          views.PropertyCreatePublicView.as_view(),
          name='property-create-public'),
+
+    # backward compatibility with saskatoon-og
+    path(r'harvest/properties/create_pending/',
+         RedirectView.as_view(url='/property/create_public/')),
 
     path(r'harvest/create/',
          views.HarvestCreateView.as_view(),
