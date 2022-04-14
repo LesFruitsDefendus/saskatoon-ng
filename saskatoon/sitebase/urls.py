@@ -1,13 +1,13 @@
 from django.conf.urls import include, url
 from django.contrib.auth import views as auth_views
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from sitebase import views
 
 urlpatterns = [
 
     url(r'^$', views.Index.as_view(), name='home'),
-    url(r'^calendar$', views.Calendar.as_view(), name='calendar'),
+    re_path(r'^calendar/$', views.Calendar.as_view(), name='calendar'),
     url(r'^jsoncal', views.JsonCalendar.as_view(), name='calendarJSON'),
 
     path('reset_password/',
