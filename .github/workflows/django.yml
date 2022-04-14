@@ -1,4 +1,4 @@
-name: Static code checks
+name: Django checks
 
 on:
   push:
@@ -29,14 +29,23 @@ jobs:
         python -c "print('\nENVIRONMENT VARIABLES\n=====================\n')"
         python -c "import os; [print(f'{k}={v}') for k, v in os.environ.items()]"
     
-    - name: Run pytype
+    - name: Create env file
       run: |
-        tox -e pytype
+        saskatoon/tests/newenvfile.py ./sqlite3-testing.db > saskatoon/.env
+    
+    - name: Install Saskatoon
+      run: |
+        pip install '.[test]'
+    
+    - name: Apply migrations
+      run: |
+        saskatoon/manage.py migrate --skip-checks
 
-    # - name: Run mypy
-    #   run: |
-    #     tox -e mypy
+ # Commented until https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 is fixed
+ #   - name: Load saskatoon.json fixture
+ #     run: |
+ #      saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
 
-    # - name: Run pyflakes
-    #   run: |
-    #     tox -e pyflakes
+    - name: Run checks
+      run: |
+        tox -e checks

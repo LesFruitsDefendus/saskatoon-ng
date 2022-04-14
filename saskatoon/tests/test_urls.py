@@ -17,7 +17,8 @@ urls = [
     ('/property/', ['html'], True),
     ('/beneficiary/', ['html'], True),
     ('/community/', ['html'], True),
-    ('/property/create_public', ['html'], False),
+    ('/property/create_public/', ['html'], False),
+    # FIXME: https://github.com/LesFruitsDefendus/saskatoon-ng/issues/245
     ('/calendar', ['html'], False),
 ]
 
