@@ -5,6 +5,7 @@ Run
 
 ```
 ./saskatoon/manage.py check --database default
+./saskatoon/manage.py validate_templates
 ```
 
 # Selenium-driven tests
