@@ -44,6 +44,8 @@ def notify_pending_status_update(sender, instance, **kwargs):
     # Send email only if pending status is removed
     if instance.id:
         try:
+            # this might raise DoesNotExist error while loading the fixtures
+            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 for more informations.
             original_instance = sender.objects.get(id=instance.id)
         except ObjectDoesNotExist:
             return
