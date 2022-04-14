@@ -444,8 +444,16 @@ class Organization(Actor):
         return u"%s" % self.civil_name
 
     @property
+    def contact(self):
+        return self.contact_person.name if self.contact_person else None
+
+    @property
     def email(self):
-        return self.contact_person.email
+        return self.contact_person.email if self.contact_person else None
+
+    @property
+    def language(self):
+        return self.contact_person.language if self.contact_person else None
 
 
 class Neighborhood(models.Model):
@@ -475,6 +483,7 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+
 class State(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -488,6 +497,7 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+
 class Country(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -500,6 +510,7 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Language(models.Model):
     name = models.CharField(

@@ -69,6 +69,25 @@ class TreeTypeSerializer(serializers.ModelSerializer):
         model = TreeType
         fields = '__all__'
 
+
+class PersonOwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['pk', 'name', 'email', 'phone', 'language',
+                  'neighborhood', 'city', 'state', 'country']
+
+class OrganizationOwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['pk', 'contact', 'name', 'email', 'phone', 'language',
+                  'neighborhood', 'city', 'state', 'country']
+
+class OwnerTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actor
+        fields = ['is_person', 'is_organization']
+
+
 # Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
@@ -81,39 +100,23 @@ class PropertySerializer(serializers.ModelSerializer):
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
+    owner_type = serializers.SerializerMethodField()
 
     class Meta:
         model = Property
         fields = '__all__'
 
     def get_owner(self, obj):
-        # This will check if property owner (which is an Actor)
-        # is a Person or an Organization and will serialize the result.
-        # A solution could also be something like this
-        # https://stackoverflow.com/questions/33137165/django-rest-framework-abstract-class-serializer/33137535#33137535
+        if obj.owner:
+            if obj.owner.is_person:
+                return PersonOwnerSerializer(obj.owner.person).data
+            elif obj.owner.is_organization:
+                return OrganizationOwnerSerializer(obj.owner.organization).data
+        return None
 
-        if isinstance(obj.owner, Actor):
-            entity = Person.objects.filter(actor_id=obj.owner.actor_id)
-            if not entity:
-                entity = Organization.objects.filter(actor_id=obj.owner.actor_id)
-            if not entity:
-                return None
+    def get_owner_type(self, obj):
+        return OwnerTypeSerializer(obj.owner).data
 
-            entity_serialized = serialize('json', entity)
-
-            j = json.loads(entity_serialized[1:-1])
-            j['fields']['neighborhood'] = str(entity[0].neighborhood)
-            j['fields']['name'] = str(entity[0].name)
-            j['fields']['city'] = str(entity[0].city)
-            j['fields']['state'] = str(entity[0].state)
-            j['fields']['country'] = str(entity[0].country)
-            j['fields']['email'] = str(entity[0].email)
-            if isinstance(entity[0], Person):
-                j['fields']['language'] = str(entity[0].language)
-
-            return j
-        else:
-            return None
 
 # Property info serializer
 # This is needed for HarvestSerializer

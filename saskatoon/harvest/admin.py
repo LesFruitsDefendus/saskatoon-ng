@@ -82,7 +82,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'neighborhood',
         'city',
         'postal_code',
-        'pk'
+        'id'
     )
     list_filter = (
         PropertyOwnerTypeAdminFilter,

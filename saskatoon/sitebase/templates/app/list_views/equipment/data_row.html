@@ -26,9 +26,9 @@
                 {{ equipment.owner.organization.contact_person.email }}</a><br>
             {{ equipment.owner.organization.phone|default:"" }}
         {% elif equipment.property %}
-            {{ equipment.property.owner.fields.name }}
-            <a href='mailto:{{equipment.property.owner.fields.email}}'>
-                {{ equipment.property.owner.fields.email}} </a><br>
+            {{ equipment.property.owner.name }}
+            <a href='mailto:{{equipment.property.owner.email}}'>
+                {{ equipment.property.owner.email}} </a><br>
         {% endif %}
 
     </td>
