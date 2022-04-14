@@ -1,4 +1,14 @@
 
+# Django checks
+
+Run
+
+```
+./saskatoon/manage.py check --database default
+```
+
+# Selenium-driven tests
+
 ## pytest
 
 ## requirements
