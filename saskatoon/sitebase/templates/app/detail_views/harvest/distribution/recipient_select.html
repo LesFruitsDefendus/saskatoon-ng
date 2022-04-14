@@ -1,4 +1,6 @@
 {% load static %}
+{% load i18n %}
+
 <select name="actor" id="recipient-select" class="form-control required">
     <option selected disabled>{% translate 'Owner' %}</option>
     <option value={{ property.owner.pk }}>{{ property.owner }}</option>
