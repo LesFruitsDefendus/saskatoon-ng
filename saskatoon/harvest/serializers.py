@@ -1,5 +1,6 @@
 import json
 from django.core.serializers import serialize
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
                            City, State, Country, Language)
@@ -27,7 +28,7 @@ class PersonSerializer(serializers.ModelSerializer):
         fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
                   'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
-                  'harvests_as_owner', 'properties']
+                  'harvests_as_owner', 'properties', 'comments']
 
 
 class BeneficiarySerializer(serializers.ModelSerializer):
@@ -75,18 +76,25 @@ class TreeTypeSerializer(serializers.ModelSerializer):
 class PersonOwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
-        fields = ['pk', 'name', 'email', 'phone', 'language',
+        fields = ['pk', 'name', 'email', 'phone', 'language', 'comments',
                   'neighborhood', 'city', 'state', 'country']
 
     language = serializers.SerializerMethodField()
+    comments = serializers.SerializerMethodField()
 
     def get_language(self, obj):
         return obj.language.name if obj.language else None
+
+    def get_comments(self, obj):
+        return obj.person.comments
 
 
 class OrganizationOwnerSerializer(PersonOwnerSerializer):
     class Meta(PersonOwnerSerializer.Meta):
         model = Organization
+
+    def get_comments(self, obj):
+        return _("Owner is an Organization")
 
 
 class OwnerTypeSerializer(serializers.ModelSerializer):

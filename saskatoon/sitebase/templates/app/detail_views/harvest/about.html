@@ -71,11 +71,11 @@
                             </tr>
                         {% endif %}
 
-                        {% if property.owner.person.comments %}
+                        {% if harvest.property.owner.comments %}
                             <tr>
                                 <td>{% trans "Comments" %}</td>
                                 <td class="text-right">
-                                    <h4>{{ property.owner.person.comments }}</h4>
+                                    <b>{{ harvest.property.owner.comments }}</b>
                                 </td>
                             </tr>
                         {% endif %}
