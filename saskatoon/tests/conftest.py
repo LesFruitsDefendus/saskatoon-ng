@@ -3,11 +3,8 @@ import pytest
 import selenium.webdriver
 from django.conf import settings
 
-from dotenv import load_dotenv, find_dotenv #type: ignore
-
 # Load the environment variables from .env file.
-file = find_dotenv()
-if file: load_dotenv(dotenv_path=file)
+import saskatoon.settings
 
 TESTDRIVER = os.getenv('SASKATOON_TEST_WEBDRIVER')
 # A list of selenium webdrivers for different browsers:
