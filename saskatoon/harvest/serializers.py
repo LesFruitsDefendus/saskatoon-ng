@@ -1,22 +1,24 @@
-from rest_framework import serializers
-from harvest.models import Harvest, Property, Equipment, EquipmentType, RequestForParticipation, TreeType
-from member.models import Actor, Neighborhood, AuthUser, Person, Organization, City, State, Country
-from django.core.serializers import serialize
 import json
+from django.core.serializers import serialize
+from rest_framework import serializers
+from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
+                           City, State, Country, Language)
+from harvest.models import (Harvest, Property, Equipment, EquipmentType,
+                            RequestForParticipation, TreeType)
 
-# RequestForParticipation serializer
+
 class RequestForParticipationSerializer(serializers.ModelSerializer):
     class Meta:
         model = RequestForParticipation
         fields = '__all__'
 
-# Neighborhood serializer
+
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Neighborhood
         fields = '__all__'
 
-# Person serializer
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
 
@@ -27,7 +29,7 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
                   'harvests_as_owner', 'properties']
 
-# Beneficiary serializer
+
 class BeneficiarySerializer(serializers.ModelSerializer):
     contact_person = PersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
@@ -37,7 +39,7 @@ class BeneficiarySerializer(serializers.ModelSerializer):
         fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
                   'is_beneficiary', 'contact_person', 'neighborhood']
 
-# Actor serializer
+
 class ActorSerializer(serializers.ModelSerializer):
     person = PersonSerializer(source='get_person', many=False, read_only=True)
     organization = BeneficiarySerializer(source='get_organization', many=False, read_only=True)
@@ -45,19 +47,19 @@ class ActorSerializer(serializers.ModelSerializer):
         model = Actor
         fields = '__all__'
 
-# City serializer
+
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
         fields = '__all__'
 
-# State serializer
+
 class StateSerializer(serializers.ModelSerializer):
     class Meta:
         model = State
         fields = '__all__'
 
-# Country serializer
+
 class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
@@ -76,11 +78,16 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
         fields = ['pk', 'name', 'email', 'phone', 'language',
                   'neighborhood', 'city', 'state', 'country']
 
-class OrganizationOwnerSerializer(serializers.ModelSerializer):
-    class Meta:
+    language = serializers.SerializerMethodField()
+
+    def get_language(self, obj):
+        return obj.language.name if obj.language else None
+
+
+class OrganizationOwnerSerializer(PersonOwnerSerializer):
+    class Meta(PersonOwnerSerializer.Meta):
         model = Organization
-        fields = ['pk', 'contact', 'name', 'email', 'phone', 'language',
-                  'neighborhood', 'city', 'state', 'country']
+
 
 class OwnerTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -118,16 +125,6 @@ class PropertySerializer(serializers.ModelSerializer):
         return OwnerTypeSerializer(obj.owner).data
 
 
-# Property info serializer
-# This is needed for HarvestSerializer
-class PropertyInfoSerializer(serializers.ModelSerializer):
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    title = serializers.ReadOnlyField(source="__str__")
-    address = serializers.ReadOnlyField(source="short_address")
-    class Meta:
-        model = Property
-        fields = '__all__'
-
 # EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -159,7 +156,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     pick_leader = serializers.StringRelatedField(many=False)
     # 3) get the full instance from another serializer class
     trees = TreeTypeSerializer(many=True, read_only=True)
-    property = PropertyInfoSerializer(many=False, read_only=True)
+    property = PropertySerializer(many=False, read_only=True)
 
     class Meta:
         model = Harvest

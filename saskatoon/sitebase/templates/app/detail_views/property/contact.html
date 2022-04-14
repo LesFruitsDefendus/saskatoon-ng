@@ -73,7 +73,7 @@
         </tr>
 
         {% if property.owner %}
-            {% if property.owner.language != 'None' %}
+            {% if property.owner.language %}
                 <tr>
                     <td>{% trans "Language" %}</td>
                     <td class="text-right">

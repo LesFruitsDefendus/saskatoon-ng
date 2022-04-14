@@ -51,43 +51,33 @@
                         <tr>
                             <td>{% trans "Phone" %}</td>
                             <td class="text-right">
-                                {% if property.owner.person %}
-                                    <h4>{{ property.owner.person.phone }}</h4>
-                                {% elif property.owner.organization %}
-                                    <h4>{{ property.owner.organization.phone }}</h4>
-                                {% endif %}
+                                <h4>{{ harvest.property.owner.phone }}</h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>{% trans "Email" %}</td>
                             <td class="text-right">
-                                {% if property.owner.person %}
-                                    <h4>{{ property.owner.person.email }}</h4>
-                                {% elif property.owner.organization %}
-                                    <h4>{{ property.owner.organization.contact_person.email }}</h4>
-                                {% endif %}
+                                <h4>{{ harvest.property.owner.email }}</h4>
                             </td>
                         </tr>
 
-                        {% if property.owner.person %}
-                            {% if property.owner.person.language != 'None' %}
+                        {% if harvest.property.owner.language %}
                             <tr>
                                 <td>{% trans "Language" %}</td>
                                 <td class="text-right">
-                                    <h4>{{ property.owner.person.language }}</h4>
+                                    <h4>{{ harvest.property.owner.language }}</h4>
                                 </td>
                             </tr>
-                            {% endif %}
+                        {% endif %}
 
-                            {% if property.owner.person.comments %}
+                        {% if property.owner.person.comments %}
                             <tr>
                                 <td>{% trans "Comments" %}</td>
                                 <td class="text-right">
                                     <h4>{{ property.owner.person.comments }}</h4>
                                 </td>
                             </tr>
-                            {% endif %}
                         {% endif %}
 
                     </table>
