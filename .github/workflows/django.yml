@@ -33,6 +33,10 @@ jobs:
       run: |
         saskatoon/tests/newenvfile.py ./sqlite3-testing.db > saskatoon/.env
     
+    - name: Install Saskatoon
+      run: |
+        pip install '.[test]'
+    
     - name: Apply migrations
       run: |
         saskatoon/manage.py migrate --skip-checks
