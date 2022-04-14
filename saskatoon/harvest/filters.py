@@ -200,3 +200,22 @@ class PropertyOwnerTypeAdminFilter(SimpleListFilter):
         if self.value() == '2':
             return queryset.filter(owner__organization__isnull=False)
         return queryset
+
+
+class PropertyHasHarvestAdminFilter(SimpleListFilter):
+    """Check whether at least one harvest is associated with property"""
+
+    title = "Had harvest Filter"
+    parameter_name = 'harvest'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'Has harvest(s)'),
+                ('1', 'No harvest yet')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            test = bool(int(self.value()))
+            print("test", test)
+            return queryset.filter(harvests__isnull=test)
+        return queryset

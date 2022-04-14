@@ -14,7 +14,7 @@ from member.models import (Actor, Language, Person, Organization, Neighborhood,
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
-from harvest.filters import PropertyOwnerTypeAdminFilter
+from harvest.filters import PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -77,6 +77,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner_phone',
         'owner_email',
         'pending',
+        'harvests',
         'authorized',
         'approximative_maturity_date',
         'neighborhood',
@@ -86,6 +87,7 @@ class PropertyAdmin(LeafletGeoAdmin):
     )
     list_filter = (
         PropertyOwnerTypeAdminFilter,
+        PropertyHasHarvestAdminFilter,
         'authorized',
         'pending',
         'trees',
@@ -120,6 +122,10 @@ class PropertyAdmin(LeafletGeoAdmin):
             base_url = "/admin/member/organization/"
             return mark_safe(f"<a href={base_url}{owner.organization.pk}/>{owner}</a>")
         return None
+
+    @admin.display(description="Harvests")
+    def harvests(self, _property):
+        return _property.harvests.count()
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
