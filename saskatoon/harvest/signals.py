@@ -1,8 +1,10 @@
 from crequest.middleware import CrequestMiddleware
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail
 from django.core.cache import cache
-from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
 from django.utils.translation import gettext_lazy as _
+
+from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
 
 def clear_cache_property(sender, instance, **kwargs):
     cache.delete_pattern("*property*")
@@ -41,7 +43,10 @@ def changed_by(sender, instance, **kwargs):
 def notify_pending_status_update(sender, instance, **kwargs):
     # Send email only if pending status is removed
     if instance.id:
-        original_instance = sender.objects.get(id=instance.id)
+        try:
+            original_instance = sender.objects.get(id=instance.id)
+        except ObjectDoesNotExist:
+            return
         if original_instance.pending and not instance.pending:
             property_owner_email = list()
             if instance.owner:
