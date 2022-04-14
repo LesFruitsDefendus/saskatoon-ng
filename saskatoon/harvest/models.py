@@ -595,7 +595,7 @@ class RequestForParticipation(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
-        related_name="request_for_participation",
+        related_name="requests",
         on_delete=models.CASCADE,
     )
 

@@ -281,17 +281,17 @@ class Person(Actor):
     @property
     def harvests_as_volunteer_accepted(self):
         requests = self.requests_as_volunteer.filter(is_accepted=True)
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_volunteer_pending(self):
         requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_volunteer_missed(self):
         requests = self.requests_as_volunteer.filter(Q(is_accepted=False)|Q(is_cancelled=True))
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_owner(self):
