@@ -41,10 +41,9 @@ jobs:
       run: |
         saskatoon/manage.py migrate --skip-checks
 
- # Commented until https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 is fixed
- #   - name: Load saskatoon.json fixture
- #     run: |
- #      saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
+    - name: Load all fixtures
+      run: |
+        saskatoon/fixtures/loaddata all
 
     - name: Run checks
       run: |
