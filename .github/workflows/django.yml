@@ -7,7 +7,7 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  static_checks:
+  checks:
     runs-on: ubuntu-latest
 
     steps:
@@ -32,6 +32,10 @@ jobs:
     - name: Create env file
       run: |
         saskatoon/tests/newenvfile.py ./sqlite3-testing.db > saskatoon/.env
+    
+    - name: Apply migrations
+      run: |
+        saskatoon/manage.py migrate --skip-checks
 
     - name: Run checks
       run: |
