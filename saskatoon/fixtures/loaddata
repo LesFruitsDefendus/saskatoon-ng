@@ -22,9 +22,9 @@ if [ $1 == "all" ]; then
     for f in $(ls *.json | grep -v "^saskatoon")
     do
         echo "Loading $f ..."
-        ../manage.py loaddata "${f%.*}"
+        ../manage.py loaddata "${f%.*}" || exit 1
     done
 else
-    ../manage.py loaddata $1
+    ../manage.py loaddata $1 || exit 1
 fi
 

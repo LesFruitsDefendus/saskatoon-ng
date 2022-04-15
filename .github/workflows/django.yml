@@ -18,6 +18,16 @@ jobs:
       with:
         python-version: '3.8'
 
+    - name: Use Node.js 12
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+
+    - name: Start Redis
+      uses: supercharge/redis-github-action@1.4.0
+      with:
+        redis-version: 6
+
     - name: Install tox
       run: |
         python -m pip install --upgrade pip tox
@@ -41,10 +51,9 @@ jobs:
       run: |
         saskatoon/manage.py migrate --skip-checks
 
- # Commented until https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 is fixed
- #   - name: Load saskatoon.json fixture
- #     run: |
- #      saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
+    - name: Load initial fixtures
+      run: |
+        saskatoon/fixtures/init
 
     - name: Run checks
       run: |
