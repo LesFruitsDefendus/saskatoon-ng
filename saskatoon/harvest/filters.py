@@ -7,30 +7,24 @@ from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
                             Property, Equipment,  EquipmentType)
 from member.models import Language, AuthUser, Neighborhood, Organization
 
-FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
+
+SEASON_FILTER_RANGE = (2016, 2022)
+
 
 class HarvestFilter(filters.FilterSet):
-    seasons = []
-    for y in Harvest.objects.all():
-        if y.start_date is not None:
-            t_seasons = (
-                    y.start_date.strftime("%Y"),
-                    y.start_date.strftime("%Y")
-                )
-            seasons.append(t_seasons)
-    seasons = list(set(seasons))
-    seasons = sorted(seasons, key=lambda tup: tup[1])
+
+    YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
 
     season = filters.ChoiceFilter(
         field_name='start_date',
-        choices=seasons,
+        choices=[(year, year) for year in YEARS],
         label=_("Season"),
         lookup_expr='year',
         help_text="",
     )
 
     status = filters.ChoiceFilter(
-        choices=FILTER_HARVEST_CHOICES,
+        choices=list(HARVESTS_STATUS_CHOICES),
         help_text="",
     )
 
