@@ -469,6 +469,11 @@ class PublicPropertyForm(forms.ModelForm):
         widget=forms.widgets.Textarea(),
         required=False
     )
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['pending_contact_phone'].widget.attrs.update({'class': 'form-control'})
+
 
 class HarvestForm(forms.ModelForm):
 
