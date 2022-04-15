@@ -50,8 +50,8 @@ def notify_pending_status_update(sender, instance, **kwargs):
                         print(f"Property owner is neither a person nor an organization. " \
                              f"Unknown Actor: {instance.owner.actor_id}")
                         return
-                    property_owner_name = instance.get_owner_name
-                    contact_email = instance.get_owner_email
+                    property_owner_name = instance.owner_name
+                    contact_email = instance.owner_email
             else:
                 property_owner_name = instance.pending_contact_name
                 contact_email = instance.pending_contact_email

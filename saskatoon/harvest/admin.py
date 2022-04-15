@@ -8,11 +8,13 @@ from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.utils.html import mark_safe
 from member.models import (Actor, Language, Person, Organization, Neighborhood,
                            City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
+from harvest.filters import PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -69,25 +71,25 @@ class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
-        '__str__',
-        'authorized',
+        'short_address',
+        'owner_edit',
+        'owner_type',
+        'owner_phone',
+        'owner_email',
         'pending',
-        'harvest_every_year', 
+        'harvests',
+        'authorized',
         'approximative_maturity_date',
-        'avg_nb_required_pickers',
         'neighborhood',
         'city',
         'postal_code',
+        'id'
     )
     list_filter = (
+        PropertyOwnerTypeAdminFilter,
+        PropertyHasHarvestAdminFilter,
         'authorized',
         'pending',
-        'harvest_every_year',
-        'public_access',
-        'neighbor_access',
-        'compost_bin',
-        'ladder_available',
-        'ladder_available_for_outside_picks',
         'trees',
         'neighborhood',
         'city',
@@ -100,6 +102,30 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner__person__auth_user__email',
     )
     exclude = ['longitude', 'latitude', 'geom']
+
+    @admin.display(description="Owner type")
+    def owner_type(self, _property):
+        owner_subclass = _property.get_owner_subclass()
+        if owner_subclass:
+            return owner_subclass._meta.verbose_name.title()
+        return None
+
+    @admin.display(description="Owner")
+    def owner_edit(self, _property):
+        owner = _property.owner
+        if not owner:
+            return None
+        if owner.is_person:
+            base_url = "/admin/member/person/"
+            return mark_safe(f"<a href={base_url}{owner.person.pk}/>{owner}</a>")
+        if owner.is_organization:
+            base_url = "/admin/member/organization/"
+            return mark_safe(f"<a href={base_url}{owner.organization.pk}/>{owner}</a>")
+        return None
+
+    @admin.display(description="Harvests")
+    def harvests(self, _property):
+        return _property.harvests.count()
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
