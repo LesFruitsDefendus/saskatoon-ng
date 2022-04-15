@@ -6,7 +6,7 @@
 
   <head>
     
-    <title>harvest.serializers.PropertyInfoSerializer</title>
+    <title>member.admin.ActorAdmin</title>
     <meta name="generator" content="pydoctor 22.4.0"> 
         
     </meta>
@@ -131,7 +131,7 @@
     <div class="container">
 
       <div class="page-header">
-        <h1 class="class"><code><code><a href="harvest.html" class="internal-link">harvest</a></code><wbr></wbr>.<code><a href="harvest.serializers.html" class="internal-link" title="harvest.serializers">serializers</a></code><wbr></wbr>.<code><a href="harvest.serializers.PropertyInfoSerializer.html" class="internal-link" title="harvest.serializers.PropertyInfoSerializer">PropertyInfoSerializer</a></code></code></h1>
+        <h1 class="class"><code><code><a href="member.html" class="internal-link">member</a></code><wbr></wbr>.<code><a href="member.admin.html" class="internal-link" title="member.admin">admin</a></code><wbr></wbr>.<code><a href="member.admin.ActorAdmin.html" class="internal-link" title="member.admin.ActorAdmin">ActorAdmin</a></code></code></h1>
         <div id="showPrivate">
           <button class="btn btn-link" onclick="togglePrivate()">Toggle Private API</button>
         </div>
@@ -142,8 +142,8 @@
       </div>
 
       <div class="extrasDocstring">
-        <p><code><span class="py-keyword">class</span> <span class="py-defname">PropertyInfoSerializer</span>(serializers.ModelSerializer): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L118" class="sourceLink">(source)</a></code></p>
-        <p><a href="classIndex.html#harvest.serializers.PropertyInfoSerializer">View In Hierarchy</a></p>
+        <p><code><span class="py-keyword">class</span> <span class="py-defname">ActorAdmin</span>(admin.ModelAdmin): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L268" class="sourceLink">(source)</a></code></p>
+        <p><a href="classIndex.html#member.admin.ActorAdmin">View In Hierarchy</a></p>
       </div>
 
       <div class="moduleDocstring">
@@ -151,28 +151,23 @@
       </div>
 
       <div id="splitTables">
-        <table class="children sortable" id="id127">
+        <table class="children sortable" id="id170">
   
   
-  <tr class="class">
+  <tr class="method">
     
-    <td>Class</td>
-    <td><code><a href="harvest.serializers.PropertyInfoSerializer.Meta.html" class="internal-link" title="harvest.serializers.PropertyInfoSerializer.Meta">​Meta</a></code></td>
+    <td>Method</td>
+    <td><code><a href="#type" class="internal-link" title="member.admin.ActorAdmin.type">type</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#address" class="internal-link" title="harvest.serializers.PropertyInfoSerializer.address">address</a></code></td>
+    <td><code><a href="#list_display" class="internal-link" title="member.admin.ActorAdmin.list_display">list​_display</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="classvariable">
     
     <td>Class Variable</td>
-    <td><code><a href="#neighborhood" class="internal-link" title="harvest.serializers.PropertyInfoSerializer.neighborhood">neighborhood</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="classvariable">
-    
-    <td>Class Variable</td>
-    <td><code><a href="#title" class="internal-link" title="harvest.serializers.PropertyInfoSerializer.title">title</a></code></td>
+    <td><code><a href="#list_filter" class="internal-link" title="member.admin.ActorAdmin.list_filter">list​_filter</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr>
 </table>
@@ -183,19 +178,41 @@
 
       <div id="childList">
 
-        <div class="baseclassvariable">
+        <div class="basemethod">
   
   
-  <a name="harvest.serializers.PropertyInfoSerializer.address">
+  <a name="member.admin.ActorAdmin.type">
     
   </a>
-  <a name="address">
+  <a name="type">
+    
+  </a>
+  <div class="functionHeader">
+    @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Type</span><span class="rst-variable-quote">'</span>)<br />
+    <span class="py-keyword">def</span> <span class="py-defname">type</span>(self, actor):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L273">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="baseclassvariable">
+  
+  
+  <a name="member.admin.ActorAdmin.list_display">
+    
+  </a>
+  <a name="list_display">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">address</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L121">
+    <span class="py-defname">list_display</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L270">
       
       (source)
     </a>
@@ -209,39 +226,16 @@
 </div><div class="baseclassvariable">
   
   
-  <a name="harvest.serializers.PropertyInfoSerializer.neighborhood">
+  <a name="member.admin.ActorAdmin.list_filter">
     
   </a>
-  <a name="neighborhood">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">neighborhood</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L119">
-      
-      (source)
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    
-  </div>
-</div><div class="baseclassvariable">
-  
-  
-  <a name="harvest.serializers.PropertyInfoSerializer.title">
-    
-  </a>
-  <a name="title">
+  <a name="list_filter">
     
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">title</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/serializers.py#L120">
+    <span class="py-defname">list_filter</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L271">
       
       (source)
     </a>
@@ -263,7 +257,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.4.0 at 2022-04-14 20:29:26.
+    22.4.0 at 2022-04-15 05:40:34.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
