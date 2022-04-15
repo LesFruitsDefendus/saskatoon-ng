@@ -12,6 +12,7 @@
                                     <h2>{% trans "Pickers requests" %}</h2>
                                 </div>
                             </div>
+                            {% if harvest.is_open_to_requests == True %}
                             <div class="col-xs-6">
                                 <a href="/participation/create?hid={{ harvest.id }}"
                                     class="btn btn-success notika-btn-success waves-effect"
@@ -19,6 +20,16 @@
                                     <i class="fa fa-plus"></i> {% trans "New request" %}
                                 </a>
                             </div>
+                            {% endif %}
+                              <div class="col-xs-6">
+                                  <span class="btn btn-success notika-btn-success waves-effect"
+                                      style="float: right" data-toggle="tooltip"
+                                      data-placement="top" title="Sorry, this Harvest is
+                                                              not opened for requests">
+                                      <i class="fa fa-plus"></i> {% trans "New request" %}
+                                  </span>
+                              </div>
+                            {% endif %}
                         </div>
                     <div class="table-responsive">
                         <table id="data-table-basic" class="table compact">
