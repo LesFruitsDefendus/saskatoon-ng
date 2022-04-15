@@ -51,7 +51,7 @@ jobs:
       run: |
         saskatoon/manage.py migrate --skip-checks
 
-    - name: Load all fixtures
+    - name: Load initial fixtures
       run: |
         saskatoon/fixtures/init
 
