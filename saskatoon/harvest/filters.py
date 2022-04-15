@@ -1,34 +1,30 @@
+from django.contrib.admin import SimpleListFilter
+from django.contrib.auth.models import Group
+from django.db.models.query_utils import Q
 from django.utils.translation import ugettext_lazy as _
 from django_filters import rest_framework as filters
-from harvest.models import Harvest, HARVESTS_STATUS_CHOICES, TreeType, Property, Equipment,  EquipmentType
+from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
+                            Property, Equipment,  EquipmentType)
 from member.models import Language, AuthUser, Neighborhood, Organization
-from django.db.models.query_utils import Q
-from django.contrib.auth.models import Group
 
-FILTER_HARVEST_CHOICES = list(HARVESTS_STATUS_CHOICES)
+
+SEASON_FILTER_RANGE = (2016, 2022)
+
 
 class HarvestFilter(filters.FilterSet):
-    seasons = []
-    for y in Harvest.objects.all():
-        if y.start_date is not None:
-            t_seasons = (
-                    y.start_date.strftime("%Y"),
-                    y.start_date.strftime("%Y")
-                )
-            seasons.append(t_seasons)
-    seasons = list(set(seasons))
-    seasons = sorted(seasons, key=lambda tup: tup[1])
+
+    YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
 
     season = filters.ChoiceFilter(
-        field_name='start_date', 
-        choices=seasons,
+        field_name='start_date',
+        choices=[(year, year) for year in YEARS],
         label=_("Season"),
         lookup_expr='year',
         help_text="",
     )
 
     status = filters.ChoiceFilter(
-        choices=FILTER_HARVEST_CHOICES,
+        choices=list(HARVESTS_STATUS_CHOICES),
         help_text="",
     )
 
@@ -96,6 +92,7 @@ class PropertyFilter(filters.FilterSet):
             'pending',
             ]
 
+
 class CommunityFilter(filters.FilterSet):
 
     groups = filters.ModelChoiceFilter(
@@ -147,6 +144,7 @@ class CommunityFilter(filters.FilterSet):
             'person__language',
         ]
 
+
 # FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
     neighborhood = filters.ModelChoiceFilter(
@@ -160,6 +158,7 @@ class OrganizationFilter(filters.FilterSet):
         model = Organization
         fields = ['neighborhood', 'is_beneficiary']
 
+
 class EquipmentFilter(filters.FilterSet):
     shared = filters.BooleanFilter(help_text="")
     type = filters.ModelChoiceFilter(
@@ -171,3 +170,46 @@ class EquipmentFilter(filters.FilterSet):
     class Meta:
         model = Equipment
         fields = ['type', 'shared']
+
+
+# # ADMIN filters # #
+
+class PropertyOwnerTypeAdminFilter(SimpleListFilter):
+    """Check whether owner is a Person or an Organization"""
+
+    title = "Owner Type Filter"
+    parameter_name = 'owner'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', _("Unknown")),
+                ('1', _("Person")),
+                ('2', _("Organization"))]
+
+    def queryset(self, request, queryset):
+        if self.value() == '0':
+            return queryset.filter(owner__isnull=True)
+        if self.value() == '1':
+            return queryset.filter(owner__person__isnull=False)
+        if self.value() == '2':
+            return queryset.filter(owner__organization__isnull=False)
+        return queryset
+
+
+class PropertyHasHarvestAdminFilter(SimpleListFilter):
+    """Check whether at least one harvest is associated with property"""
+
+    title = "Had harvest Filter"
+    parameter_name = 'harvest'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'Has harvest(s)'),
+                ('1', 'No harvest yet')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            test = bool(int(self.value()))
+            print("test", test)
+            return queryset.filter(harvests__isnull=test)
+        return queryset
