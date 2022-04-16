@@ -13,8 +13,7 @@ cd $SCRIPT_DIR
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(auth-group \
-     member-city \
+seq=(auth-group member-city \
      member-neighborhood \
      member-state \
      member-country \
@@ -32,10 +31,22 @@ seq=(auth-group \
      harvest-comment \
      harvest-requestforparticipation )
 
+ignore='saskatoon'
+
 # fixtures defined in sequence
 for fix in "${seq[@]}"
 do
     echo "Loading $fix"
     ./loaddata $fix
-
+    ignore+="\\|$fix"
 done
+
+# unused .json files
+unused=$(ls *.json | sed "/$ignore/!d")
+if [[ -n "$unused" ]]; then
+    echo "Unused .json fixtures:"
+    echo "$unused"
+    exit 4
+else
+    echo 'No unused fixtures.'
+fi
