@@ -30,25 +30,12 @@ seq=(auth-group \
      harvest-harvest \
      harvest-harvestyield \
      harvest-comment \
-     harvest-requestforparticipation \
-    )
-
-ignore="-e ^saskatoon"
+     harvest-requestforparticipation )
 
 # fixtures defined in sequence
 for fix in "${seq[@]}"
 do
     echo "Loading $fix"
     ./loaddata $fix
-    ignore="$ignore -e ^$fix"
+
 done
-
-# unused .json files
-unused=$(ls *.json | grep -v $ignore)
-echo "Unused .json fixtures:"; echo $unused
-
-# for fix in $unused
-# do
-#     echo "Loading $fix"
-#     ./loaddata $fix
-# done
