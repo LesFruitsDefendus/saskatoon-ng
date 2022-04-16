@@ -71,6 +71,6 @@ jobs:
       run: Xvfb :99 &
 
     - name: Run tests
-      run: sakatoon/tests/runtests.sh
+      run: saskatoon/tests/runtests.sh
       env:
         DISPLAY: :99
