@@ -66,6 +66,11 @@ jobs:
     - name: Prepare Selenium
       # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
+    
+    - name: Start XVFB
+      run: Xvfb :99 &
 
     - name: Run tests
-      run: tox -e test
+      run: sakatoon/tests/runtests.sh
+      env:
+        DISPLAY: :99
