@@ -8,7 +8,7 @@ PROJECT_DIR=$( dirname "${SCRIPT_DIR}" )
 virtualdisplaypid=0
 if [[ -n "$(cat $PROJECT_DIR/.env | grep 'SASKATOON_TEST_USE_VIRTUAL_DISPLAY=yes')" ]]; then
     # Start a virtual display in the background
-    python3 "$PROJECT_DIR/tests/startvirtualdisplay.py"
+    python3 "$PROJECT_DIR/tests/startvirtualdisplay.py" &
     virtualdisplaypid=$!
 fi
 
