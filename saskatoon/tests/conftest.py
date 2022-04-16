@@ -35,7 +35,6 @@ def driver():
         options = selenium.webdriver.ChromeOptions()
         if os.getenv('GITHUB_ACTIONS') == 'true':
             options.binary_location = '/usr/bin/google-chrome'
-            lambda_options.append('--remote-debugging-port=9222')
 
         for argument in lambda_options:
             options.add_argument(argument)
