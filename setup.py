@@ -47,6 +47,6 @@ setup(
         "postalcodes-ca==0.0.9"
     ],
     extras_require      =   {
-        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
+        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox', 'PyVirtualDisplay', ]
     },
 )
