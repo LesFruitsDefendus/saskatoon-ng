@@ -61,4 +61,4 @@ jobs:
     
     - name: Run tests
       run: |
-        tox -e tests
+        tox -e test
