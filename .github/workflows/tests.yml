@@ -63,7 +63,9 @@ jobs:
       run: |
         python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
     
+    - name: Prepare Selenium
+      # https://github.com/marketplace/actions/setup-chromedriver
+      uses: nanasess/setup-chromedriver@master
+
     - name: Run tests
-      uses: GabrielBB/xvfb-action@v1
-      with:
-        run: tox -e test
+      run: tox -e test
