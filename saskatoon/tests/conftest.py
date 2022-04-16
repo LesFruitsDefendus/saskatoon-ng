@@ -28,6 +28,16 @@ def driver():
     assert TESTDRIVER is not None, ".env variable SASKATOON_TEST_WEBDRIVER not defined, please set the webdriver. i.e. 'Chrome' or 'Firefox'"
     assert hasattr(selenium.webdriver, TESTDRIVER), f"unknown driver value '{TESTDRIVER}' in .env variable SASKATOON_TEST_WEBDRIVER config. Please set a valid webdriver. i.e. 'Chrome' or 'Firefox'"
     # Create new driver
-    testdriver = getattr(selenium.webdriver, TESTDRIVER)()
+    if TESTDRIVER == 'Chrome':
+
+        options = selenium.webdriver.ChromeOptions()
+        if os.getenv('GITHUB_ACTIONS') == 'true':
+            options.binary_location = '/usr/bin/google-chrome'
+        testdriver = selenium.webdriver.Chrome(options=options)
+
+    else:
+        # Untested!
+        testdriver = getattr(selenium.webdriver, TESTDRIVER)()
+    
     yield testdriver
     testdriver.quit()
