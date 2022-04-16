@@ -31,14 +31,14 @@ seq=(auth-group member-city \
      harvest-comment \
      harvest-requestforparticipation )
 
-ignore='saskatoon'
+ignore='saskatoon\.json'
 
 # fixtures defined in sequence
 for fix in "${seq[@]}"
 do
     echo "Loading $fix"
     ./loaddata $fix
-    ignore+="\\|$fix"
+    ignore+="\\|$fix\\.json"
 done
 
 # unused .json files
