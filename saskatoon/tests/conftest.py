@@ -37,7 +37,6 @@ def driver():
             options.binary_location = '/usr/bin/google-chrome'
             lambda_options.append('--remote-debugging-port=9222')
 
-        # options.add_argument('--headless')
         for argument in lambda_options:
             options.add_argument(argument)
             

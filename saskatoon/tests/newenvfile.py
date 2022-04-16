@@ -15,7 +15,6 @@ SASKATOON_DB_ENGINE=django.db.backends.sqlite3
 SASKATOON_DB_NAME=$sqlite_db_path
 SASKATOON_TIME_ZONE=America/Toronto
 SASKATOON_TEST_WEBDRIVER=Chrome
-SASKATOON_TEST_USE_VIRTUAL_DISPLAY=$use_virtual_display
 SASKATOON_URL=http://localhost:8000
 SASKATOON_ADMIN_EMAIL=$admin_email
 SASKATOON_ADMIN_PASSWORD=$admin_password
@@ -38,14 +37,12 @@ if __name__ == "__main__":
     db_path = pathlib.Path(args.sqlite_db_path).absolute()
     admin_email = str(args.admin_email) or ''
     admin_password = str(args.admin_password) or ''
-    use_virtual_display = 'yes' if args.virtual_display else 'no'
 
     mapping = {
         'secret_key': str(uuid.uuid4()),
         'sqlite_db_path': db_path.as_posix(),
         'admin_email': admin_email,
         'admin_password': admin_password,
-        'use_virtual_display': use_virtual_display,
     }
 
     for k in mapping:
