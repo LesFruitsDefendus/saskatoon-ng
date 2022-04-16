@@ -30,12 +30,12 @@ def login(driver: Remote) -> None:
     WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#l-login > form > div.nk-form > button")), "Can't locate login form")
 
     # Fill username / password
-    driver.find_element_by_id("id_username").send_keys(saskatoon_email)
-    driver.find_element_by_id ("id_password").send_keys(saskatoon_pass)
+    driver.find_element(By.ID, "id_username").send_keys(saskatoon_email)
+    driver.find_element(By.ID, "id_password").send_keys(saskatoon_pass)
 
     # Click on login button
     time.sleep(0.25)
-    driver.find_element_by_css_selector("#l-login > form > div.nk-form > button").click()
+    driver.find_element(By.CSS_SELECTOR, "#l-login > form > div.nk-form > button").click()
 
     try: WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_element_located ((By.CLASS_NAME, "main-menu-area")), "Can't locate main menu")
     except Exception as e:
@@ -48,10 +48,14 @@ def logoff(driver: Remote) -> None:
     """
     Helper method to logoff a driver.
     """
+    
+    user_icon_selector = "li.nav-item:nth-child(1) > a:nth-child(1)"
+    logoff_selector = "li.nav-item:nth-child(1) > ul:nth-child(2) > li:nth-child(2) > a:nth-child(1)"
+    login_selector = ".nav > li:nth-child(1) > a:nth-child(1)"
+
     # Click on user icon
-    driver.find_element_by_css_selector("body > div.header-top-area > div > div > div.col-lg-4.col-md-4.col-sm-12.col-xs-12 > div > ul > li:nth-child(1) > a").click()
-    logoff_selector = "body > div.header-top-area > div > div > div.col-lg-4.col-md-4.col-sm-12.col-xs-12 > div > ul > li.nav-item.dropdown.open > ul > li:nth-child(2) > a"
+    driver.find_element(By.CSS_SELECTOR, user_icon_selector).click()
     WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.element_to_be_clickable((By.CSS_SELECTOR, logoff_selector)), "Can't locate logoff button")
     # then click on logoff
-    driver.find_element_by_css_selector(logoff_selector).click()
-    WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#content > p:nth-child(3) > a")), "Can't locate django admin panel 'Log in again' button.")
+    driver.find_element(By.CSS_SELECTOR, logoff_selector).click()
+    WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.element_to_be_clickable((By.CSS_SELECTOR, login_selector)), "Can't locate login button.")

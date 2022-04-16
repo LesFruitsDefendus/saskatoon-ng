@@ -8,6 +8,9 @@
 # - all fixtures     $ ./loaddata all
 # - whole database   $ ./loaddata saskatoon
 
+# automatically exit on error
+set -e
+
 # get script directory no matter where it's called from (doesn't work w/ symlinks)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 

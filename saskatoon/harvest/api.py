@@ -120,9 +120,8 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
         if format == 'json':
             return response
+
         # default request format is html:
-        similar = get_similar_properties(self.get_object())
-        print("similar", similar)
         return Response({'property': response.data,
                          'similar': get_similar_properties(self.get_object())
                          })

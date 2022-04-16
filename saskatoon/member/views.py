@@ -22,7 +22,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         try: # registering new owner based on pending property
             p = Property.objects.get(id=self.request.GET['pid'])
             initial = { 'roles': ['owner'],
-                        'phone': p.pending_contact_phone.replace(" ", "-"),
+                        'phone': p.pending_contact_phone,
                         'email': p.pending_contact_email,
                         'street_number': p.street_number,
                         'street': p.street,
@@ -53,6 +53,11 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
             return reverse_lazy('community-list')
+
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
 
 class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_person'
