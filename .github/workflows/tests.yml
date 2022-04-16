@@ -1,4 +1,4 @@
-name: Django checks
+name: Tests
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ master, develop ]
 
 jobs:
-  checks:
+  tests:
     runs-on: ubuntu-latest
 
     steps:
@@ -41,7 +41,7 @@ jobs:
     
     - name: Create env file
       run: |
-        saskatoon/tests/newenvfile.py ./sqlite3-testing.db > saskatoon/.env
+        saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
     
     - name: Install Saskatoon
       run: |
@@ -55,6 +55,22 @@ jobs:
       run: |
         saskatoon/fixtures/init
 
-    - name: Run checks
+    - name: Run Django checks
       run: |
         tox -e checks
+
+    - name: Create test super user
+      run: |
+        python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
+    
+    - name: Prepare Selenium
+      # https://github.com/marketplace/actions/setup-chromedriver
+      uses: nanasess/setup-chromedriver@master
+    
+    - name: Start XVFB
+      run: Xvfb :99 &
+
+    - name: Run tests
+      run: saskatoon/tests/runtests.sh
+      env:
+        DISPLAY: :99
