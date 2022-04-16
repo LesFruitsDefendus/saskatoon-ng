@@ -64,6 +64,6 @@ jobs:
         python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
     
     - name: Run tests
-        uses: GabrielBB/xvfb-action@v1
-        with:
-          run: tox -e test
+      uses: GabrielBB/xvfb-action@v1
+      with:
+        run: tox -e test
