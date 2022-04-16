@@ -23,9 +23,9 @@ seq=(auth-group \
      member-person \
      member-organization \
      member-authuser \
+     harvest-treetype \
      harvest-property \
      harvest-equipmenttype \
-     harvest-treetype \
      harvest-equipment \
      harvest-harvest \
      harvest-harvestyield \
