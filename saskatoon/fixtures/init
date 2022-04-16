@@ -42,7 +42,7 @@ do
 done
 
 # unused .json files
-unused=$(ls *.json | sed "/$ignore/!d")
+unused=$(ls *.json | sed -n "/$ignore/s///gp")
 if [[ -n "$unused" ]]; then
     echo "Unused .json fixtures:"
     echo "$unused"
