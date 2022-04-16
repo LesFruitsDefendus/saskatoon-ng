@@ -8,6 +8,9 @@
 # - all fixtures     $ ./loaddata all
 # - whole database   $ ./loaddata saskatoon
 
+# automatically exit on error
+set -e
+
 # get script directory no matter where it's called from (doesn't work w/ symlinks)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 
@@ -22,9 +25,9 @@ if [ $1 == "all" ]; then
     for f in $(ls *.json | grep -v "^saskatoon")
     do
         echo "Loading $f ..."
-        ../manage.py loaddata "${f%.*}" || exit 1
+        ../manage.py loaddata "${f%.*}"
     done
 else
-    ../manage.py loaddata $1 || exit 1
+    ../manage.py loaddata $1
 fi
 

@@ -2,12 +2,12 @@
 
 # Load initial fixtures from .json files
 
+# automatically exit on error
+set -e
+
 # get script directory no matter where it's called from (doesn't work w/ symlinks)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR
-
-# automatically exit on error
-set -e
 
 # migrate database in case it was not already done
 ../manage.py migrate --skip-checks
