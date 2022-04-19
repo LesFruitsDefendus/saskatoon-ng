@@ -333,12 +333,6 @@ class Property(models.Model):
         verbose_name = _("property")
         verbose_name_plural = _("properties")
 
-    def __str__(self):
-        name = self.owner if self.owner else u"(%s %s)" % (self.pending_contact_first_name, self.pending_contact_family_name)
-        number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % \
-            (name, _("at"), number, self.street)
-
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -360,27 +354,40 @@ class Property(models.Model):
         else:
             return self.street
 
-    # Returns a few fields only, useful for property list view
-    def get_harvests(self):
-        harvests_list = Harvest.objects.filter(property=self).values('id', 'status', 'start_date', 'pick_leader__person__first_name').order_by('-start_date')
-        return harvests_list
+    @property
+    def last_succeeded_harvest_date(self):
+        """Returns the start_date of the last successful Harvest in this Property"""
+        last_harvest = self.harvests.filter(status="Succeeded").order_by('start_date').last()
+        return last_harvest.start_date if last_harvest else None
 
-    def get_last_succeeded_harvest(self):
-        last_harvest = Harvest.objects.filter(property=self).filter(status="Succeeded").order_by('-start_date')
-        if last_harvest:
-            return last_harvest[0].start_date
+    def get_owner_subclass(self):
+        if self.owner:
+            if self.owner.is_person:
+                return self.owner.person
+            if self.owner.is_organization:
+                return self.owner.organization
         return None
-    #
-    # def get_owner_subclass(self):
-    #     from member.models import Person, Organization
-    #     try:
-    #         return Person(self.owner)
-    #     except Person.DoesNotExist:
-    #         return Organization(self.owner)
 
     @property
-    def get_owner_name(self):
-        return self.owner.__str__()
+    def owner_email(self):
+        owner_subclass = self.get_owner_subclass()
+        return owner_subclass.email if owner_subclass else None
+
+    @property
+    def owner_phone(self):
+        owner_subclass = self.get_owner_subclass()
+        return owner_subclass.phone if owner_subclass else None
+
+    @property
+    def owner_name(self):
+        if self.owner:
+            return self.owner.__str__()
+        return u"(%s %s)" % (self.pending_contact_first_name,
+                             self.pending_contact_family_name)
+
+    def __str__(self):
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):
@@ -395,6 +402,7 @@ class Harvest(models.Model):
         'Property',
         null=True,
         verbose_name=_("Property"),
+        related_name='harvests',
         on_delete=models.CASCADE,
     )
 
@@ -502,6 +510,7 @@ class Harvest(models.Model):
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
+        ordering = ['-start_date']
 
     def __str__(self):
         if self.start_date:
@@ -586,7 +595,7 @@ class RequestForParticipation(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
-        related_name="request_for_participation",
+        related_name="requests",
         on_delete=models.CASCADE,
     )
 
@@ -778,6 +787,11 @@ class HarvestImage(models.Model):
 # Property signals
 models.signals.pre_save.connect(
     receiver=signals.changed_by,
+    sender=Property
+)
+
+models.signals.pre_save.connect(
+    receiver=signals.notify_pending_status_update,
     sender=Property
 )
 

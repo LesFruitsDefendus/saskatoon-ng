@@ -113,10 +113,18 @@ class Actor(models.Model):
     def get_organization(self):
         return Organization.objects.filter(actor_id=self.actor_id).first()
 
+    @property
+    def is_person(self):
+        return hasattr(self, 'person')
+
+    @property
+    def is_organization(self):
+        return hasattr(self, 'organization')
+
     def __str__(self):
-        if self.get_person():
+        if self.is_person:
             return self.get_person().__str__()
-        elif self.get_organization():
+        elif self.is_organization:
             return self.get_organization().__str__()
         else:
             return u"Unknown Actor: %i" % self.actor_id
@@ -245,9 +253,11 @@ class Person(Actor):
     def __str__(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    @property
     def name(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
+    @property
     def email(self):
         auth_obj = AuthUser.objects.filter(person=self)
         if auth_obj:
@@ -271,17 +281,17 @@ class Person(Actor):
     @property
     def harvests_as_volunteer_accepted(self):
         requests = self.requests_as_volunteer.filter(is_accepted=True)
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_volunteer_pending(self):
         requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_volunteer_missed(self):
         requests = self.requests_as_volunteer.filter(Q(is_accepted=False)|Q(is_cancelled=True))
-        return Harvest.objects.filter(request_for_participation__in=requests)
+        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_owner(self):
@@ -429,8 +439,22 @@ class Organization(Actor):
     def __str__(self):
         return u"%s" % self.civil_name
 
+    @property
     def name(self):
         return u"%s" % self.civil_name
+
+    @property
+    def contact(self):
+        return self.contact_person.name if self.contact_person else None
+
+    @property
+    def email(self):
+        return self.contact_person.email if self.contact_person else None
+
+    @property
+    def language(self):
+        return self.contact_person.language if self.contact_person else None
+
 
 class Neighborhood(models.Model):
     name = models.CharField(
@@ -459,6 +483,7 @@ class City(models.Model):
     def __str__(self):
         return self.name
 
+
 class State(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -472,6 +497,7 @@ class State(models.Model):
     def __str__(self):
         return self.name
 
+
 class Country(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
@@ -484,6 +510,7 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class Language(models.Model):
     name = models.CharField(

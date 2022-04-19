@@ -7,7 +7,6 @@ PROJECT_DIR=$( dirname "${SCRIPT_DIR}" )
 
 # Start a server in the background
 python3 "$PROJECT_DIR/manage.py" runserver 8000 &
-
 testserverpid=$!
 
 # Kill it when the script exits

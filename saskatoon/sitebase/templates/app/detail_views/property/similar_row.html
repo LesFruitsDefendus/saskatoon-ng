@@ -20,7 +20,7 @@
         {% endif %}
     </td>
     <td>
-        {% with property.owner.person as po %}
+        {% with property.owner as po %}
             <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
             {{ po.phone }}
         {% endwith %}

@@ -24,7 +24,7 @@
     </td>
     <td>
         {% for tree in property.trees %}
-        <div class="text-nowrap">{{ tree.fruit_name|get_fruit_name_icon }}</div>
+        <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
         {% endfor %}
     </td>
     <td>
@@ -49,7 +49,7 @@
         </ul>
     </td>
     <td>
-        <div class="text-nowrap">{{ property.last_succeeded_harvest|date:"Y-m-d g:i A" }}</div>
+        <div class="text-nowrap">{{ property.last_succeeded_harvest_date|date:"Y-m-d g:i A" }}</div>
         <small>{{ harvest.start_time }}</small>
     </td>
 </tr>
