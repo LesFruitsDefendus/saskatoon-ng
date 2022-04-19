@@ -11,7 +11,7 @@ echo "Creating testing DB ..."
 
 # Run tests with fresh DB
 [[ -e $PROJECT_DIR/.env ]] && cp $PROJECT_DIR/.env $PROJECT_DIR/.env.copy
-set +e # we don;t want to leave testing DB no matter what, so we'rediabling set -e for the following statements
+set +e # we don't want to leave testing DB no matter what, so we are re-enabling set -e for the following statements
 
 # Init DB
 rm -f "$ROOT_DIR/saskatoon-runtests-sqlite3.db"
