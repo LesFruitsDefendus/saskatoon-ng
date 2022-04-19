@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from django import forms
 from dal import autocomplete
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
+from member.models import AuthUser, Person, Organization, AUTH_GROUPS #STAFF_GROUPS
 
 def validate_email(email):
     ''' check if a user with same email address is already registered'''

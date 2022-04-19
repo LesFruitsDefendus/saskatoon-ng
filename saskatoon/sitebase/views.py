@@ -1,12 +1,12 @@
-import datetime
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
-from django.urls import reverse
-from django.utils.decorators import method_decorator
+# import datetime
+from django.http import JsonResponse #HttpResponse
+# from django.template import loader
+# from django.urls import reverse
+# from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
-from harvest.models import Harvest, Property, RequestForParticipation
-from harvest.forms import RequestForm
-from django.contrib.auth.decorators import login_required
+from harvest.models import Harvest, RequestForParticipation #Property
+# from harvest.forms import RequestForm
+# from django.contrib.auth.decorators import login_required
 
 class Index(TemplateView):
     template_name = 'app/index.html'
