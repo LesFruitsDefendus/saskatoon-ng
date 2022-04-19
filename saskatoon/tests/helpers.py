@@ -106,6 +106,7 @@ class SaskatoonFormFiller:
             input_element.send_keys(v)
             WebDriverWait(self.driver, 5).until(EC.visibility_of_element_located(
                     (By.CSS_SELECTOR, 
+                    # This assumes the css_selector is like "#div_something"
                     f'#select2-{css_selector[5:]}-results > li.select2-results__option--highlighted')), 
                 f"Can't find your choice {value}")
             time.sleep(0.5)
@@ -130,6 +131,7 @@ class SaskatoonFormFiller:
         select_element = self.driver.find_element(By.CSS_SELECTOR, css_selector + ' .select2-container')
         select_element.click()
 
+        # This assumes the css_selector is like "#div_something"
         in_select = f"input[aria-controls=select2-{css_selector[5:]}-results]"
         input_element = self.driver.find_element(By.CSS_SELECTOR, in_select)
         input_element.send_keys(value)
