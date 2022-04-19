@@ -4,23 +4,21 @@
 <ul class="list-unstyled">
     {% if property.is_active %}
         {% if property.pending %}
-            <span class="label label-warning">{% trans "PENDING" %}</span>
+            <span class="label label-warning" title="Pending Validation">{% trans "PENDING" %}</span>
         {% else %}
-            <span class="label label-success">{% trans "validated" %}</span>
+            <span class="label label-success" title="Validated">{% trans "validated" %}</span>
         {% endif %}
         {% if property.authorized is None %}
-            <span class="label label-warning">{% trans "not yet authorized" %}</span>
+            <span class="label label-warning" title="Not Yet Authorized">{% trans "not yet authorized" %}</span>
         {% elif property.authorized %}
-            <span class="label label-success">{% trans "authorized" %}</span>
+            <span class="label label-success" title="Authorized for the Current Season">{% trans "authorized" %}</span>
         {% else %}
-            <span class="label label-danger">{% trans "unauthorized" %}</span>
+            <span class="label label-danger" title="Not Authorized for this Season">{% trans "unauthorized" %}</span>
         {% endif %}
     {% else %}
-        <span class="label label-danger">{% trans "inactive" %}</span><br/>
+        <span class="label label-danger" title="Inactive">{% trans "inactive" %}</span><br/>
     {% endif %}
     {% if property.owner.person.about %}
         <li><i class="fa fa-envelope"></i> {{ property.owner.person.email }}</li>
     {% endif %}
 </ul>
-
-
