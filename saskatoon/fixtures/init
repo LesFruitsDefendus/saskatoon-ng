@@ -2,19 +2,18 @@
 
 # Load initial fixtures from .json files
 
+# automatically exit on error
+set -e
+
 # get script directory no matter where it's called from (doesn't work w/ symlinks)
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 cd $SCRIPT_DIR
-
-# automatically exit on error
-set -e
 
 # migrate database in case it was not already done
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(auth-group \
-     member-city \
+seq=(auth-group member-city \
      member-neighborhood \
      member-state \
      member-country \
@@ -23,32 +22,31 @@ seq=(auth-group \
      member-person \
      member-organization \
      member-authuser \
+     harvest-treetype \
      harvest-property \
      harvest-equipmenttype \
-     harvest-treetype \
      harvest-equipment \
      harvest-harvest \
      harvest-harvestyield \
      harvest-comment \
-     harvest-requestforparticipation \
-    )
+     harvest-requestforparticipation )
 
-ignore="-e ^saskatoon"
+ignore='saskatoon\.json'
 
 # fixtures defined in sequence
 for fix in "${seq[@]}"
 do
     echo "Loading $fix"
     ./loaddata $fix
-    ignore="$ignore -e ^$fix"
+    ignore+="\\|$fix\\.json"
 done
 
 # unused .json files
-unused=$(ls *.json | grep -v $ignore)
-echo "Unused .json fixtures:"; echo $unused
-
-# for fix in $unused
-# do
-#     echo "Loading $fix"
-#     ./loaddata $fix
-# done
+unused=$(ls *.json | sed -n "/$ignore/s///gp")
+if [[ -n "$unused" ]]; then
+    echo "Unused .json fixtures:"
+    echo "$unused"
+    exit 4
+else
+    echo 'No unused fixtures.'
+fi

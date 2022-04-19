@@ -1,7 +1,8 @@
 from django.contrib.admin import SimpleListFilter
 from member.models import Person #Actor, AuthUser, AUTH_GROUPS
-from harvest.models import Property, Harvest, RequestForParticipation
 from django.contrib.auth.models import Group
+from django.utils.translation import gettext_lazy as _
+from harvest.models import Property, Harvest, RequestForParticipation
 
 
 # # ADMIN filters # #
@@ -48,14 +49,14 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
 
 
 class UserHasLedPicksAdminFilter(SimpleListFilter):
-    """Checks if AuthUser is has led harvests"""
+    """Checks if AuthUser has led harvests"""
 
     title = 'Pick-Leader Filter'
     parameter_name = 'leader'
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [ ('1', 'has led pick(s)')]
+        return [('1', 'has led pick(s)')]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -67,14 +68,14 @@ class UserHasLedPicksAdminFilter(SimpleListFilter):
 
 
 class UserHasVolunteeredAdminFilter(SimpleListFilter):
-    """Checks if AuthUser is has volunteered"""
+    """Checks if AuthUser has volunteered"""
 
     title = 'Volunteer Filter'
     parameter_name = 'picker'
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [ ('1', 'has volunteered')]
+        return [('1', 'has volunteered')]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -82,4 +83,26 @@ class UserHasVolunteeredAdminFilter(SimpleListFilter):
             pickers = [r.picker for r in requests]
             users = queryset.filter(person__in=pickers)
             return users
+        return queryset
+
+
+class ActorTypeAdminFilter(SimpleListFilter):
+    """Checks if Actor is a Person or an Organization"""
+
+    title = 'Type Filter'
+    parameter_name = 'actor'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', _("None")),
+                ('1', _("Person")),
+                ('2', _("Organization"))]
+
+    def queryset(self, request, queryset):
+        if self.value() == '0':
+            return queryset.filter(person__isnull=True, organization__isnull=True)
+        if self.value() == '1':
+            return queryset.filter(person__isnull=False)
+        if self.value() == '2':
+            return queryset.filter(organization__isnull=False)
         return queryset

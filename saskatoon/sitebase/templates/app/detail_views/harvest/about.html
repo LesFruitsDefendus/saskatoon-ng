@@ -24,7 +24,7 @@
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <div class="sale-statistic-inner notika-shadow mg-tb-30">
                 <div class="contact-hd search-hd-eg">
-                    <h2>Property information
+                    <h2>{% translate 'Property information' %}
                     {% if perms.harvest.change_property %}
                         &nbsp;
                         <a href="/property/update/{{harvest.property.id}}"
@@ -39,7 +39,7 @@
                         <tr>
                             <td>{% trans "Adresss" %}</td>
                             <td class="text-right">
-                                <h4>{{ harvest.property.address }}</h4>
+                                <h4><a href="/property/{{harvest.property.id}}">{{ harvest.property.address }}</a></h4>
                             </td>
                         </tr>
                         <tr>
@@ -51,33 +51,33 @@
                         <tr>
                             <td>{% trans "Phone" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.person.phone }}</h4>
+                                <h4>{{ harvest.property.owner.phone }}</h4>
                             </td>
                         </tr>
 
                         <tr>
                             <td>{% trans "Email" %}</td>
                             <td class="text-right">
-                                <h4>{{ property.owner.person.email }}</h4>
+                                <h4>{{ harvest.property.owner.email }}</h4>
                             </td>
                         </tr>
 
-                        {% if property.owner.person.language != 'None' %}
-                        <tr>
-                            <td>{% trans "Language" %}</td>
-                            <td class="text-right">
-                                <h4>{{ property.owner.person.language }}</h4>
-                            </td>
-                        </tr>
+                        {% if harvest.property.owner.language %}
+                            <tr>
+                                <td>{% trans "Language" %}</td>
+                                <td class="text-right">
+                                    <h4>{{ harvest.property.owner.language }}</h4>
+                                </td>
+                            </tr>
                         {% endif %}
 
-                        {% if property.owner.person.comments %}
-                        <tr>
-                            <td>{% trans "Comments" %}</td>
-                            <td class="text-right">
-                                <h4>{{ property.owner.person.comments }}</h4>
-                            </td>
-                        </tr>
+                        {% if harvest.property.owner.comments %}
+                            <tr>
+                                <td>{% trans "Comments" %}</td>
+                                <td class="text-right">
+                                    <b>{{ harvest.property.owner.comments }}</b>
+                                </td>
+                            </tr>
                         {% endif %}
 
                     </table>

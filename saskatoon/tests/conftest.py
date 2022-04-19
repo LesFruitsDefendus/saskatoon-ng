@@ -3,11 +3,8 @@ import pytest
 import selenium.webdriver
 from django.conf import settings
 
-from dotenv import load_dotenv, find_dotenv #type: ignore
-
 # Load the environment variables from .env file.
-file = find_dotenv()
-if file: load_dotenv(dotenv_path=file)
+import saskatoon.settings
 
 TESTDRIVER = os.getenv('SASKATOON_TEST_WEBDRIVER')
 # A list of selenium webdrivers for different browsers:
@@ -27,9 +24,12 @@ def django_db_setup():
 
 @pytest.fixture(scope="module")
 def driver():
+    
     # The webdriver class is instantiated dynamically
     assert TESTDRIVER is not None, ".env variable SASKATOON_TEST_WEBDRIVER not defined, please set the webdriver. i.e. 'Chrome' or 'Firefox'"
     assert hasattr(selenium.webdriver, TESTDRIVER), f"unknown driver value '{TESTDRIVER}' in .env variable SASKATOON_TEST_WEBDRIVER config. Please set a valid webdriver. i.e. 'Chrome' or 'Firefox'"
+    
+    
     # Create new driver
     testdriver = getattr(selenium.webdriver, TESTDRIVER)()
     yield testdriver
