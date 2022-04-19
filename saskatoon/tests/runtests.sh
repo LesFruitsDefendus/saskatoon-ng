@@ -14,8 +14,8 @@ echo "Creating testing DB ..."
 set +e # we don;t want to leave testing DB no matter what, so we'rediabling set -e for the following statements
 
 # Init DB
-rm -f "$ROOT_DIR/saskatoon-runtests-db.sqlite3"
-"$SCRIPT_DIR/newenvfile.py" "$ROOT_DIR/saskatoon-runtests-db.sqlite3" --admin-pass testing1234 --admin-email admin@example.com > "$PROJECT_DIR/.env"
+rm -f "$ROOT_DIR/saskatoon-runtests-sqlite3.db"
+"$SCRIPT_DIR/newenvfile.py" "$ROOT_DIR/saskatoon-runtests-sqlite3.db" --admin-pass testing1234 --admin-email admin@example.com > "$PROJECT_DIR/.env"
 "$ROOT_DIR/saskatoon/tests/createtestsuperuser.py" admin@example.com testing1234
 "$ROOT_DIR/saskatoon/fixtures/init"
 
