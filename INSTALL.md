@@ -280,28 +280,10 @@ Install test requirements with:
 pip3 install '.[test]'
 ```
 
-Extra configuration is required in `.env` to run tests:
-
-```
-# Testing settings
-
-SASKATOON_URL=http://localhost:8000
-SASKATOON_ADMIN_EMAIL=admin@example.com
-SASKATOON_ADMIN_PASSWORD=testing1234
-```
-
-Tests are located inside `saskatoon/tests` folder.
-
-Created a test super user with the following command:
-
-```
-python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
-```
-
-Then run tests with:
+Then, simply run:
 
 ```
 tox -e test
 ```
 
-> See also [saskatoon/tests/README.md](saskatoon/tests/README.md)
+> See [saskatoon/tests/README.md](saskatoon/tests/README.md) for webdriver requirements.
