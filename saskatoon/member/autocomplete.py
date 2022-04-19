@@ -1,7 +1,7 @@
 from dal import autocomplete
-from .models import AuthUser, Person, Actor
+from .models import Person, Actor  #AuthUser
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
+#from django.contrib.auth.decorators import login_required
 from django.db.models.query_utils import Q
 
 

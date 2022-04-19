@@ -1,5 +1,5 @@
 from django.contrib.admin import SimpleListFilter
-from member.models import AuthUser, AUTH_GROUPS, Person, Actor
+from member.models import Person #Actor, AuthUser, AUTH_GROUPS
 from harvest.models import Property, Harvest, RequestForParticipation
 from django.contrib.auth.models import Group
 

@@ -1,6 +1,6 @@
-import pytest
+#import pytest
 import os
-import time
+#import time
 from selenium.webdriver import Remote
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
