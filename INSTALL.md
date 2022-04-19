@@ -280,7 +280,7 @@ Install test requirements with:
 pip3 install '.[test]'
 ```
 
-Extra configuration is required in `.env` to run tests, these fields will be automatically added the the testing ``.env`` file:
+Extra configuration is required in `.env` to run tests, these fields will be automatically added in the testing ``.env`` file:
 
 ```
 # Testing settings
