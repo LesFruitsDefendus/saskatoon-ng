@@ -8,10 +8,6 @@ from selenium.webdriver.support import expected_conditions as EC, select
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 
-if __name__ == '__main__':
-    import sys
-    sys.path.insert(0, Path(__file__).parent.parent.absolute().as_posix())
-
 from tests.helpers import login, SaskatoonFormFiller, assert_not_error_page
 from tests.conftest import create_driver
 
@@ -69,7 +65,7 @@ def test_add_property(driver: Remote) -> None:
         # click on the last added property
         driver.find_element(By.CSS_SELECTOR, 'tr.odd:nth-child(1) > td:nth-child(2) > a:nth-child(1)').click()
         property_update_url = f"{driver.current_url[:-3]}/update/{driver.current_url[-2:]}"
-        # goto the edit page of thi property
+        # goto the edit page of this property
         driver.get(property_update_url)
         assert_not_error_page(driver)
         ff.fill('singleselection', '#div_id_owner', 'nice')
