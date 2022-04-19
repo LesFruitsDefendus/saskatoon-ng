@@ -291,7 +291,7 @@ SASKATOON_ADMIN_PASSWORD=testing1234
 
 Tests are located inside `saskatoon/tests` folder.
 
-To run tests, simply run the following somamnd from the root directory of the repository.
+To run tests, simply run the following command from the root directory of the repository.
 
 ```
 tox -e test
