@@ -280,7 +280,18 @@ Install test requirements with:
 pip3 install '.[test]'
 ```
 
-Then, simply run:
+Extra configuration is required in `.env` to run tests, these fields will be automatically added the the testing ``.env`` file:
+
+```
+# Testing settings
+SASKATOON_URL=http://localhost:8000
+SASKATOON_ADMIN_EMAIL=admin@example.com
+SASKATOON_ADMIN_PASSWORD=testing1234
+```
+
+Tests are located inside `saskatoon/tests` folder.
+
+To run tests, simply run the following somamnd from the root directory of the repository.
 
 ```
 tox -e test
