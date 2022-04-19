@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
+from member.models import Person #Actor, AuthUser, AUTH_GROUPS
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from member.models import AuthUser, AUTH_GROUPS, Person, Actor
 from harvest.models import Property, Harvest, RequestForParticipation
 
 
