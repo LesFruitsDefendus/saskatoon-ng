@@ -5,11 +5,19 @@ from django.urls import reverse
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, Property, RequestForParticipation
+from sitebase.models import Homepage
 from harvest.forms import RequestForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 class Index(TemplateView):
     template_name = 'app/index.html'
+    
+    def get(self, request, *args, **kwargs):
+        homepage = Homepage.objects.last()
+        context = {'homepage': homepage}
+        return render(request, 'app/index.html', context)
+    
 
 #@method_decorator(login_required, name='dispatch')
 class Calendar(TemplateView):
