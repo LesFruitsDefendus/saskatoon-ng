@@ -103,6 +103,10 @@ class OwnerTypeSerializer(serializers.ModelSerializer):
         fields = ['is_person', 'is_organization']
 
 
+class PickLeaderSerializer(PersonOwnerSerializer):
+    pass
+
+
 class PropertyHarvestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Harvest
@@ -111,8 +115,8 @@ class PropertyHarvestSerializer(serializers.ModelSerializer):
     pick_leader = serializers.SerializerMethodField()
 
     def get_pick_leader(self, harvest):
-        if harvest.pick_leader:
-            return harvest.pick_leader.person.first_name
+        if harvest.pick_leader is not None:
+            return PickLeaderSerializer(harvest.pick_leader.person).data
         return None
 
 
