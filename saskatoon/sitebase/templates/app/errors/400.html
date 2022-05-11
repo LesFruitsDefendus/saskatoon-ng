@@ -1,0 +1,14 @@
+{% extends 'app/errors/error.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top:1rem;">
+            <div class="col text-center">
+                <h1> {% translate "400 Bad Request" %} </h1>
+            </div>
+        </div>
+    </div>
+    {{ block.super }}
+{% endblock content %}
