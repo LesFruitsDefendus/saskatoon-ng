@@ -5,7 +5,7 @@ Models registration.
 """
 
 from leaflet.admin import LeafletGeoAdmin  # type: ignore
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.utils.html import mark_safe
@@ -18,11 +18,6 @@ from harvest.filters import PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdmi
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
-class PropertyInline(admin.TabularInline):
-    model = Property
-    extra = 0
-
-
 class PersonInline(admin.TabularInline):
     model = RequestForParticipation
     verbose_name = "Cueilleurs pour cette récolte"
@@ -30,13 +25,6 @@ class PersonInline(admin.TabularInline):
     form = RFPForm
     exclude = ['creation_date', 'confirmation_date']
     extra = 3
-
-
-class OrganizationAdmin(admin.ModelAdmin):
-    inlines = [
-        PropertyInline,
-    ]
-    search_fields = ['name', 'description']
 
 
 class HarvestYieldInline(admin.TabularInline):
@@ -49,16 +37,19 @@ class HarvestImageInline(admin.TabularInline):
     extra = 3
 
 
+@admin.register(Harvest)
 class HarvestAdmin(admin.ModelAdmin):
     # form = HarvestForm
     model = Harvest
     inlines = (PersonInline, HarvestYieldInline, HarvestImageInline)
 
 
+@admin.register(RequestForParticipation)
 class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
 
+@admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
     form = EquipmentForm
 
@@ -67,6 +58,8 @@ class PropertyImageInline(admin.TabularInline):
     model = PropertyImage
     extra = 3
 
+
+@admin.register(Property)
 class PropertyAdmin(LeafletGeoAdmin):
     model = Property
     inlines = [PropertyImageInline]
@@ -76,6 +69,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner_type',
         'owner_phone',
         'owner_email',
+        'is_active',
         'pending',
         'harvests',
         'authorized',
@@ -89,6 +83,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
         'authorized',
+        'is_active',
         'pending',
         'trees',
         'neighborhood',
@@ -127,6 +122,15 @@ class PropertyAdmin(LeafletGeoAdmin):
     def harvests(self, _property):
         return _property.harvests.count()
 
+    @admin.action(description="De-authorized selected properties")
+    def reset_authorize(self, request, queryset):
+        """Set authorized=None to queryset"""
+        queryset.update(**{'authorized': None})
+        messages.add_message(request, messages.SUCCESS,
+                             "Successfully reset authorizations for this season")
+
+    actions = [reset_authorize]
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(
@@ -134,11 +138,8 @@ class PropertyAdmin(LeafletGeoAdmin):
         )
         return queryset
 
-admin.site.register(Property, PropertyAdmin)
-admin.site.register(Harvest, HarvestAdmin)
-admin.site.register(RequestForParticipation, RequestForParticipationAdmin)
+
 admin.site.register(TreeType)
-admin.site.register(Equipment, EquipmentAdmin)
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
 admin.site.register(Comment)
