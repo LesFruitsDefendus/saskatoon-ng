@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
@@ -8,7 +9,7 @@ from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
 from member.models import Language, AuthUser, Neighborhood, Organization
 
 
-SEASON_FILTER_RANGE = (2016, 2022)
+SEASON_FILTER_RANGE = (2016, datetime.now().year)
 
 
 class HarvestFilter(filters.FilterSet):
