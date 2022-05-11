@@ -9,6 +9,7 @@ import datetime
 from djgeojson.fields import PointField
 from phone_field import PhoneField
 
+
 HARVESTS_STATUS_CHOICES = (
     (
         "To-be-confirmed",
@@ -39,6 +40,8 @@ HARVESTS_STATUS_CHOICES = (
         _("Cancelled"),
     )
 )
+
+
 class TreeType(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
