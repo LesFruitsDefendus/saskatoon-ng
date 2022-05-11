@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from member.models import AuthUser, AUTH_GROUPS, Person, Actor
+from member.models import AuthUser, AUTH_GROUPS, Person, Actor, Organization
 from harvest.models import Property, Harvest, RequestForParticipation
 
 
@@ -80,8 +80,27 @@ class UserHasVolunteeredAdminFilter(SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value():
             requests = RequestForParticipation.objects.filter(is_accepted=True)
-            pickers = [r.picker for r in requests]
+            pickers = set([r.picker for r in requests])
             users = queryset.filter(person__in=pickers)
+            return users
+        return queryset
+
+
+class UserIsContactAdminFilter(SimpleListFilter):
+    """Checks if AuthUser is contact to an Organization"""
+
+    title = 'Contact Filter'
+    parameter_name = 'contact'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('1', 'is contact')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            organizations = Organization.objects.exclude(contact_person__isnull=True)
+            contacts = set([o.contact_person for o in organizations])
+            users = queryset.filter(person__in=contacts)
             return users
         return queryset
 
