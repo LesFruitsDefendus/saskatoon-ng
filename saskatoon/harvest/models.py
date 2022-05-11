@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 import datetime
 from djgeojson.fields import PointField
 from phone_field import PhoneField
+from django.db.models.query_utils import Q
 
 HARVESTS_STATUS_CHOICES = (
     (
@@ -514,16 +515,23 @@ class Harvest(models.Model):
 
     def __str__(self):
         if self.start_date:
-            return u"Harvest on %s for %s" % (
+            return (_("Harvest on {} for {}")).format(
                 self.get_local_start().strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
         else:
-            return u"Harvest for %s" % self.property
+            return (_("Harvest for {}")).format(
+                self.property
+            )
 
     def get_pickers(self):
         requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
         return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
+
+    def get_unselected_pickers(self):
+        # Get pickers who volunteered but have been rejected or are pending approval
+        requests =  self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
+        return requests
 
     def is_urgent(self):
         if self.start_date:
@@ -809,6 +817,11 @@ models.signals.post_save.connect(
 # Harvest signals
 models.signals.pre_save.connect(
     signals.changed_by,
+    sender=Harvest
+)
+
+models.signals.pre_save.connect(
+    receiver=signals.notify_unselected_pickers,
     sender=Harvest
 )
 
