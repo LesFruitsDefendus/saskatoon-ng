@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
@@ -8,10 +9,20 @@ from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
 from member.models import Language, AuthUser, Neighborhood, Organization
 
 
-SEASON_FILTER_RANGE = (2016, 2022)
+SEASON_FILTER_RANGE = (2016, datetime.now().year)
 
 
 class HarvestFilter(filters.FilterSet):
+
+    class Meta:
+        model = Harvest
+        fields = [
+            'status',
+            'pick_leader',
+            'trees',
+            'property__neighborhood',
+            'season',
+        ]
 
     YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
 
@@ -50,35 +61,8 @@ class HarvestFilter(filters.FilterSet):
         required=False
     )
 
-    class Meta:
-        model = Harvest
-        fields = (
-            'status',
-            'pick_leader',
-            'trees',
-            'property__neighborhood',
-            'season',
-        )
-
 
 class PropertyFilter(filters.FilterSet):
-    is_active = filters.BooleanFilter(help_text="")
-    authorized = filters.BooleanFilter(help_text="")
-    neighborhood = filters.ModelChoiceFilter(
-        queryset=Neighborhood.objects.all(),
-        label=_("Neighborhood"),
-        help_text="",
-        required=False
-    )
-    trees = filters.ModelChoiceFilter(
-        queryset=TreeType.objects.all(),
-        label=_("Tree"),
-        help_text="",
-        required=False
-    )
-    ladder_available = filters.BooleanFilter(help_text="")
-    ladder_available_for_outside_picks = filters.BooleanFilter(help_text="")
-    pending = filters.BooleanFilter(help_text="", label=_("Pending validation"))
 
     class Meta:
         model = Property
@@ -90,10 +74,68 @@ class PropertyFilter(filters.FilterSet):
             'ladder_available',
             'ladder_available_for_outside_picks',
             'pending',
-            ]
+        ]
+
+    is_active = filters.BooleanFilter(
+        label=_("Active"),
+        help_text=""
+    )
+
+    authorized = filters.ChoiceFilter(
+        choices=[
+            (2, _("Not yet authorized")),
+            (1, _("Authorized")),
+            (0, _("Unauthorized"))
+        ],
+        label=_("Authorized"),
+        help_text="",
+        method='authorized_filter'
+    )
+
+    neighborhood = filters.ModelChoiceFilter(
+        queryset=Neighborhood.objects.all(),
+        label=_("Neighborhood"),
+        help_text="",
+        required=False
+    )
+
+    trees = filters.ModelChoiceFilter(
+        queryset=TreeType.objects.all(),
+        label=_("Tree"),
+        help_text="",
+        required=False
+    )
+
+    ladder_available = filters.BooleanFilter(
+        help_text=""
+    )
+
+    ladder_available_for_outside_picks = filters.BooleanFilter(
+        help_text=""
+    )
+
+    pending = filters.BooleanFilter(
+        help_text="",
+        label=_("Pending validation")
+    )
+
+    def authorized_filter(self, queryset, name, choice):
+        if choice == '2':
+            return queryset.filter(authorized__isnull=True)
+        return queryset.filter(authorized=bool(int(choice)))
 
 
 class CommunityFilter(filters.FilterSet):
+
+    class Meta:
+        model = AuthUser
+        fields = [
+            'groups',
+            'person__first_name',
+            'person__family_name',
+            'person__neighborhood',
+            'person__language',
+        ]
 
     groups = filters.ModelChoiceFilter(
         queryset=Group.objects.all(),
@@ -134,19 +176,14 @@ class CommunityFilter(filters.FilterSet):
         query = (Q(person__family_name__icontains=value))
         return queryset.filter(query)
 
-    class Meta:
-        model = AuthUser
-        fields = [
-            'groups',
-            'person__first_name',
-            'person__family_name',
-            'person__neighborhood',
-            'person__language',
-        ]
-
 
 # FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
+
+    class Meta:
+        model = Organization
+        fields = ['neighborhood', 'is_beneficiary']
+
     neighborhood = filters.ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
@@ -154,22 +191,24 @@ class OrganizationFilter(filters.FilterSet):
         required=False
     )
 
-    class Meta:
-        model = Organization
-        fields = ['neighborhood', 'is_beneficiary']
 
 
 class EquipmentFilter(filters.FilterSet):
-    shared = filters.BooleanFilter(help_text="")
+
+    class Meta:
+        model = Equipment
+        fields = ['type', 'shared']
+
+    shared = filters.BooleanFilter(
+        help_text=""
+    )
+
     type = filters.ModelChoiceFilter(
         queryset=EquipmentType.objects.all(),
         label=_("Type"),
         help_text="",
         required=False
     )
-    class Meta:
-        model = Equipment
-        fields = ['type', 'shared']
 
 
 # # ADMIN filters # #
@@ -209,7 +248,6 @@ class PropertyHasHarvestAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            test = bool(int(self.value()))
-            print("test", test)
-            return queryset.filter(harvests__isnull=test)
+            is_null = bool(int(self.value()))
+            return queryset.filter(harvests__isnull=is_null)
         return queryset

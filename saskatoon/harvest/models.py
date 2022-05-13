@@ -10,6 +10,7 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from django.db.models.query_utils import Q
 
+
 HARVESTS_STATUS_CHOICES = (
     (
         "To-be-confirmed",
@@ -40,6 +41,8 @@ HARVESTS_STATUS_CHOICES = (
         _("Cancelled"),
     )
 )
+
+
 class TreeType(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
