@@ -8,8 +8,9 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
-from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter, UserHasPropertyAdminFilter,
-                            UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
+from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
+                            UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
+                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter)
 from django.contrib.auth.models import Group
 
 
@@ -103,6 +104,7 @@ class AuthUserAdmin(UserAdmin):
                    UserHasPropertyAdminFilter,
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
+                   UserIsContactAdminFilter,
                    'is_staff',
                    'is_superuser',
                    'is_active'
