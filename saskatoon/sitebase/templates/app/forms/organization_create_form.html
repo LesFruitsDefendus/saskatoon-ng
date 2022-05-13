@@ -22,12 +22,12 @@
         {{ form.country|as_crispy_field }}
 
         <br><hr>
-        <h5>{% trans "Contact Person" %}</h5>
+        <h5>{% trans "Contact Persons" %}</h5>
 
         {{ form.create_new_person|as_crispy_field }}
 
         <div id="existing-contact">
-            {{ form.contact_person|as_crispy_field }}
+            {{ form.contact_persons|as_crispy_field }}
         </div>
 
         <div class="collapse" id="new-contact">
@@ -36,8 +36,6 @@
             {{ form.contact_email|as_crispy_field }}
             {{ form.contact_phone|as_crispy_field }}
         </div>
-
-        {{ form.contact_person_role|as_crispy_field }}
 
         <br>
         <button type="submit" class="btn btn-primary">

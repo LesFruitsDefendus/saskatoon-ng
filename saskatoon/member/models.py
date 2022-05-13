@@ -325,18 +325,10 @@ class Organization(Actor):
         null=True
     )
 
-    contact_person = models.ForeignKey(
-        'Person',
-        null=True,
-        verbose_name=_("Contact person"),
-        on_delete=models.CASCADE,
-    )
-
-    contact_person_role = models.CharField(
-        verbose_name=_("Contact person role"),
-        max_length=50,
-        null=True,
-        blank=True
+    contact_persons = models.ManyToManyField(
+        to='Person',
+        through='OrganizationContact',
+        verbose_name=_('contact persons'),
     )
 
     street_number = models.CharField(
@@ -454,6 +446,33 @@ class Organization(Actor):
     @property
     def language(self):
         return self.contact_person.language if self.contact_person else None
+
+class OrganizationContact(models.Model):
+    organization = models.ForeignKey(
+        'Organization',
+        verbose_name=_("organization"),
+        on_delete=models.CASCADE,
+    )
+
+    person = models.ForeignKey(
+        'Person',
+        verbose_name=_("person"),
+        on_delete=models.CASCADE,
+    )
+
+    person_role = models.CharField(
+        verbose_name=_("person role"),
+        max_length=50,
+        null=True,
+        blank=True
+    )
+
+    class Meta:
+        verbose_name = _('Organization Contact')
+        verbose_name_plural = _('Organization Contacts')
+
+    def __str__(self) -> str:
+        return '{} in {}, role: {}'.format(self.person, self.organization, self.person_role)
 
 
 class Neighborhood(models.Model):
