@@ -24,15 +24,17 @@
         </span><br>
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
         {% if perms.member.change_authuser %}
-            <a href="/admin/member/authuser/{{user.id}}/password/"
-               onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
-            {% if not user.password %}
-                title="register-user"
-                >
-                <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> {% translate ' Register User' %} </a></small>
-            {% else %}
-                title="reset-password">
-                <small><i class="fa fa-refresh"></i></a></small>
+            {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
+                <a href="/admin/member/authuser/{{user.id}}/password/"
+                onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
+                {% if not user.password %}
+                    title="register-user"
+                    >
+                    <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> {% translate ' Register User' %} </a></small>
+                {% else %}
+                    title="reset-password">
+                    <small><i class="fa fa-refresh"></i></a></small>
+                {% endif %}
             {% endif %}
         {% endif %}
         <br>{{ user.person.phone|default:"" }}
