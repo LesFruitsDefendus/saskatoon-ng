@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="col-xs-6">
-                        <a href="/comment/create?h={{ harvest.id }}"
+                        <a href="{% url 'comment-create' %}?h={{ harvest.id }}"
                            class="btn btn-success notika-btn-success waves-effect"
                            style="float: right">
                             <i class="fa fa-plus"></i> {% trans "New comment" %}

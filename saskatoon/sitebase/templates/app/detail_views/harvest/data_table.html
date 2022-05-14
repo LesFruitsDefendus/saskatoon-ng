@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-6">
-                                <a href="/participation/create?hid={{ harvest.id }}"
+                                <a href="{% url 'rfp-create' %}?hid={{ harvest.id }}"
                                     class="btn btn-success notika-btn-success waves-effect"
                                     style="float: right">
                                     <i class="fa fa-plus"></i> {% trans "New request" %}

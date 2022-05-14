@@ -22,7 +22,7 @@
                             <td> {{ d.tree.fruit_name }} {{ d.tree.fruit_name|get_fruit_name_icon }}</td>
                             <td> {{ d.total_in_lb }} lbs</td>
                             <td class="text-center">
-                                <a href="/yield/delete/{{d.id}}/"
+                                <a href="{% url 'harvest-yield-delete' d.id %}"
                                    onclick="return confirm('{% trans "Are you sure you want to delete this entry?" %}');">
                                     <i class="fa fa-trash text-danger"></i>
                                 </a>
