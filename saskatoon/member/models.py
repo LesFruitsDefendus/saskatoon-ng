@@ -296,6 +296,10 @@ class Person(Actor):
     def harvests_as_owner(self):
         return Harvest.objects.filter(property__in=self.properties)
 
+    @property
+    def organizations_as_contact(self):
+        return Organization.objects.filter(contact_person=self)
+
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
