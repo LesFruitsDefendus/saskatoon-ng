@@ -220,6 +220,11 @@ class AuthUserAdmin(UserAdmin):
         for u in queryset:
             self.add_to_group(u, 'owner')
 
+    @admin.action(description="Add selected User(s) to contact group")
+    def add_to_contact(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'contact')
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -231,6 +236,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_pickleader,
         add_to_volunteer,
         add_to_owner,
+        add_to_contact,
     ]
 
 
