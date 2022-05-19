@@ -306,10 +306,11 @@ class ActorAdmin(admin.ModelAdmin):
 
     @admin.display(description="Type")
     def type(self, actor):
-        if actor.is_person:
-            return Person._meta.verbose_name.title()
-        if actor.is_organization:
-            return Organization._meta.verbose_name.title()
+        for attr in ['person', 'organization']:
+            if hasattr(actor, attr):
+                obj = getattr(actor, attr)
+                url = f"/admin/member/{attr}/{obj.pk}/"
+                return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
         return None
 
 
