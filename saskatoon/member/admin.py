@@ -6,11 +6,13 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.utils.html import mark_safe
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
-                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter)
+                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
+                            PersonHasNoUserAdminFilter)
 from django.contrib.auth.models import Group
 
 
@@ -236,16 +238,18 @@ class AuthUserAdmin(UserAdmin):
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
+        'authuser',
         'phone',
-        'email',
         'street_number',
         'street',
         'neighborhood',
         'postal_code',
         'newsletter_subscription',
         'language',
+        'pk'
     )
     list_filter = (
+        PersonHasNoUserAdminFilter,
         'neighborhood',
         'city',
         'language',
@@ -259,12 +263,22 @@ class PersonAdmin(admin.ModelAdmin):
         'auth_user__email',
     )
 
+    @admin.display(description="AuthUser")
+    def authuser(self, person):
+        try:
+            user = person.auth_user
+        except AuthUser.DoesNotExist:
+            return None
+        base_url = "/admin/member/authuser/"
+        return mark_safe(f"<a href={base_url}{user.id}/>{user.email}</a>")
+
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
         queryset = queryset.annotate(
             postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
         )
         return queryset
+
 
 
 @admin.register(Actor)

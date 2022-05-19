@@ -259,10 +259,9 @@ class Person(Actor):
 
     @property
     def email(self):
-        auth_obj = AuthUser.objects.filter(person=self)
-        if auth_obj:
-            return auth_obj[0].email
-        else:
+        try:
+            return self.auth_user.email
+        except AuthUser.DoesNotExist:
             return None
 
     @property
