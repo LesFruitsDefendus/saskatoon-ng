@@ -279,6 +279,18 @@ class PersonAdmin(admin.ModelAdmin):
         )
         return queryset
 
+    @admin.action(description="Create missing user(s)")
+    def create_user(self, request, queryset):
+        """Associate Person with new AuthUser object"""
+        nb_users = 0
+        for person in queryset.filter(auth_user__isnull=True):
+            email = f"FAKE@person.{person.pk}"
+            AuthUser.objects.create(email=email, person=person)
+            nb_users += 1
+        messages.add_message(request, messages.SUCCESS,
+                             f"Successfully created {nb_users} new users!")
+
+    actions = [create_user]
 
 
 @admin.register(Actor)
