@@ -145,3 +145,19 @@ class PersonHasNoUserAdminFilter(SimpleListFilter):
             else:
                 return queryset.filter(auth_user__email__icontains="FAKE")
         return queryset
+
+
+class OrganizationHasNoContactAdminFilter(SimpleListFilter):
+    """Checks if a Organization has no contact"""
+
+    title = 'Contact Filter'
+    parameter_name = 'contact'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'has no contact')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(contact_person__isnull=True)
+        return queryset

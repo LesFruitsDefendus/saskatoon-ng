@@ -12,7 +12,7 @@ from member.models import (AuthUser, Actor, Language, Person, Organization,
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
-                            PersonHasNoUserAdminFilter)
+                            PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
 from django.contrib.auth.models import Group
 
 
@@ -314,8 +314,21 @@ class ActorAdmin(admin.ModelAdmin):
         return None
 
 
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'contact', 'pk')
+    list_filter = (OrganizationHasNoContactAdminFilter,)
+
+    @admin.display(description="Contact Person")
+    def contact(self, org):
+        if org.contact_person:
+            obj = org.contact_person
+            url = f"/admin/member/person/{obj.pk}/"
+            return mark_safe(f"<a href={url}>{obj}</a>")
+        return None
+
+
 admin.site.register(Language)
-admin.site.register(Organization)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
