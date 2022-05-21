@@ -6,6 +6,7 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.urls import reverse
 from django.utils.html import mark_safe
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
@@ -273,10 +274,10 @@ class PersonAdmin(admin.ModelAdmin):
     def authuser(self, person):
         try:
             user = person.auth_user
+            url = reverse('admin:member_authuser_change', kwargs={'object_id': user.id})
+            return mark_safe(f"<a href={url}>{user.email}</a>")
         except AuthUser.DoesNotExist:
             return None
-        base_url = "/admin/member/authuser/"
-        return mark_safe(f"<a href={base_url}{user.id}/>{user.email}</a>")
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -309,7 +310,7 @@ class ActorAdmin(admin.ModelAdmin):
         for attr in ['person', 'organization']:
             if hasattr(actor, attr):
                 obj = getattr(actor, attr)
-                url = f"/admin/member/{attr}/{obj.pk}/"
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
                 return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
         return None
 
@@ -323,7 +324,7 @@ class OrganizationAdmin(admin.ModelAdmin):
     def contact(self, org):
         if org.contact_person:
             obj = org.contact_person
-            url = f"/admin/member/person/{obj.pk}/"
+            url = reverse('admin:member_person_change', kwargs={'object_id': obj.pk})
             return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 

@@ -8,6 +8,7 @@ from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.urls import reverse
 from django.utils.html import mark_safe
 from member.models import (Actor, Language, Person, Organization, Neighborhood,
                            City, State, Country)
@@ -110,12 +111,11 @@ class PropertyAdmin(LeafletGeoAdmin):
         owner = _property.owner
         if not owner:
             return None
-        if owner.is_person:
-            base_url = "/admin/member/person/"
-            return mark_safe(f"<a href={base_url}{owner.person.pk}/>{owner}</a>")
-        if owner.is_organization:
-            base_url = "/admin/member/organization/"
-            return mark_safe(f"<a href={base_url}{owner.organization.pk}/>{owner}</a>")
+        for attr in ['person', 'organization']:
+            if hasattr(owner, attr):
+                obj = getattr(owner, attr)
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
     @admin.display(description="Harvests")
