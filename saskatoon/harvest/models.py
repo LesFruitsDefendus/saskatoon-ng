@@ -393,6 +393,16 @@ class Property(models.Model):
         number = self.street_number if self.street_number else ""
         return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
+    @property
+    def pending_contact_name(self):
+        if self.pending_contact_first_name and self.pending_contact_family_name:
+            return " ".join([self.pending_contact_first_name, self.pending_contact_family_name])
+        elif self.pending_contact_first_name:
+            return self.pending_contact_first_name
+        elif self.pending_contact_family_name:
+            return self.pending_contact_family_name
+        else:
+            return ""
 
 class Harvest(models.Model):
     status = models.CharField(
