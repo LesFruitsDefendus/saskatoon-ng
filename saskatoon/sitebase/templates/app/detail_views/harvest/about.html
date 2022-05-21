@@ -27,7 +27,7 @@
                     <h2>{% translate 'Property information' %}
                     {% if perms.harvest.change_property %}
                         &nbsp;
-                        <a href="/property/update/{{harvest.property.id}}"
+                        <a href="{% url 'property-update' harvest.property.id %}"
                                 title="edit">
                             <i class="fa fa-pencil"></i>
                         </a>
@@ -39,7 +39,7 @@
                         <tr>
                             <td>{% trans "Adresss" %}</td>
                             <td class="text-right">
-                                <h4><a href="/property/{{harvest.property.id}}">{{ harvest.property.address }}</a></h4>
+                                <h4><a href="{% url 'property-detail' harvest.property.id %}">{{ harvest.property.address }}</a></h4>
                             </td>
                         </tr>
                         <tr>

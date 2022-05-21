@@ -6,7 +6,7 @@
         {% if perms.member.delete_actor %}
             &nbsp;
             <small>
-                <a href="/admin/member/actor/{{user.person.actor_id}}/delete"
+                <a href="{% url 'admin:member_actor_delete' user.person.actor_id %}"
                     onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
@@ -16,7 +16,7 @@
     <td>
         <span><b>{{ user.person.name }}</b> &nbsp;
         {% if perms.member.change_person %}
-            <small><a href="/person/update/{{user.person.actor_id}}"
+            <small><a href="{% url 'person-update' user.person.actor_id %}"
                     title="edit">
                 <i class="fa fa-pencil"></i>
             </a></small>
@@ -25,7 +25,7 @@
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
         {% if perms.member.change_authuser %}
             {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
-                <a href="/admin/member/authuser/{{user.id}}/password/"
+                <a href="{% url 'admin:auth_user_password_change' user.id %}"
                 onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
                 {% if not user.password %}
                     title="register-user"
@@ -73,7 +73,7 @@
     </td>
     <td>
         {% for property in user.person.properties %}
-            <p><a href="/property/{{ property.id }}">{{ property.short_address }}</a></p>
+            <p><a href="{% url 'property-detail' property.id %}">{{ property.short_address }}</a></p>
         {% endfor %}
     </td>
     <td>{{ user.person.neighborhood.name }}</td>

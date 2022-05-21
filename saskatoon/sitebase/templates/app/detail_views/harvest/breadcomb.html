@@ -23,7 +23,7 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
-                                <a href="/harvest/update/{{ harvest.id }}">
+                                <a href="{% url 'harvest-update' harvest.id %}">
                                     <button data-placement="left" title="Edit harvest" class="btn">
                                        {% trans "Edit Harvest" %}
                                     </button>
