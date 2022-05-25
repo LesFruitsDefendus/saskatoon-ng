@@ -76,6 +76,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'pickers': pickers,
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
+                         #! DELETE THIS
+                         'statuses': ['status 1', 'status 2']
                         })
 
     def list(self, request, *args, **kwargs):
