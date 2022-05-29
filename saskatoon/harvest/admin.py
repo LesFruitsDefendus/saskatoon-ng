@@ -15,7 +15,8 @@ from member.models import (Actor, Language, Person, Organization, Neighborhood,
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
-from harvest.filters import PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter
+from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
+                             OwnerHasNoEmailAdminFilter)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -69,7 +70,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner_edit',
         'owner_type',
         'owner_phone',
-        'owner_email',
+        'emails',
         'is_active',
         'pending',
         'harvests',
@@ -83,6 +84,7 @@ class PropertyAdmin(LeafletGeoAdmin):
     list_filter = (
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
+        OwnerHasNoEmailAdminFilter,
         'authorized',
         'is_active',
         'pending',
@@ -117,6 +119,11 @@ class PropertyAdmin(LeafletGeoAdmin):
                 url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
                 return mark_safe(f"<a href={url}>{obj}</a>")
         return None
+
+    @admin.display(description="Owner Email")
+    def emails(self, _property):
+        return "{} ({})".format(_property.owner_email,
+                                _property.pending_contact_email)
 
     @admin.display(description="Harvests")
     def harvests(self, _property):
