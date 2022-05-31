@@ -8,13 +8,15 @@ from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.urls import reverse
 from django.utils.html import mark_safe
-from member.models import (Actor, Language, Person, Organization, Neighborhood,
-                           City, State, Country)
+from member.models import (Actor, AuthUser, Person, Organization, Language,
+                           Neighborhood, City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
-from harvest.filters import PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter
+from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
+                             OwnerHasNoEmailAdminFilter)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -68,7 +70,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner_edit',
         'owner_type',
         'owner_phone',
-        'owner_email',
+        'emails',
         'is_active',
         'pending',
         'harvests',
@@ -82,6 +84,7 @@ class PropertyAdmin(LeafletGeoAdmin):
     list_filter = (
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
+        OwnerHasNoEmailAdminFilter,
         'authorized',
         'is_active',
         'pending',
@@ -110,13 +113,17 @@ class PropertyAdmin(LeafletGeoAdmin):
         owner = _property.owner
         if not owner:
             return None
-        if owner.is_person:
-            base_url = "/admin/member/person/"
-            return mark_safe(f"<a href={base_url}{owner.person.pk}/>{owner}</a>")
-        if owner.is_organization:
-            base_url = "/admin/member/organization/"
-            return mark_safe(f"<a href={base_url}{owner.organization.pk}/>{owner}</a>")
+        for attr in ['person', 'organization']:
+            if hasattr(owner, attr):
+                obj = getattr(owner, attr)
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                return mark_safe(f"<a href={url}>{obj}</a>")
         return None
+
+    @admin.display(description="Owner Email")
+    def emails(self, _property):
+        return "{} ({})".format(_property.owner_email,
+                                _property.pending_contact_email)
 
     @admin.display(description="Harvests")
     def harvests(self, _property):
@@ -129,7 +136,28 @@ class PropertyAdmin(LeafletGeoAdmin):
         messages.add_message(request, messages.SUCCESS,
                              "Successfully reset authorizations for this season")
 
-    actions = [reset_authorize]
+    @admin.action(description="Create missing auth users using pending email")
+    def create_owner_user(self, request, queryset):
+        """Create new AuthUser objects for owners (Persons) without email address"""
+        qs = queryset.filter(owner__organization__isnull=True,
+                             owner__person__isnull=False,
+                             owner__person__auth_user__isnull=True,
+                             pending_contact_email__isnull=False)
+
+        nb_users = 0
+        for _property in qs:
+            try:
+                AuthUser.objects.create(email=_property.pending_contact_email,
+                                        person=_property.owner.person)
+                nb_users += 1
+            except Exception as e:
+                messages.add_message(request, messages.ERROR, e)
+
+        messages.add_message(request, messages.SUCCESS,
+                             f"Successfully created {nb_users} new users!")
+
+
+    actions = [reset_authorize, create_owner_user]
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)

@@ -28,7 +28,7 @@ class PersonSerializer(serializers.ModelSerializer):
         fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
                   'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
-                  'harvests_as_owner', 'properties', 'comments']
+                  'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
 
 class BeneficiarySerializer(serializers.ModelSerializer):

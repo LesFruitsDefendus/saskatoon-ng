@@ -125,3 +125,35 @@ class ActorTypeAdminFilter(SimpleListFilter):
         if self.value() == '2':
             return queryset.filter(organization__isnull=False)
         return queryset
+
+
+class PersonHasNoUserAdminFilter(SimpleListFilter):
+    """Checks if a Person is associated with an AuthUser"""
+
+    title = 'AuthUser Filter'
+    parameter_name = 'user'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'has no auth_user')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(auth_user__isnull=True)
+        return queryset
+
+
+class OrganizationHasNoContactAdminFilter(SimpleListFilter):
+    """Checks if a Organization has no contact"""
+
+    title = 'Contact Filter'
+    parameter_name = 'contact'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'has no contact')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(contact_person__isnull=True)
+        return queryset
