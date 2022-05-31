@@ -135,15 +135,11 @@ class PersonHasNoUserAdminFilter(SimpleListFilter):
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [('0', 'has no user'),
-                ('1', 'has fake email')]
+        return [('0', 'has no auth_user')]
 
     def queryset(self, request, queryset):
         if self.value():
-            if not int(self.value()):
-                return queryset.filter(auth_user__isnull=True)
-            else:
-                return queryset.filter(auth_user__email__icontains="FAKE")
+            return queryset.filter(auth_user__isnull=True)
         return queryset
 
 
