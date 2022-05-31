@@ -27,7 +27,7 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
             q1 = Q(family_name__icontains=self.q)
             qs = qs.filter(q0 | q1)
 
-        return qs
+        return qs.distinct()
 
 
 class PickLeaderAutocomplete(PersonAutocomplete):
@@ -60,7 +60,7 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
 
-        return qs
+        return qs.distinct()
 
 
 class OwnerAutocomplete(autocomplete.Select2QuerySetView):
@@ -81,4 +81,4 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
 
-        return qs
+        return qs.distinc()

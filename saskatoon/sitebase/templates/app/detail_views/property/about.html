@@ -19,12 +19,15 @@
             </ul>
             <br>
 
-           <h2>{% translate 'Accessibility' %}</h2>
-           <ul>
-            <li>- {{ property.trees_location|default:"" }}</li>
-            <li>- {{ property.trees_accessibility|default:"" }}</li>
-            <li>- {{ property.additional_info|default:"" }}</li>
-           </ul>
+            <h2>{% translate 'Accessibility' %}</h2>
+            <ul>
+                <li>- {{ property.trees_location|default:"" }}</li>
+                <li>- {{ property.trees_accessibility|default:"" }}</li>
+            </ul>
+            <br>
+
+            <h2>{% translate 'Additional information' %}</h2>
+            <p>{{ property.additional_info|default:"" }}</p>
         </div>
     </div>
 </div>
