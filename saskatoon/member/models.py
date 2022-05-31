@@ -332,7 +332,7 @@ class Organization(Actor):
         'Person',
         null=True,
         verbose_name=_("Contact person"),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
 
     contact_person_role = models.CharField(
