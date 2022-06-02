@@ -86,7 +86,7 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
         return context
 
     def get_success_url(self):
-            return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 
 class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -95,31 +95,40 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'app/forms/model_form.html'
     success_message = _("Harvest created successfully!")
 
+    def get_property(self):
+        """If creating new harvest from Property page"""
+        try:
+            pid = self.request.GET['pid']
+            return Property.objects.get(id=pid)
+        except (KeyError, Property.DoesNotExist):
+            return None
+
+    def get_initial(self):
+        initial = {}
+        _property = self.get_property()
+        if _property:
+            initial['property'] = _property
+            initial['trees'] = _property.trees.all()
+
+        if 'Pick Leader' in self.request.user.roles:
+            initial['pick_leader'] = self.request.user
+        return initial
+
     def get_context_data(self, **kwargs):
-
-        try: # registering new harvest for specific property
-            p = Property.objects.get(id=self.request.GET['pid'])
-            initial = {'property': p,
-                       'trees': p.trees.all()
-                       }
-            cancel_url = '/property/' + str(p.id)
-        except KeyError:
-            initial = {}
+        _property = self.get_property()
+        if _property:
+            cancel_url = reverse_lazy('property-detail',
+                                      kwargs={'pk': _property.id})
+        else:
             cancel_url = reverse_lazy('harvest-list')
-
-        # pre-filling pick-leader
-        u = AuthUser.objects.get(id=self.request.user.id)
-        if 'Pick Leader' in u.roles:
-            initial['pick_leader'] = u
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new harvest")
-        context['form'] = HarvestForm(initial=initial)
         context['cancel_url'] = cancel_url
         return context
 
     def get_success_url(self):
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
 class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -135,22 +144,21 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
         return context
 
     def get_success_message(self, cleaned_data) -> str:
-        harvests_as_pickleader = self.object.pick_leader.person.harvests_as_pickleader
-        harvests_this_year = harvests_as_pickleader.filter(
-            start_date__year=timezone.now().date().year
-        )
-        harvest_number: int = harvests_this_year.count()
-
-        success_message_harvest_successful: str = _(
-            "You’ve just led your {} fruit harvest! Thank you for supporting your community!"
-        ).format(ordinal(harvest_number))
-
         if self.object.status == "Succeeded":
+            pick_leader = self.object.pick_leader  # must exist (see clean_pick_leader)
+            harvests_as_pickleader = pick_leader.person.harvests_as_pickleader
+            harvests_this_year = harvests_as_pickleader.filter(
+                start_date__year=timezone.now().date().year
+            )
+            harvest_number: int = harvests_this_year.count()
+            success_message_harvest_successful: str = _(
+                "You’ve just led your {} fruit harvest! Thank you for supporting your community!"
+            ).format(ordinal(harvest_number))
             return success_message_harvest_successful % cleaned_data
-        return self.success_message % cleaned_data
+        return self.success_message
 
     def get_success_url(self):
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):

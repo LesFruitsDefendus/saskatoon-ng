@@ -259,10 +259,9 @@ class Person(Actor):
 
     @property
     def email(self):
-        auth_obj = AuthUser.objects.filter(person=self)
-        if auth_obj:
-            return auth_obj[0].email
-        else:
+        try:
+            return self.auth_user.email
+        except AuthUser.DoesNotExist:
             return None
 
     @property
@@ -297,6 +296,10 @@ class Person(Actor):
     def harvests_as_owner(self):
         return Harvest.objects.filter(property__in=self.properties)
 
+    @property
+    def organizations_as_contact(self):
+        return Organization.objects.filter(contact_person=self)
+
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
@@ -329,7 +332,7 @@ class Organization(Actor):
         'Person',
         null=True,
         verbose_name=_("Contact person"),
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
     )
 
     contact_person_role = models.CharField(

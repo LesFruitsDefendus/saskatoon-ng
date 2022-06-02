@@ -6,10 +6,14 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.urls import reverse
+from django.utils.html import mark_safe
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
-from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter, UserHasPropertyAdminFilter,
-                            UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
+from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
+                            UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
+                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
+                            PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
 from django.contrib.auth.models import Group
 
 
@@ -103,6 +107,7 @@ class AuthUserAdmin(UserAdmin):
                    UserHasPropertyAdminFilter,
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
+                   UserIsContactAdminFilter,
                    'is_staff',
                    'is_superuser',
                    'is_active'
@@ -216,6 +221,11 @@ class AuthUserAdmin(UserAdmin):
         for u in queryset:
             self.add_to_group(u, 'owner')
 
+    @admin.action(description="Add selected User(s) to contact group")
+    def add_to_contact(self, request, queryset):
+        for u in queryset:
+            self.add_to_group(u, 'contact')
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -227,6 +237,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_pickleader,
         add_to_volunteer,
         add_to_owner,
+        add_to_contact,
     ]
 
 
@@ -234,16 +245,18 @@ class AuthUserAdmin(UserAdmin):
 class PersonAdmin(admin.ModelAdmin):
     list_display = (
         '__str__',
+        'authuser',
         'phone',
-        'email',
         'street_number',
         'street',
         'neighborhood',
         'postal_code',
         'newsletter_subscription',
         'language',
+        'pk'
     )
     list_filter = (
+        PersonHasNoUserAdminFilter,
         'neighborhood',
         'city',
         'language',
@@ -256,6 +269,15 @@ class PersonAdmin(admin.ModelAdmin):
         'postal_code_cleaned',
         'auth_user__email',
     )
+
+    @admin.display(description="AuthUser")
+    def authuser(self, person):
+        try:
+            user = person.auth_user
+            url = reverse('admin:member_authuser_change', kwargs={'object_id': user.id})
+            return mark_safe(f"<a href={url}>{user.email}</a>")
+        except AuthUser.DoesNotExist:
+            return None
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
@@ -272,15 +294,29 @@ class ActorAdmin(admin.ModelAdmin):
 
     @admin.display(description="Type")
     def type(self, actor):
-        if actor.is_person:
-            return Person._meta.verbose_name.title()
-        if actor.is_organization:
-            return Organization._meta.verbose_name.title()
+        for attr in ['person', 'organization']:
+            if hasattr(actor, attr):
+                obj = getattr(actor, attr)
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
+        return None
+
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'contact', 'pk')
+    list_filter = (OrganizationHasNoContactAdminFilter,)
+
+    @admin.display(description="Contact Person")
+    def contact(self, org):
+        if org.contact_person:
+            obj = org.contact_person
+            url = reverse('admin:member_person_change', kwargs={'object_id': obj.pk})
+            return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
 
 admin.site.register(Language)
-admin.site.register(Organization)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)

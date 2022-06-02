@@ -106,7 +106,7 @@
 
                 <div class="nk-navigation nk-lg-ic">
                     <!-- <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>{% trans 'Register' %}</span></a> -->
-                    <a href="/reset_password/" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>{% trans "Forgot Password" %}</span></a>
+                    <a href="{% url 'reset_password' %}" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>{% trans "Forgot Password" %}</span></a>
                 </div>
         </form>
     </div>

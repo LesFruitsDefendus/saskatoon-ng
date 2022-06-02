@@ -15,8 +15,8 @@
                                     <h1>
                                     {% if property.owner %}
                                         {{ property.title }}
-                                    {% elif property.pending_contact_first_name or property.pending_contact_family_name %}
-                                        {{ property.pending_contact_first_name }} {{ property.pending_contact_family_name }}
+                                    {% elif property.pending_contact_name %}
+                                        {{ property.pending_contact_name }}
                                         at {{ property.address }}
                                     {% else %}
                                         {{ property.address }}
@@ -37,7 +37,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.harvest.change_property %}
-                                    <a href="/property/update/{{ property.id }}">
+                                    <a href="{% url 'property-update' property.id %}">
                                         <button title="Edit Property" class="btn">
                                             {% trans "Edit Property" %}</button>
                                     </a>

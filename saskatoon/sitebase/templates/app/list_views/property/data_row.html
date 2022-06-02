@@ -8,7 +8,7 @@
     {% if perms.harvest.delete_property %}
     &nbsp;
     <small>
-        <a href="/admin/harvest/property/{{property.id}}/delete"
+        <a href="{% url 'admin:harvest_property_delete' property.id %}"
            onclick="return confirm('{% trans "Are you really sure you want to delete this property?" %}');">
             <i class="fa fa-trash text-danger"></i>
         </a>
@@ -16,7 +16,7 @@
     {% endif %}
     </td>
     <td>
-        <a href='/property/{{property.id}}'>{{ property.title }}</a>
+        <a href="{% url 'property-detail' property.id %}">{{ property.title }}</a>
     </td>
     <td>{{ property.neighborhood.name }}</td>
     <td>
@@ -31,7 +31,7 @@
         <ul class="list-inline">
             {% for harvest in property.harvests %}
             <li>
-                <a data-placement="top" data-toggle="tooltip" href='/harvest/harvest.id'
+                <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
                     title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
                     {% if harvest.status == "Succeeded" %}
                     <i class="fa fa-shopping-basket fa-lg text-success"

@@ -27,21 +27,46 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
             q1 = Q(family_name__icontains=self.q)
             qs = qs.filter(q0 | q1)
 
-        return qs
-
-
-class PickLeaderAutocomplete(PersonAutocomplete):
-    """Pick Leaders + Core Members"""
-
-    def __init__(self):
-        super(PickLeaderAutocomplete, self).__init__(['pickleader', 'core'])
+        return qs.distinct()
 
 
 class ContactAutocomplete(PersonAutocomplete):
     """Persons with contact role (aka Organizations' contact persons)"""
 
     def __init__(self):
-        super(ContactAutocomplete, self).__init__(['contact'])
+        super().__init__(['contact'])
+
+
+class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
+    """AuthUser autocomplete with optional role filter"""
+
+    def __init__(self, roles=[]):
+        self.roles = roles
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return AuthUser.objects.none()
+
+        qs = AuthUser.objects.all()
+
+        if self.roles:
+            groups = [Group.objects.get(name=role).id for role in self.roles]
+            qs = qs.filter(groups__in=groups)
+
+        if self.q:
+            q0 = Q(email__icontains=self.q)
+            q1 = Q(person__first_name__icontains=self.q)
+            q2 = Q(person__family_name__icontains=self.q)
+            qs = qs.filter(q0 | q1 | q2)
+
+        return qs.distinct()
+
+
+class PickLeaderAutocomplete(AuthUserAutocomplete):
+    """AuthUser autocomplete for core members and pickleaders"""
+
+    def __init__(self):
+        super().__init__(['pickleader', 'core'])
 
 
 class ActorAutocomplete(autocomplete.Select2QuerySetView):
@@ -60,7 +85,7 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
 
-        return qs
+        return qs.distinct()
 
 
 class OwnerAutocomplete(autocomplete.Select2QuerySetView):
@@ -81,4 +106,4 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
 
-        return qs
+        return qs.distinc()

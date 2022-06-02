@@ -84,9 +84,7 @@ urlpatterns = [
          views.TemplateView.as_view(template_name='app/property_thanks.html'),
          name='property-thanks'),
 
-    path(r'stats/',
-         views.TemplateView.as_view(template_name='app/stats.html'),
-         name='statistics'),
+    path('stats/', api.StatsView.as_view(), name='statistics'),
 
 ]
 

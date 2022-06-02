@@ -28,7 +28,7 @@
                                 <td>{{ equipment.id }}</td>
                                 <td>{{ equipment.type.name }}</td>
                                 <td>
-                                    <a href='/equipment/{{equipment.id}}'>{{ equipment.description }}</a>
+                                    <a href='{% url 'equipment-detail' equipment.id %}'>{{ equipment.description }}</a>
                                 </td>
                                 <td>{{ equipment.property.title }}</td>
                                 <td>{{ equipment.property.neighborhood.name }}</td>

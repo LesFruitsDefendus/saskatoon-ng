@@ -27,7 +27,7 @@
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/admin/password_change/">{% translate "Change password" %}</a></li>
+                                    <li><a href="{% url 'admin:password_change' %}">{% translate "Change password" %}</a></li>
                                     <li><a href={% url "logout" %}>{% translate "Logout" %}</a></li>
                                 </ul>
                             </li>
@@ -38,25 +38,25 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         {% if perms.member.add_authuser %}
-                                            <li> <a href="/person/create/">
+                                            <li> <a href="{% url 'person-create' %}">
                                                 {% translate "Add user" %}</a></li>
                                         {% endif %}
                                         {% if perms.member.change_authuser %}
-                                            <li><a href="/admin/member/authuser/">
+                                            <li><a href="{% url 'admin:member_authuser_changelist' %}">
                                                 {% translate "Manage user" %}</a></li>
                                         {% endif %}
                                         {% if perms.member.change_organization %}
-                                            <li><a href="/admin/member/organization/">
+                                            <li><a href="{% url 'admin:member_organization_changelist' %}">
                                                 {% translate "Manage beneficiary" %}</a></li>
                                         {% endif %}
-                                        <li><a href="/admin/">{% translate "Admin panel" %}</a></li>
-                                        <li><a href="/rosetta/">{% translate "Manage translations" %}</a></li>
+                                        <li><a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a></li>
+                                        <li><a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a></li>
                                     </ul>
                                 </li>
                             {% endif %}
                         {% else %}
                             <li>
-                                <a href='/login'>
+                                <a href='{% url 'login' %}'>
                                     <span class="menu-it-icon-pro">
                                         <span class="h5">{% translate 'login' %}</span>
                                         <i class="notika-icon notika-support"></i>

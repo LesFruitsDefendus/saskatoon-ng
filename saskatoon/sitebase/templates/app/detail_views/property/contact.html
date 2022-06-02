@@ -9,7 +9,7 @@
                 <small>{% trans "(Organization)" %}</small>
             {% elif property.owner_type.is_person and perms.member.change_person %}
                 &nbsp;
-                <small><a href="/person/update/{{property.owner.pk}}/?pid={{property.id}}">
+                <small><a href="{% url 'person-update' property.owner.pk %}?pid={{property.id}}">
                         <i class="fa fa-pencil"></i> {% trans "edit" %}
                 </a></small>
             {% endif %}
@@ -18,7 +18,7 @@
             <h2>{% trans "Unregistered owner" %}
             {% if perms.member.add_person %}
                 &nbsp;
-                <small><a href="/person/create/?pid={{property.id}}">
+                <small><a href="{% url 'person-create' %}?pid={{property.id}}">
                         <i class="fa fa-pencil"></i> {% translate 'register' %}
                 </a></small>
             {% endif %}

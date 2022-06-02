@@ -14,7 +14,7 @@
     <td>
         {% if perms.member.change_person %}
             {{ property.owner }} &nbsp;
-            <small><a href="/person/update/{{property.owner.pk}}" title="edit">
+            <small><a href="{% url 'person-update' property.owner.pk %}" title="edit">
                 <i class="fa fa-pencil"></i>
             </a></small>
         {% endif %}

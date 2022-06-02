@@ -6,6 +6,7 @@ from dal import autocomplete
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
 
+
 def validate_email(email):
     ''' check if a user with same email address is already registered'''
     if AuthUser.objects.filter(email=email).exists():
@@ -13,6 +14,7 @@ def validate_email(email):
             _("ERROR: email address < {} > is already registered!").format(email)
         )
     return email
+
 
 class PersonCreateForm(forms.ModelForm):
 
@@ -31,7 +33,7 @@ class PersonCreateForm(forms.ModelForm):
         required=False
     )
 
-    roles =  forms.MultipleChoiceField(
+    roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=AUTH_GROUPS,
         required=True
@@ -66,38 +68,62 @@ class PersonCreateForm(forms.ModelForm):
 
         return instance
 
+
 class PersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
 
-    roles =  forms.MultipleChoiceField(
+    roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=AUTH_GROUPS,
         required=True
     )
 
-    field_order = ['roles', 'first_name', 'family_name', 'language']
+    email = forms.EmailField(
+        label=_("Email"),
+        required=True
+    )
+
+    field_order = ['roles', 'email', 'first_name', 'family_name', 'language']
 
     def __init__(self, *args, **kwargs):
+        request_user = kwargs.pop('request_user')
         super(PersonUpdateForm, self).__init__(*args, **kwargs)
-        try:
-            auth_user = AuthUser.objects.get(person=self.instance)
-            self.initial['roles'] = [g for g in auth_user.groups.all()]
-        except ObjectDoesNotExist:
+
+        if not request_user.has_perm('member.change_authuser'):
+            self.fields.pop('email')
             self.fields.pop('roles')
-            # TODO: log this warning in a file
-            print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+        else:
+            try:
+                auth_user = AuthUser.objects.get(person=self.instance)
+                self.initial['roles'] = [g for g in auth_user.groups.all()]
+                self.initial['email'] = auth_user.email
+                roles = [g for g in auth_user.groups.all()]
+            except ObjectDoesNotExist:
+                self.fields.pop('email')
+                self.fields.pop('roles')
+                print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+
+
+    def clean(self):
+        cleaned_data = super().clean()
+        try:
+            validate_email(cleaned_data['email'])
+        except KeyError:
+            pass
 
     def save(self):
         super(PersonUpdateForm, self).save()
         try:
             auth_user = AuthUser.objects.get(person=self.instance)
-            auth_user.set_roles(self.cleaned_data['roles'])
+            auth_user.email = self.cleaned_data['email']
+            auth_user.set_roles(self.cleaned_data['roles'])  # calls auth_user.save()
         except KeyError:
             pass
         return self.instance
+
 
 class OrganizationForm(forms.ModelForm):
 
