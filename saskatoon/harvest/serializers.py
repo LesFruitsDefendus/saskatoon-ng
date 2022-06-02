@@ -112,7 +112,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer):
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader:
-            return PersonSerializer(harvest.pick_leader.person).data
+            return harvest.pick_leader.person.first_name
         return None
 
 
