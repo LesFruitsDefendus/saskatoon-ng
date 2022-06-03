@@ -2,7 +2,13 @@
 {% load static %}
 <tr>
     <td>
-        <a href='{% url "harvest-detail" harvest.id %}'>#{{ harvest.id }} Harvest by {{ harvest.pick_leader.name }}</a>
+        <a href='{% url "harvest-detail" harvest.id %}'>
+            {% if harvest.pick_leader %}
+                #{{ harvest.id }} Harvest by {{ harvest.pick_leader.name }}
+            {% else %}
+                #{{ harvest.id }} Orphaned Harvest
+            {% endif %}
+        </a>
         {% if perms.harvest.delete_harvest %}
             &nbsp;
             <small>
@@ -14,23 +20,27 @@
         {% endif %}
     </td>
     <td>
-        <b>{{ harvest.pick_leader.name }}</b>
-
-        {% if perms.member.change_person %}
+        {% if harvest.pick_leader %}
+            <b>{{ harvest.pick_leader.name }}</b>
+            {% if perms.member.change_person %}
             &nbsp;
             <small><a href="{% url 'person-update' harvest.pick_leader.actor_id %}"
-                    title="edit">
+                title="edit">
                 <i class="fa fa-pencil"></i>
             </a></small>
-        {% endif %}
-        {% if harvest.pick_leader.phone %}
+            {% endif %}
+
+            {% if harvest.pick_leader.phone %}
             <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
             {{ harvest.pick_leader.phone }}
+            {% endif %}
+            <br>
+            <a href="mailto:{{harvest.pick_leader.email}}">
+                {{ harvest.pick_leader.email }}
+            </a>
+        {% else %}
+            <b>Orphaned</b>
         {% endif %}
-        <br>
-        <a href="mailto:{{harvest.pick_leader.email}}">
-            {{ harvest.pick_leader.email }}
-        </a>
     </td>
     <td>
         {% if harvest.status == "Succeeded" %}
