@@ -12,7 +12,7 @@
         {% if perms.harvest.delete_harvest %}
             &nbsp;
             <small>
-                <a href="{% url 'harvest_delete' harvest.id %}"
+                <a href="{% url 'admin:harvest_harvest_delete' harvest.id %}"
                 onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
                     <i class="fa fa-trash text-danger"></i>
                 </a>
