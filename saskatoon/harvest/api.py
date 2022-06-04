@@ -58,11 +58,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # FIXME: serialize all this
 
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
         comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
-        pickers = [r.picker for r in requests.filter(is_accepted=True)]
-        pickers.append(harvest.pick_leader.person)
+        property = harvest.property
         organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
@@ -72,11 +70,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
-                         'requests': requests,
                          'distribution': distribution,
                          'comments': comments,
-                         'property': harvest.property,
-                         'pickers': pickers,
+                         'property': property,
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
                         })

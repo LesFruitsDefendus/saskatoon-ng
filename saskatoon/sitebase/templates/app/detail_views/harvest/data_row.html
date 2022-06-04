@@ -2,7 +2,7 @@
 {% load static %}
 <tr>
     <td>
-        <b>{{ r.picker }}</b><br>
+        <b>{{ r.picker.name }}</b><br>
         {% if r.picker.email %}
             <a href="mailto:{{ r.picker.email }}">
                 {{ r.picker.email }}

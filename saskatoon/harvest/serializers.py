@@ -8,12 +8,6 @@ from harvest.models import (Harvest, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
 
-class RequestForParticipationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RequestForParticipation
-        fields = '__all__'
-
-
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Neighborhood
@@ -29,6 +23,16 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
+
+
+class RequestForParticipationSerializer(serializers.ModelSerializer):
+    picker = PersonSerializer(many=False)
+    creation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
+    acceptation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
+
+    class Meta:
+        model = RequestForParticipation
+        fields = '__all__'
 
 
 class BeneficiarySerializer(serializers.ModelSerializer):
@@ -209,6 +213,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     # 3) get the full instance from another serializer class
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
+    requests = RequestForParticipationSerializer(many=True, read_only=True)
 
     class Meta:
         model = Harvest
