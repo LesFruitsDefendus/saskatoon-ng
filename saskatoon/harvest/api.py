@@ -57,13 +57,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         # FIXME: serialize all this
 
-        harvest = Harvest.objects.get(id=self.kwargs['pk'])
         organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
-                         'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
-                         'harvest_start': harvest.get_local_start().strftime("%-I:%M %p"),
-                         'harvest_end': harvest.get_local_end().strftime("%-I:%M %p"),
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),

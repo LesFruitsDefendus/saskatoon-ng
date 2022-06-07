@@ -191,9 +191,9 @@ class HarvestSerializer(serializers.ModelSerializer):
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
-    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
-    start_time = serializers.DateTimeField(source='get_local_start', format="%H:%M")
-    end_time = serializers.DateTimeField(source='get_local_end', format="%H:%M")
+    harvest_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
+    harvest_start = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    harvest_end = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
     pick_leader = serializers.StringRelatedField(many=False)
