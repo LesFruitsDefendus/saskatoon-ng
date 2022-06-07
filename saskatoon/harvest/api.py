@@ -58,7 +58,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # FIXME: serialize all this
 
         harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        property = harvest.property
         organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
@@ -68,7 +67,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
-                         'property': property,
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
                         })
