@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
                            City, State, Country)
-from harvest.models import (Harvest, HarvestYield, Property, Equipment, EquipmentType,
+from harvest.models import (Comment, Harvest, HarvestYield, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
 
@@ -174,6 +174,15 @@ class HarvestYieldSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    created_date = serializers.DateTimeField(format=r'%c')
+    author = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
 
@@ -193,6 +202,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     property = PropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
+    comment = CommentSerializer(many=True, read_only=True)
 
     class Meta:
         model = Harvest
