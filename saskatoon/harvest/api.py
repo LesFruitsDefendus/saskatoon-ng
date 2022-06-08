@@ -51,19 +51,14 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         self.template_name = 'app/detail_views/harvest/view.html'
         pk = self.get_object().pk
         response = super(HarvestViewset, self).retrieve(request, pk=pk)
+        # default request format is html:
         if format == 'json':
             return response
-
-        # default request format is html:
-        # FIXME: serialize all this
-
-        organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
                          'form_request': RequestForm(),
                          'form_comment': CommentForm(),
                          'form_manage_request': RFPManageForm(),
-                         'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
                         })
 
