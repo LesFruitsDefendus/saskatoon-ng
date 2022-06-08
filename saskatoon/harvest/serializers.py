@@ -203,10 +203,17 @@ class HarvestSerializer(serializers.ModelSerializer):
     requests = RequestForParticipationSerializer(many=True, read_only=True)
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
+    organizations = serializers.SerializerMethodField()
 
     class Meta:
         model = Harvest
         fields = '__all__'
+
+    def get_organizations(self, obj):
+        organizations = Organization.objects.filter(
+            is_beneficiary=True)
+        return BeneficiarySerializer(organizations, many=True).data
+
 
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
