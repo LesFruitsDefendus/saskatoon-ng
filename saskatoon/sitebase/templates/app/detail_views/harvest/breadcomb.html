@@ -13,17 +13,17 @@
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h1>#{{ harvest.id }}:
-                                        {% for tree in harvest.trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}, {% endfor %}
-                                        {{ harvest.property.address }},
-                                        {{ harvest.property.neighborhood.name }}
+                                    <h1>#{{ id }}:
+                                        {% for tree in trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}, {% endfor %}
+                                        {{ property.address }},
+                                        {{ property.neighborhood.name }}
                                     </h1>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
-                                <a href="{% url 'harvest-update' harvest.id %}">
+                                <a href="{% url 'harvest-update' id %}">
                                     <button data-placement="left" title="Edit harvest" class="btn">
                                        {% trans "Edit Harvest" %}
                                     </button>

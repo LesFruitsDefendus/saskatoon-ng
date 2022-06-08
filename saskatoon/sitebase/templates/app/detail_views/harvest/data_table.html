@@ -13,7 +13,7 @@
                                 </div>
                             </div>
                             <div class="col-xs-6">
-                                <a href="{% url 'rfp-create' %}?hid={{ harvest.id }}"
+                                <a href="{% url 'rfp-create' %}?hid={{ id }}"
                                     class="btn btn-success notika-btn-success waves-effect"
                                     style="float: right">
                                     <i class="fa fa-plus"></i> {% trans "New request" %}
@@ -33,7 +33,7 @@
                                 <th>{% trans "Msg from pick leader" %}</th>
                                 <th>{% trans "Manage" %}</th>
                             </tr>
-                            {% for r in harvest.requests %}
+                            {% for r in requests %}
                                 {% include 'app/detail_views/harvest/data_row.html' %}
                             {% endfor %}
                         </table>

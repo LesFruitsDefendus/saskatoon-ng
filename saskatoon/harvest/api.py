@@ -47,20 +47,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'season')
 
     # Harvest detail
-    def retrieve(self, request, format='html', pk=None):
+    def retrieve(self, request, *args, **kwargs):
         self.template_name = 'app/detail_views/harvest/view.html'
-        pk = self.get_object().pk
-        response = super(HarvestViewset, self).retrieve(request, pk=pk)
-        # default request format is html:
-        if format == 'json':
-            return response
-
-        return Response({'harvest': response.data,
-                         'form_request': RequestForm(),
-                         'form_comment': CommentForm(),
-                         'form_manage_request': RFPManageForm(),
-                         'form_edit_recipient': HarvestYieldForm(),
-                        })
+        return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
