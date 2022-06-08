@@ -16,7 +16,7 @@
                         <th class="col-md-1 text-center"> {% trans "Delete" %} </th>
                     </tr>
                     <tbody>
-                        {% for hy in harvest.harvestyield_set %}
+                        {% for hy in harvestyield_set %}
                         <tr>
                             <td> {{ hy.recipient }} </td>
                             <td> {{ hy.tree.fruit_name }} {{ hy.tree.fruit_name|get_fruit_name_icon }}</td>
