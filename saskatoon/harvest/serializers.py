@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
                            City, State, Country)
-from harvest.models import (Comment, Harvest, HarvestYield, Property, Equipment, EquipmentType,
+from harvest.models import (Harvest, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
 
@@ -14,6 +14,13 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_pickleader = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_volunteer_accepted = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_volunteer_pending = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_volunteer_missed = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_owner = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    organizations_as_contact = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
         model = Person
@@ -243,7 +250,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         organizations = Organization.objects.filter(
             is_beneficiary=True)
         return BeneficiarySerializer(organizations, many=True).data
-        
+
 
 class HarvestTreeTypeSerializer(serializers.ModelSerializer):
     class Meta:
