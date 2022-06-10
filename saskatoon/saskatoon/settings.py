@@ -75,7 +75,8 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_extensions',
     'rosetta',
-    'phone_field'
+    'phone_field',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

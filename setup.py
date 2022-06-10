@@ -44,7 +44,9 @@ setup(
         "django-crispy-forms",
         "django-rosetta==0.9.8",
         "django-phone-field==1.8.1",
-        "postalcodes-ca==0.0.9"
+        "postalcodes-ca==0.0.9",
+        "drf-yasg==1.20.0",
+        "swagger-spec-validator>=2.1.0",
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
