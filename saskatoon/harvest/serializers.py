@@ -19,14 +19,23 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PersonHarvestSerializer(serializers.ModelSerializer):
+    pick_leader = serializers.StringRelatedField(many=False, read_only=True)
+    property = serializers.StringRelatedField(many=False, read_only=True)
+
+    class Meta:
+        model = Harvest
+        fields = ['id', 'pick_leader', 'property']
+
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    harvests_as_pickleader = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    harvests_as_volunteer_accepted = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    harvests_as_volunteer_pending = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    harvests_as_volunteer_missed = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    harvests_as_owner = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_missed = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
     organizations_as_contact = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
