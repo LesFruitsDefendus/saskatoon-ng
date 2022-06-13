@@ -1,7 +1,7 @@
 
 <li>
     <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-       title="{{harvest}} lead by {{ harvest.pick_leader.person.name }}">
+       title="Harvest for {{harvest.property}} lead by {{ harvest.pick_leader }}">
         {% if harvest.status == "Succeeded" %}
             <i class="fa fa-shopping-basket fa-lg text-success"
                title="succeeded"
