@@ -19,6 +19,12 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PersonPropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = ['id', 'short_address']
+
+
 class PersonHarvestSerializer(serializers.ModelSerializer):
     pick_leader = serializers.StringRelatedField(many=False, read_only=True)
     property = serializers.StringRelatedField(many=False, read_only=True)
@@ -30,7 +36,7 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    properties = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    properties = PersonPropertySerializer(many=True, read_only=True)
     harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
