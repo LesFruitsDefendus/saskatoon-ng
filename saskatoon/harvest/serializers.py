@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
                            City, State, Country)
-from harvest.models import (Harvest, Property, Equipment, EquipmentType,
+from harvest.models import (Harvest,HarvestYield, Comment, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
 
@@ -27,6 +27,12 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
         fields = ['id', 'pick_leader', 'property']
 
 
+class PersonBeneficiarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['pk', 'civil_name']
+
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
@@ -35,7 +41,7 @@ class PersonSerializer(serializers.ModelSerializer):
     harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_volunteer_missed = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
-    organizations_as_contact = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
 
     class Meta:
         model = Person
