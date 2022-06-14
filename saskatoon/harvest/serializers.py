@@ -34,6 +34,12 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
         fields = ['id', 'pick_leader', 'property']
 
 
+class PersonBeneficiarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['pk', 'civil_name']
+
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
@@ -42,7 +48,7 @@ class PersonSerializer(serializers.ModelSerializer):
     harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_volunteer_missed = PersonHarvestSerializer(many=True, read_only=True)
     harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
-    organizations_as_contact = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
 
     class Meta:
         model = Person
