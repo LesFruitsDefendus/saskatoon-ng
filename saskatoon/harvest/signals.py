@@ -23,6 +23,7 @@ def clear_cache_people(sender, instance, **kwargs):
 
 def _send_mail(subject, message, mail_to):
     subject = '[Sakatoon] ' + subject
+    message = "{}\n\nThis email is auto-generated. Please do not reply to it.".format(message)
     send_mail(
             subject,
             message,
