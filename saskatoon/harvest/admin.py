@@ -122,8 +122,11 @@ class PropertyAdmin(LeafletGeoAdmin):
         if _property.pending_contact_email:
             return f"[P] {_property.pending_contact_email}"  # [P]ending
         if _property.owner and _property.owner.is_person:
-            comments_email = _property.owner.person.comments_email
-            return f"[C] {comments_email}" if comments_email else None  # [C]omments
+            comment_emails = ""
+            for email in _property.owner.person.comment_emails:
+                comment_emails += f"[C] {email} "  # [C]omments
+            return comment_emails
+
 
     @admin.display(description="Harvests")
     def harvests(self, _property):
@@ -136,26 +139,33 @@ class PropertyAdmin(LeafletGeoAdmin):
         messages.add_message(request, messages.SUCCESS,
                              "Successfully reset authorizations for this season")
 
-    @admin.action(description="Create missing auth users using pending email")
+    @admin.action(description="Create missing auth users using pending or comments email")
     def create_owner_user(self, request, queryset):
         """Create new AuthUser objects for owners (Persons) without email address"""
+
         qs = queryset.filter(owner__organization__isnull=True,
                              owner__person__isnull=False,
-                             owner__person__auth_user__isnull=True,
-                             pending_contact_email__isnull=False)
-
+                             owner__person__auth_user__isnull=True)
         nb_users = 0
         for _property in qs:
             try:
-                AuthUser.objects.create(email=_property.pending_contact_email,
-                                        person=_property.owner.person)
-                nb_users += 1
+                email = _property.pending_contact_email
+                if not email:
+                    emails = _property.owner.person.comment_emails
+                    if len(emails) > 1:
+                        messages.add_message(request, messages.WARNING,
+                                f"{_property} has multiple emails in comments")
+                        continue
+                    elif len(emails) == 1:
+                        email = emails[0]
+                if email:
+                    AuthUser.objects.create(email=email, person=_property.owner.person)
+                    nb_users += 1
             except Exception as e:
                 messages.add_message(request, messages.ERROR, e)
 
         messages.add_message(request, messages.SUCCESS,
                              f"Successfully created {nb_users} new users!")
-
 
     actions = [reset_authorize, create_owner_user]
 

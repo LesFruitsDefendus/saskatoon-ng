@@ -266,13 +266,11 @@ class Person(Actor):
             return None
 
     @property
-    def comments_email(self):
-        """Look for first email in comments"""
+    def comment_emails(self):
+        """Look for emails in comments"""
         EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
         matches = re.findall(EMAIL_PATTERN, self.comments)
-        if matches:
-            return matches[0]
-        return None
+        return matches
 
     @property
     def properties(self):
