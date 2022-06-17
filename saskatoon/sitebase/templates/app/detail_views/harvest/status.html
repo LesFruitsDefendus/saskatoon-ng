@@ -10,7 +10,7 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% translate 'Harvest status' %}</p>
-                        <h2>{{ harvest.status }}</h2>
+                        <h2>{{ status }}</h2>
                     </div>
                 </div>
             </div>
@@ -27,16 +27,16 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                    {% if harvest.status == "Succeeded" %}
+                    {% if status == "Succeeded" %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Total harvested:" %}</p>
-                            <h2><span class="counter">{{ harvest.total_distribution|unlocalize }}</span> lbs</h2>
+                            <h2><span class="counter">{{ total_distribution|unlocalize }}</span> lbs</h2>
                         </div>
                     {% else %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Pickers requests" %}</p>
                             <h2><span class="counter">{{ requests.count }}</span>
-                                / {{ harvest.nb_required_pickers }}</h2>
+                                / {{ nb_required_pickers }}</h2>
                         </div>
                         <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
                     {% endif %}
@@ -47,8 +47,8 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% trans "Pick leader" %}</p>
-                        {% if harvest.pick_leader != None %}
-                        <h2>{{ harvest.pick_leader }}</h2>
+                        {% if pick_leader != None %}
+                        <h2>{{ pick_leader }}</h2>
                         {% else %}
                         <h2>{% trans "Missing" %}</h2>
                         {% endif %}

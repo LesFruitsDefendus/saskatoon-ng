@@ -47,39 +47,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'season')
 
     # Harvest detail
-    def retrieve(self, request, format='html', pk=None):
+    def retrieve(self, request, *args, **kwargs):
         self.template_name = 'app/detail_views/harvest/view.html'
-        pk = self.get_object().pk
-        response = super(HarvestViewset, self).retrieve(request, pk=pk)
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        # FIXME: serialize all this
-
-        harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = RequestForParticipation.objects.filter(harvest=harvest)
-        distribution = HarvestYield.objects.filter(harvest=harvest)
-        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
-        property = harvest.property
-        pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
-        organizations = Organization.objects.filter(is_beneficiary=True)
-
-        return Response({'harvest': response.data,
-                         'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
-                         'harvest_start': harvest.get_local_start().strftime("%-I:%M %p"),
-                         'harvest_end': harvest.get_local_end().strftime("%-I:%M %p"),
-                         'form_request': RequestForm(),
-                         'form_comment': CommentForm(),
-                         'form_manage_request': RFPManageForm(),
-                         'requests': requests,
-                         'distribution': distribution,
-                         'comments': comments,
-                         'property': property,
-                         'pickers': pickers,
-                         'organizations': organizations,
-                         'form_edit_recipient': HarvestYieldForm(),
-                        })
+        return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
