@@ -1,3 +1,12 @@
+---
+name: Issue
+about: Issue
+title: ''
+labels: ''
+assignees: ''
+
+---
+
 <!--
 Thanks for your contribution!
 Please fill out the necessary sections, and delete unused ones.
