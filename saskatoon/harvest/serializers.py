@@ -1,9 +1,8 @@
-import json
 from django.core.serializers import serialize
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
-                           City, State, Country, Language)
+                           City, State, Country)
 from harvest.models import (Harvest, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
@@ -20,8 +19,36 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PersonPropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = ['id', 'short_address']
+
+
+class PersonHarvestSerializer(serializers.ModelSerializer):
+    pick_leader = serializers.StringRelatedField(many=False, read_only=True)
+    property = serializers.StringRelatedField(many=False, read_only=True)
+
+    class Meta:
+        model = Harvest
+        fields = ['id', 'pick_leader', 'property']
+
+
+class PersonBeneficiarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['pk', 'civil_name']
+
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = PersonPropertySerializer(many=True, read_only=True)
+    harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_missed = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
+    organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
 
     class Meta:
         model = Person
