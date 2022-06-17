@@ -1,5 +1,6 @@
 # coding: utf-8
 
+import re
 from django.db import models
 from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
@@ -263,6 +264,15 @@ class Person(Actor):
             return self.auth_user.email
         except AuthUser.DoesNotExist:
             return None
+
+    @property
+    def comments_email(self):
+        """Look for first email in comments"""
+        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
+        matches = re.findall(EMAIL_PATTERN, self.comments)
+        if matches:
+            return matches[0]
+        return None
 
     @property
     def properties(self):

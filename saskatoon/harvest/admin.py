@@ -1,9 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-"""
-Models registration.
-"""
-
+# coding: utf-8
 from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
@@ -70,7 +65,7 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner_edit',
         'owner_type',
         'owner_phone',
-        'emails',
+        'email',
         'is_active',
         'pending',
         'harvests',
@@ -121,9 +116,14 @@ class PropertyAdmin(LeafletGeoAdmin):
         return None
 
     @admin.display(description="Owner Email")
-    def emails(self, _property):
-        return "{} ({})".format(_property.owner_email,
-                                _property.pending_contact_email)
+    def email(self, _property):
+        if _property.owner_email:
+            return f"[U] {_property.owner_email}"  # [U]ser
+        if _property.pending_contact_email:
+            return f"[P] {_property.pending_contact_email}"  # [P]ending
+        if _property.owner and _property.owner.is_person:
+            comments_email = _property.owner.person.comments_email
+            return f"[C] {comments_email}" if comments_email else None  # [C]omments
 
     @admin.display(description="Harvests")
     def harvests(self, _property):
