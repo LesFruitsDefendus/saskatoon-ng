@@ -1,29 +1,33 @@
 {% load i18n %}
 {% load static %}
+{% load get_fruit_name_icon %}
 <div class="search-engine-int">
     <div class="contact-hd search-hd-eg">
-        <h2>About this property</h2>
+        <h2>{% translate 'About this property' %}</h2>
         <hr>
         <div class="tpgp-ele-tx">
-            <h2>Address</h2>
+            <h2>{% translate 'Address' %}</h2>
             <p>{{ property.address }}</p>
             <p>{{ property.neighborhood.name }}</p>
             <br>
 
-            <h2>Available tree(s)</h2>
+            <h2>{% translate 'Available tree' %}(s)</h2>
             <ul>
                 {% for tree in property.trees %}
-                    <li>- {{ tree }}</li>
+                <li>- {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</li>
                 {% endfor %}
             </ul>
             <br>
 
-           <h2>Accessibility</h2>
-           <ul>
-            <li>- {{ property.trees_location|default:"" }}</li>
-            <li>- {{ property.trees_accessibility|default:"" }}</li>
-            <li>- {{ property.additional_info|default:"" }}</li>
-           </ul>
+            <h2>{% translate 'Accessibility' %}</h2>
+            <ul>
+                <li>- {{ property.trees_location|default:"" }}</li>
+                <li>- {{ property.trees_accessibility|default:"" }}</li>
+            </ul>
+            <br>
+
+            <h2>{% translate 'Additional information' %}</h2>
+            <p>{{ property.additional_info|default:"" }}</p>
         </div>
     </div>
 </div>

@@ -11,6 +11,7 @@ from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comm
                             Equipment, PropertyImage, HarvestImage, TreeType, Property)
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
+from postalcodes_ca import parse_postal_code
 
 # Request for participation
 class RequestForm(forms.ModelForm):
@@ -232,11 +233,13 @@ class HarvestImageForm(forms.ModelForm):
             'image'
         ]
 
+
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         exclude = ['longitude', 'latitude', 'geom', 'changed_by',
-                   'pending_contact_name', 'pending_contact_phone', 'pending_contact_email',
+                   'pending_contact_first_name', 'pending_contact_family_name',
+                   'pending_contact_phone', 'pending_contact_email',
                    'pending_recurring', 'pending_newsletter']
 
         widgets = {
@@ -256,6 +259,7 @@ class PropertyForm(forms.ModelForm):
             format='%Y-%m-%d',
         )
     )
+
 
 class PropertyCreateForm(PropertyForm):
 
@@ -326,7 +330,8 @@ class PublicPropertyForm(forms.ModelForm):
     class Meta:
         model = Property
         fields = (
-            'pending_contact_name',
+            'pending_contact_first_name',
+            'pending_contact_family_name',
             'pending_contact_phone',
             'pending_contact_email',
             'pending_recurring',
@@ -468,6 +473,27 @@ class PublicPropertyForm(forms.ModelForm):
         required=False
     )
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['avg_nb_required_pickers'].widget.attrs['min'] = 1
+        self.fields['number_of_trees'].widget.attrs['min'] = 1
+        self.fields['fruits_height'].widget.attrs['min'] = 1
+        self.fields['street_number'].widget.attrs['min'] = 0.0
+        self.fields['complement'].widget.attrs['min'] = 0.0
+
+    def clean(self):
+        cleaned_data = super(PublicPropertyForm, self).clean()
+        postal_code = cleaned_data['postal_code'].replace(" ", "")
+
+        try:
+            postal_code = parse_postal_code(postal_code)
+        except ValueError as invalid_postal_code:
+            raise forms.ValidationError(str(invalid_postal_code))
+
+        cleaned_data['postal_code'] = postal_code
+        return cleaned_data
+
+
 class HarvestForm(forms.ModelForm):
 
     class Meta:
@@ -513,7 +539,8 @@ class HarvestForm(forms.ModelForm):
 
     about = forms.CharField(
         widget=CKEditorWidget(),
-        label=mark_safe(_("Public announcement"))
+        label=_("Public announcement"),
+        required=True
     )
 
     publication_date = forms.DateTimeField(
@@ -521,37 +548,36 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    start_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
-    end_date = forms.DateTimeField(input_formats=['%d/%m/%Y %H:%M','%d/%m/%Y %H:%M:%S' ])
+    start_date = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S']
+    )
+    end_date = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S']
+    )
 
     def clean_pick_leader(self):
-        '''check if pick-leader was selected'''
+        """check if pick-leader was selected"""
+
         pickleader = self.cleaned_data['pick_leader']
         status = self.cleaned_data['status']
         if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
-            raise forms.ValidationError("*You must choose a pick leader or change harvest status")
+            raise forms.ValidationError(
+                _("You must choose a pick leader or change harvest status")
+            )
         return pickleader
 
-    def save(self):
-        instance = super(HarvestForm, self).save(commit=False)
+    def clean_publication_date(self):
+        """Manage hidden input"""
 
+        date = self.cleaned_data['publication_date']
         status = self.cleaned_data['status']
-        publication_date = self.cleaned_data['publication_date']
-        trees = self.cleaned_data['trees']
 
         if status in ["Ready", "Date-scheduled", "Succeeded"]:
-            if publication_date is None:
-                instance.publication_date = dt.now()
+            date = dt.now() if date is None else date
+        elif status in ["To-be-confirmed", "Orphan", "Adopted"]:
+            date = None
+        return date
 
-        if status in ["To-be-confirmed", "Orphan", "Adopted"]:
-            instance.publication_date = None
-
-        if not instance.id:
-            instance.save()
-        instance.trees.set(trees)
-        instance.save()
-
-        return instance
 
 class HarvestYieldForm(forms.ModelForm):
     class Meta:

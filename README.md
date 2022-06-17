@@ -2,6 +2,7 @@
 
 The new generation Saskatoon harvest management system
 
+
 ## About
 
 **Saskatoon** is a harvest management system developed by the [Les Fruits Défendus collective](http://www.lesfruitsdefendus.org/), a volunteer-led urban fruit-picking collective hosted by [Santropol Roulant](https://santropolroulant.org/en/) in Montreal/QC.
@@ -16,4 +17,9 @@ Please refer to the [INSTALL.md](INSTALL.md) file.
 
 ## Database Model
 
-Please refer to the [database model diagram](doc/db-model.pdf)
+Please refer to the [database model diagram](doc/db-model.pdf).
+
+
+## API documentation
+
+For development purposes, you might want to give a look at the [generated API documentation](https://lesfruitsdefendus.github.io/saskatoon-ng/).

@@ -1,13 +1,19 @@
 # coding: utf-8
 from django import forms
-from django.contrib import admin
+from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
+from django.db.models import Value
+from django.db.models.functions import Replace
+from django.urls import reverse
+from django.utils.html import mark_safe
 from member.models import (AuthUser, Actor, Language, Person, Organization,
                            Neighborhood, City, State, Country)
-from member.filters import (UserGroupAdminFilter, UserHasPropertyAdminFilter,
-                            UserHasLedPicksAdminFilter, UserHasVolunteeredAdminFilter)
+from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
+                            UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
+                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
+                            PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
 from django.contrib.auth.models import Group
 
 
@@ -85,25 +91,23 @@ class AuthUserAdmin(UserAdmin):
                     'id'
                     )
 
+    @admin.display(boolean=True, description="Core")
     def is_core(self, user):
         return user.groups.filter(name="core").exists()
-    is_core.short_description = "core"
-    is_core.boolean = True
 
+    @admin.display(boolean=True, description="Admin")
     def is_admin(self, user):
-        return user.is_superuser
-    is_admin.short_description = "admin"
-    is_admin.boolean = True
+        return user.groups.filter(name="admin").exists()
 
+    @admin.display(description="Group(s)")
     def get_groups(self, user):
         return ' + '.join([g.name for g in user.groups.all()])
-    get_groups.short_description = "group(s)"
-
 
     list_filter = (UserGroupAdminFilter,
                    UserHasPropertyAdminFilter,
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
+                   UserIsContactAdminFilter,
                    'is_staff',
                    'is_superuser',
                    'is_active'
@@ -150,6 +154,29 @@ class AuthUserAdmin(UserAdmin):
     )
 
     # ACTIONS
+    @admin.action(description="Deactivate account for selected User(s)")
+    def deactivate_account(self, request, queryset):
+        for u in queryset:
+            if u.is_superuser:
+                messages.add_message(request, messages.ERROR,
+                                     f"Cannot deactivate account for superuser {u}")
+                continue
+            u.is_active = False
+            u.save()
+
+    @admin.action(description="Add staff status to selected User(s)")
+    def add_to_staff(self, request, queryset):
+        queryset.update(**{'is_staff': True})
+
+    @admin.action(description="Remove staff status from selected User(s)")
+    def remove_from_staff(self, request, queryset):
+        queryset.update(**{'is_staff': False})
+
+    @admin.action(description="Remove superuser status from selected User(s)")
+    def remove_from_superuser(self, request, queryset):
+        queryset.update(**{'is_superuser': False})
+
+    @admin.action(description="Clear groups for selected User(s)")
     def clear_groups(self, request, queryset):
         for u in queryset:
             u.groups.clear()
@@ -157,61 +184,139 @@ class AuthUserAdmin(UserAdmin):
             u.is_staff = False
             u.save()
 
-    def add_to_staff(self, user):
-        user.is_staff = True
-        user.save()
-
     def add_to_group(self, user, name):
+        """helper function for add_to_<group> actions"""
         group, __ = Group.objects.get_or_create(name=name)
         user.groups.add(group)
 
+    @admin.action(description="Add selected User(s) to admin group")
     def add_to_admin(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'admin')
             u.is_superuser = True
-            self.add_to_staff(u)
+            u.is_staff = True
+            u.save()
 
+    @admin.action(description="Add selected User(s) to core group")
     def add_to_core(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'core')
-            self.add_to_staff(u)
+            u.is_staff = True
+            u.save()
 
+    @admin.action(description="Add selected User(s) to pickleader group")
     def add_to_pickleader(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'pickleader')
-            self.add_to_staff(u)
+            u.is_staff = True
+            u.save()
 
+    @admin.action(description="Add selected User(s) to volunteer group")
     def add_to_volunteer(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'volunteer')
 
+    @admin.action(description="Add selected User(s) to owner group")
     def add_to_owner(self, request, queryset):
         for u in queryset:
             self.add_to_group(u, 'owner')
 
-    def deactivate_account(self, request, queryset):
+    @admin.action(description="Add selected User(s) to contact group")
+    def add_to_contact(self, request, queryset):
         for u in queryset:
-            if not u.is_superuser:
-                u.is_active = False
-                u.save()
+            self.add_to_group(u, 'contact')
 
     actions = [
+        deactivate_account,
+        remove_from_staff,
+        remove_from_superuser,
+        add_to_staff,
         clear_groups,
         add_to_admin,
         add_to_core,
         add_to_pickleader,
         add_to_volunteer,
         add_to_owner,
-        deactivate_account,
+        add_to_contact,
     ]
 
 
-# admin.site.register(Notification)
-# admin.site.register(AuthUserAdmin)
-admin.site.register(Actor)
+@admin.register(Person)
+class PersonAdmin(admin.ModelAdmin):
+    list_display = (
+        '__str__',
+        'authuser',
+        'phone',
+        'street_number',
+        'street',
+        'neighborhood',
+        'postal_code',
+        'newsletter_subscription',
+        'language',
+        'pk'
+    )
+    list_filter = (
+        PersonHasNoUserAdminFilter,
+        'neighborhood',
+        'city',
+        'language',
+        'newsletter_subscription',
+    )
+    search_fields = (
+        'first_name',
+        'family_name',
+        'phone',
+        'postal_code_cleaned',
+        'auth_user__email',
+    )
+
+    @admin.display(description="AuthUser")
+    def authuser(self, person):
+        try:
+            user = person.auth_user
+            url = reverse('admin:member_authuser_change', kwargs={'object_id': user.id})
+            return mark_safe(f"<a href={url}>{user.email}</a>")
+        except AuthUser.DoesNotExist:
+            return None
+
+    def get_queryset(self, request):
+        queryset = super().get_queryset(request)
+        queryset = queryset.annotate(
+            postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
+        )
+        return queryset
+
+
+@admin.register(Actor)
+class ActorAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'type', 'pk')
+    list_filter = (ActorTypeAdminFilter,)
+
+    @admin.display(description="Type")
+    def type(self, actor):
+        for attr in ['person', 'organization']:
+            if hasattr(actor, attr):
+                obj = getattr(actor, attr)
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
+        return None
+
+
+@admin.register(Organization)
+class OrganizationAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'contact', 'pk')
+    list_filter = (OrganizationHasNoContactAdminFilter,)
+
+    @admin.display(description="Contact Person")
+    def contact(self, org):
+        if org.contact_person:
+            obj = org.contact_person
+            url = reverse('admin:member_person_change', kwargs={'object_id': obj.pk})
+            return mark_safe(f"<a href={url}>{obj}</a>")
+        return None
+
+
 admin.site.register(Language)
-admin.site.register(Person)
-admin.site.register(Organization)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)

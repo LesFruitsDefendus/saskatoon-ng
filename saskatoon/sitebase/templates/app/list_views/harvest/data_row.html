@@ -1,12 +1,13 @@
 {% load i18n %}
 {% load static %}
+{% load get_fruit_name_icon %}
 
 <tr>
     <td>{{ harvest.id }}
     {% if perms.harvest.delete_harvest %}
         &nbsp;
         <small>
-            <a href="/admin/harvest/harvest/{{harvest.id}}/delete"
+            <a href="{% url 'admin:harvest_harvest_delete' harvest.id %}"
             onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
                 <i class="fa fa-trash text-danger"></i>
             </a>
@@ -14,11 +15,11 @@
     {% endif %}
     </td>
     <td>
-        <a href='/harvest/{{harvest.id}}'>{{ harvest.property.title }}</a>
+        <a href="{% url 'harvest-detail' harvest.id %}">{{ harvest.property.title }}</a>
     </td>
     <td>
         {% for tree in harvest.trees %}
-        <div class="text-nowrap">{{ tree }}</div>
+        <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
         {% endfor %}
     </td>
     <td>{{ harvest.property.neighborhood.name }}</td>

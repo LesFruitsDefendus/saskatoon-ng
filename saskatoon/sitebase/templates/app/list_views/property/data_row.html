@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load get_fruit_name_icon %}
 
 <tr>
     <td>
@@ -7,7 +8,7 @@
     {% if perms.harvest.delete_property %}
     &nbsp;
     <small>
-        <a href="/admin/harvest/property/{{property.id}}/delete"
+        <a href="{% url 'admin:harvest_property_delete' property.id %}"
            onclick="return confirm('{% trans "Are you really sure you want to delete this property?" %}');">
             <i class="fa fa-trash text-danger"></i>
         </a>
@@ -15,7 +16,7 @@
     {% endif %}
     </td>
     <td>
-        <a href='/property/{{property.id}}'>{{ property.title }}</a>
+        <a href="{% url 'property-detail' property.id %}">{{ property.title }}</a>
     </td>
     <td>{{ property.neighborhood.name }}</td>
     <td>
@@ -23,14 +24,14 @@
     </td>
     <td>
         {% for tree in property.trees %}
-        <div class="text-nowrap">{{ tree }}</div>
+        <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
         {% endfor %}
     </td>
     <td>
         <ul class="list-inline">
             {% for harvest in property.harvests %}
             <li>
-                <a data-placement="top" data-toggle="tooltip" href='/harvest/harvest.id'
+                <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
                     title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
                     {% if harvest.status == "Succeeded" %}
                     <i class="fa fa-shopping-basket fa-lg text-success"
@@ -48,7 +49,7 @@
         </ul>
     </td>
     <td>
-        <div class="text-nowrap">{{ property.last_succeeded_harvest|date:"Y-m-d g:i A" }}</div>
+        <div class="text-nowrap">{{ property.last_succeeded_harvest_date|date:"Y-m-d g:i A" }}</div>
         <small>{{ harvest.start_time }}</small>
     </td>
 </tr>

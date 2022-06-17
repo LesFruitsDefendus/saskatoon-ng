@@ -84,19 +84,19 @@
             <div class="nk-form">
                 {% if form.errors %}
                     <div class="alert-list">
-                        <div class="alert alert-danger alert-mg-b-0" role="alert">Your username and password didn't match. Please try again.</div><br>
+                        <div class="alert alert-danger alert-mg-b-0" role="alert">{% trans "Your username and password didn't match. Please try again." %}</div><br>
                     </div>
                 {% endif %}
                     <div class="input-group">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
                         <div class="nk-int-st">
-                            <input id="id_username" name="username" type="text" class="form-control" placeholder="Username">
+                            <input id="id_username" name="username" type="text" class="form-control" placeholder="{% translate 'Email address' %}">
                         </div>
                     </div>
                     <div class="input-group mg-t-15">
                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                         <div class="nk-int-st">
-                            <input id="id_password" name="password" type="password" class="form-control" placeholder="Password">
+                            <input id="id_password" name="password" type="password" class="form-control" placeholder="{% translate 'Password' %}">
                         </div>
                         <input type="hidden" name="next" value="{{ next }}"/>
                     </div>
@@ -105,8 +105,8 @@
                 </div>
 
                 <div class="nk-navigation nk-lg-ic">
-                    <!-- <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a> -->
-                    <a href="/reset_password/" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
+                    <!-- <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>{% trans 'Register' %}</span></a> -->
+                    <a href="{% url 'reset_password' %}" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>{% trans "Forgot Password" %}</span></a>
                 </div>
         </form>
     </div>
@@ -139,8 +139,8 @@
         </div>
 
         <div class="nk-navigation rg-ic-stl">
-            <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-login"><i class="notika-icon notika-right-arrow"></i> <span>Sign in</span></a>
-            <a href="" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
+            <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-login"><i class="notika-icon notika-right-arrow"></i> <span>{% translate 'Sign in' %}</span></a>
+            <a href="" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>{% translate 'Forgot Password' %}</span></a>
         </div>
     </div>
 

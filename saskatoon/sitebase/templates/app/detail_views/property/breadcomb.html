@@ -23,13 +23,13 @@
                                     {% endif %}
                                     </h1>
                                     {% if property.pending %}
-                                        <h4>** PENDING **</h4>
-                                    {% elif property.last_succeeded_harvest %}
+                                        <h4>** {% translate 'PENDING' %} **</h4>
+                                    {% elif property.last_succeeded_harvest_date %}
                                         <p>{% trans "Last succeeded harvest"  %}
-                                            on {{ property.last_succeeded_harvest|date }}
+                                            on {{ property.last_succeeded_harvest_date|date }}
                                         </p>
                                     {% else %}
-                                        <p>No succeeded harvest on this property so far</p>
+                                        <p>{% translate 'No succeeded harvest on this property so far' %}</p>
                                     {% endif %}
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.harvest.change_property %}
-                                    <a href="/property/update/{{ property.id }}">
+                                    <a href="{% url 'property-update' property.id %}">
                                         <button title="Edit Property" class="btn">
                                             {% trans "Edit Property" %}</button>
                                     </a>

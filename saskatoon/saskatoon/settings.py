@@ -74,7 +74,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'debug_toolbar',
     'django_extensions',
-    'rosetta'
+    'rosetta',
+    'phone_field'
 ]
 
 MIDDLEWARE = [
@@ -232,3 +233,5 @@ CKEDITOR_CONFIGS = {
         'width': "100%"
     },
 }
+
+CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'

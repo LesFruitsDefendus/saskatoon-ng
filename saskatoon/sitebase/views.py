@@ -7,6 +7,7 @@ from django.views.generic import View, TemplateView
 from harvest.models import Harvest, Property, RequestForParticipation
 from harvest.forms import RequestForm
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render
 
 class Index(TemplateView):
     template_name = 'app/index.html'
@@ -78,3 +79,20 @@ class JsonCalendar(View):
                 del event
 
         return JsonResponse(events, safe=False)
+
+
+def handler400(request, exception):
+    return render(request,'app/errors/400.html')
+
+def handler403(request, exception):
+    return render(request,'app/errors/403.html')
+
+def handler404(request, exception):
+    return render(request,'app/errors/404.html')
+
+def handler500(request):
+    return render(request,'app/errors/500.html')
+
+def handler403_csrf_failue(request, reason=""):
+    return render(request,'app/errors/403_csrf.html')
+

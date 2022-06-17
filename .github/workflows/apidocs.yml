@@ -1,6 +1,7 @@
 name: publish-pydoctor-apidocs
 on:
-- push
+  push:
+    branches: [ master, develop ]
 
 jobs:
   deploy:

@@ -7,7 +7,7 @@
     <td>
         <span>{{ equipment.description }}
             {% if perms.harvest.change_equipment %}
-            <a href="/equipment/update/{{equipment.id}}">
+            <a href="{% url 'equipment-update' equipment.id %}">
                 &nbsp; <i class="fa fa-pencil"></i></a>
             {% endif %}
         </span><br>
@@ -26,14 +26,19 @@
                 {{ equipment.owner.organization.contact_person.email }}</a><br>
             {{ equipment.owner.organization.phone|default:"" }}
         {% elif equipment.property %}
-            {{ equipment.property.owner.fields.name }}
-            <a href='mailto:{{equipment.property.owner.fields.email}}'>
-                {{ equipment.property.owner.fields.email}} </a><br>
+            {{ equipment.property.owner.name }}
+            {% if equipment.property.owner.email %}
+                <br><a href='mailto:{{equipment.property.owner.email}}'>
+                {{ equipment.property.owner.email}} </a>
+            {% endif %}
+            {% if equipment.property.owner.phone %}
+                <br>{{ equipment.property.owner.phone}}
+            {% endif %}
         {% endif %}
 
     </td>
     <td>
-        <a href="/property/{{equipment.property.id}}">
+        <a href="{% url 'property-detail' equipment.property.id %}">
         {{ equipment.property.address }}
         </a>
     </td>

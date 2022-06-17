@@ -25,14 +25,10 @@
     </div>
 </div>
 
-{% if not property.pending_recurring and property.authorized %}
-
-    {% include 'app/detail_views/property/harvest_table.html' %}
-
-{% else %}
-
+{% if property.pending %}
     {% include 'app/detail_views/property/similar_table.html' %}
-
+{% else %}
+    {% include 'app/detail_views/property/harvest_table.html' %}
 {% endif %}
 
 {% endblock content %}

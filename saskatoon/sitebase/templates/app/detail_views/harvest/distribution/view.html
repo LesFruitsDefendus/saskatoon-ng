@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load get_fruit_name_icon %}
 
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div class="sale-statistic-inner notika-shadow mg-tb-30">
@@ -18,10 +19,10 @@
                         {% for d in distribution %}
                         <tr>
                             <td> {{ d.recipient }} </td>
-                            <td> {{ d.tree.fruit_name }} </td>
+                            <td> {{ d.tree.fruit_name }} {{ d.tree.fruit_name|get_fruit_name_icon }}</td>
                             <td> {{ d.total_in_lb }} lbs</td>
                             <td class="text-center">
-                                <a href="/yield/delete/{{d.id}}/"
+                                <a href="{% url 'harvest-yield-delete' d.id %}"
                                    onclick="return confirm('{% trans "Are you sure you want to delete this entry?" %}');">
                                     <i class="fa fa-trash text-danger"></i>
                                 </a>

@@ -1,15 +1,14 @@
-
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.shortcuts import render
 from django.utils.translation import gettext_lazy as _
-
 from .models import Person, Organization
 from harvest.models import Property
 from .forms import ( PersonCreateForm, PersonUpdateForm,
                      OrganizationCreateForm, OrganizationForm )
+
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'member.add_person'
@@ -22,8 +21,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         try: # registering new owner based on pending property
             p = Property.objects.get(id=self.request.GET['pid'])
             initial = { 'roles': ['owner'],
-                        'first_name': p.pending_contact_name,
-                        'phone': p.pending_contact_phone.replace(" ", "-"),
+                        'phone': p.pending_contact_phone,
                         'email': p.pending_contact_email,
                         'street_number': p.street_number,
                         'street': p.street,
@@ -55,6 +53,12 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         except KeyError:
             return reverse_lazy('community-list')
 
+    def form_invalid(self, form, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context['form'] = form
+        return self.render_to_response(context)
+
+
 class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_person'
     model = Person
@@ -75,6 +79,13 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         except KeyError:
             return reverse_lazy('community-list')
 
+    def get_form_kwargs(self, *args, **kwargs):
+        """Pass request.user to form"""
+        kwargs = super().get_form_kwargs(*args, **kwargs)
+        kwargs['request_user'] = self.request.user
+        return kwargs
+
+
 class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'member.add_organization'
     model = Organization
@@ -88,6 +99,7 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
         context['title'] = _("Organization Registration")
         context['cancel_url'] = reverse_lazy('beneficiary-list')
         return context
+
 
 class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'member.change_organization'

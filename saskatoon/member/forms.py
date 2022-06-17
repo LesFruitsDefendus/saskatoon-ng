@@ -5,14 +5,8 @@ from django import forms
 from dal import autocomplete
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
+from member.validators import validate_email
 
-def validate_email(email):
-    ''' check if a user with same email address is already registered'''
-    if AuthUser.objects.filter(email=email).exists():
-        raise forms.ValidationError(
-            _("ERROR: email address < {} > is already registered!").format(email)
-        )
-    return email
 
 class PersonCreateForm(forms.ModelForm):
 
@@ -31,7 +25,7 @@ class PersonCreateForm(forms.ModelForm):
         required=False
     )
 
-    roles =  forms.MultipleChoiceField(
+    roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=AUTH_GROUPS,
         required=True
@@ -39,8 +33,9 @@ class PersonCreateForm(forms.ModelForm):
 
     field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
 
-    def clean_email(self):
-        return validate_email(self.cleaned_data['email'])
+    def clean(self):
+        cleaned_data = super().clean()
+        validate_email(cleaned_data['email'])
 
     def save(self):
         # create Person instance
@@ -51,11 +46,12 @@ class PersonCreateForm(forms.ModelForm):
                 email=self.cleaned_data['email'],
                 person=instance
         )
-        auth_user.set_roles(self.cleaned_data['roles'])
+        roles = self.cleaned_data['roles']
+        auth_user.set_roles(roles)
 
         # associate pending_property (if any)
         pid = self.cleaned_data['pending_property_id']
-        if pid:
+        if pid and 'owner' in roles:
             try:
                 pending_property = Property.objects.get(id=pid)
                 pending_property.owner = instance
@@ -64,38 +60,62 @@ class PersonCreateForm(forms.ModelForm):
 
         return instance
 
+
 class PersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
 
-    roles =  forms.MultipleChoiceField(
+    roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
         choices=AUTH_GROUPS,
-        required=True
+        required=False
     )
 
-    field_order = ['roles', 'first_name', 'family_name', 'language']
+    email = forms.EmailField(
+        label=_("Email"),
+        required=False
+    )
+
+    field_order = ['roles', 'email', 'first_name', 'family_name', 'language']
 
     def __init__(self, *args, **kwargs):
+        request_user = kwargs.pop('request_user')
         super(PersonUpdateForm, self).__init__(*args, **kwargs)
-        try:
-            auth_user = AuthUser.objects.get(person=self.instance)
-            self.initial['roles'] = [g for g in auth_user.groups.all()]
-        except ObjectDoesNotExist:
+
+        self.auth_user = None
+        if not request_user.has_perm('member.change_authuser'):
+            self.fields.pop('email')
             self.fields.pop('roles')
-            # TODO: log this warning in a file
-            print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+        else:
+            try:
+                self.auth_user = AuthUser.objects.get(person=self.instance)
+                self.initial['roles'] = [g for g in self.auth_user.groups.all()]
+                self.initial['email'] = self.auth_user.email
+                roles = [g for g in self.auth_user.groups.all()]
+            except ObjectDoesNotExist:
+                print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+
+    def clean(self):
+        super().clean()
+        email = self.cleaned_data.get('email', None)
+        validate_email(email, self.auth_user)
+
+        roles = self.cleaned_data.get('roles', None)
+        if email and not roles:
+            raise forms.ValidationError(
+                _("ERROR: Please assign at least one role to the user"))
 
     def save(self):
-        super(PersonUpdateForm, self).save()
-        try:
-            auth_user = AuthUser.objects.get(person=self.instance)
-            auth_user.set_roles(self.cleaned_data['roles'])
-        except KeyError:
-            pass
-        return self.instance
+        instance = super().save()
+        email = self.cleaned_data.get('email', None)
+        roles = self.cleaned_data.get('roles', None)
+        if email and roles:
+            auth_user, created = AuthUser.objects.get_or_create(person=instance)
+            auth_user.email = email
+            auth_user.set_roles(roles)  # calls auth_user.save()
+
 
 class OrganizationForm(forms.ModelForm):
 

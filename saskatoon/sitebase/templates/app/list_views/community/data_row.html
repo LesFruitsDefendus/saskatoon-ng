@@ -6,7 +6,7 @@
         {% if perms.member.delete_actor %}
             &nbsp;
             <small>
-                <a href="/admin/member/actor/{{user.person.actor_id}}/delete"
+                <a href="{% url 'admin:member_actor_delete' user.person.actor_id %}"
                     onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
@@ -16,7 +16,7 @@
     <td>
         <span><b>{{ user.person.name }}</b> &nbsp;
         {% if perms.member.change_person %}
-            <small><a href="/person/update/{{user.person.actor_id}}"
+            <small><a href="{% url 'person-update' user.person.actor_id %}"
                     title="edit">
                 <i class="fa fa-pencil"></i>
             </a></small>
@@ -24,15 +24,17 @@
         </span><br>
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
         {% if perms.member.change_authuser %}
-            <a href="/admin/member/authuser/{{user.id}}/password/"
-               onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
-            {% if not user.password %}
-                title="register-user"
-                >
-                <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> Register User </a></small>
-            {% else %}
-                title="reset-password">
-                <small><i class="fa fa-refresh"></i></a></small>
+            {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
+                <a href="{% url 'admin:auth_user_password_change' user.id %}"
+                onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
+                {% if not user.password %}
+                    title="register-user"
+                    >
+                    <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> {% translate ' Register User' %} </a></small>
+                {% else %}
+                    title="reset-password">
+                    <small><i class="fa fa-refresh"></i></a></small>
+                {% endif %}
             {% endif %}
         {% endif %}
         <br>{{ user.person.phone|default:"" }}
@@ -45,7 +47,6 @@
         </ul>
     </td>
     <td>
-
         <ul class="list-inline">
             {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
                 {% for harvest in user.person.harvests_as_pickleader %}
@@ -71,7 +72,10 @@
     </td>
     <td>
         {% for property in user.person.properties %}
-            <p><a href="/property/{{ property.id }}">{{ property.short_address }}</a></p>
+            <p><a href="{% url 'property-detail' property.id %}">{{ property.short_address }}</a></p>
+        {% endfor %}
+        {% for org in user.person.organizations_as_contact %}
+            <a href="{% url 'beneficiary-update' org.pk %}">{{ org }}</a>
         {% endfor %}
     </td>
     <td>{{ user.person.neighborhood.name }}</td>

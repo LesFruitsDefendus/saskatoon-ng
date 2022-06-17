@@ -14,34 +14,34 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="form-example-wrap">
                     <div class="cmp-tb-hd">
-                        <h2>Partcipation Request Review</h2><br>
+                        <h2>{% translate 'Partcipation Request Review' %}</h2><br>
 
                                 <!-- Request info header -->
                                 <table class="table">
                                     <tbody>
                                     <tr>
-                                        <th class="col-lg-3"> harvest location </th>
+                                        <th class="col-lg-3"> {% translate 'harvest location' %} </th>
                                         <td class="col-lg-9"> {{ rfp.harvest.property }} </td>
                                     </tr>
                                     <tr>
-                                        <th> harvest date </th>
+                                        <th> {% translate 'harvest date' %} </th>
                                         <td> {{ rfp.harvest.start_date }} </td>
                                     </tr>
                                     <tr>
-                                        <th> participant </th>
+                                        <th> {% translate 'participant ' %}</th>
                                         <td> {{ rfp.picker }} </td>
                                     </tr>
                                     <tr>
-                                        <th> nb. of pickers </th>
+                                        <th> {% translate 'number of pickers' %} </th>
                                         <td> {{ rfp.number_of_people }} </td>
                                     </tr>
                                     <tr>
-                                        <th> phone </th>
+                                        <th> {% translate 'phone number' %} </th>
                                         <td> {{ rfp.picker.phone }} </td>
                                     </tr>
                                     {% if rfp.picker.email %}
                                         <tr>
-                                            <th> email </th>
+                                            <th> {% translate 'Email address' %} </th>
                                             <td><a href="mailto:{{ rfp.picker.email }}">{{ rfp.picker.email }}</a></td>
                                         </tr>
                                     {% endif %}
@@ -59,7 +59,7 @@
                                                 <td class="col-lg-9"> {{ form.status }} </td>
                                             </tr>
                                             <tr>
-                                                <th> Pick leader notes</th>
+                                                <th> {% translate 'Pick leader notes' %}</th>
                                                 <td> {{ form.notes_from_pickleader }} </td>
                                             </tr>
                                             <tr>

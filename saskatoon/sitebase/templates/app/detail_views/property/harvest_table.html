@@ -7,9 +7,9 @@
                 <div class="data-table-list">
                     <div class="table-responsive">
                         <h4> {% trans Harvests %}
-                            {% if perms.harvest.add_harvest %}
+                            {% if perms.harvest.add_harvest and property.authorized %}
                                 &nbsp;
-                                <a href="/harvest/create/?pid={{ property.id }}">
+                                <a href="{% url 'harvest-create' %}?pid={{ property.id }}">
                                     <button title="New harvest"
                                             class="btn btn-success notika-btn-success waves-effect">
                                         <i class="fa fa-plus"></i>
@@ -22,6 +22,7 @@
                         <table class="table table-striped" id="data-table-basic">
                             <thead>
                             <tr>
+                                <th style="width: 20%">{% trans "Harvest" %}</th>
                                 <th style="width: 12%">{% trans "Pickleader" %}</th>
                                 <th style="width: 12%">{% trans "Status" %}</th>
                                 <th style="width: 20%">{% trans "Date" %}</th>
