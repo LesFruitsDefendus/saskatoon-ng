@@ -405,6 +405,9 @@ class Property(models.Model):
             return ""
 
 class Harvest(models.Model):
+
+    PUBLISHABLE_STATUSES = ['Ready', 'Date-scheduled', 'Succeeded']
+
     status = models.CharField(
         choices=HARVESTS_STATUS_CHOICES,
         max_length=100,
@@ -543,46 +546,45 @@ class Harvest(models.Model):
 
     def get_unselected_pickers(self):
         # Get pickers who volunteered but have been rejected or are pending approval
-        requests =  self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
+        requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
         return requests
 
+    def get_days_before_harvest(self):
+        diff = datetime.datetime.now() - self.start_date
+        return diff.days
+
+    # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
-        if self.start_date:
-            diff = datetime.datetime.now() - self.start_date
-            day_before_harvest = diff.days
-
-            if not self.pick_leader and day_before_harvest < 14:
-                return True
-            elif self.status == 'Date-scheduled' and day_before_harvest < 3:
-                return True
-
+        NUM_DAYS_URGENT_ORPHAN = 14
+        NUM_DAYS_URGENT_NOT_READY = 3
+        if not self.start_date:
+            return False
+        days = self.get_days_before_harvest()
+        if self.status == 'Orphan' and days < NUM_DAYS_URGENT_ORPHAN:
+            return True
+        elif self.status == 'Date-scheduled' and days < NUM_DAYS_URGENT_NOT_READY:
+            return True
         return False
 
     def is_happening(self):
-        if self.start_date:
-            diff = datetime.datetime.now() - self.start_date
-            day_before_harvest = diff.days
-
-            if self.status == 'Ready' and day_before_harvest == 0:
-                return True
-        return False
+        if not self.start_date:
+            return False
+        is_today = self.get_days_before_harvest() == 0
+        return (self.status == 'Ready' and is_today)
 
     def is_publishable(self):
-        if self.publication_date:
-            pub = self.publication_date
-            now = datetime.datetime.now().astimezone(pub.tzinfo)
-            return (now > pub)
-        else:
+        if self.status not in self.PUBLISHABLE_STATUSES:
             return False
+        if not self.publication_date:
+            return True
+        return (timezone.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        now = datetime.datetime.now().date()
-        start_date = self.start_date.date()
-        if self.status in ["Date-scheduled"] and \
-                self.is_publishable() and now <= start_date:
-            return True
-        else:
+        HOURS_OPEN_BEFORE_HARVEST = 2
+        if self.status != 'Date-scheduled':
             return False
+        dt = datetime.timedelta(hours=HOURS_OPEN_BEFORE_HARVEST)
+        return timezone.now() + dt <= self.start_date
 
 
 class RequestForParticipation(models.Model):
