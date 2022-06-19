@@ -79,7 +79,7 @@ class AuthUserAdmin(UserAdmin):
     form = CustomUserChangeForm
     add_form = CustomUserCreationForm
     search_fields = ('email', 'person__first_name', 'person__family_name')
-    ordering = ('email', 'person')
+    ordering = ('email', 'person', 'date_joined', 'last_login')
     filter_horizontal = ('groups', 'user_permissions',)
     list_display = ('email',
                     'person',
@@ -88,7 +88,10 @@ class AuthUserAdmin(UserAdmin):
                     'is_core',
                     'is_admin',
                     'is_active',
-                    'id'
+                    'id',
+                    'date_joined',
+                    'has_password',
+                    'last_login',
                     )
 
     @admin.display(boolean=True, description="Core")
@@ -102,6 +105,10 @@ class AuthUserAdmin(UserAdmin):
     @admin.display(description="Group(s)")
     def get_groups(self, user):
         return ' + '.join([g.name for g in user.groups.all()])
+
+    @admin.display(boolean=True, description="Password")
+    def has_password(self, user):
+        return user.password != ''
 
     list_filter = (UserGroupAdminFilter,
                    UserHasPropertyAdminFilter,
