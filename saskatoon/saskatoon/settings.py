@@ -208,6 +208,14 @@ if not EMAIL_BACKEND: del EMAIL_BACKEND
 
 AUTH_USER_MODEL = "member.AuthUser"
 
+
+def get_drf_template_mode() -> str:
+    """Switch to the DRF browsable API"""
+    if os.getenv('DRF_BROWSABLE_API_MODE', '').lower() in ['yes', 'true', 'on']:
+        return 'rest_framework.renderers.BrowsableAPIRenderer'
+    else:
+        return 'rest_framework.renderers.TemplateHTMLRenderer'
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
@@ -215,9 +223,9 @@ REST_FRAMEWORK = {
    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
    'PAGINATE_BY': 10,
    'DEFAULT_RENDERER_CLASSES': (
-   'rest_framework.renderers.TemplateHTMLRenderer',
-   'rest_framework.renderers.JSONRenderer',
-)
+        get_drf_template_mode(),
+        'rest_framework.renderers.JSONRenderer',
+    )
 }
 
 CACHES = {
