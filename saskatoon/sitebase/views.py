@@ -1,16 +1,43 @@
-import datetime
-from django.http import HttpResponse, JsonResponse
-from django.template import loader
-from django.urls import reverse
+import os
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
+from django.http import JsonResponse, HttpResponse
+from django.shortcuts import render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
-from harvest.models import Harvest, Property, RequestForParticipation
-from harvest.forms import RequestForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from harvest.models import Harvest, RequestForParticipation
+from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+
 
 class Index(TemplateView):
     template_name = 'app/index.html'
+
+
+@method_decorator(login_required, name='dispatch')
+class RestrictedPDFView(View):
+    """Serve PDF file for specific user groups"""
+
+    ALLOWED_GROUPS = ['admin', 'core', 'pickleader']
+    PDF_PATH = ""  # absolute path
+
+    def get(self, request, *args, **kwargs):
+        if request.user.groups.filter(name__in=self.ALLOWED_GROUPS).exists():
+            try:
+                with open(self.PDF_PATH, 'rb') as pdf:
+                    return HttpResponse(pdf, content_type='application/pdf')
+            except FileNotFoundError:
+                return handler404(request, FileNotFoundError)
+        else:
+            return handler403(request, PermissionDenied)
+
+
+class EquipmentPointsPDFView(RestrictedPDFView):
+    PDF_PATH = EQUIPMENT_POINTS_PDF_PATH
+
+
+class VolunteerWaiverPDFView(RestrictedPDFView):
+    PDF_PATH = VOLUNTEER_WAIVER_PDF_PATH
+
 
 #@method_decorator(login_required, name='dispatch')
 class Calendar(TemplateView):
@@ -24,6 +51,8 @@ class Calendar(TemplateView):
         context['view'] = "calendar"
         # context['form_request'] = RequestForm()
         return context
+
+
 class JsonCalendar(View):
 
     def get(self, request, *args, **kwargs):
@@ -82,17 +111,20 @@ class JsonCalendar(View):
 
 
 def handler400(request, exception):
-    return render(request,'app/errors/400.html')
+    return render(request, 'app/errors/400.html')
+
 
 def handler403(request, exception):
-    return render(request,'app/errors/403.html')
+    return render(request, 'app/errors/403.html')
+
 
 def handler404(request, exception):
-    return render(request,'app/errors/404.html')
+    return render(request, 'app/errors/404.html')
+
 
 def handler500(request):
-    return render(request,'app/errors/500.html')
+    return render(request, 'app/errors/500.html')
+
 
 def handler403_csrf_failue(request, reason=""):
-    return render(request,'app/errors/403_csrf.html')
-
+    return render(request, 'app/errors/403_csrf.html')
