@@ -6,9 +6,25 @@ from sitebase import views
 
 urlpatterns = [
 
-    url(r'^$', views.Index.as_view(), name='home'),
-    re_path(r'^calendar/$', views.Calendar.as_view(), name='calendar'),
-    url(r'^jsoncal', views.JsonCalendar.as_view(), name='calendarJSON'),
+    url(r'^$',
+        views.Index.as_view(),
+        name='home'),
+
+    url(r'^jsoncal',
+        views.JsonCalendar.as_view(),
+        name='calendarJSON'),
+
+    re_path(r'^calendar/$',
+            views.Calendar.as_view(),
+            name='calendar'),
+
+    path('equipment_points/',
+         views.EquipmentPointsPDFView.as_view(),
+         name='equipment-points'),
+
+    path('volunteer_waiver/',
+         views.VolunteerWaiverPDFView.as_view(),
+         name='volunteer-waiver'),
 
     path('reset_password/',
          auth_views.PasswordResetView.as_view(),

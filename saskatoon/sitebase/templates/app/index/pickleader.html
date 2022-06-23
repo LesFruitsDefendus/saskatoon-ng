@@ -10,18 +10,12 @@
     {% trans "Map: Equipment Points, Beneficiary Organizations & Community Fridges" as map %}
 
     <ul class="list-group" style="list-style-type: square">
-        <li><a href="">FIXME {{waiver}}</a></li>
-        {% if LANGUAGE_CODE == "en" %}
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/en/latest/pre-pick-guide/index.html">{{prepick}}</a></li>
-            <li><a href="">FIXME {{annexB}}</a></li>
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/en/latest/pre-pick-guide/annexes/D-using-the-property-list.html">{{annexD}}</a></li>
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/en/latest/harvest-guide/index.html">{{harvest}}</a></li>
-        {% else %}
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/fr/latest/pre-pick-guide/index.html">{{prepick}}</a></li>
-            <li><a href="">FIXME {{annexB}}</a></li>
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/fr/latest/pre-pick-guide/annexes/D-using-the-property-list.html">{{annexD}}</a></li>
-            <li><a href="https://lesfruitsdefendus.readthedocs.io/fr/latest/harvest-guide/index.html">{{harvest}}</a></li>
-        {% endif %}
+        <li><a href={% url 'volunteer-waiver' %}>{{waiver}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/pre-pick-guide/index.html">{{prepick}}</a></li>
+        <li><a href={% url 'equipment-points' %}>{{annexB}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/pre-pick-guide/index.html">{{prepick}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/pre-pick-guide/annexes/D-using-the-property-list.html">{{annexD}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/harvest-guide/index.html">{{harvest}}</a></li>
         <li> <a href="https://drive.google.com/open?id=1VJbxaFKosG7gLgfvYJZ9m6rhTg0M3ZDy&usp=sharing">{{map}}</a> </li>
     </ul>
 </div>
