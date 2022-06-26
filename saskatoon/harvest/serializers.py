@@ -184,6 +184,31 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
+
+class HarvestTreeTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TreeType
+        fields = ['id', 'name', 'fruit_name']
+
+
+class HarvestListSerializer(HarvestSerializer):
+    property = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.ReadOnlyField(source='get_neighborhood')
+    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Harvest
+        fields = ['id',
+                  'start_date',
+                  'start_time',
+                  'end_time',
+                  'status',
+                  'pick_leader',
+                  'trees',
+                  'property',
+                  'neighborhood']
+
+
 # Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
     person = PersonSerializer(many=False, read_only=True)
