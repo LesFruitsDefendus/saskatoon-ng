@@ -553,6 +553,9 @@ class Harvest(models.Model):
         diff = datetime.datetime.now() - self.start_date
         return diff.days
 
+    def get_neighborhood(self):
+        return self.property.neighborhood
+
     # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
         NUM_DAYS_URGENT_ORPHAN = 14
