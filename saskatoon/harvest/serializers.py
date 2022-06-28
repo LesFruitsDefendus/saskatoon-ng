@@ -147,6 +147,36 @@ class PropertySerializer(serializers.ModelSerializer):
         return OwnerTypeSerializer(obj.owner).data
 
 
+class PropertyListHarvestSerializer(PropertyHarvestSerializer):
+    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
+    pick_leader = serializers.StringRelatedField(many=False)
+
+
+class PropertyTreeTypeSerializer(TreeTypeSerializer):
+    class Meta(TreeTypeSerializer.Meta):
+        fields = ['name', 'fruit_name']
+
+
+class PropertyListSerializer(PropertySerializer):
+    neighborhood = serializers.StringRelatedField(many=False)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Property
+        fields = [
+            'id',
+            'title',
+            'neighborhood',
+            'trees',
+            'last_succeeded_harvest_date',
+            'is_active',
+            'authorized',
+            'pending',
+            'harvests'
+        ]
+
+
 # EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
