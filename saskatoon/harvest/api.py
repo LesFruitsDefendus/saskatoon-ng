@@ -61,8 +61,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         requests = RequestForParticipation.objects.filter(harvest=harvest)
         distribution = HarvestYield.objects.filter(harvest=harvest)
         comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
-        property = harvest.property
-        pickers = [harvest.pick_leader] + [r.picker for r in requests.filter(is_accepted=True)]
+        pickers = [r.picker for r in requests.filter(is_accepted=True)]
+        pickers.append(harvest.pick_leader.person)
         organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
@@ -75,7 +75,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'requests': requests,
                          'distribution': distribution,
                          'comments': comments,
-                         'property': property,
+                         'property': harvest.property,
                          'pickers': pickers,
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
