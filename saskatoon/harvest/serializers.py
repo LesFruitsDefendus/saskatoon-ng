@@ -2,7 +2,7 @@ from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
                            City, State, Country)
-from harvest.models import (Harvest,HarvestYield, Comment, Property, Equipment, EquipmentType,
+from harvest.models import (Comment, Harvest, HarvestYield, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
 
