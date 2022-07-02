@@ -13,7 +13,7 @@ from member.models import AuthUser, Organization, Neighborhood, Person
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.permissions import IsCoreOrAdmin
-from harvest.serializers import (HarvestSerializer, PropertySerializer, EquipmentSerializer,
+from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, BeneficiarySerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
@@ -53,6 +53,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
+        self.serializer_class = HarvestListSerializer
 
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
@@ -102,6 +103,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     # Properties list
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
+        self.serializer_class = PropertyListSerializer
         response = super(PropertyViewset, self).list(request)
         if request.accepted_renderer.format == 'json':
             return response

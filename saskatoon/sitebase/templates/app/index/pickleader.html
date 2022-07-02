@@ -1,6 +1,6 @@
 {% load i18n %}
 
-<b>{% trans "2021 Pick-leader resources" %} :</b>
+<b>{% trans "2022 Pick-leader resources" %} :</b>
 <div class="panel-body">
     {% trans "Volunteer Waiver" as waiver %}
     {% trans "Pre-pick Guide" as prepick %}
@@ -10,18 +10,11 @@
     {% trans "Map: Equipment Points, Beneficiary Organizations & Community Fridges" as map %}
 
     <ul class="list-group" style="list-style-type: square">
-        <li><a href="https://core.lesfruitsdefendus.org/s/kGdMRpLDB6pKbMi">{{waiver}}</a></li>
-        {% if LANGUAGE_CODE == "en" %}
-            <li><a href="https://core.lesfruitsdefendus.org/s/EzxazYFo9yKknzf">{{prepick}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/XF9BsA2E3XtSt4k">{{annexB}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/tfBdJpT7XwdwqNk">{{annexD}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/cJQPc82H7C9zzNB">{{harvest}}</a></li>
-        {% else %}
-            <li><a href="https://core.lesfruitsdefendus.org/s/WGLxswS9tx7jDkE">{{prepick}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/4AqHtTn4K9oCeDY">{{annexB}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/g9kMGsnr8g2e857">{{annexD}}</a></li>
-            <li><a href="https://core.lesfruitsdefendus.org/s/JA2sP6dQgkdkLNH">{{harvest}}</a></li>
-        {% endif %}
+        <li><a href={% url 'volunteer-waiver' %}>{{waiver}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/pre-pick-guide/index.html">{{prepick}}</a></li>
+        <li><a href={% url 'equipment-points' %}>{{annexB}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/pre-pick-guide/annexes/D-using-the-property-list.html">{{annexD}}</a></li>
+        <li><a href="https://lesfruitsdefendus.readthedocs.io/{{LANGUAGE_CODE}}/latest/harvest-guide/index.html">{{harvest}}</a></li>
         <li> <a href="https://drive.google.com/open?id=1VJbxaFKosG7gLgfvYJZ9m6rhTg0M3ZDy&usp=sharing">{{map}}</a> </li>
     </ul>
 </div>

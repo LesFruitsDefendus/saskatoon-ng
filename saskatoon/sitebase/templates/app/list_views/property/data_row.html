@@ -18,7 +18,7 @@
     <td>
         <a href="{% url 'property-detail' property.id %}">{{ property.title }}</a>
     </td>
-    <td>{{ property.neighborhood.name }}</td>
+    <td>{{ property.neighborhood }}</td>
     <td>
         {% include 'app/list_views/property/status.html' %}
     </td>
@@ -32,7 +32,7 @@
             {% for harvest in property.harvests %}
             <li>
                 <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-                    title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader__person__first_name }}">
+                    title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader }}">
                     {% if harvest.status == "Succeeded" %}
                     <i class="fa fa-shopping-basket fa-lg text-success"
                         style="padding-top:7px;"></i>

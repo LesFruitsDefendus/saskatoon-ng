@@ -518,6 +518,7 @@ class HarvestForm(forms.ModelForm):
             'pick_leader',
             'start_date',
             'end_date',
+            'publication_date',
             'nb_required_pickers',
             'about',
         )
@@ -543,21 +544,24 @@ class HarvestForm(forms.ModelForm):
         required=True
     )
 
-    publication_date = forms.DateTimeField(
-        widget=forms.HiddenInput(),
-        required=False
-    )
-
     start_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S']
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        required=True
     )
     end_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S']
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        required=True
+    )
+
+    publication_date = forms.DateTimeField(
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        label=_("Publication date (OPTIONAL)"),
+        help_text=_("Leave this field empty to publish harvest as soon as possible"),
+        required=False
     )
 
     def clean_pick_leader(self):
         """check if pick-leader was selected"""
-
         pickleader = self.cleaned_data['pick_leader']
         status = self.cleaned_data['status']
         if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
@@ -565,18 +569,6 @@ class HarvestForm(forms.ModelForm):
                 _("You must choose a pick leader or change harvest status")
             )
         return pickleader
-
-    def clean_publication_date(self):
-        """Manage hidden input"""
-
-        date = self.cleaned_data['publication_date']
-        status = self.cleaned_data['status']
-
-        if status in ["Ready", "Date-scheduled", "Succeeded"]:
-            date = dt.now() if date is None else date
-        elif status in ["To-be-confirmed", "Orphan", "Adopted"]:
-            date = None
-        return date
 
 
 class HarvestYieldForm(forms.ModelForm):

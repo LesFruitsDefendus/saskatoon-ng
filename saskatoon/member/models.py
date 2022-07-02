@@ -24,7 +24,7 @@ class AuthUserManager(BaseUserManager):
 
     def create_user(self, email, password=None):
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError(_('Users must have an email address'))
 
         user = self.model(email=self.normalize_email(email),
                           )
@@ -52,12 +52,12 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     alphanumeric = RegexValidator(
         r'^[0-9a-zA-Z]*$',
-        message='Only alphanumeric characters are allowed.'
+        message=_('Only alphanumeric characters are allowed.')
     )
 
     # Redefine the basic fields that would normally be defined in User
     email = models.EmailField(
-        verbose_name='email address',
+        verbose_name=_('email address'),
         unique=True,
         max_length=255
     )

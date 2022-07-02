@@ -12,8 +12,8 @@
                         <h5>{% for tree in trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }},{% endfor %}
                             {{ property.neighborhood.name }}</h5>
                         <br>
-                        <h4>{{harvest_date}}</h4>
-                        <h5>{{harvest_start}} {% trans "to" %} {{harvest_end}}</h5>
+                        <h4>{{start_date}}</h4>
+                        <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
                         <br>
                         <p>{{ about|safe }}</p>
                     </div>

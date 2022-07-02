@@ -177,6 +177,36 @@ class PropertySerializer(serializers.ModelSerializer):
         return OwnerTypeSerializer(obj.owner).data
 
 
+class PropertyListHarvestSerializer(PropertyHarvestSerializer):
+    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
+    pick_leader = serializers.StringRelatedField(many=False)
+
+
+class PropertyTreeTypeSerializer(TreeTypeSerializer):
+    class Meta(TreeTypeSerializer.Meta):
+        fields = ['name', 'fruit_name']
+
+
+class PropertyListSerializer(PropertySerializer):
+    neighborhood = serializers.StringRelatedField(many=False)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Property
+        fields = [
+            'id',
+            'title',
+            'neighborhood',
+            'trees',
+            'last_succeeded_harvest_date',
+            'is_active',
+            'authorized',
+            'pending',
+            'harvests'
+        ]
+
+
 # EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -219,9 +249,9 @@ class HarvestSerializer(serializers.ModelSerializer):
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
-    harvest_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
-    harvest_start = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
-    harvest_end = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
+    start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    end_time = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
     pick_leader = serializers.StringRelatedField(many=False)
@@ -241,6 +271,30 @@ class HarvestSerializer(serializers.ModelSerializer):
         organizations = Organization.objects.filter(
             is_beneficiary=True)
         return BeneficiarySerializer(organizations, many=True).data
+
+
+class HarvestTreeTypeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TreeType
+        fields = ['id', 'name', 'fruit_name']
+
+
+class HarvestListSerializer(HarvestSerializer):
+    property = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.ReadOnlyField(source='get_neighborhood')
+    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Harvest
+        fields = ['id',
+                  'start_date',
+                  'start_time',
+                  'end_time',
+                  'status',
+                  'pick_leader',
+                  'trees',
+                  'property',
+                  'neighborhood']
 
 
 # Community serializer
