@@ -62,7 +62,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         distribution = HarvestYield.objects.filter(harvest=harvest)
         comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
         pickers = [r.picker for r in requests.filter(is_accepted=True)]
-        pickers.append(harvest.pick_leader.person)
+        if harvest.pick_leader:
+          pickers.append(harvest.pick_leader.person)
         organizations = Organization.objects.filter(is_beneficiary=True)
 
         return Response({'harvest': response.data,
