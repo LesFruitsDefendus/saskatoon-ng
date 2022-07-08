@@ -8,7 +8,7 @@
 
 {{ form.media }}
 
-{% if harvest.is_open_to_requests == True %}
+{% if request.user.is_authenticated or harvest.is_open_to_requests == True %}
 
 <div class="breadcomb-area">
     <div class="container">

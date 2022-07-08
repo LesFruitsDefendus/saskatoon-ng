@@ -583,11 +583,9 @@ class Harvest(models.Model):
         return (timezone.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        HOURS_OPEN_BEFORE_HARVEST = 2
         if self.status != 'Date-scheduled':
             return False
-        dt = datetime.timedelta(hours=HOURS_OPEN_BEFORE_HARVEST)
-        return timezone.now() + dt <= self.start_date
+        return timezone.now() <= self.end_date
 
 
 class RequestForParticipation(models.Model):
