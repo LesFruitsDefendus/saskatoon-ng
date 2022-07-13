@@ -39,7 +39,7 @@
     </td>
     <td>
         <a href="{% url 'property-detail' equipment.property.id %}">
-        {{ equipment.property.address }}
+        {{ equipment.property.title }}
         </a>
     </td>
     <td>
@@ -48,7 +48,7 @@
         {% elif equipment.owner.organization %}
             {{ equipment.owner.organization.neighborhood.name }}
         {% elif equipment.property %}
-            {{ equipment.property.neighborhood.name }}
+            {{ equipment.property.neighborhood }}
         {% endif %}
     </td>
 
