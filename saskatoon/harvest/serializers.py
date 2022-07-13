@@ -177,6 +177,16 @@ class PropertyListSerializer(PropertySerializer):
         ]
 
 
+class EquipmentPropertySerializer(PropertyListSerializer):
+    class Meta(PropertyListSerializer.Meta):
+        fields = [
+            'id',
+            'title',
+            'neighborhood',
+            'owner'
+        ]
+
+
 # EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -185,7 +195,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
 
 # Equipment serializer
 class EquipmentSerializer(serializers.ModelSerializer):
-    property = PropertySerializer(many=False, read_only=True)
+    property = EquipmentPropertySerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
     owner = ActorSerializer(many=False, read_only=True)
     class Meta:
