@@ -24,7 +24,7 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Harvest
-        fields = ['id', 'pick_leader', 'property']
+        fields = ['id', 'pick_leader', 'property', 'status']
 
 
 class PersonBeneficiarySerializer(serializers.ModelSerializer):
