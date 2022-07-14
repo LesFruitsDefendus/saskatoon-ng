@@ -51,8 +51,13 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
 
+class RFPPersonSerializer(PersonSerializer):
+    class Meta(PersonSerializer.Meta):
+        fields = ['name', 'email', 'phone']
+
+
 class RequestForParticipationSerializer(serializers.ModelSerializer):
-    picker = PersonSerializer(many=False)
+    picker = RFPPersonSerializer(many=False)
     creation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
     acceptation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
 
