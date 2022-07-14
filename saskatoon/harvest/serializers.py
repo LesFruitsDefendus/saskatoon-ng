@@ -284,6 +284,26 @@ class HarvestTreeTypeSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'fruit_name']
 
 
+class HarvestDetailSerializer(HarvestSerializer):
+    class Meta(HarvestSerializer.Meta):
+        fields = ['id',
+                  'pickers',
+                  'total_distribution',
+                  'start_date',
+                  'start_time',
+                  'end_time',
+                  'status',
+                  'pick_leader',
+                  'trees',
+                  'property',
+                  'requests',
+                  'harvestyield_set',
+                  'comment',
+                  'organizations',
+                  'about',
+                  'nb_required_pickers']
+
+
 class HarvestListSerializer(HarvestSerializer):
     property = serializers.StringRelatedField(many=False)
     neighborhood = serializers.ReadOnlyField(source='get_neighborhood')
