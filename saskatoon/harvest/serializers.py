@@ -284,7 +284,15 @@ class HarvestTreeTypeSerializer(serializers.ModelSerializer):
         fields = ['id', 'name', 'fruit_name']
 
 
+class HarvestBeneficiarySerializer(BeneficiarySerializer):
+    class Meta(BeneficiarySerializer.Meta):
+        fields = ['actor_id', 'civil_name']
+
+
 class HarvestDetailSerializer(HarvestSerializer):
+    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    requests = RequestForParticipationSerializer(many=True, read_only=True)
+
     class Meta(HarvestSerializer.Meta):
         fields = ['id',
                   'pickers',
@@ -302,6 +310,11 @@ class HarvestDetailSerializer(HarvestSerializer):
                   'organizations',
                   'about',
                   'nb_required_pickers']
+
+    def get_organizations(self, obj):
+        organizations = Organization.objects.filter(
+            is_beneficiary=True)
+        return HarvestBeneficiarySerializer(organizations, many=True).data
 
 
 class HarvestListSerializer(HarvestSerializer):
