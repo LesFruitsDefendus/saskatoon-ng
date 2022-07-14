@@ -16,7 +16,7 @@
                                     <h1>#{{ id }}:
                                         {% for tree in trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}, {% endfor %}
                                         {{ property.address }},
-                                        {{ property.neighborhood.name }}
+                                        {{ property.neighborhood }}
                                     </h1>
                                 </div>
                             </div>
