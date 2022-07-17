@@ -7,7 +7,7 @@
   <head>
     
     <title>saskatoon.settings</title>
-    <meta name="generator" content="pydoctor 22.5.1"> 
+    <meta name="generator" content="pydoctor 22.7.0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -154,8 +154,21 @@
         
         
 
+        <div class="childrenKindTitle">Functions</div>
+        <ul>
+    
+    <li class="">
         
-         
+        
+        
+
+        
+            <div class="itemName"><code><a href="#get_drf_template_mode" class="internal-link" title="saskatoon.settings.get_drf_template_mode">get<wbr></wbr>_drf<wbr></wbr>_template<wbr></wbr>_mode</a></code>
+            </div>
+        
+
+    </li>
+</ul> 
 
         
          
@@ -758,10 +771,15 @@
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id265">
+          <table class="children sortable" id="id283">
   
   
-  <tr class="constant">
+  <tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#get_drf_template_mode" class="internal-link" title="saskatoon.settings.get_drf_template_mode">get<wbr></wbr>_drf<wbr></wbr>_template<wbr></wbr>_mode</a></code></td>
+    <td>Switch to the DRF browsable API</td>
+  </tr><tr class="constant">
     
     <td>Constant</td>
     <td><code><a href="#ALLOWED_HOSTS" class="internal-link" title="saskatoon.settings.ALLOWED_HOSTS">ALLOWED<wbr></wbr>_HOSTS</a></code></td>
@@ -1004,7 +1022,29 @@
         </div>
 
         <div id="childList">
-          <div class="baseconstant">
+          <div class="basefunction">
+  
+  
+  <a name="saskatoon.settings.get_drf_template_mode">
+    
+  </a>
+  <a name="get_drf_template_mode">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_drf_template_mode</span>():
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L212">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Switch to the DRF browsable API</p>
+<table class="fieldTable"><tr class="fieldStart"><td class="fieldName" colspan="2">Returns</td></tr><tr><td class="fieldArgContainer"><code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code></td><td class="fieldArgDesc"><span class="undocumented">Undocumented</span></td></tr></table></div>
+  </div>
+</div><div class="baseconstant">
   
   
   <a name="saskatoon.settings.ALLOWED_HOSTS">
@@ -1022,7 +1062,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">localhost</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">127.0.0.1</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
@@ -1045,7 +1084,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">NAME</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.auth.password_validation.UserAttributeSimilarityValida</span><span class="rst-variable-linewrap">↵</span>
@@ -1073,7 +1111,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">member.AuthUser</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -1096,7 +1133,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" class="intersphinx-link">os.path.dirname</a>(<wbr></wbr><a href="https://docs.python.org/3/library/os.path.html#os.path.dirname" class="intersphinx-link">os.path.dirname</a>(<wbr></wbr><a href="https://docs.python.org/3/library/os.path.html#os.path.abspath" class="intersphinx-link">os.path.abspath</a>(<wbr></wbr><a href="https://docs.python.org/3/reference/import.html#file__" class="intersphinx-link">__file__</a>)))</code></pre></td></tr></table>
   </div>
@@ -1112,13 +1148,12 @@
   <div class="functionHeader">
     
     <span class="py-defname">CACHES</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L223">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L231">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BACKEND</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django_redis.cache.RedisCache</span><span class="rst-variable-quote">'</span>,
@@ -1137,13 +1172,12 @@
   <div class="functionHeader">
     
     <span class="py-defname">CKEDITOR_CONFIGS</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L235">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L243">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">width</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">100%</span><span class="rst-variable-quote">'</span>}}</code></pre></td></tr></table>
@@ -1160,13 +1194,12 @@
   <div class="functionHeader">
     
     <span class="py-defname">CRISPY_TEMPLATE_PACK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L233">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L241">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">bootstrap4</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1190,7 +1223,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
   </div>
@@ -1206,13 +1238,12 @@
   <div class="functionHeader">
     
     <span class="py-defname">CSRF_FAILURE_VIEW</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L241">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L249">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">sitebase.views.handler403_csrf_failue</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1235,7 +1266,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">default</span><span class="rst-variable-quote">'</span>: {<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">ENGINE</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_ENGINE</span><span class="rst-variable-quote">'</span>),
@@ -1263,7 +1293,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'])</code></pre></td></tr></table>
   </div>
@@ -1285,7 +1314,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.db.models.AutoField</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1309,7 +1337,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_FROM</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1331,7 +1358,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DOMAIN_NAME</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1355,7 +1381,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_BACKEND</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1377,7 +1402,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1401,7 +1425,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST_PASSWORD</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1423,7 +1446,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_HOST_USER</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1447,7 +1469,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_PORT</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1469,7 +1490,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_EMAIL_USE_TLS</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1493,7 +1513,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#MEDIA_ROOT" class="internal-link" title="saskatoon.settings.MEDIA_ROOT">MEDIA_ROOT</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">guides/equipment_points.pdf</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1515,7 +1534,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">dal</span><span class="rst-variable-quote">'</span>,
@@ -1546,7 +1564,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">127.0.0.1</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
   </div>
@@ -1568,7 +1585,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">en</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1592,7 +1608,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">fr</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">Français</span><span class="rst-variable-quote">'</span>), <wbr></wbr>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">en</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">English</span><span class="rst-variable-quote">'</span>)]</code></pre></td></tr></table>
   </div>
@@ -1614,7 +1629,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">harvest/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">member/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">sitebase/locale/</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon/locale/</span><span class="rst-variable-quote">'</span>]</code></pre></td></tr></table>
@@ -1638,7 +1652,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -1660,7 +1673,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/login</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1684,7 +1696,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -1706,7 +1717,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#BASE_DIR" class="internal-link" title="saskatoon.settings.BASE_DIR">BASE_DIR</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">media</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1730,7 +1740,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/media/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -1753,7 +1762,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.middleware.security.SecurityMiddleware</span><span class="rst-variable-quote">'</span>,
  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django.contrib.sessions.middleware.SessionMiddleware</span><span class="rst-variable-quote">'</span>,
@@ -1775,21 +1783,20 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-defname">REST_FRAMEWORK</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#dict" class="intersphinx-link">dict</a></code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L211">
+    <span class="py-defname">REST_FRAMEWORK</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L219">
       
       (source)
     </a>
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_PERMISSION_CLASSES</span><span class="rst-variable-quote">'</span>: [<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.permissions.IsAuthenticated</span><span class="rst-variable-quote">'</span>],
  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_FILTER_BACKENDS</span><span class="rst-variable-quote">'</span>: [<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">django_filters.rest_framework.DjangoFilterBackend</span><span class="rst-variable-quote">'</span><span class="rst-variable-linewrap">↵</span>
 ],
  <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">PAGINATE_BY</span><span class="rst-variable-quote">'</span>: 10,
- <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_RENDERER_CLASSES</span><span class="rst-variable-quote">'</span>: (<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.renderers.TemplateHTMLRenderer</span><span class="rst-variable-quote">'</span>,
+ <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">DEFAULT_RENDERER_CLASSES</span><span class="rst-variable-quote">'</span>: (<wbr></wbr><a href="#get_drf_template_mode" class="internal-link" title="saskatoon.settings.get_drf_template_mode">get_drf_template_mode</a>(),
                               <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">rest_framework.renderers.JSONRenderer</span><span class="rst-variable-quote">'</span>)}</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
@@ -1810,7 +1817,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon.urls</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -1834,7 +1840,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_SECRET_KEY</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1856,7 +1861,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>not <a href="#EMAIL_HOST" class="internal-link" title="saskatoon.settings.EMAIL_HOST">EMAIL_HOST</a></code></pre></td></tr></table>
@@ -1880,7 +1884,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_SERVER_IP</span><span class="rst-variable-quote">'</span>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string"></span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -1902,7 +1905,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#BASE_DIR" class="internal-link" title="saskatoon.settings.BASE_DIR">BASE_DIR</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">static</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
@@ -1926,7 +1928,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">/static/</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -1948,7 +1949,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>[<wbr></wbr>{<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">BACKEND</span><span class="rst-variable-quote">'</span>: <span class="rst-variable-quote">'</span><span class="rst-variable-string">django.template.backends.django.DjangoTemplates</span><span class="rst-variable-quote">'</span>,
@@ -1979,7 +1979,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_TIME_ZONE</span><span class="rst-variable-quote">'</span>) or <span class="rst-variable-quote">'</span><span class="rst-variable-string">UTC</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
   </div>
@@ -2001,7 +2000,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
@@ -2025,7 +2023,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
   </div>
@@ -2047,7 +2044,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a></code></pre></td></tr></table>
@@ -2071,7 +2067,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><a href="https://docs.python.org/3/library/os.path.html#os.path.join" class="intersphinx-link">os.path.join</a>(<wbr></wbr><a href="#MEDIA_ROOT" class="internal-link" title="saskatoon.settings.MEDIA_ROOT">MEDIA_ROOT</a>, <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">guides/volunteer_waiver.pdf</span><span class="rst-variable-quote">'</span>)</code></pre></td></tr></table>
   </div>
@@ -2093,7 +2088,6 @@
     </a>
   </div>
   <div class="functionBody">
-    
     
     <div><p class="undocumented">Undocumented</p></div>
     <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code><span class="rst-variable-quote">'</span><span class="rst-variable-string">saskatoon.wsgi.application</span><span class="rst-variable-quote">'</span></code></pre></td></tr></table>
@@ -2117,7 +2111,6 @@
   </div>
   <div class="functionBody">
     
-    
     <div><p class="undocumented">Undocumented</p></div>
     
   </div>
@@ -2133,7 +2126,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.5.1 at 2022-07-14 19:04:11.
+    22.7.0 at 2022-07-17 17:27:15.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
