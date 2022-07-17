@@ -51,8 +51,13 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
 
+class RFPPersonSerializer(PersonSerializer):
+    class Meta(PersonSerializer.Meta):
+        fields = ['name', 'email', 'phone']
+
+
 class RequestForParticipationSerializer(serializers.ModelSerializer):
-    picker = PersonSerializer(many=False)
+    picker = RFPPersonSerializer(many=False)
     creation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
     acceptation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
 
@@ -277,6 +282,42 @@ class HarvestTreeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TreeType
         fields = ['id', 'name', 'fruit_name']
+
+
+class HarvestBeneficiarySerializer(BeneficiarySerializer):
+    class Meta(BeneficiarySerializer.Meta):
+        fields = ['actor_id', 'civil_name']
+
+
+class HarvestPropertySerializer(PropertySerializer):
+    neighborhood = serializers.StringRelatedField(many=False)
+
+    class Meta(PropertySerializer.Meta):
+        fields = ['id',
+                  'address',
+                  'owner',
+                  'neighborhood', ]
+
+
+class HarvestDetailSerializer(HarvestSerializer):
+    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    property = HarvestPropertySerializer(many=False, read_only=True)
+    requests = RequestForParticipationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Harvest
+        exclude = ['owner_present',
+                  'owner_help',
+                  'owner_fruit',
+                  'publication_date',
+                  'equipment_reserved',
+                  'creation_date',
+                  'changed_by']
+
+    def get_organizations(self, obj):
+        organizations = Organization.objects.filter(
+            is_beneficiary=True)
+        return HarvestBeneficiarySerializer(organizations, many=True).data
 
 
 class HarvestListSerializer(HarvestSerializer):

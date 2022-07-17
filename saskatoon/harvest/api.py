@@ -13,7 +13,7 @@ from member.models import AuthUser, Organization, Neighborhood, Person
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.permissions import IsCoreOrAdmin
-from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
+from harvest.serializers import (HarvestListSerializer, HarvestSerializer, HarvestDetailSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, BeneficiarySerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
@@ -49,6 +49,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     # Harvest detail
     def retrieve(self, request, *args, **kwargs):
         self.template_name = 'app/detail_views/harvest/view.html'
+        self.serializer_class = HarvestDetailSerializer
         return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
