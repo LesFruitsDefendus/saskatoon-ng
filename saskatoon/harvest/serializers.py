@@ -202,6 +202,18 @@ class EquipmentSerializer(serializers.ModelSerializer):
         model = Equipment
         fields = '__all__'
 
+
+class PickLeaderSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AuthUser
+        fields = ['id', 'name']
+
+    def get_name(self, obj):
+        return obj.person.name
+
+
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
 
@@ -215,8 +227,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     end_time = serializers.DateTimeField(source='get_local_end', format="%H:%M")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
-    pick_leader = serializers.StringRelatedField(many=False)
     # 3) get the full instance from another serializer class
+    pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
 
