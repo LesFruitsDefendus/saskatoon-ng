@@ -38,7 +38,6 @@
                             <h2><span class="counter">{{ requests.count }}</span>
                                 / {{ harvest.nb_required_pickers }}</h2>
                         </div>
-                        <div class="sparkline-bar-stats2">1,4,8,3,5,6,4,8,3,3,9,5</div>
                     {% endif %}
                 </div>
             </div>
@@ -47,10 +46,42 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% trans "Pick leader" %}</p>
-                        {% if harvest.pick_leader != None %}
-                        <h2>{{ harvest.pick_leader }}</h2>
+                        {% if harvest.pick_leader is None %}
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h2>{% trans "Missing" %}</h2>
+                            </div>
+                            <div class="col-lg-4 breadcomb-report">
+                                <a href="{% url 'harvest-adopt' harvest.id %}">
+                                    <button
+                                    data-placement="left"
+                                    title="Adopt it!"
+                                    class="btn"
+                                    >
+                                        {% trans "Adopt it!" %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                        {% elif harvest.pick_leader.id == request.user.id %}
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <h2>{{ harvest.pick_leader.name }}</h2>
+                            </div>
+                            <div class="col-lg-5 breadcomb-report">
+                                <a href="{% url 'harvest-leave' harvest.id %}">
+                                    <button
+                                    data-placement="left"
+                                    title="Leave it!"
+                                    class="btn"
+                                    >
+                                        {% trans "Leave it!" %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                         {% else %}
-                        <h2>{% trans "Missing" %}</h2>
+                        <h2>{{ harvest.pick_leader.name }}</h2>
                         {% endif %}
                     </div>
                 </div>

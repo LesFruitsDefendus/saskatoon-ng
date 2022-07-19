@@ -320,3 +320,29 @@ def harvest_leave(request, id):
         messages.warning(request, _("You are not this harvest's pick leader!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def harvest_status_change(request, id):
+    """
+    Changes harvest status
+    Used in a dropdown at harvest detail status template
+    """
+    harvest = get_object_or_404(Harvest, id=id)
+    current_user = request.user
+    status: str = request.GET['status']
+
+    if harvest.pick_leader == current_user and harvest.status != status:
+        harvest.status = status
+        harvest.save()
+        messages.success(
+            request,
+            _("You changed the Harvest Status to: '{}'!".format(status))
+        )
+    elif harvest.status == status:
+        messages.warning(request, _(
+            "The Harvest Status is already set to '{}'!".format(harvest.status)))
+    else:
+        messages.warning(request, _("You are not the Harvest's pick leader!"))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

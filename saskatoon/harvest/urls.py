@@ -43,6 +43,10 @@ urlpatterns = [
          views.harvest_leave,
          name='harvest-leave'),
 
+     path(r'harvest/status-change/<int:id>/',
+         views.harvest_status_change,
+         name='harvest-status-change'),
+
     path(r'participation/create/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
