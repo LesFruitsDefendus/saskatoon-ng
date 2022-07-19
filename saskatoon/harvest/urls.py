@@ -35,6 +35,14 @@ urlpatterns = [
          views.HarvestCreateView.as_view(),
          name='harvest-create'),
 
+     path(r'harvest/adopt/<int:id>/',
+         views.harvest_adopt,
+         name='harvest-adopt'),
+
+     path(r'harvest/leave/<int:id>/',
+         views.harvest_leave,
+         name='harvest-leave'),
+
     path(r'participation/create/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
