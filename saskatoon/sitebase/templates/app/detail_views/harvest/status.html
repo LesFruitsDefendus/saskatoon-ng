@@ -10,11 +10,56 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% translate 'Harvest status' %}</p>
+                        {% if harvest.pick_leader is None or harvest.pick_leader.id != request.user.id %}
                         <h2>{{ harvest.status }}</h2>
+                        {% else %}
+                        <div class="dropdown">
+                            <button
+                            {% if harvest.status == 'Succeeded' %}
+                            class="btn btn-success dropdown-toggle"
+                            {% elif harvest.status == 'Cancelled' %}
+                            class="btn btn-danger dropdown-toggle"
+                            {% elif harvest.status == 'Ready' %}
+                            class="btn btn-primary dropdown-toggle"
+                            {% else %}
+                            class="btn btn-warning dropdown-toggle"
+                            {% endif %}
+                            type="button"
+                            id="harvest-status-dropdown"
+                            data-toggle="dropdown"
+                            >
+                                <p style="font-size: 1.5em; color:white;">
+                                    <strong>
+                                        {{ harvest.status }}
+                                        <span class="caret"></span>
+                                    </strong>
+                                </p>
+                            </button>
+                            <ul
+                            class="dropdown-menu"
+                            role="menu"
+                            aria-labelledby="menu1"
+                            >
+                                {% for status_option in status_options %}
+                                <li role="presentation">
+                                    <a
+                                    href="{% url 'harvest-status-change' harvest.id %}?status={{ status_option }}"
+                                    role="menuitem"
+                                    tabindex="-1"
+                                    >
+                                    {{ status_option }}
+                                </a>
+                                </li>
+                                {% if not forloop.last %}
+                                <li role="presentation" class="divider"></li>
+                                {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
-
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">

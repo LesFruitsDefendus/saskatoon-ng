@@ -329,20 +329,20 @@ def harvest_status_change(request, id):
     Used in a dropdown at harvest detail status template
     """
     harvest = get_object_or_404(Harvest, id=id)
-    current_user = request.user
-    status: str = request.GET['status']
+    request_status: str = request.GET['status']
 
-    if harvest.pick_leader == current_user and harvest.status != status:
-        harvest.status = status
+    if (request.user == harvest.pick_leader
+            and harvest.status != request_status):
+        harvest.status = request_status
         harvest.save()
         messages.success(
             request,
-            _("You changed the Harvest Status to: '{}'!".format(status))
+            _("You have set this harvest's status to: {}".format(request_status))
         )
-    elif harvest.status == status:
+    elif harvest.status == request_status:
         messages.warning(request, _(
-            "The Harvest Status is already set to '{}'!".format(harvest.status)))
+            "This harvest's status is already set to: {}".format(harvest.status)))
     else:
-        messages.warning(request, _("You are not the Harvest's pick leader!"))
+        messages.warning(request, _("You are not this harvest's pick leader!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
