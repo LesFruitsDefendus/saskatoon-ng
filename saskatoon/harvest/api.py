@@ -10,7 +10,7 @@ from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from member.models import AuthUser, Organization, Neighborhood, Person
-from harvest.models import (Equipment, Harvest, HarvestYield, Property,
+from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.permissions import IsCoreOrAdmin
 from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
@@ -65,6 +65,13 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if harvest.pick_leader:
           pickers.append(harvest.pick_leader.person)
         organizations = Organization.objects.filter(is_beneficiary=True)
+        status_options = (
+            harvest_status_choice_tuple[0]
+            for harvest_status_choice_tuple
+            in HARVESTS_STATUS_CHOICES
+            if harvest_status_choice_tuple[0]
+            not in (harvest.status, "Adopted", "Orphan")
+        )
 
         return Response({'harvest': response.data,
                          'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
@@ -80,6 +87,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'pickers': pickers,
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
+                         'status_options': status_options,
                         })
 
     def list(self, request, *args, **kwargs):
