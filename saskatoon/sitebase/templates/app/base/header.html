@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load is_person %}
 
 <div class="header-top-area">
     <div class="container">
@@ -50,7 +51,9 @@
                                                 {% translate "Manage beneficiary" %}</a></li>
                                         {% endif %}
                                         <li><a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a></li>
+                                        {% if user|has_group:'admin' or user|has_group:'core' %}
                                         <li><a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a></li>
+                                        {% endif %}
                                     </ul>
                                 </li>
                             {% endif %}
