@@ -554,7 +554,7 @@ class Harvest(models.Model):
         return diff.days
 
     def get_neighborhood(self):
-        return self.property.neighborhood
+        return self.property.neighborhood.name
 
     def get_fruits(self):
         return [t.fruit_name for t in self.trees.all()]
