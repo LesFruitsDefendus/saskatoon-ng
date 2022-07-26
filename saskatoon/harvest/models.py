@@ -554,7 +554,7 @@ class Harvest(models.Model):
         return diff.days
 
     def get_neighborhood(self):
-        return self.property.neighborhood
+        return self.property.neighborhood.name
 
     # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
