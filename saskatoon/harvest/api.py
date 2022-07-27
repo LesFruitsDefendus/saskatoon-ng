@@ -60,12 +60,22 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return Response(response.data)
         # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('harvest-create'),
-                                 'title': _("New Harvest")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                "new": {
+                    "url": reverse_lazy("harvest-create"),
+                    "title": _("New Harvest"),
+                },
+            }
+        )
 
     def update(request, *args, **kwargs):
         pass
@@ -109,12 +119,22 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('property-create'),
-                                 'title': _("New Property")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                'filter': get_filter_context(self),
+                'new': {
+                    'url': reverse_lazy('property-create'),
+                    'title': _("New Property")
+                    }
+            }
+        )
 
 
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -131,12 +151,22 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data,
-                         'new': {'url': reverse_lazy('equipment-create'),
-                                 'title': _("New Equipment"),
-                                 },
-                         'filter': get_filter_context(self)
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "new": {
+                    "url": reverse_lazy("equipment-create"),
+                    "title": _("New Equipment"),
+                },
+                "filter": get_filter_context(self),
+            }
+        )
 
 
 class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -151,7 +181,17 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data})
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+            }
+        )
 
 
 class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -168,12 +208,22 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('beneficiary-create'),
-                                 'title': _("New Organization")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                "new": {
+                    "url": reverse_lazy("beneficiary-create"),
+                    "title": _("New Organization"),
+                },
+            }
+        )
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -190,12 +240,22 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('person-create'),
-                                 'title': _("New Person")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                "new": {
+                    "url": reverse_lazy("person-create"),
+                    "title": _("New Person"),
+                },
+            }
+        )
 
 
 class StatsView(LoginRequiredMixin, generics.ListAPIView):
