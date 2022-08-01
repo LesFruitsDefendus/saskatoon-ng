@@ -161,6 +161,8 @@ LANGUAGES = [
     ('en',u'English'),
 ]
 
+ROSETTA_ACCESS_CONTROL_FUNCTION = 'saskatoon.utils.is_translator'
+
 LOCALE_PATHS = [
     'harvest/locale/',
     'member/locale/',

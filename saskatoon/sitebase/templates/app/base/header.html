@@ -51,7 +51,7 @@
                                                 {% translate "Manage beneficiary" %}</a></li>
                                         {% endif %}
                                         <li><a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a></li>
-                                        {% if user|has_group:'admin' or user|has_group:'core' %}
+                                        {% if user|is_core_or_admin %}
                                         <li><a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a></li>
                                         {% endif %}
                                     </ul>
