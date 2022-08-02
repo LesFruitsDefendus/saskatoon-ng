@@ -266,6 +266,36 @@
         
 
         
+            <div class="itemName"><code><a href="#harvest_adopt" class="internal-link" title="harvest.views.harvest_adopt">harvest<wbr></wbr>_adopt</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#harvest_leave" class="internal-link" title="harvest.views.harvest_leave">harvest<wbr></wbr>_leave</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
+            <div class="itemName"><code><a href="#harvest_status_change" class="internal-link" title="harvest.views.harvest_status_change">harvest<wbr></wbr>_status<wbr></wbr>_change</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#harvest_yield_create" class="internal-link" title="harvest.views.harvest_yield_create">harvest<wbr></wbr>_yield<wbr></wbr>_create</a></code>
             </div>
         
@@ -513,7 +543,7 @@
         </div>
 
         <div id="splitTables">
-          <table class="children sortable" id="id190">
+          <table class="children sortable" id="id174">
   
   
   <tr class="class">
@@ -569,6 +599,21 @@
   </tr><tr class="function">
     
     <td>Function</td>
+    <td><code><a href="#harvest_adopt" class="internal-link" title="harvest.views.harvest_adopt">harvest<wbr></wbr>_adopt</a></code></td>
+    <td>Adds harvest pickleader and changes status to Adopted Used in a button at harvest-detail/status template</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#harvest_leave" class="internal-link" title="harvest.views.harvest_leave">harvest<wbr></wbr>_leave</a></code></td>
+    <td>Removes harvest pickleader and changes status to Orphan Used in a button at harvest-detail/status template</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
+    <td><code><a href="#harvest_status_change" class="internal-link" title="harvest.views.harvest_status_change">harvest<wbr></wbr>_status<wbr></wbr>_change</a></code></td>
+    <td>Changes harvest status Used in a dropdown at harvest detail status template</td>
+  </tr><tr class="function">
+    
+    <td>Function</td>
     <td><code><a href="#harvest_yield_create" class="internal-link" title="harvest.views.harvest_yield_create">harvest<wbr></wbr>_yield<wbr></wbr>_create</a></code></td>
     <td>handles new fruit distribution form (app/harvest/create_yield.html)</td>
   </tr><tr class="function">
@@ -587,6 +632,75 @@
           <div class="basefunction">
   
   
+  <a name="harvest.views.harvest_adopt">
+    
+  </a>
+  <a name="harvest_adopt">
+    
+  </a>
+  <div class="functionHeader">
+    @login_required<br />
+    <span class="py-keyword">def</span> <span class="py-defname">harvest_adopt</span>(request, id):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L281">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Adds harvest pickleader and changes status to Adopted
+Used in a button at harvest-detail/status template</p>
+</div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="harvest.views.harvest_leave">
+    
+  </a>
+  <a name="harvest_leave">
+    
+  </a>
+  <div class="functionHeader">
+    @login_required<br />
+    <span class="py-keyword">def</span> <span class="py-defname">harvest_leave</span>(request, id):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L306">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Removes harvest pickleader and changes status to Orphan
+Used in a button at harvest-detail/status template</p>
+</div>
+  </div>
+</div><div class="basefunction">
+  
+  
+  <a name="harvest.views.harvest_status_change">
+    
+  </a>
+  <a name="harvest_status_change">
+    
+  </a>
+  <div class="functionHeader">
+    @login_required<br />
+    <span class="py-keyword">def</span> <span class="py-defname">harvest_status_change</span>(request, id):
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L325">
+      
+      (source)
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p>Changes harvest status
+Used in a dropdown at harvest detail status template</p>
+</div>
+  </div>
+</div><div class="basefunction">
+  
+  
   <a name="harvest.views.harvest_yield_create">
     
   </a>
@@ -596,7 +710,7 @@
   <div class="functionHeader">
     @login_required<br />
     <span class="py-keyword">def</span> <span class="py-defname">harvest_yield_create</span>(request):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L249">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L248">
       
       (source)
     </a>
@@ -618,7 +732,7 @@
   <div class="functionHeader">
     @login_required<br />
     <span class="py-keyword">def</span> <span class="py-defname">harvest_yield_delete</span>(request, id):
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L237">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/views.py#L236">
       
       (source)
     </a>
@@ -640,7 +754,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.7.0 at 2022-07-17 17:27:15.
+    22.7.0 at 2022-08-02 01:43:16.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
