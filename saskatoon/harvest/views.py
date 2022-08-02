@@ -8,7 +8,7 @@ from django.contrib.humanize.templatetags.humanize import ordinal
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from django.views.generic import TemplateView, CreateView, UpdateView
 
@@ -16,7 +16,6 @@ from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
                            EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment)
-from member.models import AuthUser
 
 
 class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
@@ -277,3 +276,73 @@ def harvest_yield_create(request):
             messages.success(request, _("New Fruit Recipient successfully added!"))
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def harvest_adopt(request, id):
+    """
+    Adds harvest pickleader and changes status to Adopted
+    Used in a button at harvest-detail/status template
+    """
+    harvest = get_object_or_404(Harvest, id=id)
+    user_is_core_or_pick: bool = request.user.groups.filter(
+        name__in=["pickleader", "core"]
+    ).exists() # checks if user is in the core or pick leader groups
+
+    if user_is_core_or_pick and harvest.pick_leader is None:
+        harvest.pick_leader = request.user
+        harvest.status = 'Adopted'
+        harvest.save()
+        messages.success(request, _("You adopted this harvest!"))
+    elif not user_is_core_or_pick:
+        messages.warning(request, _("You can't adopt this harvest!"))
+    else:
+        messages.warning(request, _(
+            "This harvest already has a pick leader!"))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def harvest_leave(request, id):
+    """
+    Removes harvest pickleader and changes status to Orphan
+    Used in a button at harvest-detail/status template
+    """
+    harvest = get_object_or_404(Harvest, id=id)
+
+    if harvest.pick_leader == request.user:
+        harvest.pick_leader = None
+        harvest.status = 'Orphan'
+        harvest.save()
+        messages.success(request, _("You successfully left this harvest!"))
+    else:
+        messages.warning(request, _("You are not this harvest's pick leader!"))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def harvest_status_change(request, id):
+    """
+    Changes harvest status
+    Used in a dropdown at harvest detail status template
+    """
+    harvest = get_object_or_404(Harvest, id=id)
+    request_status: str = request.GET['status']
+
+    if (request.user == harvest.pick_leader
+            and harvest.status != request_status):
+        harvest.status = request_status
+        harvest.save()
+        messages.success(
+            request,
+            _("You have set this harvest's status to: {}".format(request_status))
+        )
+    elif harvest.status == request_status:
+        messages.warning(request, _(
+            "This harvest's status is already set to: {}".format(harvest.status)))
+    else:
+        messages.warning(request, _("You are not this harvest's pick leader!"))
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
