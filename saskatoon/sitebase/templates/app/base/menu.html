@@ -1,5 +1,6 @@
 {% load static %}
 {% load i18n %}
+{% load is_person %}
 
 <!-- MOBILE MENU-->
 <div class="mobile-menu-area">
@@ -30,9 +31,11 @@
                             <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                                 <a href="{% url 'equipment-list' %}">{% translate "Equipment" %}</a>
                             </li>
-                            <!-- <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                                 <a href="{% url 'statistics' %}">{% translate "Statistics" %}</a>
-                                 </li> -->
+                            {% if user|is_core_or_admin %}
+                            <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                                <a href="{% url 'statistics' %}">{% translate "Statistics" %}</a>
+                            </li>
+                            {% endif %}
                         </ul>
                     </nav>
                 </div>
@@ -68,9 +71,11 @@
                     <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                         <a href="{% url 'equipment-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment" %}</a>
                     </li>
-                    <!-- <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                         <a href="{% url 'statistics' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
-                         </li> -->
+                    {% if user|is_core_or_admin %}
+                    <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                        <a href="{% url 'statistics' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+                    </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
