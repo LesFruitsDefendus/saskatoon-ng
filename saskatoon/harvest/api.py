@@ -30,6 +30,12 @@ def get_filter_context(viewset):
         dic['reset'] = reverse(viewset.basename + '-list')
     return dic
 
+def renderer_format_needs_json_response(request) -> bool:
+    """checks if the template renderer format is json or the DRF browsable api which require the response to be plain json"""
+    if request.accepted_renderer.format in ('json', 'api'):
+        return True
+    return False
+
 
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Harvest viewset"""
@@ -57,7 +63,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         self.serializer_class = HarvestListSerializer
 
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return Response(response.data)
         # default request format is html:
         return Response(
@@ -116,7 +122,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         self.template_name = 'app/list_views/property/view.html'
         self.serializer_class = PropertyListSerializer
         response = super(PropertyViewset, self).list(request)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response(
@@ -148,7 +154,7 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response(
@@ -178,7 +184,7 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(RequestForParticipationViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response(
@@ -205,7 +211,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response(
@@ -237,7 +243,7 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         response = super(CommunityViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response(
