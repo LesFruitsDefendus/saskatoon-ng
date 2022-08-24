@@ -31,11 +31,11 @@ msgstr "Ajouter un utilisateur/ une utilisatrice"
 
 #: sitebase/templates/app/base/header.html:46
 msgid "Manage user"
-msgstr "Gérer l'utilisateur(trice)"
+msgstr "Gérer les utilisateur(trice)s"
 
 #: sitebase/templates/app/base/header.html:50
 msgid "Manage beneficiary"
-msgstr "Gérer le/ la bénéficiaire"
+msgstr "Gérer les bénéficiaires"
 
 #: sitebase/templates/app/base/header.html:52
 msgid "Admin panel"
@@ -94,7 +94,7 @@ msgstr "est un Logiciel Libre développé par le collectif"
 
 #: sitebase/templates/app/base/view.html:65
 msgid "Template by"
-msgstr "Guide par"
+msgstr "Modèle par"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:12
 msgid "this harvest has been cancelled"
@@ -129,7 +129,7 @@ msgstr "à"
 #: sitebase/templates/app/list_views/harvest/view.html:13
 #: sitebase/templates/app/list_views/property/view.html:12
 msgid "Status"
-msgstr "Condition"
+msgstr "Statut"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:34
 #: sitebase/templates/app/calendar/legend.html:19
@@ -180,7 +180,7 @@ msgstr ""
 
 #: sitebase/templates/app/calendar/legend.html:6
 msgid "Full"
-msgstr "Equipe complète"
+msgstr "Équipe complète"
 
 #: sitebase/templates/app/calendar/legend.html:7
 msgid "enough pickers have been registered"
@@ -207,7 +207,7 @@ msgstr "complétée avec succès"
 
 #: sitebase/templates/app/calendar/legend.html:20
 msgid "will no longer take place"
-msgstr "n'aura plus lieu"
+msgstr "n'aura pas lieu"
 
 #: sitebase/templates/app/calendar/ready-modal.html:12
 msgid "this pick no longer accepts requests for participation"
@@ -216,7 +216,7 @@ msgstr "cette récolte n'accepte plus les demandes de participation"
 #: sitebase/templates/app/calendar/ready-modal.html:32
 #: sitebase/templates/app/calendar/scheduled-modal.html:32
 msgid "Pickers required"
-msgstr "Cueilleurs(euses) recherché(es)"
+msgstr "Cueilleur(euse)s recherché(e)s"
 
 #: sitebase/templates/app/calendar/ready-modal.html:40
 #: sitebase/templates/app/detail_views/property/harvest_row.html:74
@@ -246,7 +246,7 @@ msgstr "Calendrier de récoltes"
 
 #: sitebase/templates/app/calendar/view.html:82
 msgid "LEGEND"
-msgstr "LEGENDE"
+msgstr "LÉGENDE"
 
 #: sitebase/templates/app/calendar/view.html:86
 msgid "INSTRUCTIONS"
@@ -293,7 +293,7 @@ msgstr "Commentaires"
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:27
 #| msgid "Harvests"
 msgid "Edit Harvest"
-msgstr "Editer la récolte"
+msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:16
 msgid "New comment"
@@ -317,7 +317,7 @@ msgstr "Acceptée"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:40
 msgid "First time!"
-msgstr "Première fois !"
+msgstr "Première fois!"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:44
 #| msgid "Harvests"
