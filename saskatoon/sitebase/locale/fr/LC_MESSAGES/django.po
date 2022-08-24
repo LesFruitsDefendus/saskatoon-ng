@@ -19,35 +19,35 @@ msgstr ""
 
 #: sitebase/templates/app/base/header.html:30
 msgid "Change password"
-msgstr "Changer mot de passe"
+msgstr "Changer le mot de passe"
 
 #: sitebase/templates/app/base/header.html:31
 msgid "Logout"
-msgstr ""
+msgstr "Déconnexion"
 
 #: sitebase/templates/app/base/header.html:42
 msgid "Add user"
-msgstr ""
+msgstr "Ajouter un utilisateur/ une utilisatrice"
 
 #: sitebase/templates/app/base/header.html:46
 msgid "Manage user"
-msgstr ""
+msgstr "Gérer les utilisateur(trice)s"
 
 #: sitebase/templates/app/base/header.html:50
 msgid "Manage beneficiary"
-msgstr ""
+msgstr "Gérer les bénéficiaires"
 
 #: sitebase/templates/app/base/header.html:52
 msgid "Admin panel"
-msgstr ""
+msgstr "Panneau d'administration"
 
 #: sitebase/templates/app/base/header.html:53
 msgid "Manage translations"
-msgstr ""
+msgstr "Gérer les traductions"
 
 #: sitebase/templates/app/base/header.html:72
 msgid "Languague"
-msgstr ""
+msgstr "Langue"
 
 #: sitebase/templates/app/base/menu.html:13
 #: sitebase/templates/app/base/menu.html:48
@@ -64,7 +64,7 @@ msgstr "Récoltes"
 #: sitebase/templates/app/base/menu.html:54
 #: sitebase/templates/app/list_views/community/view.html:13
 msgid "Properties"
-msgstr "Proriété"
+msgstr "Propriétés"
 
 #: sitebase/templates/app/base/menu.html:22
 #: sitebase/templates/app/base/menu.html:57
@@ -86,19 +86,19 @@ msgstr "Équipement"
 #: sitebase/templates/app/base/menu.html:31
 #: sitebase/templates/app/base/menu.html:66
 msgid "Statistics"
-msgstr ""
+msgstr "Statistiques"
 
 #: sitebase/templates/app/base/view.html:65
 msgid "is a Free/Libre Software developed by the collective "
-msgstr ""
+msgstr "est un Logiciel Libre développé par le collectif"
 
 #: sitebase/templates/app/base/view.html:65
 msgid "Template by"
-msgstr ""
+msgstr "Modèle par"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:12
 msgid "this harvest has been cancelled"
-msgstr ""
+msgstr "cette récolte a été annulée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:19
 #: sitebase/templates/app/calendar/ready-modal.html:19
@@ -107,7 +107,7 @@ msgstr ""
 #: sitebase/templates/app/detail_views/property/harvest_row.html:63
 #: sitebase/templates/app/list_views/harvest/data_row.html:84
 msgid "Scheduled"
-msgstr ""
+msgstr "Programmée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:25
 #: sitebase/templates/app/calendar/ready-modal.html:25
@@ -129,110 +129,116 @@ msgstr "à"
 #: sitebase/templates/app/list_views/harvest/view.html:13
 #: sitebase/templates/app/list_views/property/view.html:12
 msgid "Status"
-msgstr ""
+msgstr "Statut"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:34
 #: sitebase/templates/app/calendar/legend.html:19
 #: sitebase/templates/app/detail_views/property/harvest_row.html:19
 #: sitebase/templates/app/list_views/harvest/data_row.html:40
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:48
 #: sitebase/templates/app/calendar/ready-modal.html:54
 #: sitebase/templates/app/calendar/scheduled-modal.html:55
 #: sitebase/templates/app/calendar/succeeded-modal.html:54
 #: sitebase/templates/app/list_views/harvest/view.html:10
-#, fuzzy
 #| msgid "Harvest Guide"
 msgid "Harvest details"
-msgstr "Guide de Cueillette"
+msgstr "Informations sur la récolte"
 
 #: sitebase/templates/app/calendar/instructions.html:4
 msgid "Look for harvests that are marked as <b>Open</b> (see legend)."
-msgstr ""
+msgstr "Chercher les récoltes marquées comme <b>Ouverte</b> (voir légende)."
 
 #: sitebase/templates/app/calendar/instructions.html:5
 msgid "Click on the harvest that interests you to see more details."
 msgstr ""
+"Cliquer sur la récolte qui vous intéresse afin d'avoir plus d'informations."
 
 #: sitebase/templates/app/calendar/instructions.html:6
 msgid "If you would like to join the pick, click on <b>Participate</b>."
-msgstr ""
+msgstr "Si vous désirez rejoindre la récolte, cliquer sur <b>Participer</b>."
 
 #: sitebase/templates/app/calendar/instructions.html:7
 msgid "Fill out the form with your contact information and submit it."
 msgstr ""
+"Remplissez le formulaire avec vos informations de contact et soumissionnez-"
+"le."
 
 #: sitebase/templates/app/calendar/instructions.html:8
 msgid "Wait for a confirmation from the pick-leader (by email or phone)"
 msgstr ""
+"Attendre une confirmation du/ de la Chef(fe) de cueillette (par courriel ou "
+"téléphone)"
 
 #: sitebase/templates/app/calendar/instructions.html:9
 msgid "If you have been accepted for a harvest, please show up!"
 msgstr ""
+"Si vous avez été accepté pour une récolte, n'oubliez pas d'y aller car "
+"l'équipe de cueilleurs(euses) compte sur vous"
 
 #: sitebase/templates/app/calendar/legend.html:6
 msgid "Full"
-msgstr ""
+msgstr "Équipe complète"
 
 #: sitebase/templates/app/calendar/legend.html:7
 msgid "enough pickers have been registered"
-msgstr ""
+msgstr "suffisamment de cueilleurs(euses) se sont proposé(e)s"
 
 #: sitebase/templates/app/calendar/legend.html:10
 msgid "Open"
-msgstr ""
+msgstr "Ouverte"
 
 #: sitebase/templates/app/calendar/legend.html:11
 msgid "still accepts participation requests"
-msgstr ""
+msgstr "accepte encore les demandes de participation"
 
 #: sitebase/templates/app/calendar/legend.html:14
 #: sitebase/templates/app/calendar/succeeded-modal.html:34
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/list_views/harvest/data_row.html:29
 msgid "Succeeded"
-msgstr ""
+msgstr "Réussie"
 
 #: sitebase/templates/app/calendar/legend.html:15
 msgid "completed successfully"
-msgstr ""
+msgstr "complétée avec succès"
 
 #: sitebase/templates/app/calendar/legend.html:20
 msgid "will no longer take place"
-msgstr ""
+msgstr "n'aura pas lieu"
 
 #: sitebase/templates/app/calendar/ready-modal.html:12
 msgid "this pick no longer accepts requests for participation"
-msgstr ""
+msgstr "cette récolte n'accepte plus les demandes de participation"
 
 #: sitebase/templates/app/calendar/ready-modal.html:32
 #: sitebase/templates/app/calendar/scheduled-modal.html:32
 msgid "Pickers required"
-msgstr ""
+msgstr "Cueilleur(euse)s recherché(e)s"
 
 #: sitebase/templates/app/calendar/ready-modal.html:40
 #: sitebase/templates/app/detail_views/property/harvest_row.html:74
 #: sitebase/templates/app/list_views/harvest/data_row.html:95
 msgid "Ready"
-msgstr ""
+msgstr "Prête"
 
 #: sitebase/templates/app/calendar/scheduled-modal.html:12
 msgid "this harvest is open for participation requests"
-msgstr ""
+msgstr "cette récolte est ouverte aux demandes de participation"
 
 #: sitebase/templates/app/calendar/scheduled-modal.html:51
 msgid "Participate"
-msgstr ""
+msgstr "Participer"
 
 #: sitebase/templates/app/calendar/succeeded-modal.html:12
 msgid "this harvest has been successfully completed"
-msgstr ""
+msgstr "cette récolte a eu lieu avec succès"
 
 #: sitebase/templates/app/calendar/succeeded-modal.html:38
 msgid "Total harvested"
-msgstr ""
+msgstr "Total récolté"
 
 #: sitebase/templates/app/calendar/view.html:78
 msgid "Harvest calendar"
@@ -240,35 +246,34 @@ msgstr "Calendrier de récoltes"
 
 #: sitebase/templates/app/calendar/view.html:82
 msgid "LEGEND"
-msgstr ""
+msgstr "LÉGENDE"
 
 #: sitebase/templates/app/calendar/view.html:86
 msgid "INSTRUCTIONS"
-msgstr ""
+msgstr "INSTRUCTIONS"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:9
 msgid "Public announcement"
-msgstr ""
+msgstr "Annonce publique"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:39
 msgid "Adresss"
-msgstr ""
+msgstr "Adresse"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:45
 #: sitebase/templates/app/detail_views/harvest/data_table.html:26
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/beneficiary/view.html:12
 msgid "Contact"
-msgstr ""
+msgstr "Contact"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:51
 #: sitebase/templates/app/detail_views/property/contact.html:39
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:58
 #: sitebase/templates/app/detail_views/property/contact.html:52
-#, fuzzy
 #| msgid "E-mail"
 msgid "Email"
 msgstr "Courriel"
@@ -276,288 +281,279 @@ msgstr "Courriel"
 #: sitebase/templates/app/detail_views/harvest/about.html:66
 #: sitebase/templates/app/detail_views/property/contact.html:67
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:75
 #: sitebase/templates/app/detail_views/harvest/comments.html:9
 #: sitebase/templates/app/detail_views/property/contact.html:79
-#, fuzzy
 #| msgid "Community"
 msgid "Comments"
-msgstr "Communauté"
+msgstr "Commentaires"
 
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:27
-#, fuzzy
 #| msgid "Harvests"
 msgid "Edit Harvest"
-msgstr "Récoltes"
+msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:16
 msgid "New comment"
-msgstr ""
+msgstr "Nouveau commentaire"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:18
 msgid "Canceled"
-msgstr ""
+msgstr "Annulée"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:21
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:24
 msgid "Refused"
-msgstr ""
+msgstr "Refusée"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:27
 msgid "Accepted"
-msgstr ""
+msgstr "Acceptée"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:40
 msgid "First time!"
-msgstr ""
+msgstr "Première fois!"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:44
-#, fuzzy
 #| msgid "Harvests"
 msgid "harvest(s)"
-msgstr "Récoltes"
+msgstr "récolte(s)"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:12
 #: sitebase/templates/app/detail_views/harvest/status.html:38
 msgid "Pickers requests"
-msgstr ""
+msgstr "Demandes de cueilleur(euse)s"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:19
 msgid "New request"
-msgstr ""
+msgstr "Nouvelle demande"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:27
 msgid "# pickers"
-msgstr ""
+msgstr "nombre de cueilleur(euse)s"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:29
 msgid "Requested on"
-msgstr ""
+msgstr "Demandé le"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:30
 msgid "Accepted on"
-msgstr ""
+msgstr "Accepté le"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:31
 msgid "Experience"
-msgstr ""
+msgstr "Expérience"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:32
 msgid "Msg from picker"
-msgstr ""
+msgstr "Message du/ de la cueilleur(euse)"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:33
-#, fuzzy
 #| msgid "Pick-leader guides"
 msgid "Msg from pick leader"
-msgstr "Guides de Chefs de Cueillette"
+msgstr "Message du/ de la Chef(fe) de cueillette"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:34
 msgid "Manage"
-msgstr ""
+msgstr "Gérer"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:7
 msgid "Fruit distribution"
-msgstr ""
+msgstr "Partage des fruits récoltés"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:12
 msgid "Recipient"
-msgstr ""
+msgstr "Bénéficiaire"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:13
 #: sitebase/templates/app/list_views/harvest/view.html:11
 #: sitebase/templates/app/list_views/property/view.html:13
 msgid "Tree"
-msgstr ""
+msgstr "Arbre"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:14
 msgid "Weight"
-msgstr ""
+msgstr "Poids"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:15
 msgid "Delete"
-msgstr ""
+msgstr "Effacer"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:25
 msgid "Are you sure you want to delete this entry?"
-msgstr ""
+msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:35
 msgid "New recipient"
-msgstr ""
+msgstr "Nouveau bénéficiaire"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:32
 msgid "Total harvested:"
-msgstr ""
+msgstr "Total récolté:"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:50
-#, fuzzy
 #| msgid "Pick-leader guides"
 msgid "Pick leader"
-msgstr "Guides de Chefs de Cueillette"
+msgstr "Chef(fe) de cueillette"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:54
 msgid "Missing"
-msgstr ""
+msgstr "Manquant"
 
 #: sitebase/templates/app/detail_views/property/breadcomb.html:28
 msgid "Last succeeded harvest"
-msgstr ""
+msgstr "Dernière récolte réussie"
 
 #: sitebase/templates/app/detail_views/property/breadcomb.html:42
-#, fuzzy
 #| msgid "Properties"
 msgid "Edit Property"
-msgstr "Proriété"
+msgstr "Éditer la propriété"
 
 #: sitebase/templates/app/detail_views/property/contact.html:7
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/view.html:12
 msgid "Owner"
-msgstr ""
+msgstr "Propriétaire"
 
 #: sitebase/templates/app/detail_views/property/contact.html:11
 msgid "edit"
-msgstr ""
+msgstr "modifier"
 
 #: sitebase/templates/app/detail_views/property/contact.html:16
 msgid "Unregistered owner"
-msgstr ""
+msgstr "Propriétaire inconnu"
 
 #: sitebase/templates/app/detail_views/property/features.html:17
 msgid "Pending validation"
-msgstr ""
+msgstr "En attente de validation"
 
 #: sitebase/templates/app/detail_views/property/features.html:25
 msgid "Has already been registered in the past"
-msgstr ""
+msgstr "A déjà été inscrit(e) dans le passé"
 
 #: sitebase/templates/app/detail_views/property/features.html:31
 msgid "Has never been registered before"
-msgstr ""
+msgstr "N'a jamais été inscrit(e) avant"
 
 #: sitebase/templates/app/detail_views/property/features.html:38
 msgid "Validated"
-msgstr ""
+msgstr "Vérifié(e)"
 
 #: sitebase/templates/app/detail_views/property/features.html:47
 msgid "Not yet authorized"
-msgstr ""
+msgstr "Pas autorisée pour l'instant"
 
 #: sitebase/templates/app/detail_views/property/features.html:53
 msgid "Authorized for the current season"
-msgstr ""
+msgstr "Autorisée pour la saison en cours"
 
 #: sitebase/templates/app/detail_views/property/features.html:59
 msgid "Not authorized for this season"
-msgstr ""
+msgstr "Non autorisée cette saison"
 
 #: sitebase/templates/app/detail_views/property/features.html:68
 msgid "This property is marked as inactive"
-msgstr ""
+msgstr "Cette propriété est marquée comme inactive"
 
 #: sitebase/templates/app/detail_views/property/features.html:76
 msgid "Produces fruits every year"
-msgstr ""
+msgstr "Produit des fruits annuellement"
 
 #: sitebase/templates/app/detail_views/property/features.html:81
 msgid "Does not produce fruits every year"
-msgstr ""
+msgstr "Ne produit pas de fruits chaque année"
 
 #: sitebase/templates/app/detail_views/property/features.html:89
 msgid "picker(s) needed"
-msgstr ""
+msgstr "cueilleur(euse)s requis(es)"
 
 #: sitebase/templates/app/detail_views/property/features.html:94
 msgid "Number of pickers not specified"
-msgstr ""
+msgstr "Nombre de cueilleur(euse)s non spécifié"
 
 #: sitebase/templates/app/detail_views/property/features.html:101
 msgid "Ladder available"
-msgstr ""
+msgstr "Échelle disponible sur place"
 
 #: sitebase/templates/app/detail_views/property/features.html:106
 msgid "Ladder available for outside picks"
-msgstr ""
+msgstr "Échelle empruntable pour récolter ailleurs"
 
 #: sitebase/templates/app/detail_views/property/features.html:112
 msgid "No ladder available"
-msgstr ""
+msgstr "Pas d'échelle disponible"
 
 #: sitebase/templates/app/detail_views/property/features.html:119
 msgid "Publicly accessible"
-msgstr ""
+msgstr "Accès publique"
 
 #: sitebase/templates/app/detail_views/property/features.html:124
 msgid "Not publicly accessible"
-msgstr ""
+msgstr "Pas d'accès publique"
 
 #: sitebase/templates/app/detail_views/property/features.html:131
 msgid "Access to neighbors terrain"
-msgstr ""
+msgstr "Terrain voisin accessible"
 
 #: sitebase/templates/app/detail_views/property/features.html:136
 msgid "No permission to access neighbors terrain"
-msgstr ""
+msgstr "Pas de permission pour aller chez le voisin"
 
 #: sitebase/templates/app/detail_views/property/features.html:143
 msgid "Compost bin closeby"
-msgstr ""
+msgstr "Bac de compostage sur place"
 
 #: sitebase/templates/app/detail_views/property/features.html:148
 msgid "No compost bin closeby"
-msgstr ""
+msgstr "Pas de bac de compostage"
 
 #: sitebase/templates/app/detail_views/property/harvest_row.html:31
 #: sitebase/templates/app/list_views/harvest/data_row.html:52
 msgid "Orphan"
-msgstr ""
+msgstr "Orpheline"
 
 #: sitebase/templates/app/detail_views/property/harvest_row.html:41
 #: sitebase/templates/app/list_views/harvest/data_row.html:62
 msgid "Adopted"
-msgstr ""
+msgstr "Adoptée"
 
 #: sitebase/templates/app/detail_views/property/harvest_row.html:52
 #: sitebase/templates/app/list_views/harvest/data_row.html:73
 msgid "Pending auth."
-msgstr ""
+msgstr "En attente d'autorisation"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:16
-#, fuzzy
 #| msgid "Harvests"
 msgid "New Harvest"
-msgstr "Récoltes"
+msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:25
-#, fuzzy
 #| msgid "Pick-leader guides"
 msgid "Pickleader"
-msgstr "Guides de Chefs de Cueillette"
+msgstr "Chef(fe) de cueillette"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:27
 #: sitebase/templates/app/list_views/harvest/view.html:15
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:9
-#, fuzzy
 #| msgid "Properties"
 msgid "Similar properties"
-msgstr "Proriété"
+msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/list_views/equipment/view.html:13
 #: sitebase/templates/app/list_views/property/view.html:10
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
-msgstr ""
+msgstr "Propriété"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:15
 #: sitebase/templates/app/list_views/beneficiary/view.html:13
@@ -567,46 +563,46 @@ msgstr ""
 #: sitebase/templates/app/list_views/property/view.html:11
 #: sitebase/templates/app/participation_list.html:21
 msgid "Neighborhood"
-msgstr ""
+msgstr "Quartier"
 
 #: sitebase/templates/app/forms/model_form.html:12
 #: sitebase/templates/app/forms/organization_create_form.html:44
 #: sitebase/templates/app/forms/property_create_form.html:61
 msgid "Save"
-msgstr ""
+msgstr "Sauvegarder"
 
 #: sitebase/templates/app/forms/organization_create_form.html:25
 msgid "Contact Person"
-msgstr ""
+msgstr "Personne resource"
 
 #: sitebase/templates/app/forms/property_create_form.html:16
 msgid "Trees"
-msgstr ""
+msgstr "Arbres"
 
 #: sitebase/templates/app/forms/property_create_form.html:48
 msgid "Address"
-msgstr ""
+msgstr "Adresse"
 
 #: sitebase/templates/app/forms/property_create_public.html:24
 #: sitebase/templates/app/participation_create.html:62
 msgid "Send"
-msgstr ""
+msgstr "Envoyer"
 
 #: sitebase/templates/app/index.html:21
 msgid "Hi"
-msgstr ""
+msgstr "Bonjour"
 
 #: sitebase/templates/app/index.html:25
 msgid "Welcome to Les Fruits Défendus!"
-msgstr ""
+msgstr "Bienvenue aux Fruits Défendus"
 
 #: sitebase/templates/app/index/pickleader.html:3
 msgid "2021 Pick-leader resources"
-msgstr ""
+msgstr "Ressources pour Chef(fe) de cueillette"
 
 #: sitebase/templates/app/index/pickleader.html:5
 msgid "Volunteer Waiver"
-msgstr "Formulaire de Décharge Bénévole"
+msgstr "Formulaire de Décharge des Bénévoles"
 
 #: sitebase/templates/app/index/pickleader.html:6
 msgid "Pre-pick Guide"
@@ -618,10 +614,9 @@ msgstr "Points d'Equipement (Annexe B)"
 
 #: sitebase/templates/app/index/pickleader.html:8
 msgid "Planning Harvests Using the Properties List (Annex D)"
-msgstr "Planifier Récoltes en Utilisant la Liste des Proppriétés (Annexe D)"
+msgstr "Planifier une récolte en utilisant la Liste des Propriétés (Annexe D)"
 
 #: sitebase/templates/app/index/pickleader.html:9
-#, fuzzy
 #| msgid "Harvest Guide"
 msgid "Harvest Guide"
 msgstr "Guide de Cueillette"
@@ -634,72 +629,83 @@ msgstr ""
 #: sitebase/templates/app/index/volunteer.html:4
 msgid "Please follow these steps to volunteer as a fruit picker"
 msgstr ""
+"Merci de suivre ces étapes pour vous proposer comme cueilleur(euse) "
+"volontaire"
 
 #: sitebase/templates/app/index/volunteer.html:7
 msgid ""
-"Take a look at our Harvest calendar. Note that new picks are published daily "
-"at 6 p.m."
+"Take a look at our Harvest calendar. Note that new picks are published daily"
+" at 6 p.m."
 msgstr ""
+"Regardez notre Calendrier des récoltes, qui est mis à jour régulièrement."
 
 #: sitebase/templates/app/index/volunteer.html:8
 msgid "Click on the harvest that interests you to see the details."
-msgstr ""
+msgstr "Cliquer sur la récolte qui vous intéresse pour plus d'informations."
 
 #: sitebase/templates/app/index/volunteer.html:9
 msgid ""
 "If you'd like to join the pick, fill out the short form and hit send to "
 "submit your request."
 msgstr ""
+"Si vous désirez joindre la cueillette, remplissez le formulaire et cliquez "
+"sur Envoyer pour soumettre votre demande."
 
 #: sitebase/templates/app/index/volunteer.html:10
 msgid ""
-"Wait to be contacted (by email or phone) by the pick leader in charge to get "
-"a confirmation."
+"Wait to be contacted (by email or phone) by the pick leader in charge to get"
+" a confirmation."
 msgstr ""
+"Le Chef (La Cheffe) de cueillette vous contactera par courriel ou téléphone "
+"pour vous confirmer votre participation."
 
 #: sitebase/templates/app/index/volunteer.html:11
 msgid "If you have been accepted for a harvest, show up!"
 msgstr ""
+"Si vous avez été accepté pour une récolte, n'oubliez pas d'y aller car "
+"l'équipe de cueilleur(euse)s compte sur vous!"
 
 #: sitebase/templates/app/list_views/beneficiary/data_row.html:9
 #: sitebase/templates/app/list_views/community/data_row.html:10
 msgid "Are you really sure you want to delete this actor?"
-msgstr ""
+msgstr "Êtes-vous certain(e) de vouloir effacer ce contact?"
 
 #: sitebase/templates/app/list_views/beneficiary/view.html:10
 msgid "Organization"
-msgstr ""
+msgstr "Organisation"
 
 #: sitebase/templates/app/list_views/beneficiary/view.html:11
 #: sitebase/templates/app/list_views/equipment/view.html:11
 #: sitebase/templates/app/participation_list.html:19
 msgid "Description"
-msgstr ""
+msgstr "Déscription"
 
 #: sitebase/templates/app/list_views/community/data_row.html:28
 msgid "Are you sure you want to reset this user password?"
 msgstr ""
+"Êtes-vous certain(e) de vouloir ré-initialiser le mot-de-passe de cet "
+"utilisateur(trice)?"
 
 #: sitebase/templates/app/list_views/community/view.html:10
 msgid "Person"
-msgstr ""
+msgstr "Personne"
 
 #: sitebase/templates/app/list_views/community/view.html:11
 msgid "Roles"
-msgstr ""
+msgstr "Rôles"
 
 #: sitebase/templates/app/list_views/equipment/view.html:15
 #: sitebase/templates/app/participation_list.html:22
 msgid "Shared"
-msgstr ""
+msgstr "Partagé"
 
 #: sitebase/templates/app/list_views/filters.html:14
 msgid "Filters"
-msgstr ""
+msgstr "Filtres"
 
 #: sitebase/templates/app/list_views/filters.html:27
 msgid "Filter"
-msgstr ""
+msgstr "Filtrer"
 
 #: sitebase/templates/app/list_views/filters.html:32
 msgid "Reset"
@@ -707,69 +713,73 @@ msgstr "Réinitialiser"
 
 #: sitebase/templates/app/list_views/harvest/data_row.html:10
 msgid "Are you really sure you want to delete this harvest?"
-msgstr ""
+msgstr "Êtes-vous certain(e) de vouloir effacer cette récolte?"
 
 #: sitebase/templates/app/list_views/harvest/view.html:14
 msgid "Leader"
-msgstr ""
+msgstr "Chef(fe) de cueillette"
 
 #: sitebase/templates/app/list_views/property/data_row.html:11
 msgid "Are you really sure you want to delete this property?"
-msgstr ""
+msgstr "Êtes-vous certain(e) de vouloir effacer cette propriété?"
 
 #: sitebase/templates/app/list_views/property/status.html:7
 msgid "PENDING"
-msgstr ""
+msgstr "EN ATTENTE"
 
 #: sitebase/templates/app/list_views/property/status.html:9
 msgid "validated"
-msgstr ""
+msgstr "validée"
 
 #: sitebase/templates/app/list_views/property/status.html:12
 msgid "not yet authorized"
-msgstr ""
+msgstr "pas encore autorisée"
 
 #: sitebase/templates/app/list_views/property/status.html:14
 msgid "authorized"
-msgstr ""
+msgstr "autorisée"
 
 #: sitebase/templates/app/list_views/property/status.html:16
 msgid "unauthorized"
-msgstr ""
+msgstr "non autorisée"
 
 #: sitebase/templates/app/list_views/property/status.html:19
 msgid "inactive"
-msgstr ""
+msgstr "inactive"
 
 #: sitebase/templates/app/list_views/property/view.html:14
 msgid "Picks"
-msgstr ""
+msgstr "Récoltes"
 
 #: sitebase/templates/app/list_views/property/view.html:15
 msgid "Last pick"
-msgstr ""
+msgstr "Dernière récolte"
 
 #: sitebase/templates/app/participation_create.html:54
 msgid "Request to join this harvest"
-msgstr ""
+msgstr "Demander de participer à cette récolte"
 
 #: sitebase/templates/app/participation_create.html:77
 msgid ""
-"Sorry, this harvest is not open for requests. You can check the <a href='/"
-"calendar'>calendar</a> for other harvests."
+"Sorry, this harvest is not open for requests. You can check the <a "
+"href='/calendar'>calendar</a> for other harvests."
 msgstr ""
+"Désolé, cette récolte n'est pas ouverte aux demandes de participation.  Vous"
+" pouvez regarder le <a href='/calendar'>calendrier</a> pour d'autres "
+"récoltes."
 
 #: sitebase/templates/app/participation_create.html:90
 msgid "Sorry, this Harvest is not opened for requests"
 msgstr ""
+"Désolé, cette récolte n'est pas ouverte aux demandes de participation."
 
 #: sitebase/templates/app/participation_manage.html:68
 msgid "Update"
-msgstr ""
+msgstr "Mise-à-jour"
 
 #: sitebase/templates/registration/login.html:104
 msgid "Login"
-msgstr ""
+msgstr "Connexion"
 
 #~ msgid "Schedule"
 #~ msgstr "Calendrier"
