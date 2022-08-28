@@ -225,6 +225,11 @@ class PropertyImageForm(forms.ModelForm):
             'image'
         ]
 
+        image = forms.ImageField(
+            label='Image',
+            widget=forms.ClearableFileInput(attrs={'multiple': True})
+        )
+
 
 class HarvestImageForm(forms.ModelForm):
     class Meta:
@@ -259,6 +264,8 @@ class PropertyForm(forms.ModelForm):
             format='%Y-%m-%d',
         )
     )
+
+
 
 
 class PropertyCreateForm(PropertyForm):
