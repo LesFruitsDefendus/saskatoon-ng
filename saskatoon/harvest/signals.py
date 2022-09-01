@@ -22,7 +22,7 @@ def clear_cache_people(sender, instance, **kwargs):
     cache.delete_pattern("*people*")
 
 def _send_mail(subject, message, mail_to):
-    subject = '[Sakatoon] ' + subject
+    subject = '[Saskatoon] ' + subject
     send_mail(
             subject,
             message,
