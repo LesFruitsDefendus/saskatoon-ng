@@ -20,23 +20,23 @@ msgstr ""
 
 #: harvest/api.py:93
 msgid "New Harvest"
-msgstr ""
+msgstr "Nouvelle Récolte"
 
 #: harvest/api.py:142
 msgid "New Property"
-msgstr ""
+msgstr "Nouvelle Propriété"
 
 #: harvest/api.py:163
 msgid "New Equipment"
-msgstr ""
+msgstr "Nouvel Equipement"
 
 #: harvest/api.py:201
 msgid "New Organization"
-msgstr ""
+msgstr "Nouvel Organisme"
 
 #: harvest/api.py:223
 msgid "New Person"
-msgstr ""
+msgstr "Nouvelle Personne"
 
 #: harvest/filters.py:25
 msgid "Season"
@@ -57,193 +57,218 @@ msgstr "Validation en attente"
 
 #: harvest/filters.py:103
 msgid "Role"
-msgstr ""
+msgstr "Responsabilité"
 
 #: harvest/filters.py:117
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: harvest/filters.py:123 harvest/forms.py:22
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
 #: harvest/filters.py:128
 msgid "Last name"
-msgstr ""
+msgstr "Nom"
 
 #: harvest/filters.py:167 harvest/models.py:668
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: harvest/forms.py:18
 msgid "Enter a valid email address, please."
-msgstr ""
+msgstr "Merci d'inscrire une adresse courriel valide."
 
 #: harvest/forms.py:19 harvest/forms.py:284
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #: harvest/forms.py:25
 msgid "Family name"
-msgstr ""
+msgstr "Nom de famille"
 
 #: harvest/forms.py:28 harvest/forms.py:279
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
 #: harvest/forms.py:31 harvest/models.py:568
 msgid "Comment"
-msgstr ""
+msgstr "Commentaires"
 
 #: harvest/forms.py:52
 msgid "You have already requested to join this pick."
-msgstr ""
+msgstr "Vous avez déjà demandé à rejoindre cette cueillette."
 
 #: harvest/forms.py:104
 msgid "New request from "
-msgstr ""
+msgstr "Nouvelle demande de la part de"
 
 #: harvest/forms.py:165
 msgid "Your comment here."
-msgstr ""
+msgstr "Ecrire ici vos commentaires."
 
 #: harvest/forms.py:177 harvest/models.py:106
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 #: harvest/forms.py:181
 msgid "Accept this request"
-msgstr ""
+msgstr "Accepter cette demande"
 
 #: harvest/forms.py:185
 msgid "Refuse this request"
-msgstr ""
+msgstr "Refuser cette demande"
 
 #: harvest/forms.py:189
 msgid "Canceled by picker"
-msgstr ""
+msgstr "Demande annulée par le cueilleur (la cueilleuse)"
 
 #: harvest/forms.py:194
 msgid "Participation request status"
-msgstr ""
+msgstr "Etat des demandes de participation"
 
 #: harvest/forms.py:263
 msgid "Register new owner"
-msgstr ""
+msgstr "Inscrire un nouveau propriétaire"
 
 #: harvest/forms.py:268
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #: harvest/forms.py:269 harvest/forms.py:285
 msgid "This field is required"
-msgstr ""
+msgstr "Ce champ est requis"
 
 #: harvest/forms.py:274
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
 #: harvest/forms.py:297
 msgid ""
 "ERROR: You must either select an Owner                     or create a new "
 "one and provide their personal information"
 msgstr ""
+"ERREUR: Vous devez soit sélectionner un Propriétaire existant soit Créer un "
+"nouveau (une nouvelle) propriétaire en fournissant ses informations "
+"personnelles"
 
 #: harvest/forms.py:368
 msgid ""
-"Volunteers have permission to go on the neighbours' property to access fruits"
+"Volunteers have permission to go on the neighbours' property to access "
+"fruits"
 msgstr ""
+"Les cueilleurs (cueilleuses) ont la permission de passer sur le terrain "
+"voisin afin d'accéder aux fruits"
 
 #: harvest/forms.py:373
 msgid "I have a compost bin where you can leave rotten fruit"
 msgstr ""
+"J'ai un bac de compostage dans lequel vous pouvez mettre les fruits abîmés "
+"ou pourris"
 
 #: harvest/forms.py:378
 msgid "I have a ladder that can be used during the harvest"
-msgstr ""
+msgstr "J'ai une échelle qui pourra être utilisée pendant la cueillette"
 
 #: harvest/forms.py:383
 msgid "I would lend my ladder for another harvest nearby"
-msgstr ""
+msgstr "Je peux prêter mon échelle lors d'une cueillette à proximité"
 
 #: harvest/forms.py:388
 msgid ""
 "My tree(s)/vine(s) produce fruit every year (if not, please include info "
 "about frequency in additional comments at the bottom)"
 msgstr ""
+"Mon arbre (mes arbres) ou vigne(s) produise(nt) des fruits annuellement "
+"(sinon, merci de préciser leur fréquence de production dans les Commentaires"
+" ci-dessous)"
 
 #: harvest/forms.py:393
 msgid "Have you provided us any information about your property before?"
 msgstr ""
+"Vous avez-nous déjà fourni des renseignements sur votre propriété dans le "
+"passé ?"
 
 #: harvest/forms.py:394 harvest/forms.py:400
 msgid "Yes"
-msgstr ""
+msgstr "Oui"
 
 #: harvest/forms.py:394
 msgid "No"
-msgstr ""
+msgstr "Non"
 
 #: harvest/forms.py:399
 msgid ""
-"Do you give us permission to harvest your tree(s) and/or vine(s) this season?"
+"Do you give us permission to harvest your tree(s) and/or vine(s) this "
+"season?"
 msgstr ""
+"Vous donnez-nous la permission de récolter votre arbre (vos arbres) ou "
+"vigne(s) cette saison ?"
 
 #: harvest/forms.py:400
 msgid "Not this year, but maybe in future seasons"
-msgstr ""
+msgstr "Pas cette année, peut-être dans le future"
 
 #: harvest/forms.py:414
 msgid "Location of tree(s) or vine(s)"
-msgstr ""
+msgstr "Emplacement de l'arbre (des arbres) ou vigne(s)"
 
 #: harvest/forms.py:415
 msgid "Location on the property (e.g. Front yard, back yard, etc.)"
 msgstr ""
+"Emplacement sur la propriété (par exemple: Jardin avant, cours arrière, "
+"etc...)"
 
 #: harvest/forms.py:420
 msgid "Access to tree(s) or vine(s)"
-msgstr ""
+msgstr "Accès à l'arbre (aux arbres) ou vigne(s)"
 
 #: harvest/forms.py:421
 msgid ""
 "Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, "
 "publicly accessible from sidewalk, etc.)"
 msgstr ""
+"Tout renseignement sur la façon d'accéder à l'arbre (aux arbres) ou vigne(s)"
+" (par exemple: porte verrouillée à l'arrière, accès libre depuis la rue, "
+"etc...)"
 
 #: harvest/forms.py:426
 msgid "Number of pickers"
-msgstr ""
+msgstr "Nombre de cueilleurs (cueilleuses)"
 
 #: harvest/forms.py:427
 msgid "Approximate number of pickers needed for a two-hour harvesting period."
 msgstr ""
+"Nombre approximatif de cueilleurs (cueilleuses) requis pour une cueillette "
+"de deux heures"
 
 #: harvest/forms.py:432 harvest/models.py:226
 msgid "Height of lowest fruits (meters)"
-msgstr ""
+msgstr "Hauteur des fruits les plus bas (en mètres)"
 
 #: harvest/forms.py:437
 msgid "Address number"
-msgstr ""
+msgstr "Adresse civique"
 
 #: harvest/forms.py:442 harvest/models.py:213
 msgid "Total number of trees/vines on this property"
-msgstr ""
+msgstr "Nombre total d'arbre(s) ou de vigne(s) sur la propriété"
 
 #: harvest/forms.py:447
 msgid "Street name"
-msgstr ""
+msgstr "Nom de la rue"
 
 #: harvest/forms.py:452
 msgid "Apartment # (if applicable)"
-msgstr ""
+msgstr "Numéro d'appartement (si applicable)"
 
 #: harvest/forms.py:461
 msgid ""
 "I would like to receive emails from Les Fruits Defendus such as newsletters "
 "and updates"
 msgstr ""
+"Je veux recevoir les courriels (Lettres d'information ou de Mise à jour) des"
+" Fruits Défendus"
 
 #: harvest/forms.py:466
 msgid ""
@@ -251,501 +276,531 @@ msgid ""
 "how often tree produces fruit, description of fruit if the type is unknown "
 "or not in the list, etc.)"
 msgstr ""
+"Toute information complémentaire que nous devrions savoir, telle que "
+"fréquence de production de fruits, description des fruits si ceux-ci ne sont"
+" pas déjà dans la liste, etc..."
 
 #: harvest/forms.py:516 harvest/models.py:458
 msgid "Public announcement"
-msgstr ""
+msgstr "Annonce publique"
 
 #: harvest/forms.py:577
 msgid "Fill in one of the two fields: property or owner."
-msgstr ""
+msgstr "Remplir un des deux champs: propriété ou propriétaire."
 
 #: harvest/models.py:14
 msgid "To be confirmed"
-msgstr ""
+msgstr "A confirmer"
 
 #: harvest/models.py:18
 msgid "Orphan"
-msgstr ""
+msgstr "Orpheline"
 
 #: harvest/models.py:22
 msgid "Adopted"
-msgstr ""
+msgstr "Adoptée"
 
 #: harvest/models.py:26
 msgid "Date scheduled"
-msgstr ""
+msgstr "Date prévue"
 
 #: harvest/models.py:30
 msgid "Ready"
-msgstr ""
+msgstr "Prête"
 
 #: harvest/models.py:34
 msgid "Succeeded"
-msgstr ""
+msgstr "Réussie"
 
 #: harvest/models.py:38
 msgid "Cancelled"
-msgstr ""
+msgstr "Annulée"
 
 #: harvest/models.py:43 harvest/models.py:76
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
 #: harvest/models.py:50
 msgid "Fruit image"
-msgstr ""
+msgstr "Image du fruit"
 
 #: harvest/models.py:55
 msgid "Fruit name"
-msgstr ""
+msgstr "Nom du fruit"
 
 #: harvest/models.py:60
 msgid "Season start date"
-msgstr ""
+msgstr "Début de la saison"
 
 #: harvest/models.py:66
 msgid "tree type"
-msgstr ""
+msgstr "type d'arbre"
 
 #: harvest/models.py:67
 msgid "tree types"
-msgstr ""
+msgstr "types d'arbres"
 
 #: harvest/models.py:81
 msgid "equipment type"
-msgstr ""
+msgstr "type d'équipement"
 
 #: harvest/models.py:82
 msgid "equipment types"
-msgstr ""
+msgstr "types d'équipement"
 
 #: harvest/models.py:93
 msgid "Is active"
-msgstr ""
+msgstr "Est active"
 
 #: harvest/models.py:94
 msgid "This property exists and may be able to host a pick"
-msgstr ""
+msgstr "Cette propriété existe et une récolte pourrait y être organisée"
 
 #: harvest/models.py:99
 msgid "Authorized for this season"
-msgstr ""
+msgstr "Autorisée pour cette saison"
 
 #: harvest/models.py:100
 msgid ""
 "Harvest in this property has been authorized for the current season by its "
 "owner"
 msgstr ""
+"La récolte dans cette propriété a été autorisée pour cette saison par le "
+"propriétaire"
 
 #: harvest/models.py:107
 msgid ""
-"This property was created through a public form and needs to be validated by "
-"an administrator"
+"This property was created through a public form and needs to be validated by"
+" an administrator"
 msgstr ""
+"Cette propriété a été créée via un formulaire public et doit être validée "
+"par un administrateur (une administratrice)"
 
 #: harvest/models.py:113
 msgid "Contact name"
-msgstr ""
+msgstr "Nom de la personne contact"
 
 #: harvest/models.py:114
 msgid "Name of the person to be contacted for confirmation"
-msgstr ""
+msgstr "Nom de la personne à contacter pour confirmation"
 
 #: harvest/models.py:120
 msgid "Contact phone number"
-msgstr ""
+msgstr "Téléphone de la personne contact"
 
 #: harvest/models.py:121
 msgid "Phone number to be used for confirmation"
-msgstr ""
+msgstr "Téléphone à utiliser pour confirmation"
 
 #: harvest/models.py:126
 msgid "Contact email"
-msgstr ""
+msgstr "Courriel de la personne contact"
 
 #: harvest/models.py:127
 msgid "Email address to be used for confirmation"
-msgstr ""
+msgstr "Courriel à utiliser pour confirmation"
 
 #: harvest/models.py:133
 msgid "Newsletter subscription"
-msgstr ""
+msgstr "Souscription à la Lettre d'information"
 
 #: harvest/models.py:138
 msgid "Recurring property signup"
-msgstr ""
+msgstr "Inscription récurrente d'une propriété"
 
 #: harvest/models.py:148 harvest/models.py:679
 msgid "Owner"
-msgstr ""
+msgstr "Propriétaire"
 
 #: harvest/models.py:155
 msgid "Fruit tree/vine type(s)"
-msgstr ""
+msgstr "Type(s) d'arbre(s) ou vigne(s)"
 
 #: harvest/models.py:157
 msgid ""
 "Select multiple fruit types if applicable. Unknown fruit type or colour can "
 "be mentioned in the additional comments at the bottom."
 msgstr ""
+"Sélectionner plusieurs types de fruits si applicable.  Si le type ou la "
+"couleur ne sont pas dans la liste, merci de les mentionner dans les "
+"Commentaires ci-dessous."
 
 #: harvest/models.py:161
 msgid "Trees location"
-msgstr ""
+msgstr "Emplacement des arbres"
 
 #: harvest/models.py:162
 msgid "Front yard or backyard?"
-msgstr ""
+msgstr "Jardin avant ou cours arrière ?"
 
 #: harvest/models.py:169
 msgid "Trees accessibility"
-msgstr ""
+msgstr "Accessibilité des arbres"
 
 #: harvest/models.py:170
 msgid "Any info on how to access the tree (eg. key, gate etc)"
 msgstr ""
+"Tout renseignement sur comment atteindre les arbres (par example porte, clé,"
+" etc...)"
 
 #: harvest/models.py:177
 msgid "Required pickers on average"
-msgstr ""
+msgstr "Nombre de cueilleurs (cueilleuses) nécessaire en général"
 
 #: harvest/models.py:183
 msgid "Publicly accessible"
-msgstr ""
+msgstr "Accès libre"
 
 #: harvest/models.py:188
 msgid "Access to neighboring terrain if needed"
-msgstr ""
+msgstr "Accès au terrain voisin si nécessaire"
 
 #: harvest/models.py:193
 msgid "Compost bin closeby"
-msgstr ""
+msgstr "Bac de compostage à proximité"
 
 #: harvest/models.py:198
 msgid "There is a ladder available in the property"
-msgstr ""
+msgstr "Il y a une échelle disponible sur place"
 
 #: harvest/models.py:203
 msgid "A ladder is available in the property and can be used for nearby picks"
 msgstr ""
+"Une échelle est disponible sur place et peut être empruntée pour une "
+"cueillette à proximité"
 
 #: harvest/models.py:208
 msgid "Produces fruits every year"
-msgstr ""
+msgstr "Produit des fruits annuellement"
 
 #: harvest/models.py:219
 msgid "Approximative maturity date"
-msgstr ""
+msgstr "Date de maturité approximative"
 
 #: harvest/models.py:220
 msgid "When is the tree commonly ready to be harvested?"
 msgstr ""
+"Vers quelle date les fruits sont-ils habituellement prêts à être récoltés ?"
 
 #: harvest/models.py:232
 msgid "Number"
-msgstr ""
+msgstr "Nombre"
 
 #: harvest/models.py:239
 msgid "Street"
-msgstr ""
+msgstr "Rue"
 
 #: harvest/models.py:246
 msgid "Complement"
-msgstr ""
+msgstr "Complément"
 
 #: harvest/models.py:253
 msgid "Postal code"
-msgstr ""
+msgstr "Code postal"
 
 #: harvest/models.py:260
 msgid "Publishable location"
-msgstr ""
+msgstr "Localisation publiable publiquement"
 
 #: harvest/models.py:261
 msgid ""
 "Aproximative location to be used in public communications (not the actual "
 "address)"
 msgstr ""
+"Localisation approximative utilisable dans les communications publiques (pas"
+" l'adresse actuelle)"
 
 #: harvest/models.py:276
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
 #: harvest/models.py:284
 msgid "Province"
-msgstr ""
+msgstr "Province"
 
 #: harvest/models.py:292
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
 #: harvest/models.py:299
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
 #: harvest/models.py:305
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
 #: harvest/models.py:311
 msgid "Additional information"
-msgstr ""
+msgstr "Renseignements complémentaires"
 
 #: harvest/models.py:312
 msgid "Any additional information that we should be aware of"
-msgstr ""
+msgstr "Toute information que nous devrions connaître"
 
 #: harvest/models.py:326
 msgid "property"
-msgstr ""
+msgstr "propriété"
 
 #: harvest/models.py:327
 msgid "properties"
-msgstr ""
+msgstr "propriétés"
 
 #: harvest/models.py:333
 msgid "at"
-msgstr ""
+msgstr "à"
 
 #: harvest/models.py:384
 msgid "Harvest status"
-msgstr ""
+msgstr "Etat de la récolte"
 
 #: harvest/models.py:390 harvest/models.py:687
 msgid "Property"
-msgstr ""
+msgstr "Propriété"
 
 #: harvest/models.py:396
 msgid "Fruit trees"
-msgstr ""
+msgstr "Arbres fruitiers"
 
 #: harvest/models.py:400
 msgid "Owner wants to be present"
-msgstr ""
+msgstr "Propriétaire veut être présent"
 
 #: harvest/models.py:405
 msgid "Owner wants to participate"
-msgstr ""
+msgstr "Propriétaire veut participer"
 
 #: harvest/models.py:410
 msgid "Owner wants their share of fruits"
-msgstr ""
+msgstr "Propriétaire veut sa part de la récolte"
 
 #: harvest/models.py:423
 msgid "Start date"
-msgstr ""
+msgstr "Date de début"
 
 #: harvest/models.py:429
 msgid "End date"
-msgstr ""
+msgstr "Date de fin"
 
 #: harvest/models.py:435
 msgid "Publication date"
-msgstr ""
+msgstr "Date de publication"
 
 #: harvest/models.py:442
 msgid "Reserve equipment"
-msgstr ""
+msgstr "Equipement en réserve"
 
 #: harvest/models.py:447
 msgid "Creation date"
-msgstr ""
+msgstr "Date de création"
 
 #: harvest/models.py:453
 msgid "Number of required pickers"
-msgstr ""
+msgstr "Nombre de cueilleurs (cueilleuses) requis"
 
 #: harvest/models.py:460
 msgid ""
 "If any help is needed from volunteer pickers, please describe them here."
 msgstr ""
+"Si une aide quelconque est requise de la part des cueilleurs (cueilleuses), "
+"merci de la décrire ici."
 
 #: harvest/models.py:496 harvest/models.py:728
 msgid "harvest"
-msgstr ""
+msgstr "récolte"
 
 #: harvest/models.py:497
 msgid "harvests"
-msgstr ""
+msgstr "récoltes"
 
 #: harvest/models.py:554
 msgid "Requester"
-msgstr ""
+msgstr "Demandeur"
 
 #: harvest/models.py:559
 msgid "How many people are you?"
-msgstr ""
+msgstr "Combien de personnes êtes-vous ?"
 
 #: harvest/models.py:574
 msgid "Notes from the pick leader."
-msgstr ""
+msgstr "Notes du Chef (de la Cheffe) de cueillette"
 
 #: harvest/models.py:581 harvest/models.py:633
 msgid "Harvest"
-msgstr ""
+msgstr "Récolte"
 
 #: harvest/models.py:587
 msgid "Created on"
-msgstr ""
+msgstr "Créé le"
 
 #: harvest/models.py:592
 msgid "Accepted on"
-msgstr ""
+msgstr "Accepté le"
 
 #: harvest/models.py:598
 msgid "Accepted"
-msgstr ""
+msgstr "Accepté"
 
 #: harvest/models.py:605
 msgid "Showed up"
-msgstr ""
+msgstr "A participé"
 
 #: harvest/models.py:612
 msgid "Canceled"
-msgstr ""
+msgstr "Annulée"
 
 #: harvest/models.py:617
 msgid "request for participation"
-msgstr ""
+msgstr "demande de participation"
 
 #: harvest/models.py:618
 msgid "requests for participation"
-msgstr ""
+msgstr "demandes de participation"
 
 #: harvest/models.py:644
 msgid "Weight (lb)"
-msgstr ""
+msgstr "Poids (en livres)"
 
 #: harvest/models.py:652
 msgid "Recipient"
-msgstr ""
+msgstr "Bénéficiaire"
 
 #: harvest/models.py:657
 msgid "harvest yield"
-msgstr ""
+msgstr "rendement de cueillette"
 
 #: harvest/models.py:658
 msgid "harvest yields"
-msgstr ""
+msgstr "rendements de cueillettes"
 
 #: harvest/models.py:673
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
 #: harvest/models.py:695
 msgid "Shared"
-msgstr ""
+msgstr "Partagé"
 
 #: harvest/models.py:696
 msgid "Can be used in harvests outside of property"
-msgstr ""
+msgstr "Peut être utilisé pour des cueillettes ailleurs"
 
 #: harvest/models.py:701 harvest/models.py:702
 msgid "equipment"
-msgstr ""
+msgstr "équipement"
 
 #: harvest/models.py:710
 msgid "Content"
-msgstr ""
+msgstr "Contenu"
 
 #: harvest/models.py:715
 msgid "Created date"
-msgstr ""
+msgstr "Date de création"
 
 #: harvest/models.py:721
 msgid "Author"
-msgstr ""
+msgstr "Auteur"
 
 #: harvest/models.py:734
 msgid "comment"
-msgstr ""
+msgstr "commentaire"
 
 #: harvest/models.py:735
 msgid "comments"
-msgstr ""
+msgstr "commentaires"
 
 #: harvest/views.py:25
 msgid "Equipment created successfully!"
-msgstr ""
+msgstr "Création d'équipement réussie !"
 
 #: harvest/views.py:29
 msgid "Add new equipment"
-msgstr ""
+msgstr "Ajouter un nouvel équipement"
 
 #: harvest/views.py:38
 msgid "Equipment updated successfully!"
-msgstr ""
+msgstr "Mise à jour d'équipement réussie !"
 
 #: harvest/views.py:43
 msgid "Edit equipment"
-msgstr ""
+msgstr "Modifier l'équipement"
 
 #: harvest/views.py:56
 msgid "Property created successfully!"
-msgstr ""
+msgstr "Création de propriété réussie !"
 
 #: harvest/views.py:60
 msgid "Add a new property"
-msgstr ""
+msgstr "Ajouter une nouvelle propriété"
 
 #: harvest/views.py:70
 msgid ""
 "Thanks for adding your property! In case you authorized a harvest for this "
-"season, please read the <a href='https://core.lesfruitsdefendus.org/s/"
-"bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>."
+"season, please read the <a "
+"href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner "
+"Welcome Notice</a>."
 msgstr ""
+"Merci d'avoir ajouté votre propriété !  Si vous avez autorisé une récolte "
+"cette saison, merci de lire la <a "
+"href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Notice de "
+"Bienvenue aux Propriétaires d'Arbre</a>."
 
 #: harvest/views.py:78
 msgid "Property updated successfully!"
-msgstr ""
+msgstr "Mise à jour de propriété réussie !"
 
 #: harvest/views.py:82
 msgid "Edit property"
-msgstr ""
+msgstr "Modifier la propriété"
 
 #: harvest/views.py:94
 msgid "Harvest created successfully!"
-msgstr ""
+msgstr "Création de cueillette réussie !"
 
 #: harvest/views.py:114
 msgid "Add a new harvest"
-msgstr ""
+msgstr "Ajouter une nouvelle cueillette"
 
 #: harvest/views.py:127
 msgid "Harvest updated successfully!"
-msgstr ""
+msgstr "Mise à jour de cueillette réussie !"
 
 #: harvest/views.py:131
 msgid "Edit harvest"
-msgstr ""
+msgstr "Modifier la cueillette"
 
 #: harvest/views.py:143
 msgid ""
 "Thanks for your interest in participating in this harvest! Your request has "
 "been sent and a pick leader will contact you soon."
 msgstr ""
+"Merci pour votre intérêt à cette cueillette !  Votre demande de "
+"participation a été transmise au Chef (à la Cheffe) de cueillette qui vous "
+"répondra prochainement."
 
 #: harvest/views.py:163
 msgid "Request updated successfully!"
-msgstr ""
+msgstr "Mise à jour de la demande réussie !"
 
 #: harvest/views.py:192
 msgid "Comment added!"
-msgstr ""
+msgstr "Commentaire ajouté !"
 
 #: harvest/views.py:197
 msgid "Add new comment"
-msgstr ""
+msgstr "Ajouter un nouveau commentaire"
 
 #: harvest/views.py:234
 msgid "New fruit distribution failed: please select a recipient"
 msgstr ""
+"La nouvelle distribution de fruit a échouée: merci de sélectionner un(e) "
+"bénéficiaire"
 
 #: harvest/views.py:245
 msgid "New fruit distribution failed: weight must be positive"
 msgstr ""
+"La nouvelle distribution de fruit a échouée: les poids doivent être positifs"
 
 #: harvest/views.py:252
 msgid "New Fruit Recipient successfully added!"
-msgstr ""
+msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e) !"
