@@ -28,7 +28,7 @@ msgstr "Nouvelle Propriété"
 
 #: harvest/api.py:163
 msgid "New Equipment"
-msgstr "Nouvel Equipement"
+msgstr "Nouvel Équipement"
 
 #: harvest/api.py:201
 msgid "New Organization"
@@ -57,7 +57,7 @@ msgstr "Validation en attente"
 
 #: harvest/filters.py:103
 msgid "Role"
-msgstr "Responsabilité"
+msgstr "Rôle"
 
 #: harvest/filters.py:117
 msgid "Language"
@@ -101,11 +101,11 @@ msgstr "Vous avez déjà demandé à rejoindre cette cueillette."
 
 #: harvest/forms.py:104
 msgid "New request from "
-msgstr "Nouvelle demande de la part de"
+msgstr "Nouvelle demande de la part de "
 
 #: harvest/forms.py:165
 msgid "Your comment here."
-msgstr "Ecrire ici vos commentaires."
+msgstr "Écrire ici vos commentaires."
 
 #: harvest/forms.py:177 harvest/models.py:106
 msgid "Pending"
@@ -121,11 +121,11 @@ msgstr "Refuser cette demande"
 
 #: harvest/forms.py:189
 msgid "Canceled by picker"
-msgstr "Demande annulée par le cueilleur (la cueilleuse)"
+msgstr "Demande annulée par le/la bénévole"
 
 #: harvest/forms.py:194
 msgid "Participation request status"
-msgstr "Etat des demandes de participation"
+msgstr "État des demandes de participation"
 
 #: harvest/forms.py:263
 msgid "Register new owner"
@@ -207,7 +207,7 @@ msgstr ""
 
 #: harvest/forms.py:400
 msgid "Not this year, but maybe in future seasons"
-msgstr "Pas cette année, peut-être dans le future"
+msgstr "Pas cette année, peut-être dans le futur"
 
 #: harvest/forms.py:414
 msgid "Location of tree(s) or vine(s)"
@@ -217,7 +217,7 @@ msgstr "Emplacement de l'arbre (des arbres) ou vigne(s)"
 msgid "Location on the property (e.g. Front yard, back yard, etc.)"
 msgstr ""
 "Emplacement sur la propriété (par exemple: Jardin avant, cours arrière, "
-"etc...)"
+"etc.)"
 
 #: harvest/forms.py:420
 msgid "Access to tree(s) or vine(s)"
@@ -267,7 +267,7 @@ msgid ""
 "I would like to receive emails from Les Fruits Defendus such as newsletters "
 "and updates"
 msgstr ""
-"Je veux recevoir les courriels (Lettres d'information ou de Mise à jour) des"
+"Je souhaite recevoir les courriels de la part des Fruits Défendus (nouvelles et bulletin d'information)"
 " Fruits Défendus"
 
 #: harvest/forms.py:466
@@ -290,7 +290,7 @@ msgstr "Remplir un des deux champs: propriété ou propriétaire."
 
 #: harvest/models.py:14
 msgid "To be confirmed"
-msgstr "A confirmer"
+msgstr "À confirmer"
 
 #: harvest/models.py:18
 msgid "Orphan"
@@ -402,7 +402,7 @@ msgstr "Courriel à utiliser pour confirmation"
 
 #: harvest/models.py:133
 msgid "Newsletter subscription"
-msgstr "Souscription à la Lettre d'information"
+msgstr "Souscription au bulletin d'information"
 
 #: harvest/models.py:138
 msgid "Recurring property signup"
@@ -445,7 +445,7 @@ msgstr ""
 
 #: harvest/models.py:177
 msgid "Required pickers on average"
-msgstr "Nombre de cueilleurs (cueilleuses) nécessaire en général"
+msgstr "Éstimation du nombre de cueilleurs (cueilleuses) requis"
 
 #: harvest/models.py:183
 msgid "Publicly accessible"
@@ -552,7 +552,7 @@ msgstr "à"
 
 #: harvest/models.py:384
 msgid "Harvest status"
-msgstr "Etat de la récolte"
+msgstr "État de la récolte"
 
 #: harvest/models.py:390 harvest/models.py:687
 msgid "Property"
@@ -564,15 +564,15 @@ msgstr "Arbres fruitiers"
 
 #: harvest/models.py:400
 msgid "Owner wants to be present"
-msgstr "Propriétaire veut être présent"
+msgstr "Le/la propriétaire veut être présent(e)"
 
 #: harvest/models.py:405
 msgid "Owner wants to participate"
-msgstr "Propriétaire veut participer"
+msgstr "Le/la propriétaire veut participer"
 
 #: harvest/models.py:410
 msgid "Owner wants their share of fruits"
-msgstr "Propriétaire veut sa part de la récolte"
+msgstr "Le/la propriétaire veut sa part de la récolte"
 
 #: harvest/models.py:423
 msgid "Start date"
@@ -588,7 +588,7 @@ msgstr "Date de publication"
 
 #: harvest/models.py:442
 msgid "Reserve equipment"
-msgstr "Equipement en réserve"
+msgstr "Équipement en réserve"
 
 #: harvest/models.py:447
 msgid "Creation date"
@@ -683,7 +683,7 @@ msgstr "Partagé"
 
 #: harvest/models.py:696
 msgid "Can be used in harvests outside of property"
-msgstr "Peut être utilisé pour des cueillettes ailleurs"
+msgstr "Peut être utilisé pour d'autres cueillettes à proximité"
 
 #: harvest/models.py:701 harvest/models.py:702
 msgid "equipment"

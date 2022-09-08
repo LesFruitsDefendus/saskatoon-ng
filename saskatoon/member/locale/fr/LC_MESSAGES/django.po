@@ -32,7 +32,7 @@ msgstr "Organisme bénéficiaire"
 
 #: member/forms.py:107
 msgid "Contact Position/Role"
-msgstr "Titre/ Responsabilités de la Personne Contact"
+msgstr "Titre/Responsabilités de la Personne Contact"
 
 #: member/forms.py:119
 msgid "Select Person"
@@ -63,13 +63,13 @@ msgid ""
 "ERROR: You must either select a Contact                     Person or create"
 " a new one and provide their personal information"
 msgstr ""
-"ERREUR: Vous devez soit Sélectionner une Personne Contact existante soit "
-"Créer une Nouvelle Personne Contact en fournissant son information "
+"ERREUR: Vous devez soit sélectionner une Personne Contact existante soit "
+"créer une nouvelle Personne Contact en fournissant ses informations personnelles"
 "personnelle"
 
 #: member/models.py:12
 msgid "Core Member"
-msgstr "Membre de la Structure"
+msgstr "Membre du noyau"
 
 #: member/models.py:13
 msgid "Pick Leader"
@@ -141,7 +141,7 @@ msgstr "Pays"
 
 #: member/models.py:211
 msgid "Newsletter subscription"
-msgstr "Souscription à la Lettre d'information"
+msgstr "Souscription au bulletin d'information"
 
 #: member/models.py:216 member/models.py:393
 msgid "Longitude"
@@ -169,7 +169,7 @@ msgstr "gens"
 
 #: member/models.py:293
 msgid "is beneficiary"
-msgstr "bénéficie"
+msgstr "est bénéficiaire"
 
 #: member/models.py:304 member/models.py:438 member/models.py:452
 #: member/models.py:465 member/models.py:478 member/models.py:491
