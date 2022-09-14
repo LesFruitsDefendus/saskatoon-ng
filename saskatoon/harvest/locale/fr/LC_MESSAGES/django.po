@@ -431,7 +431,7 @@ msgstr "Emplacement des arbres"
 
 #: harvest/models.py:162
 msgid "Front yard or backyard?"
-msgstr "Jardin avant ou cours arrière ?"
+msgstr "Jardin avant ou cours arrière?"
 
 #: harvest/models.py:169
 msgid "Trees accessibility"
@@ -619,7 +619,7 @@ msgstr "Demandeur"
 
 #: harvest/models.py:559
 msgid "How many people are you?"
-msgstr "Combien de personnes êtes-vous ?"
+msgstr "Combien de personnes êtes-vous?"
 
 #: harvest/models.py:574
 msgid "Notes from the pick leader."
@@ -711,7 +711,7 @@ msgstr "commentaires"
 
 #: harvest/views.py:25
 msgid "Equipment created successfully!"
-msgstr "Création d'équipement réussie !"
+msgstr "Création d'équipement réussie!"
 
 #: harvest/views.py:29
 msgid "Add new equipment"
@@ -719,7 +719,7 @@ msgstr "Ajouter un nouvel équipement"
 
 #: harvest/views.py:38
 msgid "Equipment updated successfully!"
-msgstr "Mise à jour d'équipement réussie !"
+msgstr "Mise à jour d'équipement réussie!"
 
 #: harvest/views.py:43
 msgid "Edit equipment"
@@ -727,7 +727,7 @@ msgstr "Modifier l'équipement"
 
 #: harvest/views.py:56
 msgid "Property created successfully!"
-msgstr "Création de propriété réussie !"
+msgstr "Création de propriété réussie!"
 
 #: harvest/views.py:60
 msgid "Add a new property"
@@ -740,7 +740,7 @@ msgid ""
 "href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner "
 "Welcome Notice</a>."
 msgstr ""
-"Merci d'avoir ajouté votre propriété !  Si vous avez autorisé une récolte "
+"Merci d'avoir ajouté votre propriété!  Si vous avez autorisé une récolte "
 "cette saison, merci de lire la <a "
 "href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Notice de "
 "Bienvenue aux Propriétaires d'Arbre</a>."
@@ -755,7 +755,7 @@ msgstr "Modifier la propriété"
 
 #: harvest/views.py:94
 msgid "Harvest created successfully!"
-msgstr "Création de cueillette réussie !"
+msgstr "Création de cueillette réussie!"
 
 #: harvest/views.py:114
 msgid "Add a new harvest"
@@ -763,7 +763,7 @@ msgstr "Ajouter une nouvelle cueillette"
 
 #: harvest/views.py:127
 msgid "Harvest updated successfully!"
-msgstr "Mise à jour de cueillette réussie !"
+msgstr "Mise à jour de cueillette réussie!"
 
 #: harvest/views.py:131
 msgid "Edit harvest"
@@ -780,11 +780,11 @@ msgstr ""
 
 #: harvest/views.py:163
 msgid "Request updated successfully!"
-msgstr "Mise à jour de la demande réussie !"
+msgstr "Mise à jour de la demande réussie!"
 
 #: harvest/views.py:192
 msgid "Comment added!"
-msgstr "Commentaire ajouté !"
+msgstr "Commentaire ajouté!"
 
 #: harvest/views.py:197
 msgid "Add new comment"
@@ -803,4 +803,4 @@ msgstr ""
 
 #: harvest/views.py:252
 msgid "New Fruit Recipient successfully added!"
-msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e) !"
+msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e)!"

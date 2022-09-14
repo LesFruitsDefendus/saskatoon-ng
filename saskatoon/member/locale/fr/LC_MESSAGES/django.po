@@ -20,7 +20,7 @@ msgstr ""
 
 #: member/forms.py:13
 msgid "ERROR: email address < {} > is already registered!"
-msgstr "ERREUR: Le courriel < {} > est déjà enregistré !"
+msgstr "ERREUR: Le courriel < {} > est déjà enregistré!"
 
 #: member/forms.py:24 member/forms.py:141
 msgid "Email"
@@ -238,7 +238,7 @@ msgstr "langues"
 
 #: member/views.py:19
 msgid "New Person registered successfully!"
-msgstr "Création de la Nouvelle Personne réussie !"
+msgstr "Création de la Nouvelle Personne réussie!"
 
 #: member/views.py:46
 msgid "Person Registration"
@@ -246,7 +246,7 @@ msgstr "Enregistrement d'une Nouvelle Personne"
 
 #: member/views.py:63
 msgid "Person updated successfully!"
-msgstr "Mise à jour de la Personne réussie !"
+msgstr "Mise à jour de la Personne réussie!"
 
 #: member/views.py:67
 msgid "Person Update"
@@ -254,7 +254,7 @@ msgstr "Mise à jour d'une Personne"
 
 #: member/views.py:83
 msgid "New Organization registered successfully!"
-msgstr "Création d'un Nouvel Organisme Bénéficiaire réussie !"
+msgstr "Création d'un Nouvel Organisme Bénéficiaire réussie!"
 
 #: member/views.py:88
 msgid "Organization Registration"
@@ -262,7 +262,7 @@ msgstr "Enregistrement d'un Nouvel Organisme Bénéficiaire"
 
 #: member/views.py:97
 msgid "Organization updated successfully!"
-msgstr "Mise à jour de l'Organisme Bénéficiaire réussie !"
+msgstr "Mise à jour de l'Organisme Bénéficiaire réussie!"
 
 #: member/views.py:102
 msgid "Organization Update"
