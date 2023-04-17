@@ -1,3 +1,4 @@
+
 {% load i18n %}
 {% load static %}
 
@@ -5,16 +6,63 @@
     {% if property.is_active %}
         {% if property.pending %}
             <span class="label label-warning">{% trans "PENDING" %}</span>
+            {% if property.authorized is None %}
+                <div class="label label-warning" ata-toggle="tooltip"
+                data-placement="top" title="This combination shouldn’t exist.
+                                            If it does, it probably means that
+                                            the treeowner submitted a form but
+                                            forgot to indicate whether they
+                                            authorize harvesting this year or
+                                            not.">
+                                            {% trans "not yet authorized" %}
+                                          </div>
+                {% elif property.authorized %}
+                <div class="label label-success" data-toggle="tooltip"
+                data-placement="top" title="Tree-owner wants a harvest this
+                                            season. However, the core must first
+                                            validate the tree-owner’s
+                                            registration.
+                                            Please do not create an orphan
+                                            harvest or directly contact the
+                                            tree-owner yet.">
+                                            {% trans "authorized" %}</div>
+            {% else %}
+                <div class="label label-danger" data-toggle="tooltip"
+                data-placement="top" title="Tree-owner doesn’t want a harvest
+                                            this season. Do not contact this
+                                            year. (Core must validate the
+                                            un-authorization info submitted by
+                                            the tree-owner and incorporate it
+                                            into the original property
+                                            record.)">{% trans "unauthorized" %}</div>
+            {% endif %}
         {% else %}
             <span class="label label-success">{% trans "validated" %}</span>
+            {% if property.authorized is None %}
+                <div class="label label-warning" data-toggle="tooltip"
+                data-placement="top" title="Tree-owner hasn’t responded yet. If
+                                            you want to harvest at this property,
+                                            please create & adopt a harvest first,
+                                            then contact the treeowner and ask
+                                            if they authorize a harvest.">
+                                            {% trans "not yet authorized" %}</div>
+            {% elif property.authorized %}
+                <div class="label label-success" data-toggle="tooltip"
+                data-placement="top" title="A harvest should have already
+                                            been created for this property.
+                                            If it hasn’t already been adopted by
+                                            another pick-leader, you’re welcome
+                                            to adopt the harvest!">
+                                            {% trans "authorized" %}</div>
+            {% else %}
+                <div class="label label-danger" ata-toggle="tooltip"
+                data-placement="top" title="Tree-owner doesn’t want a harvest at
+                                            their property this season. Do not
+                                            contact this year.">
+                                            {% trans "unauthorized" %}</div>
+            {% endif %}
         {% endif %}
-        {% if property.authorized is None %}
-            <span class="label label-warning">{% trans "not yet authorized" %}</span>
-        {% elif property.authorized %}
-            <span class="label label-success">{% trans "authorized" %}</span>
-        {% else %}
-            <span class="label label-danger">{% trans "unauthorized" %}</span>
-        {% endif %}
+
     {% else %}
         <span class="label label-danger">{% trans "inactive" %}</span><br/>
     {% endif %}
