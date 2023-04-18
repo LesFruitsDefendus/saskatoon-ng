@@ -106,4 +106,4 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
 
-        return qs.distinc()
+        return qs.distinct()
