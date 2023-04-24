@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'crispy_forms',
+    'crispy_bootstrap4',
     'debug_toolbar',
     'django_extensions',
     'rosetta',

@@ -19,6 +19,7 @@ setup(
     install_requires    =   [
         "asgiref>=3.2.7",
         "cffi>=1.14.0",
+        "crispy-bootstrap4>=2022.1",
         "cryptography>=3.3.2",
         "Django>=3.0.14,<4.0.0",
         "django-geojson==3.0.0",
