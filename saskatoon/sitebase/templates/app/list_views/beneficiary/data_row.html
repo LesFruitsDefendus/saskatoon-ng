@@ -38,8 +38,7 @@
 
     <td>
         <b>{{ org.contact_person.name }}</b>
-
-        {% if perms.member.change_person %}
+        {% if org.contact_person and perms.member.change_person %}
             &nbsp;
             <small><a href="{% url 'person-update' org.contact_person.actor_id %}"
                     title="edit">
