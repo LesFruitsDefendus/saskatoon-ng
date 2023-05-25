@@ -9,34 +9,35 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-03 11:25-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2022-04-03 22:35+0000\n"
+"Last-Translator: Anonymous User <tristan@test.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: harvest/api.py:93
 msgid "New Harvest"
-msgstr ""
+msgstr "Nouvelle Cueillette"
 
 #: harvest/api.py:142
 msgid "New Property"
-msgstr ""
+msgstr "Nouvelle Propriété"
 
 #: harvest/api.py:163
 msgid "New Equipment"
-msgstr ""
+msgstr "Nouvel Équipement"
 
 #: harvest/api.py:201
 msgid "New Organization"
-msgstr ""
+msgstr "Nouvelle Organisation"
 
 #: harvest/api.py:223
 msgid "New Person"
-msgstr ""
+msgstr "Nouvelle Personne"
 
 #: harvest/filters.py:25
 msgid "Season"
@@ -57,67 +58,67 @@ msgstr "Validation en attente"
 
 #: harvest/filters.py:103
 msgid "Role"
-msgstr ""
+msgstr "Rôle"
 
 #: harvest/filters.py:117
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: harvest/filters.py:123 harvest/forms.py:22
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
 #: harvest/filters.py:128
 msgid "Last name"
-msgstr ""
+msgstr "Nom de famille"
 
 #: harvest/filters.py:167 harvest/models.py:668
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: harvest/forms.py:18
 msgid "Enter a valid email address, please."
-msgstr ""
+msgstr "Veuillez entrer une adresse courriel valide, s'il vous plait."
 
 #: harvest/forms.py:19 harvest/forms.py:284
 msgid "Email"
-msgstr ""
+msgstr "Courriel"
 
 #: harvest/forms.py:25
 msgid "Family name"
-msgstr ""
+msgstr "Nom de famille"
 
 #: harvest/forms.py:28 harvest/forms.py:279
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone."
 
 #: harvest/forms.py:31 harvest/models.py:568
 msgid "Comment"
-msgstr ""
+msgstr "Commentaire"
 
 #: harvest/forms.py:52
 msgid "You have already requested to join this pick."
-msgstr ""
+msgstr "Vous avez déjà demandé à rejoindre cette cueillette."
 
 #: harvest/forms.py:104
 msgid "New request from "
-msgstr ""
+msgstr "Nouvelle demande de participation"
 
 #: harvest/forms.py:165
 msgid "Your comment here."
-msgstr ""
+msgstr "Votre commentaire ici."
 
 #: harvest/forms.py:177 harvest/models.py:106
 msgid "Pending"
-msgstr ""
+msgstr "En attente"
 
 #: harvest/forms.py:181
 msgid "Accept this request"
-msgstr ""
+msgstr "Accepter cette requête"
 
 #: harvest/forms.py:185
 msgid "Refuse this request"
-msgstr ""
+msgstr "Refuser cette requête"
 
 #: harvest/forms.py:189
 msgid "Canceled by picker"
@@ -125,19 +126,19 @@ msgstr ""
 
 #: harvest/forms.py:194
 msgid "Participation request status"
-msgstr ""
+msgstr "Statut de la demande de participation"
 
 #: harvest/forms.py:263
 msgid "Register new owner"
-msgstr ""
+msgstr "Enregistrer un nouveau propriétaire"
 
 #: harvest/forms.py:268
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
 #: harvest/forms.py:269 harvest/forms.py:285
 msgid "This field is required"
-msgstr ""
+msgstr "Ce champ est requis"
 
 #: harvest/forms.py:274
 msgid "Last Name"
@@ -151,7 +152,8 @@ msgstr ""
 
 #: harvest/forms.py:368
 msgid ""
-"Volunteers have permission to go on the neighbours' property to access fruits"
+"Volunteers have permission to go on the neighbours' property to access "
+"fruits"
 msgstr ""
 
 #: harvest/forms.py:373
@@ -186,7 +188,8 @@ msgstr ""
 
 #: harvest/forms.py:399
 msgid ""
-"Do you give us permission to harvest your tree(s) and/or vine(s) this season?"
+"Do you give us permission to harvest your tree(s) and/or vine(s) this "
+"season?"
 msgstr ""
 
 #: harvest/forms.py:400
@@ -340,8 +343,8 @@ msgstr ""
 
 #: harvest/models.py:107
 msgid ""
-"This property was created through a public form and needs to be validated by "
-"an administrator"
+"This property was created through a public form and needs to be validated by"
+" an administrator"
 msgstr ""
 
 #: harvest/models.py:113
@@ -692,8 +695,9 @@ msgstr ""
 #: harvest/views.py:70
 msgid ""
 "Thanks for adding your property! In case you authorized a harvest for this "
-"season, please read the <a href='https://core.lesfruitsdefendus.org/s/"
-"bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>."
+"season, please read the <a "
+"href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner "
+"Welcome Notice</a>."
 msgstr ""
 
 #: harvest/views.py:78
