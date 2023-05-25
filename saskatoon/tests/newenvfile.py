@@ -27,7 +27,6 @@ def get_parser() -> argparse.ArgumentParser:
     parser.add_argument('sqlite_db_path')
     parser.add_argument('--admin-email', )
     parser.add_argument('--admin-password', )
-    parser.add_argument('--virtual-display', action='store_true')
     return parser
 
 if __name__ == "__main__":

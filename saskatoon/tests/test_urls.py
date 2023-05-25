@@ -7,8 +7,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 
-from . import PAGE_LOAD_TIMEOUT
-from .helpers import login, logoff
+from tests import PAGE_LOAD_TIMEOUT
+from tests.helpers import login, logoff
 
 # List of (url, expected_html_body_parts, needs_auth)
 # TODO: List all static pages.
@@ -23,7 +23,6 @@ urls = [
 ]
 
 def test_urls(driver: Remote) -> None:
-    driver.implicitly_wait(PAGE_LOAD_TIMEOUT)
 
     def test_url(url_part, expected_html_body_parts):
         testurl = os.getenv('SASKATOON_URL') + url_part
