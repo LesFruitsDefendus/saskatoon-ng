@@ -3,33 +3,43 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.mail import send_mail, send_mass_mail
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
-
+from logging import getLogger
 from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
+
+logger = getLogger('saskatoon')
+
 
 def clear_cache_property(sender, instance, **kwargs):
     cache.delete_pattern("*property*")
 
+
 def clear_cache_harvest(sender, instance, **kwargs):
     cache.delete_pattern("*harvest*")
+
 
 def clear_cache_organization(sender, instance, **kwargs):
     cache.delete_pattern("*organization*")
 
+
 def clear_cache_equipment(sender, instance, **kwargs):
     cache.delete_pattern("*equipment*")
+
 
 def clear_cache_people(sender, instance, **kwargs):
     cache.delete_pattern("*people*")
 
+
 def _send_mail(subject, message, mail_to):
     subject = '[Saskatoon] ' + subject
-    send_mail(
-            subject,
-            message,
-            None, # Using DEFAULT_FROM_EMAIL from settings.py
-            mail_to,
-            fail_silently=SEND_MAIL_FAIL_SILENTLY,
-        )
+    if send_mail(subject,
+                 message,
+                 None, # Using DEFAULT_FROM_EMAIL from settings.py
+                 mail_to,
+                 fail_silently=SEND_MAIL_FAIL_SILENTLY) > 0:
+        logger.info("Successfully sent email <%s> to %s", subject, mail_to)
+    else:
+        logger.warning("Could not send email <%s> to %s", subject, mail_to)
+
 
 def changed_by(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
@@ -40,6 +50,7 @@ def changed_by(sender, instance, **kwargs):
     else:
         instance.changed_by = None
 
+
 def notify_unselected_pickers(sender, instance, **kwargs):
     if instance.id:
         try:
@@ -49,14 +60,9 @@ def notify_unselected_pickers(sender, instance, **kwargs):
         except ObjectDoesNotExist:
             return
         if instance.status == "Ready" and original_instance.status == "Date-scheduled":
-            unselected_pickers = instance.get_unselected_pickers()
             email_list = list()
             mail_subject = _("[Saskatoon] Request for participation declined")
-            for p in unselected_pickers:
-                picker_name = p.picker.name
-                picker_email = list()
-                picker_email.append(p.picker.email)
-                harvest_details = instance.__str__()
+            for picker in instance.get_unselected_pickers():
                 message = (_("Hi {},\n\n" +
                     "We are sorry but enough pickers have already been selected " +
                     "for the {}. You may still be contacted by the pick-leader " +
@@ -66,12 +72,16 @@ def notify_unselected_pickers(sender, instance, **kwargs):
                     "Thanks for supporting your community!\n\n" +
                     "Yours,\n" +
                     "--\n" +
-                    "Saskatoon Harvest System")).format(
-                        picker_name,
-                        harvest_details
-                    )
-                email_list.append((mail_subject, message, None, picker_email))
-            send_mass_mail(email_list,fail_silently=SEND_MAIL_FAIL_SILENTLY,)
+                    "Saskatoon Harvest System")).format(picker.name, instance)
+                email_list.append((mail_subject, message, None, [picker.email]))
+
+            if email_list:
+                harvest_str = f"<{instance} (id={instance.id})>"
+                if send_mass_mail(email_list, fail_silently=SEND_MAIL_FAIL_SILENTLY) > 0:
+                    logger.info("Successfully notified unselected pickers about %s", harvest_str)
+                else:
+                    logger.warning("Could not notify unselected pickers about %s", harvest_str)
+
 
 def notify_pending_status_update(sender, instance, **kwargs):
     # Send email only if pending status is removed
@@ -85,23 +95,20 @@ def notify_pending_status_update(sender, instance, **kwargs):
         if original_instance.pending and not instance.pending:
             property_owner_email = list()
             if instance.owner:
-                    if not instance.owner.is_person and not instance.owner.is_organization:
-                        # TODO: log this warning in a file
-                        print(f"Property owner is neither a person nor an organization. " \
-                             f"Unknown Actor: {instance.owner.actor_id}")
-                        return
-                    property_owner_name = instance.owner_name
-                    contact_email = instance.owner_email
+                if not instance.owner.is_person and not instance.owner.is_organization:
+                    logger.warning("Property owner (actor: %i) is not a Person nor an Organization.",
+                                   instance.owner.actor_id)
+                    return
+                property_owner_name = instance.owner_name
+                contact_email = instance.owner_email
             else:
                 property_owner_name = instance.pending_contact_name
                 contact_email = instance.pending_contact_email
             if not property_owner_name or not len(property_owner_name):
-                # TODO: log this warning in a file
-                print("Property Owner information is missing")
+                logger.warning("Owner information missing for property %i", instance.id)
                 return
             if not contact_email or not len(contact_email):
-                # TODO: log this warning in a file
-                print("Property Owner contact email information is missing")
+                logger.warning("Contact email missing for property %i:", instance.id)
                 return
             property_owner_email.append(contact_email)
             mail_subject = _("Property Validation Completed")
@@ -114,8 +121,8 @@ def notify_pending_status_update(sender, instance, **kwargs):
                     _("Yours") + ",\n" +
                     "--\n" +
                     "Saskatoon Harvest System")
-
             _send_mail(mail_subject, message, property_owner_email)
+
 
 def comment_send_mail(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
@@ -152,6 +159,7 @@ def comment_send_mail(sender, instance, **kwargs):
 
             # Sending email to pick leader
             _send_mail(mail_subject, message, pick_leader_email)
+
 
 def rfp_send_mail(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()

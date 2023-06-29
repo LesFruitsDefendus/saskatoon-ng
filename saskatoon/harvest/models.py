@@ -547,7 +547,7 @@ class Harvest(models.Model):
     def get_unselected_pickers(self):
         # Get pickers who volunteered but have been rejected or are pending approval
         requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
-        return requests
+        return [r.picker for r in requests]
 
     def get_days_before_harvest(self):
         diff = datetime.datetime.now() - self.start_date
