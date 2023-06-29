@@ -3,9 +3,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from dal import autocomplete
+from logging import getLogger
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
 from member.validators import validate_email
+
+logger = getLogger('saskatoon')
 
 
 class PersonCreateForm(forms.ModelForm):
@@ -56,7 +59,8 @@ class PersonCreateForm(forms.ModelForm):
                 pending_property = Property.objects.get(id=pid)
                 pending_property.owner = instance
                 pending_property.save()
-            except Exception as e: print(e)
+            except Exception as e:
+                logger.error("%s: %s", type(e), str(e))
 
         return instance
 
@@ -95,7 +99,7 @@ class PersonUpdateForm(forms.ModelForm):
                 self.initial['email'] = self.auth_user.email
                 roles = [g for g in self.auth_user.groups.all()]
             except ObjectDoesNotExist:
-                print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+                logger.warning("Person {} has no associated Auth.User!".format(self.instance))
 
     def clean(self):
         super().clean()
