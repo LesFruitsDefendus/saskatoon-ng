@@ -556,6 +556,15 @@ class Harvest(models.Model):
     def get_neighborhood(self):
         return self.property.neighborhood
 
+    def get_fruits(self):
+        return [t.fruit_name for t in self.trees.all()]
+
+    def get_public_title(self):
+        title = ", ".join(self.get_fruits())
+        if self.property.neighborhood.name != "Other":
+           title += f" @ {self.property.neighborhood.name}"
+        return title
+
     # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
         NUM_DAYS_URGENT_ORPHAN = 14
@@ -581,6 +590,7 @@ class Harvest(models.Model):
         if not self.publication_date:
             return True
         return (timezone.now() > self.publication_date)
+
 
     def is_open_to_requests(self):
         if self.status != 'Date-scheduled':

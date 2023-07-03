@@ -65,14 +65,14 @@ def notify_unselected_pickers(sender, instance, **kwargs):
             for picker in instance.get_unselected_pickers():
                 message = (_("Hi {},\n\n" +
                     "We are sorry but enough pickers have already been selected " +
-                    "for the {}. You may still be contacted by the pick-leader " +
+                    "for the <{}> harvest. You may still be contacted by the pick-leader " +
                     "if some of them end up cancelling. We will do our " +
                     "best to prioritize your participation next time you submit a request " +
                     "re-using the same email for another harvest.\n\n" +
                     "Thanks for supporting your community!\n\n" +
                     "Yours,\n" +
                     "--\n" +
-                    "Saskatoon Harvest System")).format(picker.name, instance)
+                    "Saskatoon Harvest System")).format(picker.name, instance.get_public_title())
                 email_list.append((mail_subject, message, None, [picker.email]))
 
             if email_list:

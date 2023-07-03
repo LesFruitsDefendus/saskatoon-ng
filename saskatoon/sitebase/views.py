@@ -74,11 +74,7 @@ class JsonCalendar(View):
                 event['backgroundColor'] = colors.get(harvest.status, "#ededed")
                 event['borderColor'] = event['backgroundColor']
                 event['textColor'] = "#2A3F54"
-
-                trees = [t.fruit_name for t in harvest.trees.all()]
-                event['title'] = ", ".join(trees)
-                if harvest.property.neighborhood.name != "Other":
-                    event['title'] += " @ "+harvest.property.neighborhood.name
+                event['title'] = harvest.get_public_title()
 
                 # http://fullcalendar.io/docs/timezone/timezone/
                 event['allday'] = "false"
@@ -100,7 +96,7 @@ class JsonCalendar(View):
                     'status': harvest.status,
                     'nb_required_pickers': harvest.nb_required_pickers,
                     'nb_requests': requests_count,
-                    'trees': trees,
+                    'trees': harvest.get_fruits(),
                     'total_harvested': harvest.get_total_distribution()
                }
 
