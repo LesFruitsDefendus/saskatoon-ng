@@ -7,7 +7,7 @@
   <head>
     
     <title>harvest.admin.PropertyAdmin</title>
-    <meta name="generator" content="pydoctor 22.9.1"> 
+    <meta name="generator" content="pydoctor 23.4.1"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -444,7 +444,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p><code><span class="py-keyword">class</span> <span class="py-defname">PropertyAdmin</span>(LeafletGeoAdmin): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L59" class="sourceLink">(source)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">PropertyAdmin</span>(LeafletGeoAdmin): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L59" class="sourceLink">(source)</a></code></p>
           <p><a href="classIndex.html#harvest.admin.PropertyAdmin">View In Hierarchy</a></p>
         </div>
 
@@ -539,8 +539,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Create missing auth users using pending or comments email</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">create_owner_user</span>(self, request, queryset):
+    <span class="py-keyword">def</span> <span class="py-defname">create_owner_user</span><span class="function-signature">(self, request, queryset)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L142">
       
       (source)
@@ -553,8 +554,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Create new AuthUser objects for owners (Persons) without email address</p>
-</div>
+    <div><p>Create new AuthUser objects for owners (Persons) without email address</p></div>
   </div>
 </div><div class="basemethod">
   
@@ -566,8 +566,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Owner Email</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">email</span>(self, _property):
+    <span class="py-keyword">def</span> <span class="py-defname">email</span><span class="function-signature">(self, _property)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L118">
       
       (source)
@@ -593,7 +594,8 @@
   </a>
   <div class="functionHeader">
     
-    <span class="py-keyword">def</span> <span class="py-defname">get_queryset</span>(self, request):
+    
+    <span class="py-keyword">def</span> <span class="py-defname">get_queryset</span><span class="function-signature">(self, request)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L172">
       
       (source)
@@ -618,8 +620,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Harvests</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">harvests</span>(self, _property):
+    <span class="py-keyword">def</span> <span class="py-defname">harvests</span><span class="function-signature">(self, _property)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L131">
       
       (source)
@@ -644,8 +647,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Owner</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">owner_edit</span>(self, _property):
+    <span class="py-keyword">def</span> <span class="py-defname">owner_edit</span><span class="function-signature">(self, _property)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L106">
       
       (source)
@@ -670,8 +674,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Owner type</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">owner_type</span>(self, _property):
+    <span class="py-keyword">def</span> <span class="py-defname">owner_type</span><span class="function-signature">(self, _property)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L99">
       
       (source)
@@ -696,8 +701,9 @@
     
   </a>
   <div class="functionHeader">
+    
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">De-authorized selected properties</span><span class="rst-variable-quote">'</span>)<br />
-    <span class="py-keyword">def</span> <span class="py-defname">reset_authorize</span>(self, request, queryset):
+    <span class="py-keyword">def</span> <span class="py-defname">reset_authorize</span><span class="function-signature">(self, request, queryset)</span>:
     <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/harvest/admin.py#L135">
       
       (source)
@@ -710,8 +716,7 @@
   </div>
   <div class="docstring functionBody">
     
-    <div><p>Set authorized=None to queryset</p>
-</div>
+    <div><p>Set authorized=None to queryset</p></div>
   </div>
 </div><div class="baseclassvariable">
   
@@ -887,7 +892,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    22.9.1 at 2023-04-27 01:49:00.
+    23.4.1 at 2023-07-12 02:05:39.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
