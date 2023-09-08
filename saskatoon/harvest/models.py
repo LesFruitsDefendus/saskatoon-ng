@@ -607,10 +607,7 @@ class RequestForParticipation(models.Model):
     number_of_people = models.PositiveIntegerField(
         verbose_name=_("How many people are you?"),
         default=1,
-        validators=[
-            MaxValueValidator(3),
-            MinValueValidator(1)
-        ]
+        validators=[MinValueValidator(1)]
     )
 
     comment = models.TextField(
