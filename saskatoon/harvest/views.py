@@ -183,13 +183,11 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = RequestForParticipation
     form_class = RFPManageForm
-    template_name = 'app/participation_manage.html'
+    template_name = 'app/forms/participation_manage_form.html'
     success_message = _("Request updated successfully!")
 
-    # Prefill form based on request for participation (rfp) instance
-    def get(self, request, pk, *args, **kwargs):
-        rfp = RequestForParticipation.objects.get(id=pk)
-
+    def get_context_data(self, **kwargs):
+        rfp = self.object
         if rfp.is_cancelled == True:
             status = 'cancelled'
         elif rfp.is_accepted == True:
@@ -199,10 +197,9 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
         else:
             status = 'pending'
 
-        context = {'form': RFPManageForm(initial={'status': status,
-                                'notes_from_pickleader': rfp.notes_from_pickleader}),
-                   'rfp': rfp}
-        return render(request, 'app/participation_manage.html', context)
+        context = super().get_context_data(**kwargs)
+        context['form'] = RFPManageForm(initial={'status': status, 'notes_from_pickleader': rfp.notes_from_pickleader})
+        return context
 
     def get_success_url(self):
         request = self.request.GET
