@@ -37,11 +37,11 @@
     </td>
     <td>
         {% if r.picker.harvests_as_volunteer.count > 1 %}
-            {% trans "First time!" %}
-        {% else  %}
             <i class="fa fa-thumbs-o-up"></i>
             <b>{{r.picker.harvests_as_volunteer.count}}</b>
             {% trans "harvest(s)" %}
+        {% else  %}
+            {% trans "First time!" %}
         {% endif %}
     </td>
     <td>{{ r.comment }}</td>
