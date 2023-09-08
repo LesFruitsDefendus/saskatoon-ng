@@ -162,20 +162,27 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
-    template_name = 'app/participation_create.html'
+    template_name = 'app/forms/participation_create_form.html'
     form_class = RequestForm
     success_message = _("Thanks for your interest in participating in this harvest! Your request has been sent and a pick leader will contact you soon.")
 
-    # Overriding to serve harvest info along with the form
-    def get(self, request, *args, **kwargs):
-        harvest_obj = Harvest.objects.get(id=request.GET['hid'])
-        context = {'form': RequestForm(), 'harvest': harvest_obj}
-        return render(request, 'app/participation_create.html', context)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            harvest = Harvest.objects.get(id=self.request.GET['hid'])
+            if self.request.user.is_authenticated or harvest.is_open_to_requests():
+                context['title'] = _("Request to join this harvest")
+                context['harvest'] = harvest
+                context['form'] = RequestForm(initial={'harvest_id': harvest.id})
+            else:
+                context['error'] = _("Sorry, this harvest is not open for requests. You can check the calendar for other harvests.")
+        except KeyError:
+            context['error'] = _("Something went wrong")
+        return context
 
     def get_success_url(self):
-        request = self.request.GET
         if self.request.user.is_authenticated:
-            return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.request.GET['hid']})
         else:
             return reverse_lazy('calendar')
 
