@@ -242,3 +242,59 @@ CKEDITOR_CONFIGS = {
 }
 
 CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
+
+
+# LOGS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'brief'
+        },
+        'file_django': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'when': 'D',  # interval type
+            'interval': 1,  # defaults to 1
+            'backupCount': 7,  # how many files to keep
+            'formatter': 'verbose',
+        },
+        'file_saskatoon': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/saskatoon.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+            'formatter': 'verbose',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file_django', 'console'],
+            'level': 'WARNING',
+            'propogate': True,
+        },
+        'saskatoon': {
+            'handlers': ['file_saskatoon', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        }
+    },
+    'formatters': {
+        'brief': {
+            'format': '{levelname} {asctime} <{name}.{funcName}> {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {name}.{funcName} {process:d} {thread:d} {message}',
+            'datefmt': "%d/%b/%Y %H:%M:%S",
+            'style': '{',
+        }
+    }
+}
