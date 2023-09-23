@@ -31,11 +31,17 @@ def clear_cache_people(sender, instance, **kwargs):
 
 def _send_mail(subject, message, mail_to):
     subject = '[Saskatoon] ' + subject
-    if send_mail(subject,
-                 message,
-                 None, # Using DEFAULT_FROM_EMAIL from settings.py
-                 mail_to,
-                 fail_silently=SEND_MAIL_FAIL_SILENTLY) > 0:
+    success = False
+    try:
+        num_sent = send_mail(subject,
+                     message,
+                     None, # Using DEFAULT_FROM_EMAIL from settings.py
+                     mail_to,
+                     fail_silently=SEND_MAIL_FAIL_SILENTLY)
+        success = num_sent > 0
+    except Exception as e:
+        logger.error("%s: %s", type(e), str(e))
+    if success:
         logger.info("Successfully sent email <%s> to %s", subject, mail_to)
     else:
         logger.warning("Could not send email <%s> to %s", subject, mail_to)
@@ -77,10 +83,16 @@ def notify_unselected_pickers(sender, instance, **kwargs):
 
             if email_list:
                 harvest_str = f"<{instance} (id={instance.id})>"
-                if send_mass_mail(email_list, fail_silently=SEND_MAIL_FAIL_SILENTLY) > 0:
-                    logger.info("Successfully notified unselected pickers about %s", harvest_str)
+                success = False
+                try:
+                    num_sent = send_mass_mail(email_list, fail_silently=SEND_MAIL_FAIL_SILENTLY)
+                    success = num_sent == len(email_list)
+                except Exception as e:
+                    logger.error("%s: %s", type(e), str(e))
+                if success:
+                    logger.info("Successfully notified all unselected pickers about %s", harvest_str)
                 else:
-                    logger.warning("Could not notify unselected pickers about %s", harvest_str)
+                    logger.warning("Could not notify some unselected pickers about %s", harvest_str)
 
 
 def notify_pending_status_update(sender, instance, **kwargs):
