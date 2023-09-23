@@ -34,16 +34,14 @@
                                     </div>
                                     <div class="breadcomb-ctn">
                                         <h1>#{{ harvest.id }}:
-                                            {% for t in harvest.trees.all %} {{ t }}, {% endfor %}
-                                            {{ harvest.property.address }},
-                                            {{ harvest.property.neighborhood.name }}
+                                            {{ harvest.get_public_title }}
                                         </h1>
-                                        <h4>
+                                        <h2>
                                             {{ harvest.start_date|date:'l F j, Y' }}<br>
                                             {{ harvest.start_date|date:'f A' }}
                                             {% trans "to" %}
                                             {{ harvest.end_date|date:'f A' }}
-                                        </h4>
+                                        </h2>
                                     </div>
                                 </div>
                             </div>
