@@ -591,7 +591,6 @@ class Harvest(models.Model):
             return True
         return (timezone.now() > self.publication_date)
 
-
     def is_open_to_requests(self):
         if self.status != 'Date-scheduled':
             return False

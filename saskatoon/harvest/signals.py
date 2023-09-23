@@ -150,7 +150,7 @@ def comment_send_mail(sender, instance, **kwargs):
             mail_subject = u"New comment from %s" % instance.author
             message = u'Hi %s, \n\n' \
                       u'On %s %s left the following comment\n' \
-                      u'in the harvest at "%s %s":\n\n' \
+                      u'in the harvest at "%s %s".\n\n' \
                       u'%s\n\n' \
                       u'You can see all information related to this ' \
                       u'harvest at\n' \
