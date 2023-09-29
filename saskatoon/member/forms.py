@@ -107,9 +107,12 @@ class PersonUpdateForm(forms.ModelForm):
         validate_email(email, self.auth_user)
 
         roles = self.cleaned_data.get('roles', None)
-        if self.auth_user and not roles:
+        if email and not roles:
             raise forms.ValidationError(
                 _("Please assign at least one role to the user"))
+        elif roles and not email:
+            raise forms.ValidationError(
+                _("An email address is required to assign a role to the user"))
 
     def save(self):
         instance = super().save()
