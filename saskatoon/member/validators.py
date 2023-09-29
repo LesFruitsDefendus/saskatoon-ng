@@ -8,7 +8,7 @@ def validate_email(email, auth_user=None):
     '''Check if a user with same email address is already registered'''
 
     if auth_user and not email:
-        raise ValidationError(_("ERROR: New email address cannot be empty."))
+        raise ValidationError(_("Please enter an email address."))
 
     duplicates = AuthUser.objects.filter(email=email)
     if auth_user:
@@ -16,5 +16,5 @@ def validate_email(email, auth_user=None):
 
     if duplicates.exists():
         raise ValidationError(
-            _("ERROR: email address < {} > is already registered!").format(email)
+            _("Email address < {} > is already registered!").format(email)
         )
