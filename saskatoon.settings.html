@@ -7,7 +7,7 @@
   <head>
     
     <title>saskatoon.settings</title>
-    <meta name="generator" content="pydoctor 23.4.1"> 
+    <meta name="generator" content="pydoctor 23.9.0"> 
         
     </meta>
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
@@ -260,16 +260,6 @@
 
         
             <div class="itemName"><code><a href="#DATABASES" class="internal-link" title="saskatoon.settings.DATABASES">DATABASES</a></code>
-            </div>
-        
-
-    </li><li class="">
-        
-        
-        
-
-        
-            <div class="itemName"><code><a href="#DEBUG" class="internal-link" title="saskatoon.settings.DEBUG">DEBUG</a></code>
             </div>
         
 
@@ -649,6 +639,16 @@
         
 
         
+            <div class="itemName"><code><a href="#DEBUG" class="internal-link" title="saskatoon.settings.DEBUG">DEBUG</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#dotenv" class="internal-link" title="saskatoon.settings.dotenv">dotenv</a></code>
             </div>
         
@@ -844,11 +844,6 @@
   </tr><tr class="constant">
     
     <td>Constant</td>
-    <td><code><a href="#DEBUG" class="internal-link" title="saskatoon.settings.DEBUG">DEBUG</a></code></td>
-    <td><span class="undocumented">Undocumented</span></td>
-  </tr><tr class="constant">
-    
-    <td>Constant</td>
     <td><code><a href="#DEFAULT_AUTO_FIELD" class="internal-link" title="saskatoon.settings.DEFAULT_AUTO_FIELD">DEFAULT<wbr></wbr>_AUTO<wbr></wbr>_FIELD</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="constant">
@@ -1030,6 +1025,11 @@
     
     <td>Constant</td>
     <td><code><a href="#WSGI_APPLICATION" class="internal-link" title="saskatoon.settings.WSGI_APPLICATION">WSGI<wbr></wbr>_APPLICATION</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="variable">
+    
+    <td>Variable</td>
+    <td><code><a href="#DEBUG" class="internal-link" title="saskatoon.settings.DEBUG">DEBUG</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="variable">
     
@@ -1323,33 +1323,6 @@
              <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">USER</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_USER</span><span class="rst-variable-quote">'</span>),
              <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">PASSWORD</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_PASSWORD</span><span class="rst-variable-quote">'</span>),
              <wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">HOST</span><span class="rst-variable-quote">'</span>: <a href="https://docs.python.org/3/library/os.html#os.getenv" class="intersphinx-link">os.getenv</a>(<wbr></wbr><span class="rst-variable-quote">'</span><span class="rst-variable-string">SASKATOON_DB_HOST</span><span class="rst-variable-quote">'</span>)}}</code></pre></td></tr></table>
-  </div>
-</div><div class="baseconstant">
-  
-  
-  <a name="saskatoon.settings.DEBUG">
-    
-  </a>
-  <a name="DEBUG">
-    
-  </a>
-  <div class="functionHeader">
-    
-    <span class="py-defname">DEBUG</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L38">
-      
-      (source)
-    </a>
-    <a class="headerLink" href="#DEBUG" title="saskatoon.settings.DEBUG">
-      
-      
-      ¶
-    </a>
-  </div>
-  <div class="functionBody">
-    
-    <div><p class="undocumented">Undocumented</p></div>
-    <table class="valueTable"><tr class="fieldStart"><td class="fieldName">Value</td></tr><tr><td><pre class="constant-value"><code>(os.getenv('SASKATOON_DEBUG', '').lower() in ['yes', 'true'])</code></pre></td></tr></table>
   </div>
 </div><div class="baseconstant">
   
@@ -2386,6 +2359,33 @@
 </div><div class="basevariable">
   
   
+  <a name="saskatoon.settings.DEBUG">
+    
+  </a>
+  <a name="DEBUG">
+    
+  </a>
+  <div class="functionHeader">
+    
+    <span class="py-defname">DEBUG</span> =
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/saskatoon/settings.py#L38">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#DEBUG" title="saskatoon.settings.DEBUG">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+    
+  </div>
+</div><div class="basevariable">
+  
+  
   <a name="saskatoon.settings.dotenv">
     
   </a>
@@ -2422,7 +2422,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    23.4.1 at 2023-09-24 00:30:36.
+    23.9.0 at 2023-10-05 02:34:33.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
