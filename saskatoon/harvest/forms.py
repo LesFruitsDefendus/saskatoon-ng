@@ -300,7 +300,7 @@ class PropertyCreateForm(PropertyForm):
                 validate_email(data['owner_email'])
             else:
                 raise forms.ValidationError(
-                    _("ERROR: You must either select an Owner \
+                    _("You must either select an Owner \
                     or create a new one and provide their personal information"))
         return data
 

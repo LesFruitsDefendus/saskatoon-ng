@@ -109,16 +109,20 @@ class PersonUpdateForm(forms.ModelForm):
         roles = self.cleaned_data.get('roles', None)
         if email and not roles:
             raise forms.ValidationError(
-                _("ERROR: Please assign at least one role to the user"))
+                _("Please assign at least one role to the user"))
+        elif roles and not email:
+            raise forms.ValidationError(
+                _("An email address is required to assign a role to the user"))
 
     def save(self):
         instance = super().save()
         email = self.cleaned_data.get('email', None)
         roles = self.cleaned_data.get('roles', None)
         if email and roles:
-            auth_user, created = AuthUser.objects.get_or_create(person=instance)
-            auth_user.email = email
-            auth_user.set_roles(roles)  # calls auth_user.save()
+            if not self.auth_user:
+                self.auth_user = AuthUser.objects.create(person=instance, email=email)
+            self.auth_user.email = email
+            self.auth_user.set_roles(roles)  # calls auth_user.save()
 
 
 class OrganizationForm(forms.ModelForm):
