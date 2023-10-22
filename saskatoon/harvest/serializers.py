@@ -221,6 +221,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
+    is_open_to_requests = serializers.ReadOnlyField()
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
     start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
     start_time = serializers.DateTimeField(source='get_local_start', format="%H:%M")
