@@ -225,7 +225,8 @@ REST_FRAMEWORK = {
    'DEFAULT_RENDERER_CLASSES': (
         get_drf_template_mode(),
         'rest_framework.renderers.JSONRenderer',
-    )
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'saskatoon.pagination.BasicPageNumberPagination',
 }
 
 CACHES = {
