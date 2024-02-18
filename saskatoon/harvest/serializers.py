@@ -26,8 +26,9 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
-                  'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
-                  'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
+                  'harvests_as_pickleader', 'harvests_as_volunteer_succeeded',
+                  'harvests_as_volunteer_accepted', 'harvests_as_volunteer_rejected',
+                  'harvests_as_volunteer_pending', 'harvests_as_volunteer_cancelled',
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
 
