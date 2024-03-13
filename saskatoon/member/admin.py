@@ -1,9 +1,11 @@
 # coding: utf-8
+import csv
 from django import forms
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
+from django.core.mail import EmailMessage
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
@@ -233,6 +235,36 @@ class AuthUserAdmin(UserAdmin):
         for u in queryset:
             self.add_to_group(u, 'contact')
 
+    @admin.action(description="Export email list with selected User(s)")
+    def export_emails(self, request, queryset):
+        contacts = queryset.values_list(
+            'person__first_name',
+            'person__family_name',
+            'email'
+        ).order_by('person__family_name')
+        filename = 'Saskatoon_EmailList.csv'
+        with open(filename, 'w', newline='') as tmpFile:
+            wr = csv.writer(tmpFile, delimiter=',', quoting=csv.QUOTE_NONE)
+            wr.writerow(['FirstName', 'LastName', 'Email'])
+            for contact in contacts:
+                wr.writerow(contact)
+
+        mailto = request.user.email
+        with open(filename, 'rb') as csvFile:
+            try:
+                email = EmailMessage("Saskatoon Email List", "", None, [mailto])
+                email.attach(filename, csvFile.read(), 'text/csv')
+                email.send()
+                messages.add_message(
+                    request, messages.SUCCESS,
+                    f"Email list successfully sent to {mailto}"
+                )
+            except Exception as e:
+                messages.add_message(
+                    request, messages.ERROR,
+                    f"Something went wrong: {e}"
+                )
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -245,6 +277,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_volunteer,
         add_to_owner,
         add_to_contact,
+        export_emails,
     ]
 
 
