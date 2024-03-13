@@ -263,6 +263,16 @@
         
 
         
+            <div class="itemName"><code><a href="#export_emails" class="internal-link" title="member.admin.AuthUserAdmin.export_emails">export<wbr></wbr>_emails</a></code>
+            </div>
+        
+
+    </li><li class="">
+        
+        
+        
+
+        
             <div class="itemName"><code><a href="#get_groups" class="internal-link" title="member.admin.AuthUserAdmin.get_groups">get<wbr></wbr>_groups</a></code>
             </div>
         
@@ -534,7 +544,7 @@
         </div>
 
         <div class="extrasDocstring">
-          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AuthUserAdmin</span>(UserAdmin): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L77" class="sourceLink">(source)</a></code></p>
+          <p class="class-signature"><code><span class="py-keyword">class</span> <span class="py-defname">AuthUserAdmin</span>(UserAdmin): <a href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L79" class="sourceLink">(source)</a></code></p>
           <p><a href="classIndex.html#member.admin.AuthUserAdmin">View In Hierarchy</a></p>
         </div>
 
@@ -595,6 +605,11 @@
     
     <td>Method</td>
     <td><code><a href="#deactivate_account" class="internal-link" title="member.admin.AuthUserAdmin.deactivate_account">deactivate<wbr></wbr>_account</a></code></td>
+    <td><span class="undocumented">Undocumented</span></td>
+  </tr><tr class="method">
+    
+    <td>Method</td>
+    <td><code><a href="#export_emails" class="internal-link" title="member.admin.AuthUserAdmin.export_emails">export<wbr></wbr>_emails</a></code></td>
     <td><span class="undocumented">Undocumented</span></td>
   </tr><tr class="method">
     
@@ -687,7 +702,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to admin group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_admin</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L199">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L201">
       
       (source)
     </a>
@@ -714,7 +729,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to contact group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_contact</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L231">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L233">
       
       (source)
     </a>
@@ -741,7 +756,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to core group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_core</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L207">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L209">
       
       (source)
     </a>
@@ -768,7 +783,7 @@
     
     
     <span class="py-keyword">def</span> <span class="py-defname">add_to_group</span><span class="function-signature">(self, user, name)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L194">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L196">
       
       (source)
     </a>
@@ -795,7 +810,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to owner group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_owner</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L226">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L228">
       
       (source)
     </a>
@@ -822,7 +837,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to pickleader group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_pickleader</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L214">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L216">
       
       (source)
     </a>
@@ -849,7 +864,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add staff status to selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_staff</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L174">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L176">
       
       (source)
     </a>
@@ -876,7 +891,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Add selected User(s) to volunteer group</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">add_to_volunteer</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L221">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L223">
       
       (source)
     </a>
@@ -903,7 +918,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Clear groups for selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">clear_groups</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L186">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L188">
       
       (source)
     </a>
@@ -930,11 +945,38 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Deactivate account for selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">deactivate_account</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L164">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L166">
       
       (source)
     </a>
     <a class="headerLink" href="#deactivate_account" title="member.admin.AuthUserAdmin.deactivate_account">
+      
+      
+      ¶
+    </a>
+  </div>
+  <div class="docstring functionBody">
+    
+    <div><p class="undocumented">Undocumented</p></div>
+  </div>
+</div><div class="basemethod">
+  
+  
+  <a name="member.admin.AuthUserAdmin.export_emails">
+    
+  </a>
+  <a name="export_emails">
+    
+  </a>
+  <div class="functionHeader">
+    
+    @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Export email list with selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
+    <span class="py-keyword">def</span> <span class="py-defname">export_emails</span><span class="function-signature">(self, request, queryset)</span>:
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L238">
+      
+      (source)
+    </a>
+    <a class="headerLink" href="#export_emails" title="member.admin.AuthUserAdmin.export_emails">
       
       
       ¶
@@ -957,7 +999,7 @@
     
     @admin.display(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Group(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">get_groups</span><span class="function-signature">(self, user)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L105">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L107">
       
       (source)
     </a>
@@ -984,7 +1026,7 @@
     
     @admin.display(<wbr></wbr>boolean=<a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, <wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Password</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">has_password</span><span class="function-signature">(self, user)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L109">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L111">
       
       (source)
     </a>
@@ -1011,7 +1053,7 @@
     
     @admin.display(<wbr></wbr>boolean=<a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, <wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Admin</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">is_admin</span><span class="function-signature">(self, user)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L101">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L103">
       
       (source)
     </a>
@@ -1038,7 +1080,7 @@
     
     @admin.display(<wbr></wbr>boolean=<a href="https://docs.python.org/3/library/constants.html#True" class="intersphinx-link">True</a>, <wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Core</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">is_core</span><span class="function-signature">(self, user)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L97">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L99">
       
       (source)
     </a>
@@ -1065,7 +1107,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Remove staff status from selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">remove_from_staff</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L178">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L180">
       
       (source)
     </a>
@@ -1092,7 +1134,7 @@
     
     @admin.action(<wbr></wbr>description=<span class="rst-variable-quote">'</span><span class="rst-variable-string">Remove superuser status from selected User(s)</span><span class="rst-variable-quote">'</span>)<br />
     <span class="py-keyword">def</span> <span class="py-defname">remove_from_superuser</span><span class="function-signature">(self, request, queryset)</span>:
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L182">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L184">
       
       (source)
     </a>
@@ -1118,7 +1160,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">actions</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L236">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L268">
       
       (source)
     </a>
@@ -1145,7 +1187,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">add_fieldsets</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L147">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L149">
       
       (source)
     </a>
@@ -1172,7 +1214,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">fieldsets</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L123">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L125">
       
       (source)
     </a>
@@ -1199,7 +1241,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">filter_horizontal</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L83">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L85">
       
       (source)
     </a>
@@ -1226,7 +1268,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">list_display</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L84">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L86">
       
       (source)
     </a>
@@ -1253,7 +1295,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">list_filter</span> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L113">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L115">
       
       (source)
     </a>
@@ -1280,7 +1322,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">ordering</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L82">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L84">
       
       (source)
     </a>
@@ -1307,7 +1349,7 @@
   <div class="functionHeader">
     
     <span class="py-defname">search_fields</span>: <code><a href="https://docs.python.org/3/library/stdtypes.html#tuple" class="intersphinx-link">tuple</a>[<wbr></wbr><a href="https://docs.python.org/3/library/stdtypes.html#str" class="intersphinx-link">str</a>, <wbr></wbr><span class="rst-variable-ellipsis">...</span>]</code> =
-    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L81">
+    <a class="sourceLink" href="https://github.com/LesFruitsDefendus/saskatoon-ng/tree/develop/saskatoon/member/admin.py#L83">
       
       (source)
     </a>
@@ -1334,7 +1376,7 @@
   <div class="container">
     <a href="index.html">API Documentation</a> for <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" class="projecthome">Saskatoon-Dev</a>,
   generated by <a href="https://github.com/twisted/pydoctor/">pydoctor</a>
-    23.9.1 at 2024-03-04 03:54:09.
+    23.9.1 at 2024-03-13 11:19:49.
   </div>
 
   <!-- Search related scripts needs to be loaded at the end of HTML 
