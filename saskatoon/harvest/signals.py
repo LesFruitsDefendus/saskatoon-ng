@@ -35,7 +35,7 @@ def _send_mail(subject, message, mail_to):
     try:
         num_sent = send_mail(subject,
                      message,
-                     None, # Using DEFAULT_FROM_EMAIL from settings.py
+                     None,  # Using DEFAULT_FROM_EMAIL from settings.py
                      mail_to,
                      fail_silently=SEND_MAIL_FAIL_SILENTLY)
         success = num_sent > 0

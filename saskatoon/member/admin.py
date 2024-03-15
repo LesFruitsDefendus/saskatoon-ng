@@ -1,11 +1,13 @@
 # coding: utf-8
 import csv
+from typing import Optional
 from django import forms
+from django.core.mail import EmailMessage
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
                                         ReadOnlyPasswordHashField)
-from django.core.mail import EmailMessage
+from django.contrib.auth.models import Group
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
@@ -16,7 +18,7 @@ from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
                             PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
-from django.contrib.auth.models import Group
+from saskatoon.settings import EMAIL_LIST_OUTPUT
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -241,19 +243,25 @@ class AuthUserAdmin(UserAdmin):
             'person__first_name',
             'person__family_name',
             'email'
-        ).order_by('person__family_name')
-        filename = 'Saskatoon_EmailList.csv'
-        with open(filename, 'w', newline='') as tmpFile:
+        ).order_by('person__first_name')
+
+        def clean_column(col: Optional[str]) -> str:
+            if col is None:
+                return 'NONE'
+            return col.replace(',', '')
+
+        with open(EMAIL_LIST_OUTPUT, 'w', newline='') as tmpFile:
             wr = csv.writer(tmpFile, delimiter=',', quoting=csv.QUOTE_NONE)
             wr.writerow(['FirstName', 'LastName', 'Email'])
             for contact in contacts:
-                wr.writerow(contact)
+                row = [clean_column(col) for col in contact]
+                wr.writerow(row)
 
         mailto = request.user.email
-        with open(filename, 'rb') as csvFile:
+        with open(EMAIL_LIST_OUTPUT, 'rb') as csvFile:
             try:
                 email = EmailMessage("Saskatoon Email List", "", None, [mailto])
-                email.attach(filename, csvFile.read(), 'text/csv')
+                email.attach('Saskatoon_EmailList.csv', csvFile.read(), 'text/csv')
                 email.send()
                 messages.add_message(
                     request, messages.SUCCESS,
