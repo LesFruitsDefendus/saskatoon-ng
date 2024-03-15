@@ -11,7 +11,7 @@ from harvest.models import (Property, Harvest, RequestForParticipation, TreeType
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
 from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
-                             OwnerHasNoEmailAdminFilter)
+                             HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
 from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
 
 
@@ -36,9 +36,28 @@ class HarvestImageInline(admin.TabularInline):
 
 @admin.register(Harvest)
 class HarvestAdmin(admin.ModelAdmin):
-    # form = HarvestForm
     model = Harvest
     inlines = (PersonInline, HarvestYieldInline, HarvestImageInline)
+    list_display = (
+        'property',
+        'tree_list',
+        'status',
+        'pick_leader',
+        'creation_date',
+        'publication_date',
+        'start_date',
+        'id',
+    )
+    list_filter = (
+        HarvestSeasonAdminFilter,
+        'status',
+        'pick_leader',
+
+    )
+
+    @admin.display(description="Trees")
+    def tree_list(self, harvest):
+        return harvest.get_fruits()
 
 
 @admin.register(RequestForParticipation)
