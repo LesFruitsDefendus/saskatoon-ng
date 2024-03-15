@@ -51,8 +51,6 @@ class HarvestAdmin(admin.ModelAdmin):
     list_filter = (
         HarvestSeasonAdminFilter,
         'status',
-        'pick_leader',
-
     )
 
     @admin.display(description="Trees")
