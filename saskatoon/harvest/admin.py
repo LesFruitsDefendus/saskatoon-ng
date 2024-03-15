@@ -59,6 +59,21 @@ class HarvestAdmin(admin.ModelAdmin):
     def tree_list(self, harvest):
         return harvest.get_fruits()
 
+    @admin.action(description="Cancel selected harvest(s)")
+    def cancel_harvests(self, request, queryset):
+        num_cancelled = 0
+        for h in queryset:
+            if h.status != 'Cancelled':
+                h.status = 'Cancelled'
+                h.save()
+                num_cancelled += 1
+
+        messages.add_message(request, messages.SUCCESS,
+                             f"Successfully cancelled {num_cancelled} harvest(s)")
+
+
+    actions = [cancel_harvests]
+
 
 @admin.register(RequestForParticipation)
 class RequestForParticipationAdmin(admin.ModelAdmin):
