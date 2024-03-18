@@ -3,6 +3,7 @@ apidocs
 
 # .db files
 *.db
+saskatoon/fixtures/saskatoon.json
 
 # redis files
 *.rdb
