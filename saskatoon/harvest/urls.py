@@ -4,6 +4,9 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from harvest import api, views, autocomplete
 
+from djgeojson.views import GeoJSONLayerView
+from harvest.models import Property
+
 # REST FRAMEWORK VIEWS
 router = routers.DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
@@ -14,6 +17,8 @@ router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
 urlpatterns = [
+    path(r'data.geojson', GeoJSONLayerView.as_view(model=Property), name='geojson'),
+
     # CREATE VIEWS
     path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
