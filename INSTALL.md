@@ -184,14 +184,13 @@ NB: to access the admin panel visit [localhost:8000/admin](http://127.0.0.1:8000
 
 ## Loading initial data (fixtures)
 
-To initialise the database:
-1. Audit/modify the individual `.json` files located in `saskatoon/fixtures`
-2. Run:
+To initialise the database, run:
+
 ```
 (venv)$ saskatoon/fixtures/init
 ```
 
-For more information on fixtures actions, see [fixtures](./saskatoon/fixtures/README.md).
+For more information on fixtures actions, see [fixtures/README](./saskatoon/fixtures/README.md).
 
 ## Database
 ### Import/export MySQL database
