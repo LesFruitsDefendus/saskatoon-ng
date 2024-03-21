@@ -20,6 +20,9 @@
 <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
     <a href="{% url 'community-list' %}?groups=3"><i class="fa fa-users"></i> {% translate "Community" %}</a>
 </li>
+<li class="{% if request.resolver_match.url_name == 'map' %}active{% endif %}">
+    <a href="{% url 'map' %}">{% translate "Map" %}</a>
+</li>
 {% if user|is_core_or_admin %}
 <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
     <a href="{% url 'statistics' %}?season={%now 'Y' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>

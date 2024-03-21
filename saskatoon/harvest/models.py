@@ -197,7 +197,15 @@ and needs to be validated by an administrator"
 
     geom = PointField(null=True, blank=True)
 
-    trees: models.ManyToManyField[TreeType, models.Model] = models.ManyToManyField(
+    owner = models.ForeignKey(
+        'member.Actor',
+        null=True,
+        blank=True,
+        verbose_name=_("Owner"),
+        on_delete=models.CASCADE,
+    )
+
+    trees = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
         help_text=_(
@@ -331,6 +339,8 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     longitude = models.FloatField(verbose_name=_("Longitude"), null=True, blank=True)
 
     latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
+
+    geom = PointField(null=True, blank=True)
 
     additional_info = models.CharField(
         verbose_name=_("Additional information"),
