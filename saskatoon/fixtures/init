@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Load initial fixtures from .json files
 
