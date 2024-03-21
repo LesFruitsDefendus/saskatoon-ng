@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Load model instance(s) from .json file
 # https://docs.djangoproject.com/en/dev/howto/initial-data/
