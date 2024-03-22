@@ -126,7 +126,11 @@ class PropertyAdmin(LeafletGeoAdmin):
         'owner__person__family_name',
         'owner__person__auth_user__email',
     )
-    exclude = ['longitude', 'latitude', 'geom']
+    exclude = [
+        'longitude', 
+        'latitude', 
+        # 'geom'
+    ]
 
     @admin.display(description="Owner type")
     def owner_type(self, _property):

@@ -1,5 +1,6 @@
 import { mapInit } from "./utils.js";
 
-const DATA_URL = "/data.geojson";
+// TODO: Hit API with filter for current property being viewed
+const DATA_URL = "/property/geo/";
 
-window.addEventListener("map:init", mapInit(DATA_URL));
+window.addEventListener("map:init", mapInit(DATA_URL, { center: true }));
