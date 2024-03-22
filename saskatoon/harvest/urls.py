@@ -2,7 +2,10 @@ from django.urls import include, path, re_path
 from rest_framework import routers
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
+from djgeojson.views import GeoJSONLayerView
 from harvest import api, views, autocomplete
+
+from harvest.models import Property
 
 # REST FRAMEWORK VIEWS
 router = routers.DefaultRouter()
@@ -14,6 +17,7 @@ router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
 urlpatterns = [
+
     # CREATE VIEWS
     path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
@@ -98,6 +102,16 @@ urlpatterns = [
 
     path('stats/', api.StatsView.as_view(), name='statistics'),
 
+    # MAP
+    path(r'property/geo/',
+        GeoJSONLayerView.as_view(
+            model=Property,
+            properties=(
+                'id',
+                'trees'
+            )),
+            name='property_geo'
+        ),
 ]
 
 urlpatterns += router.urls

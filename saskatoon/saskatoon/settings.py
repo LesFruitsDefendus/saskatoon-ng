@@ -65,6 +65,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ckeditor',
+    'djgeojson',
     'leaflet',
     'sitebase',
     'member',
@@ -300,3 +301,11 @@ LOGGING = {
 }
 
 EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')
+
+LEAFLET_CONFIG = {
+    'DEFAULT_ZOOM': 10,
+    'DEFAULT_CENTER': (45.55, -73.55 ), # Greater Montreal Area
+    # 'MIN_ZOOM': 3,
+    # 'MAX_ZOOM': 18,
+    # 'DEFAULT_PRECISION': 6,
+}
