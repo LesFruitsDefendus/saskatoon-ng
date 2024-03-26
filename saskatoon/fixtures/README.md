@@ -44,14 +44,5 @@ This will create `saksatoon/fixtures/saksatoon.json`
 ```
 For example, running `saskatoon/fixtures/dumpdata member.city` will create a `member-city.json` file containing all instances from the `City` model (defined in `members.model.py`) currently stored in the database.
 
-## Deprecated method
-
-Previously, the database would be initialised by manually running `manage.py`. 
-```
-(venv)$ python3 saskatoon/manage.py migrate --skip-check
-(venv)$ python3 saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
-```
-However, this is now discouraged in placre of the `fixtures/loaddata` and `fixtures/init` scripts since certain steps needed to be done in order.
-
 ## References
 -  [Providing initial data for models](https://docs.djangoproject.com/en/dev/howto/initial-data/)
