@@ -13,7 +13,7 @@ from member.models import AuthUser, Organization, Neighborhood, Person
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.permissions import IsCoreOrAdmin
-from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
+from harvest.serializers import (HarvestListSerializer, HarvestSerializer, HarvestDetailSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, BeneficiarySerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
@@ -47,48 +47,10 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'season')
 
     # Harvest detail
-    def retrieve(self, request, format='html', pk=None):
+    def retrieve(self, request, *args, **kwargs):
         self.template_name = 'app/detail_views/harvest/view.html'
-        pk = self.get_object().pk
-        response = super(HarvestViewset, self).retrieve(request, pk=pk)
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        # FIXME: serialize all this
-
-        harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = RequestForParticipation.objects.filter(harvest=harvest)
-        distribution = HarvestYield.objects.filter(harvest=harvest)
-        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
-        pickers = [r.picker for r in requests.filter(is_accepted=True)]
-        if harvest.pick_leader:
-          pickers.append(harvest.pick_leader.person)
-        organizations = Organization.objects.filter(is_beneficiary=True)
-        status_options = (
-            harvest_status_choice_tuple[0]
-            for harvest_status_choice_tuple
-            in HARVESTS_STATUS_CHOICES
-            if harvest_status_choice_tuple[0]
-            not in (harvest.status, "Adopted", "Orphan")
-        )
-
-        return Response({'harvest': response.data,
-                         'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
-                         'harvest_start': harvest.get_local_start().strftime("%-I:%M %p"),
-                         'harvest_end': harvest.get_local_end().strftime("%-I:%M %p"),
-                         'form_request': RequestForm(),
-                         'form_comment': CommentForm(),
-                         'form_manage_request': RFPManageForm(),
-                         'requests': requests,
-                         'distribution': distribution,
-                         'comments': comments,
-                         'property': harvest.property,
-                         'pickers': pickers,
-                         'organizations': organizations,
-                         'form_edit_recipient': HarvestYieldForm(),
-                         'status_options': status_options,
-                        })
+        self.serializer_class = HarvestDetailSerializer
+        return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'

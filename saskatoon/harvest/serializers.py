@@ -1,17 +1,9 @@
-import json
-from django.core.serializers import serialize
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
-                           City, State, Country, Language)
-from harvest.models import (Harvest, Property, Equipment, EquipmentType,
+                           City, State, Country)
+from harvest.models import (Comment, Harvest, HarvestYield, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
-
-
-class RequestForParticipationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RequestForParticipation
-        fields = '__all__'
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -20,8 +12,36 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class PersonPropertySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Property
+        fields = ['id', 'short_address']
+
+
+class PersonHarvestSerializer(serializers.ModelSerializer):
+    pick_leader = serializers.StringRelatedField(many=False, read_only=True)
+    property = serializers.StringRelatedField(many=False, read_only=True)
+
+    class Meta:
+        model = Harvest
+        fields = ['id', 'pick_leader', 'property', 'status']
+
+
+class PersonBeneficiarySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = ['pk', 'civil_name']
+
+
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    properties = PersonPropertySerializer(many=True, read_only=True)
+    harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_volunteer_missed = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
+    organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
 
     class Meta:
         model = Person
@@ -30,6 +50,21 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_volunteer_accepted', 'harvests_as_volunteer_rejected',
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_cancelled',
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
+
+
+class RFPPersonSerializer(PersonSerializer):
+    class Meta(PersonSerializer.Meta):
+        fields = ['name', 'email', 'phone']
+
+
+class RequestForParticipationSerializer(serializers.ModelSerializer):
+    picker = RFPPersonSerializer(many=False)
+    creation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
+    acceptation_date = serializers.DateTimeField( format=r"%Y-%m-%d")
+
+    class Meta:
+        model = RequestForParticipation
+        fields = '__all__'
 
 
 class BeneficiarySerializer(serializers.ModelSerializer):
@@ -214,6 +249,23 @@ class PickLeaderSerializer(serializers.ModelSerializer):
     def get_name(self, obj):
         return obj.person.name
 
+class HarvestYieldSerializer(serializers.ModelSerializer):
+    tree = TreeTypeSerializer(many=False, read_only=True)
+    recipient = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = HarvestYield
+        fields = '__all__'
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    created_date = serializers.DateTimeField(format=r'%c')
+    author = serializers.StringRelatedField(many=False)
+
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
 
 # Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
@@ -224,25 +276,70 @@ class HarvestSerializer(serializers.ModelSerializer):
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
     is_open_to_requests = serializers.ReadOnlyField()
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
-    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
-    start_time = serializers.DateTimeField(source='get_local_start', format="%H:%M")
-    end_time = serializers.DateTimeField(source='get_local_end', format="%H:%M")
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
+    start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    end_time = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
     # 3) get the full instance from another serializer class
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
+    requests = RequestForParticipationSerializer(many=True, read_only=True)
+    harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
+    comment = CommentSerializer(many=True, read_only=True)
+    organizations = serializers.SerializerMethodField()
 
     class Meta:
         model = Harvest
         fields = '__all__'
+
+    def get_organizations(self, obj):
+        organizations = Organization.objects.filter(
+            is_beneficiary=True)
+        return BeneficiarySerializer(organizations, many=True).data
 
 
 class HarvestTreeTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = TreeType
         fields = ['id', 'name', 'fruit_name']
+
+
+class HarvestBeneficiarySerializer(BeneficiarySerializer):
+    class Meta(BeneficiarySerializer.Meta):
+        fields = ['actor_id', 'civil_name']
+
+
+class HarvestPropertySerializer(PropertySerializer):
+    neighborhood = serializers.StringRelatedField(many=False)
+
+    class Meta(PropertySerializer.Meta):
+        fields = ['id',
+                  'address',
+                  'owner',
+                  'neighborhood', ]
+
+
+class HarvestDetailSerializer(HarvestSerializer):
+    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    property = HarvestPropertySerializer(many=False, read_only=True)
+    requests = RequestForParticipationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Harvest
+        exclude = ['owner_present',
+                  'owner_help',
+                  'owner_fruit',
+                  'publication_date',
+                  'equipment_reserved',
+                  'creation_date',
+                  'changed_by']
+
+    def get_organizations(self, obj):
+        organizations = Organization.objects.filter(
+            is_beneficiary=True)
+        return HarvestBeneficiarySerializer(organizations, many=True).data
 
 
 class HarvestListSerializer(HarvestSerializer):

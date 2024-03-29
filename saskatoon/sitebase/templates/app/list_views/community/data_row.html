@@ -74,7 +74,7 @@
             <p><a href="{% url 'property-detail' property.id %}">{{ property.short_address }}</a></p>
         {% endfor %}
         {% for org in user.person.organizations_as_contact %}
-            <a href="{% url 'beneficiary-update' org.pk %}">{{ org }}</a>
+            <a href="{% url 'beneficiary-update' org.pk %}">{{ org.civil_name }}</a>
         {% endfor %}
     </td>
     <td>{{ user.person.neighborhood.name }}</td>

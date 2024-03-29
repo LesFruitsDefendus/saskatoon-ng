@@ -46,7 +46,6 @@ def _send_mail(subject, message, mail_to):
     else:
         logger.warning("Could not send email <%s> to %s", subject, mail_to)
 
-
 def changed_by(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
     if current_request:
