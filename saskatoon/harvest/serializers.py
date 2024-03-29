@@ -46,8 +46,9 @@ class PersonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Person
         fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
-                  'harvests_as_pickleader', 'harvests_as_volunteer_accepted',
-                  'harvests_as_volunteer_pending', 'harvests_as_volunteer_missed',
+                  'harvests_as_pickleader', 'harvests_as_volunteer_succeeded',
+                  'harvests_as_volunteer_accepted', 'harvests_as_volunteer_rejected',
+                  'harvests_as_volunteer_pending', 'harvests_as_volunteer_cancelled',
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
 
@@ -212,6 +213,16 @@ class PropertyListSerializer(PropertySerializer):
         ]
 
 
+class EquipmentPropertySerializer(PropertyListSerializer):
+    class Meta(PropertyListSerializer.Meta):
+        fields = [
+            'id',
+            'title',
+            'neighborhood',
+            'owner'
+        ]
+
+
 # EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -220,13 +231,23 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
 
 # Equipment serializer
 class EquipmentSerializer(serializers.ModelSerializer):
-    property = PropertySerializer(many=False, read_only=True)
+    property = EquipmentPropertySerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
     owner = ActorSerializer(many=False, read_only=True)
     class Meta:
         model = Equipment
         fields = '__all__'
 
+
+class PickLeaderSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = AuthUser
+        fields = ['id', 'name']
+
+    def get_name(self, obj):
+        return obj.person.name
 
 class HarvestYieldSerializer(serializers.ModelSerializer):
     tree = TreeTypeSerializer(many=False, read_only=True)
@@ -253,14 +274,15 @@ class HarvestSerializer(serializers.ModelSerializer):
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
     total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
+    is_open_to_requests = serializers.ReadOnlyField()
     # status_l10n = serializers.ReadOnlyField(source='get_status_l10n')
     start_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
     start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
     end_time = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
     # # 2) get string rather than id from a pk
     status = serializers.StringRelatedField(many=False)
-    pick_leader = serializers.StringRelatedField(many=False)
     # 3) get the full instance from another serializer class
+    pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)

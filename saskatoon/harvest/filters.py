@@ -218,7 +218,6 @@ class PropertyOwnerTypeAdminFilter(SimpleListFilter):
 
     title = "Owner Type Filter"
     parameter_name = 'owner'
-    default_value = None
 
     def lookups(self, request, model_admin):
         return [('0', _("Unknown")),
@@ -240,7 +239,6 @@ class PropertyHasHarvestAdminFilter(SimpleListFilter):
 
     title = "Had harvest Filter"
     parameter_name = 'harvest'
-    default_value = None
 
     def lookups(self, request, model_admin):
         return [('0', 'Has harvest(s)'),
@@ -258,7 +256,6 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
 
     title = 'Email Filter'
     parameter_name = 'user'
-    default_value = None
 
     def lookups(self, request, model_admin):
         return [('0', 'Owner has no email'),
@@ -275,3 +272,17 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
             elif self.value() == '1':
                 return (qs1 | qs2).filter(pending_contact_email__isnull=False)
         return queryset
+
+
+class HarvestSeasonAdminFilter(SimpleListFilter):
+    """Filter by year"""
+
+    title = 'Season Filter'
+    parameter_name = 'season'
+
+    def lookups(self, request, model_admin):
+        years = range(SEASON_FILTER_RANGE[1], SEASON_FILTER_RANGE[0]-1, -1)
+        return [(year, year) for year in years]
+
+    def queryset(self, request, queryset):
+        return queryset.filter(start_date__year=self.value())

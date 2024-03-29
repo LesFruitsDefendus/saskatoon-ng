@@ -10,7 +10,7 @@ from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from member.models import AuthUser, Organization, Neighborhood, Person
-from harvest.models import (Equipment, Harvest, HarvestYield, Property,
+from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.permissions import IsCoreOrAdmin
 from harvest.serializers import (HarvestListSerializer, HarvestSerializer, HarvestDetailSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,

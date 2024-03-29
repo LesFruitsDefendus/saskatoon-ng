@@ -547,7 +547,7 @@ class Harvest(models.Model):
     def get_unselected_pickers(self):
         # Get pickers who volunteered but have been rejected or are pending approval
         requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
-        return requests
+        return [r.picker for r in requests]
 
     def get_days_before_harvest(self):
         diff = datetime.datetime.now() - self.start_date
@@ -555,6 +555,15 @@ class Harvest(models.Model):
 
     def get_neighborhood(self):
         return self.property.neighborhood
+
+    def get_fruits(self):
+        return [t.fruit_name for t in self.trees.all()]
+
+    def get_public_title(self):
+        title = ", ".join(self.get_fruits())
+        if self.property.neighborhood.name != "Other":
+           title += f" @ {self.property.neighborhood.name}"
+        return title
 
     # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
@@ -583,11 +592,9 @@ class Harvest(models.Model):
         return (timezone.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        HOURS_OPEN_BEFORE_HARVEST = 2
         if self.status != 'Date-scheduled':
             return False
-        dt = datetime.timedelta(hours=HOURS_OPEN_BEFORE_HARVEST)
-        return timezone.now() + dt <= self.start_date
+        return timezone.now() <= self.end_date
 
 
 class RequestForParticipation(models.Model):
@@ -600,10 +607,7 @@ class RequestForParticipation(models.Model):
     number_of_people = models.PositiveIntegerField(
         verbose_name=_("How many people are you?"),
         default=1,
-        validators=[
-            MaxValueValidator(3),
-            MinValueValidator(1)
-        ]
+        validators=[MinValueValidator(1)]
     )
 
     comment = models.TextField(

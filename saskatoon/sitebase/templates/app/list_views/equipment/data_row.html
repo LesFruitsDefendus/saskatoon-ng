@@ -38,17 +38,19 @@
 
     </td>
     <td>
-        <a href="{% url 'property-detail' equipment.property.id %}">
-        {{ equipment.property.address }}
-        </a>
+        {% if equipment.property %}
+            <a href="{% url 'property-detail' equipment.property.id %}">
+                {{ equipment.property.title }}
+            </a>
+        {% endif %}
     </td>
     <td>
         {% if equipment.owner.person %}
-         {{ equipment.owner.person.neighborhood.name }}
+            {{ equipment.owner.person.neighborhood.name }}
         {% elif equipment.owner.organization %}
             {{ equipment.owner.organization.neighborhood.name }}
         {% elif equipment.property %}
-            {{ equipment.property.neighborhood.name }}
+            {{ equipment.property.neighborhood }}
         {% endif %}
     </td>
 

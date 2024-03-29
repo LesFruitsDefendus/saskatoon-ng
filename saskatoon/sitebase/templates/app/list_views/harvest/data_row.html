@@ -104,7 +104,7 @@
     </td>
     <td>
         {% if harvest.pick_leader %}
-        {{ harvest.pick_leader|default:'' }}
+        {{ harvest.pick_leader.name|default:'' }}
         {% endif %}
     </td>
     <td>

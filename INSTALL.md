@@ -2,7 +2,16 @@
 
 Please follow each part of this documentation in order to run your own instance of Saskatoon.
 
+## Overview
+1. [Install requirements](#requirements).
+2. [Prepare `.env` settings](#.env-settings).
+3. [Set up local database](#local-database).
+4. [Set up Django](#django-setup).
+5. [Load initial data (fixtures)](#loading-initial-data-(fixtures)).
+
 ## Requirements
+
+0. Python 3.9 (included in Debian Bullseye)
 
 1. MySQL client
 
@@ -64,12 +73,9 @@ Please follow each part of this documentation in order to run your own instance 
 
     Refer to [Pillow installation instruction](https://pillow.readthedocs.io/en/latest/installation.html#building-on-linux) for more documentation.
 
-
 ## .env settings
 
-
 Saskatoon uses `django-dotenv` to manage local environment settings. Copy the [saskatoon/env.template](saskatoon/env.template) file into `saskatoon/.env` and adapt it to your needs.
-
 
 WARNING: always keep the `.env` file out of source control (see [.gitignore](.gitignore) file).
 
@@ -80,14 +86,15 @@ python -c 'from django.core.management.utils import get_random_secret_key; print
 
 ```
 
-## local database
+## Local database
+
+There are two supported methods for setting up a local database. SQLite can be used to get up and running quickly, but MySQL is used in production.
 
 1. SQLite
 
 To use a simple *sqlite3.db* database `SASKATOON_DB_ENGINE` must be set to `django.db.backends.sqlite3` in `.env`.
 
 You can optionally configure other database engines. Please refer to [this Django documentation](https://docs.djangoproject.com/en/3.2/ref/settings/#databases).
-
 
 2. MySQL
 
@@ -121,6 +128,8 @@ SASKATOON_DB_USER=<user>
 SASKATOON_DB_PASSWORD=<password>
 SASKATOON_DB_HOST=127.0.0.1
 ```
+
+For database migrations, see [database](#database).
 
 ## Django setup
 
@@ -175,53 +184,16 @@ NB: to access the admin panel visit [localhost:8000/admin](http://127.0.0.1:8000
 
 ## Loading initial data (fixtures)
 
-[Providing initial data for models](https://docs.djangoproject.com/en/dev/howto/initial-data/)
+To initialise the database, run:
 
-
-To initialize the database with the `saskatoon.json` dump file:
-```
-(venv)$ python3 saskatoon/manage.py migrate --skip-check
-(venv)$ python3 saskatoon/manage.py loaddata saskatoon/fixtures/saskatoon.json
-```
-
-Alternatively you could audit/modify the individual .json files located in `saskatoon/fixtures` and run:
 ```
 (venv)$ saskatoon/fixtures/init
 ```
 
->  Warning: each time you run loaddata, the data will be read from the fixture and re-loaded into the database. Note this means that if you change one of the rows created by a fixture and then run loaddata again, you’ll wipe out any changes you’ve made.
+For more information on fixtures actions, see [fixtures/README](./saskatoon/fixtures/README.md).
 
-Note: If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. One way to ignore this issue is to keep the `EMAIL_HOST=` variable empty in your `.env` file. (see `saskatoon/harvest/signals.py` for more details)
-
-To load all .json files located in `saskatoon/fixtures`:
-```
-(venv)$ saskatoon/fixtures/loaddata all
-```
-Note: this does not include .json files of the type: `saskatoon*.json`
-
-
-To load a single app or model instance:
-```
-(venv)$ saskatoon/fixtures/loaddata <instance>
-```
-For example, running `saskatoon/fixtures/loaddata member-city` will load the `member-city.json` file into the database.
-
-
-To export all data from a pre-populated database:
-```
-(venv)$ saskatoon/fixtures/dumpdata
-```
-This will create `saksatoon/fixtures/saksatoon.json`
-
-
-To export data from a specific app or table:
-```
-(venv)$ saskatoon/fixtures/dumpdata <app or instance>
-```
-For example, running `saskatoon/fixtures/dumpdata member.city` will create a `member-city.json` file containing all instances from the `City` model (defined in `members.model.py`) currently stored in the database.
-
-
-## Import/export MySQL database
+## Database
+### Import/export MySQL database
 
 To export a dump file of the database:
 ```
@@ -238,7 +210,7 @@ $ mysql -u <user> -p <db_name> < dump_file.sql
 $ head -n 5 dump_file.sql
 ```
 
-## Migrate from old generation
+### Migrate from old generation
 
 To migrate MySQL database from old generation [saskatoon](https://github.com/LesFruitsDefendus/saskatoon) project:
 

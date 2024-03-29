@@ -72,6 +72,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'django_filters',
     'crispy_forms',
+    'crispy_bootstrap4',
     'debug_toolbar',
     'django_extensions',
     'rosetta',
@@ -161,6 +162,8 @@ LANGUAGES = [
     ('en',u'English'),
 ]
 
+ROSETTA_ACCESS_CONTROL_FUNCTION = 'saskatoon.utils.is_translator'
+
 LOCALE_PATHS = [
     'harvest/locale/',
     'member/locale/',
@@ -247,3 +250,61 @@ CKEDITOR_CONFIGS = {
 }
 
 CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
+
+
+# LOGS
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'brief'
+        },
+        'file_django': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/django.log'),
+            'when': 'D',  # interval type
+            'interval': 1,  # defaults to 1
+            'backupCount': 7,  # how many files to keep
+            'formatter': 'verbose',
+        },
+        'file_saskatoon': {
+            'level': 'INFO',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'logs/saskatoon.log'),
+            'when': 'D',
+            'interval': 1,
+            'backupCount': 7,
+            'formatter': 'verbose',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file_django', 'console'],
+            'level': 'WARNING',
+            'propogate': True,
+        },
+        'saskatoon': {
+            'handlers': ['file_saskatoon', 'console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        }
+    },
+    'formatters': {
+        'brief': {
+            'format': '{levelname} {asctime} <{name}.{funcName}> {message}',
+            'style': '{',
+        },
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {name}.{funcName} {process:d} {thread:d} {message}',
+            'datefmt': "%d/%b/%Y %H:%M:%S",
+            'style': '{',
+        }
+    }
+}
+
+EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')

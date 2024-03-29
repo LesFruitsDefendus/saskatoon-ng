@@ -47,8 +47,10 @@ class RequestForm(forms.ModelForm):
             auth_user = AuthUser.objects.get(email=email) #email field is unique
 
             # check if email already requested for the same harvest
-            if RequestForParticipation.objects.filter(picker=auth_user.person,
-                    harvest_id=self.cleaned_data['harvest_id']).exists():
+            if RequestForParticipation.objects.filter(
+                    picker=auth_user.person,
+                    harvest_id = self.cleaned_data['harvest_id']
+            ).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
                 )
@@ -298,7 +300,7 @@ class PropertyCreateForm(PropertyForm):
                 validate_email(data['owner_email'])
             else:
                 raise forms.ValidationError(
-                    _("ERROR: You must either select an Owner \
+                    _("You must either select an Owner \
                     or create a new one and provide their personal information"))
         return data
 

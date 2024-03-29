@@ -1,8 +1,10 @@
 from re import sub
 from django.db.models import Q
+from logging import getLogger
 from harvest.models import Property
 from member.models import AuthUser, Person
 
+logger = getLogger('saskatoon')
 
 def get_similar_properties(pending_property):
     """Look for potential property/owner duplicates"""
@@ -38,5 +40,6 @@ def get_similar_properties(pending_property):
         return Property.objects.filter(query).exclude(id=p.id).distinct()
 
     except Exception as _e:
-        print("Can't find similar properties for %s: %s (%s)", p, str(_e), type(_e))
+        logger.warning("Could not find similar properties to <%s> (%s: %s)",
+                     p, type(_e), str(_e))
         return Property.objects.none()

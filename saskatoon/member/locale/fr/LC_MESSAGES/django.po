@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-03 11:25-0400\n"
+"POT-Creation-Date: 2023-07-03 11:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,249 +18,288 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: member/forms.py:13
-msgid "ERROR: email address < {} > is already registered!"
+#: member/filters.py:116
+msgid "None"
 msgstr ""
 
-#: member/forms.py:24 member/forms.py:141
+#: member/filters.py:117
+#, fuzzy
+#| msgid "person"
+msgid "Person"
+msgstr "personne"
+
+#: member/filters.py:118
+#, fuzzy
+#| msgid "organization"
+msgid "Organization"
+msgstr "Organisme"
+
+#: member/forms.py:18 member/forms.py:77 member/forms.py:161
 msgid "Email"
+msgstr "Courriel"
+
+#: member/forms.py:108
+msgid "ERROR: Please assign at least one role to the user"
 msgstr ""
 
-#: member/forms.py:106
+#: member/forms.py:126
 msgid "Beneficiary organization"
-msgstr ""
+msgstr "Organisme bénéficiaire"
 
-#: member/forms.py:107
+#: member/forms.py:127
 msgid "Contact Position/Role"
-msgstr ""
+msgstr "Titre/Responsabilités de la Personne Contact"
 
-#: member/forms.py:119
+#: member/forms.py:139
 msgid "Select Person"
-msgstr ""
+msgstr "Sélectionner une Personne"
 
-#: member/forms.py:125
+#: member/forms.py:145
 msgid "&nbsp;Register new contact person"
-msgstr ""
+msgstr "&nbsp;Enregistrer une nouvelle personne contact"
 
-#: member/forms.py:130
+#: member/forms.py:150
 msgid "First Name"
-msgstr ""
+msgstr "Prénom"
 
-#: member/forms.py:131 member/forms.py:142
+#: member/forms.py:151 member/forms.py:162
 msgid "This field is required"
-msgstr ""
+msgstr "Ce champ est requis"
 
-#: member/forms.py:136
+#: member/forms.py:156
 msgid "Last Name"
-msgstr ""
+msgstr "Nom"
 
-#: member/forms.py:147 member/models.py:144 member/models.py:314
+#: member/forms.py:167 member/models.py:154 member/models.py:335
 msgid "Phone"
-msgstr ""
+msgstr "Téléphone"
 
-#: member/forms.py:159
+#: member/forms.py:179
 msgid ""
 "ERROR: You must either select a Contact                     Person or create "
 "a new one and provide their personal information"
 msgstr ""
-
-#: member/models.py:12
-msgid "Core Member"
-msgstr ""
-
-#: member/models.py:13
-msgid "Pick Leader"
-msgstr ""
+"ERREUR: Vous devez soit sélectionner une Personne Contact existante soit "
+"créer une nouvelle Personne Contact en fournissant ses informations "
+"personnellespersonnelle"
 
 #: member/models.py:14
-msgid "Volunteer Picker"
-msgstr ""
+msgid "Core Member"
+msgstr "Membre du noyau"
 
 #: member/models.py:15
-msgid "Property Owner"
-msgstr ""
+msgid "Pick Leader"
+msgstr "Chef (Cheffe) de cueillette"
 
 #: member/models.py:16
+msgid "Volunteer Picker"
+msgstr "Cueilleur (cueilleuse) Volontaire"
+
+#: member/models.py:17
+msgid "Property Owner"
+msgstr "Propriétaire"
+
+#: member/models.py:18
 msgid "Contact Person"
+msgstr "Personne Contact"
+
+#: member/models.py:27
+msgid "Users must have an email address"
 msgstr ""
 
-#: member/models.py:106
+#: member/models.py:55
+msgid "Only alphanumeric characters are allowed."
+msgstr ""
+
+#: member/models.py:60
+msgid "email address"
+msgstr ""
+
+#: member/models.py:108
 msgid "actor"
-msgstr ""
+msgstr "acteur"
 
-#: member/models.py:107
+#: member/models.py:109
 msgid "actors"
-msgstr ""
+msgstr "acteurs"
 
-#: member/models.py:126 member/models.py:298
+#: member/models.py:136 member/models.py:319
 msgid "Redmine contact"
-msgstr ""
+msgstr "Contact Redmine"
 
-#: member/models.py:132
+#: member/models.py:142
 msgid "First name"
-msgstr ""
+msgstr "Prénom"
 
-#: member/models.py:137
+#: member/models.py:147
 msgid "Family name"
-msgstr ""
+msgstr "Nom"
 
-#: member/models.py:151 member/models.py:334
+#: member/models.py:160 member/models.py:354
 msgid "Number"
-msgstr ""
+msgstr "Numéro civique"
 
-#: member/models.py:158 member/models.py:341
+#: member/models.py:167 member/models.py:361
 msgid "Street"
-msgstr ""
+msgstr "Rue"
 
-#: member/models.py:165 member/models.py:348
+#: member/models.py:174 member/models.py:368
 msgid "Complement"
-msgstr ""
+msgstr "Complément"
 
-#: member/models.py:172 member/models.py:355
+#: member/models.py:181 member/models.py:375
 msgid "Postal code"
-msgstr ""
+msgstr "Code postal"
 
-#: member/models.py:180 member/models.py:363
+#: member/models.py:189 member/models.py:383
 msgid "Neighborhood"
-msgstr ""
+msgstr "Voisinage"
 
-#: member/models.py:188 member/models.py:370
+#: member/models.py:197 member/models.py:390
 msgid "City"
-msgstr ""
+msgstr "Ville"
 
-#: member/models.py:196 member/models.py:378
+#: member/models.py:205 member/models.py:398
 msgid "State"
-msgstr ""
+msgstr "Province"
 
-#: member/models.py:204 member/models.py:386
+#: member/models.py:213 member/models.py:406
 msgid "Country"
-msgstr ""
+msgstr "Pays"
 
-#: member/models.py:211
+#: member/models.py:220
 msgid "Newsletter subscription"
-msgstr ""
+msgstr "Souscription au bulletin d'information"
 
-#: member/models.py:216 member/models.py:393
+#: member/models.py:225 member/models.py:413
 msgid "Longitude"
-msgstr ""
+msgstr "Longitude"
 
-#: member/models.py:222 member/models.py:399
+#: member/models.py:231 member/models.py:419
 msgid "Latitude"
-msgstr ""
+msgstr "Latitude"
 
-#: member/models.py:231
+#: member/models.py:240
 msgid "Preferred language"
-msgstr ""
+msgstr "Langue de contact préférée"
 
-#: member/models.py:236
+#: member/models.py:245
 msgid "Comments"
-msgstr ""
+msgstr "Commentaires"
 
-#: member/models.py:241
+#: member/models.py:250
 msgid "person"
-msgstr ""
+msgstr "personne"
 
-#: member/models.py:242
+#: member/models.py:251
 msgid "people"
-msgstr ""
+msgstr "gens"
 
-#: member/models.py:293
+#: member/models.py:314
 msgid "is beneficiary"
-msgstr ""
+msgstr "est bénéficiaire"
 
-#: member/models.py:304 member/models.py:438 member/models.py:452
-#: member/models.py:465 member/models.py:478 member/models.py:491
+#: member/models.py:325 member/models.py:472 member/models.py:486
+#: member/models.py:500 member/models.py:514 member/models.py:528
 msgid "Name"
-msgstr ""
+msgstr "Nom"
 
-#: member/models.py:309
+#: member/models.py:330
 msgid "Description"
-msgstr ""
+msgstr "Description"
 
-#: member/models.py:322
+#: member/models.py:342
 msgid "Contact person"
-msgstr ""
+msgstr "Personne contact"
 
-#: member/models.py:327
+#: member/models.py:347
 msgid "Contact person role"
-msgstr ""
+msgstr "Responsabilités de la personne contact"
 
-#: member/models.py:426
+#: member/models.py:446
 msgid "organization"
-msgstr ""
+msgstr "Organisme"
 
-#: member/models.py:427
+#: member/models.py:447
 msgid "organizations"
-msgstr ""
+msgstr "Organismes"
 
-#: member/models.py:443
+#: member/models.py:477
 msgid "neighborhood"
-msgstr ""
+msgstr "voisinage"
 
-#: member/models.py:444
+#: member/models.py:478
 msgid "neighborhoods"
-msgstr ""
+msgstr "voisinages"
 
-#: member/models.py:457
+#: member/models.py:491
 msgid "city"
-msgstr ""
+msgstr "ville"
 
-#: member/models.py:458
+#: member/models.py:492
 msgid "cities"
-msgstr ""
+msgstr "villes"
 
-#: member/models.py:470
+#: member/models.py:505
 msgid "state"
-msgstr ""
+msgstr "province"
 
-#: member/models.py:471
+#: member/models.py:506
 msgid "states"
-msgstr ""
+msgstr "provinces"
 
-#: member/models.py:483
+#: member/models.py:519
 msgid "country"
-msgstr ""
+msgstr "pays"
 
-#: member/models.py:484
+#: member/models.py:520
 msgid "countries"
-msgstr ""
+msgstr "pays"
 
-#: member/models.py:496
+#: member/models.py:533
 msgid "language"
-msgstr ""
+msgstr "langue"
 
-#: member/models.py:497
+#: member/models.py:534
 msgid "languages"
+msgstr "langues"
+
+#: member/validators.py:11
+msgid "ERROR: New email address cannot be empty."
 msgstr ""
 
-#: member/views.py:19
+#: member/validators.py:19
+msgid "ERROR: email address < {} > is already registered!"
+msgstr "ERREUR: Le courriel < {} > est déjà enregistré!"
+
+#: member/views.py:18
 msgid "New Person registered successfully!"
-msgstr ""
+msgstr "Création de la Nouvelle Personne réussie!"
 
-#: member/views.py:46
+#: member/views.py:44
 msgid "Person Registration"
-msgstr ""
-
-#: member/views.py:63
-msgid "Person updated successfully!"
-msgstr ""
+msgstr "Enregistrement d'une Nouvelle Personne"
 
 #: member/views.py:67
+msgid "Person updated successfully!"
+msgstr "Mise à jour de la Personne réussie!"
+
+#: member/views.py:71
 msgid "Person Update"
-msgstr ""
+msgstr "Mise à jour d'une Personne"
 
-#: member/views.py:83
+#: member/views.py:94
 msgid "New Organization registered successfully!"
-msgstr ""
+msgstr "Création d'un Nouvel Organisme Bénéficiaire réussie!"
 
-#: member/views.py:88
+#: member/views.py:99
 msgid "Organization Registration"
-msgstr ""
+msgstr "Enregistrement d'un Nouvel Organisme Bénéficiaire"
 
-#: member/views.py:97
+#: member/views.py:109
 msgid "Organization updated successfully!"
-msgstr ""
+msgstr "Mise à jour de l'Organisme Bénéficiaire réussie!"
 
-#: member/views.py:102
+#: member/views.py:114
 msgid "Organization Update"
-msgstr ""
+msgstr "Mise à jour d'un Organisme"

@@ -279,7 +279,7 @@ class Person(Actor):
 
     @property
     def harvests_as_pickleader(self):
-        return Harvest.objects.filter(pick_leader=self.auth_user)
+        return Harvest.objects.filter(pick_leader=self.auth_user, status="Succeeded")
 
     @property
     def requests_as_volunteer(self):
@@ -291,13 +291,22 @@ class Person(Actor):
         return Harvest.objects.filter(requests__in=requests)
 
     @property
+    def harvests_as_volunteer_succeeded(self):
+        return self.harvests_as_volunteer_accepted.filter(status="Succeeded")
+
+    @property
     def harvests_as_volunteer_pending(self):
         requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
         return Harvest.objects.filter(requests__in=requests)
 
     @property
-    def harvests_as_volunteer_missed(self):
-        requests = self.requests_as_volunteer.filter(Q(is_accepted=False)|Q(is_cancelled=True))
+    def harvests_as_volunteer_rejected(self):
+        requests = self.requests_as_volunteer.filter(is_accepted=False)
+        return Harvest.objects.filter(requests__in=requests)
+
+    @property
+    def harvests_as_volunteer_cancelled(self):
+        requests = self.requests_as_volunteer.filter(is_cancelled=True)
         return Harvest.objects.filter(requests__in=requests)
 
     @property

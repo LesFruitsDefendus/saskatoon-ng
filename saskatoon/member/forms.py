@@ -3,9 +3,12 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from dal import autocomplete
+from logging import getLogger
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
 from member.validators import validate_email
+
+logger = getLogger('saskatoon')
 
 
 class PersonCreateForm(forms.ModelForm):
@@ -56,7 +59,8 @@ class PersonCreateForm(forms.ModelForm):
                 pending_property = Property.objects.get(id=pid)
                 pending_property.owner = instance
                 pending_property.save()
-            except Exception as e: print(e)
+            except Exception as e:
+                logger.error("%s: %s", type(e), str(e))
 
         return instance
 
@@ -95,7 +99,7 @@ class PersonUpdateForm(forms.ModelForm):
                 self.initial['email'] = self.auth_user.email
                 roles = [g for g in self.auth_user.groups.all()]
             except ObjectDoesNotExist:
-                print("WARNING!: Person {} has no associated Auth.User!".format(self.instance))
+                logger.warning("Person {} has no associated Auth.User!".format(self.instance))
 
     def clean(self):
         super().clean()
@@ -105,16 +109,20 @@ class PersonUpdateForm(forms.ModelForm):
         roles = self.cleaned_data.get('roles', None)
         if email and not roles:
             raise forms.ValidationError(
-                _("ERROR: Please assign at least one role to the user"))
+                _("Please assign at least one role to the user"))
+        elif roles and not email:
+            raise forms.ValidationError(
+                _("An email address is required to assign a role to the user"))
 
     def save(self):
         instance = super().save()
         email = self.cleaned_data.get('email', None)
         roles = self.cleaned_data.get('roles', None)
         if email and roles:
-            auth_user, created = AuthUser.objects.get_or_create(person=instance)
-            auth_user.email = email
-            auth_user.set_roles(roles)  # calls auth_user.save()
+            if not self.auth_user:
+                self.auth_user = AuthUser.objects.create(person=instance, email=email)
+            self.auth_user.email = email
+            self.auth_user.set_roles(roles)  # calls auth_user.save()
 
 
 class OrganizationForm(forms.ModelForm):
