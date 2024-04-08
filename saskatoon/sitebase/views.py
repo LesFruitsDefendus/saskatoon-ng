@@ -7,10 +7,28 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+from sitebase.models import Content
+
+VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
+PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
 
 
 class Index(TemplateView):
     template_name = 'app/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        content_name = VOLUNTEER_HOME_CONTENT_NAME
+
+        if self.request.user.is_authenticated:
+            content_name = PICKLEADER_HOME_CONTENT_NAME
+
+        home = Content.objects.get(name=content_name)
+        if home is not None:
+            context['content'] = home.content(self.request.LANGUAGE_CODE)
+
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
