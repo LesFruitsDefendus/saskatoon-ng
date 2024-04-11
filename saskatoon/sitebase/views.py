@@ -24,9 +24,8 @@ class Index(TemplateView):
         if self.request.user.is_authenticated:
             content_name = PICKLEADER_HOME_CONTENT_NAME
 
-        home = Content.objects.get(name=content_name)
-        if home is not None:
-            context['content'] = home.content(self.request.LANGUAGE_CODE)
+        home, _ = Content.objects.get_or_create(name=content_name)
+        context['content'] = home.content(self.request.LANGUAGE_CODE)
 
         return context
 
