@@ -1,7 +1,7 @@
 [
 {
   "model": "sitebase.content",
-  "pk": 4,
+  "pk": 1,
   "fields": {
     "name": "volunteer_home",
     "title_en": "Welcome to Les Fruits Défendus!",
@@ -14,7 +14,7 @@
 },
 {
   "model": "sitebase.content",
-  "pk": 5,
+  "pk": 2,
   "fields": {
     "name": "pickleader_home",
     "title_en": "2024 Season",
