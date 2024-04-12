@@ -29,7 +29,8 @@ seq=(auth-group member-city \
      harvest-harvest \
      harvest-harvestyield \
      harvest-comment \
-     harvest-requestforparticipation )
+     harvest-requestforparticipation \
+     sitebase-content )
 
 ignore='saskatoon\.json'
 

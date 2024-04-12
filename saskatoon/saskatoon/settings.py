@@ -75,6 +75,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'debug_toolbar',
     'django_extensions',
+    'django_quill',
     'rosetta',
     'phone_field'
 ]

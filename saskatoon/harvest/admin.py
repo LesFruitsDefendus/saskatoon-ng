@@ -5,14 +5,13 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
-from member.models import (Actor, AuthUser, Person, Organization, Language,
-                           Neighborhood, City, State, Country)
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
 from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
                              HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
+from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm)
+from member.models import AuthUser
 
 
 class PersonInline(admin.TabularInline):
