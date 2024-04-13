@@ -1,5 +1,4 @@
 # coding: utf-8
-from ckeditor.widgets import CKEditorWidget
 from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt

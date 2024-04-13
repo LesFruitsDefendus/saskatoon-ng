@@ -64,7 +64,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leaflet',
+    # 'leaflet',
     'sitebase',
     'member',
     'harvest',
@@ -234,12 +234,6 @@ CACHES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'width': "100%"
-    },
-}
 
 CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
 
