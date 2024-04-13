@@ -88,6 +88,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'organizations': organizations,
                          'form_edit_recipient': HarvestYieldForm(),
                          'status_options': status_options,
+                         'about': harvest.about.html,
                         })
 
     def list(self, request, *args, **kwargs):

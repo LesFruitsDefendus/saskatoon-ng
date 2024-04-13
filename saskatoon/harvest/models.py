@@ -1,14 +1,14 @@
 # coding: utf-8
-
 from harvest import signals
-from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import datetime
+from django.core.validators import MinValueValidator
+from django_quill.fields import QuillField
 from django.db import models
+from django.db.models.query_utils import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-import datetime
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from django.db.models.query_utils import Q
 
 
 HARVESTS_STATUS_CHOICES = (
@@ -486,7 +486,7 @@ class Harvest(models.Model):
         default=3
     )
 
-    about = models.TextField(
+    about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
         help_text=_("If any help is needed from volunteer pickers, "
@@ -550,7 +550,7 @@ class Harvest(models.Model):
         return [r.picker for r in requests]
 
     def get_days_before_harvest(self):
-        diff = datetime.datetime.now() - self.start_date
+        diff = datetime.now() - self.start_date
         return diff.days
 
     def get_neighborhood(self):

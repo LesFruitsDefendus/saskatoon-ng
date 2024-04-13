@@ -1,16 +1,16 @@
 # coding: utf-8
 from ckeditor.widgets import CKEditorWidget
+from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
 from django import forms
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
-                            Equipment, PropertyImage, HarvestImage, TreeType, Property)
+                            Equipment, PropertyImage, HarvestImage, Property)
 from member.forms import validate_email
-from member.models import AuthUser, Person, Organization
+from member.models import AuthUser, Person
 from postalcodes_ca import parse_postal_code
 
 # Request for participation
@@ -540,9 +540,9 @@ class HarvestForm(forms.ModelForm):
             'nb_required_pickers': forms.NumberInput()
         }
 
-    about = forms.CharField(
-        widget=CKEditorWidget(),
+    about = QuillFormField(
         label=_("Public announcement"),
+        help_text=_("Published on public facing calendar"),
         required=True
     )
 
@@ -608,4 +608,5 @@ class EquipmentForm(forms.ModelForm):
                 'actor-autocomplete'
             ),
         }
+
         fields = '__all__'

@@ -28,7 +28,6 @@ setup(
         "djangorestframework>=3.11.0",
         "django-autocomplete-light>=3.8.2",
         "django-select2",
-        "django-ckeditor",
         "django-filter",
         "django-crequest",
         "django-debug-toolbar",
