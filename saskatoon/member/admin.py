@@ -10,14 +10,17 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
 from django.contrib.auth.models import Group
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
 from django.utils.html import mark_safe
-from member.models import (AuthUser, Actor, Language, Person, Organization,
-                           Neighborhood, City, State, Country)
+from member.models import (AuthUser, Actor, Language, Onboarding, Person,
+                           Organization, Neighborhood, City, State, Country)
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
+                            UserIsPendingValidation,
                             PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
+
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 
 
@@ -119,6 +122,7 @@ class AuthUserAdmin(UserAdmin):
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
                    UserIsContactAdminFilter,
+                   UserIsPendingValidation,
                    'is_staff',
                    'is_superuser',
                    'is_active'
@@ -369,3 +373,84 @@ admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
+
+
+class PendingPickLeaderForm(forms.ModelForm):
+    """A simple form to onboard new pickleaders"""
+
+    class Meta:
+        model = Person
+        fields = ['email', 'first_name', 'family_name', 'phone', 'language']
+
+    email = forms.EmailField(
+        label="email",
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PendingPickLeaderForm, self).__init__(*args, **kwargs)
+        self.auth_user = None
+        if self.instance.onboarding_id is not None:
+            self.auth_user = AuthUser.objects.get(person=self.instance)
+            self.initial['email'] = self.auth_user.email
+
+    def save(self, commit=True):
+        self.instance = super().save(commit=False)
+        data = self.cleaned_data
+        person = Person.objects.filter(auth_user__email=data.get('email')).first()
+        if person:
+            for key in ['first_name', 'family_name', 'phone']:
+                setattr(person, key, data.get(key))
+            person.onboarding = self.instance.onboarding
+            person.save()
+            self.instance.pk = person.pk
+            return self.instance
+
+        return super().save(commit)
+
+
+class PendingPickLeaderInlineFormSet(BaseInlineFormSet):
+
+    def get_emails(self):
+        forms = [f for f in self.forms if f.instance.pk is not None]
+        return dict([(f.instance.pk, f.cleaned_data.get('email')) for f in forms])
+
+    def clean(self):
+        email_list = list(self.get_emails().values())
+        if len(email_list) != len(set(email_list)):
+            raise forms.ValidationError("Duplicate emails found.")
+
+    def save_new_objects(self, commit=True):
+        saved_instances = super().save_new_objects(commit)
+        for person in [p for p in saved_instances if p is not None]:
+            email = self.get_emails().get(person.pk)
+            user, _ = AuthUser.objects.get_or_create(email=email, person=person)
+
+            # PickLeaders don't get assigned the 'pickleader' role until
+            # they have read and agreed to the privacy policy
+            user.add_role('volunteer')
+
+        return saved_instances
+
+    def save_existing_objects(self, commit=True):
+        saved_instances = super().save_existing_objects(commit)
+        for i, person in enumerate(saved_instances):
+            user = AuthUser.objects.get(person=person)
+            user.email = self.get_emails().get(person.pk)
+            user.save()
+
+        return saved_instances
+
+
+class PendingPickLeaderInlineForm(admin.TabularInline):
+    model = Person
+    fields = ['email', 'first_name', 'family_name', 'phone', 'language']
+    form = PendingPickLeaderForm
+    formset = PendingPickLeaderInlineFormSet
+    extra = 9
+
+
+@admin.register(Onboarding)
+class OnboardingAdmin(admin.ModelAdmin):
+    inlines = [PendingPickLeaderInlineForm]
+    list_display = ('__str__', 'user_count', 'invite_sent', 'id')

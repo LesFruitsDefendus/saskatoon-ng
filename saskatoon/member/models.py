@@ -62,13 +62,23 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         max_length=255
     )
 
-    # Our own fields
-    date_joined = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True, null=False)
-    is_staff = models.BooleanField(default=False, null=False)
-
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
+
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+    is_active = models.BooleanField(default=True, null=False)
+
+    is_staff = models.BooleanField(default=False, null=False)
+
+    def add_role(self, role, commit=True):
+        ''' add role to user
+            :param role: group name (see AUTH_GROUPS)
+        '''
+        group, __ =  Group.objects.get_or_create(name=role)
+        self.groups.add(group)
+        if commit:
+            self.save()
 
     def set_roles(self, roles):
         ''' updates user's groups
@@ -76,8 +86,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         '''
         self.groups.clear()
         for role in roles:
-            group, __ =  Group.objects.get_or_create(name=role)
-            self.groups.add(group)
+            self.add_role(role, False)
 
         self.is_staff = any([r in STAFF_GROUPS for r in roles])
         self.save()
@@ -97,6 +106,28 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
             return u"%s" % self.person
         else:
             return self.email
+
+
+class Onboarding(models.Model):
+    """Pickleader Registration"""
+
+    datetime = models.DateTimeField(auto_now_add=True)
+
+    invite_sent = models.BooleanField(
+        verbose_name=_('Invitation sent'),
+        default=False
+    )
+
+    class Meta:
+        verbose_name = _("user onboarding")
+        verbose_name_plural = _("user onboarding")
+
+    @property
+    def user_count(self):
+        return self.users.count()
+
+    def __str__(self):
+        return "{}".format(self.datetime.strftime("%B %d, %Y @ %-I:%M %p"), self.id)
 
 
 class Actor(models.Model):
@@ -246,9 +277,17 @@ class Person(Actor):
         blank=True
     )
 
+    onboarding = models.ForeignKey(
+        'Onboarding',
+        related_name="users",
+        on_delete=models.SET_NULL,
+        verbose_name=_('Onboarding group'),
+        null=True
+     )
+
     class Meta:
         verbose_name = _("person")
-        verbose_name_plural = _("people")
+        verbose_name_plural = _("persons")
         ordering = ["first_name"]
 
     def __str__(self):

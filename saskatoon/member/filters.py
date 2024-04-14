@@ -28,6 +28,22 @@ class UserGroupAdminFilter(SimpleListFilter):
         return queryset
 
 
+class UserIsPendingValidation(SimpleListFilter):
+    """Checks if AuthUser is a volunteer with a password"""
+    title = 'Pending PickLeader Filter'
+    parameter_name = 'pending'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('1', 'volunteer w/ password')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            group = Group.objects.get(name='volunteer')
+            return queryset.filter(groups__in=[group]).exclude(password__exact='')
+        return queryset
+
+
 class UserHasPropertyAdminFilter(SimpleListFilter):
     """Checks if AuthUser is a property owner"""
 
