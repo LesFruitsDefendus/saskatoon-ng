@@ -97,7 +97,6 @@ class PersonUpdateForm(forms.ModelForm):
                 self.auth_user = AuthUser.objects.get(person=self.instance)
                 self.initial['roles'] = [g for g in self.auth_user.groups.all()]
                 self.initial['email'] = self.auth_user.email
-                roles = [g for g in self.auth_user.groups.all()]
             except ObjectDoesNotExist:
                 logger.warning("Person {} has no associated Auth.User!".format(self.instance))
 
