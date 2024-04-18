@@ -20,6 +20,7 @@ AUTH_GROUPS = (
 
 STAFF_GROUPS = ['core', 'pickleader']
 
+
 class AuthUserManager(BaseUserManager):
 
     def create_user(self, email, password=None):
@@ -124,7 +125,7 @@ class Onboarding(models.Model):
 
     @property
     def user_count(self):
-        return self.users.count()
+        return self.persons.count()
 
     def __str__(self):
         return "{}".format(self.datetime.strftime("%B %d, %Y @ %-I:%M %p"), self.id)
@@ -279,7 +280,7 @@ class Person(Actor):
 
     onboarding = models.ForeignKey(
         'Onboarding',
-        related_name="users",
+        related_name="persons",
         on_delete=models.SET_NULL,
         verbose_name=_('Onboarding group'),
         null=True
