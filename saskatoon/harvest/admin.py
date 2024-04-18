@@ -1,5 +1,5 @@
 # coding: utf-8
-from leaflet.admin import LeafletGeoAdmin  # type: ignore
+# from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
@@ -88,7 +88,8 @@ class PropertyImageInline(admin.TabularInline):
 
 
 @admin.register(Property)
-class PropertyAdmin(LeafletGeoAdmin):
+# class PropertyAdmin(LeafletGeoAdmin):
+class PropertyAdmin(admin.ModelAdmin):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
