@@ -10,6 +10,10 @@ urlpatterns = [
         views.Index.as_view(),
         name='home'),
 
+    url('terms_conditions/',
+        views.TermsConditionsView.as_view(),
+        name='terms_conditions'),
+
     url(r'^jsoncal',
         views.JsonCalendar.as_view(),
         name='calendarJSON'),

@@ -1,16 +1,17 @@
-import os
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import View, TemplateView
+from django.views.generic import  RedirectView,  View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import Content
 
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
 PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
+TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
 
 
 class Index(TemplateView):
