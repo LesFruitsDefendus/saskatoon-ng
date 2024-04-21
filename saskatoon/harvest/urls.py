@@ -93,7 +93,7 @@ urlpatterns = [
 
     # MISC
     path(r'property/thanks/',
-         views.TemplateView.as_view(template_name='app/property_thanks.html'),
+         TemplateView.as_view(template_name='app/property_thanks.html'),
          name='property-thanks'),
 
     path('stats/', api.StatsView.as_view(), name='statistics'),

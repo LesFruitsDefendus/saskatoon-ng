@@ -9,14 +9,14 @@ from django_filters import rest_framework as filters
 from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
-from member.models import AuthUser, Organization, Neighborhood, Person
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
-from harvest.permissions import IsCoreOrAdmin
 from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, BeneficiarySerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
+from member.models import AuthUser, Organization, Neighborhood, Person
+from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin
 
 
 def get_filter_context(viewset):
@@ -34,6 +34,7 @@ def get_filter_context(viewset):
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Harvest viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Harvest.objects.all().order_by('-id')
     serializer_class = HarvestSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -113,6 +114,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Property viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -159,6 +161,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Equipment viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Equipment.objects.all().order_by('-id')
     serializer_class = EquipmentSerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -181,6 +184,7 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Request for participation viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = RequestForParticipation.objects.all().order_by('-id')
     serializer_class = RequestForParticipationSerializer
     template_name = 'app/participation_list.html'
@@ -196,6 +200,7 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Beneficiary viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
     serializer_class = BeneficiarySerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -218,6 +223,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Community viewset"""
 
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
     serializer_class = CommunitySerializer
     filter_backends = (filters.DjangoFilterBackend,)
@@ -238,12 +244,14 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class StatsView(LoginRequiredMixin, generics.ListAPIView):
+    """Statistics list view"""
+
+    permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status="Succeeded")
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')
-    permission_classes = [IsCoreOrAdmin]
 
     def list(self, request, format="html", *args, **kwargs) -> Response:
         """Returns statistics on harvests for all seasons or a specific season"""
