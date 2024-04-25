@@ -37,6 +37,7 @@ class AuthUserManager(BaseUserManager):
         user = self.create_user(email=email, password=password)
         user.is_staff = True
         user.is_superuser = True
+        user.add_role('admin')
         user.save(using=self._db)
         return user
 
