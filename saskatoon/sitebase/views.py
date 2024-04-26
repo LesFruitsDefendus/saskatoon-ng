@@ -11,6 +11,7 @@ from sitebase.models import Content
 
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
 PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
+PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
 
 
 class Index(TemplateView):
@@ -26,6 +27,20 @@ class Index(TemplateView):
 
         home, _ = Content.objects.get_or_create(name=content_name)
         context['content'] = home.content(self.request.LANGUAGE_CODE)
+
+        return context
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'app/privacy_policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        content_name = PRIVACY_POLICY_CONTENT_NAME
+
+        privacy_policy, _ = Content.objects.get_or_create(name=content_name)
+        context['content'] = privacy_policy.content(self.request.LANGUAGE_CODE)
 
         return context
 

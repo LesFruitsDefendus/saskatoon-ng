@@ -1,0 +1,32 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <div class="breadcomb-area">
+        <div class="container">
+            <div class="row" style="display: flex; justify-content: center;">
+                <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12">
+                    <div class="breadcomb-list">
+                        <div class="row">
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                <div class="breadcomb-wp">
+                                    <div class="breadcomb-icon">
+                                        <i class="notika-icon notika-windows"></i>
+                                    </div>
+                                    <div class="breadcomb-ctn">
+                                        <h3>{{ content.title }}</h3>
+                                        <h2>{{ content.subtitle }}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                        <div class="website-traffic-ctn" style="font-size: 1.15em;">{{ content.body.html | safe }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
