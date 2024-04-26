@@ -1,12 +1,17 @@
 import os
+from django.utils.translation import ugettext_lazy as _
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth import views as auth_views
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+from sitebase.forms import PasswordChangeForm
 from sitebase.models import Content
 
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
@@ -29,6 +34,26 @@ class Index(TemplateView):
         context['content'] = home.content(self.request.LANGUAGE_CODE)
 
         return context
+
+    def dispatch(self, request, *args, **kwargs):
+
+        if self.request.user.is_authenticated and self.request.user.password_set == False:
+            return redirect('change_password')
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):
+    template_name = 'registration/change_password.html'
+    form_class = PasswordChangeForm
+
+    def get_context_data(self, **kwargs):
+        context = super(PasswordChangeView, self).get_context_data(**kwargs)
+        return context
+
+    def get_success_url(self):
+        messages.success(self.request, _("Password successfully changed!"))
+        return reverse_lazy('home')
 
 
 class PrivacyPolicyView(TemplateView):
