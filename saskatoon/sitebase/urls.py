@@ -22,6 +22,10 @@ urlpatterns = [
          views.EquipmentPointsPDFView.as_view(),
          name='equipment-points'),
 
+    path('privacy_policy/',
+         views.PrivacyPolicyView.as_view(),
+         name='privacy_policy'),
+
     path('volunteer_waiver/',
          views.VolunteerWaiverPDFView.as_view(),
          name='volunteer-waiver'),
