@@ -73,6 +73,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(default=False, null=False)
 
+    # Default set to True for backwards compatibility
+    password_set = models.BooleanField(default=True, null=False)
+
     def add_role(self, role, commit=True):
         ''' add role to user
             :param role: group name (see AUTH_GROUPS)

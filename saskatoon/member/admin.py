@@ -73,7 +73,7 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta(UserChangeForm.Meta):
         model = AuthUser
         fields = ('email', 'password', 'is_active',
-                  'is_staff', 'is_superuser', 'user_permissions')
+                  'is_staff', 'is_superuser', 'password_set', 'user_permissions')
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -96,6 +96,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_core',
                     'is_admin',
                     'is_active',
+                    'password_set',
                     'id',
                     'date_joined',
                     'has_password',
@@ -147,6 +148,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_active',
                     'is_staff',
                     'is_superuser',
+                    'password_set',
                     'groups'
                 )
             }
@@ -163,6 +165,7 @@ class AuthUserAdmin(UserAdmin):
                     'password2',
                     'is_staff',
                     'is_superuser',
+                    'password_set',
                     'groups'
                 )
             }
