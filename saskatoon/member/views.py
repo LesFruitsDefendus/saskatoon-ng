@@ -5,7 +5,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from .models import Person, Organization
 from harvest.models import Property
-from .forms import ( PersonCreateForm, PersonUpdateForm,
+from .forms import ( PersonCreateForm, PersonUpdateForm, OnboardingPersonUpdateForm,
                      OrganizationCreateForm, OrganizationForm )
 
 
@@ -83,6 +83,19 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         kwargs = super().get_form_kwargs(*args, **kwargs)
         kwargs['request_user'] = self.request.user
         return kwargs
+
+
+class OnboardingPersonUpdateView(PersonUpdateView):
+    form_class = OnboardingPersonUpdateForm
+
+    def has_permission(self):
+        # Allow person to update own person
+        if self.get_object().pk == self.request.user.id:
+            return True
+        return super().has_permission()()
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
 class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

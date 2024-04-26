@@ -124,6 +124,26 @@ class PersonUpdateForm(forms.ModelForm):
             self.auth_user.set_roles(roles)  # calls auth_user.save()
 
 
+class OnboardingPersonUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        exclude = ['roles', 'email', 'redmine_contact_id', 'longitude', 'latitude']
+
+
+    def __init__(self, *args, **kwargs):
+        request_user = kwargs.pop('request_user')
+        super(OnboardingPersonUpdateForm, self).__init__(*args, **kwargs)
+        self.auth_user = AuthUser.objects.get(person=self.instance)
+
+    def clean(self):
+        super().clean()
+
+    def save(self):
+        super().save()
+        self.auth_user.add_role('pickleader')
+
+
 class OrganizationForm(forms.ModelForm):
 
     class Meta:
