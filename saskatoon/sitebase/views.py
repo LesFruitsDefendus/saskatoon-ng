@@ -12,6 +12,7 @@ from sitebase.models import Content
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
 PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
 TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
+PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
 
 
 class Index(TemplateView):
@@ -60,6 +61,20 @@ class TermsConditionsView(TemplateView):
         context['content'] = terms.content(self.request.LANGUAGE_CODE)
 
         return context
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'app/privacy_policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        content_name = PRIVACY_POLICY_CONTENT_NAME
+
+        privacy_policy, _ = Content.objects.get_or_create(name=content_name)
+        context['content'] = privacy_policy.content(self.request.LANGUAGE_CODE)
+
+        return context
+
 
 @method_decorator(login_required, name='dispatch')
 class RestrictedPDFView(View):
