@@ -2,7 +2,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import views as auth_views
 from django.views.generic import CreateView, UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse_lazy
@@ -123,10 +123,6 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     template_name = 'registration/change_password.html'
     form_class = PasswordChangeForm
 
-    def get_context_data(self, **kwargs):
-        context = super(PasswordChangeView, self).get_context_data(**kwargs)
-        return context
-
     def get_success_url(self):
         messages.success(self.request, _("Password successfully changed!"))
-        return reverse_lazy('home')
+        return reverse('home')
