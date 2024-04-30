@@ -1,5 +1,4 @@
 # coding: utf-8
-from math import ulp
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
@@ -226,7 +225,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
 
     def save(self, commit=True):
-        instance = super().save(commit)
-        instance.password_set = True
+        self.instance.password_set = True
+        return super().save(commit)
         instance.save()
         return
