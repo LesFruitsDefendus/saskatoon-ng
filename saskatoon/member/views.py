@@ -92,7 +92,7 @@ class OnboardingPersonUpdateView(PersonUpdateView):
         # Allow person to update own person
         if self.get_object().pk == self.request.user.id:
             return True
-        return super().has_permission()()
+        return super().has_permission()
 
     def get_success_url(self):
         return reverse_lazy('home')
