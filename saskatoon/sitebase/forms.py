@@ -16,7 +16,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
     def save(self, commit=True):
         instance = super().save(commit)
         auth_user = AuthUser.objects.get(person=instance.person)
-        auth_user.__setattr__('password_set', True)
+        auth_user.password_set = True
         auth_user.save()
         return
 
