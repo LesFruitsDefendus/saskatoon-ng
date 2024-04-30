@@ -99,7 +99,6 @@ class AuthUserAdmin(UserAdmin):
                     'password_set',
                     'id',
                     'date_joined',
-                    'has_password',
                     'last_login',
                     )
 

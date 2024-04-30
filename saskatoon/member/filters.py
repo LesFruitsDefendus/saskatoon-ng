@@ -40,7 +40,7 @@ class UserIsPendingValidation(SimpleListFilter):
     def queryset(self, request, queryset):
         if self.value():
             group = Group.objects.get(name='volunteer')
-            return queryset.filter(groups__in=[group]).exclude(password__exact='')
+            return queryset.filter(groups__in=[group]).exclude(password__exact='').filter(password_set=False)
         return queryset
 
 
