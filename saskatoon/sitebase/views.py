@@ -1,14 +1,11 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import Group
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
-from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import  RedirectView,  View, TemplateView
+from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
-from member.permissions import is_pickleader_or_core_or_admin
-from member.models import AUTH_GROUPS
+from member.models import  AuthUser
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import Content
 
@@ -38,9 +35,13 @@ class Index(TemplateView):
 
         user = self.request.user
 
-        # Start onboarding flow for newly onboarded pickleaders
-        if user.is_authenticated and user.roles == [dict(AUTH_GROUPS)['volunteer']]:
-            return redirect('terms_conditions')
+        if user.is_authenticated:
+            # Retrieve only name fields from QuerySet of Groups
+            group_names = list(map(lambda group: group.name, user.role_groups))
+
+            # Start onboarding flow for newly onboarded pickleaders
+            if 'volunteer' in group_names and not 'pickleader' in group_names:
+                return redirect('terms_conditions')
 
         return super().dispatch(request, *args, **kwargs)
 
