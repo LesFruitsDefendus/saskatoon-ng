@@ -28,7 +28,7 @@
                         <div class="website-traffic-ctn" style="font-size: 1.15em;">{{ content.body.html | safe }}</div>
                         <div class="terms-buttons" style="display: flex; gap: 1em">
                             <div class="breadcomb-wp">
-                                <a href="{% url 'onboarding-person-update' person.id %}"
+                                <a href="{% url 'onboarding-person-update' user.person.pk %}"
                                    class="btn btn-success notika-btn-success">Agree</a>
                             </div>
                             <div class="breadcomb-wp">

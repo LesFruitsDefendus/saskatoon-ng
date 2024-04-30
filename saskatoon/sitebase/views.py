@@ -58,8 +58,6 @@ class TermsConditionsView(TemplateView):
         terms, _ = Content.objects.get_or_create(name=content_name)
         context['content'] = terms.content(self.request.LANGUAGE_CODE)
 
-        context['person'] = self.request.user
-
         return context
 
 @method_decorator(login_required, name='dispatch')

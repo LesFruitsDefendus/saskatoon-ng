@@ -90,7 +90,7 @@ class OnboardingPersonUpdateView(PersonUpdateView):
 
     def has_permission(self):
         # Allow person to update own person
-        if self.get_object().pk == self.request.user.id:
+        if self.get_object().pk == self.request.user.person.pk:
             return True
         return super().has_permission()
 
