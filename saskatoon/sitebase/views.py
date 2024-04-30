@@ -33,7 +33,7 @@ class Index(TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
 
-        if self.request.user.is_authenticated and self.request.user.password_set == False:
+        if self.request.user.is_authenticated and not self.request.user.password_set:
             return redirect('change_password')
 
         return super().dispatch(request, *args, **kwargs)
