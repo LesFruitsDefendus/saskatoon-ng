@@ -1,4 +1,5 @@
 # coding: utf-8
+from math import ulp
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.translation import gettext_lazy as _
 from django import forms
@@ -226,7 +227,6 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
 
     def save(self, commit=True):
         instance = super().save(commit)
-        auth_user = AuthUser.objects.get(person=instance.person)
-        auth_user.password_set = True
-        auth_user.save()
+        instance.password_set = True
+        instance.save()
         return
