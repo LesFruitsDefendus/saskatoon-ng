@@ -36,14 +36,8 @@ class Index(TemplateView):
         """Redirect new pickleaders"""
 
         user = self.request.user
-
-        if user.is_authenticated:
-            # user.set_roles(['volunteer'])
-
-            # Start onboarding flow for newly onboarded pickleaders
-            if user.is_onboarding:
+        if user.is_authenticated and user.is_onboarding:
                 return redirect('terms_conditions')
-
         return super().dispatch(request, *args, **kwargs)
 
 
