@@ -37,11 +37,9 @@ class Index(TemplateView):
         user = self.request.user
 
         if user.is_authenticated:
-            # Retrieve only name fields from QuerySet of Groups
-            group_names = [g.name for g in user.role_groups]
 
             # Start onboarding flow for newly onboarded pickleaders
-            if 'volunteer' in group_names and not 'pickleader' in group_names:
+            if user.is_onboarding:
                 return redirect('terms_conditions')
 
         return super().dispatch(request, *args, **kwargs)

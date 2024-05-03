@@ -103,6 +103,13 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         ''' lists user's role names'''
         return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
 
+    @property
+    def is_onboarding(self):
+        ''' return if user has yet to go through onboarding flow (only volunteer role with password)'''
+        # Retrieve only name fields from QuerySet of Groups
+        group_names = [g.name for g in self.role_groups]
+        return 'volunteer' in group_names and not 'pickleader' in group_names
+
     def __str__(self):
         if self.person:
             return u"%s" % self.person
