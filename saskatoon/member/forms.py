@@ -128,7 +128,7 @@ class OnboardingPersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['roles', 'email', 'redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude']
 
 
     def __init__(self, *args, **kwargs):
