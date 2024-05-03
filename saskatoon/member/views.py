@@ -1,5 +1,5 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -85,14 +85,12 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         return kwargs
 
 
-class OnboardingPersonUpdateView(PersonUpdateView):
+class OnboardingPersonUpdateView(LoginRequiredMixin, PersonUpdateView):
     form_class = OnboardingPersonUpdateForm
 
     def has_permission(self):
-        # Allow person to update own person
-        if self.get_object().pk == self.request.user.person.pk:
-            return True
-        return super().has_permission()
+        # Only allow onboarding member to update own person
+        return self.get_object().pk == self.request.user.person.pk
 
     def get_success_url(self):
         return reverse_lazy('home')
