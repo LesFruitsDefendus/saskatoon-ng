@@ -30,7 +30,7 @@ class UserGroupAdminFilter(SimpleListFilter):
 
 class UserIsOnboarding(SimpleListFilter):
     """Checks if AuthUser is a volunteer with a password"""
-    title = 'Pending PickLeader Filter'
+    title = 'Onboarding PickLeader Filter'
     parameter_name = 'pending'
     default_value = None
 
