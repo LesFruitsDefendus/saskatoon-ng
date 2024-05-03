@@ -107,11 +107,10 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     def is_onboarding(self):
         ''' return if user has yet to go through onboarding flow (only volunteer role with password)'''
         # Retrieve only name fields from QuerySet of Groups
-        group_names = [g.name for g in self.role_groups]
-        is_volunteer = 'volunteer' in group_names
-        is_pickleader = 'pickleader' in group_names
-        has_password = self.password != ''
-        return is_volunteer and has_password and not is_pickleader
+        group_names = [g.name  for g in self.role_groups]
+        return ('pickleader' not in group_names and
+            'volunteer' in group_names and
+            self.password != '')
 
     def __str__(self):
         if self.person:
