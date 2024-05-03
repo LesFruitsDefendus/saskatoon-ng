@@ -225,7 +225,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
 
     def save(self, commit=True):
-        self.instance.password_set = True
-        return super().save(commit)
+        instance = super().save(False)
+        instance.password_set = True
         instance.save()
-        return
+        return instance
