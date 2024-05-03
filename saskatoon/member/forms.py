@@ -141,7 +141,7 @@ class OnboardingPersonUpdateForm(forms.ModelForm):
 
     def save(self):
         super().save()
-        self.auth_user.add_role('pickleader')
+        self.instance.auth_user.add_role('pickleader')
 
 
 class OrganizationForm(forms.ModelForm):
