@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
@@ -37,6 +38,7 @@ class Index(TemplateView):
         user = self.request.user
 
         if user.is_authenticated:
+            # user.set_roles(['volunteer'])
 
             # Start onboarding flow for newly onboarded pickleaders
             if user.is_onboarding:
@@ -45,7 +47,7 @@ class Index(TemplateView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class TermsConditionsView(TemplateView):
+class TermsConditionsView(LoginRequiredMixin, TemplateView):
     """
     Show terms and conditions.
     """
