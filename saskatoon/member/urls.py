@@ -17,6 +17,10 @@ urlpatterns = [
          views.PersonUpdateView.as_view(),
          name='person-update'),
 
+    path('person/onboarding_update/<int:pk>/',
+         views.OnboardingPersonUpdateView.as_view(),
+         name='onboarding-person-update'),
+
     path('beneficiary/update/<int:pk>/',
          views.OrganizationUpdateView.as_view(),
          name='beneficiary-update'),

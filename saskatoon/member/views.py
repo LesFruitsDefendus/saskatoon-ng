@@ -1,6 +1,6 @@
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from .models import Person, Organization
 from harvest.models import Property
-from .forms import ( PersonCreateForm, PersonUpdateForm,
+from .forms import ( PersonCreateForm, PersonUpdateForm, OnboardingPersonUpdateForm,
                      OrganizationCreateForm, OrganizationForm,
                      PasswordChangeForm)
 
@@ -87,6 +87,26 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         kwargs = super().get_form_kwargs(*args, **kwargs)
         kwargs['request_user'] = self.request.user
         return kwargs
+
+
+class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Person
+    form_class = OnboardingPersonUpdateForm
+    template_name = 'app/forms/model_form.html'
+    success_message = _("Successfully onboarded!")
+
+    def has_permission(self):
+        # Only allow onboarding member to update own person
+        return self.get_object().pk == self.request.user.person.pk
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Onboarding Person Update")
+        context['cancel_url'] = reverse_lazy('home')
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('home')
 
 
 class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

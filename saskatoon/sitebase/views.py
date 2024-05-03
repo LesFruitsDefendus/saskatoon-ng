@@ -1,17 +1,20 @@
 import os
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
+from member.models import  AuthUser
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import Content
 
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
 PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
+TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
 PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
 
 
@@ -32,12 +35,33 @@ class Index(TemplateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
+        """Redirect new pickleaders"""
 
-        if self.request.user.is_authenticated and not self.request.user.password_set:
-            return redirect('change_password')
+        user = self.request.user
+
+        if user.is_authenticated:
+            if not user.password_set:
+                return redirect('change_password')
+
+            if user.is_onboarding:
+                return redirect('terms_conditions')
 
         return super().dispatch(request, *args, **kwargs)
 
+
+class TermsConditionsView(LoginRequiredMixin, TemplateView):
+    """
+    Show terms and conditions.
+    """
+    template_name = 'app/terms_conditions.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        terms, _ = Content.objects.get_or_create(name=TERMS_CONDITIONS_CONTENT_NAME)
+        context['content'] = terms.content(self.request.LANGUAGE_CODE)
+
+        return context
 
 class PrivacyPolicyView(TemplateView):
     template_name = 'app/privacy_policy.html'
