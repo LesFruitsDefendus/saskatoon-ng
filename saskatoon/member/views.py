@@ -85,12 +85,22 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         return kwargs
 
 
-class OnboardingPersonUpdateView(LoginRequiredMixin, PersonUpdateView):
+class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Person
     form_class = OnboardingPersonUpdateForm
+    template_name = 'app/forms/model_form.html'
+    success_message = _("Successfully onboarded!")
+    # success_message = _("Successfully onboarded!")
 
     def has_permission(self):
         # Only allow onboarding member to update own person
         return self.get_object().pk == self.request.user.person.pk
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Onboarding Person Update")
+        context['cancel_url'] = reverse_lazy('home')
+        return context
 
     def get_success_url(self):
         return reverse_lazy('home')

@@ -130,15 +130,6 @@ class OnboardingPersonUpdateForm(forms.ModelForm):
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
 
-
-    def __init__(self, *args, **kwargs):
-        request_user = kwargs.pop('request_user')
-        super(OnboardingPersonUpdateForm, self).__init__(*args, **kwargs)
-        self.auth_user = AuthUser.objects.get(person=self.instance)
-
-    def clean(self):
-        super().clean()
-
     def save(self):
         super().save()
         self.instance.auth_user.add_role('pickleader')
