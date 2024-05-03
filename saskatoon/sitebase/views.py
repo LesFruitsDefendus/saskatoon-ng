@@ -50,8 +50,7 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_name = TERMS_CONDITIONS_CONTENT_NAME
-        terms, _ = Content.objects.get_or_create(name=content_name)
+        terms, _ = Content.objects.get_or_create(name=TERMS_CONDITIONS_CONTENT_NAME)
         context['content'] = terms.content(self.request.LANGUAGE_CODE)
 
         return context
