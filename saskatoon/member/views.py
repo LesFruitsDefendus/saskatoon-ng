@@ -90,7 +90,6 @@ class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
     form_class = OnboardingPersonUpdateForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Successfully onboarded!")
-    # success_message = _("Successfully onboarded!")
 
     def has_permission(self):
         # Only allow onboarding member to update own person
