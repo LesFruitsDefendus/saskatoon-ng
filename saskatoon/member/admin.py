@@ -18,7 +18,7 @@ from member.models import (AuthUser, Actor, Language, Onboarding, Person,
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
-                            UserIsPendingValidation,
+                            UserIsOnboarding,
                             PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
 from member.utils import send_reset_password_email
 
@@ -123,7 +123,7 @@ class AuthUserAdmin(UserAdmin):
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
                    UserIsContactAdminFilter,
-                   UserIsPendingValidation,
+                   UserIsOnboarding,
                    'is_staff',
                    'is_superuser',
                    'is_active'
