@@ -38,7 +38,7 @@ class Index(TemplateView):
 
         if user.is_authenticated:
             # Retrieve only name fields from QuerySet of Groups
-            group_names = list(map(lambda group: group.name, user.role_groups))
+            group_names = [g.name for g in user.role_groups]
 
             # Start onboarding flow for newly onboarded pickleaders
             if 'volunteer' in group_names and not 'pickleader' in group_names:
