@@ -28,7 +28,7 @@ class UserGroupAdminFilter(SimpleListFilter):
         return queryset
 
 
-class UserIsPendingValidation(SimpleListFilter):
+class UserIsOnboarding(SimpleListFilter):
     """Checks if AuthUser is a volunteer with a password"""
     title = 'Pending PickLeader Filter'
     parameter_name = 'pending'
@@ -39,8 +39,7 @@ class UserIsPendingValidation(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            group = Group.objects.get(name='volunteer')
-            return queryset.filter(groups__in=[group]).exclude(password__exact='')
+            return queryset.filter(id__in=[ user.id for user in queryset if user.is_onboarding ])
         return queryset
 
 
