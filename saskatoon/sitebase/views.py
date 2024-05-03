@@ -40,11 +40,11 @@ class Index(TemplateView):
         user = self.request.user
 
         if user.is_authenticated:
-            if not user.password_set:
-                return redirect('change_password')
-
             if user.is_onboarding:
                 return redirect('terms_conditions')
+
+            if not user.password_set:
+                return redirect('change_password')
 
         return super().dispatch(request, *args, **kwargs)
 
