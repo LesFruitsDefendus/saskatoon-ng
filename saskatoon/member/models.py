@@ -73,7 +73,6 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(default=False, null=False)
 
-    # Default set to False for backwards compatibility
     has_temporary_password = models.BooleanField(default=False, null=False)
 
     def add_role(self, role, commit=True):

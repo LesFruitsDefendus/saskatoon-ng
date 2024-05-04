@@ -96,7 +96,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_core',
                     'is_admin',
                     'is_active',
-                    # 'has_temporary_password',
+                    'has_password',
                     'id',
                     'date_joined',
                     'last_login',
@@ -147,7 +147,6 @@ class AuthUserAdmin(UserAdmin):
                     'is_active',
                     'is_staff',
                     'is_superuser',
-                    # 'has_temporary_password',
                     'groups'
                 )
             }
