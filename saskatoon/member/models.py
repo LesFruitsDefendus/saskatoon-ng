@@ -112,8 +112,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         group_names = [g.name  for g in self.role_groups]
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
-                self.has_temporary_password and
-                self.password != '')
+                self.has_temporary_password)
 
     def __str__(self):
         if self.person:
