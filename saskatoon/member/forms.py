@@ -237,6 +237,6 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
 
     def save(self, commit=True):
         instance = super().save(False)
-        instance.password_set = True
+        instance.has_temporary_password = False
         instance.save()
         return instance

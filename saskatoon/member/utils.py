@@ -9,7 +9,7 @@ def send_reset_password_email(user: AuthUser, subject: str, message: str) -> boo
 
     password = AuthUser.objects.make_random_password(16)
     user.set_password(password)
-    user.password_set = False
+    user.has_temporary_password = True
     user.save()
 
     mailto = user.email

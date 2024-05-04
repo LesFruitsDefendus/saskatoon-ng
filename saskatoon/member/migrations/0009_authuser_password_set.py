@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='authuser',
-            name='password_set',
-            field=models.BooleanField(default=True),
+            name='has_temporary_password',
+            field=models.BooleanField(default=False),
         ),
     ]

@@ -43,7 +43,7 @@ class Index(TemplateView):
             if user.is_onboarding:
                 return redirect('terms_conditions')
 
-            if not user.password_set:
+            if user.has_temporary_password:
                 return redirect('change_password')
 
         return super().dispatch(request, *args, **kwargs)
