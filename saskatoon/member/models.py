@@ -112,8 +112,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         # Retrieve only name fields from QuerySet of Groups
         group_names = [g.name  for g in self.role_groups]
         return ('pickleader' not in group_names and
-            'volunteer' in group_names and
-            self.password != '')
+                'volunteer' in group_names and
+                self.has_temporary_password and
+                self.password != '')
 
     def __str__(self):
         if self.person:
