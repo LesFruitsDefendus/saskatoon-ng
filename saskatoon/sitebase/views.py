@@ -1,3 +1,5 @@
+import os
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
@@ -36,8 +38,14 @@ class Index(TemplateView):
         """Redirect new pickleaders"""
 
         user = self.request.user
-        if user.is_authenticated and user.is_onboarding:
+
+        if user.is_authenticated:
+            if user.is_onboarding:
                 return redirect('terms_conditions')
+
+            if user.has_temporary_password:
+                return redirect('change_password')
+
         return super().dispatch(request, *args, **kwargs)
 
 

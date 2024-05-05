@@ -1,12 +1,16 @@
 from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.views.generic import CreateView, UpdateView
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
+from django.contrib import messages
+from django.urls import reverse_lazy
 from .models import Person, Organization
 from harvest.models import Property
 from .forms import ( PersonCreateForm, PersonUpdateForm, OnboardingPersonUpdateForm,
-                     OrganizationCreateForm, OrganizationForm )
+                     OrganizationCreateForm, OrganizationForm,
+                     PasswordChangeForm)
 
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -133,3 +137,12 @@ class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, Updat
         context['title'] = _("Organization Update")
         context['cancel_url'] = reverse_lazy('beneficiary-list')
         return context
+
+
+class PasswordChangeView(auth_views.PasswordChangeView):
+    template_name = 'registration/change_password.html'
+    form_class = PasswordChangeForm
+
+    def get_success_url(self):
+        messages.success(self.request, _("Password successfully changed!"))
+        return reverse('home')

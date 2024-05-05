@@ -41,7 +41,7 @@ class UserIsOnboarding(SimpleListFilter):
         if self.value():
             # WARNING: Conditions must match `AuthUser.is_onboarding`. Using QuerySet over lists for performance.
             group = Group.objects.get(name='volunteer')
-            return queryset.filter(groups__in=[group]).exclude(password__exact='')
+            return queryset.filter(groups__in=[group]).exclude(password__exact='').filter(has_temporary_password=True)
         return queryset
 
 

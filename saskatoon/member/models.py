@@ -73,6 +73,8 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     is_staff = models.BooleanField(default=False, null=False)
 
+    has_temporary_password = models.BooleanField(default=False, null=False)
+
     def add_role(self, role, commit=True):
         ''' add role to user
             :param role: group name (see AUTH_GROUPS)
@@ -109,8 +111,8 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         # Retrieve only name fields from QuerySet of Groups
         group_names = [g.name  for g in self.role_groups]
         return ('pickleader' not in group_names and
-            'volunteer' in group_names and
-            self.password != '')
+                'volunteer' in group_names and
+                self.has_temporary_password)
 
     def __str__(self):
         if self.person:

@@ -1,12 +1,15 @@
 # coding: utf-8
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.utils.translation import gettext_lazy as _
 from django import forms
+from django.contrib.auth import forms as auth_forms
+from django.forms.widgets import PasswordInput
+
 from dal import autocomplete
 from logging import getLogger
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
-from member.validators import validate_email
+from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
 
@@ -219,4 +222,25 @@ class OrganizationCreateForm(OrganizationForm):
         instance.contact_person = person
         instance.save()
 
+        return instance
+
+
+class PasswordChangeForm(auth_forms.PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+
+        # replace widgets with placeholder values to fit Notika theme
+        self.fields['old_password'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'current-password', 'placeholder': 'Old password', 'autofocus': True })
+        self.fields['new_password1'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'New password'})
+        self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
+
+    def clean_new_password1(self):
+        old_password = self.cleaned_data.get('old_password')
+        new_password = self.cleaned_data.get('new_password1')
+        return validate_new_password(old_password, new_password)
+
+    def save(self, commit=True):
+        instance = super().save(False)
+        instance.has_temporary_password = False
+        instance.save()
         return instance

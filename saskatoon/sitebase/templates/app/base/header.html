@@ -1,19 +1,23 @@
 {% load static %}
 {% load i18n %}
 {% load auth_users %}
-
 <div class="header-top-area">
     <div class="container">
         <div class="row">
             <div class="col-md-1 col-md-offset-0 col-sm-4 col-sm-offset-4 col-xs-6 col-xs-offset-3">
                 <div class="logo-area">
-                    <a href="/"><img src="{% static 'img/logo.png' %}" alt="Les Fruits Defendus - Saskatoon" /></a>
+                    <a href="/">
+                        <img src="{% static 'img/logo.png' %}"
+                             alt="Les Fruits Defendus - Saskatoon" />
+                    </a>
                 </div>
             </div>
             <div class="col-md-5 col-xs-12">
                 <div class="logo-area">
                     <h2 style="color:white">Les Fruits Défendus</h2>
-                    <p style="color:white"><i>{% translate 'Collectif montréalais de cueillette urbaine de fruits' %}</i></p>
+                    <p style="color:white">
+                        <i>Collectif montréalais de cueillette urbaine de fruits</i>
+                    </p>
                 </div>
             </div>
             <div class="col-md-6 col-xs-12">
@@ -21,39 +25,56 @@
                     <ul class="nav navbar-nav notika-top-nav">
                         {% if user.is_authenticated %}
                             <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                <a href="#"
+                                   data-toggle="dropdown"
+                                   role="button"
+                                   aria-expanded="false"
+                                   class="nav-link dropdown-toggle">
                                     <span class="menu-it-icon-pro">
                                         <span class="h5">{{ user }}</span>
-                                    <i class="notika-icon notika-support"></i>
+                                        <i class="notika-icon notika-support"></i>
                                     </span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="{% url 'admin:password_change' %}">{% translate "Change password" %}</a></li>
-                                    <li><a href="{% url 'privacy_policy' %}">{% translate "Privacy policy" %}</a></li>
-                                    <li><a href={% url "logout" %}>{% translate "Logout" %}</a></li>
+                                    <li>
+                                        <a href="{% url 'privacy_policy' %}">{% translate "Privacy policy" %}</a>
+                                    </li>
+                                    <li>
+                                        <a href={% url "logout" %}>{% translate "Logout" %}</a>
+                                    </li>
                                 </ul>
                             </li>
                             {% if user.is_staff %}
                                 <li class="nav-item dropdown">
-                                    <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
+                                    <a href="#"
+                                       data-toggle="dropdown"
+                                       role="button"
+                                       aria-expanded="false"
+                                       class="nav-link dropdown-toggle">
                                         <span><i class="notika-icon notika-app"></i></span></a>
-                                    </a>
                                     <ul class="dropdown-menu">
                                         {% if perms.member.add_authuser %}
-                                            <li> <a href="{% url 'person-create' %}">
-                                                {% translate "Add user" %}</a></li>
+                                            <li>
+                                                <a href="{% url 'person-create' %}">{% translate "Add user" %}</a>
+                                            </li>
                                         {% endif %}
                                         {% if perms.member.change_authuser %}
-                                            <li><a href="{% url 'admin:member_authuser_changelist' %}">
-                                                {% translate "Manage user" %}</a></li>
+                                            <li>
+                                                <a href="{% url 'admin:member_authuser_changelist' %}">{% translate "Manage user" %}</a>
+                                            </li>
                                         {% endif %}
                                         {% if perms.member.change_organization %}
-                                            <li><a href="{% url 'admin:member_organization_changelist' %}">
-                                                {% translate "Manage beneficiary" %}</a></li>
+                                            <li>
+                                                <a href="{% url 'admin:member_organization_changelist' %}">{% translate "Manage beneficiary" %}</a>
+                                            </li>
                                         {% endif %}
-                                        <li><a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a></li>
                                         {% if user|is_core_or_admin %}
-                                        <li><a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a></li>
+                                            <li>
+                                                <a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a>
+                                            </li>
                                         {% endif %}
                                     </ul>
                                 </li>
@@ -69,25 +90,29 @@
                             </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a href="#" data-toggle="dropdown" role="button"
-                               aria-expanded="false" class="nav-link dropdown-toggle">
+                            <a href="#"
+                               data-toggle="dropdown"
+                               role="button"
+                               aria-expanded="false"
+                               class="nav-link dropdown-toggle">
                                 <span class="menu-it-icon-pro h5">
-                                    <span class="language-title">
-                                        {% translate "Languague" %}:</span>
-                                        {{ LANGUAGE_CODE }}
+                                    <span class="language-title">{% translate "Languague" %}:</span>
+                                    {{ LANGUAGE_CODE }}
                                     <i class="fa fa-caret-down"></i>
                                 </span>
-                                <form action="{% url 'set_language' %}" method="post"
-                                      style="display: none" id="change_language_form">
+                                <form action="{% url 'set_language' %}"
+                                      method="post"
+                                      style="display: none"
+                                      id="change_language_form">
                                     {% csrf_token %}
                                     <input type="hidden" value="" name="language" id="language" />
                                 </form>
                             </a>
                             <ul class="dropdown-menu">
                                 {% for language in languages %}
-                                <li><a lang_code="{{ language.code }}" class="change_language">
-                                    {{ language.name_local|title }} ({{ language.code }})
-                                </a></li>
+                                    <li>
+                                        <a lang_code="{{ language.code }}" class="change_language">{{ language.name_local|title }} ({{ language.code }})</a>
+                                    </li>
                                 {% endfor %}
                             </ul>
                         </li>
