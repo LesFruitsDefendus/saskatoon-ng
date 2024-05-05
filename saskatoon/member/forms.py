@@ -9,7 +9,7 @@ from dal import autocomplete
 from logging import getLogger
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
-from member.validators import validate_email
+from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
 
@@ -226,11 +226,6 @@ class OrganizationCreateForm(OrganizationForm):
 
 
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
-    error_messages = {
-        **auth_forms.PasswordChangeForm.error_messages,
-        'password_unchanged': _("Your new password must be different than your old password."),
-    }
-
     def __init__(self, user, *args, **kwargs):
         super().__init__(user, *args, **kwargs)
 
@@ -240,18 +235,9 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
 
     def clean_new_password1(self):
-        """
-        Validate that the new_password does not match old_password.
-        """
         old_password = self.cleaned_data.get('old_password')
         new_password = self.cleaned_data.get('new_password1')
-        if old_password and new_password:
-            if old_password == new_password:
-                raise ValidationError(
-                    self.error_messages['password_unchanged'],
-                    code='password_unchanged',
-                )
-        return new_password
+        return validate_new_password(old_password, new_password)
 
     def save(self, commit=True):
         instance = super().save(False)
