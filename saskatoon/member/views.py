@@ -1,12 +1,15 @@
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views.generic import CreateView, UpdateView
+from django.shortcuts import redirect
+from django.views.generic import CreateView, UpdateView, View
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.urls import reverse_lazy
-from .models import Person, Organization
+
+from .utils import send_reset_password_email
+from .models import Person, Organization, AuthUser
 from harvest.models import Property
 from .forms import ( PersonCreateForm, PersonUpdateForm, OnboardingPersonUpdateForm,
                      OrganizationCreateForm, OrganizationForm,
@@ -146,3 +149,23 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     def get_success_url(self):
         messages.success(self.request, _("Password successfully changed!"))
         return reverse('home')
+
+
+class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, View):
+    """View for sending reset password email, with redirect on success."""
+    permission_required = 'member.change_authuser'
+    template_name = 'app/index.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        target_user = AuthUser.objects.get(id=self.kwargs['pk'])
+
+        subject = "Your password has been reset"
+
+        message = ""
+
+        if send_reset_password_email(target_user, subject, message):
+            messages.success(request, _("Password reset email successfully sent to {email}".format(email=target_user.email)))
+        else:
+            messages.error(request, _("Failed to send password reset email to {email}".format(email=target_user.email)))
+
+        return redirect('community-list')
