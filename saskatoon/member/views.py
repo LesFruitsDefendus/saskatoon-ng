@@ -161,7 +161,34 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
         subject = "Your password has been reset"
 
-        message = ""
+        # FIXME: Add French content
+        message = """Hi {name},
+
+You are receiving this email because an administrator for Les Fruits Défendus has reset your password. \
+Please log in using the temporary password provided below.
+
+Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/
+Email address: {email}
+Temporary password: {{password}}
+
+Thanks for supporting your community!
+
+--
+
+Bonjour {name},
+
+<>
+
+Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/
+Adresse électronique: {email}
+Mot de passe temporaire: {{password}}
+
+Merci de soutenir votre communauté!
+
+--
+
+Les Fruits Défendus
+""".format(name=target_user.person.first_name, email=target_user.email)
 
         if send_reset_password_email(target_user, subject, message):
             messages.success(request, _("Password reset email successfully sent to {email}".format(email=target_user.email)))
