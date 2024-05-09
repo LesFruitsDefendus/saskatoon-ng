@@ -154,7 +154,6 @@ class PasswordChangeView(auth_views.PasswordChangeView):
 class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, View):
     """View for sending reset password email, with redirect on success."""
     permission_required = 'member.change_authuser'
-    template_name = 'app/index.html'
 
     def dispatch(self, request, *args, **kwargs):
         target_user = AuthUser.objects.get(id=self.kwargs['pk'])
