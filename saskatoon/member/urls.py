@@ -29,6 +29,9 @@ urlpatterns = [
          views.PasswordChangeView.as_view(),
          name ='change_password'),
 
+    path('reset_password/<int:pk>',
+         views.PasswordResetView.as_view(),
+         name ='reset_password'),
 
     # AUTO-COMPLETE VIEWS
     re_path(r'^actor-autocomplete/$',
