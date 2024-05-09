@@ -23,7 +23,7 @@
         {% endif %}
         </span><br>
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
-        {% if perms.member.change_authuser %}
+        {% if perms.member.change_authuser and user.password != '' %}
             <a href="{% url 'reset_password' user.id %}"
                 onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
                 title="reset-password">

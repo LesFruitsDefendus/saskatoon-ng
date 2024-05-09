@@ -159,7 +159,11 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     def dispatch(self, request, *args, **kwargs):
         target_user = AuthUser.objects.get(id=self.kwargs['pk'])
 
-        subject = ""Les Fruits Défendus - Password reset"
+        if target_user.password == '':
+            messages.error(request, _("Cannot reset password for {email}: User does not have a password set.".format(email=target_user.email)))
+            return redirect('community-list')
+
+        subject = "Les Fruits Défendus - Password reset"
 
         # FIXME: Add French content
         message = """Hi {name},
