@@ -159,13 +159,13 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     def dispatch(self, request, *args, **kwargs):
         target_user = AuthUser.objects.get(id=self.kwargs['pk'])
 
-        subject = "Your password has been reset"
+        subject = ""Les Fruits Défendus - Password reset"
 
         # FIXME: Add French content
         message = """Hi {name},
 
-You are receiving this email because an administrator for Les Fruits Défendus has reset your password. \
-Please log in using the temporary password provided below.
+Your password for the Saskatoon harvest management platform has been reset by an administrator from Les Fruits Défendus. \
+Please log in using the temporary credentials provided below and follow the steps to update your new password.
 
 Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/
 Email address: {email}
@@ -177,7 +177,8 @@ Thanks for supporting your community!
 
 Bonjour {name},
 
-<>
+Votre mot de passe pour la plateforme de gestion Saskatoon a été réinitialisé par un.e administrateur.ice des Fruits Défendus. \
+Merci de vous connecter en utilisant les identifiants fournis plus bas et de suivre les instructions pour remettre à jour votre nouveau mot de passe.
 
 Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/
 Adresse électronique: {email}
