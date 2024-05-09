@@ -165,7 +165,6 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
         subject = "Les Fruits Défendus - Password reset"
 
-        # FIXME: Add French content
         message = """Hi {name},
 
 Your password for the Saskatoon harvest management platform has been reset by an administrator from Les Fruits Défendus. \
