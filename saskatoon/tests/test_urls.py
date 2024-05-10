@@ -31,7 +31,7 @@ def test_urls(driver: Remote) -> None:
         driver.get(testurl)
 
         WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,  "footer-copyright-area")), f"Can't locate footer on page {url_part}")
-
+        assert '/login/' not in driver.current_url
         assert url_part in driver.current_url
 
         for part in expected_html_body_parts:
