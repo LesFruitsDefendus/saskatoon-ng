@@ -52,7 +52,7 @@ class Index(TemplateView):
 
 class TermsConditionsView(LoginRequiredMixin, TemplateView):
     """
-    Show terms and conditions.
+    Show terms and conditions with option to agree, updating AuthUser.
     """
     template_name = 'app/terms_conditions.html'
 
@@ -63,6 +63,12 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
         context['content'] = terms.content(self.request.LANGUAGE_CODE)
 
         return context
+
+    def post(self, *args, **kwargs):
+        self.request.user.agreed_terms = True
+        self.request.user.save()
+        return redirect('home')
+
 
 class PrivacyPolicyView(TemplateView):
     template_name = 'app/privacy_policy.html'
