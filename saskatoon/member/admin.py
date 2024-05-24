@@ -138,7 +138,8 @@ class AuthUserAdmin(UserAdmin):
                 'fields': (
                     'email',
                     'password',
-                    'person'
+                    'person',
+                    'agreed_terms',
                 )
             }
         ),
@@ -166,7 +167,6 @@ class AuthUserAdmin(UserAdmin):
                     'is_staff',
                     'is_superuser',
                     'has_temporary_password',
-                    'agreed_terms',
                     'groups'
                 )
             }
