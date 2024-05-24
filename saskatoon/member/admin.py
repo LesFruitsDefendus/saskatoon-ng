@@ -282,11 +282,9 @@ class AuthUserAdmin(UserAdmin):
                     f"Something went wrong: {e}"
                 )
 
-    @admin.action(description="Sets selected User(s)'s agreed_terms field to False")
-    def unset_agreed_terms(self, request, queryset):
-        for u in queryset:
-            u.agreed_terms = False
-            u.save()
+    @admin.action(description="Reset selected User(s)'s T&C agreement")
+    def reset_agreed_terms(self, request, queryset):
+        queryset.update(agreed_terms=False)
 
 
     actions = [
@@ -302,7 +300,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_owner,
         add_to_contact,
         export_emails,
-        unset_agreed_terms,
+        reset_agreed_terms,
     ]
 
 
