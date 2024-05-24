@@ -97,6 +97,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_admin',
                     'is_active',
                     'has_password',
+                    'agreed_terms',
                     'id',
                     'date_joined',
                     'last_login',
@@ -126,7 +127,8 @@ class AuthUserAdmin(UserAdmin):
                    UserIsOnboarding,
                    'is_staff',
                    'is_superuser',
-                   'is_active'
+                   'is_active',
+                   'agreed_terms',
                    )
 
     fieldsets = (
@@ -164,6 +166,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_staff',
                     'is_superuser',
                     'has_temporary_password',
+                    'agreed_terms',
                     'groups'
                 )
             }
@@ -279,6 +282,13 @@ class AuthUserAdmin(UserAdmin):
                     f"Something went wrong: {e}"
                 )
 
+    @admin.action(description="Sets selected User(s)'s agreed_terms field to False")
+    def unset_agreed_terms(self, request, queryset):
+        for u in queryset:
+            u.agreed_terms = False
+            u.save()
+
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -292,6 +302,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_owner,
         add_to_contact,
         export_emails,
+        unset_agreed_terms,
     ]
 
 
