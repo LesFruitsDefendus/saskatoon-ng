@@ -468,42 +468,43 @@ class OnboardingAdmin(admin.ModelAdmin):
 
     @admin.action(description="Send registration invite to selected group(s)")
     def send_invite(self, request, queryset):
-        persons = []
-        for o in queryset:
-            persons += o.persons.all()
-
         subject = "Les Fruits Défendus - Saskatoon Registration"
         num_sent = 0
 
-        for p in persons:
-            mailto = p.auth_user.email
-            message = "Hi " + p.first_name + ",\n\n\
-You are receiving this email following your recent participation to the Pickleader training \
-organized by Les Fruits Défendus. You can now log into the Saskatoon harvest management \
-platform using your email address and the temporary password provided below.\n\n\
-Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
-Email address: " + mailto + "\n\
-Temporary password: {password}\n\n\
-Thanks for supporting your community!\n\n--\n\n\
-Bonjour " + p.first_name + ",\n\n\
-Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe the cueillette \
-organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur la plateforme de \
-gestion Saskatoon en utilisant votre adresse courriel et le mot de passe temporaire fourni plus bas.\n\n\
-Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
-Adresse électronique: " + mailto + "\n\
-Mot de passe temporaire: {password}\n\n\
-Merci de soutenir votre communauté!\n\n--\n\n\
-Les Fruits Défendus"
+        def get_reset_password_message(person):
+            name = person.first_name
+            mailto = person.auth_user.email
+            return "Hi " + name + ",\n\n\
+    You are receiving this email following your recent participation to the Pickleader training \
+    organized by Les Fruits Défendus. You can now log into the Saskatoon harvest management \
+    platform using your email address and the temporary password provided below.\n\n\
+    Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
+    Email address: " + mailto + "\n\
+    Temporary password: {password}\n\n\
+    Thanks for supporting your community!\n\n--\n\n\
+    Bonjour " + name + ",\n\n\
+    Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe the cueillette \
+    organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur la plateforme de \
+    gestion Saskatoon en utilisant votre adresse courriel et le mot de passe temporaire fourni plus bas.\n\n\
+    Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
+    Adresse électronique: " + mailto + "\n\
+    Mot de passe temporaire: {password}\n\n\
+    Merci de soutenir votre communauté!\n\n--\n\n\
+    Les Fruits Défendus"
 
-            if send_reset_password_email(p.auth_user, subject, message):
-                num_sent += 1
-            else:
-                messages.add_message(request, messages.ERROR,
-                                     f"Failed sending Registration Invite to {p.auth_user.email}")
-
-        if num_sent == len(persons):
-            messages.add_message(request, messages.SUCCESS,
-                                f"Successfully sent Registration Invite to {num_sent} users")
+        for o in queryset:
+            o.invite_sent = True
+            for p in o.persons.all():
+                if send_reset_password_email(p.auth_user, subject, get_reset_password_message(p)):
+                    num_sent += 1
+                else:
+                    o.invite_sent = False
+                    messages.add_message(request, messages.ERROR,
+                                        f"Failed sending Registration Invite to {p.auth_user.email}")
+            if o.invite_sent:
+                messages.add_message(request, messages.SUCCESS,
+                                    f"Successfully sent Registration Invite to {num_sent} users")
+            o.save()
 
     actions = [
         send_invite
