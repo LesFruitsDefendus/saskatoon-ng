@@ -18,7 +18,7 @@ class PersonCreateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     email = forms.EmailField(
         label=_("Email"),
@@ -72,7 +72,7 @@ class PersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
@@ -131,7 +131,7 @@ class OnboardingPersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     def save(self):
         super().save()

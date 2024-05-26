@@ -19,7 +19,7 @@
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                                 <!--TODO <a href="{% url 'community-list' %}">{% translate "Community" %}</a> -->
-                                <a href="{% url 'property-list' %}?is_active=true">{% translate "Properties" %}</a>
+                                <a href="{% url 'property-list' %}?is_active=true&authorized=2">{% translate "Properties" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                                 <a href="{% url 'beneficiary-list' %}">{% translate "Beneficiaries" %}</a>
@@ -59,7 +59,7 @@
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                         <!--TODO <a href="{% url 'property-list' %}"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a> -->
-                        <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
+                        <a href="{% url 'property-list' %}?is_active=true&authorized=2"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                         <a href="{% url 'beneficiary-list' %}"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>

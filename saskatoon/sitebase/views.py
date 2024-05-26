@@ -1,4 +1,3 @@
-import os
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -8,7 +7,6 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
-from member.models import  AuthUser
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import Content
 
@@ -35,13 +33,16 @@ class Index(TemplateView):
         return context
 
     def dispatch(self, request, *args, **kwargs):
-        """Redirect new pickleaders"""
+        """Redirect users based on AuthUser checks."""
 
         user = self.request.user
 
         if user.is_authenticated:
-            if user.is_onboarding:
+            if not user.agreed_terms:
                 return redirect('terms_conditions')
+
+            if user.is_onboarding:
+                return redirect('onboarding-person-update', user.person.pk)
 
             if user.has_temporary_password:
                 return redirect('change_password')
@@ -51,7 +52,7 @@ class Index(TemplateView):
 
 class TermsConditionsView(LoginRequiredMixin, TemplateView):
     """
-    Show terms and conditions.
+    Show terms and conditions with option to agree, updating AuthUser.
     """
     template_name = 'app/terms_conditions.html'
 
@@ -62,6 +63,12 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
         context['content'] = terms.content(self.request.LANGUAGE_CODE)
 
         return context
+
+    def post(self, *args, **kwargs):
+        self.request.user.agreed_terms = True
+        self.request.user.save()
+        return redirect('home')
+
 
 class PrivacyPolicyView(TemplateView):
     template_name = 'app/privacy_policy.html'

@@ -97,6 +97,7 @@ class AuthUserAdmin(UserAdmin):
                     'is_admin',
                     'is_active',
                     'has_password',
+                    'agreed_terms',
                     'id',
                     'date_joined',
                     'last_login',
@@ -126,7 +127,8 @@ class AuthUserAdmin(UserAdmin):
                    UserIsOnboarding,
                    'is_staff',
                    'is_superuser',
-                   'is_active'
+                   'is_active',
+                   'agreed_terms',
                    )
 
     fieldsets = (
@@ -136,7 +138,8 @@ class AuthUserAdmin(UserAdmin):
                 'fields': (
                     'email',
                     'password',
-                    'person'
+                    'person',
+                    'agreed_terms',
                 )
             }
         ),
@@ -279,6 +282,11 @@ class AuthUserAdmin(UserAdmin):
                     f"Something went wrong: {e}"
                 )
 
+    @admin.action(description="Reset selected User(s)'s T&C agreement")
+    def reset_agreed_terms(self, request, queryset):
+        queryset.update(agreed_terms=False)
+
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -292,6 +300,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_owner,
         add_to_contact,
         export_emails,
+        reset_agreed_terms,
     ]
 
 
