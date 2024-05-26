@@ -56,13 +56,17 @@ class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVie
     model = Property
     form_class = PropertyCreateForm
     template_name = 'app/forms/property_create_form.html'
-    success_url = reverse_lazy('property-list')
+    # TODO: redirect to property list once pagination is implemented
+    # success_url = reverse_lazy('property-list')
+    success_url = reverse_lazy('home')
     success_message = _("Property created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new property")
-        context['cancel_url'] = reverse_lazy('property-list')
+        # TODO: redirect to property list once pagination is implemented
+        # context['cancel_url'] = reverse_lazy('property-list')
+        context['cancel_url'] = reverse_lazy('home')
         return context
 
 
@@ -125,7 +129,9 @@ class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
             cancel_url = reverse_lazy('property-detail',
                                       kwargs={'pk': _property.id})
         else:
-            cancel_url = reverse_lazy('harvest-list')
+            # TODO: redirect to harvest list once pagination is implemented
+            # cancel_url = reverse_lazy('harvest-list')
+            cancel_url = reverse_lazy('home')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new harvest")
