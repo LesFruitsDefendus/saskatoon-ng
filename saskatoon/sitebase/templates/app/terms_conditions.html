@@ -26,8 +26,10 @@
                 <!-- action buttons -->
                 <div class="terms-buttons" style="display: flex; gap: 1em">
                     <div class="breadcomb-wp">
-                        <a href="{% url 'onboarding-person-update' user.person.pk %}"
-                           class="btn btn-success notika-btn-success">Agree</a>
+                        <form name="terms_conditions" method="post" action="">
+                            {% csrf_token %}
+                            <button class="btn btn-success notika-btn-success" type="submit">Agree</button>
+                        </form>
                     </div>
                     <div class="breadcomb-wp">
                         <a href="{% url "logout" %}" class="btn btn-default notika-btn-default">Disagree</a>
