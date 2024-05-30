@@ -163,7 +163,7 @@ class JsonCalendar(View):
                     'start_time': event['start'].strftime("%-I:%M %p"),
                     'end_time': event['end'].strftime("%-I:%M %p"),
                     'harvest_id': harvest.id,
-                    'description': harvest.about,
+                    'description': harvest.about.html,
                     'status': harvest.status,
                     'nb_required_pickers': harvest.nb_required_pickers,
                     'nb_requests': requests_count,
