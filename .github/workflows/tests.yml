@@ -41,7 +41,7 @@ jobs:
     
     - name: Create env file
       run: |
-        saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
+        saskatoon/tests/newenvfile.py ./sqlite3-testing.db --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
     
     - name: Install Saskatoon
       run: |
