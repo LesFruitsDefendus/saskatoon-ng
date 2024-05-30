@@ -1,0 +1,17 @@
+{% include 'map/base.html' %}
+{% load static %}
+{% load geojson_tags %}
+<script type="module">
+  import { mapInit } from "{% static 'map/utils.js' %}"
+
+  const PROPERTY_URL = "{% url 'testproperty' %}"
+  // const PROPERTY_URL = "{% url 'property-list' %}"
+  const HARVEST_URL = "{% url 'harvest-list' %}"
+
+  const urls = {
+    property_url: PROPERTY_URL,
+    harvest_url: HARVEST_URL,
+  }
+
+  window.addEventListener("map:init", event => mapInit(event, urls));
+</script>

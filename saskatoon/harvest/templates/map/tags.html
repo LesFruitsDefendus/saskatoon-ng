@@ -1,0 +1,11 @@
+{% load leaflet_tags %}
+<head>
+    {% leaflet_css %}
+    {% leaflet_js %}
+</head>
+<div class="map">{% leaflet_map "map" %}</div>
+<style>
+.map {
+  height: 360px;
+}
+</style>
