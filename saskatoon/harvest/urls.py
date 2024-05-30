@@ -98,6 +98,11 @@ urlpatterns = [
 
     path('stats/', api.StatsView.as_view(), name='statistics'),
 
+    # WARNING: for development purposes only, remove before final merge
+    path('testproperty/',
+        views.testProperty,
+        name='testproperty'),
+
 ]
 
 urlpatterns += router.urls
