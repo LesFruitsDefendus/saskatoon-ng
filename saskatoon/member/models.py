@@ -297,7 +297,8 @@ class Person(Actor):
         related_name="persons",
         on_delete=models.SET_NULL,
         verbose_name=_('Onboarding group'),
-        null=True
+        null=True,
+        blank=True
      )
 
     class Meta:
