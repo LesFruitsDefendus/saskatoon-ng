@@ -4,8 +4,8 @@ import { PopupProperty } from "./components/Popup.js";
  * Generates a callback function to attach to the `map:init` event for django-leaflet maps.
  *
  * @param {Event} event - `map:init` event called by `django-leaflet`
- * @param {MapInitOptions} url - URL to call for for features
- * @return
+ * @param {string} property_url - URL endpoint of properties.
+ * @param {string} harvest_url - URL endpoint of harvests.
  * */
 export async function mapInit(event, { property_url, harvest_url }) {
   // for some reason, another seemingly unrelated event ({__leaflet_id: 2, ...}) fires on the same event type

@@ -29,11 +29,3 @@
  * @property {string} type
  * @property {Feature[]} features
  * */
-
-/**
- * Options for mapInit()
- *
- * @typedef {Object} MapInitOptions
- * @property {string} property_url - URL endpoint of properties.
- * @property {string} harvest_url - URL endpoint of harvests.
- * */
