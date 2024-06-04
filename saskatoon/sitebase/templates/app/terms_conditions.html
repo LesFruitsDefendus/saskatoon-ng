@@ -3,38 +3,36 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="breadcomb-area">
-        <div class="container">
-            <div class="row" style="display: flex; justify-content: center;">
-                <div class="col-lg-8 col-md-10 col-sm-10 col-xs-12">
-                    <div class="breadcomb-list">
-                        <div class="row">
-                            <div class="breadcomb-wp" style="display: flex; align-items: center;">
-                                <div class="breadcomb-icon" style="padding-left: 1em;">
-                                    <i class="notika-icon notika-windows"></i>
-                                </div>
-                                <div class="breadcomb-ctn">
-                                    <h3 style="margin-top: 10px;">{{ content.title }}</h3>
-                                    {% if content.subtitle != '' %}<h2>{{ content.subtitle }}</h2>{% endif %}
-                                </div>
-                            </div>
-                        </div>
+    <!-- centering -->
+    <div style="display: flex; flex-flow: column; align-items: center;">
+        <!-- column sizing -->
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+            <!-- content header -->
+            <div class="wb-traffic-inner" style="margin-bottom: 1rem;">
+                <div class="breadcomb-icon">
+                    <i class="notika-icon notika-cloud"></i>
+                </div>
+                <div class="breadcomb-ctn">
+                    <h1>{{ content.title }}</h1>
+                    {% if content.subtitle != '' %}<h2>{{ content.subtitle }}</h2>{% endif %}
+                </div>
+            </div>
+            <!-- content body -->
+            <div class="wb-traffic-inner"
+                 style="display: flex;
+                        flex-direction: column;
+                        gap: 2em">
+                <div class="website-traffic-ctn">{{ content.body.html | safe }}</div>
+                <!-- action buttons -->
+                <div class="terms-buttons" style="display: flex; gap: 1em">
+                    <div class="breadcomb-wp">
+                        <form name="terms_conditions" method="post" action="">
+                            {% csrf_token %}
+                            <button class="btn btn-success notika-btn-success" type="submit">Agree</button>
+                        </form>
                     </div>
-                    <br>
-                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30"
-                         style="display: flex;
-                                flex-direction: column;
-                                gap: 2em">
-                        <div class="website-traffic-ctn" style="font-size: 1.15em;">{{ content.body.html | safe }}</div>
-                        <div class="terms-buttons" style="display: flex; gap: 1em">
-                            <div class="breadcomb-wp">
-                                <a href="{% url 'onboarding-person-update' user.person.pk %}"
-                                   class="btn btn-success notika-btn-success">Agree</a>
-                            </div>
-                            <div class="breadcomb-wp">
-                                <a href="{% url "logout" %}" class="btn btn-default notika-btn-default">Disagree</a>
-                            </div>
-                        </div>
+                    <div class="breadcomb-wp">
+                        <a href="{% url "logout" %}" class="btn btn-default notika-btn-default">Disagree</a>
                     </div>
                 </div>
             </div>

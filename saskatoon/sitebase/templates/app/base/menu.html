@@ -1,7 +1,6 @@
 {% load static %}
 {% load i18n %}
 {% load auth_users %}
-
 <!-- MOBILE MENU-->
 <div class="mobile-menu-area">
     <div class="container">
@@ -11,15 +10,15 @@
                     <nav id="dropdown">
                         <ul class="mobile-menu-nav">
                             <li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
-                                <a href="{% url 'calendar' %}">{% translate "Calendar" %} </a>
+                                <a href="{% url 'calendar' %}">{% translate "Calendar" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'harvest-list' %}active{% endif %}">
                                 <!--TODO <a href="{% url 'harvest-list' %}">{% translate "Harvests" %} </a> -->
-                                <a href="{% url 'harvest-list' %}?season={% now 'Y' %}">{% translate "Harvests" %} </a>
+                                <a href="{% url 'harvest-list' %}?season={% now 'Y' %}">{% translate "Harvests" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                                 <!--TODO <a href="{% url 'community-list' %}">{% translate "Community" %}</a> -->
-                                <a href="{% url 'property-list' %}?is_active=true">{% translate "Properties" %}</a>
+                                <a href="{% url 'property-list' %}?is_active=true&authorized=2">{% translate "Properties" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                                 <a href="{% url 'beneficiary-list' %}">{% translate "Beneficiaries" %}</a>
@@ -31,10 +30,13 @@
                             <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                                 <a href="{% url 'equipment-list' %}">{% translate "Equipment" %}</a>
                             </li>
-                            {% if user|is_core_or_admin %}
-                            <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                                <a href="{% url 'statistics' %}">{% translate "Statistics" %}</a>
+                            <li class="{% if request.resolver_match.url_name == 'map' %}active{% endif %}">
+                                <a href="{% url 'map' %}">{% translate "Map" %}</a>
                             </li>
+                            {% if user|is_core_or_admin %}
+                                <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                                    <a href="{% url 'statistics' %}">{% translate "Statistics" %}</a>
+                                </li>
                             {% endif %}
                         </ul>
                     </nav>
@@ -43,12 +45,11 @@
         </div>
     </div>
 </div>
-
 <!-- MAIN MENU-->
 <div class="main-menu-area mg-tb-40">
     <div class="container">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-lg-14 col-md-14 col-sm-14 col-xs-14">
                 <ul class="nav nav-tabs tab-nav-center notika-menu-wrap menu-it-icon-pro">
                     <li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
                         <a href="{% url 'calendar' %}"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
@@ -59,7 +60,7 @@
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
                         <!--TODO <a href="{% url 'property-list' %}"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a> -->
-                        <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
+                        <a href="{% url 'property-list' %}?is_active=true&authorized=2"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'beneficiary-list' %}active{% endif %}">
                         <a href="{% url 'beneficiary-list' %}"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
@@ -71,10 +72,13 @@
                     <li class="{% if request.resolver_match.url_name == 'equipment-list' %}active{% endif %}">
                         <a href="{% url 'equipment-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment" %}</a>
                     </li>
-                    {% if user|is_core_or_admin %}
-                    <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                        <a href="{% url 'statistics' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+                    <li class="{% if request.resolver_match.url_name == 'map' %}active{% endif %}">
+                        <a href="{% url 'map' %}"><i class="fa fa-map-marker"></i> {% translate "Map" %}</a>
                     </li>
+                    {% if user|is_core_or_admin %}
+                        <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+                            <a href="{% url 'statistics' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+                        </li>
                     {% endif %}
                 </ul>
             </div>

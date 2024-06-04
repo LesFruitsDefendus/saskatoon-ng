@@ -75,6 +75,8 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     has_temporary_password = models.BooleanField(default=False, null=False)
 
+    agreed_terms = models.BooleanField(default=False, null=False)
+
     def add_role(self, role, commit=True):
         ''' add role to user
             :param role: group name (see AUTH_GROUPS)

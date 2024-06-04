@@ -44,7 +44,9 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             cancel_url = '/property/' + str(p.id)
         except KeyError:
             initial = None
-            cancel_url = reverse_lazy('community-list')
+            # TODO: redirect to community list once pagination is implemented
+            # cancel_url = reverse_lazy('community-list')
+            cancel_url = reverse_lazy('home')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Person Registration")
@@ -57,7 +59,9 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             property_id = self.request.GET['pid']
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
-            return reverse_lazy('community-list')
+            # TODO: redirect to community list once pagination is implemented
+            # return reverse_lazy('community-list')
+            return reverse_lazy('home')
 
     def form_invalid(self, form, **kwargs):
         context = self.get_context_data(**kwargs)
@@ -75,7 +79,9 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Person Update")
-        context['cancel_url'] = reverse_lazy('community-list')
+        # TODO: redirect to community list once pagination is implemented
+        # context['cancel_url'] = reverse_lazy('community-list')
+        context['cancel_url'] = reverse_lazy('home')
         return context
 
     def get_success_url(self):
@@ -83,7 +89,9 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
             property_id = self.request.GET['pid']
             return reverse_lazy('property-detail', kwargs={'pk': property_id})
         except KeyError:
-            return reverse_lazy('community-list')
+            # TODO: redirect to community list once pagination is implemented
+            # return reverse_lazy('community-list')
+            return reverse_lazy('home')
 
     def get_form_kwargs(self, *args, **kwargs):
         """Pass request.user to form"""

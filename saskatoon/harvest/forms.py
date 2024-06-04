@@ -238,7 +238,7 @@ class HarvestImageForm(forms.ModelForm):
 class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        exclude = ['longitude', 'latitude', 'geom', 'changed_by',
+        exclude = ['longitude', 'latitude', 'changed_by',
                    'pending_contact_first_name', 'pending_contact_family_name',
                    'pending_contact_phone', 'pending_contact_email',
                    'pending_recurring', 'pending_newsletter']

@@ -150,8 +150,6 @@ class Property(models.Model):
         default=False
     )
 
-    geom = PointField(null=True, blank=True)
-
     owner = models.ForeignKey(
         'member.Actor',
         null=True,
@@ -317,6 +315,8 @@ class Property(models.Model):
         null=True,
         blank=True
     )
+
+    geom = PointField(null=True, blank=True)
 
     additional_info = models.CharField(
         verbose_name=_("Additional information"),

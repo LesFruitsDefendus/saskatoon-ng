@@ -131,6 +131,7 @@ class PropertySerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
     pending_contact_name = serializers.ReadOnlyField()
     owner_type = serializers.SerializerMethodField()
+    geom = serializers.ReadOnlyField()
 
     class Meta:
         model = Property
@@ -157,7 +158,6 @@ class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
         fields = ['name', 'fruit_name']
 
-
 class PropertyListSerializer(PropertySerializer):
     neighborhood = serializers.StringRelatedField(many=False)
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
@@ -174,8 +174,10 @@ class PropertyListSerializer(PropertySerializer):
             'is_active',
             'authorized',
             'pending',
-            'harvests'
+            'harvests',
+            'geom'
         ]
+
 
 
 class EquipmentPropertySerializer(PropertyListSerializer):

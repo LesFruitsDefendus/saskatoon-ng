@@ -1,15 +1,16 @@
+from django.http.response import JsonResponse
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import ordinal
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 
 from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
                            EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
@@ -56,13 +57,17 @@ class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVie
     model = Property
     form_class = PropertyCreateForm
     template_name = 'app/forms/property_create_form.html'
-    success_url = reverse_lazy('property-list')
+    # TODO: redirect to property list once pagination is implemented
+    # success_url = reverse_lazy('property-list')
+    success_url = reverse_lazy('home')
     success_message = _("Property created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new property")
-        context['cancel_url'] = reverse_lazy('property-list')
+        # TODO: redirect to property list once pagination is implemented
+        # context['cancel_url'] = reverse_lazy('property-list')
+        context['cancel_url'] = reverse_lazy('home')
         return context
 
 
@@ -125,7 +130,9 @@ class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
             cancel_url = reverse_lazy('property-detail',
                                       kwargs={'pk': _property.id})
         else:
-            cancel_url = reverse_lazy('harvest-list')
+            # TODO: redirect to harvest list once pagination is implemented
+            # cancel_url = reverse_lazy('harvest-list')
+            cancel_url = reverse_lazy('home')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new harvest")
@@ -371,3 +378,21 @@ def harvest_status_change(request, id):
         messages.warning(request, _("You are not this harvest's pick leader!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class MapView(LoginRequiredMixin, TemplateView):
+    template_name = 'map/view.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['properties'] = Property.objects.all()
+        return context
+
+
+# WARNING: for development purposes only, remove before final merge
+def testProperty(request):
+    import json
+    with open("db/property.json", "r") as read_file:
+        data = json.load(read_file)
+        return JsonResponse(data, safe=False)
+
