@@ -12,6 +12,7 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
+from django.utils import timezone as tz
 from django.utils.html import mark_safe
 from member.models import (AuthUser, Actor, Language, Onboarding, Person,
                            Organization, Neighborhood, City, State, Country)
@@ -20,7 +21,7 @@ from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
                             UserIsOnboarding,
                             PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
-from member.utils import send_reset_password_email
+from member.utils import send_invite_email
 
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 
@@ -64,7 +65,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(
-        label="password",
         help_text="""Raw passwords are not stored, so there is no way to
         see this user's password, but you can change the password using
         <a href=\"../password/\"> this form</a>."""
@@ -72,8 +72,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = AuthUser
-        fields = ('email', 'password', 'is_active',
-                  'is_staff', 'is_superuser', 'has_temporary_password', 'user_permissions')
+        exclude = ('date_joined',)
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -138,6 +137,7 @@ class AuthUserAdmin(UserAdmin):
                 'fields': (
                     'email',
                     'password',
+                    'has_temporary_password',
                     'person',
                     'agreed_terms',
                 )
@@ -164,9 +164,9 @@ class AuthUserAdmin(UserAdmin):
                     'email',
                     'password1',
                     'password2',
+                    'has_temporary_password',
                     'is_staff',
                     'is_superuser',
-                    'has_temporary_password',
                     'groups'
                 )
             }
@@ -464,14 +464,23 @@ class PendingPickLeaderInlineForm(admin.TabularInline):
 @admin.register(Onboarding)
 class OnboardingAdmin(admin.ModelAdmin):
     inlines = [PendingPickLeaderInlineForm]
-    list_display = ('__str__', 'user_count', 'invite_sent', 'id')
+    list_display = ('name', 'datetime', 'user_count', 'all_sent', 'id')
+
+    def save_model(self, request, obj, form, change):
+        """Make sure all_sent is False if users get added later on"""
+        if obj.all_sent and obj.persons.filter(auth_user__password='').exists():
+            obj.all_sent = False
+            messages.add_message(request, messages.WARNING,
+                                    f"Some users in {obj} were not yet invited.")
+        super().save_model(request, obj, form, change)
+
 
     @admin.action(description="Send registration invite to selected group(s)")
     def send_invite(self, request, queryset):
         subject = "Les Fruits Défendus - Saskatoon Registration"
         num_sent = 0
 
-        def get_reset_password_message(person):
+        def get_message(person):
             name = person.first_name
             mailto = person.auth_user.email
             return "Hi " + name + ",\n\n\
@@ -493,15 +502,19 @@ Merci de soutenir votre communauté!\n\n--\n\n\
 Les Fruits Défendus"
 
         for o in queryset:
-            o.invite_sent = True
-            for p in o.persons.all():
-                if send_reset_password_email(p.auth_user, subject, get_reset_password_message(p)):
+            o.all_sent = True
+            o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
+            for p in o.persons.filter(auth_user__password=''):
+                error_msg = send_invite_email(p.auth_user, subject, get_message(p))
+                if error_msg is None:
                     num_sent += 1
+                    o.log += f"\n\t> OK {p.auth_user.email}"
                 else:
-                    o.invite_sent = False
+                    o.all_sent = False
+                    o.log += f"\n\t> FAIL {p.auth_user.email}. {error_msg}"
                     messages.add_message(request, messages.ERROR,
-                                        f"Failed sending Registration Invite to {p.auth_user.email}")
-            if o.invite_sent:
+                                         f"Could not send Registration Invite to {p.auth_user.email}")
+            if o.all_sent:
                 messages.add_message(request, messages.SUCCESS,
                                     f"Successfully sent Registration Invite to {num_sent} users")
             o.save()
