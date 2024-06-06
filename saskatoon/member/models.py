@@ -7,6 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import ( Group, AbstractBaseUser,
                                          PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
+from django.utils import timezone as tz
 from phone_field import PhoneField
 from harvest.models import RequestForParticipation, Harvest, Property
 
@@ -126,11 +127,22 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 class Onboarding(models.Model):
     """Pickleader Registration"""
 
+    name = models.CharField(
+        verbose_name=_("Reference name"),
+        max_length=50,
+        default="",
+    )
+
     datetime = models.DateTimeField(auto_now_add=True)
 
-    invite_sent = models.BooleanField(
-        verbose_name=_('Invitation sent'),
+    all_sent = models.BooleanField(
+        verbose_name=_('All invites sent'),
         default=False
+    )
+
+    log = models.TextField(
+        blank=True,
+        default=""
     )
 
     class Meta:
@@ -142,7 +154,10 @@ class Onboarding(models.Model):
         return self.persons.count()
 
     def __str__(self):
-        return "{}".format(self.datetime.strftime("%B %d, %Y @ %-I:%M %p"), self.id)
+        return "{} [{}]".format(
+            self.name,
+            tz.localtime(self.datetime).strftime("%B %d, %Y @ %-I:%M %p")
+        )
 
 
 class Actor(models.Model):
