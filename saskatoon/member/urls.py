@@ -25,13 +25,13 @@ urlpatterns = [
          views.OrganizationUpdateView.as_view(),
          name='beneficiary-update'),
 
-    path('change_password/',
+    path('user/change_password/',
          views.PasswordChangeView.as_view(),
-         name ='change_password'),
+         name='change-password'),
 
-    path('reset_password/<int:pk>',
+    path('user/reset_password/<int:pk>',
          views.PasswordResetView.as_view(),
-         name ='reset_password'),
+         name='reset-password'),
 
     # AUTO-COMPLETE VIEWS
     re_path(r'^actor-autocomplete/$',

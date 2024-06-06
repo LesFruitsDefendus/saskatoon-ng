@@ -1,5 +1,4 @@
 # coding: utf-8
-from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib.auth import forms as auth_forms
@@ -8,7 +7,7 @@ from django.forms.widgets import PasswordInput
 from dal import autocomplete
 from logging import getLogger
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
+from member.models import AuthUser, Person, Organization, AUTH_GROUPS
 from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')

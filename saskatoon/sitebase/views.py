@@ -45,7 +45,7 @@ class Index(TemplateView):
                 return redirect('onboarding-person-update', user.person.pk)
 
             if user.has_temporary_password:
-                return redirect('change_password')
+                return redirect('change-password')
 
         return super().dispatch(request, *args, **kwargs)
 
