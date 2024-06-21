@@ -203,7 +203,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    permission_required = 'harvest.change_request_for_participation'
+    permission_required = 'harvest.change_requestforparticipation'
     model = RequestForParticipation
     form_class = RFPManageForm
     template_name = 'app/forms/participation_manage_form.html'
@@ -230,7 +230,7 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
 
 class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
-    permission_required = 'harvest.change_comment'
+    permission_required = 'harvest.add_comment'
     model = Comment
     form_class = CommentForm
     template_name = 'app/forms/model_form.html'
