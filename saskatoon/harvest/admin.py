@@ -68,7 +68,6 @@ class HarvestAdmin(admin.ModelAdmin):
         messages.add_message(request, messages.SUCCESS,
                              f"Successfully cancelled {num_cancelled} harvest(s)")
 
-
     actions = [cancel_harvests]
 
 
@@ -158,7 +157,6 @@ class PropertyAdmin(admin.ModelAdmin):
             for email in _property.owner.person.comment_emails:
                 comment_emails += f"[C] {email} "  # [C]omments
             return comment_emails
-
 
     @admin.display(description="Harvests")
     def harvests(self, _property):

@@ -1,9 +1,7 @@
-import json
-from django.core.serializers import serialize
 from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
-from member.models import (Actor, Neighborhood, AuthUser, Person, Organization,
-                           City, State, Country, Language)
+from member.models import (Actor, Neighborhood, AuthUser, Person,
+                           Organization, City, State, Country)
 from harvest.models import (Harvest, Property, Equipment, EquipmentType,
                             RequestForParticipation, TreeType)
 
@@ -22,29 +20,64 @@ class NeighborhoodSerializer(serializers.ModelSerializer):
 
 class PersonSerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    roles = serializers.SerializerMethodField()
 
     class Meta:
         model = Person
-        fields = ['actor_id', 'name', 'email', 'phone', 'neighborhood',
+        fields = ['actor_id', 'roles', 'name', 'email', 'phone', 'neighborhood',
                   'harvests_as_pickleader', 'harvests_as_volunteer_succeeded',
                   'harvests_as_volunteer_accepted', 'harvests_as_volunteer_rejected',
                   'harvests_as_volunteer_pending', 'harvests_as_volunteer_cancelled',
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
+    def get_roles(self, person):
+        return [str(role) for role in person.auth_user.roles]
+
+
+class EquipmentTypeSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = EquipmentType
+        fields = ['name', 'name_fr', 'name_en']
+
+    def get_name(self, type):
+        return type.name_fr
+
+
+class EquipmentSerializer(serializers.ModelSerializer):
+    type = EquipmentTypeSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Equipment
+        fields = ['type', 'count']
+
 
 class BeneficiarySerializer(serializers.ModelSerializer):
     contact_person = PersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    equipment = EquipmentSerializer(many=True, read_only=True)
+    inventory = serializers.SerializerMethodField()
 
     class Meta:
         model = Organization
-        fields = ['actor_id', 'civil_name', 'phone', 'short_address', 'description',
-                  'is_beneficiary', 'contact_person', 'neighborhood']
+        fields = ['actor_id', 'civil_name', 'contact_person',
+                  'phone', 'short_address', 'address', 'neighborhood',
+                  'is_beneficiary', 'beneficiary_description',
+                  'is_equipment_point', 'equipment_description',
+                  'description', 'equipment', 'inventory']
+
+    def get_inventory(self, org):
+        return dict([
+            (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
+            for lang in ['fr', 'en']
+        ])
 
 
 class ActorSerializer(serializers.ModelSerializer):
     person = PersonSerializer(source='get_person', many=False, read_only=True)
     organization = BeneficiarySerializer(source='get_organization', many=False, read_only=True)
+
     class Meta:
         model = Actor
         fields = '__all__'
@@ -117,7 +150,6 @@ class PropertyHarvestSerializer(serializers.ModelSerializer):
         return None
 
 
-# Property serializer
 class PropertySerializer(serializers.ModelSerializer):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     city = CitySerializer(many=False, read_only=True)
@@ -188,36 +220,29 @@ class EquipmentPropertySerializer(PropertyListSerializer):
         ]
 
 
-# EquipmentType serializer
 class EquipmentTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = EquipmentType
         fields = '__all__'
 
-# Equipment serializer
+
 class EquipmentSerializer(serializers.ModelSerializer):
     property = EquipmentPropertySerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
     owner = ActorSerializer(many=False, read_only=True)
+
     class Meta:
         model = Equipment
         fields = '__all__'
 
 
 class PickLeaderSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
-
     class Meta:
         model = AuthUser
         fields = ['id', 'name']
 
-    def get_name(self, obj):
-        return obj.person.name
 
-
-# Harvest serializer
 class HarvestSerializer(serializers.ModelSerializer):
-
     # three different ways of getting a multimodel serializer:
     # 1) calling a model method
     pickers = serializers.ReadOnlyField(source='get_pickers')
@@ -263,11 +288,11 @@ class HarvestListSerializer(HarvestSerializer):
                   'neighborhood']
 
 
-# Community serializer
 class CommunitySerializer(serializers.ModelSerializer):
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
     role_codes = serializers.SerializerMethodField()
+
     class Meta:
         model = AuthUser
         fields = '__all__'

@@ -77,17 +77,26 @@ class TreeType(models.Model):
 
 
 class EquipmentType(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
+    name_fr = models.CharField(
+        verbose_name=_("Nom (fr)"),
         max_length=50
+    )
+
+    name_en = models.CharField(
+        verbose_name=_("Name (en)"),
+        max_length=50,
+        default="",
     )
 
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
 
+    def get_name(self, lang='en'):
+        return getattr(self, "name_{}".format(lang))
+
     def __str__(self):
-        return self.name
+        return "{} / {}".format(self.name_fr, self.name_en)
 
 
 class Property(models.Model):
@@ -720,9 +729,15 @@ class Equipment(models.Model):
         max_length=50
     )
 
+    count = models.SmallIntegerField(
+        verbose_name=_("Number available"),
+        default=1
+    )
+
     owner = models.ForeignKey(
         'member.Actor',
         verbose_name=_("Owner"),
+        related_name="equipment",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -743,12 +758,25 @@ class Equipment(models.Model):
         default=False
     )
 
+    def get_equipment_point(self):
+        if self.owner is not None and self.owner.is_organization:
+            return self.owner.get_organization()
+        return None
+
     class Meta:
         verbose_name = _("equipment")
         verbose_name_plural = _("equipment")
 
+    def inventory(self, lang='en'):
+        return "%i %s" % (self.count, self.type.get_name(lang))
+
     def __str__(self):
         return "%s (%s)" % (self.description, self.type)
+
+    def save(self, *args, **kwargs):
+        if self.get_equipment_point() is not None:
+            self.shared = True
+        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

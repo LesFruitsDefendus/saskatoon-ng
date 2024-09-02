@@ -390,7 +390,12 @@ class Person(Actor):
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
-        verbose_name=_('is beneficiary'),
+        verbose_name=_('Is Beneficiary'),
+        default=False
+    )
+
+    is_equipment_point = models.BooleanField(
+        verbose_name=_('Is Equipment Point'),
         default=False
     )
 
@@ -406,7 +411,17 @@ class Organization(Actor):
     )
 
     description = models.TextField(
-        verbose_name=_("Description"),
+        verbose_name=_("Short description"),
+        blank=True
+    )
+
+    beneficiary_description = models.TextField(
+        verbose_name=_("Beneficiary description"),
+        blank=True
+    )
+
+    equipment_description = models.TextField(
+        verbose_name=_("Equipment description"),
         blank=True
     )
 
@@ -499,6 +514,7 @@ class Organization(Actor):
         null=True,
         blank=True
     )
+
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -520,6 +536,21 @@ class Organization(Actor):
         else:
             return self.street
 
+    @property
+    def address(self):
+        if self.city and self.state and self.postal_code:
+            return "%s. %s %s, %s" % (
+                self.short_address,
+                self.city,
+                self.state,
+                self.postal_code
+            )
+        elif self.city:
+            return "%s. %s" % (
+                self.short_address,
+                self.city,
+            )
+        return self.short_address
 
     class Meta:
         verbose_name = _("organization")
