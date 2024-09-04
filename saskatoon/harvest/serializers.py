@@ -31,7 +31,9 @@ class PersonSerializer(serializers.ModelSerializer):
                   'harvests_as_owner', 'organizations_as_contact', 'properties', 'comments']
 
     def get_roles(self, person):
-        return [str(role) for role in person.auth_user.roles]
+        if hasattr(person, 'auth_user'):
+            return [str(role) for role in person.auth_user.roles]
+        return ""
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):

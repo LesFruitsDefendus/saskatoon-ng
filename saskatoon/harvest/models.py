@@ -726,7 +726,8 @@ class Equipment(models.Model):
 
     description = models.CharField(
         verbose_name=_("Description"),
-        max_length=50
+        max_length=50,
+        blank=True
     )
 
     count = models.SmallIntegerField(
