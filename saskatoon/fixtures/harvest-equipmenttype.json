@@ -3,91 +3,104 @@
   "model": "harvest.equipmenttype",
   "pk": 1,
   "fields": {
-    "name": "Vélo"
+    "name_fr": "Vélo",
+    "name_en": "Bicycle"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 2,
   "fields": {
-    "name": "Remorque"
+    "name_fr": "Remorque",
+    "name_en": "Trailer"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 3,
   "fields": {
-    "name": "Échelle"
+    "name_fr": "Échelle",
+    "name_en": "Ladder"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 4,
   "fields": {
-    "name": "Pochette des documents logistiques"
+    "name_fr": "Pochette de documents",
+    "name_en": "Document pouch"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 5,
   "fields": {
-    "name": "Balance"
+    "name_fr": "Balance",
+    "name_en": "Scale"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 6,
   "fields": {
-    "name": "Trousse de premiers soins"
+    "name_fr": "Trousse de premiers soins",
+    "name_en": "First Aid Kit"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 7,
   "fields": {
-    "name": "Cueille-fruits"
+    "name_fr": "Cueille-fruits",
+    "name_en": "Fruit picker"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 8,
   "fields": {
-    "name": "Étuis à crayon et outils"
+    "name_fr": "Étuis à crayons et outils",
+    "name_en": "Pencil case and tools"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 9,
   "fields": {
-    "name": "Hitch à vélo"
+    "name_fr": "Attache à vélo",
+    "name_en": "Bike hitch"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 10,
   "fields": {
-    "name": "Caisses en bois"
+    "name_fr": "Caisses en bois",
+    "name_en": "Wooden crates"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 11,
   "fields": {
-    "name": "Ciseaux"
+    "name_fr": "Ciseaux",
+    "name_en": "Cisors"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 12,
   "fields": {
-    "name": "Gants"
+    "name_fr": "Gants",
+    "name_en": "Gloves"
   }
 },
 {
   "model": "harvest.equipmenttype",
   "pk": 13,
   "fields": {
-    "name": "Bacs en plastique"
+    "name_fr": "Bacs en plastique",
+    "name_en": "Plastic bins"
   }
 }
 ]

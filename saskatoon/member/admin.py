@@ -14,6 +14,7 @@ from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.html import mark_safe
+from harvest.models import Equipment
 from member.models import (AuthUser, Actor, Language, Onboarding, Person,
                            Organization, Neighborhood, City, State, Country)
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
@@ -365,9 +366,16 @@ class ActorAdmin(admin.ModelAdmin):
         return None
 
 
+class OrganizationEquipmentInlineForm(admin.TabularInline):
+    model = Equipment
+    fields = ['type', 'description', 'count']
+    extra = 2
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'contact', 'pk')
+    inlines = [OrganizationEquipmentInlineForm]
+    list_display = ('__str__', 'contact', 'is_beneficiary', 'is_equipment_point', 'pk')
     list_filter = (OrganizationHasNoContactAdminFilter,)
 
     @admin.display(description="Contact Person")
