@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-from setuptools import setup, find_packages
+from setuptools import setup
 import pathlib
 
 # To install basic requirements: (venv)$ pip3 install .
@@ -16,6 +16,7 @@ setup(
     license             =   "GNU AFFERO GENERAL PUBLIC LICENSE",
     long_description    =   pathlib.Path(__file__).parent.joinpath("README.md").read_text(),
     long_description_content_type   =   "text/markdown",
+    packages = ["saskatoon"],
     install_requires    =   [
         "asgiref>=3.2.7",
         "cffi>=1.14.0",
