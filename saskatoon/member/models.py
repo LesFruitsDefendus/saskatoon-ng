@@ -116,6 +116,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
                 self.has_temporary_password)
+    @property
+    def name(self):
+        if self.person:
+            return self.person.name
+        return None
 
     def __str__(self):
         if self.person:
