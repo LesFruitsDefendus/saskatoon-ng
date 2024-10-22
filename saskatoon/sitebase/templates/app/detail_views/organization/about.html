@@ -1,0 +1,12 @@
+{% load i18n %}
+{% load static %}
+{% load get_fruit_name_icon %}
+<div class="search-engine-int">
+  <div class="contact-hd search-hd-eg">
+    <h2>{% translate 'Description' %}</h2>
+    <hr>
+  </div>
+  <div>
+    <p>{{ organization.description }}</p>
+  </div>
+</div>

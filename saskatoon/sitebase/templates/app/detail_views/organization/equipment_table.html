@@ -1,0 +1,41 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-area mg-t-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="data-table-list">
+          <div class="table-responsive">
+            <h4> {% trans Equipment %}
+              {% if perms.harvest.add_equipment and organization.is_equipment_point %}
+              <a href="{% url 'equipment-create' %}?pid={{ property.id }}">
+                <button title="New Equipment" class="btn btn-success notika-btn-success waves-effect">
+                  <i class="fa fa-plus"></i>
+                  {% trans "New Equipment" %}
+                </button>
+              </a>
+              {% endif %}
+            </h4>
+            <table class="table table-striped" id="data-table-basic">
+              <thead>
+                <tr>
+                  <th class="col-xs-1">#</th>
+                  <th class="col-xs-2">{% trans "Equipment Type" %}</th>
+                  <th class="col-xs-1">{% trans "Count" %}</th>
+                  <th class="col-xs-4">{% trans "Description" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for equipment in data %}
+
+                {% include 'app/detail_views/organization/equipment_row.html' %}
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

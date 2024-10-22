@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+
+    <div class="contact-hd search-hd-eg">
+        <h2>{% translate 'Features' %}</h2>
+    </div>
+
+
+    <div class="search-eg-table">
+        <table class="table">
+            <tbody>
+              {% if organization.is_equipment_point %}
+                  <tr><td>
+                      <i class="notika-icon notika-checked"></i>
+                      {% trans "Is an equipment point" %}
+                  </td></tr>
+              {% else %}
+                  <tr><td>
+                      <i class="notika-icon notika-close"></i>
+                      {% trans "Is not an equipment point" %}
+                  </td></tr>
+              {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
