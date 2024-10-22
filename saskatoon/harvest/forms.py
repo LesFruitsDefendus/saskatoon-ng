@@ -1,4 +1,5 @@
 # coding: utf-8
+from django.utils.timezone import datetime
 from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
@@ -570,6 +571,17 @@ class HarvestForm(forms.ModelForm):
                 _("You must choose a pick leader or change harvest status")
             )
         return pickleader
+
+    def clean_end_date(self):
+        """Check if harvest end_date is after start_date"""
+        start_date = self.cleaned_data['start_date']
+        end_date = self.cleaned_data['end_date']
+        if end_date <= start_date:
+            raise forms.ValidationError(
+                _('End date/time must be after start date/time')
+            )
+        return end_date
+
 
 
 class HarvestYieldForm(forms.ModelForm):
