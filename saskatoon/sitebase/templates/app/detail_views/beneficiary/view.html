@@ -1,0 +1,34 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load auth_users %}
+
+{% block content %}
+
+{% include 'app/detail_views/beneficiary/breadcomb.html' %}
+
+<div class="search-engine-area mg-t-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/detail_views/beneficiary/about.html' %}
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/detail_views/beneficiary/contact.html' %}
+            </div>
+
+            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                {% include 'app/detail_views/beneficiary/features.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if beneficiary.pending %}
+    {% include 'app/detail_views/beneficiary/similar_table.html' %}
+{% else %}
+    {% include 'app/detail_views/beneficiary/harvest_table.html' %}
+{% endif %}
+
+{% endblock content %}

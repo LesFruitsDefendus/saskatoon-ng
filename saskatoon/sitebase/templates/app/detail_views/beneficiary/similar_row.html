@@ -1,0 +1,40 @@
+{% load i18n %}
+{% load static %}
+
+<tr>
+    <td> {{beneficiary.id}} </td>
+    <td>
+        <a href="{% url 'beneficiary-detail' beneficiary.pk %}">
+            {{beneficiary}}
+        </a>
+    </td>
+    <td> {{ beneficiary.neighborhood }} </td>
+    <td> {% include 'app/list_views/beneficiary/status.html' %} </td>
+
+    {% if beneficiary.owner %}
+        <td>
+            {{ beneficiary.owner }} &nbsp;
+            {% if beneficiary.owner.is_person and perms.member.change_person %}
+                <small><a href="{% url 'person-update' beneficiary.owner.pk %}" title="edit">
+                        <i class="fa fa-pencil"></i>
+                    </a></small>
+            {% endif %}
+        </td>
+        <td>
+            {% if beneficiary.owner.is_person %}
+                {% with beneficiary.owner.person as po %}
+                    <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
+                    {{ po.phone|default_if_none:"" }}
+                {% endwith %}
+            {% elif beneficiary.owner.is_organization %}
+                {% with beneficiary.owner.organization.contact_person as po %}
+                    <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
+                    {{ po.phone|default_if_none:"" }}
+                {% endwith %}
+            {% endif %}
+        </td>
+    {% else %}
+        <td></td>
+        <td></td>
+    {% endif %}
+</tr>
