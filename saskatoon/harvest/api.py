@@ -205,9 +205,23 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     serializer_class = BeneficiarySerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
-    template_name = 'app/list_views/beneficiary/view.html'
+
+    def retrieve(self, request, format='html', pk=None):
+        self.template_name = 'app/detail_views/beneficiary/view.html'
+
+        pk = self.get_object().pk
+        response = super(BeneficiaryViewset, self).retrieve(request, pk=pk)
+
+        if format == 'json':
+            return response
+
+        # default request format is html:
+        return Response({'beneficiary': response.data,
+                         # 'similar': get_similar_properties(self.get_object())
+                         })
 
     def list(self, request, *args, **kwargs):
+        self.template_name = 'app/list_views/beneficiary/view.html'
         response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response

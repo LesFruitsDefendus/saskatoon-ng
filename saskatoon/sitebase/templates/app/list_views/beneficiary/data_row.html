@@ -17,7 +17,9 @@
     </td>
     <td>
         <span>
-            <b>{{ org.civil_name }}</b>
+            <b>
+              <a href="{% url 'beneficiary-detail' org.actor_id %}">{{ org.civil_name }}</a> 
+            </b>
             {% if org.is_beneficiary %}
                 <i class="fa fa-gift"></i>
             {% endif %}
