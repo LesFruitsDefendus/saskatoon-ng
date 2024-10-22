@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+
+{% block table %}
+
+    {% include 'app/list_views/beneficiary/beneficiary-modal.html' %}
+
+    <thead>
+        <tr>
+            <th class="col-xs-1">#</th>
+            <th class="col-xs-1">{% trans "Equipment Type" %}</th>
+            <th class="col-xs-1">{% trans "Count" %}</th>
+            <th class="col-xs-2">{% trans "Description" %}</th>
+            <th class="col-xs-1">{% trans "Owner" %}</th>
+            <th class="col-xs-1">{% trans "Shared" %}</th>
+            <th class="col-xs-1">{% trans "Contact" %}</th>
+            <th class="col-xs-1">{% trans "Neighborhood" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for equipment in data %}
+
+            {% include 'app/list_views/equipment/data_row.html' %}
+
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock table %}

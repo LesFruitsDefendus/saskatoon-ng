@@ -207,7 +207,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     filterset_class = OrganizationFilter
 
     def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/detail_views/beneficiary/view.html'
+        self.template_name = 'app/detail_views/organization/view.html'
 
         pk = self.get_object().pk
         response = super(BeneficiaryViewset, self).retrieve(request, pk=pk)
@@ -216,8 +216,8 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             return response
 
         # default request format is html:
-        return Response({'beneficiary': response.data,
-                         # 'similar': get_similar_properties(self.get_object())
+        return Response({'organization': response.data,
+                         'data': Equipment.objects.filter(pk=pk)
                          })
 
     def list(self, request, *args, **kwargs):

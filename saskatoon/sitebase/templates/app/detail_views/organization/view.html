@@ -1,0 +1,31 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load auth_users %}
+
+{% block content %}
+
+{% include 'app/detail_views/organization/breadcomb.html' %}
+
+<div class="search-engine-area mg-t-30">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        {% include 'app/detail_views/organization/about.html' %}
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        {% include 'app/detail_views/organization/contact.html' %}
+      </div>
+      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        {% include 'app/detail_views/organization/address.html' %}
+        {% include 'app/detail_views/organization/features.html' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% if organization.is_equipment_point %}
+{% include 'app/detail_views/organization/equipment_table.html' %}
+{% endif %}
+
+{% endblock content %}
