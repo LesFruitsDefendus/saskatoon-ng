@@ -3,31 +3,18 @@
 {% load get_fruit_name_icon %}
 <div class="search-engine-int">
     <div class="contact-hd search-hd-eg">
-        <h2>{% translate 'About this beneficiary' %}</h2>
+        <h2>{% translate 'About' %}</h2>
         <hr>
-        <div class="tpgp-ele-tx">
-            <h2>{% translate 'Address' %}</h2>
-            <p>{{ beneficiary.address }}</p>
-            <p>{{ beneficiary.neighborhood.name }}</p>
-            <br>
-
-            <h2>{% translate 'Available tree' %}(s)</h2>
-            <ul>
-                {% for tree in beneficiary.trees %}
-                <li>- {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</li>
-                {% endfor %}
-            </ul>
-            <br>
-
-            <h2>{% translate 'Accessibility' %}</h2>
-            <ul>
-                <li>- {{ beneficiary.trees_location|default:"" }}</li>
-                <li>- {{ beneficiary.trees_accessibility|default:"" }}</li>
-            </ul>
-            <br>
-
-            <h2>{% translate 'Additional information' %}</h2>
-            <p>{{ beneficiary.additional_info|default:"" }}</p>
-        </div>
+    </div>
+    <div>
+        <h4>{% translate 'Address' %}</h4>
+        <p>{{ beneficiary.address }}</p>
+        <p>{{ beneficiary.neighborhood.name }}</p>
+    </div>
+    <br>
+    <div>
+        <h4>{% translate 'Description' %}</h4>
+        <p>{{ beneficiary.description }}</p>
+        <br>
     </div>
 </div>
