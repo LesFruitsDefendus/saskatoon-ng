@@ -6,12 +6,6 @@
     <hr />
   </div>
 
-  <!-- <p class="lead"> -->
-  <!--   {% if beneficiary.owner %} {{ beneficiary.owner.name }} {% else %} {{ -->
-  <!--   beneficiary.pending_contact_first_name }} {{ -->
-  <!--   beneficiary.pending_contact_family_name }} {% endif %} -->
-  <!-- </p> -->
-
   <table class="table">
     <tbody>
       {% if beneficiary.contact_person %}
@@ -89,6 +83,17 @@
       </tr>
       {% endif %}
 
+
     </tbody>
   </table>
+
+  <div class="contact-hd search-hd-eg">
+    <h2>{% translate 'Address' %}</h2>
+    <hr />
+  </div>
+
+  <div>
+    <p>{{ beneficiary.address }}</p>
+    <p>{{ beneficiary.neighborhood.name }}</p>
+  </div>
 </div>

@@ -2,19 +2,11 @@
 {% load static %}
 {% load get_fruit_name_icon %}
 <div class="search-engine-int">
-    <div class="contact-hd search-hd-eg">
-        <h2>{% translate 'About' %}</h2>
-        <hr>
-    </div>
-    <div>
-        <h4>{% translate 'Address' %}</h4>
-        <p>{{ beneficiary.address }}</p>
-        <p>{{ beneficiary.neighborhood.name }}</p>
-    </div>
-    <br>
-    <div>
-        <h4>{% translate 'Description' %}</h4>
-        <p>{{ beneficiary.description }}</p>
-        <br>
-    </div>
+  <div class="contact-hd search-hd-eg">
+    <h2>{% translate 'Description' %}</h2>
+    <hr>
+  </div>
+  <div>
+    <p>{{ beneficiary.description }}</p>
+  </div>
 </div>
