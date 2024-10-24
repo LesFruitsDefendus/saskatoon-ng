@@ -1,5 +1,4 @@
 # coding: utf-8
-from django.utils.timezone import datetime
 from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
@@ -12,6 +11,11 @@ from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comm
 from member.forms import validate_email
 from member.models import AuthUser, Person
 from postalcodes_ca import parse_postal_code
+from logging import getLogger
+
+
+logger = getLogger('saskatoon')
+
 
 # Request for participation
 class RequestForm(forms.ModelForm):
@@ -72,7 +76,7 @@ class RequestForm(forms.ModelForm):
         family_name = self.cleaned_data['picker_family_name']
         phone = self.cleaned_data['picker_phone']
         email = self.cleaned_data['picker_email']
-        comment = self.cleaned_data['comment']
+        # comment = self.cleaned_data['comment']
         harvest_obj = Harvest.objects.get(id=harvest_id)
 
         # check if the email is already registered
@@ -100,39 +104,39 @@ class RequestForm(forms.ModelForm):
             auth_user.groups.add(group)
 
         # Building email content
-        pick_leader_email = list()
-        pick_leader_email.append(str(harvest_obj.pick_leader.email))
-        pick_leader_name = harvest_obj.pick_leader.person.first_name
-        publishable_location = harvest_obj.property.publishable_location
-        mail_subject = _(u"New request from ") + \
-            "%s %s" % (first_name, family_name)
-        message = u"Hi %s, " \
-                  u"\n\n" \
-                  u"There is a new request from %s to participate " \
-                  u"in harvest #%s at '%s'.\n\n" \
-                  u"Full name: %s %s\n" \
-                  u"Email: %s\n" \
-                  u"Phone: %s\n" \
-                  u"Comment: %s\n\n" \
-                  u"Please contact %s directly and then manage " \
-                  u"this request through\n" \
-                  u"http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n" \
-                  u"Yours,\n" \
-                  u"--\n" \
-                  u"Saskatoon Harvest System" % \
-                  (
-                      pick_leader_name,
-                      first_name,
-                      harvest_id,
-                      publishable_location,
-                      first_name,
-                      family_name,
-                      email,
-                      phone,
-                      comment,
-                      first_name,
-                      harvest_id
-                  )
+        # pick_leader_email = list()
+        # pick_leader_email.append(str(harvest_obj.pick_leader.email))
+        # pick_leader_name = harvest_obj.pick_leader.person.first_name
+        # publishable_location = harvest_obj.property.publishable_location
+        # mail_subject = _(u"New request from ") + \
+        #     "%s %s" % (first_name, family_name)
+        # message = u"Hi %s, " \
+        #           u"\n\n" \
+        #           u"There is a new request from %s to participate " \
+        #           u"in harvest #%s at '%s'.\n\n" \
+        #           u"Full name: %s %s\n" \
+        #           u"Email: %s\n" \
+        #           u"Phone: %s\n" \
+        #           u"Comment: %s\n\n" \
+        #           u"Please contact %s directly and then manage " \
+        #           u"this request through\n" \
+        #           u"http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n" \
+        #           u"Yours,\n" \
+        #           u"--\n" \
+        #           u"Saskatoon Harvest System" % \
+        #           (
+        #               pick_leader_name,
+        #               first_name,
+        #               harvest_id,
+        #               publishable_location,
+        #               first_name,
+        #               family_name,
+        #               email,
+        #               phone,
+        #               comment,
+        #               first_name,
+        #               harvest_id
+        #           )
 
         # Sending email to pick leader
         # self.send_email(mail_subject, message, pick_leader_email)

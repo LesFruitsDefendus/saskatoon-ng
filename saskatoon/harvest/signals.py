@@ -137,8 +137,6 @@ def notify_pending_status_update(sender, instance, **kwargs):
 
 
 def comment_send_mail(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
         # Send email only if comment comes from someone else
@@ -174,8 +172,6 @@ def comment_send_mail(sender, instance, **kwargs):
 
 
 def rfp_send_mail(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
         # Send email only if request comes from someone else

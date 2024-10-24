@@ -6,7 +6,6 @@ from django.views.generic import CreateView, UpdateView, View
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
-from django.urls import reverse_lazy
 
 from .utils import send_reset_password_email
 from .models import Person, Organization, AuthUser
