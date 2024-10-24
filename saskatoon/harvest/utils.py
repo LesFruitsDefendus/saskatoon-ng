@@ -1,10 +1,9 @@
-from re import sub
 from django.db.models import Q
 from logging import getLogger
 from harvest.models import Property
-from member.models import AuthUser, Person
 
 logger = getLogger('saskatoon')
+
 
 def get_similar_properties(pending_property):
     """Look for potential property/owner duplicates"""

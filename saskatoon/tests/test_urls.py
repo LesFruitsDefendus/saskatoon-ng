@@ -1,6 +1,4 @@
-import pytest
 import os
-import time
 from selenium.webdriver import Remote
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -21,6 +19,7 @@ urls = [
     # FIXME: https://github.com/LesFruitsDefendus/saskatoon-ng/issues/245
     ('/calendar', ['html'], False),
 ]
+
 
 def test_urls(driver: Remote) -> None:
     driver.implicitly_wait(PAGE_LOAD_TIMEOUT)

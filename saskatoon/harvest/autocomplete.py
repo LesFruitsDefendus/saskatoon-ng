@@ -18,7 +18,6 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
             return Property.objects.none()
 
         qs = Property.objects.all()
-        list_property = []
 
         if self.q:
             q0 = Q(street_number__icontains=self.q)
