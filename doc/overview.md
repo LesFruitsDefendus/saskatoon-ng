@@ -1,8 +1,6 @@
 # Saskatoon Overview
 
-Saskatoon is a fruit harvest management system built for urban fruit gleaning collective. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste. After the fruit is harvested, it is usually divided among the tree owner, volunteers, and some beneficiary organizations.
-
-Saskatoon is currently used by [Les Fruits Défendus](https://santropolroulant.org/en/what-is-the-roulant/collectives/fruits-defendus/) in Montreal, Canada.
+Saskatoon is a fruit harvest management system built for the Montreal-based urban fruit gleaning collective [Les Fruits Défendus](https://santropolroulant.org/en/what-is-the-roulant/collectives/fruits-defendus/). The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste. After the fruit is harvested, it is usually divided among the tree owner, volunteers, and some beneficiary organizations.
 
 The main functionalities can be divided into 2 categories:
 - Record keeping
@@ -19,7 +17,7 @@ Saskatoon keeps several groups of records (*NOTE: this is only conceptual, not t
     - *__core members / admins__*: who have full access to the system and records, and can grant/revoke access and permission.
 - **properties / locations & fruit trees**: where and what to harvest. One property may have multiple types of fruit trees, and one type of fruit trees may have multiple harvests each year.
 - **beneficiary organizations**: external recipients of fruits. A portion of the harvest can be donated to local communities.
-- **harvests & participation requests**: Each harvest record contains various info, e.g. date & time, location, yield of each type of fruits, participants, how the fruits were distributed, and etc.
+- **harvests & participation requests**: Each harvest record contains various info, e.g. date & time, location, yield of each type of fruits, participants, how the fruits were distributed, etc.
 - **equipments**: tools that pick leaders can borrow for harvests, e.g. ladders, bikes, scales, and etc.
 
 ## Facilitating harvests
@@ -28,13 +26,13 @@ Saskatoon keeps several groups of records (*NOTE: this is only conceptual, not t
 
 Pick-leaders use the Saskatoon dashboard to organize harvests and log the results afterward. A series of activities would happen around the harvest record during a harvest.
 
-| Stage | Status in harvest record | Time range in harvest record | Other info added in harvest record |
-| --- | --- | --- | --- |
-|1. A new harvest record for the current year is created in Saskatoon after the tree owner confirms the interest to participate this year. It usually happens before the season starts. | _Orphan_ | usually a 2-week period | property and trees |
-|2. A pick-leader declares to lead this harvest | _Adopted_ | same as previous | pick-leader |
-|3. The pick-leader confirms with the tree owner about the exact harvest date and time, contacts beneficiary organizations to receive fruits for this harvest, and publish the event on harvest calendar to call for participants | _Date scheduled_ | A specific date and time | beneficiary organizations, participation requests |
-| 4. The pick-leader assembles the team for harvest by accepting/declining participation requests | _Ready_ | same as previous | participation requests status updated |
-| 5. Harvest ends. If successful, the pick-leader logs the harvest yield and how the fruits were distributed among the tree owner, volunteers, and beneficiary organizations | _Successful / Cancelled_ | same as previous | harvest yield and distribution info |
+| Stage                                                                                                                                                                                                                            | Status in harvest record | Time range in harvest record | Other info added in harvest record                |
+|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------:|------------------------------|---------------------------------------------------|
+| 1. A new harvest record for the current year is created in Saskatoon after the tree owner confirms the interest to participate this year. It usually happens before the season starts.                                           |         _Orphan_         | usually a 2-week period      | property and trees                                |
+| 2. A pick-leader declares to lead this harvest                                                                                                                                                                                   |        _Adopted_         | same as previous             | pick-leader                                       |
+| 3. The pick-leader confirms with the tree owner about the exact harvest date and time, contacts beneficiary organizations to receive fruits for this harvest, and publish the event on harvest calendar to call for participants |     _Date scheduled_     | A specific date and time     | beneficiary organizations, participation requests |
+| 4. The pick-leader assembles the team for harvest by accepting/declining participation requests                                                                                                                                  |         _Ready_          | same as previous             | participation requests status updated             |
+| 5. Harvest ends. If successful, the pick-leader logs the harvest yield and how the fruits were distributed among the tree owner, volunteers, and beneficiary organizations                                                       | _Successful / Cancelled_ | same as previous             | harvest yield and distribution info               |
 
 ### Volunteers / harvesters
 
