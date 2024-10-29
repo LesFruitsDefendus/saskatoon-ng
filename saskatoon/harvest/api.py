@@ -217,7 +217,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
         # default request format is html:
         return Response({'organization': response.data,
-                         'data': Equipment.objects.filter(pk=pk)
+                         'data': Equipment.objects.filter(owner_id=pk)
                          })
 
     def list(self, request, *args, **kwargs):
