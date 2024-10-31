@@ -8,9 +8,9 @@ urlpatterns = [
          views.PersonCreateView.as_view(),
          name='person-create'),
 
-    path('beneficiary/create/',
+    path('organization/create/',
          views.OrganizationCreateView.as_view(),
-         name='beneficiary-create'),
+         name='organization-create'),
 
     # UPDATE VIEWS
     path('person/update/<int:pk>/',
@@ -21,9 +21,9 @@ urlpatterns = [
          views.OnboardingPersonUpdateView.as_view(),
          name='onboarding-person-update'),
 
-    path('beneficiary/update/<int:pk>/',
+    path('organization/update/<int:pk>/',
          views.OrganizationUpdateView.as_view(),
-         name='beneficiary-update'),
+         name='organization-update'),
 
     path('user/change_password/',
          views.PasswordChangeView.as_view(),

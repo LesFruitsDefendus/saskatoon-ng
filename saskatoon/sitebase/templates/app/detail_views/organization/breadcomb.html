@@ -24,7 +24,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.member.change_organization %}
-                                    <a href="{% url 'beneficiary-update' organization.actor_id %}">
+                                    <a href="{% url 'organization-update' organization.actor_id %}">
                                         <button title="Edit Organization" class="btn">
                                             {% trans "Edit Organization" %}</button>
                                     </a>
