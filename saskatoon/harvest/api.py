@@ -228,7 +228,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         # default request format is html:
         return Response({'data': response.data,
                          'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('beneficiary-create'),
+                         'new': {'url': reverse_lazy('organization-create'),
                                  'title': _("New Organization")
                                  }
                          })
