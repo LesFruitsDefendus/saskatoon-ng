@@ -551,7 +551,7 @@ class HarvestForm(forms.ModelForm):
     )
 
     start_date = forms.DateTimeField(
-        label=_('Date/Start time'),
+        label=_('Start date/time'),
         input_formats=['%d/%m/%Y %H:%M'],
         required=True
     )
