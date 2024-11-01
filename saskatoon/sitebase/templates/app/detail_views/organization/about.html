@@ -1,29 +1,9 @@
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
-<div class="search-engine-int">
+<div class="search-engine-int" style="flex: 100%;">
   <div class="contact-hd search-hd-eg">
     <h2>{% translate 'About' %}</h2>
     <hr />
-    <div style="display: flex; flex-flow: column; gap: 1rem;">
-      <div>
-        <p>{{ organization.description }}</p>
-      </div>
-
-      {% if organization.is_beneficiary and organization.beneficiary_description %}
-      <div>
-        <h4>{% translate 'Beneficiary Description' %}</h4>
-        <p>{{ organization.beneficiary_description }}</p>
-        {% endif %}
-      </div>
-
-      <div>
-        {% if organization.is_equipment_point and organization.equipment_description %}
-        <h4>{% translate 'Equipment Description' %}</h4>
-        <p>{{ organization.equipment_description }}</p>
-        {% endif %}
-      </div>
-    </div>
-
+    <p>{{ organization.description }}</p>
   </div>
 </div>

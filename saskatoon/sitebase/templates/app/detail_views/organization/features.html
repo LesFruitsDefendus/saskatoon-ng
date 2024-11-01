@@ -1,42 +1,29 @@
 {% load i18n %}
 {% load static %}
-<div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-mg-t-0">
+<div class="search-engine-int mg-t-30 sm-res-mg-t-30 tb-res-mg-t-30">
+  <div style="display: flex; flex-flow: row wrap;">
+    <div class="search-engine-int" style="flex: 50%">
+      <h4>
+        <span>{% translate 'Beneficiary' %}</span>
+        {% if organization.is_beneficiary %}
+        <i class="notika-icon notika-checked"></i>
+        {% else %}
+        <i class="notika-icon notika-close"></i>
+        {% endif %}
+      </h4>
+      <p>{{ organization.beneficiary_description }}</p>
+    </div>
 
-  <div class="contact-hd search-hd-eg">
-    <h2>{% translate 'Features' %}</h2>
-    <hr />
+    <div class="search-engine-int" style="flex: 50%;">
+      <h4>
+        <span>{% translate 'Equipment Point' %}</span>
+        {% if organization.is_equipment_point %}
+        <i class="notika-icon notika-checked"></i>
+        {% else %}
+        <i class="notika-icon notika-close"></i>
+        {% endif %}
+      </h4>
+      <p>{{ organization.equipment_description }}</p>
+    </div>
   </div>
-
-
-  <div class="search-eg-table">
-    <table class="table">
-      <tbody>
-        <tr>
-          <td>
-            {% if organization.is_beneficiary %}
-            <i class="notika-icon notika-checked"></i>
-            {% trans "Is a beneficiary" %}
-            {% else %}
-            <i class="notika-icon notika-close"></i>
-            {% trans "Is not beneficiary" %}
-            {% endif %}
-          </td>
-        </tr>
-
-        <tr>
-          <td>
-            {% if organization.is_equipment_point %}
-            <i class="notika-icon notika-checked"></i>
-            {% trans "Is an equipment point" %}
-            {% else %}
-            <i class="notika-icon notika-close"></i>
-            {% trans "Is not an equipment point" %}
-            {% endif %}
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
 </div>
