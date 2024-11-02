@@ -551,11 +551,14 @@ class HarvestForm(forms.ModelForm):
     )
 
     start_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        label=_('Start date/time'),
+        input_formats=['%d/%m/%Y %H:%M'],
         required=True
     )
+
     end_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        label=_('End time'),
+        input_formats=['%H:%M'],
         required=True
     )
 
@@ -577,14 +580,18 @@ class HarvestForm(forms.ModelForm):
         return pickleader
 
     def clean_end_date(self):
-        """Check if harvest end_date is after start_date"""
-        start_date = self.cleaned_data['start_date']
-        end_date = self.cleaned_data['end_date']
-        if end_date <= start_date:
+        """Derive end date from start date in order to enforce a single date for harvests without changing model."""
+        start = self.cleaned_data['start_date']
+        end = self.cleaned_data['end_date']
+
+        start_dt = start
+        end_dt = dt.combine(start.date(), end.time(), tzinfo=start.tzinfo)
+
+        if end_dt <= start_dt:
             raise forms.ValidationError(
-                _('End date/time must be after start date/time')
+                _('End time must be after start time')
             )
-        return end_date
+        return end_dt
 
 
 
