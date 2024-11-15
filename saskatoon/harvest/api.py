@@ -248,7 +248,7 @@ class EquipmentPointViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by("-actor_id")
     serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = OrganizationFilter
+    filterset_class = EquipmentPointFilter
 
     def retrieve(self, request, format="html", pk=None):
         self.template_name = "app/detail_views/organization/view.html"
