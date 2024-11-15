@@ -30,8 +30,8 @@ class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVi
     def get_organization(self):
         """If creating new harvest from Organization page"""
         try:
-            pid = self.request.GET['pid']
-            return Organization.objects.get(actor_id=pid)
+            aid = self.request.GET['aid']
+            return Organization.objects.get(actor_id=aid)
         except (KeyError, Organization.DoesNotExist):
             return None
 
