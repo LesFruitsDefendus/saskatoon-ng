@@ -261,7 +261,7 @@ class EquipmentPointViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         )
 
     def list(self, request, *args, **kwargs):
-        self.template_name = "app/list_views/EquipmentPoint/view.html"
+        self.template_name = "app/list_views/equipment-point/view.html"
         response = super(EquipmentPointViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == "json":
             return response
