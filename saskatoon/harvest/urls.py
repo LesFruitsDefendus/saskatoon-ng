@@ -10,6 +10,7 @@ router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
 router.register('beneficiary', api.BeneficiaryViewset, 'beneficiary')
+router.register('equipment-point', api.EquipmentPointViewset, 'equipment-point')
 router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
