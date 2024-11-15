@@ -224,6 +224,16 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             'data': Equipment.objects.filter(owner_id=pk) 
         })
 
+
+class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Beneficiary viewset - list pages for beneficiaries. Links to an Organization detail page."""
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.all().order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = OrganizationFilter
+
     def list(self, request, *args, **kwargs):
         """Organization list view - accessible via the Beneficiaries menu button."""
         self.template_name = 'app/list_views/organization/view.html'
