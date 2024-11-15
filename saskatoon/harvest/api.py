@@ -12,7 +12,7 @@ from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYield
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
-                                 CommunitySerializer, BeneficiarySerializer,
+                                 CommunitySerializer, OrganizationSerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
 from member.models import AuthUser, Organization, Neighborhood, Person
@@ -202,7 +202,7 @@ class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
-    serializer_class = BeneficiarySerializer
+    serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
 
