@@ -631,4 +631,9 @@ class EquipmentForm(forms.ModelForm):
             ),
         }
 
-        fields = '__all__'
+        fields = (
+            'owner',
+            'type',
+            'description',
+            'count',
+        )
