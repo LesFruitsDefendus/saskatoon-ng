@@ -8,7 +8,7 @@
           <div class="table-responsive">
             <div>
               <h4> {% trans Equipment %} </h4>
-              {% if perms.harvest.add_equipment and organization.is_equipment_point %}
+              {% if perms.harvest.add_equipment %}
               <a href="{% url 'equipment-create' %}?pid={{ organization.actor_id }}">
                 <button title="New Equipment" class="btn btn-success notika-btn-success waves-effect">
                   <i class="fa fa-plus"></i>
