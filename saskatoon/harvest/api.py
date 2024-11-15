@@ -241,6 +241,50 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         })
 
 
+class EquipmentPointViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """EquipmentPoint viewset"""
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.all().order_by("-actor_id")
+    serializer_class = OrganizationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = OrganizationFilter
+
+    def retrieve(self, request, format="html", pk=None):
+        self.template_name = "app/detail_views/organization/view.html"
+
+        pk = self.get_object().pk
+        response = super(EquipmentPointViewset, self).retrieve(request, pk=pk)
+
+        if format == "json":
+            return response
+
+        # default request format is html:
+        return Response(
+            {
+                "organization": response.data,
+                "data": Equipment.objects.filter(owner_id=pk),
+            }
+        )
+
+    def list(self, request, *args, **kwargs):
+        self.template_name = "app/list_views/EquipmentPoint/view.html"
+        response = super(EquipmentPointViewset, self).list(request, *args, **kwargs)
+        if request.accepted_renderer.format == "json":
+            return response
+        # default request format is html:
+        return Response(
+            {
+                "data": response.data,
+                "filter": get_filter_context(self),
+                "new": {
+                    "url": reverse_lazy("organization-create"),
+                    "title": _("New Organization"),
+                },
+            }
+        )
+
+
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Community viewset"""
 
