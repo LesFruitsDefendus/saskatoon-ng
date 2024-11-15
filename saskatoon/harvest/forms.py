@@ -627,7 +627,7 @@ class EquipmentForm(forms.ModelForm):
                 'property-autocomplete'
             ),
             'owner': autocomplete.ModelSelect2(
-                'actor-autocomplete'
+                'equipmentpoint-autocomplete',
             ),
         }
 
@@ -637,3 +637,10 @@ class EquipmentForm(forms.ModelForm):
             'description',
             'count',
         )
+
+        labels = {
+            'owner': _('Equipment Point'),
+        }
+
+
+

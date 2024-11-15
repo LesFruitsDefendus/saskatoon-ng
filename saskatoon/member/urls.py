@@ -50,6 +50,10 @@ urlpatterns = [
             autocomplete.OwnerAutocomplete.as_view(),
             name='owner-autocomplete'),
 
+    re_path(r'^equipmentpoint-autocomplete/$',
+            autocomplete.EquipmentPointAutocomplete.as_view(),
+            name='equipmentpoint-autocomplete'),
+
     re_path(r'^contact-autocomplete/$',
             autocomplete.ContactAutocomplete.as_view(),
             name='contact-autocomplete'),
