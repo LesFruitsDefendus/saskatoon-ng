@@ -3,14 +3,14 @@
 Please follow each part of this documentation in order to run your own instance of Saskatoon.
 
 ## Overview
-1. [Requirements](#requirements)
+1. [Set up requirements](#requirements)
 2. [Install Saskatoon](#installation)
 3. [Configuration](#configuration)
    1. [Prepare `.env` settings](#.env-settings)
    2. [Set up local database](#local-database)
    3. [Set up Django](#django-setup)
 4. [Launch Saskatoon server](#launch-the-saskatoon-server-on-localhost)
-5. [Load sample data (fixtures)](#loading-sample-data-(fixtures))
+5. [Load sample data (fixtures)](#loading-sample-data-fixtures)
 6. [Import/export database and migrate from older version of Saskatoon database](#database)
 7. [Run tests](#running-tests)
 
@@ -166,7 +166,7 @@ In case you have an error similar to this one:
 ```
 django.db.utils.OperationalError: (1071, 'Specified key was too long; max key length is 767 bytes')
 ```
-then you need set your SQLite/MySQL database to UTF-8:
+then you need set your MySQL database to UTF-8:
 ```
 ALTER DATABASE 'your_saskatoon_database' CHARACTER SET utf8;
 ```
@@ -231,7 +231,7 @@ To import a *.sql* dump file into an **empty** database:
 $ mysql -u <user> -p <db_name> < dump_file.sql
 ```
 
-> WARNING: was only able to import a dump file into a database of the **same name**. To get the original database name from the dump file:
+> WARNING: the database you are importing the dump file into should be **empty** and have the **same name** as the original database. To get the original database name from the dump file:
 > ```
 > $ head -n 5 dump_file.sql
 > ```
