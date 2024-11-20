@@ -5,8 +5,9 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
+from rest_framework.decorators import action
 from django_filters import rest_framework as filters
-from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
+from harvest.filters import (BeneficiaryFilter, HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
@@ -220,28 +221,24 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'data': Equipment.objects.filter(owner_id=pk)
                          })
 
-
-class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Beneficiary viewset - list pages for beneficiaries. Links to an Organization detail page."""
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.all().order_by('-actor_id')
-    serializer_class = OrganizationSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = OrganizationFilter
-
-    def list(self, request, *args, **kwargs):
+    @action(detail=False, methods=['get'])
+    def beneficiary_list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/beneficiary/view.html'
-        response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
+        self.filterset_class = BeneficiaryFilter
+
+        response = super(OrganizationViewset, self).list(request, *args, **kwargs)
+
         if request.accepted_renderer.format == 'json':
             return response
-        # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('organization-create'),
-                                 'title': _("New Organization")
-                                 }
-                         })
+
+        return Response({
+            'data': response.data,
+            'filter': get_filter_context(self),
+            'new': {
+                'url': reverse_lazy('organization-create'),
+                'title': _("New Organization")
+            }
+        })
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
