@@ -526,6 +526,7 @@ class HarvestForm(forms.ModelForm):
             'end_date',
             'publication_date',
             'nb_required_pickers',
+            'equipment_reserved',
             'about',
         )
         widgets = {
@@ -536,7 +537,11 @@ class HarvestForm(forms.ModelForm):
                 'pickleader-autocomplete'
             ),
             'equipment_reserved': autocomplete.ModelSelect2Multiple(
-                'equipment-autocomplete'
+                url='equipmentpoint-autocomplete',
+                forward=[
+                    'start_date',
+                    'end_date',
+                ]
             ),
             'property': autocomplete.ModelSelect2(
                 'property-autocomplete'

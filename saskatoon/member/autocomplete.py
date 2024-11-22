@@ -120,4 +120,10 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         if self.q:
             qs = qs.filter(organization__civil_name__icontains=self.q)
 
+
+        start_date = self.forwarded.get('start_date', None)
+        end_date = self.forwarded.get('end_date', None)
+        if start_date is not None and end_date is not None:
+            qs = qs.filter(organization__in=equipment_points_available_in_daterange(start_date, end_date))
+
         return qs.distinct()
