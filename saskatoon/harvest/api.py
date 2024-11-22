@@ -199,7 +199,11 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Organization viewset - detail pages for beneficiaries and equipment points"""
+    """
+    Organization viewset
+    - shared detail page for organizations
+    - separate list pages for beneficiaries and equipment points.
+    """
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
