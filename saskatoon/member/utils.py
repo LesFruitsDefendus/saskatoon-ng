@@ -60,9 +60,9 @@ def send_invite_email(user: AuthUser, subject: str, message: str) -> Optional[st
         logger.error("Failed sending Invitation email to %s. %s", user.email, error_msg)
         return error_msg
 
-def equipment_points_available_in_daterange(start_date: datetime, end_date: datetime):
+def get_equipment_points_available_in_daterange(start_date: datetime, end_date: datetime):
     """"
-    Returns true if the given  start and end date range does not conflict with
+    Returns equipment points where the given start and end date range does not conflict with
     the start and end date ranges of other harvests that
     have already reserved equipment owned by this equipment_point.
     """

@@ -123,7 +123,7 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         start_date = self.forwarded.get('start_date', None)
         end_date = self.forwarded.get('end_date', None)
         if start_date is not None and end_date is not None:
-            qs = qs.filter(organization__in=equipment_points_available_in_daterange(start_date, end_date))
+            qs = qs.filter(organization__in=get_equipment_points_available_in_daterange(start_date, end_date))
             qs = Equipment.objects.all().filter(owner__in=qs)
 
         # currently, queryset shows all available equipment
@@ -155,7 +155,7 @@ class EquipmentByEquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         start_date = self.forwarded.get('start_date', None)
         end_date = self.forwarded.get('end_date', None)
         if start_date is not None and end_date is not None:
-            qs = qs.filter(organization__in=equipment_points_available_in_daterange(start_date, end_date))
+            qs = qs.filter(organization__in=get_equipment_points_available_in_daterange(start_date, end_date))
             qs = Equipment.objects.all().filter(owner__in=qs)
 
         # currently, queryset shows all available equipment
@@ -165,4 +165,7 @@ class EquipmentByEquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         return qs.distinct()
 
     def get_result_label(self, equipment):
+        return equipment.owner.get_organization().name
+
+    def get_selected_result_label(self, equipment):
         return equipment.owner.get_organization().name
