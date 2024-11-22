@@ -537,7 +537,7 @@ class HarvestForm(forms.ModelForm):
                 'pickleader-autocomplete'
             ),
             'equipment_reserved': autocomplete.ModelSelect2Multiple(
-                url='equipmentpoint-autocomplete',
+                url='equipment-equipmentpoint-autocomplete',
                 forward=[
                     'start_date',
                     'end_date',
@@ -610,21 +610,7 @@ class HarvestForm(forms.ModelForm):
         equipment_owned_by_equipment_points = Equipment.objects.all().filter(owner__in=selected_equipment_owners)
         print(equipment_owned_by_equipment_points)
 
-        if False:
-            raise ValidationError("not it!!")
         return equipment_owned_by_equipment_points
-
-        # eq_rs = self.cleaned_data['equipment_reserved']
-        # print("from clean------------", eq_rs)
-        # equipment_points = self.cleaned_data['equipment_reserved']
-        # print(equipment_points)
-        # equipment = Equipment.objects().all()
-        # print(equipment)
-        #
-        # return equipment_points
-        return 
-
-
 
 
 class HarvestYieldForm(forms.ModelForm):
