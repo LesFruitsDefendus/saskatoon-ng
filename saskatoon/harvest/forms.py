@@ -599,13 +599,30 @@ class HarvestForm(forms.ModelForm):
         return end_dt
 
     def clean_equipment_reserved(self):
-        """"Convert autocomplete equipment point to all equipment owned by said equipment point."""
-        equipment_points = self.cleaned_data['equipment_reserved']
-        print(equipment_points)
-        equipment = Equipment.objects().all()
-        print(equipment)
+        """"
+        Convert list of single autocomplete equipments (labelled as owner name) 
+        to all equipment owned by said equipment points.
+        """
 
-        return equipment_points
+        equipment_reserved = self.cleaned_data["equipment_reserved"]
+        print('\n\nclean() => eq_reserved ---------------', equipment_reserved)
+        selected_equipment_owners = [f.owner for f in equipment_reserved]
+        equipment_owned_by_equipment_points = Equipment.objects.all().filter(owner__in=selected_equipment_owners)
+        print(equipment_owned_by_equipment_points)
+
+        if False:
+            raise ValidationError("not it!!")
+        return equipment_owned_by_equipment_points
+
+        # eq_rs = self.cleaned_data['equipment_reserved']
+        # print("from clean------------", eq_rs)
+        # equipment_points = self.cleaned_data['equipment_reserved']
+        # print(equipment_points)
+        # equipment = Equipment.objects().all()
+        # print(equipment)
+        #
+        # return equipment_points
+        return 
 
 
 
