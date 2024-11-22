@@ -598,6 +598,16 @@ class HarvestForm(forms.ModelForm):
             )
         return end_dt
 
+    def clean_equipment_reserved(self):
+        """"Convert autocomplete equipment point to all equipment owned by said equipment point."""
+        equipment_points = self.cleaned_data['equipment_reserved']
+        print(equipment_points)
+        equipment = Equipment.objects().all()
+        print(equipment)
+
+        return equipment_points
+
+
 
 
 class HarvestYieldForm(forms.ModelForm):
