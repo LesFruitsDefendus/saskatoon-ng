@@ -9,7 +9,7 @@ from django.contrib.auth.models import ( Group, AbstractBaseUser,
 from django.core.validators import RegexValidator
 from django.utils import timezone as tz
 from phone_field import PhoneField
-from harvest.models import RequestForParticipation, Harvest, Property
+from harvest.models import RequestForParticipation, Harvest, Property, Equipment
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -116,6 +116,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
                 self.has_temporary_password)
+
     @property
     def name(self):
         if self.person:
@@ -580,6 +581,10 @@ class Organization(Actor):
     @property
     def language(self):
         return self.contact_person.language if self.contact_person else None
+
+    @property
+    def equipment(self):
+        return Equipment.objects.filter(owner=self)
 
 
 class Neighborhood(models.Model):

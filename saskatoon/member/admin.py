@@ -386,6 +386,17 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
+    def save_model(self, request, obj, form, change):
+        """Ensure the is_equipment_point was not left unchecked by omission"""
+
+        if not obj.is_equipment_point and obj.equipment.exists():
+            messages.add_message(request, messages.WARNING,
+                                 f"{obj} has equipment but is not registered as an equipment point. \
+                                 Only leave the \"Is Equipment Point\" box unchecked if the equipment \
+                                 is not currently available.")
+
+        return super().save_model(request, obj, form, change)
+
 
 admin.site.register(Language)
 admin.site.register(Neighborhood)
