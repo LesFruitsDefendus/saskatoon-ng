@@ -93,10 +93,7 @@ Please follow each part of this documentation in order to run your own instance 
 
     See `setup.py` for more details on the project's package requirements.
 
-    Alternatively, to install the exact same packages as on the production server, use the `requirements.txt` file:
-    ```
-    (venv)$ pip3 install -r requirements.txt
-    ```
+    For troubleshooting, refer to `pip_freeze.txt` for the current installation on the prod server.
 
 ## Configuration
 
