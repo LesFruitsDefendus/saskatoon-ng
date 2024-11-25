@@ -9,7 +9,7 @@ Please follow instructions in `INSTALL.md` to set up your local development envi
 
 ## Branches
 
-Unless instructed otherwise by maintainers all pull requests should target the `develop` branch.
+~~Unless instructed otherwise by maintainers all pull requests should target the `develop` branch.~~ For now, all pull requests should target the `master` branch until further notice.
 
 If your branch directly addresses an opened `Issue`, you may name your branch using the following scheme: `Fix-<Issue#>-A_short_description`
 
