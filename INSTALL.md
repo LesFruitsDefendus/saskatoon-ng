@@ -91,7 +91,12 @@ Please follow each part of this documentation in order to run your own instance 
     ```
     > NOTE: Don't use ``python3 setup.py install`` as it could mess up some dependencies.
 
-    See `setup.py` for more details on the project's package requirements
+    See `setup.py` for more details on the project's package requirements.
+
+    Alternatively, to install the exact same packages as on the production server, use the `requirements.txt` file:
+    ```
+    (venv)$ pip3 install -r requirements.txt
+    ```
 
 ## Configuration
 
