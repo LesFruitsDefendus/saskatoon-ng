@@ -6,7 +6,7 @@ Please follow each part of this documentation in order to run your own instance 
 1. [Set up requirements](#requirements)
 2. [Install Saskatoon](#installation)
 3. [Configuration](#configuration)
-   1. [Prepare `.env` settings](#.env-settings)
+   1. [Prepare `.env` settings](#env-settings)
    2. [Set up local database](#local-database)
    3. [Set up Django](#django-setup)
 4. [Launch Saskatoon server](#launch-the-saskatoon-server-on-localhost)
