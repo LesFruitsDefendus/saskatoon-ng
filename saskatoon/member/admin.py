@@ -378,6 +378,46 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'contact', 'is_beneficiary', 'is_equipment_point', 'pk')
     list_filter = (OrganizationHasNoContactAdminFilter,)
 
+    fieldsets = (
+        (
+            'Info',
+            {
+                'fields': (
+                    'civil_name',
+                    'description',
+                    'phone',
+                    'contact_person',
+                    'street_number',
+                    'street',
+                    'complement',
+                    'postal_code',
+                    'neighborhood',
+                    'city',
+                    'state',
+                    'country',
+                    )
+            },
+        ),
+        (
+            'Fruit donations',
+            {
+                'fields': (
+                    'is_beneficiary',
+                    'beneficiary_description',
+                )
+            },
+        ),
+        (
+            'Equipment Point',
+            {
+                'fields': (
+                    'is_equipment_point',
+                    'equipment_description',
+                    )
+            }
+        ),
+    )
+
     @admin.display(description="Contact Person")
     def contact(self, org):
         if org.contact_person:
@@ -387,9 +427,11 @@ class OrganizationAdmin(admin.ModelAdmin):
         return None
 
     def save_model(self, request, obj, form, change):
-        """Ensure the is_equipment_point was not left unchecked by omission"""
+        """Ensure the is_equipment_point was not mistakenly left checked/unchecked"""
 
-        if not obj.is_equipment_point and obj.equipment.exists():
+        if not obj.equipment.exists():
+            obj.is_equipment_point = False
+        elif not obj.is_equipment_point:
             messages.add_message(request, messages.WARNING,
                                  f"{obj} has equipment but is not registered as an equipment point. \
                                  Only leave the \"Is Equipment Point\" box unchecked if the equipment \
