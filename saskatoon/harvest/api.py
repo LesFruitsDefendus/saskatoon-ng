@@ -20,7 +20,7 @@ from member.models import AuthUser, Organization, Neighborhood, Person
 from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin
 
 
-def get_filter_context(viewset):
+def get_filter_context(viewset, basename=None):
     ''' create filters dictionary for list views
     @param {obj} viewset: rest_framework.viewsets.ModelViewSet subclass instance
     @returns {dic} filters: filters template dictionary
@@ -28,7 +28,10 @@ def get_filter_context(viewset):
     f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
     dic = {'form': f.form}
     if any(field in viewset.request.GET for field in set(f.get_fields())):
-        dic['reset'] = reverse(viewset.basename + '-list')
+        if basename is not None:
+            dic['reset'] = reverse(basename + '-list')
+        else:
+            dic['reset'] = reverse(viewset.basename + '-list')
     return dic
 
 
@@ -243,7 +246,7 @@ class BeneficiaryListView(LoginRequiredMixin, generics.ListAPIView):
 
         return Response({
             'data': response.data,
-            'filter': get_filter_context(self),
+            'filter': get_filter_context(self, 'beneficiary'),
             'new': {
                 'url': reverse_lazy('organization-create'),
                 'title': _("New Organization")
@@ -271,7 +274,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
 
         return Response({
             'data': response.data,
-            'filter': get_filter_context(self),
+            'filter': get_filter_context(self, 'equipment-point'),
             'new': {
                 'url': reverse_lazy('organization-create'),
                 'title': _("New Organization")
