@@ -6,6 +6,9 @@ from django.views.generic import CreateView, UpdateView, View
 from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
+from harvest import filters
+from harvest.serializers import OrganizationSerializer
+from member.permissions import IsPickLeaderOrCoreOrAdmin
 
 from .utils import send_reset_password_email
 from .models import Person, Organization, AuthUser
@@ -125,12 +128,12 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
     form_class = OrganizationCreateForm
     template_name = 'app/forms/organization_create_form.html'
     success_message = _("New Organization registered successfully!")
-    success_url = reverse_lazy('organization-beneficiary-list')
+    success_url = reverse_lazy('beneficiary-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Organization Registration")
-        context['cancel_url'] = reverse_lazy('organization-beneficiary-list')
+        context['cancel_url'] = reverse_lazy('beneficiary-list')
         return context
 
 
@@ -140,12 +143,12 @@ class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, Updat
     form_class = OrganizationForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Organization updated successfully!")
-    success_url = reverse_lazy('organization-beneficiary-list')
+    success_url = reverse_lazy('beneficiary-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Organization Update")
-        context['cancel_url'] = reverse_lazy('organization-beneficiary-list')
+        context['cancel_url'] = reverse_lazy('beneficiary-list')
         return context
 
 

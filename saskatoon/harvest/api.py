@@ -198,11 +198,9 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 
-class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class OrganizationRetrieveView(LoginRequiredMixin, generics.RetrieveAPIView):
     """
-    Organization viewset
-    - shared detail page for organizations
-    - separate list pages for beneficiaries and equipment points.
+    Organization retrieve view shared between beneficiaries and equipment points.
     """
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -215,7 +213,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         self.template_name = 'app/detail_views/organization/view.html'
 
         pk = self.get_object().pk
-        response = super(OrganizationViewset, self).retrieve(request, pk=pk)
+        response = super(OrganizationRetrieveView, self).retrieve(request, pk=pk)
 
         if format == 'json':
             return response
@@ -225,12 +223,20 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                          'data': Equipment.objects.filter(owner_id=pk)
                          })
 
-    @action(detail=False, methods=['get'])
-    def beneficiary_list(self, request, *args, **kwargs):
-        self.template_name = 'app/list_views/beneficiary/view.html'
-        self.filterset_class = BeneficiaryFilter
+class BeneficiaryListView(LoginRequiredMixin, generics.ListAPIView):
+    """
+    List view for organizations that are beneficiaries.
+    """
 
-        response = super(OrganizationViewset, self).list(request, *args, **kwargs)
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.all().order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = BeneficiaryFilter
+    template_name = 'app/list_views/beneficiary/view.html'
+
+    def list(self, request, *args, **kwargs):
+        response = super(BeneficiaryListView, self).list(request, *args, **kwargs)
 
         if request.accepted_renderer.format == 'json':
             return response
@@ -244,12 +250,21 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             }
         })
 
-    @action(detail=False, methods=['get'])
-    def equipment_point_list(self, request, *args, **kwargs):
-        self.template_name = 'app/list_views/equipment_point/view.html'
-        self.filterset_class = EquipmentPointFilter
 
-        response = super(OrganizationViewset, self).list(request, *args, **kwargs)
+class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
+    """
+    List view for organizations that are equipment points.
+    """
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.all().order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = EquipmentPointFilter
+    template_name = 'app/list_views/equipment_point/view.html'
+
+    def list(self, request, *args, **kwargs):
+        response = super(EquipmentPointListView, self).list(request, *args, **kwargs)
 
         if request.accepted_renderer.format == 'json':
             return response

@@ -9,7 +9,6 @@ router = routers.DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('organization', api.OrganizationViewset, 'organization')
 router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 

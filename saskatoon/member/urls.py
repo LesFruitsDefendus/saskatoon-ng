@@ -1,7 +1,24 @@
 from django.urls import path, re_path
 from . import views, autocomplete
+from harvest import api
 
 urlpatterns = [
+
+    # LIST VIEWS
+    path('beneficiaries/',
+         api.BeneficiaryListView.as_view(),
+         name='beneficiary-list'),
+
+    path('equipment-points/',
+         api.EquipmentPointListView.as_view(),
+         name='equipment-point-list'),
+
+
+    # RETRIEVE VIEWS
+    path('organization/<int:pk>',
+         api.OrganizationRetrieveView.as_view(),
+         name='organization-detail'),
+
 
     # CREATE VIEWS
     path('person/create/',
