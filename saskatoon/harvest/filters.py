@@ -197,13 +197,6 @@ class OrganizationFilter(filters.FilterSet):
 
 class BeneficiaryFilter(OrganizationFilter):
 
-    # def __init__(self, data=None, *args, **kwargs):
-        # # set initial value
-        # if data is not None:
-        #     data = data.copy()
-        #     if 'is_beneficiary' not in data:
-        #         data['is_beneficiary'] = True
-        # super(BeneficiaryFilter, self).__init__(data, *args, **kwargs)
     def __init__(self, *args, **kwargs):
         super(BeneficiaryFilter, self).__init__(*args, **kwargs)
 
@@ -211,11 +204,6 @@ class BeneficiaryFilter(OrganizationFilter):
 class EquipmentPointFilter(OrganizationFilter):
 
     def __init__(self, data=None, *args, **kwargs):
-        # set initial value
-        if data is not None:
-            data = data.copy()
-            if 'is_equipment_point' not in data:
-                data['is_equipment_point'] = True
         super(EquipmentPointFilter, self).__init__(data, *args, **kwargs)
 
     equipment__type = filters.ModelChoiceFilter(
