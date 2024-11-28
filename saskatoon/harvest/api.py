@@ -7,7 +7,7 @@ from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from rest_framework.decorators import action
 from django_filters import rest_framework as filters
-from harvest.filters import (BeneficiaryFilter, EquipmentPointFilter, HarvestFilter, PropertyFilter, EquipmentFilter,
+from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
@@ -201,10 +201,8 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 
-class OrganizationRetrieveView(LoginRequiredMixin, generics.RetrieveAPIView):
-    """
-    Organization retrieve view shared between beneficiaries and equipment points.
-    """
+class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Organization viewset - detail pages for beneficiaries and equipment points"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
@@ -216,40 +214,30 @@ class OrganizationRetrieveView(LoginRequiredMixin, generics.RetrieveAPIView):
         self.template_name = 'app/detail_views/organization/view.html'
 
         pk = self.get_object().pk
-        response = super(OrganizationRetrieveView, self).retrieve(request, pk=pk)
+        response = super(OrganizationViewset, self).retrieve(request, pk=pk)
 
         if format == 'json':
             return response
 
         # default request format is html:
-        return Response({'organization': response.data,
-                         'data': Equipment.objects.filter(owner_id=pk)
-                         })
-
-class BeneficiaryListView(LoginRequiredMixin, generics.ListAPIView):
-    """
-    List view for organizations that are beneficiaries.
-    """
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.all().order_by('-actor_id')
-    serializer_class = OrganizationSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = BeneficiaryFilter
-    template_name = 'app/list_views/beneficiary/view.html'
+        return Response({
+            'organization': response.data,
+            'data': Equipment.objects.filter(owner_id=pk) 
+        })
 
     def list(self, request, *args, **kwargs):
-        response = super(BeneficiaryListView, self).list(request, *args, **kwargs)
-
+        """Organization list view is accessible via the Beneficiaries menu button."""
+        self.template_name = 'app/list_views/beneficiary/view.html'
+        response = super(OrganizationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
-
+        # default request format is html:
         return Response({
             'data': response.data,
-            'filter': get_filter_context(self, 'beneficiary'),
+            'filter': get_filter_context(self),
             'new': {
                 'url': reverse_lazy('organization-create'),
-                'title': _("New Organization")
+                'title': _("New Organization"),
             }
         })
 

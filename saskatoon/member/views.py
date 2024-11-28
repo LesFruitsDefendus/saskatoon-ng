@@ -128,12 +128,12 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
     form_class = OrganizationCreateForm
     template_name = 'app/forms/organization_create_form.html'
     success_message = _("New Organization registered successfully!")
-    success_url = reverse_lazy('beneficiary-list')
+    success_url = reverse_lazy('organization-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Organization Registration")
-        context['cancel_url'] = reverse_lazy('beneficiary-list')
+        context['cancel_url'] = reverse_lazy('organization-list')
         return context
 
 
@@ -143,12 +143,12 @@ class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, Updat
     form_class = OrganizationForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Organization updated successfully!")
-    success_url = reverse_lazy('beneficiary-list')
+    success_url = reverse_lazy('organization-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Organization Update")
-        context['cancel_url'] = reverse_lazy('beneficiary-list')
+        context['cancel_url'] = reverse_lazy('organization-list')
         return context
 
 
