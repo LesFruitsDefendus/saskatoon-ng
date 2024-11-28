@@ -115,12 +115,9 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Actor.objects.none()
 
-        f1 = Q(organization__isnull=False)
-        f2 = Q(organization__is_equipment_point=True)
-        qs = Actor.objects.filter(f1 & f2)
+        qs = Actor.objects.filter(organization__isnull=False, organization__is_equipment_point=True)
 
         if self.q:
-            q0 = Q(organization__civil_name__icontains=self.q)
-            qs = qs.filter(q0)
+            qs = qs.filter(organization__civil_name__icontains=self.q)
 
         return qs.distinct()

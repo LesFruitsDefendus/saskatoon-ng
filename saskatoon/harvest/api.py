@@ -248,7 +248,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     """
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.all().filter(is_equipment_point=True).order_by('-actor_id')
+    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
     serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = EquipmentPointFilter
