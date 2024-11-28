@@ -426,18 +426,20 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
-    def save_model(self, request, obj, form, change):
-        """Ensure the is_equipment_point was not mistakenly left checked/unchecked"""
+    def save_related(self, request, form, formsets, change):
+        """Ensure is_equipment_point box was not mistakenly left checked/unchecked"""
 
-        if not obj.equipment.exists():
-            obj.is_equipment_point = False
-        elif not obj.is_equipment_point:
-            messages.add_message(request, messages.WARNING,
-                                 f"{obj} has equipment but is not registered as an equipment point. \
-                                 Only leave the \"Is Equipment Point\" box unchecked if the equipment \
-                                 is not currently available.")
+        super().save_related(request, form, formsets, change)
 
-        return super().save_model(request, obj, form, change)
+        org = Organization.objects.get(actor_id=form.instance.actor_id)
+        if not org.equipment.exists():
+            org.is_equipment_point = False
+            org.save()
+        elif not org.is_equipment_point:
+            messages.add_message(request, messages.WARNING, f"{org} has equipment \
+            but is not registered as an equipment point. \
+            Only leave the \"Is Equipment Point\" box unchecked if the equipment \
+            is not currently available.")
 
 
 admin.site.register(Language)
