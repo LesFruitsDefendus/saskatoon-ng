@@ -4,7 +4,7 @@
 
 {% block table %}
 
-    {% include 'app/list_views/beneficiary/beneficiary-modal.html' %}
+    {% include 'app/list_views/organization/beneficiary-modal.html' %}
 
     <thead>
         <tr>
@@ -18,7 +18,7 @@
     </thead>
     <tbody>
         {% for org in data %}
-            {% include 'app/list_views/beneficiary/data_row.html' %}
+            {% include 'app/list_views/organization/data_row.html' %}
         {% endfor %}
     </tbody>
 

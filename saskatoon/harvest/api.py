@@ -227,7 +227,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     def list(self, request, *args, **kwargs):
         """Organization list view is accessible via the Beneficiaries menu button."""
-        self.template_name = 'app/list_views/beneficiary/view.html'
+        self.template_name = 'app/list_views/organization/view.html'
         response = super(OrganizationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
