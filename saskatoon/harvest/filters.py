@@ -195,7 +195,23 @@ class OrganizationFilter(filters.FilterSet):
     )
 
 
-class EquipmentPointFilter(OrganizationFilter):
+class EquipmentPointFilter(filters.FilterSet):
+
+    class Meta:
+        model = Organization
+        fields = [
+            'neighborhood',
+            'is_beneficiary',
+            'is_equipment_point',
+            'equipment__type',
+        ]
+
+    neighborhood = filters.ModelChoiceFilter(
+        queryset=Neighborhood.objects.all(),
+        label=_("Neighborhood"),
+        help_text="",
+        required=False
+    )
 
     equipment__type = filters.ModelChoiceFilter(
         queryset=EquipmentType.objects.all(),
