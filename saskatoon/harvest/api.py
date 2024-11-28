@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
-from rest_framework.decorators import action
 from django_filters import rest_framework as filters
 from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
