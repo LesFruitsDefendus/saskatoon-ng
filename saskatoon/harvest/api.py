@@ -16,7 +16,7 @@ from harvest.serializers import (HarvestListSerializer, HarvestSerializer, Prope
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
 from member.models import AuthUser, Organization, Neighborhood, Person
-from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin
+from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin, is_core_or_admin
 
 
 def get_filter_context(viewset, basename=None):
@@ -259,14 +259,21 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
         if request.accepted_renderer.format == 'json':
             return response
 
-        return Response({
+        context = {
             'data': response.data,
             'filter': get_filter_context(self, 'equipment-point'),
-            'new': {
-                'url': reverse_lazy('organization-create'),
+        }
+
+        # NOTE: Creation of organization that is an equipment point is currently restricted to the admin panel.
+        # The `New Organization` button should only appear for Core or Admin members.
+        # Change this if Equipment Point creation can be done with a conventional form.
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy('admin:member_organization_add'),
                 'title': _("New Organization")
             }
-        })
+
+        return Response(context)
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
