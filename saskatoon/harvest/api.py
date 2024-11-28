@@ -201,7 +201,7 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
 
 class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Organization viewset - detail pages for beneficiaries and equipment points"""
+    """Organization viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
@@ -210,6 +210,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     filterset_class = OrganizationFilter
 
     def retrieve(self, request, format='html', pk=None):
+    """Organization detail view -  shared by beneficiaries and equipment points."""
         self.template_name = 'app/detail_views/organization/view.html'
 
         pk = self.get_object().pk
@@ -225,7 +226,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         })
 
     def list(self, request, *args, **kwargs):
-        """Organization list view is accessible via the Beneficiaries menu button."""
+        """Organization list view - accessible via the Beneficiaries menu button."""
         self.template_name = 'app/list_views/organization/view.html'
         response = super(OrganizationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
@@ -264,9 +265,10 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
             'filter': get_filter_context(self, 'equipment-point'),
         }
 
-        # NOTE: Creation of organization that is an equipment point is currently restricted to the admin panel.
-        # The `New Organization` button should only appear for Core or Admin members.
-        # Change this if Equipment Point creation can be done with a conventional form.
+        # NOTE: Creation of a new Equipment Point is currently only supported in the admin panel
+        # due to the Equipment inline form not having yet been implemented.  The `New Organization` 
+        # button is restricted to Core or Admin members and simply links to the Admin creation form.
+        # Change the `url`  once Equipment Point creation can be done with a conventional form.
         if is_core_or_admin(self.request.user):
             context['new'] = {
                 'url': reverse_lazy('admin:member_organization_add'),
