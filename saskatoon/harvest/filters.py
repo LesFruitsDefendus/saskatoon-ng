@@ -195,16 +195,7 @@ class OrganizationFilter(filters.FilterSet):
     )
 
 
-class BeneficiaryFilter(OrganizationFilter):
-
-    def __init__(self, *args, **kwargs):
-        super(BeneficiaryFilter, self).__init__(*args, **kwargs)
-
-
 class EquipmentPointFilter(OrganizationFilter):
-
-    def __init__(self, data=None, *args, **kwargs):
-        super(EquipmentPointFilter, self).__init__(data, *args, **kwargs)
 
     equipment__type = filters.ModelChoiceFilter(
         queryset=EquipmentType.objects.all(),
