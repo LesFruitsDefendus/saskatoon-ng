@@ -10,7 +10,7 @@ from harvest.models import (Property, Harvest, RequestForParticipation, TreeType
                             PropertyImage, HarvestImage)
 from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
                              HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm)
+from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentAdminForm)
 from member.models import AuthUser
 
 
@@ -78,7 +78,7 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
 
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    form = EquipmentForm
+    form = EquipmentAdminForm
 
 
 class PropertyImageInline(admin.TabularInline):
