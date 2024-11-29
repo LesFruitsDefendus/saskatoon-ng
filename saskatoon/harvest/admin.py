@@ -5,7 +5,6 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
-from django.utils.translation import gettext_lazy as _
 from django import forms
 from dal import autocomplete
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
@@ -91,7 +90,7 @@ class EquipmentAdminForm(forms.ModelForm):
         bool2 = bool(self.cleaned_data['owner'])
         if not (bool1 != bool2):
             raise forms.ValidationError(
-                _('Fill in one of the two fields: property or owner.')
+                'Fill in one of the two fields: property or owner.'
             )
         return cleaned_data
 
