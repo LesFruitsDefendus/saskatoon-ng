@@ -29,7 +29,7 @@
                                 <a href="{% url 'community-list' %}?groups=3">{% translate "Community" %}</a>
                             </li>
                             <li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
-                                <a href="{% url 'equipment-point-list' %}?is_equipment_point=true">{% translate "Equipment Point" %}</a>
+                                <a href="{% url 'equipment-point-list' %}">{% translate "Equipment Point" %}</a>
                             </li>
                             {% if user|is_core_or_admin %}
                             <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
@@ -69,7 +69,7 @@
                         <a href="{% url 'community-list' %}?groups=3"><i class="fa fa-users"></i> {% translate "Community" %}</a>
                     </li>
                     <li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
-                        <a href="{% url 'equipment-point-list' %}?is_equipment_point=true"><i class="fa fa-scissors"></i> {% translate "Equipment Points" %}</a>
+                        <a href="{% url 'equipment-point-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment Points" %}</a>
                     </li>
                     {% if user|is_core_or_admin %}
                     <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">

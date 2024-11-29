@@ -202,7 +202,6 @@ class EquipmentPointFilter(filters.FilterSet):
         fields = [
             'neighborhood',
             'is_beneficiary',
-            'is_equipment_point',
             'equipment__type',
         ]
 
