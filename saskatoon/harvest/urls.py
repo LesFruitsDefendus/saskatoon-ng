@@ -16,7 +16,7 @@ router.register('participation', api.RequestForParticipationViewset, 'participat
 urlpatterns = [
 
     # READ VIEWS
-    path('equipment-points/',
+    path('equipment-point/',
          api.EquipmentPointListView.as_view(),
          name='equipment-point-list'),
 
