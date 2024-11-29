@@ -206,20 +206,6 @@ class EquipmentPointFilter(filters.FilterSet):
             'equipment__type',
         ]
 
-    neighborhood = filters.ModelChoiceFilter(
-        queryset=Neighborhood.objects.all(),
-        label=_("Neighborhood"),
-        help_text="",
-        required=False
-    )
-
-    equipment__type = filters.ModelChoiceFilter(
-        queryset=EquipmentType.objects.all(),
-        label=_("Available Equipment Type"),
-        help_text="",
-        required=False
-    )
-
 
 class EquipmentFilter(filters.FilterSet):
 
