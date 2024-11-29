@@ -27,10 +27,9 @@ def get_filter_context(viewset, basename=None):
     f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
     dic = {'form': f.form}
     if any(field in viewset.request.GET for field in set(f.get_fields())):
-        if basename is not None:
-            dic['reset'] = reverse(basename + '-list')
-        else:
-            dic['reset'] = reverse(viewset.basename + '-list')
+         dic['reset'] = reverse("{}-list".format(
+            basename if basename is not None else viewset.basename
+        ))
     return dic
 
 
