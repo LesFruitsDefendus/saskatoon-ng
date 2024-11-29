@@ -209,7 +209,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     filterset_class = OrganizationFilter
 
     def retrieve(self, request, format='html', pk=None):
-    """Organization detail view -  shared by beneficiaries and equipment points."""
+        """Organization detail view -  shared by beneficiaries and equipment points."""
         self.template_name = 'app/detail_views/organization/view.html'
 
         pk = self.get_object().pk
