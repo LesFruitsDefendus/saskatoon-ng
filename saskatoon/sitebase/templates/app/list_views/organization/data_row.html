@@ -17,13 +17,15 @@
     </td>
     <td>
         <span>
-            <b>{{ org.civil_name }}</b>
+            <b>
+              <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a> 
+            </b>
             {% if org.is_beneficiary %}
                 <i class="fa fa-gift"></i>
             {% endif %}
             {% if perms.member.change_actor %}
                 &nbsp;
-                <small><a href="{% url 'beneficiary-update' org.actor_id %}" title="edit">
+                <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
                     <i class="fa fa-pencil"></i>
                 </a></small>
             {% endif %}
@@ -52,8 +54,6 @@
         </a>
     </td>
 
-    <td>{{ org.description }}</td>
-
     <td>
         {% if org.is_beneficiary %}
             <i class="fa fa-check text-success"></i>
@@ -64,7 +64,7 @@
                        data-title="{{org.civil_name}}"
                        data-description="{{org.beneficiary_description}}"
                        href="#beneficiary-modal">
-                    {% trans "info" %}
+                <i class="fa fa-external-link"></i>
                 </a>
             {% endif %}
         {% else %}
@@ -87,7 +87,7 @@
                        data-title="{{org.civil_name}}"
                        data-description="{{org.equipment_description}}"
                        href="#beneficiary-modal">
-                    {% trans "info" %}
+                <i class="fa fa-external-link"></i>
                 </a>
             {% endif %}
         {% else %}

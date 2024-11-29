@@ -6,20 +6,20 @@ from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
-from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
+from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter, EquipmentFilter,
                              OrganizationFilter, CommunityFilter)
 from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
 from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment, TreeType)
 from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
-                                 CommunitySerializer, BeneficiarySerializer,
+                                 CommunitySerializer, OrganizationSerializer,
                                  RequestForParticipationSerializer)
 from harvest.utils import get_similar_properties
 from member.models import AuthUser, Organization, Neighborhood, Person
-from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin
+from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin, is_core_or_admin
 
 
-def get_filter_context(viewset):
+def get_filter_context(viewset, basename=None):
     ''' create filters dictionary for list views
     @param {obj} viewset: rest_framework.viewsets.ModelViewSet subclass instance
     @returns {dic} filters: filters template dictionary
@@ -27,7 +27,9 @@ def get_filter_context(viewset):
     f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
     dic = {'form': f.form}
     if any(field in viewset.request.GET for field in set(f.get_fields())):
-        dic['reset'] = reverse(viewset.basename + '-list')
+         dic['reset'] = reverse("{}-list".format(
+            basename if basename is not None else viewset.basename
+        ))
     return dic
 
 
@@ -197,27 +199,82 @@ class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return Response({'data': response.data})
 
 
-class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Beneficiary viewset"""
+class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Organization viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
-    serializer_class = BeneficiarySerializer
+    serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
-    template_name = 'app/list_views/beneficiary/view.html'
+
+    def retrieve(self, request, format='html', pk=None):
+        """Organization detail view -  shared by beneficiaries and equipment points."""
+        self.template_name = 'app/detail_views/organization/view.html'
+
+        pk = self.get_object().pk
+        response = super(OrganizationViewset, self).retrieve(request, pk=pk)
+
+        if format == 'json':
+            return response
+
+        # default request format is html:
+        return Response({
+            'organization': response.data,
+            'data': Equipment.objects.filter(owner_id=pk) 
+        })
 
     def list(self, request, *args, **kwargs):
-        response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
+        """Organization list view - accessible via the Beneficiaries menu button."""
+        self.template_name = 'app/list_views/organization/view.html'
+        response = super(OrganizationViewset, self).list(request, *args, **kwargs)
         if request.accepted_renderer.format == 'json':
             return response
         # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('beneficiary-create'),
-                                 'title': _("New Organization")
-                                 }
-                         })
+        return Response({
+            'data': response.data,
+            'filter': get_filter_context(self),
+            'new': {
+                'url': reverse_lazy('organization-create'),
+                'title': _("New Organization"),
+            }
+        })
+
+
+class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
+    """
+    List view for organizations that are equipment points.
+    """
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = EquipmentPointFilter
+    template_name = 'app/list_views/equipment_point/view.html'
+
+    def list(self, request, *args, **kwargs):
+        response = super(EquipmentPointListView, self).list(request, *args, **kwargs)
+
+        if request.accepted_renderer.format == 'json':
+            return response
+
+        context = {
+            'data': response.data,
+            'filter': get_filter_context(self, 'equipment-point'),
+        }
+
+        # NOTE: Creation of a new Equipment Point is currently only supported in the admin panel
+        # due to the Equipment inline form not having yet been implemented.  The `New Organization` 
+        # button is restricted to Core or Admin members and simply links to the Admin creation form.
+        # Change the `url`  once Equipment Point creation can be done with a conventional form.
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy('admin:member_organization_add'),
+                'title': _("New Organization")
+            }
+
+        return Response(context)
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):

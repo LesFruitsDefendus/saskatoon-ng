@@ -16,6 +16,7 @@ from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment)
 from member.permissions import is_pickleader_or_core
+from member.models import Organization
 
 
 class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -25,6 +26,22 @@ class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVi
     template_name = 'app/forms/model_form.html'
     success_url = reverse_lazy('equipment-list')
     success_message = _("Equipment created successfully!")
+
+    def get_organization(self):
+        """If creating new harvest from Organization page"""
+        try:
+            aid = self.request.GET['aid']
+            return Organization.objects.get(actor_id=aid)
+        except (KeyError, Organization.DoesNotExist):
+            return None
+
+    def get_initial(self):
+        initial = {}
+        _organization = self.get_organization()
+        if _organization:
+            initial['owner'] = _organization
+        return initial
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

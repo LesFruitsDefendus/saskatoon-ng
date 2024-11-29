@@ -181,7 +181,11 @@ class OrganizationFilter(filters.FilterSet):
 
     class Meta:
         model = Organization
-        fields = ['neighborhood', 'is_beneficiary']
+        fields = [
+            'neighborhood',
+            'is_beneficiary',
+            'is_equipment_point',
+        ]
 
     neighborhood = filters.ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
@@ -189,6 +193,17 @@ class OrganizationFilter(filters.FilterSet):
         help_text="",
         required=False
     )
+
+
+class EquipmentPointFilter(filters.FilterSet):
+
+    class Meta:
+        model = Organization
+        fields = [
+            'neighborhood',
+            'is_beneficiary',
+            'equipment__type',
+        ]
 
 
 class EquipmentFilter(filters.FilterSet):

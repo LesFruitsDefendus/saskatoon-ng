@@ -5,12 +5,14 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
+from django import forms
+from dal import autocomplete
 from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
                             Equipment, EquipmentType, HarvestYield, Comment,
                             PropertyImage, HarvestImage)
 from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
                              HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm)
+from harvest.forms import (RFPForm, HarvestYieldForm)
 from member.models import AuthUser
 
 
@@ -76,9 +78,34 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
 
+class EquipmentAdminForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(EquipmentAdminForm, self).clean()
+        bool1 = bool(self.cleaned_data['property'])
+        bool2 = bool(self.cleaned_data['owner'])
+        if not (bool1 != bool2):
+            raise forms.ValidationError(
+                'Fill in one of the two fields: property or owner.'
+            )
+        return cleaned_data
+
+    class Meta:
+        model = Equipment
+        widgets = {
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
+            ),
+            'owner': autocomplete.ModelSelect2(
+                'actor-autocomplete'
+            ),
+        }
+
+        fields = '__all__'
+
+
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    form = EquipmentForm
+    form = EquipmentAdminForm
 
 
 class PropertyImageInline(admin.TabularInline):

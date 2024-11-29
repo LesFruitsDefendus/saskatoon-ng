@@ -1,0 +1,89 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
+  <div class="contact-hd search-hd-eg">
+    <h2>{% translate 'Contact' %}</h2>
+    <hr />
+  </div>
+
+  <table class="table">
+    <tbody>
+      {% if organization.contact_person %}
+
+      <tr>
+        <td>{% trans "Contact person" %}</td>
+        <td class="text-right">
+          <h5>
+            {{ organization.contact_person.name }}
+          </h5>
+        </td>
+      </tr>
+
+      {% if organization.contact_person_role %}
+      <tr>
+        <td>{% trans "Role" %}</td>
+        <td class="text-right">
+          <h5>
+            {{ organization.contact_person_role }}
+          </h5>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if organization.contact_person.phone %}
+      <tr>
+        <td>{% trans "Phone" %}</td>
+        <td class="text-right">
+          <h5>
+            {{ organization.contact_person.phone }}
+          </h5>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if organization.contact_person.email %}
+      <tr>
+        <td>{% trans "Email" %}</td>
+        <td class="text-right">
+          <h5>
+            {{ organization.contact_person.email }}
+          </h5>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if organization.contact_person.language %}
+      <tr>
+        <td>{% trans "Language" %}</td>
+        <td class="text-right">
+          <h5>{{ organization.contact_person.language }}</h5>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% if organization.contact_person.comments %}
+      <tr>
+        <td>{% trans "Comments" %}</td>
+        <td class="text-right">
+          <p>{{ organization.contact_person.comments }}</p>
+        </td>
+      </tr>
+      {% endif %}
+
+      {% endif %}
+
+      {% if organization.phone %}
+      <tr>
+        <td>{% trans "Organization phone" %}</td>
+        <td class="text-right">
+          <h5>
+            {{ organization.phone }}
+          </h5>
+        </td>
+      </tr>
+      {% endif %}
+
+
+    </tbody>
+  </table>
+</div>

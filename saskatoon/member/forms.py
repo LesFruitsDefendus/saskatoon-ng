@@ -145,6 +145,7 @@ class OrganizationForm(forms.ModelForm):
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
         labels = {
             'is_beneficiary': _("Beneficiary organization"),
+            'is_equipment_point': _("Equipment point"),
             'contact_person_role': _("Contact Position/Role"),
         }
 

@@ -55,7 +55,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
         fields = ['type', 'count']
 
 
-class BeneficiarySerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer):
     contact_person = PersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
@@ -78,7 +78,7 @@ class BeneficiarySerializer(serializers.ModelSerializer):
 
 class ActorSerializer(serializers.ModelSerializer):
     person = PersonSerializer(source='get_person', many=False, read_only=True)
-    organization = BeneficiarySerializer(source='get_organization', many=False, read_only=True)
+    organization = OrganizationSerializer(source='get_organization', many=False, read_only=True)
 
     class Meta:
         model = Actor

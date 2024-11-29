@@ -13,7 +13,7 @@ from .helpers import login, logoff
 urls = [
     ('/harvest/', ['html'], True),
     ('/property/', ['html'], True),
-    ('/beneficiary/', ['html'], True),
+    ('/organization/', ['html'], True),
     ('/community/', ['html'], True),
     ('/property/create_public/', ['html'], False),
     # FIXME: https://github.com/LesFruitsDefendus/saskatoon-ng/issues/245

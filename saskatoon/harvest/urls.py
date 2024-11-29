@@ -9,11 +9,18 @@ router = routers.DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('beneficiary', api.BeneficiaryViewset, 'beneficiary')
+router.register('organization', api.OrganizationViewset, 'organization')
 router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
 urlpatterns = [
+
+    # READ VIEWS
+    path('equipment-point/',
+         api.EquipmentPointListView.as_view(),
+         name='equipment-point-list'),
+
+
     # CREATE VIEWS
     path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
