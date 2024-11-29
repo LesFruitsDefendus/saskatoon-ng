@@ -378,6 +378,46 @@ class OrganizationAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'contact', 'is_beneficiary', 'is_equipment_point', 'pk')
     list_filter = (OrganizationHasNoContactAdminFilter,)
 
+    fieldsets = (
+        (
+            'Info',
+            {
+                'fields': (
+                    'civil_name',
+                    'description',
+                    'phone',
+                    'contact_person',
+                    'street_number',
+                    'street',
+                    'complement',
+                    'postal_code',
+                    'neighborhood',
+                    'city',
+                    'state',
+                    'country',
+                    )
+            },
+        ),
+        (
+            'Fruit donations',
+            {
+                'fields': (
+                    'is_beneficiary',
+                    'beneficiary_description',
+                )
+            },
+        ),
+        (
+            'Equipment Point',
+            {
+                'fields': (
+                    'is_equipment_point',
+                    'equipment_description',
+                    )
+            }
+        ),
+    )
+
     @admin.display(description="Contact Person")
     def contact(self, org):
         if org.contact_person:
@@ -385,6 +425,28 @@ class OrganizationAdmin(admin.ModelAdmin):
             url = reverse('admin:member_person_change', kwargs={'object_id': obj.pk})
             return mark_safe(f"<a href={url}>{obj}</a>")
         return None
+
+    def save_related(self, request, form, formsets, change):
+        """Ensure is_equipment_point box was not mistakenly left checked/unchecked"""
+
+        super().save_related(request, form, formsets, change)
+
+        org = Organization.objects.get(actor_id=form.instance.actor_id)
+        if not org.equipment.exists():
+            org.is_equipment_point = False
+            org.save()
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} cannot be listed as an Equipment Point because no equipment \
+                is currently registered for this Organization."
+            )
+        elif not org.is_equipment_point:
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} has equipment but is not listed as an Equipment Point. \
+                Only leave the \"Is Equipment Point\" box unchecked if the equipment \
+                is not currently available."
+            )
 
 
 admin.site.register(Language)

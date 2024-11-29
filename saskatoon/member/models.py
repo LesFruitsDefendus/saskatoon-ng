@@ -9,7 +9,7 @@ from django.contrib.auth.models import ( Group, AbstractBaseUser,
 from django.core.validators import RegexValidator
 from django.utils import timezone as tz
 from phone_field import PhoneField
-from harvest.models import RequestForParticipation, Harvest, Property
+from harvest.models import RequestForParticipation, Harvest, Property, Equipment
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -116,6 +116,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
                 self.has_temporary_password)
+
     @property
     def name(self):
         if self.person:
@@ -396,11 +397,13 @@ class Person(Actor):
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
         verbose_name=_('Is Beneficiary'),
+        help_text=_('Only check this box if the Organization is currently accepting fruit donations'),
         default=False
     )
 
     is_equipment_point = models.BooleanField(
         verbose_name=_('Is Equipment Point'),
+        help_text=_('Only check this box if the equipment registered at this Organization is currenlty made available'),
         default=False
     )
 
@@ -426,7 +429,7 @@ class Organization(Actor):
     )
 
     equipment_description = models.TextField(
-        verbose_name=_("Equipment description"),
+        verbose_name=_("Equipment point description"),
         blank=True
     )
 
@@ -450,7 +453,7 @@ class Organization(Actor):
     )
 
     street_number = models.CharField(
-        verbose_name=_("Number"),
+        verbose_name=_("Street number"),
         max_length=10,
         null=True,
         blank=True
@@ -580,6 +583,10 @@ class Organization(Actor):
     @property
     def language(self):
         return self.contact_person.language if self.contact_person else None
+
+    @property
+    def equipment(self):
+        return Equipment.objects.filter(owner=self)
 
 
 class Neighborhood(models.Model):
