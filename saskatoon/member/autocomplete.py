@@ -1,5 +1,5 @@
 from dal import autocomplete
-from .models import AuthUser, Person, Actor
+from .models import AuthUser, Organization, Person, Actor
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
 
@@ -113,9 +113,9 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return Actor.objects.none()
+            return Organization.objects.none()
 
-        qs = Actor.objects.filter(organization__isnull=False, organization__is_equipment_point=True)
+        qs = Organization.objects.filter(is_equipment_point=True)
 
         if self.q:
             qs = qs.filter(organization__civil_name__icontains=self.q)
