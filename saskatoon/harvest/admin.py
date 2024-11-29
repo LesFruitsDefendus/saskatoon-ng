@@ -12,7 +12,7 @@ from harvest.models import (Property, Harvest, RequestForParticipation, TreeType
                             PropertyImage, HarvestImage)
 from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
                              HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentAdminForm)
+from harvest.forms import (RFPForm, HarvestYieldForm)
 from member.models import AuthUser
 
 
@@ -78,11 +78,6 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
 
-@admin.register(Equipment)
-class EquipmentAdmin(admin.ModelAdmin):
-    form = EquipmentAdminForm
-
-
 class EquipmentAdminForm(forms.ModelForm):
     def clean(self):
         cleaned_data = super(EquipmentAdminForm, self).clean()
@@ -106,6 +101,11 @@ class EquipmentAdminForm(forms.ModelForm):
         }
 
         fields = '__all__'
+
+
+@admin.register(Equipment)
+class EquipmentAdmin(admin.ModelAdmin):
+    form = EquipmentAdminForm
 
 
 class PropertyImageInline(admin.TabularInline):
