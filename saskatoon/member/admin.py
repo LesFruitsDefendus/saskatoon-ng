@@ -435,11 +435,18 @@ class OrganizationAdmin(admin.ModelAdmin):
         if not org.equipment.exists():
             org.is_equipment_point = False
             org.save()
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} cannot be listed as an Equipment Point because no equipment \
+                is currently registered for this Organization."
+            )
         elif not org.is_equipment_point:
-            messages.add_message(request, messages.WARNING, f"{org} has equipment \
-            but is not registered as an equipment point. \
-            Only leave the \"Is Equipment Point\" box unchecked if the equipment \
-            is not currently available.")
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} has equipment but is not listed as an Equipment Point. \
+                Only leave the \"Is Equipment Point\" box unchecked if the equipment \
+                is not currently available."
+            )
 
 
 admin.site.register(Language)
