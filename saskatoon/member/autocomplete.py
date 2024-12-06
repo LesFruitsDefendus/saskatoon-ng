@@ -128,46 +128,4 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(actor_id__in=get_equipment_points_available_in_daterange(start_date, end_date))
             qs = Equipment.objects.filter(actor_id__in=qs)
 
-        # currently, queryset shows all available equipment
-        # since we are replacing labels with the eq_point org name, this means multiple copies of each
-        # distinct() with field params only available on Postgres. 
-        #TODO:find workaround to remove entries with duplicate equipment.owner fields for mySQL
         return qs.distinct()
-
-
-class EquipmentByEquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
-    """
-    Equipment labelled by Equipment Points that own them 
-        - returns equipment queryset, but labels are the names of owner organizations/equipment points
-        - optionally filters by availability within a forwarded start/end date range
-    """
-
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Equipment.objects.none()
-
-        f1 = Q(organization__isnull=False)
-        f2 = Q(organization__is_equipment_point=True)
-        qs = Actor.objects.filter(f1 & f2)
-
-        if self.q:
-            q0 = Q(organization__civil_name__icontains=self.q)
-            qs = qs.filter(q0)
-
-        start_date = self.forwarded.get('start_date', None)
-        end_date = self.forwarded.get('end_date', None)
-        if start_date is not None and end_date is not None:
-            qs = qs.filter(organization__in=get_equipment_points_available_in_daterange(start_date, end_date))
-            qs = Equipment.objects.all().filter(owner__in=qs)
-
-        # currently, queryset shows all available equipment
-        # since we are replacing labels with the eq_point org name, this means multiple copies of each
-        # distinct() with field params only available on Postgres. 
-        #TODO:find workaround to remove entries with duplicate equipment.owner fields for mySQL
-        return qs.distinct()
-
-    def get_result_label(self, equipment):
-        return equipment.owner.get_organization().name
-
-    def get_selected_result_label(self, equipment):
-        return equipment.owner.get_organization().name
