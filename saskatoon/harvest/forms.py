@@ -8,7 +8,6 @@ from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, Property)
-from harvest.filters import EquipmentPointFilter
 from member.forms import validate_email
 from member.models import AuthUser, Organization, Person
 from postalcodes_ca import parse_postal_code
