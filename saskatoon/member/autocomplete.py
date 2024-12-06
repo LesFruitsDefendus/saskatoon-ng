@@ -124,7 +124,7 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         end_date = self.forwarded.get('end_date', None)
         if start_date is not None and end_date is not None:
             qs = qs.filter(organization__in=get_equipment_points_available_in_daterange(start_date, end_date))
-            qs = Equipment.objects.all().filter(owner__in=qs)
+            qs = Equipment.objects.filter(owner__in=qs)
 
         # currently, queryset shows all available equipment
         # since we are replacing labels with the eq_point org name, this means multiple copies of each
@@ -142,7 +142,7 @@ class EquipmentByEquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
-            return Actor.objects.none()
+            return Equipment.objects.none()
 
         f1 = Q(organization__isnull=False)
         f2 = Q(organization__is_equipment_point=True)

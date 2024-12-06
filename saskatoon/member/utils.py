@@ -70,18 +70,14 @@ def get_equipment_points_available_in_daterange(start_date: datetime, end_date: 
     # 1. get all harvests that conflict with date range
     q0 = Q(start_date__range=(start_date, end_date))
     q1 = Q(end_date__range=(start_date, end_date))
-    q2 = Q(start_date__gt=start_date)
-    q3 = Q(end_date__gt=start_date)
-    q4 = Q(start_date__lt=end_date)
-    q5 = Q(end_date__lt=end_date)
-    conflicting_harvests = Harvest.objects.all().filter(q0 | q1 | (q2 and q3) | (q4 and q5))
+    q2 = Q(start_date__gt=start_date, end_date__gt=start_date)
+    q3 = Q(start_date__lt=end_date, end_date__lt=end_date)
+    conflicting_harvests = Harvest.objects.filter(q0 | q1 | q2 |q3)
 
     # 2. get all equipment reserved by those harvests
-    conflicting_reserved_equipment = Equipment.objects.all().filter(id__in=conflicting_harvests.values_list("equipment_reserved", flat=True))
+    conflicting_reserved_equipment = Equipment.objects.filter(id__in=conflicting_harvests.values_list("equipment_reserved", flat=True))
 
     # 3. find owners of reserved equipment
     conflicting_equipment_points = conflicting_reserved_equipment.values_list("owner", flat=True).distinct()
-    available_equipment_points = Organization.objects.all().exclude(actor_id__in=conflicting_equipment_points)
-
-    return available_equipment_points
+    return Organization.objects.exclude(actor_id__in=conflicting_equipment_points)
 
