@@ -612,8 +612,8 @@ class HarvestForm(forms.ModelForm):
 
     def save(self):
         """"
-        Convert list of single autocomplete equipments (labelled as owner name) 
-        to all equipment owned by said equipment points.
+        Convert list of autocomplete equipment points into all equipment owned by said equipment points.
+        i.e. Reserving an equipment point will reserve all its equipment for the duration of the harvest.
         """
 
         instance = super(HarvestForm, self).save(commit=False)
