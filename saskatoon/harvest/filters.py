@@ -205,9 +205,6 @@ class EquipmentPointFilter(filters.FilterSet):
             'equipment__type',
         ]
 
-
-class EquipmentPointFilter(OrganizationFilter):
-
     equipment__type = filters.ModelChoiceFilter(
         queryset=EquipmentType.objects.all(),
         label=_("Available Equipment Type"),
