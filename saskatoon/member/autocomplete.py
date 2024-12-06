@@ -1,4 +1,6 @@
 from dal import autocomplete
+from saskatoon.harvest.models import Equipment
+from saskatoon.member.utils import get_equipment_points_available_in_daterange
 from .models import AuthUser, Organization, Person, Actor
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
