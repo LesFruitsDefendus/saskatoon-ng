@@ -1,6 +1,6 @@
 from dal import autocomplete
-from saskatoon.harvest.models import Equipment
-from saskatoon.member.utils import get_equipment_points_available_in_daterange
+from harvest.models import Equipment
+from member.utils import get_equipment_points_available_in_daterange
 from .models import AuthUser, Organization, Person, Actor
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
@@ -120,13 +120,13 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
         qs = Organization.objects.filter(is_equipment_point=True)
 
         if self.q:
-            qs = qs.filter(organization__civil_name__icontains=self.q)
+            qs = qs.filter(civil_name__icontains=self.q)
 
         start_date = self.forwarded.get('start_date', None)
         end_date = self.forwarded.get('end_date', None)
         if start_date is not None and end_date is not None:
-            qs = qs.filter(organization__in=get_equipment_points_available_in_daterange(start_date, end_date))
-            qs = Equipment.objects.filter(owner__in=qs)
+            qs = qs.filter(actor_id__in=get_equipment_points_available_in_daterange(start_date, end_date))
+            qs = Equipment.objects.filter(actor_id__in=qs)
 
         # currently, queryset shows all available equipment
         # since we are replacing labels with the eq_point org name, this means multiple copies of each
