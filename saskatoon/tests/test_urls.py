@@ -16,7 +16,6 @@ urls = [
     ('/organization/', ['html'], True),
     ('/community/', ['html'], True),
     ('/property/create_public/', ['html'], False),
-    # FIXME: https://github.com/LesFruitsDefendus/saskatoon-ng/issues/245
     ('/calendar', ['html'], False),
 ]
 
@@ -51,4 +50,4 @@ def test_urls(driver: Remote) -> None:
                 raise
         else:
             if needs_auth:
-                raise RuntimeError(f"Security Alert: The private page {url_part} is accessible without beeing logged in!")
+                raise RuntimeError(f"Security Alert: The private page {url_part} is accessible without being logged in!")
