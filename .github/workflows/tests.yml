@@ -59,6 +59,9 @@ jobs:
       run: |
         tox -e checks
 
+    - name: Run unit tests
+      run: pytest saskatoon/unittests -s
+
     - name: Create test super user
       run: |
         python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234

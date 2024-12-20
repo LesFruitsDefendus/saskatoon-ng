@@ -3,8 +3,9 @@
 ## Overview
 1. [Requirements](#requirements)
 2. [Django checks](#django-checks)
-3. [Selenium tests](#selenium-driven-tests)
-4. [Testing with tox](#testing-with-tox)
+3. [Unit tests](#unit-tests)
+4. [Selenium tests](#selenium-driven-tests)
+5. [Testing with tox](#testing-with-tox)
 
 ## Requirements
 
@@ -23,7 +24,7 @@ There are a few basic checks to help validate the Django projects during develop
 ### Database checks
 
 ```
-./saskatoon/manage.py check --database default
+(venv)$ ./saskatoon/manage.py check --database default
 ```
 
 See more in [Django docs on check command](https://docs.djangoproject.com/en/3.2/ref/django-admin/#check).
@@ -31,10 +32,15 @@ See more in [Django docs on check command](https://docs.djangoproject.com/en/3.2
 ### Template validation
 
 ```
-./saskatoon/manage.py validate_templates
+(venv)$ ./saskatoon/manage.py validate_templates
 ```
 
 This command only checks for Django template syntax errors by trying to load templates using Django's template loader. It does not validate HTML. 
+
+## Unit tests
+
+- To run a single test suite: `(venv)$ python3 -m pytest saskatoon/unittests/test_permission.py`
+- To run all tests: `(venv)$ python3 -m pytest saskatoon/unittests -s` _(the `-s` flag allows debug info to show in the output.)_
 
 ## Selenium-driven tests
 
@@ -93,7 +99,7 @@ If you get an error like `dyld: cannot load 'selenium-manager' (load command 0x8
 
 First, start a local server with `(venv)$ python3 saskatoon/manage.py runserver 8000`.
 
-- To run a single test: `(venv)$ python3 -m pytest saskatoon/test/test_urls.py`
+- To run a single test suite: `(venv)$ python3 -m pytest saskatoon/tests/test_urls.py`
 - To run all tests (as defined in *pytest.ini*): `(venv)$ python3 -m pytest -s` _(the `-s` flag allows debug info to show in the output.)_
 
 #### Automatically with runtests.sh
@@ -108,6 +114,7 @@ This script starts a local server in the background and run all tests:
 [Tox](https://tox.wiki/) is a test automation tool. Both Django checks and Selenium-driven tests can be run via tox:
 
 - To run Django checks: `(venv)$ tox -e checks`
+- To run unit tests: `(venv)$ tox -e unittests`
 - To run selenium-driven tests: `(venv)$ tox -e test`
 
 See [tox.ini](../../tox.ini) for more details and other tests.
