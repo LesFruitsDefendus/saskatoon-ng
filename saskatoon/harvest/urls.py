@@ -1,4 +1,4 @@
-from django.urls import include, path, re_path
+from django.urls import path, re_path
 from rest_framework import routers
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
@@ -9,11 +9,18 @@ router = routers.DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('beneficiary', api.BeneficiaryViewset, 'beneficiary')
+router.register('organization', api.OrganizationViewset, 'organization')
 router.register('community', api.CommunityViewset, 'community')
 router.register('participation', api.RequestForParticipationViewset, 'participation')
 
 urlpatterns = [
+
+    # READ VIEWS
+    path('equipment-point/',
+         api.EquipmentPointListView.as_view(),
+         name='equipment-point-list'),
+
+
     # CREATE VIEWS
     path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
@@ -93,7 +100,7 @@ urlpatterns = [
 
     # MISC
     path(r'property/thanks/',
-         views.TemplateView.as_view(template_name='app/property_thanks.html'),
+         TemplateView.as_view(template_name='app/property_thanks.html'),
          name='property-thanks'),
 
     path('stats/', api.StatsView.as_view(), name='statistics'),

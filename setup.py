@@ -1,5 +1,5 @@
 #! /usr/bin/env python3
-from setuptools import setup, find_packages
+from setuptools import setup
 import pathlib
 
 # To install basic requirements: (venv)$ pip3 install .
@@ -16,6 +16,7 @@ setup(
     license             =   "GNU AFFERO GENERAL PUBLIC LICENSE",
     long_description    =   pathlib.Path(__file__).parent.joinpath("README.md").read_text(),
     long_description_content_type   =   "text/markdown",
+    packages = ["saskatoon"],
     install_requires    =   [
         "asgiref>=3.2.7",
         "cffi>=1.14.0",
@@ -23,12 +24,10 @@ setup(
         "cryptography>=3.3.2",
         "Django>=3.0.14,<4.0.0",
         "django-geojson==3.0.0",
-        "django-leaflet==0.26.0",
         "django-rest-knox==4.1.0",
-        "djangorestframework>=3.11.0",
+        "djangorestframework>=3.11.0,<=3.15.1",
         "django-autocomplete-light>=3.8.2",
         "django-select2",
-        "django-ckeditor",
         "django-filter",
         "django-crequest",
         "django-debug-toolbar",
@@ -45,7 +44,8 @@ setup(
         "django-crispy-forms",
         "django-rosetta==0.9.8",
         "django-phone-field==1.8.1",
-        "postalcodes-ca==0.0.9"
+        "postalcodes-ca==0.0.9",
+        "django-quill-editor==0.1.40",
     ],
     extras_require      =   {
         'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']

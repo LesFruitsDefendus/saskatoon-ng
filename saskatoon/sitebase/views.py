@@ -1,16 +1,86 @@
-import os
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+from sitebase.models import Content
+
+VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
+PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
+TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
+PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
 
 
 class Index(TemplateView):
     template_name = 'app/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        content_name = VOLUNTEER_HOME_CONTENT_NAME
+
+        if self.request.user.is_authenticated:
+            content_name = PICKLEADER_HOME_CONTENT_NAME
+
+        home, _ = Content.objects.get_or_create(name=content_name)
+        context['content'] = home.content(self.request.LANGUAGE_CODE)
+
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        """Redirect users based on AuthUser checks."""
+
+        user = self.request.user
+
+        if user.is_authenticated:
+            if not user.agreed_terms:
+                return redirect('terms_conditions')
+
+            if user.is_onboarding:
+                return redirect('onboarding-person-update', user.person.pk)
+
+            if user.has_temporary_password:
+                return redirect('change-password')
+
+        return super().dispatch(request, *args, **kwargs)
+
+
+class TermsConditionsView(LoginRequiredMixin, TemplateView):
+    """
+    Show terms and conditions with option to agree, updating AuthUser.
+    """
+    template_name = 'app/terms_conditions.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        terms, _ = Content.objects.get_or_create(name=TERMS_CONDITIONS_CONTENT_NAME)
+        context['content'] = terms.content(self.request.LANGUAGE_CODE)
+
+        return context
+
+    def post(self, *args, **kwargs):
+        self.request.user.agreed_terms = True
+        self.request.user.save()
+        return redirect('home')
+
+
+class PrivacyPolicyView(TemplateView):
+    template_name = 'app/privacy_policy.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        content_name = PRIVACY_POLICY_CONTENT_NAME
+
+        privacy_policy, _ = Content.objects.get_or_create(name=content_name)
+        context['content'] = privacy_policy.content(self.request.LANGUAGE_CODE)
+
+        return context
 
 
 @method_decorator(login_required, name='dispatch')
@@ -92,7 +162,7 @@ class JsonCalendar(View):
                     'start_time': event['start'].strftime("%-I:%M %p"),
                     'end_time': event['end'].strftime("%-I:%M %p"),
                     'harvest_id': harvest.id,
-                    'description': harvest.about,
+                    'description': harvest.about.html,
                     'status': harvest.status,
                     'nb_required_pickers': harvest.nb_required_pickers,
                     'nb_requests': requests_count,

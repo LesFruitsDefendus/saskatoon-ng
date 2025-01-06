@@ -7,8 +7,9 @@ from django.utils.translation import gettext_lazy as _
 from django.contrib.auth.models import ( Group, AbstractBaseUser,
                                          PermissionsMixin, BaseUserManager )
 from django.core.validators import RegexValidator
+from django.utils import timezone as tz
 from phone_field import PhoneField
-from harvest.models import RequestForParticipation, Harvest, Property
+from harvest.models import RequestForParticipation, Harvest, Property, Equipment
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -19,6 +20,7 @@ AUTH_GROUPS = (
 )
 
 STAFF_GROUPS = ['core', 'pickleader']
+
 
 class AuthUserManager(BaseUserManager):
 
@@ -37,6 +39,7 @@ class AuthUserManager(BaseUserManager):
         user = self.create_user(email=email, password=password)
         user.is_staff = True
         user.is_superuser = True
+        user.add_role('admin')
         user.save(using=self._db)
         return user
 
@@ -62,13 +65,27 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         max_length=255
     )
 
-    # Our own fields
-    date_joined = models.DateTimeField(auto_now_add=True)
-    is_active = models.BooleanField(default=True, null=False)
-    is_staff = models.BooleanField(default=False, null=False)
-
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
+
+    date_joined = models.DateTimeField(auto_now_add=True)
+
+    is_active = models.BooleanField(default=True, null=False)
+
+    is_staff = models.BooleanField(default=False, null=False)
+
+    has_temporary_password = models.BooleanField(default=False, null=False)
+
+    agreed_terms = models.BooleanField(default=False, null=False)
+
+    def add_role(self, role, commit=True):
+        ''' add role to user
+            :param role: group name (see AUTH_GROUPS)
+        '''
+        group, __ =  Group.objects.get_or_create(name=role)
+        self.groups.add(group)
+        if commit:
+            self.save()
 
     def set_roles(self, roles):
         ''' updates user's groups
@@ -76,8 +93,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         '''
         self.groups.clear()
         for role in roles:
-            group, __ =  Group.objects.get_or_create(name=role)
-            self.groups.add(group)
+            self.add_role(role, False)
 
         self.is_staff = any([r in STAFF_GROUPS for r in roles])
         self.save()
@@ -92,11 +108,62 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         ''' lists user's role names'''
         return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
 
+    @property
+    def is_onboarding(self):
+        ''' return if user has yet to go through onboarding flow (only volunteer role with password)'''
+        # Retrieve only name fields from QuerySet of Groups
+        group_names = [g.name  for g in self.role_groups]
+        return ('pickleader' not in group_names and
+                'volunteer' in group_names and
+                self.has_temporary_password)
+
+    @property
+    def name(self):
+        if self.person:
+            return self.person.name
+        return None
+
     def __str__(self):
         if self.person:
             return u"%s" % self.person
         else:
             return self.email
+
+
+class Onboarding(models.Model):
+    """Pickleader Registration"""
+
+    name = models.CharField(
+        verbose_name=_("Reference name"),
+        max_length=50,
+        default="",
+    )
+
+    datetime = models.DateTimeField(auto_now_add=True)
+
+    all_sent = models.BooleanField(
+        verbose_name=_('All invites sent'),
+        default=False
+    )
+
+    log = models.TextField(
+        blank=True,
+        default=""
+    )
+
+    class Meta:
+        verbose_name = _("user onboarding")
+        verbose_name_plural = _("user onboarding")
+
+    @property
+    def user_count(self):
+        return self.persons.count()
+
+    def __str__(self):
+        return "{} [{}]".format(
+            self.name,
+            tz.localtime(self.datetime).strftime("%B %d, %Y @ %-I:%M %p")
+        )
 
 
 class Actor(models.Model):
@@ -246,9 +313,18 @@ class Person(Actor):
         blank=True
     )
 
+    onboarding = models.ForeignKey(
+        'Onboarding',
+        related_name="persons",
+        on_delete=models.SET_NULL,
+        verbose_name=_('Onboarding group'),
+        null=True,
+        blank=True
+     )
+
     class Meta:
         verbose_name = _("person")
-        verbose_name_plural = _("people")
+        verbose_name_plural = _("persons")
         ordering = ["first_name"]
 
     def __str__(self):
@@ -320,7 +396,14 @@ class Person(Actor):
 
 class Organization(Actor):
     is_beneficiary = models.BooleanField(
-        verbose_name=_('is beneficiary'),
+        verbose_name=_('Is Beneficiary'),
+        help_text=_('Only check this box if the Organization is currently accepting fruit donations'),
+        default=False
+    )
+
+    is_equipment_point = models.BooleanField(
+        verbose_name=_('Is Equipment Point'),
+        help_text=_('Only check this box if the equipment registered at this Organization is currenlty made available'),
         default=False
     )
 
@@ -336,7 +419,17 @@ class Organization(Actor):
     )
 
     description = models.TextField(
-        verbose_name=_("Description"),
+        verbose_name=_("Short description"),
+        blank=True
+    )
+
+    beneficiary_description = models.TextField(
+        verbose_name=_("Beneficiary description"),
+        blank=True
+    )
+
+    equipment_description = models.TextField(
+        verbose_name=_("Equipment point description"),
         blank=True
     )
 
@@ -360,7 +453,7 @@ class Organization(Actor):
     )
 
     street_number = models.CharField(
-        verbose_name=_("Number"),
+        verbose_name=_("Street number"),
         max_length=10,
         null=True,
         blank=True
@@ -429,6 +522,7 @@ class Organization(Actor):
         null=True,
         blank=True
     )
+
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -450,6 +544,21 @@ class Organization(Actor):
         else:
             return self.street
 
+    @property
+    def address(self):
+        if self.city and self.state and self.postal_code:
+            return "%s. %s %s, %s" % (
+                self.short_address,
+                self.city,
+                self.state,
+                self.postal_code
+            )
+        elif self.city:
+            return "%s. %s" % (
+                self.short_address,
+                self.city,
+            )
+        return self.short_address
 
     class Meta:
         verbose_name = _("organization")
@@ -474,6 +583,10 @@ class Organization(Actor):
     @property
     def language(self):
         return self.contact_person.language if self.contact_person else None
+
+    @property
+    def equipment(self):
+        return Equipment.objects.filter(owner=self)
 
 
 class Neighborhood(models.Model):

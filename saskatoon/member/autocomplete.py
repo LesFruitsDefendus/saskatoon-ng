@@ -1,7 +1,6 @@
 from dal import autocomplete
-from .models import AuthUser, Person, Actor
+from .models import AuthUser, Organization, Person, Actor
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
 from django.db.models.query_utils import Q
 
 
@@ -105,5 +104,20 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
             q1 = Q(person__family_name__icontains=self.q)
             q2 = Q(organization__civil_name__icontains=self.q)
             qs = qs.filter(q0 | q1 | q2)
+
+        return qs.distinct()
+
+
+class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
+    """Organizations that are Equipment Points"""
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Organization.objects.none()
+
+        qs = Organization.objects.filter(is_equipment_point=True)
+
+        if self.q:
+            qs = qs.filter(organization__civil_name__icontains=self.q)
 
         return qs.distinct()

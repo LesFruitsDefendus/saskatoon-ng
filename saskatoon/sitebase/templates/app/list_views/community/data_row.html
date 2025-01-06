@@ -23,19 +23,12 @@
         {% endif %}
         </span><br>
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
-        {% if perms.member.change_authuser %}
-            {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
-                <a href="{% url 'admin:auth_user_password_change' user.id %}"
+        {% if perms.member.change_authuser and user.password != '' %}
+            <a href="{% url 'reset-password' user.id %}"
                 onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
-                {% if not user.password %}
-                    title="register-user"
-                    >
-                    <small class="btn btn-primary  waves-effect btn-sm"><i class="fa fa-plus"> </i> {% translate ' Register User' %} </a></small>
-                {% else %}
-                    title="reset-password">
-                    <small><i class="fa fa-refresh"></i></a></small>
-                {% endif %}
-            {% endif %}
+                title="reset-password">
+                <small><i class="fa fa-refresh"></i></small>
+            </a>
         {% endif %}
         <br>{{ user.person.phone|default:"" }}
     </td>
@@ -74,7 +67,7 @@
             <p><a href="{% url 'property-detail' property.id %}">{{ property.short_address }}</a></p>
         {% endfor %}
         {% for org in user.person.organizations_as_contact %}
-            <a href="{% url 'beneficiary-update' org.pk %}">{{ org.civil_name }}</a>
+            <a href="{% url 'organization-update' org.pk %}">{{ org.civil_name }}</a>
         {% endfor %}
     </td>
     <td>{{ user.person.neighborhood.name }}</td>

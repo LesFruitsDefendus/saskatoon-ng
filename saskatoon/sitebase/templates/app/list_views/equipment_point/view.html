@@ -1,0 +1,25 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block table %}
+
+    {% include 'app/list_views/organization/beneficiary-modal.html' %}
+
+    <thead>
+        <tr>
+            <th class="col-xs-1">#</th>
+            <th class="col-xs-2">{% trans "Organization" %}</th>
+            <th class="col-xs-1">{% trans "Contact" %}</th>
+            <th class="col-xs-1">{% trans "Beneficiary" %}</th>
+            <th class="col-xs-1">{% trans "Equipment" %}</th>
+            <th class="col-xs-2">{% trans "Neighborhood" %}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for org in data %}
+            {% include 'app/list_views/organization/data_row.html' %}
+        {% endfor %}
+    </tbody>
+
+{% endblock table %}

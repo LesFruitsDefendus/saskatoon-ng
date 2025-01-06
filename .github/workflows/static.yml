@@ -28,7 +28,7 @@ jobs:
         python --version
         python -c "print('\nENVIRONMENT VARIABLES\n=====================\n')"
         python -c "import os; [print(f'{k}={v}') for k, v in os.environ.items()]"
-    
+
     - name: Run pytype
       run: |
         tox -e pytype
@@ -37,6 +37,6 @@ jobs:
     #   run: |
     #     tox -e mypy
 
-    # - name: Run pyflakes
-    #   run: |
-    #     tox -e pyflakes
+    - name: Run pyflakes
+      run: |
+        tox -e pyflakes

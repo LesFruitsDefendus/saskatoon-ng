@@ -2,28 +2,46 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import ordinal
 
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
-from django.shortcuts import render, get_object_or_404
-
-from django.views.generic import TemplateView, CreateView, UpdateView
+from django.shortcuts import get_object_or_404
+from django.views.generic import CreateView, UpdateView
 
 from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
                            EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, Comment)
+from member.permissions import is_pickleader_or_core
+from member.models import Organization
 
 
-class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'harvest.add_equipment'
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
     success_url = reverse_lazy('equipment-list')
     success_message = _("Equipment created successfully!")
+
+    def get_organization(self):
+        """If creating new harvest from Organization page"""
+        try:
+            aid = self.request.GET['aid']
+            return Organization.objects.get(actor_id=aid)
+        except (KeyError, Organization.DoesNotExist):
+            return None
+
+    def get_initial(self):
+        initial = {}
+        _organization = self.get_organization()
+        if _organization:
+            initial['owner'] = _organization
+        return initial
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -32,7 +50,8 @@ class EquipmentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return context
 
 
-class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'harvest.change_equipment'
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
@@ -49,21 +68,28 @@ class EquipmentUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     #     return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
 
 
-class PropertyCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'harvest.add_property'
     model = Property
     form_class = PropertyCreateForm
     template_name = 'app/forms/property_create_form.html'
-    success_url = reverse_lazy('property-list')
+    # TODO: redirect to property list once pagination is implemented
+    # success_url = reverse_lazy('property-list')
+    success_url = reverse_lazy('home')
     success_message = _("Property created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new property")
-        context['cancel_url'] = reverse_lazy('property-list')
+        # TODO: redirect to property list once pagination is implemented
+        # context['cancel_url'] = reverse_lazy('property-list')
+        context['cancel_url'] = reverse_lazy('home')
         return context
 
 
 class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
+    """Public View"""
+
     model = Property
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
@@ -88,7 +114,8 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
         return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'harvest.add_harvest'
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/forms/model_form.html'
@@ -119,7 +146,9 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
             cancel_url = reverse_lazy('property-detail',
                                       kwargs={'pk': _property.id})
         else:
-            cancel_url = reverse_lazy('harvest-list')
+            # TODO: redirect to harvest list once pagination is implemented
+            # cancel_url = reverse_lazy('harvest-list')
+            cancel_url = reverse_lazy('home')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new harvest")
@@ -130,7 +159,8 @@ class HarvestCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'harvest.change_harvest'
     model = Harvest
     form_class = HarvestForm
     template_name = 'app/forms/model_form.html'
@@ -161,6 +191,8 @@ class HarvestUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
 
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
+    """Public RFP View"""
+
     model = RequestForParticipation
     template_name = 'app/forms/participation_create_form.html'
     form_class = RequestForm
@@ -187,7 +219,8 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             return reverse_lazy('calendar')
 
 
-class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+    permission_required = 'harvest.change_requestforparticipation'
     model = RequestForParticipation
     form_class = RFPManageForm
     template_name = 'app/forms/participation_manage_form.html'
@@ -213,7 +246,8 @@ class RequestForParticipationUpdateView(LoginRequiredMixin, SuccessMessageMixin,
         return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
 
 
-class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+    permission_required = 'harvest.add_comment'
     model = Comment
     form_class = CommentForm
     template_name = 'app/forms/model_form.html'
@@ -240,46 +274,56 @@ class CommentCreateView(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 @login_required
 def harvest_yield_delete(request, id):
     """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
-    try:
+
+    if not is_pickleader_or_core(request.user):
+        messages.error(
+            request,
+            _("You must be a pickleader to register delete a fruit distribution entry!")
+        )
+    else:
         _yield = HarvestYield.objects.get(id=id)
         _yield.delete()
         messages.warning(request, "Fruit distribution deleted!")
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-    except Exception as e:
-        raise
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
 def harvest_yield_create(request):
     """ handles new fruit distribution form (app/harvest/create_yield.html)"""
-    if request.method == 'POST':
+
+    if not is_pickleader_or_core(request.user):
+        messages.error(
+            request,
+            _("You must be a pickleader to register add a fruit distribution entry!")
+        )
+    elif request.method == 'POST':
         data = request.POST
         try:
-            actor_id = data['actor'] # can be empty
+            actor_id = data['actor']  # can be empty
         except KeyError:
-            #message.error doesn't show red for some reason..
-            messages.warning(request,
-                             _("New fruit distribution failed: please select a recipient"))
+            messages.error(request,
+                           _("New fruit distribution failed: please select a recipient"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-        try:
-            harvest_id = data['harvest']
-            tree_id = data['tree']
-            weight = float(data['weight'])
-        except Exception as e:
-            raise
+
+        harvest_id = data['harvest']
+        tree_id = data['tree']
+        weight = float(data['weight'])
 
         if weight <= 0:
             messages.warning(request,
                              _("New fruit distribution failed: weight must be positive"))
         else:
-            _yield = HarvestYield(harvest_id = harvest_id,
-                                        recipient_id = actor_id,
-                                        tree_id = tree_id,
-                                        total_in_lb = weight)
+            _yield = HarvestYield(
+                harvest_id=harvest_id,
+                recipient_id=actor_id,
+                tree_id=tree_id,
+                total_in_lb=weight
+            )
             _yield.save()
             messages.success(request, _("New Fruit Recipient successfully added!"))
 
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
@@ -289,20 +333,19 @@ def harvest_adopt(request, id):
     Used in a button at harvest-detail/status template
     """
     harvest = get_object_or_404(Harvest, id=id)
-    user_is_core_or_pick: bool = request.user.groups.filter(
-        name__in=["pickleader", "core"]
-    ).exists() # checks if user is in the core or pick leader groups
 
-    if user_is_core_or_pick and harvest.pick_leader is None:
+    if not is_pickleader_or_core(request.user):
+        messages.error(
+            request,
+            _("You must be a pickleader to adopt this harvest!")
+        )
+    elif harvest.pick_leader is None:
         harvest.pick_leader = request.user
         harvest.status = 'Adopted'
         harvest.save()
-        messages.success(request, _("You adopted this harvest!"))
-    elif not user_is_core_or_pick:
-        messages.warning(request, _("You can't adopt this harvest!"))
+        messages.success(request, _("You successfully adopted this harvest!"))
     else:
-        messages.warning(request, _(
-            "This harvest already has a pick leader!"))
+        messages.error(request, _("This harvest already has a pickleader!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -319,9 +362,9 @@ def harvest_leave(request, id):
         harvest.pick_leader = None
         harvest.status = 'Orphan'
         harvest.save()
-        messages.success(request, _("You successfully left this harvest!"))
+        messages.success(request, _("You successfully dropped this harvest!"))
     else:
-        messages.warning(request, _("You are not this harvest's pick leader!"))
+        messages.error(request, _("You are not this harvest's pick leader!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -335,17 +378,18 @@ def harvest_status_change(request, id):
     harvest = get_object_or_404(Harvest, id=id)
     request_status: str = request.GET['status']
 
-    if (request.user == harvest.pick_leader
-            and harvest.status != request_status):
+    if harvest.status == request_status:
+        messages.warning(
+            request,
+            _("Harvest status already set to: {}".format(harvest.status))
+        )
+    elif request.user == harvest.pick_leader:
         harvest.status = request_status
         harvest.save()
         messages.success(
             request,
-            _("You have set this harvest's status to: {}".format(request_status))
+            _("Harvest status successfully set to: {}".format(request_status))
         )
-    elif harvest.status == request_status:
-        messages.warning(request, _(
-            "This harvest's status is already set to: {}".format(harvest.status)))
     else:
         messages.warning(request, _("You are not this harvest's pick leader!"))
 

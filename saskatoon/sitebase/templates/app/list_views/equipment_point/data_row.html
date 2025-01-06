@@ -1,0 +1,99 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANG %}
+
+<tr>
+    <td>
+        {% if perms.member.delete_actor %}
+            <small>
+                <a href="{% url 'admin:member_actor_delete' org.actor_id %}"
+                onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
+                    <i class="fa fa-trash text-danger"></i>
+                </a>
+            &nbsp;
+            </small>
+        {% endif %}
+        {{ org.actor_id }}
+    </td>
+    <td>
+        <span>
+            <b>
+              <a href="{% url 'beneficiary-detail' org.actor_id %}">{{ org.civil_name }}</a> 
+            </b>
+            {% if org.is_beneficiary %}
+                <i class="fa fa-gift"></i>
+            {% endif %}
+            {% if perms.member.change_actor %}
+                &nbsp;
+                <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
+                    <i class="fa fa-pencil"></i>
+                </a></small>
+            {% endif %}
+        </span>
+        <br> <i class="fa fa-phone text-muted"></i>&nbsp; {{ org.phone }}
+        {% if org.short_address %}
+            <br> <i class="fa fa-envelope-o text-muted"></i> {{ org.short_address }}
+        {% endif %}
+    </td>
+
+    <td>
+        <b>{{ org.contact_person.name }}</b>
+        {% if org.contact_person and perms.member.change_person %}
+            &nbsp;
+            <small><a href="{% url 'person-update' org.contact_person.actor_id %}" title="edit">
+                <i class="fa fa-pencil"></i>
+            </a></small>
+        {% endif %}
+        {% if org.contact_person.phone %}
+            <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
+            {{ org.contact_person.phone }}
+        {% endif %}
+        <br>
+        <a href="mailto:{{org.contact_person.email}}">
+            {{ org.contact_person.email }}
+        </a>
+    </td>
+
+    <td>
+        {% if org.is_beneficiary %}
+            <i class="fa fa-check text-success"></i>
+            {% if org.beneficiary_description %}
+                &nbsp; <a data-toggle="modal"
+                       title="fruit donation"
+                       data-info="{% trans 'This organization accepts fruit donations' %}"
+                       data-title="{{org.civil_name}}"
+                       data-description="{{org.beneficiary_description}}"
+                       href="#beneficiary-modal">
+                <i class="fa fa-external-link"></i>
+                </a>
+            {% endif %}
+        {% else %}
+            <i class="fa fa-times text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
+        {% if org.is_equipment_point %}
+            <i class="fa fa-check text-success"></i>
+            {% if org.equipment_description %}
+                &nbsp; <a data-toggle="modal"
+                       title="equipment"
+                    {% if LANG == "fr" %}
+                       data-info="Équipment disponible à cette organisation:"
+                       data-inventory="{{org.inventory.fr}}"
+                    {% else %}
+                       data-info="This organization has the following equipment:"
+                       data-inventory="{{org.inventory.en}}"
+                    {% endif %}
+                       data-title="{{org.civil_name}}"
+                       data-description="{{org.equipment_description}}"
+                       href="#beneficiary-modal">
+                <i class="fa fa-external-link"></i>
+                </a>
+            {% endif %}
+        {% else %}
+            <i class="fa fa-times text-danger"></i>
+    {% endif %}
+    </td>
+
+    <td>{{ org.neighborhood.name }}</td>
+</tr>

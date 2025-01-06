@@ -10,14 +10,20 @@ from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
 from django.contrib.auth.models import Group
 from django.db.models import Value
 from django.db.models.functions import Replace
+from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
+from django.utils import timezone as tz
 from django.utils.html import mark_safe
-from member.models import (AuthUser, Actor, Language, Person, Organization,
-                           Neighborhood, City, State, Country)
+from harvest.models import Equipment
+from member.models import (AuthUser, Actor, Language, Onboarding, Person,
+                           Organization, Neighborhood, City, State, Country)
 from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
                             UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
                             UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
+                            UserIsOnboarding,
                             PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
+from member.utils import send_invite_email
+
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 
 
@@ -60,7 +66,6 @@ class CustomUserCreationForm(UserCreationForm):
 
 class CustomUserChangeForm(UserChangeForm):
     password = ReadOnlyPasswordHashField(
-        label="password",
         help_text="""Raw passwords are not stored, so there is no way to
         see this user's password, but you can change the password using
         <a href=\"../password/\"> this form</a>."""
@@ -68,8 +73,7 @@ class CustomUserChangeForm(UserChangeForm):
 
     class Meta(UserChangeForm.Meta):
         model = AuthUser
-        fields = ('email', 'password', 'is_active',
-                  'is_staff', 'is_superuser', 'user_permissions')
+        exclude = ('date_joined',)
 
     def clean_password(self):
         # Regardless of what the user provides, return the initial value.
@@ -92,9 +96,10 @@ class AuthUserAdmin(UserAdmin):
                     'is_core',
                     'is_admin',
                     'is_active',
+                    'has_password',
+                    'agreed_terms',
                     'id',
                     'date_joined',
-                    'has_password',
                     'last_login',
                     )
 
@@ -119,9 +124,11 @@ class AuthUserAdmin(UserAdmin):
                    UserHasLedPicksAdminFilter,
                    UserHasVolunteeredAdminFilter,
                    UserIsContactAdminFilter,
+                   UserIsOnboarding,
                    'is_staff',
                    'is_superuser',
-                   'is_active'
+                   'is_active',
+                   'agreed_terms',
                    )
 
     fieldsets = (
@@ -131,7 +138,9 @@ class AuthUserAdmin(UserAdmin):
                 'fields': (
                     'email',
                     'password',
-                    'person'
+                    'has_temporary_password',
+                    'person',
+                    'agreed_terms',
                 )
             }
         ),
@@ -156,6 +165,7 @@ class AuthUserAdmin(UserAdmin):
                     'email',
                     'password1',
                     'password2',
+                    'has_temporary_password',
                     'is_staff',
                     'is_superuser',
                     'groups'
@@ -273,6 +283,11 @@ class AuthUserAdmin(UserAdmin):
                     f"Something went wrong: {e}"
                 )
 
+    @admin.action(description="Reset selected User(s)'s T&C agreement")
+    def reset_agreed_terms(self, request, queryset):
+        queryset.update(agreed_terms=False)
+
+
     actions = [
         deactivate_account,
         remove_from_staff,
@@ -286,6 +301,7 @@ class AuthUserAdmin(UserAdmin):
         add_to_owner,
         add_to_contact,
         export_emails,
+        reset_agreed_terms,
     ]
 
 
@@ -350,10 +366,57 @@ class ActorAdmin(admin.ModelAdmin):
         return None
 
 
+class OrganizationEquipmentInlineForm(admin.TabularInline):
+    model = Equipment
+    fields = ['type', 'description', 'count']
+    extra = 2
+
+
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'contact', 'pk')
+    inlines = [OrganizationEquipmentInlineForm]
+    list_display = ('__str__', 'contact', 'is_beneficiary', 'is_equipment_point', 'pk')
     list_filter = (OrganizationHasNoContactAdminFilter,)
+
+    fieldsets = (
+        (
+            'Info',
+            {
+                'fields': (
+                    'civil_name',
+                    'description',
+                    'phone',
+                    'contact_person',
+                    'street_number',
+                    'street',
+                    'complement',
+                    'postal_code',
+                    'neighborhood',
+                    'city',
+                    'state',
+                    'country',
+                    )
+            },
+        ),
+        (
+            'Fruit donations',
+            {
+                'fields': (
+                    'is_beneficiary',
+                    'beneficiary_description',
+                )
+            },
+        ),
+        (
+            'Equipment Point',
+            {
+                'fields': (
+                    'is_equipment_point',
+                    'equipment_description',
+                    )
+            }
+        ),
+    )
 
     @admin.display(description="Contact Person")
     def contact(self, org):
@@ -363,9 +426,169 @@ class OrganizationAdmin(admin.ModelAdmin):
             return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
+    def save_related(self, request, form, formsets, change):
+        """Ensure is_equipment_point box was not mistakenly left checked/unchecked"""
+
+        super().save_related(request, form, formsets, change)
+
+        org = Organization.objects.get(actor_id=form.instance.actor_id)
+        if not org.equipment.exists():
+            org.is_equipment_point = False
+            org.save()
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} cannot be listed as an Equipment Point because no equipment \
+                is currently registered for this Organization."
+            )
+        elif not org.is_equipment_point:
+            messages.add_message(
+                request, messages.WARNING,
+                f"{org} has equipment but is not listed as an Equipment Point. \
+                Only leave the \"Is Equipment Point\" box unchecked if the equipment \
+                is not currently available."
+            )
+
 
 admin.site.register(Language)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)
 admin.site.register(Country)
+
+
+class PendingPickLeaderForm(forms.ModelForm):
+    """A simple form to onboard new pickleaders"""
+
+    class Meta:
+        model = Person
+        fields = ['email', 'first_name', 'family_name', 'phone', 'language']
+
+    email = forms.EmailField(
+        label="email",
+        required=True,
+    )
+
+    def __init__(self, *args, **kwargs):
+        super(PendingPickLeaderForm, self).__init__(*args, **kwargs)
+        self.auth_user = None
+        if self.instance.onboarding_id is not None:
+            self.auth_user = AuthUser.objects.get(person=self.instance)
+            self.initial['email'] = self.auth_user.email
+
+    def save(self, commit=True):
+        self.instance = super().save(commit=False)
+        data = self.cleaned_data
+        person = Person.objects.filter(auth_user__email=data.get('email')).first()
+        if person:
+            for key in ['first_name', 'family_name', 'phone']:
+                setattr(person, key, data.get(key))
+            person.onboarding = self.instance.onboarding
+            person.save()
+            self.instance.pk = person.pk
+            return self.instance
+
+        return super().save(commit)
+
+
+class PendingPickLeaderInlineFormSet(BaseInlineFormSet):
+
+    def get_emails(self):
+        forms = [f for f in self.forms if f.instance.pk is not None]
+        return dict([(f.instance.pk, f.cleaned_data.get('email')) for f in forms])
+
+    def clean(self):
+        email_list = list(self.get_emails().values())
+        if len(email_list) != len(set(email_list)):
+            raise forms.ValidationError("Duplicate emails found.")
+
+    def save_new_objects(self, commit=True):
+        saved_instances = super().save_new_objects(commit)
+        for person in [p for p in saved_instances if p is not None]:
+            email = self.get_emails().get(person.pk)
+            user, _ = AuthUser.objects.get_or_create(email=email, person=person)
+
+            # PickLeaders don't get assigned the 'pickleader' role until
+            # they have read and agreed to the privacy policy
+            user.add_role('volunteer')
+
+        return saved_instances
+
+    def save_existing_objects(self, commit=True):
+        saved_instances = super().save_existing_objects(commit)
+        for i, person in enumerate(saved_instances):
+            user = AuthUser.objects.get(person=person)
+            user.email = self.get_emails().get(person.pk)
+            user.save()
+
+        return saved_instances
+
+
+class PendingPickLeaderInlineForm(admin.TabularInline):
+    model = Person
+    fields = ['email', 'first_name', 'family_name', 'phone', 'language']
+    form = PendingPickLeaderForm
+    formset = PendingPickLeaderInlineFormSet
+    extra = 9
+
+
+@admin.register(Onboarding)
+class OnboardingAdmin(admin.ModelAdmin):
+    inlines = [PendingPickLeaderInlineForm]
+    list_display = ('name', 'datetime', 'user_count', 'all_sent', 'id')
+
+    def save_model(self, request, obj, form, change):
+        """Make sure all_sent is False if users get added later on"""
+        if obj.all_sent and obj.persons.filter(auth_user__password='').exists():
+            obj.all_sent = False
+            messages.add_message(request, messages.WARNING,
+                                    f"Some users in {obj} were not yet invited.")
+        super().save_model(request, obj, form, change)
+
+
+    @admin.action(description="Send registration invite to selected group(s)")
+    def send_invite(self, request, queryset):
+        subject = "Les Fruits Défendus - Saskatoon Registration"
+        num_sent = 0
+
+        def get_message(person):
+            name = person.first_name
+            mailto = person.auth_user.email
+            return "Hi " + name + ",\n\n\
+You are receiving this email following your recent participation to the Pickleader training \
+organized by Les Fruits Défendus. You can now log into the Saskatoon harvest management \
+platform using your email address and the temporary password provided below.\n\n\
+Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
+Email address: " + mailto + "\n\
+Temporary password: {password}\n\n\
+Thanks for supporting your community!\n\n--\n\n\
+Bonjour " + name + ",\n\n\
+Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe the cueillette \
+organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur la plateforme de \
+gestion Saskatoon en utilisant votre adresse courriel et le mot de passe temporaire fourni plus bas.\n\n\
+Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
+Adresse électronique: " + mailto + "\n\
+Mot de passe temporaire: {password}\n\n\
+Merci de soutenir votre communauté!\n\n--\n\n\
+Les Fruits Défendus"
+
+        for o in queryset:
+            o.all_sent = True
+            o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
+            for p in o.persons.filter(auth_user__password=''):
+                error_msg = send_invite_email(p.auth_user, subject, get_message(p))
+                if error_msg is None:
+                    num_sent += 1
+                    o.log += f"\n\t> OK {p.auth_user.email}"
+                else:
+                    o.all_sent = False
+                    o.log += f"\n\t> FAIL {p.auth_user.email}. {error_msg}"
+                    messages.add_message(request, messages.ERROR,
+                                         f"Could not send Registration Invite to {p.auth_user.email}")
+            if o.all_sent:
+                messages.add_message(request, messages.SUCCESS,
+                                    f"Successfully sent Registration Invite to {num_sent} users")
+            o.save()
+
+    actions = [
+        send_invite
+    ]
