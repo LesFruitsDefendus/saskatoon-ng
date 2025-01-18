@@ -11,7 +11,7 @@ from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, TreeType)
 from harvest.serializers import (HarvestListSerializer, HarvestDetailSerializer,
-                                 HarvestSerializer, PropertyListSerializer,
+                                 PropertyListSerializer,
                                  PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, OrganizationSerializer,
                                  RequestForParticipationSerializer)
@@ -45,7 +45,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Harvest.objects.all().order_by('-id')
-    serializer_class = HarvestSerializer
+    serializer_class = HarvestDetailSerializer
+    template_name = 'app/detail_views/harvest/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = HarvestFilter
     filterset_fields = ('pick_leader',
@@ -56,19 +57,13 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'status',
                         'season')
 
-    # Harvest detail
-    def retrieve(self, request, *args, **kwargs):
-        self.template_name = 'app/detail_views/harvest/view.html'
-        self.serializer_class = HarvestDetailSerializer
-        return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
-
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
         self.serializer_class = HarvestListSerializer
-
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
+        # default request format is html:
         return Response(
             {
                 "data": response.data["results"],
@@ -85,9 +80,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                 },
             }
         )
-
-    def update(request, *args, **kwargs):
-        pass
 
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):

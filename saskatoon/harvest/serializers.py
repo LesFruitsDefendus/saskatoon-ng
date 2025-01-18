@@ -342,6 +342,7 @@ class HarvestTreeTypeSerializer(serializers.ModelSerializer):
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
     class Meta:
+        model = Organization
         fields = ['actor_id', 'civil_name']
 
 

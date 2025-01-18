@@ -10,16 +10,16 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% translate 'Harvest status' %}</p>
-                        {% if harvest.pick_leader is None or harvest.pick_leader.id != request.user.id %}
-                        <h2>{{ harvest.status }}</h2>
+                        {% if pick_leader is None or pick_leader.id != request.user.id %}
+                        <h2>{{ status }}</h2>
                         {% else %}
                         <div class="dropdown">
                             <button
-                            {% if harvest.status == 'Succeeded' %}
+                            {% if status == 'Succeeded' %}
                             class="btn btn-success dropdown-toggle"
-                            {% elif harvest.status == 'Cancelled' %}
+                            {% elif status == 'Cancelled' %}
                             class="btn btn-danger dropdown-toggle"
-                            {% elif harvest.status == 'Ready' %}
+                            {% elif status == 'Ready' %}
                             class="btn btn-primary dropdown-toggle"
                             {% else %}
                             class="btn btn-warning dropdown-toggle"
@@ -30,7 +30,7 @@
                             >
                                 <p style="font-size: 1.5em; color:white;">
                                     <strong>
-                                        {{ harvest.status }}
+                                        {{ status }}
                                         <span class="caret"></span>
                                     </strong>
                                 </p>
@@ -43,7 +43,7 @@
                                 {% for status_option in status_options %}
                                 <li role="presentation">
                                     <a
-                                    href="{% url 'harvest-status-change' harvest.id %}?status={{ status_option }}"
+                                    href="{% url 'harvest-status-change' id %}?status={{ status_option }}"
                                     role="menuitem"
                                     tabindex="-1"
                                     >
@@ -91,13 +91,13 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30 dk-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% trans "Pick leader" %}</p>
-                        {% if harvest.pick_leader is None %}
+                        {% if pick_leader is None %}
                         <div class="row">
                             <div class="col-lg-8">
                                 <h2>{% trans "Missing" %}</h2>
                             </div>
                             <div class="col-lg-4 breadcomb-report">
-                                <a href="{% url 'harvest-adopt' harvest.id %}">
+                                <a href="{% url 'harvest-adopt' id %}">
                                     <button
                                     data-placement="left"
                                     title="Adopt it!"
@@ -108,13 +108,13 @@
                                 </a>
                             </div>
                         </div>
-                        {% elif harvest.pick_leader.id == request.user.id %}
+                        {% elif pick_leader.id == request.user.id %}
                         <div class="row">
                             <div class="col-lg-7">
-                                <h2>{{ harvest.pick_leader.name }}</h2>
+                                <h2>{{ pick_leader.name }}</h2>
                             </div>
                             <div class="col-lg-5 breadcomb-report">
-                                <a href="{% url 'harvest-leave' harvest.id %}">
+                                <a href="{% url 'harvest-leave' id %}">
                                     <button
                                     data-placement="left"
                                     title="Leave it!"
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                         {% else %}
-                        <h2>{{ harvest.pick_leader.name }}</h2>
+                        <h2>{{ pick_leader.name }}</h2>
                         {% endif %}
                     </div>
                 </div>
