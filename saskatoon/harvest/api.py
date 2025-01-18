@@ -15,7 +15,6 @@ from harvest.serializers import (HarvestListSerializer, HarvestDetailSerializer,
                                  PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, OrganizationSerializer,
                                  RequestForParticipationSerializer)
-from harvest.utils import get_similar_properties
 from member.models import AuthUser, Organization, Neighborhood, Person
 from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin, is_core_or_admin
 
@@ -35,12 +34,10 @@ def get_filter_context(viewset, basename=None):
 
 
 def renderer_format_needs_json_response(request) -> bool:
-    """ checks if the template renderer format is json or the DRF browsable api
+    """ Checks if the template renderer format is json or the DRF browsable api
         which require the response to be plain json
     """
-    if request.accepted_renderer.format in ('json', 'api'):
-        return True
-    return False
+    return request.accepted_renderer.format in ('json', 'api')
 
 
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -72,7 +69,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
-        # default request format is html:
         return Response(
             {
                 "data": response.data["results"],
@@ -100,6 +96,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
+    template_name = 'app/detail_views/property/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = PropertyFilter
     filterset_fields = ('is_active',
@@ -110,29 +107,12 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'ladder_available',
                         'ladder_available_for_outside_picks')
 
-    # Property detail
-    def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/detail_views/property/view.html'
-
-        pk = self.get_object().pk
-        response = super(PropertyViewset, self).retrieve(request, pk=pk)
-
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        return Response({'property': response.data,
-                         'similar': get_similar_properties(self.get_object())
-                         })
-
-    # Properties list
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
         self.serializer_class = PropertyListSerializer
         response = super(PropertyViewset, self).list(request)
         if renderer_format_needs_json_response(request):
             return response
-        # default request format is html:
         return Response(
             {
                 "data": response.data["results"],

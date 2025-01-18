@@ -7,13 +7,13 @@
         <hr>
         <div class="tpgp-ele-tx">
             <h2>{% translate 'Address' %}</h2>
-            <p>{{ property.address }}</p>
-            <p>{{ property.neighborhood.name }}</p>
+            <p>{{ address }}</p>
+            <p>{{ neighborhood.name }}</p>
             <br>
 
             <h2>{% translate 'Available tree' %}(s)</h2>
             <ul>
-                {% for tree in property.trees %}
+                {% for tree in trees %}
                 <li>- {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</li>
                 {% endfor %}
             </ul>
@@ -21,13 +21,13 @@
 
             <h2>{% translate 'Accessibility' %}</h2>
             <ul>
-                <li>- {{ property.trees_location|default:"" }}</li>
-                <li>- {{ property.trees_accessibility|default:"" }}</li>
+                <li>- {{ trees_location|default:"" }}</li>
+                <li>- {{ trees_accessibility|default:"" }}</li>
             </ul>
             <br>
 
             <h2>{% translate 'Additional information' %}</h2>
-            <p>{{ property.additional_info|default:"" }}</p>
+            <p>{{ additional_info|default:"" }}</p>
         </div>
     </div>
 </div>

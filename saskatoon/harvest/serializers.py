@@ -4,6 +4,7 @@ from member.models import (Actor, Neighborhood, AuthUser, Person,
                            Organization, City, State, Country)
 from harvest.models import (Comment, Harvest, HarvestYield, Property, Equipment,
                             EquipmentType, RequestForParticipation, TreeType)
+from harvest.utils import similar_properties
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -201,6 +202,7 @@ class PropertySerializer(serializers.ModelSerializer):
     owner = serializers.SerializerMethodField()
     pending_contact_name = serializers.ReadOnlyField()
     owner_type = serializers.SerializerMethodField()
+    similar_properties = serializers.SerializerMethodField()
 
     class Meta:
         model = Property
@@ -216,6 +218,9 @@ class PropertySerializer(serializers.ModelSerializer):
 
     def get_owner_type(self, obj):
         return OwnerTypeSerializer(obj.owner).data
+
+    def get_similar_properties(self, obj):
+        return similar_properties(obj)
 
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
