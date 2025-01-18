@@ -1,9 +1,19 @@
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANG %}
 
 <tr>
     <td>{{ equipment.id }}</td>
-    <td>{{ equipment.type.name }}</td>
+    <td>
+        {% if LANG == "fr" %}
+            {{ equipment.type.name_fr }}
+        {% else %}
+            {{ equipment.type.name_en }}
+        {% endif %}
+    </td>
+    <td>
+        {{equipment.count}}
+    </td>
     <td>
         <span>{{ equipment.description }}
             {% if perms.harvest.change_equipment %}
@@ -12,19 +22,75 @@
             {% endif %}
         </span><br>
     </td>
-
     <td>
-
+        {% if equipment.owner.person %}
+            {% for role in equipment.owner.person.roles %}
+                {% if not forloop.first %}<br>+ {% endif %} {{ role }}
+            {% endfor %}
+        {% elif equipment.owner.organization %}
+            {% with org=equipment.owner.organization %}
+                &nbsp; <a data-toggle="modal"
+                        title="organization"
+                        data-info="{{org.address | default:""}}"
+                        data-title="{{org.civil_name}}"
+                        data-description="{{org.description}}"
+                        href="#beneficiary-modal">
+                    {{org.civil_name}}
+                </a>
+                {% if perms.member.change_actor %}
+                &nbsp;
+                <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
+                        <i class="fa fa-pencil"></i>
+                    </a></small>
+                {% endif %}
+            {% endwith %}
+        {% elif equipment.property %}
+            <a href="{% url 'property-detail' equipment.property.id %}">
+                {{ equipment.property.title }}
+            </a><br>
+        {% endif %}
+    </td>
+    <td>
+        {% if equipment.shared %}
+        <i class="fa fa-check text-success"></i>
+            {% if equipment.owner.organization %}
+                {% with org=equipment.owner.organization %}
+                    &nbsp; <a data-toggle="modal"
+                           title="equipment"
+                        {% if LANG == "fr" %}
+                           data-info="Équipment disponible à cette organisation:"
+                           data-inventory="{{org.inventory.fr}}"
+                        {% else %}
+                           data-info="This organization has the following equipment:"
+                           data-inventory="{{org.inventory.en}}"
+                        {% endif %}
+                           data-title="{{org.civil_name}}"
+                           data-description="{{org.equipment_description}}"
+                           href="#beneficiary-modal">
+                        {% trans "info" %}
+                    </a>
+                {% endwith %}
+            {% endif %}
+        {% else %}
+        <i class="fa fa-times text-danger"></i>
+        {% endif %}
+    </td>
+    <td>
         {% if equipment.owner.person %}
             {{ equipment.owner.person.name }}<br>
             <a href='mailto:{{equipment.owner.person.email}}'>
                 {{ equipment.owner.person.email }}</a><br>
-            {{ user.person.phone|default:"" }}
+            {{ user.person.phone | default:"" }}
         {% elif equipment.owner.organization %}
-            {{ equipment.owner.organization.civil_name }}
-            <a href='mailto:{{equipment.owner.organization.contact_person.email}}'>
-                {{ equipment.owner.organization.contact_person.email }}</a><br>
-            {{ equipment.owner.organization.phone|default:"" }}
+            {% with org=equipment.owner.organization %}
+                {% if org.contact_person %}
+                    <a href='mailto:{{org.contact_person.email}}'>
+                        {{org.contact_person.email}}</a><br>
+                    {{ org.contact_person.phone | default:"" }}
+                {% elif org.phone %}
+                    {{ org.phone }}
+                {% endif %}
+            {% endwith %}
         {% elif equipment.property %}
             {{ equipment.property.owner.name }}
             {% if equipment.property.owner.email %}
@@ -35,14 +101,6 @@
                 <br>{{ equipment.property.owner.phone}}
             {% endif %}
         {% endif %}
-
-    </td>
-    <td>
-        {% if equipment.property %}
-            <a href="{% url 'property-detail' equipment.property.id %}">
-                {{ equipment.property.title }}
-            </a>
-        {% endif %}
     </td>
     <td>
         {% if equipment.owner.person %}
@@ -51,14 +109,6 @@
             {{ equipment.owner.organization.neighborhood.name }}
         {% elif equipment.property %}
             {{ equipment.property.neighborhood }}
-        {% endif %}
-    </td>
-
-    <td>
-        {% if equipment.shared %}
-            <i class="fa fa-check text-success"></i>
-        {% else %}
-            <i class="fa fa-times text-danger"></i>
         {% endif %}
     </td>
 </tr>

@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from pathlib import Path
 from dotenv import read_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -64,8 +63,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
-    'leaflet',
+    # 'leaflet',
     'sitebase',
     'member',
     'harvest',
@@ -75,6 +73,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'debug_toolbar',
     'django_extensions',
+    'django_quill',
     'rosetta',
     'phone_field'
 ]
@@ -93,7 +92,7 @@ MIDDLEWARE = [
 
 # URLs
 ROOT_URLCONF = 'saskatoon.urls'
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -243,12 +242,6 @@ CACHES = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-CKEDITOR_CONFIGS = {
-    'default': {
-        'width': "100%"
-    },
-}
 
 CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
 

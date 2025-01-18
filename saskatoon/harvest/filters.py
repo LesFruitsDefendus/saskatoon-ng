@@ -177,12 +177,15 @@ class CommunityFilter(filters.FilterSet):
         return queryset.filter(query)
 
 
-# FIXME: won't filter
 class OrganizationFilter(filters.FilterSet):
 
     class Meta:
         model = Organization
-        fields = ['neighborhood', 'is_beneficiary']
+        fields = [
+            'neighborhood',
+            'is_beneficiary',
+            'is_equipment_point',
+        ]
 
     neighborhood = filters.ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
@@ -191,6 +194,16 @@ class OrganizationFilter(filters.FilterSet):
         required=False
     )
 
+
+class EquipmentPointFilter(filters.FilterSet):
+
+    class Meta:
+        model = Organization
+        fields = [
+            'neighborhood',
+            'is_beneficiary',
+            'equipment__type',
+        ]
 
 
 class EquipmentFilter(filters.FilterSet):
@@ -209,6 +222,15 @@ class EquipmentFilter(filters.FilterSet):
         help_text="",
         required=False
     )
+
+    equipment_point = filters.ModelChoiceFilter(
+        queryset=Organization.objects.filter(is_equipment_point=True),
+        label=_("Equipment Point"),
+        method='equipment_point_filter'
+    )
+
+    def equipment_point_filter(self, queryset, name, value):
+        return queryset.filter(owner__organization=value)
 
 
 # # ADMIN filters # #

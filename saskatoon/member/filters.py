@@ -1,7 +1,7 @@
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from member.models import AuthUser, AUTH_GROUPS, Person, Actor, Organization
+from member.models import Person, Organization
 from harvest.models import Property, Harvest, RequestForParticipation
 
 
@@ -25,6 +25,23 @@ class UserGroupAdminFilter(SimpleListFilter):
             return queryset.filter(groups__isnull=True)
         elif self.value():
             return queryset.filter(groups__in=self.value())
+        return queryset
+
+
+class UserIsOnboarding(SimpleListFilter):
+    """Checks if AuthUser is a volunteer with a password"""
+    title = 'Onboarding PickLeader Filter'
+    parameter_name = 'pending'
+    default_value = None
+
+    def lookups(self, request, model_admin):
+        return [('1', 'volunteer w/ password')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            # WARNING: Conditions must match `AuthUser.is_onboarding`. Using QuerySet over lists for performance.
+            group = Group.objects.get(name='volunteer')
+            return queryset.filter(groups__in=[group]).exclude(password__exact='').filter(has_temporary_password=True)
         return queryset
 
 

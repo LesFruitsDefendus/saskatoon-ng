@@ -1,0 +1,25 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% block content %}
+    <!-- centering -->
+    <div style="display: flex; flex-flow: column; align-items: center;">
+        <!-- column sizing -->
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+            <!-- content header -->
+            <div class="wb-traffic-inner" style="margin-bottom: 1rem;">
+                <div class="breadcomb-icon">
+                    <i class="notika-icon notika-cloud"></i>
+                </div>
+                <div class="breadcomb-ctn">
+                    <h1>{{ content.title }}</h1>
+                    {% if content.subtitle != '' %}<h2>{{ content.subtitle }}</h2>{% endif %}
+                </div>
+            </div>
+            <!-- content body -->
+            <div class="wb-traffic-inner">
+                <div class="website-traffic-ctn">{{ content.body.html | safe }}</div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

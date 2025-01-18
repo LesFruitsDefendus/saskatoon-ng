@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="breadcomb-area">
-    <div class="container mg-t-30">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcomb-list">
@@ -15,27 +15,34 @@
                                 <div class="breadcomb-icon">
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
+
                                 <div class="breadcomb-ctn">
-
-                                    {% if user.is_authenticated %}
-                                        <h2>{% trans "Hi" %} {{user}} !</h2>
-                                        <hr>
-                                        {% include 'app/index/pickleader.html' %}
-                                    {% else %}
-                                        <h2>{% trans "Welcome to Les Fruits Défendus!" %}</h2>
-                                        <hr>
-                                        {% include 'app/index/volunteer.html' %}
-                                    {% endif %}
-
+                                    <h1>{{content.title}}</h1>
+                                    <h2>{{content.subtitle}}</h2>
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                            <div class="breadcomb-report">
+                                <a href="{% url 'calendar' %}">
+                                    <button data-placement="left" title="Calendar" class="btn">
+                                        {% trans 'Go to calendar' %}
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                    <div class="website-traffic-ctn" style="font-size: 1.15em;">
+                        {{ content.body.html | safe }}
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 {% endblock content %}

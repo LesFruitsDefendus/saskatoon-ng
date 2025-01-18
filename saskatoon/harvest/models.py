@@ -1,14 +1,14 @@
 # coding: utf-8
-
 from harvest import signals
-from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import datetime
+from django.core.validators import MinValueValidator
+from django_quill.fields import QuillField
 from django.db import models
+from django.db.models.query_utils import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-import datetime
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from django.db.models.query_utils import Q
 
 
 HARVESTS_STATUS_CHOICES = (
@@ -77,17 +77,26 @@ class TreeType(models.Model):
 
 
 class EquipmentType(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
+    name_fr = models.CharField(
+        verbose_name=_("Nom (fr)"),
         max_length=50
+    )
+
+    name_en = models.CharField(
+        verbose_name=_("Name (en)"),
+        max_length=50,
+        default="",
     )
 
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
 
+    def get_name(self, lang='en'):
+        return getattr(self, "name_{}".format(lang))
+
     def __str__(self):
-        return self.name
+        return "{} / {}".format(self.name_fr, self.name_en)
 
 
 class Property(models.Model):
@@ -486,7 +495,7 @@ class Harvest(models.Model):
         default=3
     )
 
-    about = models.TextField(
+    about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
         help_text=_("If any help is needed from volunteer pickers, "
@@ -550,7 +559,7 @@ class Harvest(models.Model):
         return [r.picker for r in requests]
 
     def get_days_before_harvest(self):
-        diff = datetime.datetime.now() - self.start_date
+        diff = datetime.now() - self.start_date
         return diff.days
 
     def get_neighborhood(self):
@@ -717,12 +726,19 @@ class Equipment(models.Model):
 
     description = models.CharField(
         verbose_name=_("Description"),
-        max_length=50
+        max_length=50,
+        blank=True
+    )
+
+    count = models.SmallIntegerField(
+        verbose_name=_("Number available"),
+        default=1
     )
 
     owner = models.ForeignKey(
         'member.Actor',
         verbose_name=_("Owner"),
+        related_name="equipment",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -743,12 +759,25 @@ class Equipment(models.Model):
         default=False
     )
 
+    def get_equipment_point(self):
+        if self.owner is not None and self.owner.is_organization:
+            return self.owner.get_organization()
+        return None
+
     class Meta:
         verbose_name = _("equipment")
         verbose_name_plural = _("equipment")
 
+    def inventory(self, lang='en'):
+        return "%i %s" % (self.count, self.type.get_name(lang))
+
     def __str__(self):
         return "%s (%s)" % (self.description, self.type)
+
+    def save(self, *args, **kwargs):
+        if self.get_equipment_point() is not None:
+            self.shared = True
+        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

@@ -1,17 +1,21 @@
 # coding: utf-8
-from ckeditor.widgets import CKEditorWidget
+from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
 from django import forms
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
-from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
-                            Equipment, PropertyImage, HarvestImage, TreeType, Property)
+                            Equipment, PropertyImage, HarvestImage, Property)
 from member.forms import validate_email
-from member.models import AuthUser, Person, Organization
+from member.models import AuthUser, Person
 from postalcodes_ca import parse_postal_code
+from logging import getLogger
+
+
+logger = getLogger('saskatoon')
+
 
 # Request for participation
 class RequestForm(forms.ModelForm):
@@ -72,7 +76,7 @@ class RequestForm(forms.ModelForm):
         family_name = self.cleaned_data['picker_family_name']
         phone = self.cleaned_data['picker_phone']
         email = self.cleaned_data['picker_email']
-        comment = self.cleaned_data['comment']
+        # comment = self.cleaned_data['comment']
         harvest_obj = Harvest.objects.get(id=harvest_id)
 
         # check if the email is already registered
@@ -100,39 +104,39 @@ class RequestForm(forms.ModelForm):
             auth_user.groups.add(group)
 
         # Building email content
-        pick_leader_email = list()
-        pick_leader_email.append(str(harvest_obj.pick_leader.email))
-        pick_leader_name = harvest_obj.pick_leader.person.first_name
-        publishable_location = harvest_obj.property.publishable_location
-        mail_subject = _(u"New request from ") + \
-            "%s %s" % (first_name, family_name)
-        message = u"Hi %s, " \
-                  u"\n\n" \
-                  u"There is a new request from %s to participate " \
-                  u"in harvest #%s at '%s'.\n\n" \
-                  u"Full name: %s %s\n" \
-                  u"Email: %s\n" \
-                  u"Phone: %s\n" \
-                  u"Comment: %s\n\n" \
-                  u"Please contact %s directly and then manage " \
-                  u"this request through\n" \
-                  u"http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n" \
-                  u"Yours,\n" \
-                  u"--\n" \
-                  u"Saskatoon Harvest System" % \
-                  (
-                      pick_leader_name,
-                      first_name,
-                      harvest_id,
-                      publishable_location,
-                      first_name,
-                      family_name,
-                      email,
-                      phone,
-                      comment,
-                      first_name,
-                      harvest_id
-                  )
+        # pick_leader_email = list()
+        # pick_leader_email.append(str(harvest_obj.pick_leader.email))
+        # pick_leader_name = harvest_obj.pick_leader.person.first_name
+        # publishable_location = harvest_obj.property.publishable_location
+        # mail_subject = _(u"New request from ") + \
+        #     "%s %s" % (first_name, family_name)
+        # message = u"Hi %s, " \
+        #           u"\n\n" \
+        #           u"There is a new request from %s to participate " \
+        #           u"in harvest #%s at '%s'.\n\n" \
+        #           u"Full name: %s %s\n" \
+        #           u"Email: %s\n" \
+        #           u"Phone: %s\n" \
+        #           u"Comment: %s\n\n" \
+        #           u"Please contact %s directly and then manage " \
+        #           u"this request through\n" \
+        #           u"http://saskatoon.lesfruitsdefendus.org/harvest/%s\n\n" \
+        #           u"Yours,\n" \
+        #           u"--\n" \
+        #           u"Saskatoon Harvest System" % \
+        #           (
+        #               pick_leader_name,
+        #               first_name,
+        #               harvest_id,
+        #               publishable_location,
+        #               first_name,
+        #               family_name,
+        #               email,
+        #               phone,
+        #               comment,
+        #               first_name,
+        #               harvest_id
+        #           )
 
         # Sending email to pick leader
         # self.send_email(mail_subject, message, pick_leader_email)
@@ -540,18 +544,21 @@ class HarvestForm(forms.ModelForm):
             'nb_required_pickers': forms.NumberInput()
         }
 
-    about = forms.CharField(
-        widget=CKEditorWidget(),
+    about = QuillFormField(
         label=_("Public announcement"),
+        help_text=_("Published on public facing calendar"),
         required=True
     )
 
     start_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        label=_('Start date/time'),
+        input_formats=['%d/%m/%Y %H:%M'],
         required=True
     )
+
     end_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
+        label=_('End time'),
+        input_formats=['%H:%M'],
         required=True
     )
 
@@ -572,6 +579,21 @@ class HarvestForm(forms.ModelForm):
             )
         return pickleader
 
+    def clean_end_date(self):
+        """Derive end date from start date in order to enforce a single date for harvests without changing model."""
+        start = self.cleaned_data['start_date']
+        end = self.cleaned_data['end_date']
+
+        start_dt = start
+        end_dt = dt.combine(start.date(), end.time(), tzinfo=start.tzinfo)
+
+        if end_dt <= start_dt:
+            raise forms.ValidationError(
+                _('End time must be after start time')
+            )
+        return end_dt
+
+
 
 class HarvestYieldForm(forms.ModelForm):
     class Meta:
@@ -588,24 +610,24 @@ class HarvestYieldForm(forms.ModelForm):
 
 
 class EquipmentForm(forms.ModelForm):
-    def clean(self):
-        cleaned_data = super(EquipmentForm, self).clean()
-        bool1 = bool(self.cleaned_data['property'])
-        bool2 = bool(self.cleaned_data['owner'])
-        if not (bool1 != bool2):
-            raise forms.ValidationError(
-                _('Fill in one of the two fields: property or owner.')
-            )
-        return cleaned_data
-
     class Meta:
         model = Equipment
         widgets = {
-            'property': autocomplete.ModelSelect2(
-                'property-autocomplete'
-            ),
             'owner': autocomplete.ModelSelect2(
-                'actor-autocomplete'
+                'equipmentpoint-autocomplete',
             ),
         }
-        fields = '__all__'
+
+        fields = (
+            'owner',
+            'type',
+            'description',
+            'count',
+        )
+
+        labels = {
+            'owner': _('Equipment Point'),
+        }
+
+
+
