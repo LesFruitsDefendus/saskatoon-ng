@@ -73,55 +73,6 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class EquipmentTypeSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
-
-    class Meta:
-        model = EquipmentType
-        fields = ['name', 'name_fr', 'name_en']
-
-    def get_name(self, type):
-        return type.name_fr
-
-
-class EquipmentSerializer(serializers.ModelSerializer):
-    type = EquipmentTypeSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Equipment
-        fields = ['type', 'count']
-
-
-class OrganizationSerializer(serializers.ModelSerializer):
-    contact_person = PersonSerializer(many=False, read_only=True)
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
-    equipment = EquipmentSerializer(many=True, read_only=True)
-    inventory = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Organization
-        fields = ['actor_id', 'civil_name', 'contact_person',
-                  'phone', 'short_address', 'address', 'neighborhood',
-                  'is_beneficiary', 'beneficiary_description',
-                  'is_equipment_point', 'equipment_description',
-                  'description', 'equipment', 'inventory']
-
-    def get_inventory(self, org):
-        return dict([
-            (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
-            for lang in ['fr', 'en']
-        ])
-
-
-class ActorSerializer(serializers.ModelSerializer):
-    person = PersonSerializer(source='get_person', many=False, read_only=True)
-    organization = OrganizationSerializer(source='get_organization', many=False, read_only=True)
-
-    class Meta:
-        model = Actor
-        fields = '__all__'
-
-
 class CitySerializer(serializers.ModelSerializer):
     class Meta:
         model = City
@@ -253,32 +204,6 @@ class PropertyListSerializer(PropertySerializer):
         ]
 
 
-class EquipmentPropertySerializer(PropertyListSerializer):
-    class Meta(PropertyListSerializer.Meta):
-        fields = [
-            'id',
-            'title',
-            'neighborhood',
-            'owner'
-        ]
-
-
-class EquipmentTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = EquipmentType
-        fields = '__all__'
-
-
-class EquipmentSerializer(serializers.ModelSerializer):
-    property = EquipmentPropertySerializer(many=False, read_only=True)
-    type = EquipmentTypeSerializer(many=False, read_only=True)
-    owner = ActorSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Equipment
-        fields = '__all__'
-
-
 class PickLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthUser
@@ -406,3 +331,63 @@ class CommunitySerializer(serializers.ModelSerializer):
 
     def get_role_codes(self, instance):
         return [g.name for g in instance.role_groups]
+
+
+class EquipmentPropertySerializer(PropertyListSerializer):
+    class Meta(PropertyListSerializer.Meta):
+        fields = [
+            'id',
+            'title',
+            'neighborhood',
+            'owner'
+        ]
+
+
+class EquipmentTypeSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField()
+
+    class Meta:
+        model = EquipmentType
+        fields = ['name', 'name_fr', 'name_en']
+
+    def get_name(self, type):
+        return type.name_fr
+
+
+class EquipmentSerializer(serializers.ModelSerializer):
+    property = EquipmentPropertySerializer(many=False, read_only=True)
+    type = EquipmentTypeSerializer(many=False, read_only=True)
+
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+
+
+class OrganizationSerializer(serializers.ModelSerializer):
+    contact_person = PersonSerializer(many=False, read_only=True)
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    equipment = EquipmentSerializer(many=True, read_only=True)
+    inventory = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Organization
+        fields = ['actor_id', 'civil_name', 'contact_person',
+                  'phone', 'short_address', 'address', 'neighborhood',
+                  'is_beneficiary', 'beneficiary_description',
+                  'is_equipment_point', 'equipment_description',
+                  'description', 'equipment', 'inventory']
+
+    def get_inventory(self, org):
+        return dict([
+            (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
+            for lang in ['fr', 'en']
+        ])
+
+
+class ActorSerializer(serializers.ModelSerializer):
+    person = PersonSerializer(source='get_person', many=False, read_only=True)
+    organization = OrganizationSerializer(source='get_organization', many=False, read_only=True)
+
+    class Meta:
+        model = Actor
+        fields = '__all__'

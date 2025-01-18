@@ -187,31 +187,16 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
+    template_name = 'app/detail_views/organization/view.html'
     serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
-
-    def retrieve(self, request, format='html', pk=None):
-        """Organization detail view -  shared by beneficiaries and equipment points."""
-        self.template_name = 'app/detail_views/organization/view.html'
-
-        pk = self.get_object().pk
-        response = super(OrganizationViewset, self).retrieve(request, pk=pk)
-
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        return Response({
-            'organization': response.data,
-            'data': Equipment.objects.filter(owner_id=pk)
-        })
 
     def list(self, request, *args, **kwargs):
         """Organization list view - accessible via the Beneficiaries menu button."""
         self.template_name = 'app/list_views/organization/view.html'
         response = super(OrganizationViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response({
@@ -243,13 +228,13 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     template_name = 'app/list_views/equipment_point/view.html'
 
     def list(self, request, *args, **kwargs):
-        response = super(EquipmentPointListView, self).list(request, *args, **kwargs)
+        response = super().list(request, *args, **kwargs)
 
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
 
         context = {
-            'data': response.data,
+            'data': response.data["results"],
             'filter': get_filter_context(self, 'equipment-point'),
         }
 
