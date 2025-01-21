@@ -295,7 +295,7 @@ class Property(models.Model):
         'member.City',
         verbose_name=_("City"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
@@ -303,7 +303,7 @@ class Property(models.Model):
         'member.State',
         verbose_name=_("Province"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
@@ -311,7 +311,7 @@ class Property(models.Model):
         'member.Country',
         verbose_name=_("Country"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
