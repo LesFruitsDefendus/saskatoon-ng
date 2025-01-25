@@ -6,6 +6,7 @@ from django.urls import reverse, reverse_lazy
 from rest_framework import viewsets, generics
 from rest_framework.response import Response
 from django_filters import rest_framework as filters
+from typing import Dict
 from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter,
                              EquipmentFilter, OrganizationFilter, CommunityFilter)
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
@@ -315,7 +316,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
             }
         )
 
-    def get_highlights(self) -> dict:
+    def get_highlights(self) -> Dict[str, int]:
         """Returns general statistics of harvests"""
         total_beneficiaries = self.get_total_number_beneficiaries()
         total_pickers = (
