@@ -1,6 +1,7 @@
 from django import template
 from rest_framework.utils.urls import remove_query_param, replace_query_param
 from saskatoon.pagination import BasicPageNumberPagination
+from typing import List
 
 register = template.Library()
 page_query_param = BasicPageNumberPagination.page_query_param
@@ -18,7 +19,7 @@ def add_page_size_param(url: str) -> str:
             return "{}&page_size=".format(url)
         else:
             return "{}?page_size=".format(url)
-    except:
+    except Exception:
         return url
 
 
@@ -30,11 +31,11 @@ def _clean_url(url: str) -> str:
 
 
 @register.filter
-def get_pages_range(page_number: int) -> list:
+def get_pages_range(page_number: int) -> List[int]:
     """Returns a list containing numbers leading to the page_number param"""
     try:
         return [i for i in range(1, page_number+1)]
-    except:
+    except Exception:
         return [page_number]
 
 
@@ -43,5 +44,5 @@ def get_page_url(url: str, page_number: int) -> str:
     """Replaces the page number query parameter of the url"""
     try:
         return replace_query_param(url, page_query_param, page_number)
-    except:
+    except Exception:
         return '#'

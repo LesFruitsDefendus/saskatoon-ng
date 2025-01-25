@@ -5,13 +5,7 @@ register = template.Library()
 
 @register.filter
 def is_person(actor):
-    try:
-        # trying to access person will throw an exception
-        # if the actor is an organization
-        actor.person
-        return True
-    except:
-        return False
+    return actor.is_person
 
 @register.filter(name="is_core_or_admin")
 def is_core_or_admin(user: AuthUser) -> bool:

@@ -181,7 +181,7 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = ['name', 'fruit_name']
+        fields = ['name', 'fruit_name']  # type: ignore
 
 
 class PropertyListSerializer(PropertySerializer):
@@ -275,10 +275,7 @@ class HarvestPropertySerializer(PropertySerializer):
     neighborhood = serializers.StringRelatedField(many=False)
 
     class Meta(PropertySerializer.Meta):
-        fields = ['id',
-                  'address',
-                  'owner',
-                  'neighborhood', ]
+        fields = ['id', 'address', 'owner', 'neighborhood']  # type: ignore
 
 
 class HarvestDetailSerializer(HarvestSerializer):

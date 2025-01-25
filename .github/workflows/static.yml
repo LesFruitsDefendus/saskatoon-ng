@@ -33,9 +33,9 @@ jobs:
       run: |
         tox -e pytype
 
-    # - name: Run mypy
-    #   run: |
-    #     tox -e mypy
+    - name: Run mypy
+      run: |
+        tox -e mypy
 
     - name: Run pyflakes
       run: |
