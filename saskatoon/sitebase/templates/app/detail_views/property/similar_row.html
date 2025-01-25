@@ -2,32 +2,32 @@
 {% load static %}
 
 <tr>
-    <td> {{property.id}} </td>
+    <td> {{id}} </td>
     <td>
-        <a href="{% url 'property-detail' property.pk %}">
+        <a href="{% url 'property-detail' pk %}">
             {{property}}
         </a>
     </td>
-    <td> {{ property.neighborhood }} </td>
+    <td> {{ neighborhood }} </td>
     <td> {% include 'app/list_views/property/status.html' %} </td>
 
-    {% if property.owner %}
+    {% if owner %}
         <td>
-            {{ property.owner }} &nbsp;
-            {% if property.owner.is_person and perms.member.change_person %}
-                <small><a href="{% url 'person-update' property.owner.pk %}" title="edit">
+            {{ owner }} &nbsp;
+            {% if owner.is_person and perms.member.change_person %}
+                <small><a href="{% url 'person-update' owner.pk %}" title="edit">
                         <i class="fa fa-pencil"></i>
                     </a></small>
             {% endif %}
         </td>
         <td>
-            {% if property.owner.is_person %}
-                {% with property.owner.person as po %}
+            {% if owner.is_person %}
+                {% with owner.person as po %}
                     <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
                     {{ po.phone|default_if_none:"" }}
                 {% endwith %}
-            {% elif property.owner.is_organization %}
-                {% with property.owner.organization.contact_person as po %}
+            {% elif owner.is_organization %}
+                {% with owner.organization.contact_person as po %}
                     <a href="mailto:{{po.email}}">{{ po.email }}</a> &nbsp;
                     {{ po.phone|default_if_none:"" }}
                 {% endwith %}

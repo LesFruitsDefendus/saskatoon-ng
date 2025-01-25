@@ -13,10 +13,10 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>
-                                        {{ organization.civil_name }}
+                                        {{ civil_name }}
                                     </h1>
                                     <h2>
-                                        {{ organization.neighborhood.name }}
+                                        {{ neighborhood.name }}
                                     </h2>
                                 </div>
                             </div>
@@ -24,7 +24,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.member.change_organization %}
-                                    <a href="{% url 'organization-update' organization.actor_id %}">
+                                    <a href="{% url 'organization-update' actor_id %}">
                                         <button title="Edit Organization" class="btn">
                                             {% trans "Edit Organization" %}</button>
                                     </a>

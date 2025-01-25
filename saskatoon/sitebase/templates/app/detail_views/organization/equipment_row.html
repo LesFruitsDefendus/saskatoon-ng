@@ -1,24 +1,24 @@
 {% load i18n %}
 {% load static %}
 <tr>
-  <td>{{ equipment.id }}
+  <td>{{ item.id }}
     {% if perms.harvest.change_equipment %}
-    <a href="{% url 'equipment-update' equipment.id %}">
+    <a href="{% url 'equipment-update' item.id %}">
       &nbsp; <i class="fa fa-pencil"></i></a>
     {% endif %}
   </td>
   <td>
     {% if LANG == "fr" %}
-    {{ equipment.type.name_fr }}
+    {{ item.type.name_fr }}
     {% else %}
-    {{ equipment.type.name_en }}
+    {{ item.type.name_en }}
     {% endif %}
   </td>
   <td>
-    {{equipment.count}}
+    {{item.count}}
   </td>
   <td>
-    <span>{{ equipment.description }}
+    <span>{{ item.description }}
     </span><br>
   </td>
   <td>

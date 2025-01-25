@@ -11,11 +11,10 @@ from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, TreeType)
 from harvest.serializers import (HarvestListSerializer, HarvestDetailSerializer,
-                                 HarvestSerializer, PropertyListSerializer,
+                                 PropertyListSerializer,
                                  PropertySerializer, EquipmentSerializer,
                                  CommunitySerializer, OrganizationSerializer,
                                  RequestForParticipationSerializer)
-from harvest.utils import get_similar_properties
 from member.models import AuthUser, Organization, Neighborhood, Person
 from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin, is_core_or_admin
 
@@ -35,12 +34,10 @@ def get_filter_context(viewset, basename=None):
 
 
 def renderer_format_needs_json_response(request) -> bool:
-    """ checks if the template renderer format is json or the DRF browsable api
+    """ Checks if the template renderer format is json or the DRF browsable api
         which require the response to be plain json
     """
-    if request.accepted_renderer.format in ('json', 'api'):
-        return True
-    return False
+    return request.accepted_renderer.format in ('json', 'api')
 
 
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -48,7 +45,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Harvest.objects.all().order_by('-id')
-    serializer_class = HarvestSerializer
+    serializer_class = HarvestDetailSerializer
+    template_name = 'app/detail_views/harvest/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = HarvestFilter
     filterset_fields = ('pick_leader',
@@ -59,16 +57,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'status',
                         'season')
 
-    # Harvest detail
-    def retrieve(self, request, *args, **kwargs):
-        self.template_name = 'app/detail_views/harvest/view.html'
-        self.serializer_class = HarvestDetailSerializer
-        return super(HarvestViewset, self).retrieve(request, *args, **kwargs)
-
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
         self.serializer_class = HarvestListSerializer
-
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
@@ -90,9 +81,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             }
         )
 
-    def update(request, *args, **kwargs):
-        pass
-
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Property viewset"""
@@ -100,6 +88,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
+    template_name = 'app/detail_views/property/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = PropertyFilter
     filterset_fields = ('is_active',
@@ -110,29 +99,12 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                         'ladder_available',
                         'ladder_available_for_outside_picks')
 
-    # Property detail
-    def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/detail_views/property/view.html'
-
-        pk = self.get_object().pk
-        response = super(PropertyViewset, self).retrieve(request, pk=pk)
-
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        return Response({'property': response.data,
-                         'similar': get_similar_properties(self.get_object())
-                         })
-
-    # Properties list
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
         self.serializer_class = PropertyListSerializer
         response = super(PropertyViewset, self).list(request)
         if renderer_format_needs_json_response(request):
             return response
-        # default request format is html:
         return Response(
             {
                 "data": response.data["results"],
@@ -215,31 +187,16 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.all().order_by('-actor_id')
+    template_name = 'app/detail_views/organization/view.html'
     serializer_class = OrganizationSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filterset_class = OrganizationFilter
-
-    def retrieve(self, request, format='html', pk=None):
-        """Organization detail view -  shared by beneficiaries and equipment points."""
-        self.template_name = 'app/detail_views/organization/view.html'
-
-        pk = self.get_object().pk
-        response = super(OrganizationViewset, self).retrieve(request, pk=pk)
-
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        return Response({
-            'organization': response.data,
-            'data': Equipment.objects.filter(owner_id=pk)
-        })
 
     def list(self, request, *args, **kwargs):
         """Organization list view - accessible via the Beneficiaries menu button."""
         self.template_name = 'app/list_views/organization/view.html'
         response = super(OrganizationViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
         # default request format is html:
         return Response({
@@ -271,13 +228,13 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     template_name = 'app/list_views/equipment_point/view.html'
 
     def list(self, request, *args, **kwargs):
-        response = super(EquipmentPointListView, self).list(request, *args, **kwargs)
+        response = super().list(request, *args, **kwargs)
 
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
 
         context = {
-            'data': response.data,
+            'data': response.data["results"],
             'filter': get_filter_context(self, 'equipment-point'),
         }
 
