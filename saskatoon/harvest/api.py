@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db.models import Sum
+from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse, reverse_lazy
-from django_filters import rest_framework as filters
 from rest_framework import viewsets, generics
+from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.response import Response
 from typing import Dict
 from harvest.filters import (
@@ -71,17 +72,14 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Harvest.objects.all().order_by('-start_date')
     serializer_class = HarvestDetailSerializer
     template_name = 'app/detail_views/harvest/view.html'
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = HarvestFilter
-    filterset_fields = (
-        'pick_leader',
-        'owner_fruit',
-        'nb_required_pickers',
-        'property',
-        'about',
-        'status',
-        'season'
-    )
+    search_fields = [
+        'property__owner__person__family_name',
+        'property__owner__person__first_name',
+        'property__street',
+        'property__street_number',
+    ]
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
@@ -115,17 +113,14 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
     template_name = 'app/detail_views/property/view.html'
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = PropertyFilter
-    filterset_fields = (
-        'is_active',
-        'authorized',
-        'pending',
-        'neighborhood',
-        'trees',
-        'ladder_available',
-        'ladder_available_for_outside_picks'
-    )
+    search_fields = [
+        'owner__person__family_name',
+        'owner__person__first_name',
+        'street',
+        'street_number',
+    ]
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
@@ -157,7 +152,7 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Equipment.objects.all().order_by('-id')
     serializer_class = EquipmentSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = EquipmentFilter
     template_name = 'app/list_views/equipment/view.html'
 
@@ -215,7 +210,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     queryset = Organization.objects.all().order_by('-actor_id')
     template_name = 'app/detail_views/organization/view.html'
     serializer_class = OrganizationSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = OrganizationFilter
 
     def list(self, request, *args, **kwargs):
@@ -248,7 +243,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
     serializer_class = OrganizationSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = EquipmentPointFilter
     template_name = 'app/list_views/equipment_point/view.html'
 
@@ -287,7 +282,7 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                        .filter(person__first_name__isnull=False) \
                        .order_by('-date_joined')
     serializer_class = CommunitySerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = CommunityFilter
     template_name = 'app/list_views/community/view.html'
 
@@ -319,7 +314,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status="Succeeded")
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')
 

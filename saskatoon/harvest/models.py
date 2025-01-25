@@ -170,7 +170,6 @@ class Property(models.Model):
         on_delete=models.CASCADE,
     )
 
-    # FIXME: add help_text in forms.py
     trees = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
