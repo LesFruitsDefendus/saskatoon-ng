@@ -9,9 +9,10 @@ from django.utils.translation import gettext_lazy as _
 from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
                             Equipment, PropertyImage, HarvestImage, Property)
 from member.forms import validate_email
-from member.models import AuthUser, Person
+from member.models import AuthUser, Organization, Person
 from postalcodes_ca import parse_postal_code
 from logging import getLogger
+
 
 
 logger = getLogger('saskatoon')
@@ -526,6 +527,8 @@ class HarvestForm(forms.ModelForm):
             'end_date',
             'publication_date',
             'nb_required_pickers',
+            'equipment_reserved',
+            'equipment_point',
             'about',
         )
         widgets = {
@@ -535,9 +538,9 @@ class HarvestForm(forms.ModelForm):
             'pick_leader': autocomplete.ModelSelect2(
                 'pickleader-autocomplete'
             ),
-            'equipment_reserved': autocomplete.ModelSelect2Multiple(
-                'equipment-autocomplete'
-            ),
+
+            'equipment_reserved': forms.HiddenInput(),
+
             'property': autocomplete.ModelSelect2(
                 'property-autocomplete'
             ),
@@ -569,6 +572,19 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
+    equipment_point = forms.ModelMultipleChoiceField(
+        queryset=Organization.objects.filter(is_equipment_point=True),
+        label=_('Equipment Point'),
+        widget=autocomplete.ModelSelect2Multiple(
+            url='equipmentpoint-autocomplete',
+            forward=[
+                'start_date',
+                'end_date',
+            ]
+        ),
+        required=False,
+    )
+
     def clean_pick_leader(self):
         """check if pick-leader was selected"""
         pickleader = self.cleaned_data['pick_leader']
@@ -593,6 +609,20 @@ class HarvestForm(forms.ModelForm):
             )
         return end_dt
 
+    def save(self):
+        """"
+        Convert list of autocomplete equipment points into all equipment owned by said equipment points.
+        i.e. Reserving an equipment point will reserve all its equipment for the duration of the harvest.
+        """
+
+        instance = super(HarvestForm, self).save(commit=False)
+        equipment_points = self.cleaned_data["equipment_point"]
+        equipment_owned_by_equipment_points = Equipment.objects.filter(owner__in=equipment_points)
+        print(equipment_owned_by_equipment_points)
+
+        instance["equipment_reserved"] = equipment_owned_by_equipment_points
+        instance.save
+        return instance
 
 
 class HarvestYieldForm(forms.ModelForm):

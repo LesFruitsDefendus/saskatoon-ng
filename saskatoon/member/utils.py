@@ -1,8 +1,12 @@
+from datetime import datetime
 from django.core.mail import EmailMessage
+from django.db.models.query_utils import Q
 from logging import getLogger
-from member.models import AuthUser
+from member.models import AuthUser, Organization
 from secrets import choice
 from typing import Optional
+
+from harvest.models import Harvest, Equipment
 
 logger = getLogger('saskatoon')
 
@@ -55,3 +59,25 @@ def send_invite_email(user: AuthUser, subject: str, message: str) -> Optional[st
         error_msg = f"{type(e)}: {str(e)}"
         logger.error("Failed sending Invitation email to %s. %s", user.email, error_msg)
         return error_msg
+
+def get_equipment_points_available_in_daterange(start_date: datetime, end_date: datetime):
+    """"
+    Returns equipment points where the given start and end date range does not conflict with
+    the start and end date ranges of other harvests that
+    have already reserved equipment owned by this equipment_point.
+    """
+
+    # 1. get all harvests that conflict with date range
+    q0 = Q(start_date__range=(start_date, end_date))
+    q1 = Q(end_date__range=(start_date, end_date))
+    q2 = Q(start_date__gt=start_date, end_date__gt=start_date)
+    q3 = Q(start_date__lt=end_date, end_date__lt=end_date)
+    conflicting_harvests = Harvest.objects.filter(q0 | q1 | q2 |q3)
+
+    # 2. get all equipment reserved by those harvests
+    conflicting_reserved_equipment = Equipment.objects.filter(id__in=conflicting_harvests.values_list("equipment_reserved", flat=True))
+
+    # 3. find owners of reserved equipment
+    conflicting_equipment_points = conflicting_reserved_equipment.values_list("owner", flat=True).distinct()
+    return Organization.objects.exclude(actor_id__in=conflicting_equipment_points)
+

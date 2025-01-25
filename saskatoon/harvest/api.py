@@ -224,6 +224,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
             'data': Equipment.objects.filter(owner_id=pk) 
         })
 
+
     def list(self, request, *args, **kwargs):
         """Organization list view - accessible via the Beneficiaries menu button."""
         self.template_name = 'app/list_views/organization/view.html'
