@@ -271,27 +271,29 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer):
         fields = ['actor_id', 'civil_name']
 
 
-class HarvestPropertySerializer(PropertySerializer):
+class HarvestDetailPropertySerializer(PropertySerializer):
     neighborhood = serializers.StringRelatedField(many=False)
 
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'address', 'owner', 'neighborhood']  # type: ignore
+        fields = ['id', 'title', 'address', 'owner', 'neighborhood']  # type: ignore
 
 
 class HarvestDetailSerializer(HarvestSerializer):
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
-    property = HarvestPropertySerializer(many=False, read_only=True)
+    property = HarvestDetailPropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
 
     class Meta:
         model = Harvest
-        exclude = ['owner_present',
-                  'owner_help',
-                  'owner_fruit',
-                  'publication_date',
-                  'equipment_reserved',
-                  'creation_date',
-                  'changed_by']
+        exclude = [
+            'owner_present',
+            'owner_help',
+            'owner_fruit',
+            'publication_date',
+            'equipment_reserved',
+            'creation_date',
+            'changed_by'
+        ]
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(
@@ -299,22 +301,29 @@ class HarvestDetailSerializer(HarvestSerializer):
         return HarvestBeneficiarySerializer(organizations, many=True).data
 
 
+class HarvestListPropertySerializer(PropertySerializer):
+    neighborhood = serializers.StringRelatedField(many=False)
+
+    class Meta(PropertySerializer.Meta):
+        fields = ['id', 'title', 'neighborhood']  # type: ignore
+
+
 class HarvestListSerializer(HarvestSerializer):
-    property = serializers.StringRelatedField(many=False)
-    neighborhood = serializers.ReadOnlyField(source='get_neighborhood')
+    property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
 
     class Meta:
         model = Harvest
-        fields = ['id',
-                  'start_date',
-                  'start_time',
-                  'end_time',
-                  'status',
-                  'pick_leader',
-                  'trees',
-                  'property',
-                  'neighborhood']
+        fields = [
+            'id',
+            'start_date',
+            'start_time',
+            'end_time',
+            'status',
+            'pick_leader',
+            'trees',
+            'property',
+        ]
 
 
 class CommunitySerializer(serializers.ModelSerializer):

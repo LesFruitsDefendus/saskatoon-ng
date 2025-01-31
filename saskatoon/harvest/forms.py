@@ -48,7 +48,7 @@ class RequestForm(forms.ModelForm):
     def clean(self):
         email = self.cleaned_data['picker_email']
         if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email) #email field is unique
+            auth_user = AuthUser.objects.get(email=email)  # email field is unique
 
             # check if email already requested for the same harvest
             if RequestForParticipation.objects.filter(
@@ -628,6 +628,3 @@ class EquipmentForm(forms.ModelForm):
         labels = {
             'owner': _('Equipment Point'),
         }
-
-
-
