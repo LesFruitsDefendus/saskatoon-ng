@@ -2,6 +2,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{{ filter.form.media }}
+
 <div class="accordion-stn">
     <div aria-multiselectable="true" class="panel-group"
             data-collapse-color="nk-green"
@@ -17,10 +19,9 @@
             </div>
             <div class="collapse" id="accordionGreen-one" role="tabpanel">
                 <div class="panel-body" style="display:inline-block;">
-                    <form role="form">
-                        {{ filter.form|crispy }}
-                        <div class="form-group"
-                             style="margin-top:2rem;">
+                    <div class="form-group">
+                        <form role="form">
+                            {{ filter.form }}
                             <button class="align-center btn btn-success notika-btn-success"
                                role="button" type="submit">
                                 {% trans "Filter" %}
@@ -31,21 +32,20 @@
                                     {% trans "Reset" %}
                                 </a>
                             {% endif %}
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<script>
 
+<script>
  $(function() {
      console.log($(window).width());
      if($(window).width() > 768){
          $('.collapse').collapse('show');
      }
  });
-
 </script>

@@ -1,4 +1,5 @@
 from datetime import datetime
+from dal import autocomplete
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
@@ -7,6 +8,7 @@ from django_filters import rest_framework as filters
 from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
                             Property, Equipment,  EquipmentType)
 from member.models import Language, AuthUser, Neighborhood, Organization
+from member.autocomplete import AuthUserAutocomplete
 
 
 SEASON_FILTER_RANGE = (2016, datetime.now().year)
@@ -27,38 +29,35 @@ class HarvestFilter(filters.FilterSet):
     YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
 
     season = filters.ChoiceFilter(
+        label=_("Season"),
         field_name='start_date',
         choices=[(year, year) for year in YEARS],
-        label=_("Season"),
         lookup_expr='year',
-        help_text="",
     )
 
     status = filters.ChoiceFilter(
         choices=list(HARVESTS_STATUS_CHOICES),
-        help_text="",
     )
 
     pick_leader = filters.ModelChoiceFilter(
-        queryset=AuthUser.objects.filter(
-            is_staff=True
+        queryset=AuthUserAutocomplete.get_roles_queryset(
+            AuthUser.objects.all(),
+            ['pickleader', 'core']
+
         ),
-        required=False,
-        help_text="",
+        widget=autocomplete.ModelSelect2('pickleader-autocomplete'),
     )
 
     trees = filters.ModelChoiceFilter(
-        queryset=TreeType.objects.all(),
         label=_("Tree"),
-        help_text="",
-        required=False
+        queryset=TreeType.objects.all(),
+        widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
     property__neighborhood = filters.ModelChoiceFilter(
-        queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
-        help_text="",
-        required=False
+        queryset=Neighborhood.objects.all(),
+        widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
 
@@ -285,10 +284,14 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            qs1 = queryset.filter(owner__person__isnull=False,
-                                  owner__person__auth_user__email__isnull=True)
-            qs2 = queryset.filter(owner__organization__isnull=False,
-                        owner__organization__contact_person__auth_user__email__isnull=True)
+            qs1 = queryset.filter(
+                owner__person__isnull=False,
+                owner__person__auth_user__email__isnull=True
+            )
+            qs2 = queryset.filter(
+                owner__organization__isnull=False,
+                owner__organization__contact_person__auth_user__email__isnull=True
+            )
             if self.value() == '0':
                 return qs1 | qs2
             elif self.value() == '1':

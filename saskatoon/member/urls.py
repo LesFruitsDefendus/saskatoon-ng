@@ -57,4 +57,8 @@ urlpatterns = [
     re_path(r'^contact-autocomplete/$',
             autocomplete.ContactAutocomplete.as_view(),
             name='contact-autocomplete'),
+
+    re_path(r'^neighborhood-autocomplete/$',
+            autocomplete.NeighborhoodAutocomplete.as_view(),
+            name='neighborhood-autocomplete'),
 ]
