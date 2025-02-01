@@ -8,7 +8,8 @@ from rest_framework.response import Response
 from django_filters import rest_framework as filters
 from typing import Dict
 from harvest.filters import (EquipmentPointFilter, HarvestFilter, PropertyFilter,
-                             EquipmentFilter, OrganizationFilter, CommunityFilter)
+                             EquipmentFilter, OrganizationFilter, CommunityFilter,
+                             SEASON_FILTER_CHOICES)
 from harvest.models import (Equipment, Harvest, HarvestYield, Property,
                             RequestForParticipation, TreeType)
 from harvest.serializers import (HarvestListSerializer, HarvestDetailSerializer,
@@ -45,7 +46,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Harvest viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Harvest.objects.all().order_by('-id')
+    queryset = Harvest.objects.all().order_by('-start_date')
     serializer_class = HarvestDetailSerializer
     template_name = 'app/detail_views/harvest/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
@@ -64,7 +65,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
-        # default request format is html:
+
         return Response(
             {
                 "data": response.data["results"],
@@ -297,7 +298,6 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
 
     def list(self, request, format="html", *args, **kwargs) -> Response:
         """Returns statistics on harvests for all seasons or a specific season"""
-        season = self.request.query_params.get('season')
         self.harvest_queryset = self.filter_queryset(self.get_queryset())
         self.harvest_yield_queryset = HarvestYield.objects.filter(harvest__in=self.harvest_queryset)
 
@@ -306,8 +306,8 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
 
         return Response(
             {
-                "season": season,
-                "seasons": self.filterset_class.YEARS,
+                "season": self.request.query_params.get('season'),
+                "seasons": [choice[0] for choice in SEASON_FILTER_CHOICES],
                 "highlights": self.get_highlights(),
                 "total_fruit": self.get_total_weight_harvest_per_fruit(),
                 "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),

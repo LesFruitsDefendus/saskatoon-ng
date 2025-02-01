@@ -60,7 +60,8 @@ jobs:
         tox -e checks
 
     - name: Run unit tests
-      run: pytest saskatoon/unittests -s
+      run: |
+        tox -e unittests
 
     - name: Create test super user
       run: |

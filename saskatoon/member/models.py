@@ -100,7 +100,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     @property
     def role_groups(self):
-        ''' return user's role groups'''
+        ''' returns user's role groups'''
         return self.groups.filter(name__in=[t[0] for t in AUTH_GROUPS])
 
     @property
@@ -110,9 +110,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     @property
     def is_onboarding(self):
-        ''' return if user has yet to go through onboarding flow (only volunteer role with password)'''
-        # Retrieve only name fields from QuerySet of Groups
-        group_names = [g.name  for g in self.role_groups]
+        ''' whether the user has yet to go through the onboarding flow
+            (i.e. an authenticated user that has a volunteer role) '''
+        group_names = [g.name for g in self.role_groups]
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
                 self.has_temporary_password)
@@ -598,6 +598,7 @@ class Neighborhood(models.Model):
     class Meta:
         verbose_name = _("neighborhood")
         verbose_name_plural = _("neighborhoods")
+        ordering = ["name"]
 
     def __str__(self):
         return self.name

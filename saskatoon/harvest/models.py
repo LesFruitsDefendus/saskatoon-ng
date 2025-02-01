@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from djgeojson.fields import PointField
 from phone_field import PhoneField
+from typing import Optional
 
 
 HARVESTS_STATUS_CHOICES = (
@@ -413,6 +414,7 @@ class Property(models.Model):
         else:
             return ""
 
+
 class Harvest(models.Model):
 
     PUBLISHABLE_STATUSES = ['Ready', 'Date-scheduled', 'Succeeded']
@@ -554,9 +556,19 @@ class Harvest(models.Model):
         return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
 
     def get_unselected_pickers(self):
-        # Get pickers who volunteered but have been rejected or are pending approval
+        """Volunteers who have been rejected or are waiting for approval"""
         requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
         return [r.picker for r in requests]
+
+    def get_pickers_count(
+            self,
+            is_accepted: Optional[bool] = None,
+            is_cancelled: bool = False
+    ) -> int:
+        requests = RequestForParticipation.objects.filter(harvest=self)
+        if is_cancelled:
+            return requests.filter(is_cancelled=True).count()
+        return requests.filter(is_accepted=is_accepted).count()
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
