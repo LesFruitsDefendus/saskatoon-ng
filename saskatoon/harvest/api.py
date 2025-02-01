@@ -45,7 +45,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Harvest viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Harvest.objects.all().order_by('-id')
+    queryset = Harvest.objects.all().order_by('-start_date')
     serializer_class = HarvestDetailSerializer
     template_name = 'app/detail_views/harvest/view.html'
     filter_backends = (filters.DjangoFilterBackend,)
@@ -64,7 +64,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
-        # default request format is html:
+
         return Response(
             {
                 "data": response.data["results"],

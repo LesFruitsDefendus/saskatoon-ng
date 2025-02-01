@@ -3,26 +3,39 @@
 {% load get_fruit_name_icon %}
 
 <tr>
-    <td>{{ harvest.id }}
-    {% if perms.harvest.delete_harvest %}
-        &nbsp;
+    <td>
+        {% if perms.harvest.delete_harvest %}
         <small>
             <a href="{% url 'admin:harvest_harvest_delete' harvest.id %}"
-            onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
+               onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
                 <i class="fa fa-trash text-danger"></i>
             </a>
         </small>
-    {% endif %}
+        &nbsp; &nbsp;
+        {% endif %}
+        <a href="{% url 'harvest-detail' harvest.id %}">
+           # {{ harvest.id }}
+           &nbsp; &nbsp;
+            <small><i class="fa fa-pencil"></i></small>
+        </a>
     </td>
     <td>
-        <a href="{% url 'harvest-detail' harvest.id %}">{{ harvest.property.title }}</a>
+        <div class="text-nowrap">{{ harvest.start_date }}</div>
+        {% if harvest.end_time > harvest.start_time %}
+            <small>{{ harvest.start_time }} - {{ harvest.end_time }}</small>
+        {% else %}
+            {{ harvest.start_time }}
+        {% endif %}
     </td>
+    <td>
+        <a href="{% url 'property-detail' harvest.property.id %}">{{ harvest.property.title }}</a>
+    </td>
+    <td>{{ harvest.property.neighborhood }}</td>
     <td>
         {% for tree in harvest.trees %}
         <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
         {% endfor %}
     </td>
-    <td>{{ harvest.neighborhood }}</td>
     <td>
         {% if harvest.status == "Succeeded" %}
         <div class="skill">
@@ -106,9 +119,5 @@
         {% if harvest.pick_leader %}
         {{ harvest.pick_leader.name|default:'' }}
         {% endif %}
-    </td>
-    <td>
-        <div class="text-nowrap">{{ harvest.start_date }}</div>
-        <small>{{ harvest.start_time }} - {{ harvest.end_time }}</small>
     </td>
 </tr>
