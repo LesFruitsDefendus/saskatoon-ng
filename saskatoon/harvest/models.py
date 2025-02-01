@@ -538,7 +538,7 @@ class Harvest(models.Model):
     class Meta:
         verbose_name = _("harvest")
         verbose_name_plural = _("harvests")
-        ordering = ['-start_date', '-id']
+        ordering = ['-start_date']
 
     def __str__(self):
         if self.start_date:
