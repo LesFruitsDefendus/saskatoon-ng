@@ -311,6 +311,7 @@ class HarvestListPropertySerializer(PropertySerializer):
 class HarvestListSerializer(HarvestSerializer):
     property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    pickers = serializers.SerializerMethodField()
 
     class Meta:
         model = Harvest
@@ -323,7 +324,16 @@ class HarvestListSerializer(HarvestSerializer):
             'pick_leader',
             'trees',
             'property',
+            'pickers',
         ]
+
+    def get_pickers(self, instance):
+        return {
+            'accepted': instance.get_pickers_count(is_accepted=True),
+            'pending': instance.get_pickers_count(is_accepted=None),
+            'rejected': instance.get_pickers_count(is_accepted=False),
+            'cancelled': instance.get_pickers_count(is_cancelled=True)
+        }
 
 
 class CommunitySerializer(serializers.ModelSerializer):

@@ -21,11 +21,7 @@
     </td>
     <td>
         <div class="text-nowrap">{{ harvest.start_date }}</div>
-        {% if harvest.end_time > harvest.start_time %}
-            <small>{{ harvest.start_time }} - {{ harvest.end_time }}</small>
-        {% else %}
-            {{ harvest.start_time }}
-        {% endif %}
+        <small>{{ harvest.start_time }}</small>
     </td>
     <td>
         <a href="{% url 'property-detail' harvest.property.id %}">{{ harvest.property.title }}</a>
@@ -119,5 +115,11 @@
         {% if harvest.pick_leader %}
         {{ harvest.pick_leader.name|default:'' }}
         {% endif %}
+    </td>
+    <td>
+        <i class="fa fa-check text-success"></i> {{harvest.pickers.accepted}} &nbsp;
+        <i class="fa fa-question text-warning"></i> {{harvest.pickers.pending}}<br>
+        <i class="fa fa-times text-danger"></i> {{ harvest.pickers.rejected}} &nbsp;
+        <i class="fa fa-times text-muted"></i> {{harvest.pickers.cancelled}}
     </td>
 </tr>

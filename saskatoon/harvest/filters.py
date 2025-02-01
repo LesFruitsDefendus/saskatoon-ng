@@ -11,7 +11,7 @@ from member.models import Language, AuthUser, Neighborhood, Organization
 from member.autocomplete import AuthUserAutocomplete
 
 
-SEASON_FILTER_RANGE = (2016, datetime.now().year)
+SEASON_FILTER_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
 
 class HarvestFilter(filters.FilterSet):
@@ -26,12 +26,10 @@ class HarvestFilter(filters.FilterSet):
             'property__neighborhood',
         ]
 
-    YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
-
     season = filters.ChoiceFilter(
         label=_("Season"),
         field_name='start_date',
-        choices=[(year, year) for year in YEARS],
+        choices=SEASON_FILTER_CHOICES,
         lookup_expr='year',
     )
 
@@ -307,8 +305,7 @@ class HarvestSeasonAdminFilter(SimpleListFilter):
     parameter_name = 'season'
 
     def lookups(self, request, model_admin):
-        years = range(SEASON_FILTER_RANGE[1], SEASON_FILTER_RANGE[0]-1, -1)
-        return [(year, year) for year in years]
+        return SEASON_FILTER_CHOICES
 
     def queryset(self, request, queryset):
         return queryset.filter(start_date__year=self.value())
