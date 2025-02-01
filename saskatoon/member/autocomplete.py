@@ -45,7 +45,7 @@ class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
 
     @staticmethod
     def get_roles_queryset(queryset, roles):
-        groups = [Group.objects.get(name=role).id for role in roles]
+        groups = Group.objects.filter(name__in=roles).values('id')
         return queryset.filter(groups__in=groups)
 
     def get_queryset(self):
