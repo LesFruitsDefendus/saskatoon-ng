@@ -19,21 +19,20 @@
             </div>
             <div class="collapse" id="accordionGreen-one" role="tabpanel">
                 <div class="panel-body" style="display:inline-block;">
-                    <div class="form-group">
-                        <form role="form">
-                            {{ filter.form }}
-                            <button class="align-center btn btn-success notika-btn-success"
-                               role="button" type="submit">
-                                {% trans "Filter" %}
-                            </button>
-                            {% if filter.reset %}
-                                <a class="btn btn-warning notika-btn-warning"
-                                href="{{filter.reset}}">
-                                    {% trans "Reset" %}
-                                </a>
-                            {% endif %}
-                        </form>
-                    </div>
+                    <form role="form">
+                            {{ filter.form|crispy}}
+                        <button class="align-center btn btn-success notika-btn-success"
+                            role="button" type="submit">
+                            {% trans "Filter" %}
+                        </button>
+                        {% if filter.reset %}
+                            &nbsp;
+                            <a class="btn btn-warning notika-btn-warning"
+                            href="{{filter.reset}}">
+                                {% trans "Reset" %}
+                            </a>
+                        {% endif %}
+                    </form>
                 </div>
             </div>
         </div>
@@ -43,7 +42,6 @@
 
 <script>
  $(function() {
-     console.log($(window).width());
      if($(window).width() > 768){
          $('.collapse').collapse('show');
      }

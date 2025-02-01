@@ -19,11 +19,11 @@ class HarvestFilter(filters.FilterSet):
     class Meta:
         model = Harvest
         fields = [
+            'season',
             'status',
             'pick_leader',
             'trees',
             'property__neighborhood',
-            'season',
         ]
 
     YEARS = list(range(SEASON_FILTER_RANGE[0], SEASON_FILTER_RANGE[1]+1))
@@ -36,6 +36,7 @@ class HarvestFilter(filters.FilterSet):
     )
 
     status = filters.ChoiceFilter(
+        label=_("Status"),
         choices=list(HARVESTS_STATUS_CHOICES),
     )
 
@@ -49,9 +50,9 @@ class HarvestFilter(filters.FilterSet):
     )
 
     trees = filters.ModelChoiceFilter(
-        label=_("Tree"),
+        label=_("Tree type"),
         queryset=TreeType.objects.all(),
-        widget=autocomplete.ModelSelect2('tree-autocomplete'),
+        widget=autocomplete.ModelSelect2('tree-autocomplete')
     )
 
     property__neighborhood = filters.ModelChoiceFilter(
