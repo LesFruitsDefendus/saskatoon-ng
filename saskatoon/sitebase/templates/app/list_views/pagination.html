@@ -32,7 +32,9 @@
                     {% with pages_count|get_pages_range as page_number_options %}
                     {% for page_number_option in page_number_options %}
                     <li>
-                        <a href="{% get_page_url request.get_full_path page_number_option %}">{{ page_number_option }}</a>
+                        <a href="{% get_page_url request.get_full_path page_number_option %}">
+                            {{ page_number_option }}
+                        </a>
                     </li>
                     {% endfor %}
                     {% endwith %}
@@ -57,11 +59,16 @@
         <span class="pull-right">
             Showing &nbsp;
             <div class="btn-group">
-                <button class="btn btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button
+                    class="btn btn-sm dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                >
                     <span style="font-size: 1.2em">{{ items_per_page }}</span>
                 </button>
                 <ul class="dropdown-menu">
-                    {% with "10 25 50 100 200" as page_size_options %}
+                    {% with "10 25 50 100" as page_size_options %}
                     {% for page_size_option in page_size_options.split %}
                     <li>
                         <a href="{{ request.get_full_path|add_page_size_param }}{{ page_size_option }}">
