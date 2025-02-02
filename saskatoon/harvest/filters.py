@@ -10,11 +10,11 @@ from harvest.models import (Harvest, HARVESTS_STATUS_CHOICES, TreeType,
 from member.models import Language, AuthUser, Neighborhood, Organization
 from member.autocomplete import AuthUserAutocomplete
 
-
 SEASON_FILTER_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
 
 class HarvestFilter(filters.FilterSet):
+    "Harvest filter"
 
     class Meta:
         model = Harvest
@@ -61,6 +61,7 @@ class HarvestFilter(filters.FilterSet):
 
 
 class PropertyFilter(filters.FilterSet):
+    "Property filter"
 
     class Meta:
         model = Property
@@ -124,6 +125,7 @@ class PropertyFilter(filters.FilterSet):
 
 
 class CommunityFilter(filters.FilterSet):
+    "Community filter"
 
     class Meta:
         model = AuthUser
@@ -176,35 +178,37 @@ class CommunityFilter(filters.FilterSet):
 
 
 class OrganizationFilter(filters.FilterSet):
+    "Organization filter"
 
     class Meta:
         model = Organization
         fields = [
-            'neighborhood',
             'is_beneficiary',
             'is_equipment_point',
+            'neighborhood',
         ]
 
     neighborhood = filters.ModelChoiceFilter(
-        queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
-        help_text="",
-        required=False
+        queryset=Neighborhood.objects.all(),
+        widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
 
-class EquipmentPointFilter(filters.FilterSet):
+class EquipmentPointFilter(OrganizationFilter):
+    "Equipment Point filter"
 
     class Meta:
         model = Organization
         fields = [
-            'neighborhood',
             'is_beneficiary',
             'equipment__type',
+            'neighborhood',
         ]
 
 
 class EquipmentFilter(filters.FilterSet):
+    "Equipment filter"
 
     class Meta:
         model = Equipment
