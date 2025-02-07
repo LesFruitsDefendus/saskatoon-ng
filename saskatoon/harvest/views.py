@@ -1,20 +1,33 @@
-from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
 from django.contrib import messages
-from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import ordinal
-
+from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
-from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
+from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 from django.views.generic import CreateView, UpdateView
 
-from harvest.forms import (PropertyForm, PropertyCreateForm, PublicPropertyForm,
-                           EquipmentForm, HarvestForm, RequestForm, RFPManageForm, CommentForm)
-from harvest.models import (Equipment, Harvest, HarvestYield, Property,
-                            RequestForParticipation, Comment)
+from harvest.forms import (
+    CommentForm,
+    EquipmentForm,
+    HarvestForm,
+    PropertyCreateForm,
+    PropertyForm,
+    PublicPropertyForm,
+    RequestForm,
+    RFPManageForm,
+)
+from harvest.models import (
+    Comment,
+    Equipment,
+    Harvest,
+    HarvestYield,
+    Property,
+    RequestForParticipation,
+)
 from member.permissions import is_pickleader_or_core
 from member.models import Organization
 
@@ -41,7 +54,6 @@ class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVi
         if _organization:
             initial['owner'] = _organization
         return initial
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -73,17 +85,13 @@ class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVie
     model = Property
     form_class = PropertyCreateForm
     template_name = 'app/forms/property_create_form.html'
-    # TODO: redirect to property list once pagination is implemented
-    # success_url = reverse_lazy('property-list')
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('property-list')
     success_message = _("Property created successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new property")
-        # TODO: redirect to property list once pagination is implemented
-        # context['cancel_url'] = reverse_lazy('property-list')
-        context['cancel_url'] = reverse_lazy('home')
+        context['cancel_url'] = reverse_lazy('property-list')
         return context
 
 
@@ -94,7 +102,8 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
     success_url = reverse_lazy('property-thanks')
-    success_message = _("Thanks for adding your property! In case you authorized a harvest for this season, please read the <a href='https://core.lesfruitsdefendus.org/s/bnKoECqGHAbXQqm'>Tree Owner Welcome Notice</a>.")
+    success_message = _("Thank you for registering your property! \
+        A community member will be contacting you as soon as possible")
 
 
 class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -107,7 +116,10 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Edit property")
-        context['cancel_url'] = reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'property-detail',
+            kwargs={'pk': self.object.pk}
+        )
         return context
 
     def get_success_url(self):
@@ -143,12 +155,12 @@ class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
     def get_context_data(self, **kwargs):
         _property = self.get_property()
         if _property:
-            cancel_url = reverse_lazy('property-detail',
-                                      kwargs={'pk': _property.id})
+            cancel_url = reverse_lazy(
+                'property-detail',
+                kwargs={'pk': _property.id}
+            )
         else:
-            # TODO: redirect to harvest list once pagination is implemented
-            # cancel_url = reverse_lazy('harvest-list')
-            cancel_url = reverse_lazy('home')
+            cancel_url = reverse_lazy('harvest-list')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add a new harvest")
@@ -169,19 +181,23 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Edit harvest")
-        context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
+        context['cancel_url'] = reverse_lazy(
+            'harvest-detail',
+            kwargs={'pk': self.object.pk}
+        )
         return context
 
     def get_success_message(self, cleaned_data) -> str:
         if self.object.status == "Succeeded":
-            pick_leader = self.object.pick_leader  # must exist (see clean_pick_leader)
+            pick_leader = self.object.pick_leader
             harvests_as_pickleader = pick_leader.person.harvests_as_pickleader
             harvests_this_year = harvests_as_pickleader.filter(
                 start_date__year=timezone.now().date().year
             )
             harvest_number: int = harvests_this_year.count()
             success_message_harvest_successful: str = _(
-                "You’ve just led your {} fruit harvest! Thank you for supporting your community!"
+                "You’ve just led your {} fruit harvest! \
+                Thank you for supporting your community!"
             ).format(ordinal(harvest_number))
             return success_message_harvest_successful % cleaned_data
         return self.success_message
@@ -196,7 +212,8 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     model = RequestForParticipation
     template_name = 'app/forms/participation_create_form.html'
     form_class = RequestForm
-    success_message = _("Thanks for your interest in participating in this harvest! Your request has been sent and a pick leader will contact you soon.")
+    success_message = _("Thanks for your interest in participating in this harvest! \
+    Your request has been sent and a pick leader will contact you soon.")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -207,16 +224,19 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
                 context['harvest'] = harvest
                 context['form'] = RequestForm(initial={'harvest_id': harvest.id})
             else:
-                context['error'] = _("Sorry, this harvest is not open for requests. You can check the calendar for other harvests.")
+                context['error'] = _("Sorry, this harvest is not open for requests. \
+                You can check the calendar for other harvests.")
         except KeyError:
             context['error'] = _("Something went wrong")
         return context
 
     def get_success_url(self):
         if self.request.user.is_authenticated:
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.request.GET['hid']})
-        else:
-            return reverse_lazy('calendar')
+            return reverse_lazy(
+                'harvest-detail',
+                kwargs={'pk': self.request.GET['hid']}
+            )
+        return reverse_lazy('calendar')
 
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -228,17 +248,22 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
     def get_context_data(self, **kwargs):
         rfp = self.object
-        if rfp.is_cancelled == True:
+        if rfp.is_cancelled:
             status = 'cancelled'
-        elif rfp.is_accepted == True:
+        elif rfp.is_accepted:
             status = 'accepted'
-        elif rfp.is_accepted == False:
+        elif rfp.is_accepted is not None:
             status = 'refused'
         else:
             status = 'pending'
 
         context = super().get_context_data(**kwargs)
-        context['form'] = RFPManageForm(initial={'status': status, 'notes_from_pickleader': rfp.notes_from_pickleader})
+        context['form'] = RFPManageForm(
+            initial={
+                'status': status,
+                'notes_from_pickleader': rfp.notes_from_pickleader
+            }
+        )
         return context
 
     def get_success_url(self):
@@ -257,7 +282,10 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
         context = super().get_context_data(**kwargs)
         harvest_id = self.request.GET['h']
         context['title'] = _("Add new comment")
-        context['cancel_url'] = reverse_lazy('harvest-detail', kwargs={'pk': harvest_id})
+        context['cancel_url'] = reverse_lazy(
+            'harvest-detail',
+            kwargs={'pk': harvest_id}
+        )
         return context
 
     def form_valid(self, form):

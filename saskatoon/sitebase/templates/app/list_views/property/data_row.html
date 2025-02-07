@@ -5,34 +5,43 @@
 <tr>
     <td>
         {{ property.id }}
-    {% if perms.harvest.delete_property %}
-    &nbsp;
-    <small>
-        <a href="{% url 'admin:harvest_property_delete' property.id %}"
-           onclick="return confirm('{% trans "Are you really sure you want to delete this property?" %}');">
-            <i class="fa fa-trash text-danger"></i>
-        </a>
-    </small>
-    {% endif %}
+        {% if perms.harvest.delete_property %}
+            &nbsp;
+            <small>
+                <a href="{% url 'admin:harvest_property_delete' property.id %}"
+                onclick="return confirm('{% trans "Are you really sure you want to delete this property?" %}');">
+                    <i class="fa fa-trash text-danger"></i>
+                </a>
+            </small>
+        {% endif %}
     </td>
     <td>
         <a href="{% url 'property-detail' property.id %}">{{ property.title }}</a>
     </td>
-    <td>{{ property.neighborhood }}</td>
+    <td>
+        {{ property.neighborhood }}
+    </td>
     <td>
         {% include 'app/list_views/property/status.html' %}
     </td>
     <td>
         {% for tree in property.trees %}
-        <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
+            <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
         {% endfor %}
+    </td>
+    <td>
+        {% if property.ladder_available %}
+            <i class="fa fa-check text-success"></i>
+        {% else %}
+            <i class="fa fa-times text-danger"></i>
+        {% endif %}
     </td>
     <td>
         <ul class="list-inline">
             {% for harvest in property.harvests %}
             <li>
                 <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-                    title="Harvest #{{ harvest.id }} in {{ harvest.start_date }} by {{ harvest.pick_leader }}">
+                    title="Harvest #{{ harvest.id }} - {{ harvest.start_date }} by {{ harvest.pick_leader }}">
                     {% if harvest.status == "Succeeded" %}
                     <i class="fa fa-shopping-basket fa-lg text-success"
                         style="padding-top:7px;"></i>
@@ -50,6 +59,5 @@
     </td>
     <td>
         <div class="text-nowrap">{{ property.last_succeeded_harvest_date|date:"Y-m-d g:i A" }}</div>
-        <small>{{ harvest.start_time }}</small>
     </td>
 </tr>
