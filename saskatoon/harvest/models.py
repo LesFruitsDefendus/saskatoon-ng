@@ -117,14 +117,17 @@ class Property(models.Model):
 
     authorized = models.BooleanField(
         verbose_name=_("Authorized for this season"),
-        help_text=_("Harvest in this property has been authorized for the current season by its owner"),
+        help_text=_(
+            "Harvest in this property has been authorized for the current season by its owner"
+        ),
         null=True,
         default=None
     )
 
     pending = models.BooleanField(
         verbose_name=_("Pending"),
-        help_text=_("This property was created through a public form and needs to be validated by an administrator"),
+        help_text=_("This property was created through a public form \
+and needs to be validated by an administrator"),
         default=True
     )
 
@@ -179,7 +182,8 @@ class Property(models.Model):
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
         help_text=_(
-            'Select multiple fruit types if applicable. Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'
+            'Select multiple fruit types if applicable. \
+Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'
         ),
     )
 
@@ -593,7 +597,7 @@ class Harvest(models.Model):
     def get_public_title(self):
         title = ", ".join(self.get_fruits())
         if self.property.neighborhood.name != "Other":
-           title += f" @ {self.property.neighborhood.name}"
+            title += f" @ {self.property.neighborhood.name}"
         return title
 
     # @property  # WARNING: decorator conflicts with property field :/
@@ -858,6 +862,7 @@ class PropertyImage(models.Model):
 
     def __str__(self):
         return self.property.__str__()
+
 
 class HarvestImage(models.Model):
     """Harvest Image model"""

@@ -1,14 +1,15 @@
 from django.core.mail import EmailMessage
 from logging import getLogger
-from member.models import AuthUser
 from secrets import choice
 from typing import Optional
+
+from member.models import AuthUser
 
 logger = getLogger('saskatoon')
 
 
 def make_random_password(length=10) -> str:
-    allowed_chars='abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
+    allowed_chars = 'abcdefghjkmnpqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ23456789'
     return ''.join(choice(allowed_chars) for i in range(length))
 
 

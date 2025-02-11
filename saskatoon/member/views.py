@@ -178,8 +178,9 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
         message = """Hi {name},
 
-Your password for the Saskatoon harvest management platform has been reset by an administrator from Les Fruits Défendus. \
-Please log in using the temporary credentials provided below and follow the steps to update your new password.
+Your password for the Saskatoon harvest management platform has been reset by an administrator \
+from Les Fruits Défendus. Please log in using the temporary credentials provided below and follow \
+the steps to update your new password.
 
 Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/
 Email address: {email}
@@ -191,8 +192,9 @@ Thanks for supporting your community!
 
 Bonjour {name},
 
-Votre mot de passe pour la plateforme de gestion Saskatoon a été réinitialisé par un.e administrateur.ice des Fruits Défendus. \
-Merci de vous connecter en utilisant les identifiants fournis plus bas et de suivre les instructions pour remettre à jour votre nouveau mot de passe.
+Votre mot de passe pour la plateforme de gestion Saskatoon a été réinitialisé par un.e \
+administrateur.ice des Fruits Défendus. Merci de vous connecter en utilisant les identifiants \
+fournis plus bas et de suivre les instructions pour remettre à jour votre nouveau mot de passe.
 
 Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/
 Adresse électronique: {email}

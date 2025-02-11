@@ -5,10 +5,10 @@ from django.contrib.auth.models import (
     PermissionsMixin,
     BaseUserManager,
 )
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import RegexValidator
 from django.utils import timezone as tz
 from phone_field import PhoneField
 
@@ -92,7 +92,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         ''' add role to user
             :param role: group name (see AUTH_GROUPS)
         '''
-        group, __ =  Group.objects.get_or_create(name=role)
+        group, __ = Group.objects.get_or_create(name=role)
         self.groups.add(group)
         if commit:
             self.save()
@@ -358,7 +358,7 @@ class Person(Actor):
     @property
     def comment_emails(self):
         """Look for emails in comments"""
-        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
+        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"  # noqa: W605
         matches = re.findall(EMAIL_PATTERN, self.comments)
         return matches
 
@@ -386,7 +386,9 @@ class Person(Actor):
 
     @property
     def harvests_as_volunteer_pending(self):
-        requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
+        requests = self.requests_as_volunteer.exclude(
+            Q(is_accepted=True) | Q(is_cancelled=True)
+        )
         return Harvest.objects.filter(requests__in=requests)
 
     @property
@@ -418,13 +420,18 @@ class Organization(Actor):
 
     is_beneficiary = models.BooleanField(
         verbose_name=_('Is Beneficiary'),
-        help_text=_('Only check this box if the Organization is currently accepting fruit donations'),
+        help_text=_(
+            'Only check this box if the Organization is currently accepting fruit donations'
+        ),
         default=False
     )
 
     is_equipment_point = models.BooleanField(
         verbose_name=_('Is Equipment Point'),
-        help_text=_('Only check this box if the equipment registered at this Organization is currenlty made available'),
+        help_text=_(
+            'Only check this box if the equipment registered at this Organization \
+is currenlty made available'
+        ),
         default=False
     )
 

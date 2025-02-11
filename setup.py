@@ -48,6 +48,13 @@ setup(
         "django-quill-editor==0.1.40",
     ],
     extras_require      =   {
-        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
+        'test': [
+            'invoke',
+            'flake8',
+            'pytest',
+            'pytest-django',
+            'selenium',
+            'tox'
+        ]
     },
 )

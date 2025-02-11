@@ -12,7 +12,6 @@ from harvest.models import (
     EquipmentType
 )
 from member.autocomplete import AuthUserAutocomplete
-from member.filters import OrganizationFilter
 from member.models import AuthUser, Neighborhood, Organization
 
 SEASON_FILTER_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
