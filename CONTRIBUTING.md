@@ -9,7 +9,7 @@ Please follow instructions in `INSTALL.md` to set up your local development envi
 
 ## Branches
 
-~~Unless instructed otherwise by maintainers all pull requests should target the `develop` branch.~~ For now, all pull requests should target the `master` branch until further notice.
+Unless instructed otherwise by maintainers all pull requests should target the `develop` branch.
 
 If your branch directly addresses an opened `Issue`, you may name your branch using the following scheme: `Fix-<Issue#>-A_short_description`
 
@@ -36,7 +36,7 @@ If a commit message directly addresses an `Issue` it might be relevant to includ
 
 ## Migrations
 
-If you alter any `<app>.models.py` file, make sure make sure to run `python manage.py makemigrations <app>** to include migrations along with the changes. 
+If you alter any `<app>.models.py` file, make sure make sure to run `python manage.py makemigrations <app>** to include migrations along with the changes.
 
 **Please only submit one migration file per app per pull request.** If you are not sure how to achieve this ask us for help and we will guide you through.
 

@@ -133,6 +133,11 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentFilter
     template_name = 'app/list_views/equipment/view.html'
+    search_fields = [
+        'type__name_en',
+        'type__name_fr',
+        'description',
+    ]
 
     def list(self, request, *args, **kwargs):
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
@@ -187,7 +192,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status="Succeeded")
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')
 
