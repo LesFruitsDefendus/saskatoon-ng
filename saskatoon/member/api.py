@@ -76,6 +76,13 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentPointFilter
     template_name = 'app/list_views/equipment_point/view.html'
+    search_fields = [
+        'actor_id',
+        'civil_name',
+        'contact_person__first_name',
+        'contact_person__family_name',
+        'contact_person__auth_user__email',
+    ]
 
     def list(self, request, *args, **kwargs):
         """Equipment Points list view."""
