@@ -309,7 +309,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         'member.City',
         verbose_name=_("City"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
@@ -317,7 +317,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         'member.State',
         verbose_name=_("Province"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
@@ -325,7 +325,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         'member.Country',
         verbose_name=_("Country"),
         null=True,
-        default=1,
+        # default=1,
         on_delete=models.CASCADE,
     )
 
