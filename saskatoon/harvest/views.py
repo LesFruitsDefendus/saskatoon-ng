@@ -76,9 +76,6 @@ class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVi
         context['cancel_url'] = reverse_lazy('equipment-list')
         return context
 
-    # def get_success_url(self):
-    #     return reverse_lazy('equipment-detail', kwargs={'pk': self.object.pk})
-
 
 class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     permission_required = 'harvest.add_property'
@@ -102,8 +99,10 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
     success_url = reverse_lazy('property-thanks')
-    success_message = _("Thank you for registering your property! \
-        A community member will be contacting you as soon as possible")
+    success_message = _(
+        "Thank you for registering your property! \
+        A community member will be contacting you as soon as possible"
+    )
 
 
 class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -224,8 +223,10 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
                 context['harvest'] = harvest
                 context['form'] = RequestForm(initial={'harvest_id': harvest.id})
             else:
-                context['error'] = _("Sorry, this harvest is not open for requests. \
-                You can check the calendar for other harvests.")
+                context['error'] = _(
+                    "Sorry, this harvest is not open for requests. \
+                    You can check the calendar for other harvests."
+                )
         except KeyError:
             context['error'] = _("Something went wrong")
         return context
