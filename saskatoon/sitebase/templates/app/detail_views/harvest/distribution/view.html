@@ -16,13 +16,13 @@
                         <th class="col-md-1 text-center"> {% trans "Delete" %} </th>
                     </tr>
                     <tbody>
-                        {% for d in distribution %}
+                        {% for hy in harvestyield_set %}
                         <tr>
-                            <td> {{ d.recipient }} </td>
-                            <td> {{ d.tree.fruit_name }} {{ d.tree.fruit_name|get_fruit_name_icon }}</td>
-                            <td> {{ d.total_in_lb }} lbs</td>
+                            <td> {{ hy.recipient }} </td>
+                            <td> {{ hy.tree.fruit_name }} {{ hy.tree.fruit_name|get_fruit_name_icon }}</td>
+                            <td> {{ hy.total_in_lb }} lbs</td>
                             <td class="text-center">
-                                <a href="{% url 'harvest-yield-delete' d.id %}"
+                                <a href="{% url 'harvest-yield-delete' hy.id %}"
                                    onclick="return confirm('{% trans "Are you sure you want to delete this entry?" %}');">
                                     <i class="fa fa-trash text-danger"></i>
                                 </a>

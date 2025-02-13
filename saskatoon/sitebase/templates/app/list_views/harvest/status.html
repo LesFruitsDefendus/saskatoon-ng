@@ -1,0 +1,80 @@
+{% load i18n %}
+{% load static %}
+
+{% if harvest.status == "Succeeded" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Succeeded" %}</div>
+        <div class="progress-bar wow fadeInLeft"
+                data-progress="100%" data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #9CF0DB; width: 100%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "Cancelled" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Cancelled" %}</div>
+        <div class="progress-bar wow fadeInLeft"
+                data-progress="100%"
+                data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #ED6D62; width: 100%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "Orphan" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Orphan" %}</div>
+        <div class="progress-bar wow fadeInLeft" data-progress="0%"
+                data-wow-delay="1.2s" data-wow-duration="1.5s"
+                style="width: 0%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "Adopted" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Adopted" %}</div>
+        <div class="progress-bar wow fadeInLeft" data-progress="20%"
+                data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #FFE180; width: 20%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "To-be-confirmed" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Pending auth." %}</div>
+        <div class="progress-bar wow fadeInLeft" data-progress="40%"
+                data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #FFE180; width: 40%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "Date-scheduled" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Scheduled" %}</div>
+        <div class="progress-bar wow fadeInLeft" data-progress="60%"
+                data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #FFE180; width: 60%;"></div>
+    </div>
+</div>
+{% endif %}
+{% if harvest.status == "Ready" %}
+<div class="skill">
+    <div class="progress">
+        <div class="lead-content">{% trans "Ready" %}</div>
+        <div class="progress-bar wow fadeInLeft" data-progress="80%"
+                data-wow-delay="1.2s"
+                data-wow-duration="1.5s"
+                style="background-color: #BADDFF; width: 80%;"></div>
+    </div>
+</div>
+{% endif %}

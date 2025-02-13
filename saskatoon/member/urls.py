@@ -1,7 +1,18 @@
 from django.urls import path, re_path
-from . import views, autocomplete
+from member import api, views, autocomplete
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
+# REST FRAMEWORK VIEWS
+router = DefaultRouter()
+router.register('organization', api.OrganizationViewset, 'organization')
+router.register('community', api.CommunityViewset, 'community')
+
+urlpatterns = router.urls + [
+
+    # LIST VIEWS
+    path('equipment-point/',
+         api.EquipmentPointListView.as_view(),
+         name='equipment-point-list'),
 
     # CREATE VIEWS
     path('person/create/',
@@ -57,4 +68,8 @@ urlpatterns = [
     re_path(r'^contact-autocomplete/$',
             autocomplete.ContactAutocomplete.as_view(),
             name='contact-autocomplete'),
+
+    re_path(r'^neighborhood-autocomplete/$',
+            autocomplete.NeighborhoodAutocomplete.as_view(),
+            name='neighborhood-autocomplete'),
 ]

@@ -7,7 +7,7 @@
         {% if perms.member.delete_actor %}
             <small>
                 <a href="{% url 'admin:member_actor_delete' org.actor_id %}"
-                onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
+                   onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             &nbsp;
@@ -18,7 +18,7 @@
     <td>
         <span>
             <b>
-              <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a> 
+              <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a>
             </b>
             {% if org.is_beneficiary %}
                 <i class="fa fa-gift"></i>
@@ -63,7 +63,7 @@
                        data-info="{% trans 'This organization accepts fruit donations' %}"
                        data-title="{{org.civil_name}}"
                        data-description="{{org.beneficiary_description}}"
-                       href="#beneficiary-modal">
+                       href="#modal">
                 <i class="fa fa-external-link"></i>
                 </a>
             {% endif %}
@@ -86,7 +86,7 @@
                     {% endif %}
                        data-title="{{org.civil_name}}"
                        data-description="{{org.equipment_description}}"
-                       href="#beneficiary-modal">
+                       href="#modal">
                 <i class="fa fa-external-link"></i>
                 </a>
             {% endif %}

@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="col-xs-6">
-                        <a href="{% url 'comment-create' %}?h={{ harvest.id }}"
+                        <a href="{% url 'comment-create' %}?h={{ id }}"
                            class="btn btn-success notika-btn-success waves-effect"
                            style="float: right">
                             <i class="fa fa-plus"></i> {% trans "New comment" %}
@@ -21,7 +21,7 @@
             <div class="chat-conversation">
                 <div class="widgets-chat-scrollbar">
                     <ul class="conversation-list ">
-                        {% for comment in comments %}
+                        {% for comment in comment %}
                             {% if forloop.counter|divisibleby:2 %}
                                 <li class="clearfix odd">
                             {% else %}

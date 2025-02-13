@@ -28,7 +28,12 @@ def test_urls(driver: Remote) -> None:
         print("\r\ntesting url: ", testurl)
         driver.get(testurl)
 
-        WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,  "footer-copyright-area")), f"Can't locate footer on page {url_part}")
+        WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
+            EC.visibility_of_all_elements_located(
+                (By.CLASS_NAME,  "footer-copyright-area")
+            ),
+            f"Can't locate footer on page {url_part}"
+        )
 
         assert url_part in driver.current_url
 
@@ -50,4 +55,7 @@ def test_urls(driver: Remote) -> None:
                 raise
         else:
             if needs_auth:
-                raise RuntimeError(f"Security Alert: The private page {url_part} is accessible without being logged in!")
+                raise RuntimeError(
+                    f"Security Alert: \
+The private page {url_part} is accessible without being logged in!"
+                )

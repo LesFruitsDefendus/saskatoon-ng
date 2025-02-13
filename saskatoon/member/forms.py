@@ -1,12 +1,11 @@
-# coding: utf-8
+from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.widgets import PasswordInput
-
-from dal import autocomplete
 from logging import getLogger
+
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization, AUTH_GROUPS
 from member.validators import validate_email, validate_new_password
@@ -202,7 +201,6 @@ class OrganizationCreateForm(OrganizationForm):
                     Person or create a new one and provide their personal information"))
         return data
 
-
     def save(self):
         # # create Organization instance
         instance = super(OrganizationCreateForm, self).save()
@@ -231,9 +229,28 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         super().__init__(user, *args, **kwargs)
 
         # replace widgets with placeholder values to fit Notika theme
-        self.fields['old_password'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'current-password', 'placeholder': 'Old password', 'autofocus': True })
-        self.fields['new_password1'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'New password'})
-        self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
+        self.fields['old_password'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'current-password',
+                'placeholder': 'Old password',
+                'autofocus': True
+            }
+        )
+        self.fields['new_password1'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'New password'
+            }
+        )
+        self.fields['new_password2'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'Confirm password'
+            }
+        )
 
     def clean_new_password1(self):
         old_password = self.cleaned_data.get('old_password')
