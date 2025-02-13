@@ -6,7 +6,10 @@ from django.shortcuts import redirect, render
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
-from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+from saskatoon.settings import (
+    EQUIPMENT_POINTS_PDF_PATH,
+    VOLUNTEER_WAIVER_PDF_PATH
+)
 from sitebase.models import Content
 
 VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
@@ -109,7 +112,6 @@ class VolunteerWaiverPDFView(RestrictedPDFView):
     PDF_PATH = VOLUNTEER_WAIVER_PDF_PATH
 
 
-#@method_decorator(login_required, name='dispatch')
 class Calendar(TemplateView):
     template_name = 'app/calendar/view.html'
 
@@ -119,7 +121,6 @@ class Calendar(TemplateView):
     def get_context_data(self, **kwargs):
         context = super(Calendar, self).get_context_data(**kwargs)
         context['view'] = "calendar"
-        # context['form_request'] = RequestForm()
         return context
 
 
@@ -128,18 +129,26 @@ class JsonCalendar(View):
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
-        harvests = Harvest.objects.filter(end_date__lte=end_date, start_date__gte=start_date)
+        harvests = Harvest.objects.filter(
+            end_date__lte=end_date,
+            start_date__gte=start_date
+        )
         events = []
         for harvest in harvests:
-            if ( harvest.start_date and harvest.end_date and
-                    (self.request.user.is_staff or harvest.is_publishable()) ):
+            if (
+                    harvest.start_date and
+                    harvest.end_date and
+                    (self.request.user.is_staff or harvest.is_publishable())
+            ):
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
                 event['url'] = '/participation/create?hid='+str(harvest.id)
-                colors = ({'Date-scheduled': "#FFE180",
-                           'Ready': "#BADDFF",
-                           'Succeeded': "#9CF0DB",
-                           'Cancelled': "#ED6D62"})
+                colors = ({
+                    'Date-scheduled': "#FFE180",
+                    'Ready': "#BADDFF",
+                    'Succeeded': "#9CF0DB",
+                    'Cancelled': "#ED6D62"
+                })
                 event['display'] = "block"
                 event['backgroundColor'] = colors.get(harvest.status, "#ededed")
                 event['borderColor'] = event['backgroundColor']
@@ -154,11 +163,12 @@ class JsonCalendar(View):
                     event['end'] = harvest.get_local_end()
 
                 # additional info passed to 'extendedProps'
-                requests_count = RequestForParticipation.objects.filter(harvest=harvest).count()
+                requests_count = RequestForParticipation.objects \
+                    .filter(harvest=harvest).count()
 
                 event['extendedProps'] = {
                     'start_date': event['start'].strftime("%a. %b. %-d, %Y"),
-                    #TODO handle scenario when end_date > start_date
+                    # TODO handle scenario when end_date > start_date
                     'start_time': event['start'].strftime("%-I:%M %p"),
                     'end_time': event['end'].strftime("%-I:%M %p"),
                     'harvest_id': harvest.id,
@@ -168,7 +178,7 @@ class JsonCalendar(View):
                     'nb_requests': requests_count,
                     'trees': harvest.get_fruits(),
                     'total_harvested': harvest.get_total_distribution()
-               }
+                }
 
                 events.append(event)
                 del event

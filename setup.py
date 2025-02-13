@@ -34,7 +34,7 @@ setup(
         "django-extensions",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
-        "Pillow==9.0.1",
+        "Pillow==9.3.0",
         "pycparser==2.20",
         "pytz==2020.1",
         "six==1.15.0",
@@ -48,6 +48,13 @@ setup(
         "django-quill-editor==0.1.40",
     ],
     extras_require      =   {
-        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
+        'test': [
+            'invoke',
+            'flake8',
+            'pytest',
+            'pytest-django',
+            'selenium',
+            'tox'
+        ]
     },
 )

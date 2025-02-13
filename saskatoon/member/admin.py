@@ -1,29 +1,47 @@
-# coding: utf-8
 import csv
-from typing import Optional
 from django import forms
-from django.core.mail import EmailMessage
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
-from django.contrib.auth.forms import (UserCreationForm, UserChangeForm,
-                                        ReadOnlyPasswordHashField)
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    UserChangeForm,
+    ReadOnlyPasswordHashField,
+)
 from django.contrib.auth.models import Group
+from django.core.mail import EmailMessage
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.forms.models import BaseInlineFormSet
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.html import mark_safe
-from harvest.models import Equipment
-from member.models import (AuthUser, Actor, Language, Onboarding, Person,
-                           Organization, Neighborhood, City, State, Country)
-from member.filters import (ActorTypeAdminFilter, UserGroupAdminFilter,
-                            UserHasPropertyAdminFilter, UserHasLedPicksAdminFilter,
-                            UserHasVolunteeredAdminFilter, UserIsContactAdminFilter,
-                            UserIsOnboarding,
-                            PersonHasNoUserAdminFilter, OrganizationHasNoContactAdminFilter)
-from member.utils import send_invite_email
+from typing import Optional
 
+from harvest.models import Equipment
+from member.models import (
+    Actor,
+    AuthUser,
+    City,
+    Country,
+    Language,
+    Neighborhood,
+    Onboarding,
+    Organization,
+    Person,
+    State,
+)
+from member.filters import (
+    ActorTypeAdminFilter,
+    OrganizationHasNoContactAdminFilter,
+    PersonHasNoUserAdminFilter,
+    UserGroupAdminFilter,
+    UserHasPropertyAdminFilter,
+    UserHasLedPicksAdminFilter,
+    UserHasVolunteeredAdminFilter,
+    UserIsContactAdminFilter,
+    UserIsOnboarding,
+)
+from member.utils import send_invite_email
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 
 
@@ -89,19 +107,20 @@ class AuthUserAdmin(UserAdmin):
     search_fields = ('email', 'person__first_name', 'person__family_name')
     ordering = ('email', 'person', 'date_joined', 'last_login')
     filter_horizontal = ('groups', 'user_permissions',)
-    list_display = ('email',
-                    'person',
-                    'get_groups',
-                    'is_staff',
-                    'is_core',
-                    'is_admin',
-                    'is_active',
-                    'has_password',
-                    'agreed_terms',
-                    'id',
-                    'date_joined',
-                    'last_login',
-                    )
+    list_display = (
+        'email',
+        'person',
+        'get_groups',
+        'is_staff',
+        'is_core',
+        'is_admin',
+        'is_active',
+        'has_password',
+        'agreed_terms',
+        'id',
+        'date_joined',
+        'last_login',
+    )
 
     @admin.display(boolean=True, description="Core")
     def is_core(self, user):
@@ -119,17 +138,18 @@ class AuthUserAdmin(UserAdmin):
     def has_password(self, user):
         return user.password != ''
 
-    list_filter = (UserGroupAdminFilter,
-                   UserHasPropertyAdminFilter,
-                   UserHasLedPicksAdminFilter,
-                   UserHasVolunteeredAdminFilter,
-                   UserIsContactAdminFilter,
-                   UserIsOnboarding,
-                   'is_staff',
-                   'is_superuser',
-                   'is_active',
-                   'agreed_terms',
-                   )
+    list_filter = (
+        UserGroupAdminFilter,
+        UserHasPropertyAdminFilter,
+        UserHasLedPicksAdminFilter,
+        UserHasVolunteeredAdminFilter,
+        UserIsContactAdminFilter,
+        UserIsOnboarding,
+        'is_staff',
+        'is_superuser',
+        'is_active',
+        'agreed_terms',
+    )
 
     fieldsets = (
         (
@@ -286,7 +306,6 @@ class AuthUserAdmin(UserAdmin):
     @admin.action(description="Reset selected User(s)'s T&C agreement")
     def reset_agreed_terms(self, request, queryset):
         queryset.update(agreed_terms=False)
-
 
     actions = [
         deactivate_account,
@@ -540,10 +559,12 @@ class OnboardingAdmin(admin.ModelAdmin):
         """Make sure all_sent is False if users get added later on"""
         if obj.all_sent and obj.persons.filter(auth_user__password='').exists():
             obj.all_sent = False
-            messages.add_message(request, messages.WARNING,
-                                    f"Some users in {obj} were not yet invited.")
+            messages.add_message(
+                request,
+                messages.WARNING,
+                f"Some users in {obj} were not yet invited."
+            )
         super().save_model(request, obj, form, change)
-
 
     @admin.action(description="Send registration invite to selected group(s)")
     def send_invite(self, request, queryset):
@@ -562,9 +583,10 @@ Email address: " + mailto + "\n\
 Temporary password: {password}\n\n\
 Thanks for supporting your community!\n\n--\n\n\
 Bonjour " + name + ",\n\n\
-Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe the cueillette \
-organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur la plateforme de \
-gestion Saskatoon en utilisant votre adresse courriel et le mot de passe temporaire fourni plus bas.\n\n\
+Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe \
+de cueillette organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur \
+la plateforme de gestion Saskatoon en utilisant votre adresse courriel et le mot de passe \
+temporaire fourni plus bas.\n\n\
 Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
 Adresse électronique: " + mailto + "\n\
 Mot de passe temporaire: {password}\n\n\
@@ -582,11 +604,17 @@ Les Fruits Défendus"
                 else:
                     o.all_sent = False
                     o.log += f"\n\t> FAIL {p.auth_user.email}. {error_msg}"
-                    messages.add_message(request, messages.ERROR,
-                                         f"Could not send Registration Invite to {p.auth_user.email}")
+                    messages.add_message(
+                        request,
+                        messages.ERROR,
+                        f"Could not send Registration Invite to {p.auth_user.email}"
+                    )
             if o.all_sent:
-                messages.add_message(request, messages.SUCCESS,
-                                    f"Successfully sent Registration Invite to {num_sent} users")
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f"Successfully sent Registration Invite to {num_sent} users"
+                )
             o.save()
 
     actions = [

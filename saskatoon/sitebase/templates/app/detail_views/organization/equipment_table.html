@@ -9,7 +9,7 @@
             <div>
               <h4> {% trans Equipment %} </h4>
               {% if perms.harvest.add_equipment %}
-              <a href="{% url 'equipment-create' %}?aid={{ organization.actor_id }}">
+              <a href="{% url 'equipment-create' %}?aid={{ actor_id }}">
                 <button title="New Equipment" class="btn btn-success notika-btn-success waves-effect">
                   <i class="fa fa-plus"></i>
                   {% trans "New Equipment" %}
@@ -28,10 +28,8 @@
                 </tr>
               </thead>
               <tbody>
-                {% for equipment in data %}
-
-                {% include 'app/detail_views/organization/equipment_row.html' %}
-
+                {% for item in equipment %}
+                    {% include 'app/detail_views/organization/equipment_row.html' %}
                 {% endfor %}
               </tbody>
             </table>

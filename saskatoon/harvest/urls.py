@@ -1,25 +1,17 @@
 from django.urls import path, re_path
-from rest_framework import routers
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from harvest import api, views, autocomplete
+from rest_framework.routers import DefaultRouter
 
 # REST FRAMEWORK VIEWS
-router = routers.DefaultRouter()
+router = DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('organization', api.OrganizationViewset, 'organization')
-router.register('community', api.CommunityViewset, 'community')
-router.register('participation', api.RequestForParticipationViewset, 'participation')
+router.register('participation', api.RFPViewset, 'participation')
 
 urlpatterns = [
-
-    # READ VIEWS
-    path('equipment-point/',
-         api.EquipmentPointListView.as_view(),
-         name='equipment-point-list'),
-
 
     # CREATE VIEWS
     path(r'equipment/create/',
@@ -42,15 +34,15 @@ urlpatterns = [
          views.HarvestCreateView.as_view(),
          name='harvest-create'),
 
-     path(r'harvest/adopt/<int:id>/',
+    path(r'harvest/adopt/<int:id>/',
          views.harvest_adopt,
          name='harvest-adopt'),
 
-     path(r'harvest/leave/<int:id>/',
+    path(r'harvest/leave/<int:id>/',
          views.harvest_leave,
          name='harvest-leave'),
 
-     path(r'harvest/status-change/<int:id>/',
+    path(r'harvest/status-change/<int:id>/',
          views.harvest_status_change,
          name='harvest-status-change'),
 
@@ -105,6 +97,4 @@ urlpatterns = [
 
     path('stats/', api.StatsView.as_view(), name='statistics'),
 
-]
-
-urlpatterns += router.urls
+] + router.urls

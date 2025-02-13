@@ -11,12 +11,12 @@
                                 <div class="basic-tb-hd">
                                     <h2>
                                         {% trans "Pickers requests" %}
-                                        ({% if harvest.is_open_to_requests %}{% trans "OPEN" %}{% else %}{% trans "CLOSED" %}{% endif %})
+                                        ({% if is_open_to_requests %}{% trans "OPEN" %}{% else %}{% trans "CLOSED" %}{% endif %})
                                     </h2>
                                 </div>
                             </div>
                                 <div class="col-xs-6">
-                                    <a href="{% url 'rfp-create' %}?hid={{ harvest.id }}"
+                                    <a href="{% url 'rfp-create' %}?hid={{ id }}"
                                             class="btn btn-success notika-btn-success waves-effect"
                                         style="float: right">
                                         <i class="fa fa-plus"></i> {% trans "New request" %}

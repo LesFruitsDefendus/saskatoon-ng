@@ -4,7 +4,6 @@ from django.urls import path, re_path
 from sitebase import views
 
 urlpatterns = [
-
     url(r'^$',
         views.Index.as_view(),
         name='home'),
@@ -48,5 +47,4 @@ urlpatterns = [
     path('reset_password_complete/',
          auth_views.PasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
-
 ]

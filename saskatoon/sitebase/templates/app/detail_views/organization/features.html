@@ -5,25 +5,25 @@
     <div class="search-engine-int" style="flex: 50%">
       <h4>
         <span>{% translate 'Beneficiary' %}</span>
-        {% if organization.is_beneficiary %}
+        {% if is_beneficiary %}
         <i class="notika-icon notika-checked"></i>
         {% else %}
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ organization.beneficiary_description }}</p>
+      <p>{{ beneficiary_description }}</p>
     </div>
 
     <div class="search-engine-int" style="flex: 50%;">
       <h4>
         <span>{% translate 'Equipment Point' %}</span>
-        {% if organization.is_equipment_point %}
+        {% if is_equipment_point %}
         <i class="notika-icon notika-checked"></i>
         {% else %}
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ organization.equipment_description }}</p>
+      <p>{{ equipment_description }}</p>
     </div>
   </div>
 </div>

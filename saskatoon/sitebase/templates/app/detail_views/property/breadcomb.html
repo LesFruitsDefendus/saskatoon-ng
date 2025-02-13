@@ -13,20 +13,20 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>
-                                    {% if property.owner %}
-                                        {{ property.title }}
-                                    {% elif property.pending_contact_name %}
-                                        {{ property.pending_contact_name }}
-                                        at {{ property.address }}
+                                    {% if owner %}
+                                        {{ title }}
+                                    {% elif pending_contact_name %}
+                                        {{ pending_contact_name }}
+                                        at {{ address }}
                                     {% else %}
-                                        {{ property.address }}
+                                        {{ address }}
                                     {% endif %}
                                     </h1>
-                                    {% if property.pending %}
+                                    {% if pending %}
                                         <h4>** {% translate 'PENDING' %} **</h4>
-                                    {% elif property.last_succeeded_harvest_date %}
+                                    {% elif last_succeeded_harvest_date %}
                                         <p>{% trans "Last succeeded harvest"  %}
-                                            on {{ property.last_succeeded_harvest_date|date }}
+                                            on {{ last_succeeded_harvest_date|date }}
                                         </p>
                                     {% else %}
                                         <p>{% translate 'No succeeded harvest on this property so far' %}</p>
@@ -37,7 +37,7 @@
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
                                 {% if perms.harvest.change_property %}
-                                    <a href="{% url 'property-update' property.id %}">
+                                    <a href="{% url 'property-update' id %}">
                                         <button title="Edit Property" class="btn">
                                             {% trans "Edit Property" %}</button>
                                     </a>

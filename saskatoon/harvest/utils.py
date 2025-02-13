@@ -5,7 +5,7 @@ from harvest.models import Property
 logger = getLogger('saskatoon')
 
 
-def get_similar_properties(pending_property):
+def similar_properties(pending_property):
     """Look for potential property/owner duplicates"""
 
     p = pending_property
@@ -39,6 +39,5 @@ def get_similar_properties(pending_property):
         return Property.objects.filter(query).exclude(id=p.id).distinct()
 
     except Exception as _e:
-        logger.warning("Could not find similar properties to <%s> (%s: %s)",
-                     p, type(_e), str(_e))
+        logger.warning("Could not find similar properties to <%s> (%s: %s)", p, type(_e), str(_e))
         return Property.objects.none()

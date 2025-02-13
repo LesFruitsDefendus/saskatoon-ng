@@ -1,4 +1,3 @@
-# coding: utf-8
 from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
@@ -6,8 +5,16 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
-from harvest.models import (RequestForParticipation, Harvest, HarvestYield, Comment,
-                            Equipment, PropertyImage, HarvestImage, Property)
+from harvest.models import (
+    Comment,
+    Equipment,
+    Harvest,
+    HarvestImage,
+    HarvestYield,
+    Property,
+    PropertyImage,
+    RequestForParticipation,
+)
 from member.forms import validate_email
 from member.models import AuthUser, Person
 from postalcodes_ca import parse_postal_code
@@ -17,7 +24,6 @@ from logging import getLogger
 logger = getLogger('saskatoon')
 
 
-# Request for participation
 class RequestForm(forms.ModelForm):
     picker_email = forms.EmailField(
         help_text=_("Enter a valid email address, please."),
@@ -48,12 +54,12 @@ class RequestForm(forms.ModelForm):
     def clean(self):
         email = self.cleaned_data['picker_email']
         if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email) #email field is unique
+            auth_user = AuthUser.objects.get(email=email)  # email field is unique
 
             # check if email already requested for the same harvest
             if RequestForParticipation.objects.filter(
                     picker=auth_user.person,
-                    harvest_id = self.cleaned_data['harvest_id']
+                    harvest_id=self.cleaned_data['harvest_id']
             ).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
@@ -217,7 +223,7 @@ class RFPManageForm(forms.ModelForm):
         instance.save()
         return instance
 
-# Used in admin interface
+
 class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
@@ -254,7 +260,6 @@ class PropertyForm(forms.ModelForm):
             'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput()
         }
-
 
     field_order = ['pending', 'is_active', 'authorized', 'owner']
 
@@ -296,7 +301,6 @@ class PropertyCreateForm(PropertyForm):
         required=False
     )
 
-
     def clean(self):
         data = super().clean()
         if not data['owner']:
@@ -308,12 +312,8 @@ class PropertyCreateForm(PropertyForm):
                     or create a new one and provide their personal information"))
         return data
 
-
     def save(self):
-        # # create Property instance
         instance = super(PropertyCreateForm, self).save()
-
-        # # create Owner Person/AuthUser
         person = Person.objects.create(
             first_name=self.cleaned_data['owner_first_name'],
             family_name=self.cleaned_data['owner_last_name'],
@@ -325,7 +325,6 @@ class PropertyCreateForm(PropertyForm):
             person=person)
         auth_user.set_roles(['owner'])
 
-        # # associate Owner to Property
         instance.owner = person
         instance.save()
 
@@ -347,7 +346,7 @@ class PublicPropertyForm(forms.ModelForm):
             'approximative_maturity_date',
             'trees_location',
             'trees_accessibility',
-#            'public_access',
+            # 'public_access',
             'neighbor_access',
             'compost_bin',
             'ladder_available',
@@ -374,41 +373,41 @@ class PublicPropertyForm(forms.ModelForm):
             'avg_nb_required_pickers': forms.NumberInput(),
         }
 
-
     neighbor_access = forms.BooleanField(
-        label = _("Volunteers have permission to go on the neighbours' property to access fruits"),
+        label=_("Volunteers have permission to go on the neighbours' property to access fruits"),
         required=False,
     )
 
     compost_bin = forms.BooleanField(
-        label = _('I have a compost bin where you can leave rotten fruit'),
+        label=_('I have a compost bin where you can leave rotten fruit'),
         required=False,
     )
 
-    ladder_available= forms.BooleanField(
-        label = _('I have a ladder that can be used during the harvest'),
+    ladder_available = forms.BooleanField(
+        label=_('I have a ladder that can be used during the harvest'),
         required=False,
     )
 
     ladder_available_for_outside_picks = forms.BooleanField(
-        label = _('I would lend my ladder for another harvest nearby'),
+        label=_('I would lend my ladder for another harvest nearby'),
         required=False,
     )
 
     harvest_every_year = forms.BooleanField(
-        label = _('My tree(s)/vine(s) produce fruit every year (if not, please include info about frequency in additional comments at the bottom)'),
+        label=_('My tree(s)/vine(s) produce fruit every year \
+(if not, please include info about frequency in additional comments at the bottom)'),
         required=False,
     )
 
     pending_recurring = forms.ChoiceField(
         label=_('Have you provided us any information about your property before?'),
-        choices=[(True,_('Yes')),(False,_('No'))],
+        choices=[(True, _('Yes')), (False, _('No'))],
         widget=forms.RadioSelect,
     )
 
     authorized = forms.ChoiceField(
         label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
-        choices=[(True,_('Yes')),(False,_('Not this year, but maybe in future seasons'))],
+        choices=[(True, _('Yes')), (False, _('Not this year, but maybe in future seasons'))],
         widget=forms.RadioSelect(),
         required=True
     )
@@ -429,7 +428,8 @@ class PublicPropertyForm(forms.ModelForm):
 
     trees_accessibility = forms.CharField(
         label=_('Access to tree(s) or vine(s)'),
-        help_text=_('Any info on how to access the tree(s) or vine(s) (e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
+        help_text=_('Any info on how to access the tree(s) or vine(s) \
+(e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
         required=False
     )
 
@@ -469,12 +469,15 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     pending_newsletter = forms.BooleanField(
-        label=_('I would like to receive emails from Les Fruits Defendus such as newsletters and updates'),
+        label=_('I would like to receive emails from \
+Les Fruits Defendus such as newsletters and updates'),
         required=False
     )
 
     additional_info = forms.CharField(
-        help_text=_('Any additional information that we should be aware of (e.g. details about how often tree produces fruit, description of fruit if the type is unknown or not in the list, etc.)'),
+        help_text=_('Any additional information that we should be aware of \
+(e.g. details about how often tree produces fruit, description of fruit if \
+the type is unknown or not in the list, etc.)'),
         widget=forms.widgets.Textarea(),
         required=False
     )
@@ -580,7 +583,7 @@ class HarvestForm(forms.ModelForm):
         return pickleader
 
     def clean_end_date(self):
-        """Derive end date from start date in order to enforce a single date for harvests without changing model."""
+        """Derive end date from start date"""
         start = self.cleaned_data['start_date']
         end = self.cleaned_data['end_date']
 
@@ -592,7 +595,6 @@ class HarvestForm(forms.ModelForm):
                 _('End time must be after start time')
             )
         return end_dt
-
 
 
 class HarvestYieldForm(forms.ModelForm):
@@ -628,6 +630,3 @@ class EquipmentForm(forms.ModelForm):
         labels = {
             'owner': _('Equipment Point'),
         }
-
-
-

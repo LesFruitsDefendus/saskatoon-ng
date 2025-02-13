@@ -40,6 +40,9 @@
         </ul>
     </td>
     <td>
+        {{ user.date_joined }}
+    </td>
+    <td>
         <ul class="list-inline">
             {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
                 {% for harvest in user.person.harvests_as_pickleader %}
@@ -64,11 +67,20 @@
     </td>
     <td>
         {% for property in user.person.properties %}
-            <p><a href="{% url 'property-detail' property.id %}">{{ property.short_address }}</a></p>
+            <p><a href="{% url 'property-detail' property.id %}">
+                {{ property.short_address }} (#{{ property.id }})
+            </a></p>
         {% endfor %}
         {% for org in user.person.organizations_as_contact %}
-            <a href="{% url 'organization-update' org.pk %}">{{ org }}</a>
+            <a href="{% url 'organization-update' org.pk %}">
+                {{ org.civil_name }}
+            </a>
         {% endfor %}
     </td>
-    <td>{{ user.person.neighborhood.name }}</td>
+    <td>
+        {{ user.person.neighborhood.name }}
+    </td>
+    <td>
+        {{ user.person.comments }}
+    </td>
 </tr>

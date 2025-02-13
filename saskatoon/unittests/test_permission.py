@@ -44,4 +44,5 @@ def test_permission_static_pages_logged_in(client, auth_group):
         response = client.get(get_url(page))
 
         expected_status_code = 200 if (auth_group in permitted_groups) else 403
-        assert response.status_code == expected_status_code, f"Auth group: {auth_group}, Page: {page}"
+        error_msg = f"Auth group: {auth_group}, Page: {page}"
+        assert response.status_code == expected_status_code, error_msg
