@@ -40,3 +40,7 @@ jobs:
     - name: Run pyflakes
       run: |
         tox -e pyflakes
+
+    - name: Run flake8
+      run: |
+        tox -e flake8

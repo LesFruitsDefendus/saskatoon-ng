@@ -138,6 +138,9 @@ class CommunitySerializer(serializers.ModelSerializer):
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
     role_codes = serializers.SerializerMethodField()
+    date_joined = serializers.DateTimeField(
+        format="%Y-%m-%d"
+    )
 
     def get_role_codes(self, instance):
         return [g.name for g in instance.role_groups]

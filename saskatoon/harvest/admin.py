@@ -1,5 +1,3 @@
-# coding: utf-8
-# from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
@@ -7,12 +5,26 @@ from django.urls import reverse
 from django.utils.html import mark_safe
 from django import forms
 from dal import autocomplete
-from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
-                            Equipment, EquipmentType, HarvestYield, Comment,
-                            PropertyImage, HarvestImage)
-from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
-                             HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm)
+
+from harvest.forms import RFPForm, HarvestYieldForm
+from harvest.filters import (
+    HarvestSeasonAdminFilter,
+    OwnerHasNoEmailAdminFilter,
+    PropertyOwnerTypeAdminFilter,
+    PropertyHasHarvestAdminFilter,
+)
+from harvest.models import (
+    Comment,
+    Equipment,
+    EquipmentType,
+    Harvest,
+    HarvestImage,
+    HarvestYield,
+    Property,
+    PropertyImage,
+    RequestForParticipation,
+    TreeType,
+)
 from member.models import AuthUser
 
 
@@ -211,7 +223,7 @@ class PropertyAdmin(admin.ModelAdmin):
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
                         messages.add_message(request, messages.WARNING,
-                                f"{_property} has multiple emails in comments")
+                                             f"{_property} has multiple emails in comments")
                         continue
                     elif len(emails) == 1:
                         email = emails[0]

@@ -14,11 +14,17 @@ if __name__ == "__main__":
 
     project_dir = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-    invoke.run(f'{project_dir}/saskatoon/manage.py migrate --skip-checks', pty=True, )
-    invoke.run(f'{project_dir}/saskatoon/manage.py createsuperuser',
+    invoke.run(
+        f'{project_dir}/saskatoon/manage.py migrate --skip-checks',
+        pty=True
+    )
+    invoke.run(
+        f'{project_dir}/saskatoon/manage.py createsuperuser',
         pty=True,
         watchers=[
             invoke.watchers.Responder('Email address', sys.argv[1] + '\n'),
-            invoke.watchers.Responder('Password', sys.argv[2]+ '\n'),
+            invoke.watchers.Responder('Password', sys.argv[2] + '\n'),
             invoke.watchers.Responder('Bypass password validation and create user anyway?', 'y\n'),
-        ], timeout=5)
+        ],
+        timeout=5
+    )

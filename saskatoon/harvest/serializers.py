@@ -122,6 +122,7 @@ class PropertyListSerializer(PropertySerializer):
             'title',
             'neighborhood',
             'trees',
+            'ladder_available',
             'last_succeeded_harvest_date',
             'is_active',
             'authorized',
@@ -251,7 +252,12 @@ class HarvestDetailSerializer(HarvestSerializer):
 
 class HarvestListPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'neighborhood']  # type: ignore
+        fields = [
+            'id',
+            'title',
+            'ladder_available',
+            'neighborhood'
+        ]  # type: ignore
 
     neighborhood = serializers.StringRelatedField(many=False)
 

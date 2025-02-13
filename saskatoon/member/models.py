@@ -1,15 +1,23 @@
-# coding: utf-8
-
 import re
+from django.contrib.auth.models import (
+    Group,
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
+from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import ( Group, AbstractBaseUser,
-                                         PermissionsMixin, BaseUserManager )
-from django.core.validators import RegexValidator
 from django.utils import timezone as tz
 from phone_field import PhoneField
-from harvest.models import RequestForParticipation, Harvest, Property, Equipment
+
+from harvest.models import (
+    RequestForParticipation,
+    Harvest,
+    Property,
+    Equipment,
+)
 
 AUTH_GROUPS = (
     ('core', _("Core Member")),
@@ -23,6 +31,7 @@ STAFF_GROUPS = ['core', 'pickleader']
 
 
 class AuthUserManager(BaseUserManager):
+    """Base user management"""
 
     def create_user(self, email, password=None):
         if not email:
@@ -45,6 +54,7 @@ class AuthUserManager(BaseUserManager):
 
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
+    """Base user model"""
 
     person = models.OneToOneField(
         'Person',
@@ -82,7 +92,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         ''' add role to user
             :param role: group name (see AUTH_GROUPS)
         '''
-        group, __ =  Group.objects.get_or_create(name=role)
+        group, __ = Group.objects.get_or_create(name=role)
         self.groups.add(group)
         if commit:
             self.save()
@@ -133,6 +143,10 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 class Onboarding(models.Model):
     """Pickleader Registration"""
 
+    class Meta:
+        verbose_name = _("user onboarding")
+        verbose_name_plural = _("user onboarding")
+
     name = models.CharField(
         verbose_name=_("Reference name"),
         max_length=50,
@@ -151,10 +165,6 @@ class Onboarding(models.Model):
         default=""
     )
 
-    class Meta:
-        verbose_name = _("user onboarding")
-        verbose_name_plural = _("user onboarding")
-
     @property
     def user_count(self):
         return self.persons.count()
@@ -167,13 +177,15 @@ class Onboarding(models.Model):
 
 
 class Actor(models.Model):
-    actor_id = models.AutoField(
-        primary_key=True
-    )
+    """Actor (Person or Organization)"""
 
     class Meta:
         verbose_name = _("actor")
         verbose_name_plural = _("actors")
+
+    actor_id = models.AutoField(
+        primary_key=True
+    )
 
     def get_person(self):
         return Person.objects.filter(actor_id=self.actor_id).first()
@@ -199,6 +211,13 @@ class Actor(models.Model):
 
 
 class Person(Actor):
+    """Person model"""
+
+    class Meta:
+        verbose_name = _("person")
+        verbose_name_plural = _("persons")
+        ordering = ["first_name"]
+
     redmine_contact_id = models.IntegerField(
         verbose_name=_("Redmine contact"),
         null=True,
@@ -322,11 +341,6 @@ class Person(Actor):
         blank=True
      )
 
-    class Meta:
-        verbose_name = _("person")
-        verbose_name_plural = _("persons")
-        ordering = ["first_name"]
-
     def __str__(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
@@ -344,7 +358,7 @@ class Person(Actor):
     @property
     def comment_emails(self):
         """Look for emails in comments"""
-        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
+        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"  # noqa: W605
         matches = re.findall(EMAIL_PATTERN, self.comments)
         return matches
 
@@ -372,7 +386,9 @@ class Person(Actor):
 
     @property
     def harvests_as_volunteer_pending(self):
-        requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
+        requests = self.requests_as_volunteer.exclude(
+            Q(is_accepted=True) | Q(is_cancelled=True)
+        )
         return Harvest.objects.filter(requests__in=requests)
 
     @property
@@ -395,15 +411,27 @@ class Person(Actor):
 
 
 class Organization(Actor):
+    """Organization model"""
+
+    class Meta:
+        verbose_name = _("organization")
+        verbose_name_plural = _("organizations")
+        ordering = ["civil_name"]
+
     is_beneficiary = models.BooleanField(
         verbose_name=_('Is Beneficiary'),
-        help_text=_('Only check this box if the Organization is currently accepting fruit donations'),
+        help_text=_(
+            'Only check this box if the Organization is currently accepting fruit donations'
+        ),
         default=False
     )
 
     is_equipment_point = models.BooleanField(
         verbose_name=_('Is Equipment Point'),
-        help_text=_('Only check this box if the equipment registered at this Organization is currenlty made available'),
+        help_text=_(
+            'Only check this box if the equipment registered at this Organization \
+is currenlty made available'
+        ),
         default=False
     )
 
@@ -560,11 +588,6 @@ class Organization(Actor):
             )
         return self.short_address
 
-    class Meta:
-        verbose_name = _("organization")
-        verbose_name_plural = _("organizations")
-        ordering = ["civil_name"]
-
     def __str__(self):
         return u"%s" % self.civil_name
 
@@ -590,71 +613,80 @@ class Organization(Actor):
 
 
 class Neighborhood(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """Neighborhood model"""
 
     class Meta:
         verbose_name = _("neighborhood")
         verbose_name_plural = _("neighborhoods")
         ordering = ["name"]
 
-    def __str__(self):
-        return self.name
-
-
-class City(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
         max_length=150
     )
 
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    """City model"""
+
     class Meta:
         verbose_name = _("city")
         verbose_name_plural = _("cities")
+
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
 
 
 class State(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """State model"""
 
     class Meta:
         verbose_name = _("state")
         verbose_name_plural = _("states")
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
 
 
 class Country(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """Country model"""
 
     class Meta:
         verbose_name = _("country")
         verbose_name_plural = _("countries")
+
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
 
 
 class Language(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """Language model"""
 
     class Meta:
         verbose_name = _("language")
         verbose_name_plural = _("languages")
+
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
