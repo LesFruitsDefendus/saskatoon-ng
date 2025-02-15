@@ -84,6 +84,7 @@ class EquipmentType(models.Model):
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
+
     name_fr = models.CharField(
         verbose_name=_("Nom (fr)"),
         max_length=50

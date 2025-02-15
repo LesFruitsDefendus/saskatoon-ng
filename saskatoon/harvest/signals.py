@@ -152,6 +152,7 @@ def notify_pending_status_update(sender, instance, **kwargs):
             _send_mail(mail_subject, message, property_owner_email)
 
 
+# TODO, the email should only get sent if comment was added by someone else??
 def comment_send_mail(sender, instance, **kwargs):
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
