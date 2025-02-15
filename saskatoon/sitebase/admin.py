@@ -6,7 +6,7 @@ from sitebase.models import Content
 class ContentAdmin(admin.ModelAdmin):
     model = Content
     list_display = (
-        'name',
+        'type',
         'title_en',
         'title_fr',
         'id',

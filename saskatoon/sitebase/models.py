@@ -1,4 +1,4 @@
-from django.core.validators import RegexValidator
+# from django.core.validators import RegexValidator
 from django.db import models
 from django_quill.fields import QuillField
 from django.utils.translation import gettext_lazy as _
@@ -10,15 +10,20 @@ class Content(models.Model):
     class Meta:
         verbose_name = _('Content')
         verbose_name_plural = _('Content')
-        ordering = ['name']
+        ordering = ['type']
 
-    STRING_REGEX = r'^[a-z_]+$'
-    STRING_ERROR = _("Content name must only contain lowercase letters or underscore")
+    class Type(models.TextChoices):
+        DRAFT = 'draft', _("Draft")
+        VOLUNTEER_HOME = 'volunteer_home', _("Volunteer home page")
+        PICKLEADER_HOME = 'pickleader_home', _("Pickleader home page")
+        TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
+        PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
 
-    name = models.CharField(
+    type = models.CharField(
         verbose_name=_("Reference name"),
         max_length=50,
-        validators=[RegexValidator(STRING_REGEX, STRING_ERROR)],
+        choices=Type.choices,
+        default=Type.DRAFT,
         unique=True
     )
 
