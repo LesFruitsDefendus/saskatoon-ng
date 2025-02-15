@@ -14,17 +14,16 @@ class Content(models.Model):
 
     class Type(models.TextChoices):
         DRAFT = 'draft', _("Draft")
-        VOLUNTEER_HOME = 'volunteer_home', _("Volunteer home page")
-        PICKLEADER_HOME = 'pickleader_home', _("Pickleader home page")
+        VOLUNTEER_HOME = 'volunteer_home', _("Volunteer Home")
+        PICKLEADER_HOME = 'pickleader_home', _("Pickleader Home")
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
 
     type = models.CharField(
-        verbose_name=_("Reference name"),
+        verbose_name=_("Content type"),
         max_length=50,
         choices=Type.choices,
         default=Type.DRAFT,
-        unique=True
     )
 
     title_en = models.CharField(
@@ -56,7 +55,7 @@ class Content(models.Model):
     body_fr = QuillField()
 
     def __str__(self):
-        return "{}[{}]".format(self.name, self.id)
+        return "{}[{}]".format(self.type, self.id)
 
     def content(self, lang):
         return dict([(key, getattr(self, "{}_{}".format(key, lang)))

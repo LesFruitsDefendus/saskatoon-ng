@@ -12,11 +12,6 @@ from saskatoon.settings import (
 )
 from sitebase.models import Content
 
-VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
-PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
-TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
-PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
-
 
 class Index(TemplateView):
     template_name = 'app/index.html'
@@ -24,12 +19,12 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_name = VOLUNTEER_HOME_CONTENT_NAME
+        content_type = Content.Type.VOLUNTEER_HOME
 
         if self.request.user.is_authenticated:
-            content_name = PICKLEADER_HOME_CONTENT_NAME
+            content_type = Content.Type.PICKLEADER_HOME
 
-        home, _ = Content.objects.get_or_create(name=content_name)
+        home, _ = Content.objects.get_or_create(type=content_type)
         context['content'] = home.content(self.request.LANGUAGE_CODE)
 
         return context
