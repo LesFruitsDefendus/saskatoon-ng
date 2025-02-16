@@ -114,11 +114,7 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
             'country'
         ]
 
-    language = serializers.SerializerMethodField()
     comments = serializers.SerializerMethodField()
-
-    def get_language(self, obj):
-        return obj.language.name if obj.language else None
 
     def get_comments(self, obj):
         return obj.person.comments
