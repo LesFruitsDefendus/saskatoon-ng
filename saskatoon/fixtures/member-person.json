@@ -3,7 +3,6 @@
   "model": "member.person",
   "pk": 1,
   "fields": {
-    "redmine_contact_id": null,
     "first_name": "Nice",
     "family_name": "Owner",
     "phone": "514-666-1234",
@@ -18,7 +17,7 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": 1,
+    "language": "fr",
     "comments": "Passer par l'arrière ruelle"
   }
 },
@@ -26,7 +25,6 @@
   "model": "member.person",
   "pk": 3,
   "fields": {
-    "redmine_contact_id": null,
     "first_name": "Pick",
     "family_name": "Leader",
     "phone": null,
@@ -41,7 +39,7 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": null,
+    "language": "en",
     "comments": ""
   }
 },
@@ -49,7 +47,6 @@
   "model": "member.person",
   "pk": 4,
   "fields": {
-    "redmine_contact_id": null,
     "first_name": "Volunteer",
     "family_name": "Picker",
     "phone": "438-666-1234",
@@ -64,7 +61,7 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": null,
+    "language": "fr",
     "comments": ""
   }
 },
@@ -72,7 +69,6 @@
   "model": "member.person",
   "pk": 5,
   "fields": {
-    "redmine_contact_id": null,
     "first_name": "Core",
     "family_name": "Member",
     "phone": "514-123-4321",
@@ -87,7 +83,7 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": 2,
+    "language": "en",
     "comments": ""
   }
 }

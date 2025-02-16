@@ -17,7 +17,6 @@ seq=(auth-group member-city \
      member-neighborhood \
      member-state \
      member-country \
-     member-language \
      member-actor \
      member-person \
      member-organization \

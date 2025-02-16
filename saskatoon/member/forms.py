@@ -7,7 +7,7 @@ from django.forms.widgets import PasswordInput
 from logging import getLogger
 
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization, AUTH_GROUPS
+from member.models import AuthUser, Person, Organization
 from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
@@ -32,7 +32,7 @@ class PersonCreateForm(forms.ModelForm):
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=True
     )
 
@@ -75,7 +75,7 @@ class PersonUpdateForm(forms.ModelForm):
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=False
     )
 
