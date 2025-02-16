@@ -5,7 +5,6 @@ from django.contrib.auth.models import (
     PermissionsMixin,
     BaseUserManager,
 )
-from django.core.validators import RegexValidator
 from django.db import models
 from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
@@ -18,16 +17,6 @@ from harvest.models import (
     Property,
     Equipment,
 )
-
-AUTH_GROUPS = (
-    ('core', _("Core Member")),
-    ('pickleader', _("Pick Leader")),
-    ('volunteer', _("Volunteer Picker")),
-    ('owner', _("Property Owner")),
-    ('contact', _("Contact Person")),
-)
-
-STAFF_GROUPS = ['core', 'pickleader']
 
 
 class AuthUserManager(BaseUserManager):
@@ -56,6 +45,16 @@ class AuthUserManager(BaseUserManager):
 class AuthUser(AbstractBaseUser, PermissionsMixin):
     """Base user model"""
 
+    GROUPS = (
+        ('core', _("Core Member")),
+        ('pickleader', _("Pick Leader")),
+        ('volunteer', _("Volunteer Picker")),
+        ('owner', _("Property Owner")),
+        ('contact', _("Contact Person")),
+    )
+
+    STAFF_GROUPS = ['core', 'pickleader']
+
     person = models.OneToOneField(
         'Person',
         on_delete=models.CASCADE,
@@ -63,60 +62,57 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         related_name='auth_user'
     )
 
-    alphanumeric = RegexValidator(
-        r'^[0-9a-zA-Z]*$',
-        message=_('Only alphanumeric characters are allowed.')
+    has_temporary_password = models.BooleanField(
+        default=False,
+        null=False
     )
 
-    # Redefine the basic fields that would normally be defined in User
+    agreed_terms = models.BooleanField(
+        default=False,
+        null=False
+    )
+
+    # AbstractBaseUser fields #
     email = models.EmailField(
         verbose_name=_('email address'),
         unique=True,
         max_length=255
     )
-
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
-
     date_joined = models.DateTimeField(auto_now_add=True)
-
     is_active = models.BooleanField(default=True, null=False)
-
     is_staff = models.BooleanField(default=False, null=False)
-
-    has_temporary_password = models.BooleanField(default=False, null=False)
-
-    agreed_terms = models.BooleanField(default=False, null=False)
 
     def add_role(self, role, commit=True):
         ''' add role to user
-            :param role: group name (see AUTH_GROUPS)
+            :param role: AuthUser.GROUP name
         '''
-        group, __ = Group.objects.get_or_create(name=role)
+        group, _ = Group.objects.get_or_create(name=role)
         self.groups.add(group)
         if commit:
             self.save()
 
     def set_roles(self, roles):
         ''' updates user's groups
-            :param roles: list of group names (see AUTH_GROUPS)
+            :param roles: list of AuthUser.GROUP names
         '''
         self.groups.clear()
         for role in roles:
             self.add_role(role, False)
 
-        self.is_staff = any([r in STAFF_GROUPS for r in roles])
+        self.is_staff = any([r in self.STAFF_GROUPS for r in roles])
         self.save()
 
     @property
     def role_groups(self):
         ''' returns user's role groups'''
-        return self.groups.filter(name__in=[t[0] for t in AUTH_GROUPS])
+        return self.groups.filter(name__in=[t[0] for t in self.GROUPS])
 
     @property
     def roles(self):
         ''' lists user's role names'''
-        return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
+        return [dict(self.GROUPS).get(g.name) for g in self.role_groups]
 
     @property
     def is_onboarding(self):
@@ -129,7 +125,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
     @property
     def name(self):
-        if self.person:
+        if self.person is not None:
             return self.person.name
         return None
 
@@ -218,10 +214,15 @@ class Person(Actor):
         verbose_name_plural = _("persons")
         ordering = ["first_name"]
 
-    redmine_contact_id = models.IntegerField(
-        verbose_name=_("Redmine contact"),
-        null=True,
-        blank=True
+    class Language(models.TextChoices):
+        FR = 'fr', "Français"
+        EN = 'en', "English"
+
+    language = models.CharField(
+        verbose_name=_("Preferred Language"),
+        max_length=2,
+        choices=Language.choices,
+        default=Language.FR,
     )
 
     first_name = models.CharField(
@@ -319,14 +320,6 @@ class Person(Actor):
         blank=True
     )
 
-    language = models.ForeignKey(
-        'member.Language',
-        null=True,
-        blank=True,
-        verbose_name=_("Preferred language"),
-        on_delete=models.CASCADE,
-    )
-
     comments = models.TextField(
         verbose_name=_("Comments"),
         blank=True
@@ -350,10 +343,9 @@ class Person(Actor):
 
     @property
     def email(self):
-        try:
+        if self.auth_user is None:
             return self.auth_user.email
-        except AuthUser.DoesNotExist:
-            return None
+        return None
 
     @property
     def comment_emails(self):
@@ -605,7 +597,9 @@ is currenlty made available'
 
     @property
     def language(self):
-        return self.contact_person.language if self.contact_person else None
+        if self.contact_person is not None:
+            return self.contact_person.language
+        return Person.Language.FR
 
     @property
     def equipment(self):
@@ -666,22 +660,6 @@ class Country(models.Model):
     class Meta:
         verbose_name = _("country")
         verbose_name_plural = _("countries")
-
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
-
-    def __str__(self):
-        return self.name
-
-
-class Language(models.Model):
-    """Language model"""
-
-    class Meta:
-        verbose_name = _("language")
-        verbose_name_plural = _("languages")
 
     name = models.CharField(
         verbose_name=_("Name"),
