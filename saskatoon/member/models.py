@@ -361,7 +361,7 @@ class Person(Actor):
 
     @property
     def harvests_as_pickleader(self):
-        return Harvest.objects.filter(pick_leader=self.auth_user, status="Succeeded")
+        return Harvest.objects.filter(pick_leader=self.auth_user, status=Harvest.Status.SUCCEEDED)
 
     @property
     def requests_as_volunteer(self):
@@ -374,7 +374,7 @@ class Person(Actor):
 
     @property
     def harvests_as_volunteer_succeeded(self):
-        return self.harvests_as_volunteer_accepted.filter(status="Succeeded")
+        return self.harvests_as_volunteer_accepted.filter(status=Harvest.Status.SUCCEEDED)
 
     @property
     def harvests_as_volunteer_pending(self):

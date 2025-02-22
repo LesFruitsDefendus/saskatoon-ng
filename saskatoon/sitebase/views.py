@@ -144,10 +144,10 @@ class JsonCalendar(View):
                 event = dict()
                 event['url'] = '/participation/create?hid='+str(harvest.id)
                 colors = ({
-                    'Date-scheduled': "#FFE180",
-                    'Ready': "#BADDFF",
-                    'Succeeded': "#9CF0DB",
-                    'Cancelled': "#ED6D62"
+                    'scheduled': "#FFE180",
+                    'ready': "#BADDFF",
+                    'succeeded': "#9CF0DB",
+                    'cancelled': "#ED6D62"
                 })
                 event['display'] = "block"
                 event['backgroundColor'] = colors.get(harvest.status, "#ededed")
