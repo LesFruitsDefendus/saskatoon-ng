@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static %}
 
-{% if harvest.status == "Succeeded" %}
+{% if harvest.status == "succeeded" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Succeeded" %}</div>
@@ -12,7 +12,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "Cancelled" %}
+{% if harvest.status == "cancelled" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Cancelled" %}</div>
@@ -24,7 +24,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "Orphan" %}
+{% if harvest.status == "orphan" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Orphan" %}</div>
@@ -34,7 +34,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "Adopted" %}
+{% if harvest.status == "adopted" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Adopted" %}</div>
@@ -45,7 +45,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "To-be-confirmed" %}
+{% if harvest.status == "pending" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Pending auth." %}</div>
@@ -56,7 +56,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "Date-scheduled" %}
+{% if harvest.status == "scheduled" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Scheduled" %}</div>
@@ -67,7 +67,7 @@
     </div>
 </div>
 {% endif %}
-{% if harvest.status == "Ready" %}
+{% if harvest.status == "ready" %}
 <div class="skill">
     <div class="progress">
         <div class="lead-content">{% trans "Ready" %}</div>

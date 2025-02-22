@@ -23,7 +23,6 @@ from member.models import (
     AuthUser,
     City,
     Country,
-    Language,
     Neighborhood,
     Onboarding,
     Organization,
@@ -468,7 +467,6 @@ class OrganizationAdmin(admin.ModelAdmin):
             )
 
 
-admin.site.register(Language)
 admin.site.register(Neighborhood)
 admin.site.register(City)
 admin.site.register(State)

@@ -4,6 +4,7 @@ from django.core.mail import send_mail, send_mass_mail
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 from logging import getLogger
+
 from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
 
 logger = getLogger('saskatoon')
@@ -68,7 +69,8 @@ def notify_unselected_pickers(sender, instance, **kwargs):
             original_instance = sender.objects.get(id=instance.id)
         except ObjectDoesNotExist:
             return
-        if instance.status == "Ready" and original_instance.status == "Date-scheduled":
+        if (original_instance.status is instance.Status.SCHEDULED and
+                instance.status is instance.Status.READY):
             email_list = list()
             mail_subject = _("[Saskatoon] Request for participation declined")
             for picker in instance.get_unselected_pickers():

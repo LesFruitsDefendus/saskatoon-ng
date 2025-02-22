@@ -7,9 +7,7 @@ from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from harvest.models import Property, Harvest, RequestForParticipation
 from member.models import (
-    AUTH_GROUPS,
     AuthUser,
-    Language,
     Organization,
     Person,
     Neighborhood
@@ -28,7 +26,7 @@ class CommunityFilter(filters.FilterSet):
         ]
 
     role = filters.MultipleChoiceFilter(
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         label=_("Role(s)"),
         widget=forms.CheckboxSelectMultiple,
         method='role_filter'
@@ -38,14 +36,12 @@ class CommunityFilter(filters.FilterSet):
         field_name='person__neighborhood',
         queryset=Neighborhood.objects.all(),
         label=_("Neighborhood"),
-        help_text="",
     )
 
-    language = filters.ModelChoiceFilter(
+    language = filters.ChoiceFilter(
         field_name='person__language',
-        queryset=Language.objects.all(),
+        choices=Person.Language.choices,
         label=_("Language"),
-        help_text="",
     )
 
     def role_filter(self, queryset, name, roles):

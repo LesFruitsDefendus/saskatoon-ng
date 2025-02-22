@@ -3,7 +3,7 @@
   "model": "harvest.harvest",
   "pk": 1,
   "fields": {
-    "status": "Succeeded",
+    "status": "succeeded",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
@@ -29,7 +29,7 @@
   "model": "harvest.harvest",
   "pk": 2,
   "fields": {
-    "status": "Ready",
+    "status": "ready",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
@@ -52,7 +52,7 @@
   "model": "harvest.harvest",
   "pk": 3,
   "fields": {
-    "status": "Cancelled",
+    "status": "cancelled",
     "property": 3,
     "owner_present": true,
     "owner_help": false,
@@ -75,7 +75,7 @@
   "model": "harvest.harvest",
   "pk": 4,
   "fields": {
-    "status": "Date-scheduled",
+    "status": "scheduled",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
