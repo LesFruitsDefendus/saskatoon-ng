@@ -187,7 +187,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
         return context
 
     def get_success_message(self, cleaned_data) -> str:
-        if self.object.status == "Succeeded":
+        if self.object.status is Harvest.Status.SUCCEEDED:
             pick_leader = self.object.pick_leader
             harvests_as_pickleader = pick_leader.person.harvests_as_pickleader
             harvests_this_year = harvests_as_pickleader.filter(
@@ -370,7 +370,7 @@ def harvest_adopt(request, id):
         )
     elif harvest.pick_leader is None:
         harvest.pick_leader = request.user
-        harvest.status = 'Adopted'
+        harvest.status = Harvest.Status.ADOPTED
         harvest.save()
         messages.success(request, _("You successfully adopted this harvest!"))
     else:
@@ -387,9 +387,9 @@ def harvest_leave(request, id):
     """
     harvest = get_object_or_404(Harvest, id=id)
 
-    if harvest.pick_leader == request.user:
+    if harvest.pick_leader is request.user:
         harvest.pick_leader = None
-        harvest.status = 'Orphan'
+        harvest.status = Harvest.Status.ORPHAN
         harvest.save()
         messages.success(request, _("You successfully dropped this harvest!"))
     else:

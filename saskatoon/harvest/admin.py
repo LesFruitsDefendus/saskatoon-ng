@@ -74,8 +74,8 @@ class HarvestAdmin(admin.ModelAdmin):
     def cancel_harvests(self, request, queryset):
         num_cancelled = 0
         for h in queryset:
-            if h.status != 'Cancelled':
-                h.status = 'Cancelled'
+            if h.status is not Harvest.Status.CANCELLED:
+                h.status = Harvest.Status.CANCELLED
                 h.save()
                 num_cancelled += 1
 
@@ -103,6 +103,7 @@ class EquipmentAdminForm(forms.ModelForm):
 
     class Meta:
         model = Equipment
+        fields = '__all__'
         widgets = {
             'property': autocomplete.ModelSelect2(
                 'property-autocomplete'
@@ -111,8 +112,6 @@ class EquipmentAdminForm(forms.ModelForm):
                 'actor-autocomplete'
             ),
         }
-
-        fields = '__all__'
 
 
 @admin.register(Equipment)

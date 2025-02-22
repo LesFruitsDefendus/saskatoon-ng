@@ -42,10 +42,10 @@
             <li>
                 <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
                     title="Harvest #{{ harvest.id }} - {{ harvest.start_date }} by {{ harvest.pick_leader }}">
-                    {% if harvest.status == "Succeeded" %}
+                    {% if harvest.status == "succeeded" %}
                     <i class="fa fa-shopping-basket fa-lg text-success"
                         style="padding-top:7px;"></i>
-                    {% elif harvest.status == "Cancelled" %}
+                    {% elif harvest.status == "cancelled" %}
                     <i class="fa fa-shopping-basket fa-lg text-danger"
                         style="padding-top:7px;"></i>
                     {% else %}

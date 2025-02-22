@@ -9,17 +9,17 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
-                        <p>{% translate 'Harvest status' %}</p>
+                        <p>{% translate "Harvest status" %}</p>
                         {% if pick_leader is None or pick_leader.id != request.user.id %}
                         <h2>{{ status }}</h2>
                         {% else %}
                         <div class="dropdown">
                             <button
-                            {% if status == 'Succeeded' %}
+                            {% if status == "succeeded" %}
                             class="btn btn-success dropdown-toggle"
-                            {% elif status == 'Cancelled' %}
+                            {% elif status == "cancelled" %}
                             class="btn btn-danger dropdown-toggle"
-                            {% elif status == 'Ready' %}
+                            {% elif status == "ready" %}
                             class="btn btn-primary dropdown-toggle"
                             {% else %}
                             class="btn btn-warning dropdown-toggle"
@@ -72,7 +72,7 @@
 
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                    {% if status == "Succeeded" %}
+                    {% if status == "succeeded" %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Total harvested:" %}</p>
                             <h2><span class="counter">{{ total_distribution|unlocalize }}</span> lbs</h2>

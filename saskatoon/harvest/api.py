@@ -191,7 +191,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
 
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
-    queryset = Harvest.objects.filter(status="Succeeded")
+    queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
     filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')

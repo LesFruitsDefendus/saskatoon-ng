@@ -11,38 +11,6 @@ from phone_field import PhoneField
 from typing import Optional
 
 
-HARVESTS_STATUS_CHOICES = (
-    (
-        "To-be-confirmed",
-        _("To be confirmed"),
-    ),
-    (
-        "Orphan",
-        _("Orphan"),
-    ),
-    (
-        "Adopted",
-        _("Adopted"),
-    ),
-    (
-        "Date-scheduled",
-        _("Date scheduled"),
-    ),
-    (
-        "Ready",
-        _("Ready"),
-    ),
-    (
-        "Succeeded",
-        _("Succeeded"),
-    ),
-    (
-        "Cancelled",
-        _("Cancelled"),
-    )
-)
-
-
 class TreeType(models.Model):
     """Tree Type model"""
 
@@ -381,7 +349,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def last_succeeded_harvest_date(self):
         """Date of the last successful harvest for this property"""
         last_harvest = self.harvests\
-                           .filter(status="Succeeded")\
+                           .filter(status=Harvest.Status.SUCCEEDED)\
                            .order_by('start_date').last()
         return last_harvest.start_date if last_harvest else None
 
@@ -436,15 +404,29 @@ class Harvest(models.Model):
         verbose_name_plural = _("harvests")
         ordering = ['-start_date']
 
-    PUBLISHABLE_STATUSES = ['Ready', 'Date-scheduled', 'Succeeded']
+    class Status(models.TextChoices):
+        PENDING = 'pending', _("To be confirmed")
+        ORPHAN = 'orphan', _("Orphan")
+        ADOPTED = 'adopted', _("Adopted")
+        SCHEDULED = 'scheduled', _("Date scheduled")
+        READY = 'ready', _("Ready")
+        SUCCEEDED = 'succeeded', _("Succeeded")
+        CANCELLED = 'cancelled', _("Cancelled")
+
+    PUBLISHABLE_STATUSES = [
+        Status.READY,
+        Status.SCHEDULED,
+        Status.SUCCEEDED
+    ]
 
     status = models.CharField(
-        choices=HARVESTS_STATUS_CHOICES,
+        choices=Status.choices,
         max_length=100,
         null=True,
         verbose_name=_("Harvest status")
     )
 
+    # WARNING: confilcts with @property decorator :/
     property = models.ForeignKey(
         'Property',
         null=True,
@@ -533,18 +515,16 @@ class Harvest(models.Model):
         on_delete=models.CASCADE,
     )
 
-    def get_status_l10n(self):
-        status_list = list(HARVESTS_STATUS_CHOICES)
-        for s in status_list:
-            if s[0] in self.status:
-                return s[1]
+    def __str__(self):
+        if self.start_date:
+            return _("Harvest on {} for {}").format(
+                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
+                self.property
+            )
+        return _("Harvest for {}").format(self.property)
 
     def get_total_distribution(self):
-        total = 0
-        yields = HarvestYield.objects.filter(harvest=self)
-        for y in yields:
-            total += y.total_in_lb
-        return total
+        return sum([y.total_in_lb for y in HarvestYield.objects.filter(harvest=self)])
 
     def get_local_start(self):
         tz = timezone.get_current_timezone()
@@ -554,19 +534,8 @@ class Harvest(models.Model):
         tz = timezone.get_current_timezone()
         return self.end_date.astimezone(tz) if self.end_date else self.end_date
 
-    def __str__(self):
-        if self.start_date:
-            return (_("Harvest on {} for {}")).format(
-                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
-                self.property
-            )
-        else:
-            return (_("Harvest for {}")).format(
-                self.property
-            )
-
     def get_pickers(self):
-        requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
+        requests = RequestForParticipation.objects.filter(harvest=self, is_accepted=True)
         return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
 
     def get_unselected_pickers(self):
@@ -600,24 +569,21 @@ class Harvest(models.Model):
             title += f" @ {self.property.neighborhood.name}"
         return title
 
-    # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
-        NUM_DAYS_URGENT_ORPHAN = 14
-        NUM_DAYS_URGENT_NOT_READY = 3
         if not self.start_date:
             return False
+
         days = self.get_days_before_harvest()
-        if self.status == 'Orphan' and days < NUM_DAYS_URGENT_ORPHAN:
-            return True
-        elif self.status == 'Date-scheduled' and days < NUM_DAYS_URGENT_NOT_READY:
-            return True
-        return False
+        return (
+            (self.status is Harvest.Status.ORPHAN and days < 14) or
+            (self.status is Harvest.Status.SCHEDULED and days < 3)
+        )
 
     def is_happening(self):
         if not self.start_date:
             return False
         is_today = self.get_days_before_harvest() == 0
-        return (self.status == 'Ready' and is_today)
+        return is_today and self.status is Harvest.Status.READY
 
     def is_publishable(self):
         if self.status not in self.PUBLISHABLE_STATUSES:
@@ -627,7 +593,7 @@ class Harvest(models.Model):
         return (timezone.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        if self.status != 'Date-scheduled':
+        if self.status is not Harvest.Status.SCHEDULED:
             return False
         return timezone.now() <= self.end_date
 

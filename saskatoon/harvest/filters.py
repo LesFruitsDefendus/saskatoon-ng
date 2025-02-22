@@ -5,7 +5,6 @@ from django.utils.translation import ugettext_lazy as _
 from django_filters import rest_framework as filters
 from harvest.models import (
     Harvest,
-    HARVESTS_STATUS_CHOICES,
     TreeType,
     Property,
     Equipment,
@@ -53,7 +52,7 @@ class HarvestFilter(filters.FilterSet):
 
     status = filters.ChoiceFilter(
         label=_("Status"),
-        choices=list(HARVESTS_STATUS_CHOICES),
+        choices=list(Harvest.Status.choices)
     )
 
     pick_leader = filters.ModelChoiceFilter(

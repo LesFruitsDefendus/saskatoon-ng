@@ -43,17 +43,17 @@
         {% endif %}
     </td>
     <td>
-        {% if harvest.status == "Succeeded" %}
+        {% if harvest.status == "succeeded" %}
         <div class="skill">
             <div class="progress">
-                <div class="lead-content">{% trans "Succeeded" %}</div>
+                <div class="lead-content">{% trans "succeeded" %}</div>
                 <div class="progress-bar wow fadeInLeft"
                         data-progress="100%" data-wow-delay="1.2s"
                         data-wow-duration="1.5s" style="width: 100%;"></div>
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "Cancelled" %}
+        {% if harvest.status == "cancelled" %}
         <div class="skill">
             <div class="progress">
                 <div class="lead-content">{% trans "Cancelled" %}</div>
@@ -65,17 +65,17 @@
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "Orphan" %}
+        {% if harvest.status == "orphan" %}
         <div class="skill">
             <div class="progress">
-                <div class="lead-content">{% trans "Orphan" %}</div>
+                <div class="lead-content">{% trans "orphan" %}</div>
                 <div class="progress-bar wow fadeInLeft" data-progress="0%"
                         data-wow-delay="1.2s" data-wow-duration="1.5s"
                         style="width: 0%;"></div>
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "Adopted" %}
+        {% if harvest.status == "adopted" %}
         <div class="skill">
             <div class="progress">
                 <div class="lead-content">{% trans "Adopted" %}</div>
@@ -86,7 +86,7 @@
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "To-be-confirmed" %}
+        {% if harvest.status == "pending" %}
         <div class="skill">
             <div class="progress">
                 <div class="lead-content">{% trans "Pending auth." %}</div>
@@ -97,7 +97,7 @@
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "Date-scheduled" %}
+        {% if harvest.status == "scheduled" %}
         <div class="skill">
             <div class="progress">
                 <div class="lead-content">{% trans "Scheduled" %}</div>
@@ -108,7 +108,7 @@
             </div>
         </div>
         {% endif %}
-        {% if harvest.status == "Ready" %}
+        {% if harvest.status == "ready" %}
         <div class="skill">
             <div class="progress">
                 <div class="lead-content">{% trans "Ready" %}</div>
