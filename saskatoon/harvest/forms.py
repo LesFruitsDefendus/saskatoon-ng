@@ -576,7 +576,7 @@ class HarvestForm(forms.ModelForm):
         """check if pick-leader was selected"""
         pickleader = self.cleaned_data['pick_leader']
         status = self.cleaned_data['status']
-        if not pickleader and status not in ["To-be-confirmed", "Orphan"]:
+        if not pickleader and status not in [Harvest.Status.PENDING, Harvest.Status.ORPHAN]:
             raise forms.ValidationError(
                 _("You must choose a pick leader or change harvest status")
             )
