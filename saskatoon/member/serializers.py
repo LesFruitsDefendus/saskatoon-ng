@@ -120,6 +120,12 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
         return obj.person.comments
 
 
+class PickerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['pk', 'name']
+
+
 class PickLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthUser

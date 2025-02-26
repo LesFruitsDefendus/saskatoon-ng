@@ -534,10 +534,6 @@ class Harvest(models.Model):
         tz = timezone.get_current_timezone()
         return self.end_date.astimezone(tz) if self.end_date else self.end_date
 
-    def get_pickers(self):
-        requests = RequestForParticipation.objects.filter(harvest=self, is_accepted=True)
-        return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
-
     def get_unselected_pickers(self):
         """Volunteers who have been rejected or are waiting for approval"""
         requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))

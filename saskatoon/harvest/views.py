@@ -28,7 +28,7 @@ from harvest.models import (
     Property,
     RequestForParticipation,
 )
-from member.permissions import is_core_or_admin, is_pickleader_or_core
+from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
 from member.models import Organization
 
 
@@ -304,10 +304,10 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
 def harvest_yield_delete(request, id):
     """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
 
-    if not is_pickleader_or_core(request.user):
+    if not is_pickleader_or_core_or_admin(request.user):
         messages.error(
             request,
-            _("You must be a pickleader to register delete a fruit distribution entry!")
+            _("You must be a pickleader to delete a fruit distribution entry!")
         )
     else:
         _yield = HarvestYield.objects.get(id=id)
@@ -321,10 +321,10 @@ def harvest_yield_delete(request, id):
 def harvest_yield_create(request):
     """ handles new fruit distribution form (app/harvest/create_yield.html)"""
 
-    if not is_pickleader_or_core(request.user):
+    if not is_pickleader_or_core_or_admin(request.user):
         messages.error(
             request,
-            _("You must be a pickleader to register add a fruit distribution entry!")
+            _("You must be a pickleader to add a fruit distribution entry!")
         )
     elif request.method == 'POST':
         data = request.POST
@@ -363,7 +363,7 @@ def harvest_adopt(request, id):
     """
     harvest = get_object_or_404(Harvest, id=id)
 
-    if not is_pickleader_or_core(request.user):
+    if not is_pickleader_or_core_or_admin(request.user):
         messages.error(
             request,
             _("You must be a pickleader to adopt this harvest!")
