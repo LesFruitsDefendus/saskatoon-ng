@@ -10,6 +10,7 @@ from member.serializers import (
     PersonRFPSerializer,
     PersonSerializer,
     PickLeaderSerializer,
+    PickerSerializer,
 )
 from harvest.models import (
     Comment,
@@ -168,9 +169,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
-    pickers = serializers.ReadOnlyField(
-        source='get_pickers'
-    )
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
@@ -194,11 +192,15 @@ class HarvestSerializer(serializers.ModelSerializer):
     requests = RequestForParticipationSerializer(many=True, read_only=True)
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
+    pickers = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
 
+    def get_pickers(self, obj):
+        rfps = RequestForParticipation.objects.filter(harvest=obj, is_accepted=True)
+        return PickerSerializer([rfp.picker for rfp in rfps], many=True).data
+
     def get_organizations(self, obj):
-        organizations = Organization.objects.filter(
-            is_beneficiary=True)
+        organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
 
 
