@@ -36,7 +36,8 @@ def test_urls(driver: Remote) -> None:
         )
 
         assert url_part in driver.current_url
-
+        assert '/login/' not in driver.current_url
+        
         for part in expected_html_body_parts:
             assert part in driver.page_source
 
