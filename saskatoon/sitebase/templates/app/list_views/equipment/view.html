@@ -4,17 +4,20 @@
 
 {% block table %}
 
-<thead>
-    <tr>
-        <th class="col-xs-1">#</th>
-        <th class="col-xs-2">{% trans "Equipment" %}</th>
-        <th class="col-xs-2">{% trans "Description" %}</th>
-        <th class="col-xs-2">{% trans "Owner" %}</th>
-        <th class="col-xs-2">{% trans "Property" %}</th>
-        <th class="col-xs-2">{% trans "Neighborhood" %}</th>
-        <th class="col-xs-1">{% trans "Shared" %}</th>
-    </tr>
-</thead>
+    {% include 'app/list_views/organization/modal.html' %}
+
+    <thead>
+        <tr>
+            <th class="col-xs-1">#</th>
+            <th class="col-xs-1">{% trans "Equipment Type" %}</th>
+            <th class="col-xs-1">{% trans "Count" %}</th>
+            <th class="col-xs-2">{% trans "Description" %}</th>
+            <th class="col-xs-1">{% trans "Owner" %}</th>
+            <th class="col-xs-1">{% trans "Shared" %}</th>
+            <th class="col-xs-1">{% trans "Contact" %}</th>
+            <th class="col-xs-1">{% trans "Neighborhood" %}</th>
+        </tr>
+    </thead>
     <tbody>
         {% for equipment in data %}
 

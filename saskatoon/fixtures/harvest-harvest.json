@@ -3,7 +3,7 @@
   "model": "harvest.harvest",
   "pk": 1,
   "fields": {
-    "status": "Succeeded",
+    "status": "succeeded",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
@@ -14,7 +14,7 @@
     "publication_date": "2021-07-19T18:39:01.963Z",
     "creation_date": "2021-05-26T21:42:50.701Z",
     "nb_required_pickers": 3,
-    "about": "<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>",
+    "about": "{\"delta\": \"\", \"html\": \"<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>\"}",
     "changed_by": null,
     "trees": [
       9,
@@ -29,7 +29,7 @@
   "model": "harvest.harvest",
   "pk": 2,
   "fields": {
-    "status": "Ready",
+    "status": "ready",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
@@ -40,7 +40,7 @@
     "publication_date": "2021-07-19T19:45:09.693Z",
     "creation_date": "2021-07-02T18:15:05.419Z",
     "nb_required_pickers": 2,
-    "about": "<p>This harvest is open for participation</p>",
+    "about": "{\"delta\": \"\", \"html\": \"<p>This harvest is open for participation</p>\"}",
     "changed_by": null,
     "trees": [
       9
@@ -52,7 +52,7 @@
   "model": "harvest.harvest",
   "pk": 3,
   "fields": {
-    "status": "Cancelled",
+    "status": "cancelled",
     "property": 3,
     "owner_present": true,
     "owner_help": false,
@@ -63,7 +63,7 @@
     "publication_date": null,
     "creation_date": "2021-07-19T18:21:51.921Z",
     "nb_required_pickers": 3,
-    "about": "<p>Unfortunately the owner had to cancel this harvest harvest.</p>",
+    "about": "{\"delta\": \"\", \"html\": \"<p>Unfortunately the owner had to cancel this harvest harvest.</p>\"}",
     "changed_by": null,
     "trees": [
       1
@@ -75,7 +75,7 @@
   "model": "harvest.harvest",
   "pk": 4,
   "fields": {
-    "status": "Date-scheduled",
+    "status": "scheduled",
     "property": 3,
     "owner_present": true,
     "owner_help": true,
@@ -86,7 +86,7 @@
     "publication_date": "2021-07-19T18:23:32.853Z",
     "creation_date": "2021-07-19T18:23:32.854Z",
     "nb_required_pickers": 4,
-    "about": "<p>We are looking for participants for this pick!</p>",
+    "about": "{\"delta\": \"\", \"html\": \"<p>We are looking for participants for this pick!</p>\"}",
     "changed_by": null,
     "trees": [
       1

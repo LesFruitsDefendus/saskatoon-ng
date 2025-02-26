@@ -1,0 +1,46 @@
+{% load static %}
+{% load i18n %}
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        $('#organization-modal').on('show.bs.modal', function (e) {
+            $('#organization-modal-title').html($(e.relatedTarget).data('title'));
+            $('#organization-modal-description').html($(e.relatedTarget).data('description'));
+
+            let info = $(e.relatedTarget).data('info');
+            const inventory = $(e.relatedTarget).data('inventory')
+            if (inventory) {
+                const inventoryList = inventory.split("&;").map(i => `<li>${i}</li>`).join("");
+                info += `<ul style="list-style-type:circle; padding-left:2em;">${inventoryList}</ul>`;
+            }
+            $('#organization-modal-info').html(info);
+        });
+    });
+</script>
+
+<div id="organization-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="organization-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0 none">
+                <span id="organization-modal-title" class="h3 modal-title"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div id="organization-modal-info" class="text-info"></div>
+
+                <div class="text-info">
+                    <ul id="organization-modal-inventory" style="list-style-type:circle; padding-left:2em;"></ul>
+                </div>
+
+                <hr>
+                <blockquote>
+                    <p id="organization-modal-description"></p>
+                </blockquote>
+                <hr>
+            </div>
+        </div>
+    </div>
+</div>

@@ -56,10 +56,6 @@
 <!-- plugins JS
     ============================================ -->
 <script src="{% static 'js/plugins.js' %}"></script>
-<!-- Data Table JS
-            ============================================ -->
-<script src="{% static 'js/data-table/jquery.dataTables.min.js' %}"></script>
-<script src="{% static 'js/data-table/data-table-act.js' %}"></script>
 <!--  Chat JS
     ============================================ -->
 <script src="{% static 'js/chat/moment.min.js' %}"></script>
@@ -96,7 +92,8 @@
      });
 
      $("#id_end_date").datetimepicker({
-         format: 'd/m/Y H:i',
+         format: 'H:i',
+         datepicker: false,
      });
 
      $("#id_publication_date").datetimepicker({

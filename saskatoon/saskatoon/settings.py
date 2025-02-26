@@ -14,7 +14,6 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from pathlib import Path
 from dotenv import read_dotenv
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -48,12 +47,9 @@ if SERVER_IP:
 DOMAIN_NAME = os.getenv('SASKATOON_DOMAIN_NAME', '')
 if DOMAIN_NAME:
     ALLOWED_HOSTS.append(DOMAIN_NAME)
-#print("ALLOWED_HOSTS", ALLOWED_HOSTS)
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
-
-# Application definition
 
 INSTALLED_APPS = [
     'dal',
@@ -64,8 +60,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'ckeditor',
-    'leaflet',
+    # 'leaflet',
     'sitebase',
     'member',
     'harvest',
@@ -75,6 +70,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap4',
     'debug_toolbar',
     'django_extensions',
+    'django_quill',
     'rosetta',
     'phone_field'
 ]
@@ -93,7 +89,7 @@ MIDDLEWARE = [
 
 # URLs
 ROOT_URLCONF = 'saskatoon.urls'
-LOGIN_URL = '/login'
+LOGIN_URL = '/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -158,8 +154,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
-    ('fr',u'Français'),
-    ('en',u'English'),
+    ('fr', u'Français'),
+    ('en', u'English'),
 ]
 
 ROSETTA_ACCESS_CONTROL_FUNCTION = 'saskatoon.utils.is_translator'
@@ -171,16 +167,13 @@ LOCALE_PATHS = [
     'saskatoon/locale/'
 ]
 
-CSRF_COOKIE_SECURE = True
-
 TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
 
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
+CSRF_COOKIE_SECURE = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -205,9 +198,8 @@ EMAIL_HOST_PASSWORD = os.getenv('SASKATOON_EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = os.getenv('SASKATOON_EMAIL_FROM')
 
 SEND_MAIL_FAIL_SILENTLY = not EMAIL_HOST
-if not EMAIL_BACKEND: del EMAIL_BACKEND
-
-# CUSTOM STUFF
+if not EMAIL_BACKEND:
+    del EMAIL_BACKEND
 
 AUTH_USER_MODEL = "member.AuthUser"
 
@@ -219,13 +211,16 @@ def get_drf_template_mode() -> str:
     else:
         return 'rest_framework.renderers.TemplateHTMLRenderer'
 
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-   'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
-   'PAGINATE_BY': 10,
-   'DEFAULT_RENDERER_CLASSES': (
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
+    ],
+    'PAGINATE_BY': 10,
+    'DEFAULT_RENDERER_CLASSES': (
         get_drf_template_mode(),
         'rest_framework.renderers.JSONRenderer',
     ),
@@ -244,17 +239,10 @@ CACHES = {
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-CKEDITOR_CONFIGS = {
-    'default': {
-        'width': "100%"
-    },
-}
-
 CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
 
 
 # LOGS
-
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -301,7 +289,7 @@ LOGGING = {
             'style': '{',
         },
         'verbose': {
-            'format': '{levelname} {asctime} {module} {name}.{funcName} {process:d} {thread:d} {message}',
+            'format': '{levelname} {asctime} {module} {name}.{funcName} {process:d} {thread:d} {message}',  # noqa: E501
             'datefmt': "%d/%b/%Y %H:%M:%S",
             'style': '{',
         }

@@ -1,8 +1,9 @@
 from dal import autocomplete
-from .models import AuthUser, Person, Actor
 from django.contrib.auth.models import Group
-from django.contrib.auth.decorators import login_required
 from django.db.models.query_utils import Q
+from .models import AuthUser, Organization, Person, Actor, Neighborhood
+
+# WARNING: Don't forget to filter out the results depending on the user's role!
 
 
 class PersonAutocomplete(autocomplete.Select2QuerySetView):
@@ -12,7 +13,6 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
         self.roles = roles
 
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
         if not self.request.user.is_authenticated:
             return Person.objects.none()
 
@@ -43,6 +43,11 @@ class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
     def __init__(self, roles=[]):
         self.roles = roles
 
+    @staticmethod
+    def get_roles_queryset(queryset, roles):
+        groups = Group.objects.filter(name__in=roles).values('id')
+        return queryset.filter(groups__in=groups)
+
     def get_queryset(self):
         if not self.request.user.is_authenticated:
             return AuthUser.objects.none()
@@ -50,8 +55,7 @@ class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
         qs = AuthUser.objects.all()
 
         if self.roles:
-            groups = [Group.objects.get(name=role).id for role in self.roles]
-            qs = qs.filter(groups__in=groups)
+            qs = self.get_roles_queryset(qs, self.roles)
 
         if self.q:
             q0 = Q(email__icontains=self.q)
@@ -73,7 +77,6 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
     """Actor autocomplete"""
 
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
         if not self.request.user.is_authenticated:
             return Actor.objects.none()
 
@@ -92,7 +95,6 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
     """Organizations + Persons with owner role"""
 
     def get_queryset(self):
-        # Don't forget to filter out results depending on the visitor !
         if not self.request.user.is_authenticated:
             return Actor.objects.none()
 
@@ -107,3 +109,28 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
             qs = qs.filter(q0 | q1 | q2)
 
         return qs.distinct()
+
+
+class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
+    """Organizations that are Equipment Points"""
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Organization.objects.none()
+
+        qs = Organization.objects.filter(is_equipment_point=True)
+
+        if self.q:
+            qs = qs.filter(organization__civil_name__icontains=self.q)
+
+        return qs.distinct()
+
+
+class NeighborhoodAutocomplete(autocomplete.Select2QuerySetView):
+    """Neighborhoods"""
+
+    def get_queryset(self):
+        if not self.request.user.is_authenticated:
+            return Neighborhood.objects.none()
+
+        return Neighborhood.objects.all()

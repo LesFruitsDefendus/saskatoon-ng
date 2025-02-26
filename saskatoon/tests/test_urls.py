@@ -1,6 +1,4 @@
-import pytest
 import os
-import time
 from selenium.webdriver import Remote
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -15,12 +13,12 @@ from .helpers import login, logoff
 urls = [
     ('/harvest/', ['html'], True),
     ('/property/', ['html'], True),
-    ('/beneficiary/', ['html'], True),
+    ('/organization/', ['html'], True),
     ('/community/', ['html'], True),
     ('/property/create_public/', ['html'], False),
-    # FIXME: https://github.com/LesFruitsDefendus/saskatoon-ng/issues/245
     ('/calendar', ['html'], False),
 ]
+
 
 def test_urls(driver: Remote) -> None:
     driver.implicitly_wait(PAGE_LOAD_TIMEOUT)
@@ -30,7 +28,12 @@ def test_urls(driver: Remote) -> None:
         print("\r\ntesting url: ", testurl)
         driver.get(testurl)
 
-        WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(EC.visibility_of_all_elements_located((By.CLASS_NAME,  "footer-copyright-area")), f"Can't locate footer on page {url_part}")
+        WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
+            EC.visibility_of_all_elements_located(
+                (By.CLASS_NAME,  "footer-copyright-area")
+            ),
+            f"Can't locate footer on page {url_part}"
+        )
 
         assert url_part in driver.current_url
 
@@ -52,4 +55,7 @@ def test_urls(driver: Remote) -> None:
                 raise
         else:
             if needs_auth:
-                raise RuntimeError(f"Security Alert: The private page {url_part} is accessible without beeing logged in!")
+                raise RuntimeError(
+                    f"Security Alert: \
+The private page {url_part} is accessible without being logged in!"
+                )

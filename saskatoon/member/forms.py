@@ -1,12 +1,14 @@
-# coding: utf-8
-from django.core.exceptions import ObjectDoesNotExist
+from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django import forms
-from dal import autocomplete
+from django.contrib.auth import forms as auth_forms
+from django.core.exceptions import ObjectDoesNotExist
+from django.forms.widgets import PasswordInput
 from logging import getLogger
+
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization, AUTH_GROUPS, STAFF_GROUPS
-from member.validators import validate_email
+from member.models import AuthUser, Person, Organization
+from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
 
@@ -15,7 +17,7 @@ class PersonCreateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     email = forms.EmailField(
         label=_("Email"),
@@ -30,7 +32,7 @@ class PersonCreateForm(forms.ModelForm):
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=True
     )
 
@@ -69,11 +71,11 @@ class PersonUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Person
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=False
     )
 
@@ -97,7 +99,6 @@ class PersonUpdateForm(forms.ModelForm):
                 self.auth_user = AuthUser.objects.get(person=self.instance)
                 self.initial['roles'] = [g for g in self.auth_user.groups.all()]
                 self.initial['email'] = self.auth_user.email
-                roles = [g for g in self.auth_user.groups.all()]
             except ObjectDoesNotExist:
                 logger.warning("Person {} has no associated Auth.User!".format(self.instance))
 
@@ -125,6 +126,17 @@ class PersonUpdateForm(forms.ModelForm):
             self.auth_user.set_roles(roles)  # calls auth_user.save()
 
 
+class OnboardingPersonUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Person
+        exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
+
+    def save(self):
+        super().save()
+        self.instance.auth_user.add_role('pickleader')
+
+
 class OrganizationForm(forms.ModelForm):
 
     class Meta:
@@ -132,6 +144,7 @@ class OrganizationForm(forms.ModelForm):
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
         labels = {
             'is_beneficiary': _("Beneficiary organization"),
+            'is_equipment_point': _("Equipment point"),
             'contact_person_role': _("Contact Position/Role"),
         }
 
@@ -188,7 +201,6 @@ class OrganizationCreateForm(OrganizationForm):
                     Person or create a new one and provide their personal information"))
         return data
 
-
     def save(self):
         # # create Organization instance
         instance = super(OrganizationCreateForm, self).save()
@@ -209,4 +221,44 @@ class OrganizationCreateForm(OrganizationForm):
         instance.contact_person = person
         instance.save()
 
+        return instance
+
+
+class PasswordChangeForm(auth_forms.PasswordChangeForm):
+    def __init__(self, user, *args, **kwargs):
+        super().__init__(user, *args, **kwargs)
+
+        # replace widgets with placeholder values to fit Notika theme
+        self.fields['old_password'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'current-password',
+                'placeholder': 'Old password',
+                'autofocus': True
+            }
+        )
+        self.fields['new_password1'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'New password'
+            }
+        )
+        self.fields['new_password2'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'Confirm password'
+            }
+        )
+
+    def clean_new_password1(self):
+        old_password = self.cleaned_data.get('old_password')
+        new_password = self.cleaned_data.get('new_password1')
+        return validate_new_password(old_password, new_password)
+
+    def save(self, commit=True):
+        instance = super().save(False)
+        instance.has_temporary_password = False
+        instance.save()
         return instance
