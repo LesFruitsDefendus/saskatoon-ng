@@ -261,4 +261,6 @@ class HarvestSeasonAdminFilter(SimpleListFilter):
         return SEASON_FILTER_CHOICES
 
     def queryset(self, request, queryset):
-        return queryset.filter(start_date__year=self.value())
+        if self.value():
+            return queryset.filter(start_date__year=self.value())
+        return queryset
