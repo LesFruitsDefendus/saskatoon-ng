@@ -38,7 +38,7 @@ setup(
         "pycparser==2.20",
         "pytz==2020.1",
         "six==1.15.0",
-        "sqlparse==0.3.1",
+        "sqlparse==0.5.0",
         "django-redis",
         "django-dotenv",
         "django-crispy-forms",
