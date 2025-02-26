@@ -1,18 +1,31 @@
-# coding: utf-8
-from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
-from member.models import (Actor, AuthUser, Person, Organization, Language,
-                           Neighborhood, City, State, Country)
-from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
-                            Equipment, EquipmentType, HarvestYield, Comment,
-                            PropertyImage, HarvestImage)
-from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
-                             HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm, PropertyForm)
+from django import forms
+from dal import autocomplete
+
+from harvest.forms import RFPForm, HarvestYieldForm
+from harvest.filters import (
+    HarvestSeasonAdminFilter,
+    OwnerHasNoEmailAdminFilter,
+    PropertyOwnerTypeAdminFilter,
+    PropertyHasHarvestAdminFilter,
+)
+from harvest.models import (
+    Comment,
+    Equipment,
+    EquipmentType,
+    Harvest,
+    HarvestImage,
+    HarvestYield,
+    Property,
+    PropertyImage,
+    RequestForParticipation,
+    TreeType,
+)
+from member.models import AuthUser
 
 
 class PersonInline(admin.TabularInline):
@@ -61,14 +74,13 @@ class HarvestAdmin(admin.ModelAdmin):
     def cancel_harvests(self, request, queryset):
         num_cancelled = 0
         for h in queryset:
-            if h.status != 'Cancelled':
-                h.status = 'Cancelled'
+            if h.status is not Harvest.Status.CANCELLED:
+                h.status = Harvest.Status.CANCELLED
                 h.save()
                 num_cancelled += 1
 
         messages.add_message(request, messages.SUCCESS,
                              f"Successfully cancelled {num_cancelled} harvest(s)")
-
 
     actions = [cancel_harvests]
 
@@ -78,9 +90,33 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
     form = RFPForm
 
 
+class EquipmentAdminForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(EquipmentAdminForm, self).clean()
+        bool1 = bool(self.cleaned_data['property'])
+        bool2 = bool(self.cleaned_data['owner'])
+        if not (bool1 != bool2):
+            raise forms.ValidationError(
+                'Fill in one of the two fields: property or owner.'
+            )
+        return cleaned_data
+
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+        widgets = {
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
+            ),
+            'owner': autocomplete.ModelSelect2(
+                'actor-autocomplete'
+            ),
+        }
+
+
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    form = EquipmentForm
+    form = EquipmentAdminForm
 
 
 class PropertyImageInline(admin.TabularInline):
@@ -89,7 +125,8 @@ class PropertyImageInline(admin.TabularInline):
 
 
 @admin.register(Property)
-class PropertyAdmin(LeafletGeoAdmin):
+# class PropertyAdmin(LeafletGeoAdmin):
+class PropertyAdmin(admin.ModelAdmin):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
@@ -159,7 +196,6 @@ class PropertyAdmin(LeafletGeoAdmin):
                 comment_emails += f"[C] {email} "  # [C]omments
             return comment_emails
 
-
     @admin.display(description="Harvests")
     def harvests(self, _property):
         return _property.harvests.count()
@@ -186,7 +222,7 @@ class PropertyAdmin(LeafletGeoAdmin):
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
                         messages.add_message(request, messages.WARNING,
-                                f"{_property} has multiple emails in comments")
+                                             f"{_property} has multiple emails in comments")
                         continue
                     elif len(emails) == 1:
                         email = emails[0]

@@ -36,7 +36,7 @@ If a commit message directly addresses an `Issue` it might be relevant to includ
 
 ## Migrations
 
-If you alter any `<app>.models.py` file, make sure make sure to run `python manage.py makemigrations <app>** to include migrations along with the changes. 
+If you alter any `<app>.models.py` file, make sure make sure to run `python manage.py makemigrations <app>** to include migrations along with the changes.
 
 **Please only submit one migration file per app per pull request.** If you are not sure how to achieve this ask us for help and we will guide you through.
 

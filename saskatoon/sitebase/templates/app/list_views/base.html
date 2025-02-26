@@ -2,136 +2,90 @@
 {% load i18n %}
 {% load static %}
 {% load crispy_forms_tags %}
-{% load pagination %}
 
 {% block content %}
 
 <div class="container-fluid">
     <div class="row breadcomb-list">
         <div class="col-lg-2 col-md-3 col-xs-12">
-            <div class="row breadcomb-list">
-
-                <div class="col-md-12 col-sm-3 col-xs-6">
-                    <div class="breadcomb-wp" style="margin-bottom:2rem;">
-                        <a href="{{ new.url }}" class="btn btn-success notika-btn-success">
-                            <i class="fa fa-plus"></i>
-                            {{ new.title }}
-                        </a>
-                    </div>
-                </div>
-                <div class="col-md-12 col-xs-6">
-                    {% include 'app/list_views/filters.html' %}
-                </div>
-
-            </div>
+            {% include 'app/list_views/filters.html' %}
         </div>
         <div class="col-lg-10 col-md-9 col-xs-12">
             <div class="data-table-area">
-                <div class="data-table-list">
-                    <div class="table-responsive">
-                        <div class="dataTables_wrapper">
-                            <div class="dataTables_length" id="data-table-basic_length">
-                                <label
-                                    >Show
-                                    <div class="btn-group">
-                                        <button
-                                            class="btn btn-sm dropdown-toggle"
-                                            data-toggle="dropdown"
-                                            aria-haspopup="true"
-                                            aria-expanded="false"
-                                        >
-                                        {{ items_per_page }}
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            {% with "10 25 50 100 200" as page_size_options %}
-                                            {% for page_size_option in page_size_options.split %}
-                                            <li>
-                                                <a href="{{ request.get_full_path|add_page_size_param }}{{ page_size_option }}">
-                                                    {{ page_size_option }}
-                                                </a>
-                                            </li>
-                                            {% endfor %}
-                                            {% endwith %}
-                                        </ul>
-                                    </div>
-                                     entries
-                                </label>
-                            </div>
-                            <table class="table table-striped datatable-minimal">
-                                {% block table %}
-                                    <!-- table content -->
-                                {% endblock table %}
-                            </table>
-                            <div
-                                class="dataTables_info"
-                                id="data-table-basic_info"
-                                role="status"
-                                aria-live="polite"
-                            >
-                                {% if items_per_page <= count %}
-                                Showing {{ items_per_page }} of {{ count }} entries
-                                {% else %}
-                                Showing {{ count }} of {{ count }} entries
-                                {% endif %}
-                            </div>
-                            <div
-                                class="dataTables_paginate paging_simple_numbers"
-                                id="data-table-basic_paginate"
-                                style="font: size 1.3em; font-weight: bold;"
-                            >
-                                {% if previous is None %}
-                                <button class="btn btn-sm disabled" id="previous-btn">
-                                    <span class="glyphicon glyphicon-chevron-left"></span>
-                                </button>
-                                {% else %}
-                                <a href="{{ previous }}">
-                                    <button class="btn btn-sm" id="previous-btn">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                    </button>
-                                </a>
-                                {% endif %}
-                                <span class="dropup">
-                                    <button
-                                        class="btn btn-sm dropdown-toggle"
-                                        data-toggle="dropdown"
-                                        aria-haspopup="true"
-                                        aria-expanded="false"
-                                        id="page-number"
+                <div class="data-table-list" style="padding-top: 0;">
+
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <span class="form-group">
+                                <input style="padding: 1em; margin-left: 0.5em; height: 2.25em;"
+                                        type="text"
+                                        id="search-input"
+                                        placeholder={% trans "Search" %}
+                                >
+                                <a
+                                    class="btn btn-success notika-btn-success"
+                                    style="height: 2.25em; margin-bottom: 1px;"
+                                    id="search-button"
                                     >
-                                        <span style="font-weight: bold;">{{ current_page_number }}</span>
-                                    </button>
-                                    <ul
-                                        class="dropdown-menu dropdown-menu-right"
-                                        style="height:auto; max-height: 250px; overflow-y: auto;"
-                                    >
-                                        {% with pages_count|get_pages_range as page_number_options %}
-                                        {% for page_number_option in page_number_options %}
-                                        <li>
-                                            <a href="{% get_page_url request.get_full_path page_number_option %}">{{ page_number_option }}</a>
-                                        </li>
-                                        {% endfor %}
-                                        {% endwith %}
-                                    </ul>
-                                    / {{ pages_count }}
-                                </span>
-                                {% if next is None %}
-                                <button class="btn btn-sm disabled" id="next-button">
-                                    <span class="glyphicon glyphicon-chevron-right"></span>
-                                </button>
-                                {% else %}
-                                <a href="{{ next }}">
-                                    <button class="btn btn-sm" id="next-button">
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
+                                    <i class="fa fa-solid fa-search"></i>
                                 </a>
-                                {% endif %}
+                            </span>
+                        </div>
+                        <div class="col-xs-4">
+                        </div>
+                        <div class="col-xs-2">
+                            <div class="pull-right">
+                                {% if new %}
+                                <a href="{{ new.url }}"
+                                class="btn btn-success notika-btn-success"
+                                >
+                                    <i class="fa fa-plus"></i> &nbsp;{{ new.title }}
+                                </a>
+                            {% endif %}
                             </div>
                         </div>
                     </div>
+
+                    <div class="table-responsive">
+                        <div class="dataTables_wrapper">
+                            <table class="table table-striped datatable-minimal">
+                                {% block table %}
+                                {% endblock table %}
+                            </table>
+                        </div>
+                    </div>
+                    {% include 'app/list_views/pagination.html' %}
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
+<script>
+    $(document).ready(function () {
+        const url = new URL(window.location);
+        const searchInput = $('#search-input');
+
+        const currentVal = url.searchParams.get("search");
+        if(currentVal) {
+            searchInput.val(currentVal);
+        }
+
+        function search() {
+            url.searchParams.set("search", searchInput.val());
+            window.location = url;
+        }
+
+        searchInput.keydown(function (e) {
+            if (e.keyCode == 13) {
+                search();
+            }
+        });
+
+        $('#search-button').click(search);
+    });
+</script>
 
 {% endblock content %}

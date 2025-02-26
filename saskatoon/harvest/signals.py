@@ -4,6 +4,7 @@ from django.core.mail import send_mail, send_mass_mail
 from django.core.cache import cache
 from django.utils.translation import gettext_lazy as _
 from logging import getLogger
+
 from saskatoon.settings import SEND_MAIL_FAIL_SILENTLY
 
 logger = getLogger('saskatoon')
@@ -33,11 +34,13 @@ def _send_mail(subject, message, mail_to):
     subject = '[Saskatoon] ' + subject
     success = False
     try:
-        num_sent = send_mail(subject,
-                     message,
-                     None,  # Using DEFAULT_FROM_EMAIL from settings.py
-                     mail_to,
-                     fail_silently=SEND_MAIL_FAIL_SILENTLY)
+        num_sent = send_mail(
+            subject,
+            message,
+            None,  # Using DEFAULT_FROM_EMAIL from settings.py
+            mail_to,
+            fail_silently=SEND_MAIL_FAIL_SILENTLY
+        )
         success = num_sent > 0
     except Exception as e:
         logger.error("%s: %s", type(e), str(e))
@@ -45,6 +48,7 @@ def _send_mail(subject, message, mail_to):
         logger.info("Successfully sent email <%s> to %s", subject, mail_to)
     else:
         logger.warning("Could not send email <%s> to %s", subject, mail_to)
+
 
 def changed_by(sender, instance, **kwargs):
     current_request = CrequestMiddleware.get_request()
@@ -60,24 +64,28 @@ def notify_unselected_pickers(sender, instance, **kwargs):
     if instance.id:
         try:
             # this might raise DoesNotExist error while loading the fixtures
-            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 for more informations.
+            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247
+            # for more informations.
             original_instance = sender.objects.get(id=instance.id)
         except ObjectDoesNotExist:
             return
-        if instance.status == "Ready" and original_instance.status == "Date-scheduled":
+        if (original_instance.status is instance.Status.SCHEDULED and
+                instance.status is instance.Status.READY):
             email_list = list()
             mail_subject = _("[Saskatoon] Request for participation declined")
             for picker in instance.get_unselected_pickers():
-                message = (_("Hi {},\n\n" +
-                    "We are sorry but enough pickers have already been selected " +
-                    "for the <{}> harvest. You may still be contacted by the pick-leader " +
-                    "if some of them end up cancelling. We will do our " +
-                    "best to prioritize your participation next time you submit a request " +
-                    "re-using the same email for another harvest.\n\n" +
-                    "Thanks for supporting your community!\n\n" +
-                    "Yours,\n" +
-                    "--\n" +
-                    "Saskatoon Harvest System")).format(picker.name, instance.get_public_title())
+                message = (
+                    _("Hi {},\n\n" +
+                      "We are sorry but enough pickers have already been selected " +
+                      "for the <{}> harvest. You may still be contacted by the pick-leader " +
+                      "if some of them end up cancelling. We will do our " +
+                      "best to prioritize your participation next time you submit a request " +
+                      "re-using the same email for another harvest.\n\n" +
+                      "Thanks for supporting your community!\n\n" +
+                      "Yours,\n" +
+                      "--\n" +
+                      "Saskatoon Harvest System")
+                ).format(picker.name, instance.get_public_title())
                 email_list.append((mail_subject, message, None, [picker.email]))
 
             if email_list:
@@ -89,9 +97,15 @@ def notify_unselected_pickers(sender, instance, **kwargs):
                 except Exception as e:
                     logger.error("%s: %s", type(e), str(e))
                 if success:
-                    logger.info("Successfully notified all unselected pickers about %s", harvest_str)
+                    logger.info(
+                        "Successfully notified all unselected pickers about %s",
+                        harvest_str
+                    )
                 else:
-                    logger.warning("Could not notify some unselected pickers about %s", harvest_str)
+                    logger.warning(
+                        "Could not notify some unselected pickers about %s",
+                        harvest_str
+                    )
 
 
 def notify_pending_status_update(sender, instance, **kwargs):
@@ -99,7 +113,8 @@ def notify_pending_status_update(sender, instance, **kwargs):
     if instance.id:
         try:
             # this might raise DoesNotExist error while loading the fixtures
-            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247 for more informations.
+            # see https://github.com/LesFruitsDefendus/saskatoon-ng/issues/247
+            # for more information.
             original_instance = sender.objects.get(id=instance.id)
         except ObjectDoesNotExist:
             return
@@ -107,8 +122,10 @@ def notify_pending_status_update(sender, instance, **kwargs):
             property_owner_email = list()
             if instance.owner:
                 if not instance.owner.is_person and not instance.owner.is_organization:
-                    logger.warning("Property owner (actor: %i) is not a Person nor an Organization.",
-                                   instance.owner.actor_id)
+                    logger.warning(
+                        "Property owner (actor: %i) is not a Person nor an Organization.",
+                        instance.owner.actor_id
+                    )
                     return
                 property_owner_name = instance.owner_name
                 contact_email = instance.owner_email
@@ -123,21 +140,21 @@ def notify_pending_status_update(sender, instance, **kwargs):
                 return
             property_owner_email.append(contact_email)
             mail_subject = _("Property Validation Completed")
-            message = (_("Hi") + " " + property_owner_name + ",\n\n" +
-                    _("Your tree subscription has been validated by " +
-                    "a member of Les Fruits Défendus. ") +
-                    _("A pick leader might contact you to plan a " +
-                    "harvest this season.") + "\n\n" +
-                    _("Thanks for supporting your community!") + "\n\n" +
-                    _("Yours") + ",\n" +
-                    "--\n" +
-                    "Saskatoon Harvest System")
+            message = (
+                _("Hi") + " " + property_owner_name + ",\n\n" +
+                _("Your tree subscription has been validated by " +
+                  "a member of Les Fruits Défendus. ") +
+                _("A pick leader might contact you to plan a " +
+                  "harvest this season.") + "\n\n" +
+                _("Thanks for supporting your community!") + "\n\n" +
+                _("Yours") + ",\n" +
+                "--\n" +
+                "Saskatoon Harvest System"
+            )
             _send_mail(mail_subject, message, property_owner_email)
 
 
 def comment_send_mail(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
         # Send email only if comment comes from someone else
@@ -173,8 +190,6 @@ def comment_send_mail(sender, instance, **kwargs):
 
 
 def rfp_send_mail(sender, instance, **kwargs):
-    current_request = CrequestMiddleware.get_request()
-
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
         # Send email only if request comes from someone else

@@ -1,26 +1,48 @@
 from django.urls import path, re_path
-from . import views, autocomplete
+from member import api, views, autocomplete
+from rest_framework.routers import DefaultRouter
 
-urlpatterns = [
+# REST FRAMEWORK VIEWS
+router = DefaultRouter()
+router.register('organization', api.OrganizationViewset, 'organization')
+router.register('community', api.CommunityViewset, 'community')
+
+urlpatterns = router.urls + [
+
+    # LIST VIEWS
+    path('equipment-point/',
+         api.EquipmentPointListView.as_view(),
+         name='equipment-point-list'),
 
     # CREATE VIEWS
     path('person/create/',
          views.PersonCreateView.as_view(),
          name='person-create'),
 
-    path('beneficiary/create/',
+    path('organization/create/',
          views.OrganizationCreateView.as_view(),
-         name='beneficiary-create'),
+         name='organization-create'),
 
     # UPDATE VIEWS
     path('person/update/<int:pk>/',
          views.PersonUpdateView.as_view(),
          name='person-update'),
 
-    path('beneficiary/update/<int:pk>/',
-         views.OrganizationUpdateView.as_view(),
-         name='beneficiary-update'),
+    path('person/onboarding_update/<int:pk>/',
+         views.OnboardingPersonUpdateView.as_view(),
+         name='onboarding-person-update'),
 
+    path('organization/update/<int:pk>/',
+         views.OrganizationUpdateView.as_view(),
+         name='organization-update'),
+
+    path('user/change_password/',
+         views.PasswordChangeView.as_view(),
+         name='change-password'),
+
+    path('user/reset_password/<int:pk>',
+         views.PasswordResetView.as_view(),
+         name='reset-password'),
 
     # AUTO-COMPLETE VIEWS
     re_path(r'^actor-autocomplete/$',
@@ -39,7 +61,15 @@ urlpatterns = [
             autocomplete.OwnerAutocomplete.as_view(),
             name='owner-autocomplete'),
 
+    re_path(r'^equipmentpoint-autocomplete/$',
+            autocomplete.EquipmentPointAutocomplete.as_view(),
+            name='equipmentpoint-autocomplete'),
+
     re_path(r'^contact-autocomplete/$',
             autocomplete.ContactAutocomplete.as_view(),
             name='contact-autocomplete'),
+
+    re_path(r'^neighborhood-autocomplete/$',
+            autocomplete.NeighborhoodAutocomplete.as_view(),
+            name='neighborhood-autocomplete'),
 ]

@@ -26,6 +26,10 @@ msgid "Change password"
 msgstr "Changer le mot de passe"
 
 #: sitebase/templates/app/base/header.html:32
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: sitebase/templates/app/base/header.html:33
 msgid "Logout"
 msgstr "Déconnexion"
 

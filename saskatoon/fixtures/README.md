@@ -1,13 +1,16 @@
 # Fixtures
 
+Using fixtures is a quick way to load hard-coded data to Django models (see more in [Django docs](https://docs.djangoproject.com/en/dev/howto/initial-data/)). Saskatoon provides a set of fixtures as sample data for development and testing.
+
+_NOTE: A Redis server must be run in the background while loading fixtures._
+
+## Initialise the database with all fixtures
+
+For the first time, the fixtures need be loaded in a specific sequence, since there are dependencies (see more on database model structure in [Database model docs](../../doc/db-model.pdf)).
+
 To initialise the database:
 1. Audit/modify the individual `.json` files located in `saskatoon/fixtures`
-2. Run:
-```
-(venv)$ saskatoon/fixtures/init
-```
-This runs the `loaddata` script for every fixture in a specific sequence. For the initial migration, this sequence **does** matter.
-
+2. Run `(venv)$ saskatoon/fixtures/init`
 
 > ### Note 
 > If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. 
@@ -43,6 +46,3 @@ This will create `saksatoon/fixtures/saksatoon.json`
 (venv)$ saskatoon/fixtures/dumpdata <app or instance>
 ```
 For example, running `saskatoon/fixtures/dumpdata member.city` will create a `member-city.json` file containing all instances from the `City` model (defined in `members.model.py`) currently stored in the database.
-
-## References
--  [Providing initial data for models](https://docs.djangoproject.com/en/dev/howto/initial-data/)

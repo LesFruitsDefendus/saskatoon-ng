@@ -44,16 +44,16 @@
               $('.total-harvested').html(info.event.extendedProps.total_harvested);
 
               switch(info.event.extendedProps.status){
-                  case "Date-scheduled":
+                  case "scheduled":
                       $('#scheduledModal').modal();
                       break;
-                  case "Ready":
+                  case "ready":
                       $('#readyModal').modal();
                       break;
-                  case "Succeeded":
+                  case "succeeded":
                       $('#succeededModal').modal();
                       break;
-                  case "Cancelled":
+                  case "cancelled":
                       $('#cancelledModal').modal();
                       break;
               }

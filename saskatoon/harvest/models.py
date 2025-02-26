@@ -1,49 +1,24 @@
-# coding: utf-8
-
 from harvest import signals
-from django.core.validators import MaxValueValidator, MinValueValidator
+from datetime import datetime
+from django.core.validators import MinValueValidator
+from django_quill.fields import QuillField
 from django.db import models
+from django.db.models.query_utils import Q
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-import datetime
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from django.db.models.query_utils import Q
-
-
-HARVESTS_STATUS_CHOICES = (
-    (
-        "To-be-confirmed",
-        _("To be confirmed"),
-    ),
-    (
-        "Orphan",
-        _("Orphan"),
-    ),
-    (
-        "Adopted",
-        _("Adopted"),
-    ),
-    (
-        "Date-scheduled",
-        _("Date scheduled"),
-    ),
-    (
-        "Ready",
-        _("Ready"),
-    ),
-    (
-        "Succeeded",
-        _("Succeeded"),
-    ),
-    (
-        "Cancelled",
-        _("Cancelled"),
-    )
-)
+from typing import Optional
 
 
 class TreeType(models.Model):
+    """Tree Type model"""
+
+    class Meta:
+        verbose_name = _("tree type")
+        verbose_name_plural = _("tree types")
+        ordering = ["name"]
+
     name = models.CharField(
         verbose_name=_("Name"),
         max_length=20,
@@ -67,33 +42,41 @@ class TreeType(models.Model):
         null=True
     )
 
-    class Meta:
-        verbose_name = _("tree type")
-        verbose_name_plural = _("tree types")
-        ordering = ["name"]
-
     def __str__(self):
         return self.name
 
 
 class EquipmentType(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=50
-    )
+    """Equipment Type model"""
 
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
+    name_fr = models.CharField(
+        verbose_name=_("Nom (fr)"),
+        max_length=50
+    )
+
+    name_en = models.CharField(
+        verbose_name=_("Name (en)"),
+        max_length=50,
+        default="",
+    )
+
+    def get_name(self, lang='en'):
+        return getattr(self, "name_{}".format(lang))
 
     def __str__(self):
-        return self.name
+        return "{} / {}".format(self.name_fr, self.name_en)
 
 
 class Property(models.Model):
-    """
-    Property where you find one or more trees for harvesting.
-    """
+    """ Property model"""
+
+    class Meta:
+        verbose_name = _("property")
+        verbose_name_plural = _("properties")
+
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
         help_text=_("This property exists and may be able to host a pick"),
@@ -102,14 +85,17 @@ class Property(models.Model):
 
     authorized = models.BooleanField(
         verbose_name=_("Authorized for this season"),
-        help_text=_("Harvest in this property has been authorized for the current season by its owner"),
+        help_text=_(
+            "Harvest in this property has been authorized for the current season by its owner"
+        ),
         null=True,
         default=None
     )
 
     pending = models.BooleanField(
         verbose_name=_("Pending"),
-        help_text=_("This property was created through a public form and needs to be validated by an administrator"),
+        help_text=_("This property was created through a public form \
+and needs to be validated by an administrator"),
         default=True
     )
 
@@ -160,12 +146,13 @@ class Property(models.Model):
         on_delete=models.CASCADE,
     )
 
-    # FIXME: add help_text in forms.py
     trees = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
         help_text=_(
-            'Select multiple fruit types if applicable. Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'),
+            'Select multiple fruit types if applicable. \
+Unknown fruit type or colour can be mentioned in the additional comments at the bottom.'
+        ),
     )
 
     trees_location = models.CharField(
@@ -211,7 +198,9 @@ class Property(models.Model):
     )
 
     ladder_available_for_outside_picks = models.BooleanField(
-        verbose_name=_("A ladder is available in the property and can be used for nearby picks"),
+        verbose_name=_(
+            "A ladder is available in the property and can be used for nearby picks"
+        ),
         default=False,
     )
 
@@ -269,7 +258,9 @@ class Property(models.Model):
 
     publishable_location = models.CharField(
         verbose_name=_("Publishable location"),
-        help_text=_("Aproximative location to be used in public communications (not the actual address)"),
+        help_text=_(
+            "Aproximative location to be used in public communications (not the actual address)"
+        ),
         max_length=50,
         null=True,
         blank=True
@@ -333,10 +324,6 @@ class Property(models.Model):
         on_delete=models.CASCADE,
     )
 
-    class Meta:
-        verbose_name = _("property")
-        verbose_name_plural = _("properties")
-
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
@@ -360,8 +347,10 @@ class Property(models.Model):
 
     @property
     def last_succeeded_harvest_date(self):
-        """Returns the start_date of the last successful Harvest in this Property"""
-        last_harvest = self.harvests.filter(status="Succeeded").order_by('start_date').last()
+        """Date of the last successful harvest for this property"""
+        last_harvest = self.harvests\
+                           .filter(status=Harvest.Status.SUCCEEDED)\
+                           .order_by('start_date').last()
         return last_harvest.start_date if last_harvest else None
 
     def get_owner_subclass(self):
@@ -396,25 +385,48 @@ class Property(models.Model):
     @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
-            return " ".join([self.pending_contact_first_name, self.pending_contact_family_name])
+            return " ".join([
+                self.pending_contact_first_name,
+                self.pending_contact_family_name,
+            ])
         elif self.pending_contact_first_name:
             return self.pending_contact_first_name
         elif self.pending_contact_family_name:
             return self.pending_contact_family_name
-        else:
-            return ""
+        return ""
+
 
 class Harvest(models.Model):
+    """Harvest model"""
 
-    PUBLISHABLE_STATUSES = ['Ready', 'Date-scheduled', 'Succeeded']
+    class Meta:
+        verbose_name = _("harvest")
+        verbose_name_plural = _("harvests")
+        ordering = ['-start_date']
+
+    class Status(models.TextChoices):
+        PENDING = 'pending', _("To be confirmed")
+        ORPHAN = 'orphan', _("Orphan")
+        ADOPTED = 'adopted', _("Adopted")
+        SCHEDULED = 'scheduled', _("Date scheduled")
+        READY = 'ready', _("Ready")
+        SUCCEEDED = 'succeeded', _("Succeeded")
+        CANCELLED = 'cancelled', _("Cancelled")
+
+    PUBLISHABLE_STATUSES = [
+        Status.READY,
+        Status.SCHEDULED,
+        Status.SUCCEEDED
+    ]
 
     status = models.CharField(
-        choices=HARVESTS_STATUS_CHOICES,
+        choices=Status.choices,
         max_length=100,
         null=True,
         verbose_name=_("Harvest status")
     )
 
+    # WARNING: confilcts with @property decorator :/
     property = models.ForeignKey(
         'Property',
         null=True,
@@ -486,7 +498,7 @@ class Harvest(models.Model):
         default=3
     )
 
-    about = models.TextField(
+    about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
         help_text=_("If any help is needed from volunteer pickers, "
@@ -503,18 +515,16 @@ class Harvest(models.Model):
         on_delete=models.CASCADE,
     )
 
-    def get_status_l10n(self):
-        status_list = list(HARVESTS_STATUS_CHOICES)
-        for s in status_list:
-            if s[0] in self.status:
-                return s[1]
+    def __str__(self):
+        if self.start_date:
+            return _("Harvest on {} for {}").format(
+                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
+                self.property
+            )
+        return _("Harvest for {}").format(self.property)
 
     def get_total_distribution(self):
-        total = 0
-        yields = HarvestYield.objects.filter(harvest=self)
-        for y in yields:
-            total += y.total_in_lb
-        return total
+        return sum([y.total_in_lb for y in HarvestYield.objects.filter(harvest=self)])
 
     def get_local_start(self):
         tz = timezone.get_current_timezone()
@@ -524,33 +534,27 @@ class Harvest(models.Model):
         tz = timezone.get_current_timezone()
         return self.end_date.astimezone(tz) if self.end_date else self.end_date
 
-    class Meta:
-        verbose_name = _("harvest")
-        verbose_name_plural = _("harvests")
-        ordering = ['-start_date']
-
-    def __str__(self):
-        if self.start_date:
-            return (_("Harvest on {} for {}")).format(
-                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
-                self.property
-            )
-        else:
-            return (_("Harvest for {}")).format(
-                self.property
-            )
-
     def get_pickers(self):
-        requests = RequestForParticipation.objects.filter(harvest=self).filter(is_accepted=True)
+        requests = RequestForParticipation.objects.filter(harvest=self, is_accepted=True)
         return requests.values('picker_id', 'picker__first_name', 'picker__family_name')
 
     def get_unselected_pickers(self):
-        # Get pickers who volunteered but have been rejected or are pending approval
+        """Volunteers who have been rejected or are waiting for approval"""
         requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
         return [r.picker for r in requests]
 
+    def get_pickers_count(
+            self,
+            is_accepted: Optional[bool] = None,
+            is_cancelled: bool = False
+    ) -> int:
+        requests = RequestForParticipation.objects.filter(harvest=self)
+        if is_cancelled:
+            return requests.filter(is_cancelled=True).count()
+        return requests.filter(is_accepted=is_accepted).count()
+
     def get_days_before_harvest(self):
-        diff = datetime.datetime.now() - self.start_date
+        diff = datetime.now() - self.start_date
         return diff.days
 
     def get_neighborhood(self):
@@ -562,27 +566,24 @@ class Harvest(models.Model):
     def get_public_title(self):
         title = ", ".join(self.get_fruits())
         if self.property.neighborhood.name != "Other":
-           title += f" @ {self.property.neighborhood.name}"
+            title += f" @ {self.property.neighborhood.name}"
         return title
 
-    # @property  # WARNING: decorator conflicts with property field :/
     def is_urgent(self):
-        NUM_DAYS_URGENT_ORPHAN = 14
-        NUM_DAYS_URGENT_NOT_READY = 3
         if not self.start_date:
             return False
+
         days = self.get_days_before_harvest()
-        if self.status == 'Orphan' and days < NUM_DAYS_URGENT_ORPHAN:
-            return True
-        elif self.status == 'Date-scheduled' and days < NUM_DAYS_URGENT_NOT_READY:
-            return True
-        return False
+        return (
+            (self.status is Harvest.Status.ORPHAN and days < 14) or
+            (self.status is Harvest.Status.SCHEDULED and days < 3)
+        )
 
     def is_happening(self):
         if not self.start_date:
             return False
         is_today = self.get_days_before_harvest() == 0
-        return (self.status == 'Ready' and is_today)
+        return is_today and self.status is Harvest.Status.READY
 
     def is_publishable(self):
         if self.status not in self.PUBLISHABLE_STATUSES:
@@ -592,12 +593,18 @@ class Harvest(models.Model):
         return (timezone.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        if self.status != 'Date-scheduled':
+        if self.status is not Harvest.Status.SCHEDULED:
             return False
         return timezone.now() <= self.end_date
 
 
 class RequestForParticipation(models.Model):
+    """Request For Participation model"""
+
+    class Meta:
+        verbose_name = _("request for participation")
+        verbose_name_plural = _("requests for participation")
+
     picker = models.ForeignKey(
         'member.Person',
         verbose_name=_("Requester"),
@@ -659,10 +666,6 @@ class RequestForParticipation(models.Model):
         default=False
     )
 
-    class Meta:
-        verbose_name = _("request for participation")
-        verbose_name_plural = _("requests for participation")
-
     def save(self, *args, **kwargs):
         if not self.id:
             self.creation_date = timezone.now()
@@ -674,6 +677,12 @@ class RequestForParticipation(models.Model):
 
 
 class HarvestYield(models.Model):
+    """Harvest Yield model"""
+
+    class Meta:
+        verbose_name = _("harvest yield")
+        verbose_name_plural = _("harvest yields")
+
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
@@ -699,16 +708,18 @@ class HarvestYield(models.Model):
         on_delete=models.CASCADE,
     )
 
-    class Meta:
-        verbose_name = _("harvest yield")
-        verbose_name_plural = _("harvest yields")
-
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
                (self.total_in_lb, self.tree.fruit_name, self.recipient)
 
 
 class Equipment(models.Model):
+    """Equipment model"""
+
+    class Meta:
+        verbose_name = _("equipment")
+        verbose_name_plural = _("equipment")
+
     type = models.ForeignKey(
         'EquipmentType',
         verbose_name=_("Type"),
@@ -717,12 +728,19 @@ class Equipment(models.Model):
 
     description = models.CharField(
         verbose_name=_("Description"),
-        max_length=50
+        max_length=50,
+        blank=True
+    )
+
+    count = models.SmallIntegerField(
+        verbose_name=_("Number available"),
+        default=1
     )
 
     owner = models.ForeignKey(
         'member.Actor',
         verbose_name=_("Owner"),
+        related_name="equipment",
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -743,15 +761,30 @@ class Equipment(models.Model):
         default=False
     )
 
-    class Meta:
-        verbose_name = _("equipment")
-        verbose_name_plural = _("equipment")
+    def get_equipment_point(self):
+        if self.owner is not None and self.owner.is_organization:
+            return self.owner.get_organization()
+        return None
+
+    def inventory(self, lang='en'):
+        return "%i %s" % (self.count, self.type.get_name(lang))
 
     def __str__(self):
         return "%s (%s)" % (self.description, self.type)
 
+    def save(self, *args, **kwargs):
+        if self.get_equipment_point() is not None:
+            self.shared = True
+        super().save(*args, **kwargs)
+
 
 class Comment(models.Model):
+    """Comment model"""
+
+    class Meta:
+        verbose_name = _("comment")
+        verbose_name_plural = _("comments")
+
     content = models.CharField(
         verbose_name=_("Content"),
         max_length=500
@@ -776,15 +809,13 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    class Meta:
-        verbose_name = _("comment")
-        verbose_name_plural = _("comments")
-
     def __str__(self):
         return self.content
 
 
 class PropertyImage(models.Model):
+    """Property Image model"""
+
     property = models.ForeignKey(
         Property,
         related_name='images',
@@ -798,7 +829,10 @@ class PropertyImage(models.Model):
     def __str__(self):
         return self.property.__str__()
 
+
 class HarvestImage(models.Model):
+    """Harvest Image model"""
+
     harvest = models.ForeignKey(
         Harvest,
         related_name='images',
@@ -812,7 +846,7 @@ class HarvestImage(models.Model):
         return self.harvest.__str__()
 
 
-####### SIGNALS ##################
+# # SIGNALS # #
 
 # Property signals
 models.signals.pre_save.connect(
