@@ -489,6 +489,8 @@ the type is unknown or not in the list, etc.)'),
         self.fields['fruits_height'].widget.attrs['min'] = 1
         self.fields['street_number'].widget.attrs['min'] = 0.0
         self.fields['complement'].widget.attrs['min'] = 0.0
+        self.fields['pending_contact_phone'].widget.attrs.update({'class':'form-control'})
+
 
     def clean(self):
         cleaned_data = super(PublicPropertyForm, self).clean()
