@@ -243,11 +243,20 @@ class HarvestDetailSerializer(HarvestSerializer):
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
+    status_display = serializers.SerializerMethodField()
+    status_choices = serializers.SerializerMethodField()
 
-    def get_organizations(self, obj):
-        organizations = Organization.objects.filter(
-            is_beneficiary=True)
-        return HarvestBeneficiarySerializer(organizations, many=True).data
+    def get_status_display(self, obj):
+        return obj.get_status_display()
+
+    def get_status_choices(self, obj):
+        return [
+            Harvest.Status.PENDING,
+            Harvest.Status.SCHEDULED,
+            Harvest.Status.READY,
+            Harvest.Status.SUCCEEDED,
+            Harvest.Status.CANCELLED
+        ]
 
 
 class HarvestListPropertySerializer(PropertySerializer):
