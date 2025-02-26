@@ -28,7 +28,7 @@ from harvest.models import (
     Property,
     RequestForParticipation,
 )
-from member.permissions import is_pickleader_or_core
+from member.permissions import is_core_or_admin, is_pickleader_or_core
 from member.models import Organization
 
 
@@ -410,16 +410,16 @@ def harvest_status_change(request, id):
     if harvest.status == request_status:
         messages.warning(
             request,
-            _("Harvest status already set to: {}".format(harvest.status))
+            _("Harvest status already set to: {}").format(harvest.get_status_display())
         )
-    elif request.user == harvest.pick_leader:
+    elif is_core_or_admin(request.user) or request.user == harvest.pick_leader:
         harvest.status = request_status
         harvest.save()
         messages.success(
             request,
-            _("Harvest status successfully set to: {}".format(request_status))
+            _("Harvest status successfully set to: {}").format(harvest.get_status_display())
         )
     else:
-        messages.warning(request, _("You are not this harvest's pick leader!"))
+        messages.warning(request, _("You are not authorized to update this harvest status."))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
