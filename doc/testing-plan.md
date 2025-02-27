@@ -1,0 +1,17 @@
+# Testing Plan
+
+_[x] indicates that testcases are not necessary for the specific item._
+
+## Feature 1: Harvest from start to end
+
+| Action                                                            | Result                                                      | Validations                                                                                                                                                       |
+|-------------------------------------------------------------------|-------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| 1. Add new harvest                                                | Harvest added to db [x]                                     | - Date in the future, start date < end date.<br> - Property validated, property active, property authorized.<br> - Trees in property.                             |
+| 2. Adopt orphan harvest                                           | Status "Addopted" and pick leader assigned                  | - Pick leader or core member only.                                                                                                                                |
+| 3. Adjust harvest info and publish (including info updates later) | Info updated [x]                                            | - Date in the future if status "Date scheduled" or "Ready", in the past if status "Succeeded", start date < end date.                                             |
+| 4. Participation requests come in                                 | Participator's account is created or record properly linked | - Requests can come in only when status is "Date scheduled".                                                                                                      |
+| 5. Accept/decline participation requests                          | Participator's record updated [x]                           |                                                                                                                                                                   |
+| 6. Change harvest status to ready, then to succeeded              | Status updated [x]                                          |                                                                                                                                                                   |
+| 7. Log distribution                                               | Distributions added [x]                                     | - Recipients in property owner / pick leader / accepted participators of this harvest or beneficiaries.<br> - Trees in harvest.<br> - Harvest status "Succeeded". |
+| 8. Unadopt                                                        | Status "Orphan" and pick leader unassigned                  |                                                                                                                                                                   |
+| 9. Cancel harvest                                                 | Status updated [x]                                          |                                                                                                                                                                   |
