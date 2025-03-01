@@ -1,9 +1,9 @@
 [
 {
-  "model": "sitebase.content",
+  "model": "sitebase.pagecontent",
   "pk": 1,
   "fields": {
-    "name": "volunteer_home",
+    "type": "volunteer_home",
     "title_en": "Welcome to Les Fruits Défendus!",
     "title_fr": "Bienvenue aux Fruits Défendus!",
     "subtitle_en": "2024 Season",
@@ -13,10 +13,10 @@
   }
 },
 {
-  "model": "sitebase.content",
+  "model": "sitebase.pagecontent",
   "pk": 2,
   "fields": {
-    "name": "pickleader_home",
+    "type": "pickleader_home",
     "title_en": "2024 Season",
     "title_fr": "Saison 2024",
     "subtitle_en": "Thank you for contributing to Les Fruits Défendus!",
@@ -26,10 +26,10 @@
   }
 },
 {
-  "model": "sitebase.content",
+  "model": "sitebase.pagecontent",
   "pk": 3,
   "fields": {
-    "name": "terms_conditions",
+    "type": "terms_conditions",
     "title_en": "Terms & Conditions",
     "title_fr": "Termes et conditions",
     "subtitle_en": "Agreement to confidentiality and to disclosure of interests",
@@ -39,10 +39,10 @@
   }
 },
 {
-  "model": "sitebase.content",
+  "model": "sitebase.pagecontent",
   "pk": 6,
   "fields": {
-    "name": "privacy_policy",
+    "type": "privacy_policy",
     "title_en": "Privacy Policy",
     "title_fr": "Politique de confidentialité",
     "subtitle_en": "",
