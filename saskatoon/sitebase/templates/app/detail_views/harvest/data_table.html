@@ -15,7 +15,7 @@
                                 </div>
                             </div>
                                 <div class="col-xs-6">
-                                    <a href="{% url 'rfp-create' %}?hid={{ id }}"
+                                    <a href="{% url 'rfp-create' id %}"
                                     {% if is_open_to_requests %}
                                         class="btn btn-success notika-btn-success waves-effect"
                                     {% else %}

@@ -1,4 +1,3 @@
-from harvest import signals
 from datetime import datetime
 from django.core.validators import MinValueValidator
 from django_quill.fields import QuillField
@@ -53,6 +52,7 @@ class EquipmentType(models.Model):
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
+
     name_fr = models.CharField(
         verbose_name=_("Nom (fr)"),
         max_length=50
@@ -544,7 +544,7 @@ class Harvest(models.Model):
 
     def get_pickers_count(self, status: Optional[Status]) -> int:
         rfps = RequestForParticipation.objects.filter(harvest=self)
-        if status is None:
+        if status is not None:
             return rfps.filter(status=status).count()
         return rfps.count()
 
@@ -789,7 +789,7 @@ class Equipment(models.Model):
 
 
 class Comment(models.Model):
-    """Comment model"""
+    """Harvest comment model"""
 
     class Meta:
         verbose_name = _("comment")
@@ -798,14 +798,14 @@ class Comment(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("harvest"),
-        related_name="comment",
+        related_name="comments",
         on_delete=models.CASCADE,
     )
 
     author = models.ForeignKey(
         'member.AuthUser',
         verbose_name=_("Author"),
-        related_name="Comment",
+        related_name="comments",
         on_delete=models.CASCADE,
     )
 
@@ -860,56 +860,3 @@ class HarvestImage(models.Model):
 
     def __str__(self):
         return self.harvest.__str__()
-
-
-# # SIGNALS # #
-
-# Property signals
-models.signals.pre_save.connect(
-    receiver=signals.changed_by,
-    sender=Property
-)
-
-models.signals.pre_save.connect(
-    receiver=signals.notify_pending_status_update,
-    sender=Property
-)
-
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_property,
-    sender=Property
-)
-
-# Send email on new comments
-models.signals.post_save.connect(
-    signals.comment_send_mail,
-    sender=Comment
-)
-
-# Harvest signals
-models.signals.pre_save.connect(
-    signals.changed_by,
-    sender=Harvest
-)
-
-models.signals.pre_save.connect(
-    receiver=signals.notify_unselected_pickers,
-    sender=Harvest
-)
-
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_harvest,
-    sender=Harvest
-)
-
-# RFP signal
-models.signals.post_save.connect(
-    signals.rfp_send_mail,
-    sender=RequestForParticipation
-)
-
-# Equipment signal
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_equipment,
-    sender=Equipment
-)
