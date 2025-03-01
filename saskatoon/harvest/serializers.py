@@ -171,6 +171,9 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
+    pickers = serializers.ReadOnlyField(
+        source='get_pickers_data'
+    )
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
