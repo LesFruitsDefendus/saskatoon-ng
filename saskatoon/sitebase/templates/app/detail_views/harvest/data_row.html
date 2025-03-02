@@ -2,41 +2,42 @@
 {% load static %}
 <tr>
     <td>
-        <b>{{ r.picker.name }}</b><br>
-        {% if r.picker.email %}
-            <a href="mailto:{{ r.picker.email }}">
-                {{ r.picker.email }}
+        <b>{{ r.person.name }}</b><br>
+        {% if r.person.email %}
+            <a href="mailto:{{ r.person.email }}">
+                {{ r.person.email }}
             </a>
             <br>
         {% endif %}
-        {{ r.picker.phone|default:"" }}
+        {{ r.person.phone|default:"" }}
     </td>
-    <td style="text-align: center;">{{ r.number_of_people }}</td>
+    <td style="text-align: center;">{{ r.number_of_pickers }}</td>
     <td>
-        {% if r.is_cancelled == True %}
-            <i class="fa fa-times text-muted"></i>
-            {% trans "Canceled" %}
-        {% elif r.is_accepted == None %}
+        {% if r.status == 'pending' %}
             <i class="fa fa-question text-warning"></i>
             {% trans "Pending" %}
-        {% elif r.is_accepted == False %}
-            <i class="fa fa-times text-danger"></i>
-            {% trans "Refused" %}
-        {% elif r.is_accepted == True %}
+        {% elif r.status == 'accepted' %}
             <i class="fa fa-check text-success"></i>
             {% trans "Accepted" %}
-        {% endif %}
-    </td>
-    <td>{{ r.creation_date }}</td>
-    <td>
-        {% if r.acceptation_date %}
-            {{ r.acceptation_date }}
-        {% else %}
+        {% elif r.status == 'declined' %}
             <i class="fa fa-times text-danger"></i>
+            {% trans "Declined" %}
+        {% elif r.status == 'cancelled' %}
+            <i class="fa fa-times text-muted"></i>
+            {% trans "Cancelled" %}
+        {% else %}
+            <i class="fa fa-times text-muted"></i>
+            {% trans "Obsolete" %}
+        {% endif %}
+    </td>
+    <td>{{ r.date_created }}</td>
+    <td>
+        {% if r.date_status_updated %}
+            {{ r.date_status_updated }}
         {% endif %}
     </td>
     <td>
-        {% with r.picker.harvests_as_volunteer_succeeded.count as success_count %}
+        {% with r.person.get_harvests_as_volunteer.accepted.count as success_count %}
         {% if success_count > 0 %}
             <i class="fa fa-thumbs-o-up text-success"></i>
             {{ success_count }}
@@ -47,7 +48,7 @@
         {% endwith %}
     </td>
     <td>
-        {% with r.picker.harvests_as_volunteer_rejected.count as reject_count %}
+        {% with r.person.harvests_as_volunteer.declined.count as reject_count %}
         {% if reject_count > 0 %}
         <i class="fa fa-frown-o text-danger"></i>
         {% endif %}
@@ -57,7 +58,7 @@
     <td>{{ r.comment }}</td>
     <td>{{ r.notes_from_pickleader }}</td>
     <td style="text-align: center;">
-        <a href="{% url 'participation-update' r.id %}?hid={{ id }}">
+        <a href="{% url 'participation-update' r.id %}">
             <i class="fa fa-pencil"></i>
         </a>
     </td>

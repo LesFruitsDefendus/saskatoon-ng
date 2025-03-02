@@ -19,7 +19,7 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
-    RequestForParticipation,
+    RequestForParticipation as RFP,
     TreeType,
 )
 from harvest.utils import similar_properties
@@ -33,12 +33,12 @@ class TreeTypeSerializer(serializers.ModelSerializer):
 
 class RequestForParticipationSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RequestForParticipation
+        model = RFP
         fields = '__all__'
 
-    picker = PersonRFPSerializer(many=False)
-    creation_date = serializers.DateTimeField(format=r"%Y-%m-%d")
-    acceptation_date = serializers.DateTimeField(format=r"%Y-%m-%d")
+    person = PersonRFPSerializer(many=False)
+    date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
+    date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
 
 
 class OrganizationOwnerSerializer(PersonOwnerSerializer):
@@ -160,8 +160,9 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    created_date = serializers.DateTimeField(format=r'%c')
     author = serializers.StringRelatedField(many=False)
+    date_created = serializers.DateTimeField(format=r'%c')
+    date_updated = serializers.DateTimeField(format=r'%c')
 
 
 class HarvestSerializer(serializers.ModelSerializer):
@@ -196,8 +197,11 @@ class HarvestSerializer(serializers.ModelSerializer):
     organizations = serializers.SerializerMethodField()
 
     def get_pickers(self, obj):
-        rfps = RequestForParticipation.objects.filter(harvest=obj, is_accepted=True)
-        return PickerSerializer([rfp.picker for rfp in rfps], many=True).data
+        rfps = RFP.objects.select_related('person').filter(
+            harvest=obj,
+            status=RFP.Status.ACCEPTED
+        )
+        return PickerSerializer([rfp.person for rfp in rfps], many=True).data
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
@@ -238,7 +242,7 @@ class HarvestDetailSerializer(HarvestSerializer):
             'owner_fruit',
             'publication_date',
             'equipment_reserved',
-            'creation_date',
+            'date_created',
             'changed_by'
         ]
 
@@ -285,20 +289,15 @@ class HarvestListSerializer(HarvestSerializer):
             'pick_leader',
             'trees',
             'property',
-            'pickers',
+            'requests'
         ]
 
     property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
-    pickers = serializers.SerializerMethodField()
+    requests = serializers.SerializerMethodField()
 
-    def get_pickers(self, instance):
-        return {
-            'accepted': instance.get_pickers_count(is_accepted=True),
-            'pending': instance.get_pickers_count(is_accepted=None),
-            'rejected': instance.get_pickers_count(is_accepted=False),
-            'cancelled': instance.get_pickers_count(is_cancelled=True)
-        }
+    def get_requests(self, harvest):
+        return dict([(s[0], harvest.get_pickers_count(s[0])) for s in RFP.Status.choices])
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):
