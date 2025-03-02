@@ -8,7 +8,7 @@ from member.models import (
     Person,
     State,
 )
-from harvest.models import Harvest, Property
+from harvest.models import Harvest, Property, RequestForParticipation
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -69,23 +69,30 @@ class PersonSerializer(serializers.ModelSerializer):
             'comments',
             'harvests_as_owner',
             'harvests_as_pickleader',
-            'harvests_as_volunteer_accepted',
-            'harvests_as_volunteer_cancelled',
-            'harvests_as_volunteer_pending',
-            'harvests_as_volunteer_rejected',
-            'harvests_as_volunteer_succeeded',
+            'harvests_as_volunteer',
             'organizations_as_contact',
             'properties',
         ]
 
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
-    harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_pickleader = PersonHarvestSerializer(
+        source='get_harvests_as_pickleader', many=True, read_only=True
+    )
+    harvests_as_owner = PersonHarvestSerializer(
+        source='get_harvests_as_owner', many=True, read_only=True
+    )
+    harvests_as_volunteer = serializers.SerializerMethodField()
     organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
     roles = serializers.SerializerMethodField()
+
+    def get_harvests_as_volunteer(self, person):
+        return {
+            s[0]: PersonHarvestSerializer(
+                person.get_harvests_as_volunteer(s[0]),
+                many=True, read_only=True).data
+            for s in RequestForParticipation.Status.choices
+        }
 
     def get_roles(self, person):
         if hasattr(person, 'auth_user'):

@@ -10,7 +10,7 @@
                         </div>
                     </div>
                     <div class="col-xs-6">
-                        <a href="{% url 'comment-create' %}?h={{ id }}"
+                        <a href="{% url 'comment-create' %}?hid={{ id }}"
                            class="btn btn-success notika-btn-success waves-effect"
                            style="float: right">
                             <i class="fa fa-plus"></i> {% trans "New comment" %}
@@ -37,7 +37,7 @@
                                             <div class="ctext-wrap">
                                         {% endif %}
                                                 <i>{{ comment.author }}</i>
-                                                <p><small>{{ comment.created_date }}</small></p>
+                                                <p><small>{{ comment.date_created }}</small></p>
                                                 <p>{{ comment.content }}</p>
                                             </div>
                                     </div>

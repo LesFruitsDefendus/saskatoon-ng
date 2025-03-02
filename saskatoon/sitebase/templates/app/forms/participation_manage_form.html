@@ -8,6 +8,18 @@
 
 {{ form.media }}
 
+{% if form.non_field_errors %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center alert alert-warning" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 <div class="form-example-area">
     <div class="container">
         <div class="row">
@@ -30,20 +42,20 @@
                                 </tr>
                                 <tr>
                                     <th> {% translate 'participant ' %}</th>
-                                    <td> {{ rfp.picker }} </td>
+                                    <td> {{ rfp.person }} </td>
                                 </tr>
                                 <tr>
                                     <th> {% translate 'number of pickers' %} </th>
-                                    <td> {{ rfp.number_of_people }} </td>
+                                    <td> {{ rfp.number_of_pickers }} </td>
                                 </tr>
                                 <tr>
                                     <th> {% translate 'phone number' %} </th>
-                                    <td> {{ rfp.picker.phone }} </td>
+                                    <td> {{ rfp.person.phone }} </td>
                                 </tr>
-                                {% if rfp.picker.email %}
+                                {% if rfp.person.email %}
                                     <tr>
                                         <th> {% translate 'Email address' %} </th>
-                                        <td><a href="mailto:{{ rfp.picker.email }}">{{ rfp.picker.email }}</a></td>
+                                        <td><a href="mailto:{{ rfp.person.email }}">{{ rfp.person.email }}</a></td>
                                     </tr>
                                 {% endif %}
                                 </tbody>
@@ -54,6 +66,13 @@
                         <div class="form-group">
                             <form method="post">
                                 {% csrf_token %}
+                                {% if form.errors %}
+                                <div class="alert-list">
+                                    <div class="alert alert-danger alert-mg-b-0" role="alert">
+                                        {{ form.errors }}
+                                    </div><br>
+                                </div>
+                                {% endif %}
                                 <table class="table">
                                     <tbody>
                                         <tr>
@@ -61,8 +80,8 @@
                                             <td class="col-lg-9"> {{ form.status }} </td>
                                         </tr>
                                         <tr>
-                                            <th> {% translate 'Pick leader notes' %}</th>
-                                            <td> {{ form.notes_from_pickleader }} </td>
+                                            <th> {{ form.notes.label }}</th>
+                                            <td> {{ form.notes }} </td>
                                         </tr>
                                         <tr>
                                             <th> </th>

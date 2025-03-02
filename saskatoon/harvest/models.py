@@ -3,12 +3,13 @@ from datetime import datetime
 from django.core.validators import MinValueValidator
 from django_quill.fields import QuillField
 from django.db import models
-from django.db.models.query_utils import Q
-from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Optional
+
+from sitebase.utils import local_datetime
 
 
 class TreeType(models.Model):
@@ -77,6 +78,15 @@ class Property(models.Model):
         verbose_name = _("property")
         verbose_name_plural = _("properties")
 
+    owner = models.ForeignKey(
+        'member.Actor',
+        null=True,
+        blank=True,
+        verbose_name=_("Owner"),
+        related_name='properties',
+        on_delete=models.CASCADE,
+    )
+
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
         help_text=_("This property exists and may be able to host a pick"),
@@ -137,14 +147,6 @@ and needs to be validated by an administrator"),
     )
 
     geom = PointField(null=True, blank=True)
-
-    owner = models.ForeignKey(
-        'member.Actor',
-        null=True,
-        blank=True,
-        verbose_name=_("Owner"),
-        on_delete=models.CASCADE,
-    )
 
     trees = models.ManyToManyField(
         'TreeType',
@@ -405,9 +407,9 @@ class Harvest(models.Model):
         ordering = ['-start_date']
 
     class Status(models.TextChoices):
-        PENDING = 'pending', _("To be confirmed")
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
+        PENDING = 'pending', _("To be confirmed")
         SCHEDULED = 'scheduled', _("Date scheduled")
         READY = 'ready', _("Ready")
         SUCCEEDED = 'succeeded', _("Succeeded")
@@ -419,11 +421,15 @@ class Harvest(models.Model):
         Status.SUCCEEDED
     ]
 
+    SEASON_CHOICES = [
+        (y, y) for y in range(datetime.now().year, 2015, -1)
+    ]
+
     status = models.CharField(
         choices=Status.choices,
-        max_length=100,
-        null=True,
-        verbose_name=_("Harvest status")
+        max_length=20,
+        verbose_name=_("Harvest status"),
+        default=Status.ORPHAN,
     )
 
     # WARNING: confilcts with @property decorator :/
@@ -487,12 +493,6 @@ class Harvest(models.Model):
         blank=True
     )
 
-    creation_date = models.DateTimeField(
-        verbose_name=_("Creation date"),
-        auto_now=False,
-        auto_now_add=True
-    )
-
     nb_required_pickers = models.PositiveIntegerField(
         verbose_name=_("Number of required pickers"),
         default=3
@@ -512,42 +512,41 @@ class Harvest(models.Model):
         related_name='harvest_edited',
         null=True,
         blank=True,
-        on_delete=models.CASCADE,
+        on_delete=models.SET_NULL,
+    )
+
+    date_created = models.DateTimeField(
+        verbose_name=_("Creation date"),
+        auto_now_add=True
     )
 
     def __str__(self):
-        if self.start_date:
+        start = self.get_local_start()
+        if start is not None:
             return _("Harvest on {} for {}").format(
-                self.get_local_start().strftime("%d/%m/%Y %H:%M"),
+                start.strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
         return _("Harvest for {}").format(self.property)
 
     def get_total_distribution(self):
-        return sum([y.total_in_lb for y in HarvestYield.objects.filter(harvest=self)])
+        yields = HarvestYield.objects.filter(harvest=self)
+        return sum([y.total_in_lb for y in yields])
 
     def get_local_start(self):
-        tz = timezone.get_current_timezone()
-        return self.start_date.astimezone(tz) if self.start_date else self.start_date
+        return local_datetime(self.start_date)
 
     def get_local_end(self):
-        tz = timezone.get_current_timezone()
-        return self.end_date.astimezone(tz) if self.end_date else self.end_date
+        return local_datetime(self.end_date)
 
-    def get_unselected_pickers(self):
-        """Volunteers who have been rejected or are waiting for approval"""
-        requests = self.requests.exclude(Q(is_accepted=True) | Q(is_cancelled=True))
-        return [r.picker for r in requests]
+    def get_local_publish_date(self):
+        return local_datetime(self.publication_date)
 
-    def get_pickers_count(
-            self,
-            is_accepted: Optional[bool] = None,
-            is_cancelled: bool = False
-    ) -> int:
-        requests = RequestForParticipation.objects.filter(harvest=self)
-        if is_cancelled:
-            return requests.filter(is_cancelled=True).count()
-        return requests.filter(is_accepted=is_accepted).count()
+    def get_pickers_count(self, status: Optional[Status]) -> int:
+        rfps = RequestForParticipation.objects.filter(harvest=self)
+        if status is None:
+            return rfps.filter(status=status).count()
+        return rfps.count()
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
@@ -586,12 +585,11 @@ class Harvest(models.Model):
             return False
         if not self.publication_date:
             return True
-        return (timezone.now() > self.publication_date)
+        return (tz.now() > self.publication_date)
 
     def is_open_to_requests(self):
-        if self.status is not Harvest.Status.SCHEDULED:
-            return False
-        return timezone.now() <= self.end_date
+        return self.status == Harvest.Status.SCHEDULED and \
+            tz.now() <= self.end_date
 
 
 class RequestForParticipation(models.Model):
@@ -601,29 +599,12 @@ class RequestForParticipation(models.Model):
         verbose_name = _("request for participation")
         verbose_name_plural = _("requests for participation")
 
-    picker = models.ForeignKey(
-        'member.Person',
-        verbose_name=_("Requester"),
-        on_delete=models.CASCADE,
-    )
-
-    number_of_people = models.PositiveIntegerField(
-        verbose_name=_("How many people are you?"),
-        default=1,
-        validators=[MinValueValidator(1)]
-    )
-
-    comment = models.TextField(
-        verbose_name=_("Comment"),
-        null=True,
-        blank=True
-    )
-
-    notes_from_pickleader = models.TextField(
-        verbose_name=_("Notes from the pick leader."),
-        null=True,
-        blank=True
-    )
+    class Status(models.TextChoices):
+        PENDING = 'pending', _("Pending")
+        ACCEPTED = 'accepted', _("Accepted")
+        DECLINED = 'declined', _("Declined")
+        CANCELLED = 'cancelled', _("Cancelled")
+        OBSOLETE = 'obsolete', _("Obsolete")
 
     harvest = models.ForeignKey(
         'Harvest',
@@ -632,44 +613,69 @@ class RequestForParticipation(models.Model):
         on_delete=models.CASCADE,
     )
 
-    creation_date = models.DateTimeField(
-        verbose_name=_("Created on"),
-        default=timezone.now
+    person = models.ForeignKey(
+        'member.Person',
+        verbose_name=_("Requester"),
+        on_delete=models.CASCADE,
     )
 
-    acceptation_date = models.DateTimeField(
-        verbose_name=_("Accepted on"),
+    status = models.CharField(
+        choices=Status.choices,
+        max_length=20,
+        verbose_name=_("Request status"),
+        default=Status.PENDING,
+    )
+
+    number_of_pickers = models.PositiveIntegerField(
+        verbose_name=_("Number of pickers"),
+        default=1,
+        validators=[MinValueValidator(1)]
+    )
+
+    comment = models.TextField(
+        verbose_name=_("Comment from participant"),
         null=True,
         blank=True
     )
 
-    is_accepted = models.BooleanField(
-        verbose_name=_("Accepted"),
-        default=None,
+    notes = models.TextField(
+        verbose_name=_("PickLeader notes"),
+        null=True,
+        blank=True
+    )
+
+    date_created = models.DateTimeField(
+        verbose_name=_("Created on"),
+        auto_now_add=True
+    )
+
+    date_status_updated = models.DateTimeField(
+        verbose_name=_("Status updated on"),
         null=True,
         blank=True
     )
 
     showed_up = models.BooleanField(
-        verbose_name=_("Showed up"),
+        verbose_name=_("Picker(s) showed up"),
         default=None,
         null=True,
         blank=True
     )
 
-    is_cancelled = models.BooleanField(
-        verbose_name=_("Canceled"),
-        default=False
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__last_status = self.status
 
     def save(self, *args, **kwargs):
-        if not self.id:
-            self.creation_date = timezone.now()
-        super(RequestForParticipation, self).save(*args, **kwargs)
+
+        if self.status != self.__last_status:
+            self.__last_status = self.status
+            self.date_status_updated = tz.now()
+
+        super().save(*args, **kwargs)
 
     def __str__(self):
-        return "Request by %s to participate to %s" % \
-               (self.picker, self.harvest)
+        return f"Request by {self.person} to participate in {self.harvest}"
 
 
 class HarvestYield(models.Model):
@@ -722,17 +728,6 @@ class Equipment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    description = models.CharField(
-        verbose_name=_("Description"),
-        max_length=50,
-        blank=True
-    )
-
-    count = models.SmallIntegerField(
-        verbose_name=_("Number available"),
-        default=1
-    )
-
     owner = models.ForeignKey(
         'member.Actor',
         verbose_name=_("Owner"),
@@ -749,6 +744,17 @@ class Equipment(models.Model):
         null=True,
         blank=True,
         on_delete=models.CASCADE
+    )
+
+    description = models.CharField(
+        verbose_name=_("Description"),
+        max_length=50,
+        blank=True
+    )
+
+    count = models.SmallIntegerField(
+        verbose_name=_("Number available"),
+        default=1
     )
 
     shared = models.BooleanField(
@@ -781,14 +787,11 @@ class Comment(models.Model):
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
 
-    content = models.CharField(
-        verbose_name=_("Content"),
-        max_length=500
-    )
-
-    created_date = models.DateTimeField(
-        verbose_name=_("Created date"),
-        auto_now_add=True
+    harvest = models.ForeignKey(
+        'Harvest',
+        verbose_name=_("harvest"),
+        related_name="comment",
+        on_delete=models.CASCADE,
     )
 
     author = models.ForeignKey(
@@ -798,11 +801,20 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    harvest = models.ForeignKey(
-        'Harvest',
-        verbose_name=_("harvest"),
-        related_name="comment",
-        on_delete=models.CASCADE,
+    content = models.CharField(
+        verbose_name=_("Content"),
+        max_length=500
+    )
+
+    date_created = models.DateTimeField(
+        verbose_name=_("Created on"),
+        auto_now_add=True
+    )
+
+    date_updated = models.DateTimeField(
+        verbose_name=_("Updated on"),
+        auto_now=True,
+        null=True,
     )
 
     def __str__(self):
