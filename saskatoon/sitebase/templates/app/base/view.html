@@ -2,10 +2,8 @@
 {% load i18n %}
 {% load static %}
 {% block body %}
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
     {% include 'app/base/header.html' %}
+
     <!-- Menu -->
     {% if user.is_authenticated %}
         {% include 'app/base/menu.html' %}
@@ -27,18 +25,7 @@
     {% block content %}
         <!-- {{ content }} -->
     {% endblock content %}
-    <!-- Footer-->
-    <div class="navbar-static-bottom footer-copyright-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <p>
-                        <a href="https://github.com/LesFruitsDefendus/saskatoon-ng">Saskatoon</a> {% translate "is a Free/Libre Software developed by the collective " %}<a href="http://www.lesfruitsdefendus.org">Les Fruits Défendus.</a> {% translate "Template by" %} <a href="https://colorlib.com">Colorlib</a>.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <!-- Javascript (2/2) -->
     {% include 'app/base/scripts.html' %}
 {% endblock body %}

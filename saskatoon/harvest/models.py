@@ -867,10 +867,10 @@ models.signals.pre_save.connect(
     sender=Property
 )
 
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_property,
-    sender=Property
-)
+# models.signals.post_save.connect(
+#     receiver=signals.clear_cache_property,
+#     sender=Property
+# )
 
 # Send email on new comments
 models.signals.post_save.connect(
@@ -889,10 +889,10 @@ models.signals.pre_save.connect(
     sender=Harvest
 )
 
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_harvest,
-    sender=Harvest
-)
+# models.signals.post_save.connect(
+#     receiver=signals.clear_cache_harvest,
+#     sender=Harvest
+# )
 
 # RFP signal
 models.signals.post_save.connect(
@@ -901,7 +901,7 @@ models.signals.post_save.connect(
 )
 
 # Equipment signal
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_equipment,
-    sender=Equipment
-)
+# models.signals.post_save.connect(
+#     receiver=signals.clear_cache_equipment,
+#     sender=Equipment
+# )
