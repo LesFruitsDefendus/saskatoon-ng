@@ -28,11 +28,11 @@
                     <div class="breadcomb-wp">
                         <form name="terms_conditions" method="post" action="">
                             {% csrf_token %}
-                            <button class="btn btn-success notika-btn-success" type="submit">Agree</button>
+                            <button class="btn btn-primary notika-btn-primary" type="submit">Agree</button>
                         </form>
                     </div>
                     <div class="breadcomb-wp">
-                        <a href="{% url "logout" %}" class="btn btn-default notika-btn-default">Disagree</a>
+                        <a href="{% url "logout" %}" class="btn btn-warning notika-btn-warning">Disagree</a>
                     </div>
                 </div>
             </div>
