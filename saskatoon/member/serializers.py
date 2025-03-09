@@ -8,7 +8,7 @@ from member.models import (
     Person,
     State,
 )
-from harvest.models import Harvest, Property, RequestForParticipation
+from harvest.models import Harvest, Property
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
@@ -82,17 +82,9 @@ class PersonSerializer(serializers.ModelSerializer):
     harvests_as_owner = PersonHarvestSerializer(
         source='get_harvests_as_owner', many=True, read_only=True
     )
-    harvests_as_volunteer = serializers.SerializerMethodField()
+    harvests_as_volunteer = serializers.ReadOnlyField()
     organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
     roles = serializers.SerializerMethodField()
-
-    def get_harvests_as_volunteer(self, person):
-        return {
-            s[0]: PersonHarvestSerializer(
-                person.get_harvests_as_volunteer(s[0]),
-                many=True, read_only=True).data
-            for s in RequestForParticipation.Status.choices
-        }
 
     def get_roles(self, person):
         if hasattr(person, 'auth_user'):
@@ -100,9 +92,13 @@ class PersonSerializer(serializers.ModelSerializer):
         return ""
 
 
-class PersonRFPSerializer(PersonSerializer):
-    class Meta(PersonSerializer.Meta):
-        fields = ['name', 'email', 'phone']
+class PersonRFPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
+
+    accept_count = serializers.ReadOnlyField()
+    reject_count = serializers.ReadOnlyField()
 
 
 class PersonOwnerSerializer(serializers.ModelSerializer):
