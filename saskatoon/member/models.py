@@ -340,7 +340,7 @@ class Person(Actor):
 
     @property
     def email(self):
-        if self.auth_user is None:
+        if self.auth_user is not None:
             return self.auth_user.email
         return None
 
@@ -366,7 +366,18 @@ class Person(Actor):
         requests = RFP.objects.filter(person=self)
         if rfp_status is not None:
             requests = requests.filter(status=rfp_status)
-        return Harvest.objects.filter(status=Harvest.Status.SUCCEEDED, requests__in=requests)
+        return Harvest.objects.filter(
+            status=Harvest.Status.SUCCEEDED,
+            requests__in=requests
+        )
+
+    @property
+    def accept_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.ACCEPTED).count()
+
+    @property
+    def reject_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.DECLINED).count()
 
 
 class Organization(Actor):

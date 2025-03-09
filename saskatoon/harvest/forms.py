@@ -115,25 +115,18 @@ class RFPManageForm(forms.ModelForm):
 
     class Meta:
         model = RequestForParticipation
-        fields = [
-            'harvest',
-            'person',
-            'comment',
-            'number_of_pickers',
-            'status',
-            'notes',
-        ]
+        fields = ['status', 'notes']
         widgets = {
             'status': forms.RadioSelect(),
             'notes': forms.widgets.Textarea(),
         }
 
     def __init__(self, *args, **kwargs):
+        status = kwargs.pop('status')
         super().__init__(*args, **kwargs)
-        rfp = getattr(self, 'instance', None)
-        if rfp is not None and rfp.pk:
-            for field in ['person', 'harvest', 'comment']:
-                self.fields[field].widget.attrs['readonly'] = 'readonly'
+        if status in RequestForParticipation.get_status_choices():
+            self.initial['status'] = status
+            self.fields['status'].widget = forms.HiddenInput()
 
 
 class CommentForm(forms.ModelForm):

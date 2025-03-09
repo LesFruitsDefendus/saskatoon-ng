@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView
 
+
 from harvest.forms import (
     CommentForm,
     EquipmentForm,
@@ -26,8 +27,9 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
-    RequestForParticipation,
+    RequestForParticipation as RFP,
 )
+
 from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
 from member.models import Organization
 
@@ -208,7 +210,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     """Public RFP View"""
 
-    model = RequestForParticipation
+    model = RFP
     template_name = 'app/forms/participation_create_form.html'
     form_class = RFPForm
     success_message = _("Thanks for your interest in participating in this harvest! \
@@ -242,16 +244,34 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'harvest.change_requestforparticipation'
-    model = RequestForParticipation
+    model = RFP
     form_class = RFPManageForm
-    template_name = 'app/forms/model_form.html'
+    template_name = 'app/forms/participation_manage_form.html'
     success_message = _("Request updated successfully!")
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = self.object.__str__()
+        context['title'] = _("Request For Participation")
         context['cancel_url'] = self.get_success_url()
+        context['rfp'] = self.object
+
+        action = self.kwargs.get('action')
+        if action is not None:
+            context['harvest'] = self.object.harvest
+            for a in RFP.Action.choices:
+                if action == a[0]:
+                    context['save'] = a[1].upper()
+
         return context
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs(*args, **kwargs)
+        kwargs['status'] = {
+                RFP.Action.ACCEPT: RFP.Status.ACCEPTED,
+                RFP.Action.DECLINE: RFP.Status.DECLINED
+        }.get(self.kwargs.get('action'))
+
+        return kwargs
 
     def get_success_url(self):
         return reverse_lazy(

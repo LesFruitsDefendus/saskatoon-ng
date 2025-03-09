@@ -606,6 +606,10 @@ class RequestForParticipation(models.Model):
         CANCELLED = 'cancelled', _("Cancelled")
         OBSOLETE = 'obsolete', _("Obsolete")
 
+    class Action(models.TextChoices):
+        ACCEPT = 'accept', _("Accept request")
+        DECLINE = 'decline', _("Decline request")
+
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
@@ -661,6 +665,10 @@ class RequestForParticipation(models.Model):
         null=True,
         blank=True
     )
+
+    @staticmethod
+    def get_status_choices():
+        return [s[0] for s in RequestForParticipation.Status.choices]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
