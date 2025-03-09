@@ -44,7 +44,7 @@ class PersonCreateForm(forms.ModelForm):
 
     def save(self):
         # create Person instance
-        instance = super(PersonCreateForm, self).save()
+        instance = super().save()
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(
