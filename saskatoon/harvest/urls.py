@@ -69,9 +69,11 @@ urlpatterns = [
     re_path(r'^property/update/(?P<pk>\d+)/$',
             views.PropertyUpdateView.as_view(),
             name='property-update'),
-    re_path(r'^participation/update/(?P<pk>\d+)/$',
+
+    re_path(r'^participation/update/(?P<pk>\d+)/((?P<action>(accept|decline))/)?$',
             views.RequestForParticipationUpdateView.as_view(),
             name='participation-update'),
+
     re_path(r'^harvest/update/(?P<pk>\d+)/$',
             views.HarvestUpdateView.as_view(),
             name='harvest-update'),

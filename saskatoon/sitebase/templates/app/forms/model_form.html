@@ -5,11 +5,14 @@
 
 {% block form %}
 
+    {% block header %}
+    {% endblock header %}
+
     <form method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <button type="submit" class="btn btn-primary notika-btn-primary">
-            {% trans 'Save' %}
+        {% if save is not None %}{{ save }}{% else %}{% translate 'Save' %}{% endif %}
         </button>
         {% if cancel_url %}
             <button type="button" class="btn btn-warning notika-btn-warning" style="margin-left:1rem;">

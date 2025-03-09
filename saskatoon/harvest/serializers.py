@@ -38,6 +38,7 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
 
     person = PersonRFPSerializer(many=False)
     date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
+    time_created = serializers.DateTimeField(source='date_created', format=r"%I:%H %p")
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
 
 
@@ -301,7 +302,7 @@ class HarvestListSerializer(HarvestSerializer):
     requests = serializers.SerializerMethodField()
 
     def get_requests(self, harvest):
-        return dict([(s[0], harvest.get_pickers_count(s[0])) for s in RFP.Status.choices])
+        return dict([(s, harvest.get_pickers_count(s)) for s in RFP.get_status_choices()])
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):
