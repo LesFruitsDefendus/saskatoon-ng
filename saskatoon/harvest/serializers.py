@@ -249,8 +249,12 @@ class HarvestDetailSerializer(HarvestSerializer):
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
+    about = serializers.SerializerMethodField()
     status_display = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()
+
+    def get_about(self, obj):
+        return obj.about.html
 
     def get_status_display(self, obj):
         return obj.get_status_display()
