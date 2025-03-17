@@ -1,0 +1,79 @@
+{
+    "actor_id": 2,
+    "civil_name": "Les Fruits Défendus",
+    "contact_person": {
+        "actor_id": 1,
+        "roles": [
+            "Property Owner"
+        ],
+        "name": "Nice Owner",
+        "email": null,
+        "phone": "(514) 666-1234",
+        "neighborhood": {
+            "id": 19,
+            "name": "Plateau-Mont-Royal"
+        },
+        "comments": "Passer par l'arrière ruelle",
+        "harvests_as_owner": [
+            {
+                "id": 4,
+                "pick_leader": "Core Member",
+                "property": "Nice Owner at 123 av. Mont-Royal",
+                "status": "scheduled"
+            },
+            {
+                "id": 2,
+                "pick_leader": "Pick Leader",
+                "property": "Nice Owner at 123 av. Mont-Royal",
+                "status": "ready"
+            },
+            {
+                "id": 3,
+                "pick_leader": "Core Member",
+                "property": "Nice Owner at 123 av. Mont-Royal",
+                "status": "cancelled"
+            },
+            {
+                "id": 1,
+                "pick_leader": "Pick Leader",
+                "property": "Nice Owner at 123 av. Mont-Royal",
+                "status": "succeeded"
+            }
+        ],
+        "harvests_as_pickleader": [],
+        "harvests_as_volunteer_accepted": [],
+        "harvests_as_volunteer_cancelled": [],
+        "harvests_as_volunteer_pending": [],
+        "harvests_as_volunteer_rejected": [],
+        "harvests_as_volunteer_succeeded": [],
+        "organizations_as_contact": [
+            {
+                "pk": 2,
+                "civil_name": "Les Fruits Défendus"
+            }
+        ],
+        "properties": [
+            {
+                "id": 3,
+                "short_address": "123 av. Mont-Royal, apt. 4"
+            }
+        ]
+    },
+    "phone": "(514) 360-8566",
+    "short_address": "111 rue Roy Est",
+    "address": "111 rue Roy Est. Montreal Quebec, H2W 1M1",
+    "neighborhood": {
+        "id": 19,
+        "name": "Plateau-Mont-Royal"
+    },
+    "description": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
+    "is_beneficiary": true,
+    "beneficiary_description": "",
+    "is_equipment_point": false,
+    "equipment_description": "",
+    "equipment": [],
+    "inventory": {
+        "fr": "",
+        "en": ""
+    }
+}

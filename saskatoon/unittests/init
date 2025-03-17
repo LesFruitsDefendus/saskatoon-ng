@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Create the testing fixture .json file from initial data in the 'fixtures' folder
+
+# automatically exit on error
+set -e
+
+# get script directory no matter where it's called from (doesn't work w/ symlinks)
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
+cd $SCRIPT_DIR
+
+# rename the current db and restore it at the end of process
+if [ -e ../db.sqlite3 ]; then
+    mv ../db.sqlite3 ../db_temp.sqlite3
+fi
+
+../fixtures/init
+../manage.py dumpdata > "testing_db.json"
+
+if [ -e ../db_temp.sqlite3 ]; then
+    rm ../db.sqlite3
+    mv ../db_temp.sqlite3 ../db.sqlite3
+fi

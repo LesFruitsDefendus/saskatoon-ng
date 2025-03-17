@@ -39,6 +39,11 @@ This command only checks for Django template syntax errors by trying to load tem
 
 ## Unit tests
 
+For the first time, a testing db fixture file (`testing_db.json`) needs to be generated:
+```
+(venv)$ ./saskatoon/unittests/init
+```
+
 - To run a single test suite: `(venv)$ python3 -m pytest saskatoon/unittests/test_permission.py`
 - To run all tests: `(venv)$ python3 -m pytest saskatoon/unittests -s` _(the `-s` flag allows debug info to show in the output.)_
 
