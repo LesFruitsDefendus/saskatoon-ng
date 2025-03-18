@@ -163,7 +163,7 @@ class OrganizationCreateForm(OrganizationForm):
     )
 
     create_new_person = forms.BooleanField(
-        label=_("&nbsp;Register new contact person"),
+        label=_("Register new contact person"),
         required=False
     )
 

@@ -54,7 +54,10 @@
                             </table>
                         </div>
                     </div>
-                    {% include 'app/list_views/pagination.html' %}
+
+                    {% if pages_count > 1 %}
+                        {% include 'app/list_views/pagination.html' %}
+                    {% endif %}
                 </div>
             </div>
         </div>
