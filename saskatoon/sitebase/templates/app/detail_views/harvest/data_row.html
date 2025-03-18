@@ -1,64 +1,106 @@
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANG %}
 <tr>
+    <!-- Requester -->
     <td>
-        <b>{{ r.picker.name }}</b><br>
-        {% if r.picker.email %}
-            <a href="mailto:{{ r.picker.email }}">
-                {{ r.picker.email }}
+        <b>{{ r.person.name }}</b><br>
+        {% if r.person.email %}
+            <a href="mailto:{{ r.person.email }}">
+                {{ r.person.email }}
             </a>
             <br>
         {% endif %}
-        {{ r.picker.phone|default:"" }}
+        {{ r.person.phone|default:"" }}
     </td>
-    <td style="text-align: center;">{{ r.number_of_people }}</td>
-    <td>
-        {% if r.is_cancelled == True %}
-            <i class="fa fa-times text-muted"></i>
-            {% trans "Canceled" %}
-        {% elif r.is_accepted == None %}
-            <i class="fa fa-question text-warning"></i>
-            {% trans "Pending" %}
-        {% elif r.is_accepted == False %}
-            <i class="fa fa-times text-danger"></i>
-            {% trans "Refused" %}
-        {% elif r.is_accepted == True %}
-            <i class="fa fa-check text-success"></i>
-            {% trans "Accepted" %}
-        {% endif %}
+
+    <!-- Date requested -->
+    <td style="text-align: center;">
+        {{ r.date_created }}<br>
+        {% if LANG == "en" %}at{% else %}à{% endif %}
+        {{ r.time_created }}
+
     </td>
-    <td>{{ r.creation_date }}</td>
-    <td>
-        {% if r.acceptation_date %}
-            {{ r.acceptation_date }}
+
+    <!-- Number of pickers -->
+    <td style="text-align: center;">{{ r.number_of_pickers }}</td>
+
+    <!-- Requester comment -->
+    <td>{{ r.comment }}</td>
+
+    <!-- Past experience -->
+    <td style="text-align: center;">
+        {% if r.person.accept_count > 0 %}
+        <i class="fa fa-thumbs-o-up text-success"></i>
+        {{ r.person.accept_count }}
+        {% trans "harvest(s)" %}
         {% else %}
-            <i class="fa fa-times text-danger"></i>
+        {% trans "First time" %} !
         {% endif %}
     </td>
-    <td>
-        {% with r.picker.harvests_as_volunteer_succeeded.count as success_count %}
-        {% if success_count > 0 %}
-            <i class="fa fa-thumbs-o-up text-success"></i>
-            {{ success_count }}
-            {% trans "harvest(s)" %}
-        {% else %}
-            {% trans "First time!" %}
-        {% endif %}
-        {% endwith %}
-    </td>
-    <td>
-        {% with r.picker.harvests_as_volunteer_rejected.count as reject_count %}
-        {% if reject_count > 0 %}
+
+    <!-- Rejections -->
+    <td style="text-align: center;">
+        {% if r.person.reject_count > 0 %}
         <i class="fa fa-frown-o text-danger"></i>
         {% endif %}
-        {{ reject_count }}
-        {% endwith %}
+        {{ r.person.reject_count }}
     </td>
-    <td>{{ r.comment }}</td>
-    <td>{{ r.notes_from_pickleader }}</td>
+
+    <!-- Status -->
     <td style="text-align: center;">
-        <a href="{% url 'participation-update' r.id %}?hid={{ id }}">
+        <b>
+            {% if r.status == 'pending' %}
+            <i class="fa fa-question text-warning"></i>
+            {% trans "Pending" %}
+            {% elif r.status == 'accepted' %}
+            <i class="fa fa-check text-success"></i>
+            {% trans "Accepted" %}
+            {% elif r.status == 'declined' %}
+            <i class="fa fa-times text-danger"></i>
+            {% trans "Declined" %}
+            {% elif r.status == 'cancelled' %}
+            <i class="fa fa-times text-muted"></i>
+            {% trans "Cancelled" %}
+            {% else %}
+            <i class="fa fa-times text-muted"></i>
+            {% trans "Obsolete" %}
+            {% endif %}
+        </b>
+    </td>
+
+    <!-- PickLeader notes -->
+    <td>{{ r.notes }}</td>
+
+    <!-- Last updated -->
+    <td>
+        {% if r.date_status_updated %}
+        {{ r.date_status_updated }}
+        {% endif %}
+    </td>
+
+    <!-- Action -->
+    <td>
+        {% if r.status == 'pending' %}
+        <a href="{% url 'participation-update' r.id %}accept/">
+            <button
+                title="Accept"
+                class="btn btn-success notika-btn-success"
+                style="margin-bottom: 0.25em;"
+            >
+                {% trans "Accept" %}
+            </button>
+        </a>
+
+        <a href="{% url 'participation-update' r.id %}decline/">
+            <button title="Decline" class="btn btn-danger notika-btn-danger">
+                {% trans "Decline" %}
+            </button>
+        </a>
+        {% else %}
+        <a href="{% url 'participation-update' r.id %}">
             <i class="fa fa-pencil"></i>
         </a>
+        {% endif %}
     </td>
 </tr>

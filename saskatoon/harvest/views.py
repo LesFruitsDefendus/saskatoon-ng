@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView
 
+
 from harvest.forms import (
     CommentForm,
     EquipmentForm,
@@ -17,7 +18,7 @@ from harvest.forms import (
     PropertyCreateForm,
     PropertyForm,
     PublicPropertyForm,
-    RequestForm,
+    RFPForm,
     RFPManageForm,
 )
 from harvest.models import (
@@ -26,8 +27,9 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
-    RequestForParticipation,
+    RequestForParticipation as RFP,
 )
+
 from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
 from member.models import Organization
 
@@ -208,9 +210,9 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
 class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     """Public RFP View"""
 
-    model = RequestForParticipation
+    model = RFP
     template_name = 'app/forms/participation_create_form.html'
-    form_class = RequestForm
+    form_class = RFPForm
     success_message = _("Thanks for your interest in participating in this harvest! \
     Your request has been sent and a pick leader will contact you soon.")
 
@@ -221,7 +223,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             if self.request.user.is_authenticated or harvest.is_open_to_requests():
                 context['title'] = _("Request to join this harvest")
                 context['harvest'] = harvest
-                context['form'] = RequestForm(initial={'harvest_id': harvest.id})
+                context['form'] = RFPForm(initial={'harvest_id': harvest.id})
             else:
                 context['error'] = _(
                     "Sorry, this harvest is not open for requests. \
@@ -242,34 +244,40 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'harvest.change_requestforparticipation'
-    model = RequestForParticipation
+    model = RFP
     form_class = RFPManageForm
     template_name = 'app/forms/participation_manage_form.html'
     success_message = _("Request updated successfully!")
 
     def get_context_data(self, **kwargs):
-        rfp = self.object
-        if rfp.is_cancelled:
-            status = 'cancelled'
-        elif rfp.is_accepted:
-            status = 'accepted'
-        elif rfp.is_accepted is not None:
-            status = 'refused'
-        else:
-            status = 'pending'
-
         context = super().get_context_data(**kwargs)
-        context['form'] = RFPManageForm(
-            initial={
-                'status': status,
-                'notes_from_pickleader': rfp.notes_from_pickleader
-            }
-        )
+        context['title'] = _("Request For Participation")
+        context['cancel_url'] = self.get_success_url()
+        context['rfp'] = self.object
+
+        action = self.kwargs.get('action')
+        if action is not None:
+            context['harvest'] = self.object.harvest
+            for a in RFP.Action.choices:
+                if action == a[0]:
+                    context['save'] = a[1].upper()
+
         return context
 
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super().get_form_kwargs(*args, **kwargs)
+        kwargs['status'] = {
+                RFP.Action.ACCEPT: RFP.Status.ACCEPTED,
+                RFP.Action.DECLINE: RFP.Status.DECLINED
+        }.get(self.kwargs.get('action'))
+
+        return kwargs
+
     def get_success_url(self):
-        request = self.request.GET
-        return reverse_lazy('harvest-detail', kwargs={'pk': request['hid']})
+        return reverse_lazy(
+            'harvest-detail',
+            kwargs={'pk': self.object.harvest.id}
+        )
 
 
 class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -281,23 +289,20 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        harvest_id = self.request.GET['h']
         context['title'] = _("Add new comment")
-        context['cancel_url'] = reverse_lazy(
-            'harvest-detail',
-            kwargs={'pk': harvest_id}
-        )
+        context['cancel_url'] = self.get_success_url()
         return context
 
     def form_valid(self, form):
-        request = self.request.GET
         form.instance.author = self.request.user
-        form.instance.harvest = Harvest.objects.get(id=request['h'])
+        form.instance.harvest = self.object.harvest
         return super(CommentCreateView, self).form_valid(form)
 
     def get_success_url(self):
-        request = self.request.GET
-        return reverse_lazy('harvest-detail', kwargs={'pk': request['h']})
+        return reverse_lazy(
+            'harvest-detail',
+            kwargs={'pk': self.request.GET['hid']}
+        )
 
 
 @login_required
