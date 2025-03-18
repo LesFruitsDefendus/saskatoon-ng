@@ -3,6 +3,7 @@
   "model": "harvest.property",
   "pk": 3,
   "fields": {
+    "owner": 1,
     "is_active": true,
     "authorized": true,
     "pending": false,
@@ -13,7 +14,6 @@
     "pending_newsletter": false,
     "pending_recurring": false,
     "geom": null,
-    "owner": 1,
     "trees_location": "Backyard",
     "trees_accessibility": "Passer par l'arrière",
     "avg_nb_required_pickers": 2,
@@ -49,6 +49,7 @@
   "model": "harvest.property",
   "pk": 4,
   "fields": {
+    "owner": null,
     "is_active": true,
     "authorized": true,
     "pending": true,
@@ -59,7 +60,6 @@
     "pending_newsletter": false,
     "pending_recurring": false,
     "geom": null,
-    "owner": null,
     "trees_location": "Backyard",
     "trees_accessibility": "locked gate, back alley",
     "avg_nb_required_pickers": 2,
