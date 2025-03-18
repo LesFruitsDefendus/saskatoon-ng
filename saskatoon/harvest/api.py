@@ -12,14 +12,13 @@ from harvest.filters import (
     HarvestFilter,
     PropertyFilter,
     EquipmentFilter,
-    SEASON_FILTER_CHOICES
 )
 from harvest.models import (
     Equipment,
     Harvest,
     HarvestYield,
     Property,
-    RequestForParticipation,
+    RequestForParticipation as RFP,
     TreeType
 )
 from harvest.serializers import (
@@ -165,7 +164,7 @@ class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Request For Participation viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = RequestForParticipation.objects.all().order_by('-id')
+    queryset = RFP.objects.all().order_by('-id')
     serializer_class = RequestForParticipationSerializer
     template_name = 'app/participation_list.html'
 
@@ -212,7 +211,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
         return Response(
             {
                 "season": self.request.query_params.get('season'),
-                "seasons": [choice[0] for choice in SEASON_FILTER_CHOICES],
+                "seasons": [choice[0] for choice in Harvest.SEASON_CHOICES],
                 "highlights": self.get_highlights(),
                 "total_fruit": self.get_total_weight_harvest_per_fruit(),
                 "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),
@@ -343,32 +342,25 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
         pickers = Person.objects.all().order_by("first_name")
         total_weight_harvests_per_picker = []
 
-        for picker in pickers:
-            total_weight = self.harvest_yield_queryset.filter(
-                recipient=picker
-            ).aggregate(Sum("total_in_lb"))
-            total_harvests_leader = self.harvest_queryset.filter(
-                pick_leader__person=picker
-            ).count()
-            total_harvests_rfp = RequestForParticipation.objects.filter(
-                picker=picker
-            ).count()
-            total_harvests_is_accepted = (
-                RequestForParticipation.objects.filter(picker=picker)
-                .filter(is_accepted=True)
-                .count()
-            )
-            total_harvests_recipient = self.harvest_yield_queryset.filter(
-                recipient=picker
-            ).count()
+        for p in pickers:
+            total_weight = \
+                self.harvest_yield_queryset.filter(recipient=p).aggregate(Sum("total_in_lb"))
+            total_harvests_leader = \
+                self.harvest_queryset.filter(pick_leader__person=p).count()
+            total_harvests_rfp = \
+                RFP.objects.filter(person=p).count()
+            total_harvests_accepted = \
+                RFP.objects.filter(picker=p, status=RFP.Status.ACCEPTED).count()
+            total_harvests_recipient = \
+                self.harvest_yield_queryset.filter(recipient=p).count()
 
             if total_weight.get("total_in_lb__sum") is not None:
                 total_weight_harvests_per_picker.append(
                     (
-                        picker,
+                        p,
                         total_harvests_leader,
                         total_harvests_rfp,
-                        total_harvests_is_accepted,
+                        total_harvests_accepted,
                         total_harvests_recipient,
                         total_weight.get("total_in_lb__sum"),
                     )

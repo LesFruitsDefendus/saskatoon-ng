@@ -6,16 +6,13 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.db import models
-from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from phone_field import PhoneField
 
 from harvest.models import (
-    RequestForParticipation,
+    RequestForParticipation as RFP,
     Harvest,
-    Property,
-    Equipment,
 )
 
 
@@ -343,7 +340,7 @@ class Person(Actor):
 
     @property
     def email(self):
-        if self.auth_user is None:
+        if self.auth_user is not None:
             return self.auth_user.email
         return None
 
@@ -355,51 +352,32 @@ class Person(Actor):
         return matches
 
     @property
-    def properties(self):
-        # TODO set up reverse relationship instead
-        return Property.objects.filter(owner=self)
-
-    @property
-    def harvests_as_pickleader(self):
-        return Harvest.objects.filter(pick_leader=self.auth_user, status=Harvest.Status.SUCCEEDED)
-
-    @property
-    def requests_as_volunteer(self):
-        return RequestForParticipation.objects.filter(picker=self)
-
-    @property
-    def harvests_as_volunteer_accepted(self):
-        requests = self.requests_as_volunteer.filter(is_accepted=True)
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_succeeded(self):
-        return self.harvests_as_volunteer_accepted.filter(status=Harvest.Status.SUCCEEDED)
-
-    @property
-    def harvests_as_volunteer_pending(self):
-        requests = self.requests_as_volunteer.exclude(
-            Q(is_accepted=True) | Q(is_cancelled=True)
-        )
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_rejected(self):
-        requests = self.requests_as_volunteer.filter(is_accepted=False)
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_cancelled(self):
-        requests = self.requests_as_volunteer.filter(is_cancelled=True)
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
     def harvests_as_owner(self):
         return Harvest.objects.filter(property__in=self.properties)
 
     @property
     def organizations_as_contact(self):
         return Organization.objects.filter(contact_person=self)
+
+    def get_harvests_as_pickleader(self, status=Harvest.Status.SUCCEEDED):
+        return Harvest.objects.filter(pick_leader=self.auth_user, status=status)
+
+    def get_harvests_as_volunteer(self, rfp_status=RFP.Status.ACCEPTED):
+        requests = RFP.objects.filter(person=self)
+        if rfp_status is not None:
+            requests = requests.filter(status=rfp_status)
+        return Harvest.objects.filter(
+            status=Harvest.Status.SUCCEEDED,
+            requests__in=requests
+        )
+
+    @property
+    def accept_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.ACCEPTED).count()
+
+    @property
+    def reject_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.DECLINED).count()
 
 
 class Organization(Actor):
@@ -600,10 +578,6 @@ is currenlty made available'
         if self.contact_person is not None:
             return self.contact_person.language
         return Person.Language.FR
-
-    @property
-    def equipment(self):
-        return Equipment.objects.filter(owner=self)
 
 
 class Neighborhood(models.Model):

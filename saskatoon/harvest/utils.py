@@ -1,5 +1,6 @@
 from django.db.models import Q
 from logging import getLogger
+
 from harvest.models import Property
 
 logger = getLogger('saskatoon')

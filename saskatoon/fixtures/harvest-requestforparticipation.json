@@ -3,32 +3,60 @@
   "model": "harvest.requestforparticipation",
   "pk": 1,
   "fields": {
-    "picker": 4,
-    "number_of_people": 1,
-    "comment": "I live in the neighborhood and could bring a small step ladder.",
-    "notes_from_pickleader": "",
     "harvest": 1,
-    "creation_date": "2021-05-31T13:38:14.221Z",
-    "acceptation_date": "2021-06-01T19:24:10.262Z",
-    "is_accepted": true,
-    "showed_up": null,
-    "is_cancelled": false
+    "person": 4,
+    "status": "obsolete",
+    "number_of_pickers": 1,
+    "comment": "I live in the neighborhood and could bring a small step ladder.",
+    "notes": "",
+    "date_created": "2021-05-31T13:38:14.221Z",
+    "date_status_updated": "2021-06-01T19:24:10.262Z",
+    "showed_up": false
   }
 },
 {
-  "model": "harvest.requestforparticipation",
-  "pk": 3,
-  "fields": {
-    "picker": 4,
-    "number_of_people": 2,
-    "comment": "Nous serons deux!",
-    "notes_from_pickleader": "There will be two of them",
-    "harvest": 2,
-    "creation_date": "2021-07-19T19:44:53.537Z",
-    "acceptation_date": "2021-07-19T20:10:40.567Z",
-    "is_accepted": true,
-    "showed_up": null,
-    "is_cancelled": false
-  }
+    "model": "harvest.requestforparticipation",
+    "pk": 2,
+    "fields": {
+        "harvest": 1,
+        "person": 5,
+        "status": "cancelled",
+        "number_of_pickers": 1,
+        "comment": "I'm interested but will need to confirm.",
+        "notes": "Can no longer participate",
+        "date_created": "2021-06-01T11:22:11.121Z",
+        "date_status_updated": null,
+        "showed_up": null
+    }
+},
+{
+    "model": "harvest.requestforparticipation",
+    "pk": 3,
+    "fields": {
+        "harvest": 2,
+        "person": 4,
+        "status": "accepted",
+        "number_of_pickers": 2,
+        "comment": "Nous serons deux!",
+        "notes": "There will be two of them",
+        "date_created": "2021-07-19T19:44:53.537Z",
+        "date_status_updated": "2021-07-19T20:10:40.567Z",
+        "showed_up": true
+    }
+},
+{
+    "model": "harvest.requestforparticipation",
+    "pk": 4,
+    "fields": {
+        "harvest": 1,
+        "person": 5,
+        "status": "declined",
+        "number_of_pickers": 1,
+        "comment": "I'm still interested if you need more pickers.",
+        "notes": "Declined because we have enough pickers.",
+        "date_created": "2021-06-05T14:00:03.191Z",
+        "date_status_updated": "2021-06-05T16:20:01.003Z",
+        "showed_up": null
+    }
 }
 ]

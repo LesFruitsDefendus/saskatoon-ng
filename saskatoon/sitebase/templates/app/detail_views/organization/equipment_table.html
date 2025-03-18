@@ -10,7 +10,7 @@
               <h4> {% trans Equipment %} </h4>
               {% if perms.harvest.add_equipment %}
               <a href="{% url 'equipment-create' %}?aid={{ actor_id }}">
-                <button title="New Equipment" class="btn btn-success notika-btn-success waves-effect">
+                <button title="New Equipment" class="btn btn-primary notika-btn-primary waves-effect">
                   <i class="fa fa-plus"></i>
                   {% trans "New Equipment" %}
                 </button>

@@ -46,7 +46,7 @@ urlpatterns = [
          views.harvest_status_change,
          name='harvest-status-change'),
 
-    path(r'participation/create/',
+    path(r'participation/create/<int:hid>/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
 
@@ -69,9 +69,11 @@ urlpatterns = [
     re_path(r'^property/update/(?P<pk>\d+)/$',
             views.PropertyUpdateView.as_view(),
             name='property-update'),
-    re_path(r'^participation/update/(?P<pk>\d+)/$',
+
+    re_path(r'^participation/update/(?P<pk>\d+)/((?P<action>(accept|decline))/)?$',
             views.RequestForParticipationUpdateView.as_view(),
             name='participation-update'),
+
     re_path(r'^harvest/update/(?P<pk>\d+)/$',
             views.HarvestUpdateView.as_view(),
             name='harvest-update'),

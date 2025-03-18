@@ -4,12 +4,12 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <span class="pull-right">
             {% if previous is None %}
-                <button class="btn btn-sm disabled" id="previous-btn">
+                <button class="btn btn-sm btn-info notika-btn-info disabled" id="previous-btn">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </button>
             {% else %}
                 <a href="{{ previous }}">
-                    <button class="btn btn-sm" id="previous-btn">
+                    <button class="btn btn-sm btn-primary notika-btn-primary" id="previous-btn">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </button>
                 </a>
@@ -17,7 +17,7 @@
             &nbsp;
             <span class="dropup">
                 <button
-                    class="btn btn-sm dropdown-toggle"
+                    class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
@@ -26,7 +26,7 @@
                     <span style="font-size: 1.2em">{{ current_page_number }}</span>
                 </button>
                 <ul
-                    class="dropdown-menu dropdown-menu-right"
+                    class="dropdown-menu"
                     style="height:auto; max-height: 250px; overflow-y: auto;"
                 >
                     {% with pages_count|get_pages_range as page_number_options %}
@@ -42,12 +42,12 @@
                 / {{ pages_count }} &nbsp;
             </span>
             {% if next is None %}
-                <button class="btn btn-sm disabled" id="next-button">
+                <button class="btn btn-sm btn-info notika-btn-info disabled" id="next-button">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
             {% else %}
                 <a href="{{ next }}">
-                    <button class="btn btn-sm" id="next-button">
+                    <button class="btn btn-sm btn-primary notika-btn-primary" id="next-button">
                         <span class="glyphicon glyphicon-chevron-right"></span>
                     </button>
                 </a>
@@ -60,7 +60,7 @@
             Showing &nbsp;
             <div class="btn-group">
                 <button
-                    class="btn btn-sm dropdown-toggle"
+                    class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
                     data-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"

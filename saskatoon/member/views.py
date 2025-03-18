@@ -35,8 +35,10 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
             p = Property.objects.get(id=self.request.GET['pid'])
             initial = {
                 'roles': ['owner'],
-                'phone': p.pending_contact_phone,
+                'first_name': p.pending_contact_first_name,
+                'family_name': p.pending_contact_family_name,
                 'email': p.pending_contact_email,
+                'phone': p.pending_contact_phone,
                 'street_number': p.street_number,
                 'street': p.street,
                 'complement': p.complement,

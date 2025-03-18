@@ -1,13 +1,13 @@
 <div class="dropdown">
     <button style="margin-bottom: -5px"
         {% if status == "succeeded" %}
-            class="btn btn-success dropdown-toggle"
+            class="btn btn-success notika-btn-success dropdown-toggle"
         {% elif status == "cancelled" %}
-            class="btn btn-danger dropdown-toggle"
+            class="btn btn-danger notika-btn-danger dropdown-toggle"
         {% elif status == "ready" %}
-            class="btn btn-primary dropdown-toggle"
+            class="btn btn-primary notika-btn-primary dropdown-toggle"
         {% else %}
-            class="btn btn-warning dropdown-toggle"
+            class="btn btn-warning notika-btn-warning dropdown-toggle"
         {% endif %}
             type="button"
             id="harvest-status-dropdown"
