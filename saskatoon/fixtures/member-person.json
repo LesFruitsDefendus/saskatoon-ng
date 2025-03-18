@@ -3,9 +3,10 @@
   "model": "member.person",
   "pk": 1,
   "fields": {
+    "language": "fr",
     "first_name": "Nice",
     "family_name": "Owner",
-    "phone": "514-666-1234",
+    "phone": "(514) 666-1234",
     "street_number": "123",
     "street": "av. Mont-Royal",
     "complement": "apt. 4",
@@ -17,14 +18,15 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": "fr",
-    "comments": "Passer par l'arrière ruelle"
+    "comments": "Passer par l'arrière ruelle",
+    "onboarding": null
   }
 },
 {
   "model": "member.person",
   "pk": 3,
   "fields": {
+    "language": "en",
     "first_name": "Pick",
     "family_name": "Leader",
     "phone": null,
@@ -39,17 +41,18 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": "en",
-    "comments": ""
+    "comments": "",
+    "onboarding": null
   }
 },
 {
   "model": "member.person",
   "pk": 4,
   "fields": {
+    "language": "fr",
     "first_name": "Volunteer",
     "family_name": "Picker",
-    "phone": "438-666-1234",
+    "phone": "(438) 666-1234",
     "street_number": null,
     "street": null,
     "complement": null,
@@ -61,17 +64,18 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": "fr",
-    "comments": ""
+    "comments": "",
+    "onboarding": null
   }
 },
 {
   "model": "member.person",
   "pk": 5,
   "fields": {
+    "language": "en",
     "first_name": "Core",
     "family_name": "Member",
-    "phone": "514-123-4321",
+    "phone": "(514) 123-4321",
     "street_number": "321",
     "street": "av. du Parc",
     "complement": null,
@@ -83,8 +87,31 @@
     "newsletter_subscription": false,
     "longitude": null,
     "latitude": null,
-    "language": "en",
-    "comments": ""
+    "comments": "",
+    "onboarding": null
+  }
+},
+{
+  "model": "member.person",
+  "pk": 6,
+  "fields": {
+    "language": "fr",
+    "first_name": "Contact",
+    "family_name": "Person",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": null,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "",
+    "onboarding": null
   }
 }
 ]
