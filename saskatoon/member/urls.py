@@ -7,7 +7,7 @@ router = DefaultRouter()
 router.register('organization', api.OrganizationViewset, 'organization')
 router.register('community', api.CommunityViewset, 'community')
 
-urlpatterns = router.urls + [
+urlpatterns = [
 
     # LIST VIEWS
     path('equipment-point/',
@@ -72,4 +72,4 @@ urlpatterns = router.urls + [
     re_path(r'^neighborhood-autocomplete/$',
             autocomplete.NeighborhoodAutocomplete.as_view(),
             name='neighborhood-autocomplete'),
-]
+] + router.urls
