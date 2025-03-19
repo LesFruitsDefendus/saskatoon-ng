@@ -25,7 +25,7 @@ setup(
         "Django>=3.0.14,<4.0.0",
         "django-geojson==3.0.0",
         "django-rest-knox==4.1.0",
-        "djangorestframework>=3.11.0,<=3.15.1",
+        "djangorestframework>=3.11.0,<=3.15.2",
         "django-autocomplete-light>=3.8.2",
         "django-select2",
         "django-filter",
