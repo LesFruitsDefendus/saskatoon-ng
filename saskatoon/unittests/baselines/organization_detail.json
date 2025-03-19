@@ -1,0 +1,48 @@
+{
+    "actor_id": 2,
+    "civil_name": "Les Fruits Défendus",
+    "contact_person": {
+        "actor_id": 1,
+        "roles": [
+            "Property Owner"
+        ],
+        "name": "Nice Owner",
+        "email": "nice@owner.com",
+        "phone": "(514) 666-1234",
+        "neighborhood": {
+            "id": 19,
+            "name": "Plateau-Mont-Royal"
+        },
+        "comments": "Passer par l'arrière ruelle",
+        "harvests_as_pickleader": [],
+        "organizations_as_contact": [
+            {
+                "pk": 2,
+                "civil_name": "Les Fruits Défendus"
+            }
+        ],
+        "properties": [
+            {
+                "id": 3,
+                "short_address": "123 av. Mont-Royal, apt. 4"
+            }
+        ]
+    },
+    "phone": "(514) 360-8566",
+    "short_address": "111 rue Roy Est",
+    "address": "111 rue Roy Est. Montreal Quebec, H2W 1M1",
+    "neighborhood": {
+        "id": 19,
+        "name": "Plateau-Mont-Royal"
+    },
+    "description": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
+    "is_beneficiary": true,
+    "beneficiary_description": "We usually welcome fruit donations. Please contact us.",
+    "is_equipment_point": false,
+    "equipment_description": "",
+    "equipment": [],
+    "inventory": {
+        "fr": "",
+        "en": ""
+    }
+}

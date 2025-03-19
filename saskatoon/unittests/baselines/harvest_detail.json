@@ -1,0 +1,311 @@
+{
+    "id": 1,
+    "total_distribution": 15.0,
+    "is_open_to_requests": false,
+    "start_date": "Mon. Jul. 19, 2021",
+    "start_time": "4:00 PM",
+    "end_time": "7:00 PM",
+    "status": "succeeded",
+    "pick_leader": {
+        "id": 2,
+        "name": "Pick Leader"
+    },
+    "trees": [
+        {
+            "id": 9,
+            "name": "Noyer",
+            "fruit_name": "Noix de Grenoble"
+        },
+        {
+            "id": 14,
+            "name": "Pommier vert",
+            "fruit_name": "Pomme verte"
+        }
+    ],
+    "property": {
+        "id": 3,
+        "title": "Nice Owner at 123 av. Mont-Royal",
+        "address": "123 av. Mont-Royal, apt. 4",
+        "owner": {
+            "pk": 1,
+            "name": "Nice Owner",
+            "email": "nice@owner.com",
+            "phone": "(514) 666-1234",
+            "language": "fr",
+            "comments": "Passer par l'arrière ruelle",
+            "neighborhood": 19,
+            "city": 1,
+            "state": 1,
+            "country": 1
+        },
+        "neighborhood": "Plateau-Mont-Royal"
+    },
+    "requests": [
+        {
+            "id": 1,
+            "person": {
+                "name": "Volunteer Picker",
+                "email": "volunteer@picker.com",
+                "phone": "(438) 666-1234",
+                "accept_count": 0,
+                "reject_count": 0
+            },
+            "date_created": "2021-05-31",
+            "time_created": "09:09 AM",
+            "date_status_updated": "2021-06-01",
+            "status": "obsolete",
+            "number_of_pickers": 1,
+            "comment": "I live in the neighborhood and could bring a small step ladder.",
+            "notes": "",
+            "showed_up": false,
+            "harvest": 1
+        },
+        {
+            "id": 2,
+            "person": {
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "accept_count": 0,
+                "reject_count": 1
+            },
+            "date_created": "2021-06-01",
+            "time_created": "07:07 AM",
+            "date_status_updated": null,
+            "status": "cancelled",
+            "number_of_pickers": 1,
+            "comment": "I'm interested but will need to confirm.",
+            "notes": "Can no longer participate",
+            "showed_up": null,
+            "harvest": 1
+        },
+        {
+            "id": 4,
+            "person": {
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "accept_count": 0,
+                "reject_count": 1
+            },
+            "date_created": "2021-06-05",
+            "time_created": "10:10 AM",
+            "date_status_updated": "2021-06-05",
+            "status": "declined",
+            "number_of_pickers": 1,
+            "comment": "I'm still interested if you need more pickers.",
+            "notes": "Declined because we have enough pickers.",
+            "showed_up": null,
+            "harvest": 1
+        }
+    ],
+    "harvestyield_set": [
+        {
+            "id": 1,
+            "tree": {
+                "id": 9,
+                "name": "Noyer",
+                "image": null,
+                "fruit_name": "Noix de Grenoble",
+                "season_start": "9999-09-01"
+            },
+            "recipient": "Nice Owner",
+            "total_in_lb": 3.0,
+            "harvest": 1
+        },
+        {
+            "id": 2,
+            "tree": {
+                "id": 14,
+                "name": "Pommier vert",
+                "image": "http://testserver/media/fruits_images/Granny_smith.jpg",
+                "fruit_name": "Pomme verte",
+                "season_start": "9999-08-15"
+            },
+            "recipient": "Les Fruits Défendus",
+            "total_in_lb": 6.0,
+            "harvest": 1
+        },
+        {
+            "id": 3,
+            "tree": {
+                "id": 9,
+                "name": "Noyer",
+                "image": null,
+                "fruit_name": "Noix de Grenoble",
+                "season_start": "9999-09-01"
+            },
+            "recipient": "Pick Leader",
+            "total_in_lb": 4.0,
+            "harvest": 1
+        },
+        {
+            "id": 4,
+            "tree": {
+                "id": 14,
+                "name": "Pommier vert",
+                "image": "http://testserver/media/fruits_images/Granny_smith.jpg",
+                "fruit_name": "Pomme verte",
+                "season_start": "9999-08-15"
+            },
+            "recipient": "Nice Owner",
+            "total_in_lb": 2.0,
+            "harvest": 1
+        }
+    ],
+    "comment": [
+        {
+            "id": 1,
+            "author": "Pick Leader",
+            "date_created": "Mon May 31 09:35:30 2021",
+            "date_updated": null,
+            "content": "Everything went smoothly. Owner was very helpful.",
+            "harvest": 1
+        }
+    ],
+    "pickers": [],
+    "organizations": [
+        {
+            "actor_id": 9,
+            "civil_name": "Le Vestibule Vert",
+            "contact_person": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "phone": "(555) 444-3333",
+            "short_address": "6 Ontario, Est",
+            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+            "neighborhood": {
+                "id": 10,
+                "name": "Mercier-Hochelaga-Maisonneuve"
+            },
+            "description": "This organization both accepts fruit donations and has some equipment.",
+            "is_beneficiary": true,
+            "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+            "is_equipment_point": true,
+            "equipment_description": "You must register online at www.equipment.ca",
+            "equipment": [
+                {
+                    "id": 6,
+                    "property": null,
+                    "type": {
+                        "name": "Ciseaux",
+                        "name_fr": "Ciseaux",
+                        "name_en": "Cisors"
+                    },
+                    "description": "",
+                    "count": 4,
+                    "shared": true,
+                    "owner": 9
+                },
+                {
+                    "id": 7,
+                    "property": null,
+                    "type": {
+                        "name": "Cueille-fruits",
+                        "name_fr": "Cueille-fruits",
+                        "name_en": "Fruit picker"
+                    },
+                    "description": "10ft",
+                    "count": 2,
+                    "shared": true,
+                    "owner": 9
+                },
+                {
+                    "id": 8,
+                    "property": null,
+                    "type": {
+                        "name": "Cueille-fruits",
+                        "name_fr": "Cueille-fruits",
+                        "name_en": "Fruit picker"
+                    },
+                    "description": "13ft",
+                    "count": 1,
+                    "shared": true,
+                    "owner": 9
+                }
+            ],
+            "inventory": {
+                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+            }
+        },
+        {
+            "actor_id": 2,
+            "civil_name": "Les Fruits Défendus",
+            "contact_person": {
+                "actor_id": 1,
+                "roles": [
+                    "Property Owner"
+                ],
+                "name": "Nice Owner",
+                "email": "nice@owner.com",
+                "phone": "(514) 666-1234",
+                "neighborhood": {
+                    "id": 19,
+                    "name": "Plateau-Mont-Royal"
+                },
+                "comments": "Passer par l'arrière ruelle",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 2,
+                        "civil_name": "Les Fruits Défendus"
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": 3,
+                        "short_address": "123 av. Mont-Royal, apt. 4"
+                    }
+                ]
+            },
+            "phone": "(514) 360-8566",
+            "short_address": "111 rue Roy Est",
+            "address": "111 rue Roy Est. Montreal Quebec, H2W 1M1",
+            "neighborhood": {
+                "id": 19,
+                "name": "Plateau-Mont-Royal"
+            },
+            "description": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
+            "is_beneficiary": true,
+            "beneficiary_description": "We usually welcome fruit donations. Please contact us.",
+            "is_equipment_point": false,
+            "equipment_description": "",
+            "equipment": [],
+            "inventory": {
+                "fr": "",
+                "en": ""
+            }
+        }
+    ],
+    "about": "<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>",
+    "status_display": "Succeeded",
+    "status_choices": [
+        "pending",
+        "scheduled",
+        "ready",
+        "succeeded",
+        "cancelled"
+    ],
+    "end_date": "2021-07-19T19:00:00-04:00",
+    "nb_required_pickers": 3
+}
