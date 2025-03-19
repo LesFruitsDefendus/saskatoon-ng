@@ -54,7 +54,6 @@ jobs:
     - name: Load initial fixtures
       run: |
         saskatoon/fixtures/init
-        saskatoon/unittests/init
 
     - name: Run Django checks
       run: |

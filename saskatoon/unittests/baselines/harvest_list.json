@@ -29,11 +29,12 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "pickers": {
-                "accepted": 0,
+            "requests": {
                 "pending": 0,
-                "rejected": 0,
-                "cancelled": 0
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
             }
         },
         {
@@ -59,11 +60,12 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "pickers": {
+            "requests": {
+                "pending": 1,
                 "accepted": 1,
-                "pending": 0,
-                "rejected": 0,
-                "cancelled": 0
+                "declined": 1,
+                "cancelled": 1,
+                "obsolete": 1
             }
         },
         {
@@ -89,11 +91,12 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "pickers": {
-                "accepted": 0,
+            "requests": {
                 "pending": 0,
-                "rejected": 0,
-                "cancelled": 0
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
             }
         },
         {
@@ -124,11 +127,12 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "pickers": {
-                "accepted": 1,
-                "pending": 0,
-                "rejected": 0,
-                "cancelled": 0
+            "requests": {
+                "pending": 3,
+                "accepted": 3,
+                "declined": 3,
+                "cancelled": 3,
+                "obsolete": 3
             }
         }
     ]

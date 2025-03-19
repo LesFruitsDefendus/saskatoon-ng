@@ -1,11 +1,56 @@
 {
-    "count": 4,
+    "count": 5,
     "next": null,
     "previous": null,
     "pages_count": 1,
     "current_page_number": 1,
     "items_per_page": 10,
     "results": [
+        {
+            "id": 6,
+            "person": {
+                "actor_id": 6,
+                "roles": [
+                    "Contact Person"
+                ],
+                "name": "Contact Person",
+                "email": "contact@person.com",
+                "phone": null,
+                "neighborhood": null,
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 8,
+                        "civil_name": "Deprecated Org."
+                    },
+                    {
+                        "pk": 7,
+                        "civil_name": "L'Orgue Bien Équipée"
+                    }
+                ],
+                "properties": []
+            },
+            "roles": [
+                "Contact Person"
+            ],
+            "role_codes": [
+                "contact"
+            ],
+            "date_joined": "2025-03-17",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "contact@person.com",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                5
+            ],
+            "user_permissions": []
+        },
         {
             "id": 5,
             "person": {
@@ -14,45 +59,14 @@
                     "Property Owner"
                 ],
                 "name": "Nice Owner",
-                "email": null,
+                "email": "nice@owner.com",
                 "phone": "(514) 666-1234",
                 "neighborhood": {
                     "id": 19,
                     "name": "Plateau-Mont-Royal"
                 },
                 "comments": "Passer par l'arrière ruelle",
-                "harvests_as_owner": [
-                    {
-                        "id": 4,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "scheduled"
-                    },
-                    {
-                        "id": 2,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "ready"
-                    },
-                    {
-                        "id": 3,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "cancelled"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
-                    }
-                ],
                 "harvests_as_pickleader": [],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
                 "organizations_as_contact": [
                     {
                         "pk": 2,
@@ -94,21 +108,20 @@
                     "Core Member"
                 ],
                 "name": "Core Member",
-                "email": null,
+                "email": "core@member.com",
                 "phone": "(514) 123-4321",
                 "neighborhood": {
                     "id": 11,
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
-                "organizations_as_contact": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
                 "properties": []
             },
             "roles": [
@@ -139,37 +152,11 @@
                     "Volunteer Picker"
                 ],
                 "name": "Volunteer Picker",
-                "email": null,
+                "email": "volunteer@picker.com",
                 "phone": "(438) 666-1234",
                 "neighborhood": null,
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [],
-                "harvests_as_volunteer_accepted": [
-                    {
-                        "id": 2,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "ready"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
-                    }
-                ],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
-                    }
-                ],
                 "organizations_as_contact": [],
                 "properties": []
             },
@@ -201,14 +188,13 @@
                     "Pick Leader"
                 ],
                 "name": "Pick Leader",
-                "email": null,
+                "email": "pick@leader.com",
                 "phone": null,
                 "neighborhood": {
                     "id": 34,
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [
                     {
                         "id": 1,
@@ -217,11 +203,6 @@
                         "status": "succeeded"
                     }
                 ],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
                 "organizations_as_contact": [],
                 "properties": []
             },

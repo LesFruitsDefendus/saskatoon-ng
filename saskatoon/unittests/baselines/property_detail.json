@@ -28,21 +28,20 @@
                     "Core Member"
                 ],
                 "name": "Core Member",
-                "email": null,
+                "email": "core@member.com",
                 "phone": "(514) 123-4321",
                 "neighborhood": {
                     "id": 11,
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
-                "organizations_as_contact": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
                 "properties": []
             }
         },
@@ -56,14 +55,13 @@
                     "Pick Leader"
                 ],
                 "name": "Pick Leader",
-                "email": null,
+                "email": "pick@leader.com",
                 "phone": null,
                 "neighborhood": {
                     "id": 34,
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [
                     {
                         "id": 1,
@@ -72,11 +70,6 @@
                         "status": "succeeded"
                     }
                 ],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
                 "organizations_as_contact": [],
                 "properties": []
             }
@@ -91,21 +84,20 @@
                     "Core Member"
                 ],
                 "name": "Core Member",
-                "email": null,
+                "email": "core@member.com",
                 "phone": "(514) 123-4321",
                 "neighborhood": {
                     "id": 11,
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
-                "organizations_as_contact": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
                 "properties": []
             }
         },
@@ -119,14 +111,13 @@
                     "Pick Leader"
                 ],
                 "name": "Pick Leader",
-                "email": null,
+                "email": "pick@leader.com",
                 "phone": null,
                 "neighborhood": {
                     "id": 34,
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_owner": [],
                 "harvests_as_pickleader": [
                     {
                         "id": 1,
@@ -135,11 +126,6 @@
                         "status": "succeeded"
                     }
                 ],
-                "harvests_as_volunteer_accepted": [],
-                "harvests_as_volunteer_cancelled": [],
-                "harvests_as_volunteer_pending": [],
-                "harvests_as_volunteer_rejected": [],
-                "harvests_as_volunteer_succeeded": [],
                 "organizations_as_contact": [],
                 "properties": []
             }
@@ -166,7 +152,7 @@
     "owner": {
         "pk": 1,
         "name": "Nice Owner",
-        "email": null,
+        "email": "nice@owner.com",
         "phone": "(514) 666-1234",
         "language": "fr",
         "comments": "Passer par l'arrière ruelle",
