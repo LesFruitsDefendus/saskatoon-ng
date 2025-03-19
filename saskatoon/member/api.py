@@ -46,7 +46,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         """Beneficiairies list view"""
 
-        self.template_name = 'app/list_views/organization/view.html'
+        self.template_name = 'app/list_views/organization/beneficiaries.html'
         response = super().list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return response
@@ -75,7 +75,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
     serializer_class = OrganizationSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentPointFilter
-    template_name = 'app/list_views/equipment_point/view.html'
+    template_name = 'app/list_views/organization/equipment_points.html'
     search_fields = [
         'actor_id',
         'civil_name',

@@ -1,4 +1,7 @@
+from datetime import datetime
 from django.urls import reverse
+from django.utils import timezone
+from typing import Optional
 
 
 def get_filter_context(viewset, basename=None):
@@ -21,3 +24,9 @@ def renderer_format_needs_json_response(request) -> bool:
         Default request format is html.
     """
     return request.accepted_renderer.format in ('json', 'api')
+
+
+def local_datetime(dt: Optional[datetime]) -> Optional[datetime]:
+    if dt is None:
+        return None
+    return dt.astimezone(timezone.get_current_timezone())

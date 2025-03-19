@@ -69,21 +69,20 @@ class PersonSerializer(serializers.ModelSerializer):
             'comments',
             'harvests_as_owner',
             'harvests_as_pickleader',
-            'harvests_as_volunteer_accepted',
-            'harvests_as_volunteer_cancelled',
-            'harvests_as_volunteer_pending',
-            'harvests_as_volunteer_rejected',
-            'harvests_as_volunteer_succeeded',
+            'harvests_as_volunteer',
             'organizations_as_contact',
             'properties',
         ]
 
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
-    harvests_as_pickleader = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_volunteer_accepted = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_volunteer_pending = PersonHarvestSerializer(many=True, read_only=True)
-    harvests_as_owner = PersonHarvestSerializer(many=True, read_only=True)
+    harvests_as_pickleader = PersonHarvestSerializer(
+        source='get_harvests_as_pickleader', many=True, read_only=True
+    )
+    harvests_as_owner = PersonHarvestSerializer(
+        source='get_harvests_as_owner', many=True, read_only=True
+    )
+    harvests_as_volunteer = serializers.ReadOnlyField()
     organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
     roles = serializers.SerializerMethodField()
 
@@ -93,9 +92,13 @@ class PersonSerializer(serializers.ModelSerializer):
         return ""
 
 
-class PersonRFPSerializer(PersonSerializer):
-    class Meta(PersonSerializer.Meta):
-        fields = ['name', 'email', 'phone']
+class PersonRFPSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
+
+    accept_count = serializers.ReadOnlyField()
+    reject_count = serializers.ReadOnlyField()
 
 
 class PersonOwnerSerializer(serializers.ModelSerializer):

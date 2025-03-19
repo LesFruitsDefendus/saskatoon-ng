@@ -14,8 +14,7 @@
         &nbsp; &nbsp;
         {% endif %}
         <a href="{% url 'harvest-detail' harvest.id %}">
-           # {{ harvest.id }}
-           &nbsp; &nbsp;
+           # {{ harvest.id }} &nbsp;
             <small><i class="fa fa-pencil"></i></small>
         </a>
     </td>
@@ -48,9 +47,9 @@
         {% endif %}
     </td>
     <td>
-        <i class="fa fa-check text-success"></i> {{harvest.pickers.accepted}} &nbsp;
-        <i class="fa fa-question text-warning"></i> {{harvest.pickers.pending}}<br>
-        <i class="fa fa-times text-danger"></i> {{ harvest.pickers.rejected}} &nbsp;
-        <i class="fa fa-times text-muted"></i> {{harvest.pickers.cancelled}}
+        <i class="fa fa-check text-success"></i> {{harvest.requests.accepted}} &nbsp;
+        <i class="fa fa-question text-warning"></i> {{harvest.requests.pending}}<br>
+        <i class="fa fa-times text-danger"></i> {{ harvest.requests.declined}} &nbsp;
+        <i class="fa fa-times text-muted"></i> {{harvest.requests.cancelled}}
     </td>
 </tr>

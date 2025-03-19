@@ -17,14 +17,14 @@
                     <div class="row">
                         <div class="col-xs-6">
                             <span class="form-group">
-                                <input style="padding: 1em; margin-left: 0.5em; height: 2.25em;"
-                                        type="text"
-                                        id="search-input"
-                                        placeholder={% trans "Search" %}
+                                <input
+                                    class="search-input"
+                                    type="text"
+                                    id="search-input"
+                                    placeholder={% trans "Search" %}
                                 >
                                 <a
-                                    class="btn btn-success notika-btn-success"
-                                    style="height: 2.25em; margin-bottom: 1px;"
+                                    class="search-btn btn btn-primary notika-btn-primary"
                                     id="search-button"
                                     >
                                     <i class="fa fa-solid fa-search"></i>
@@ -37,7 +37,7 @@
                             <div class="pull-right">
                                 {% if new %}
                                 <a href="{{ new.url }}"
-                                class="btn btn-success notika-btn-success"
+                                class="btn btn-primary notika-btn-primary"
                                 >
                                     <i class="fa fa-plus"></i> &nbsp;{{ new.title }}
                                 </a>
@@ -54,7 +54,10 @@
                             </table>
                         </div>
                     </div>
-                    {% include 'app/list_views/pagination.html' %}
+
+                    {% if pages_count > 1 %}
+                        {% include 'app/list_views/pagination.html' %}
+                    {% endif %}
                 </div>
             </div>
         </div>

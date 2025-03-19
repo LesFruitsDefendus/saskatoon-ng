@@ -177,7 +177,7 @@ def comment_send_mail(sender, instance, **kwargs):
                       u'Saskatoon Harvest System' % \
                       (
                           pick_leader_name,
-                          instance.created_date.strftime('%b %d at %H:%M'),
+                          instance.date_created.strftime('%b %d at %H:%M'),
                           instance.author,
                           instance.harvest.property.street_number,
                           instance.harvest.property.street,
@@ -193,12 +193,12 @@ def rfp_send_mail(sender, instance, **kwargs):
     # First check if pick_leader is set
     if instance.harvest.pick_leader:
         # Send email only if request comes from someone else
-        if instance.picker.email != instance.harvest.pick_leader.email:
+        if instance.person.email != instance.harvest.pick_leader.email:
             # Building email content
             pick_leader_email = list()
             pick_leader_email.append(instance.harvest.pick_leader.email)
             pick_leader_name = instance.harvest.pick_leader.person.first_name
-            mail_subject = u"New request for participation from %s" % instance.picker
+            mail_subject = u"New request for participation from %s" % instance.person
             message = u'Hi %s, \n\n' \
                       u'On %s %s requested to participate\n' \
                       u'in the harvest at "%s %s":\n\n' \
@@ -211,8 +211,8 @@ def rfp_send_mail(sender, instance, **kwargs):
                       u'Saskatoon Harvest System' % \
                       (
                           pick_leader_name,
-                          instance.creation_date.strftime('%b %d at %H:%M'),
-                          instance.picker,
+                          instance.date_created.strftime('%b %d at %H:%M'),
+                          instance.person,
                           instance.harvest.property.street_number,
                           instance.harvest.property.street,
                           instance.harvest.id

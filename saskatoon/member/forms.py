@@ -44,7 +44,7 @@ class PersonCreateForm(forms.ModelForm):
 
     def save(self):
         # create Person instance
-        instance = super(PersonCreateForm, self).save()
+        instance = super().save()
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(
@@ -88,7 +88,7 @@ class PersonUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         request_user = kwargs.pop('request_user')
-        super(PersonUpdateForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.auth_user = None
         if not request_user.has_perm('member.change_authuser'):
@@ -163,7 +163,7 @@ class OrganizationCreateForm(OrganizationForm):
     )
 
     create_new_person = forms.BooleanField(
-        label=_("&nbsp;Register new contact person"),
+        label=_("Register new contact person"),
         required=False
     )
 

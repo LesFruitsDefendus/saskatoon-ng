@@ -11,13 +11,16 @@
                                 <div class="basic-tb-hd">
                                     <h2>
                                         {% trans "Pickers requests" %}
-                                        ({% if is_open_to_requests %}{% trans "OPEN" %}{% else %}{% trans "CLOSED" %}{% endif %})
                                     </h2>
                                 </div>
                             </div>
                                 <div class="col-xs-6">
                                     <a href="{% url 'rfp-create' %}?hid={{ id }}"
-                                            class="btn btn-success notika-btn-success waves-effect"
+                                    {% if is_open_to_requests %}
+                                        class="btn btn-success notika-btn-success waves-effect"
+                                    {% else %}
+                                        class="btn btn-danger notika-btn-danger waves-effect"
+                                    {% endif %}
                                         style="float: right">
                                         <i class="fa fa-plus"></i> {% trans "New request" %}
                                     </a>
@@ -26,16 +29,16 @@
                     <div class="table-responsive">
                         <table id="data-table-basic" class="table compact">
                             <tr>
-                                <th>{% trans "Contact" %}</th>
-                                <th style="width: 7%">{% trans "# pickers" %}</th>
-                                <th style="width: 9%">{% trans "Status" %}</th>
+                                <th>{% trans "Requester" %}</th>
                                 <th style="width: 10%">{% trans "Requested on" %}</th>
-                                <th style="width: 10%">{% trans "Accepted on" %}</th>
+                                <th style="width: 7%">{% trans "# Pickers" %}</th>
+                                <th style="width: 15%">{% trans "Requester comment" %}</th>
                                 <th style="width: 8%">{% trans "Experience" %}</th>
                                 <th style="width: 8%">{% trans "Rejections" %}</th>
-                                <th>{% trans "Msg from picker" %}</th>
-                                <th>{% trans "Msg from pick leader" %}</th>
-                                <th>{% trans "Manage" %}</th>
+                                <th style="width: 9%">{% trans "Status" %}</th>
+                                <th style="width: 15%">{% trans "Pickleader note" %}</th>
+                                <th>{% trans "Last updated" %}</th>
+                                <th>{% trans "Action" %}</th>
                             </tr>
                             {% for r in requests %}
                                 {% include 'app/detail_views/harvest/data_row.html' %}
