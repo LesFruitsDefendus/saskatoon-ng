@@ -22,7 +22,7 @@ setup(
         "cffi>=1.14.0",
         "crispy-bootstrap4>=2022.1",
         "cryptography>=3.3.2",
-        "Django>=3.0.14,<4.0.0",
+        "Django>=3.0.14,<5.0.0",
         "django-geojson==3.0.0",
         "django-rest-knox==4.1.0",
         "djangorestframework>=3.11.0,<=3.15.1",
