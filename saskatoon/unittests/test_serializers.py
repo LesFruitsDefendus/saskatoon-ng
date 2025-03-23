@@ -27,8 +27,7 @@ def test_serializers(django_db_setup_with_fixtures, client_core_user, endpoint, 
 
     response_json = json.loads(response.content)
     with open(BASELINES_PATH.joinpath(baseline_filename), 'r', encoding='utf-8') as baseline_file:
-        expected_harvest_list = json.load(baseline_file)
-        assert response_json == expected_harvest_list
+        assert response_json == json.load(baseline_file)
 
     ''' Generate new baseline files
     with open(BASELINES_PATH.joinpath(baseline_filename), 'w', encoding='utf-8') as baseline_file:
