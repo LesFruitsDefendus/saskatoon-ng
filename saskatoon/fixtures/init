@@ -13,7 +13,8 @@ cd $SCRIPT_DIR
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(auth-group member-city \
+seq=(auth-group \
+     member-city \
      member-neighborhood \
      member-state \
      member-country \

@@ -5,12 +5,26 @@ from django.contrib.auth import get_user_model
 
 
 FIXTURE_PATH = Path(__file__).parent.parent.parent.joinpath('saskatoon/fixtures')
-FIXTURE_SEQUENCE = ['auth-group', 'member-city', 'member-neighborhood', 'member-state',
-                    'member-country', 'member-actor', 'member-person', 'member-organization',
-                    'member-authuser', 'harvest-treetype', 'harvest-property',
-                    'harvest-equipmenttype', 'harvest-equipment', 'harvest-harvest',
-                    'harvest-harvestyield', 'harvest-comment', 'harvest-requestforparticipation',
-                    'sitebase-content']
+FIXTURE_SEQUENCE = [
+    'auth-group',
+    'member-city',
+    'member-neighborhood',
+    'member-state',
+    'member-country',
+    'member-actor',
+    'member-person',
+    'member-organization',
+    'member-authuser',
+    'harvest-treetype',
+    'harvest-property',
+    'harvest-equipmenttype',
+    'harvest-equipment',
+    'harvest-harvest',
+    'harvest-harvestyield',
+    'harvest-comment',
+    'harvest-requestforparticipation',
+    'sitebase-pagecontent'
+]
 
 AuthUser = get_user_model()
 

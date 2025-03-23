@@ -153,16 +153,6 @@
             "harvest": 1
         }
     ],
-    "comment": [
-        {
-            "id": 1,
-            "author": "Pick Leader",
-            "date_created": "Mon May 31 09:35:30 2021",
-            "date_updated": null,
-            "content": "Everything went smoothly. Owner was very helpful.",
-            "harvest": 1
-        }
-    ],
     "pickers": [],
     "organizations": [
         {
@@ -295,6 +285,16 @@
                 "fr": "",
                 "en": ""
             }
+        }
+    ],
+    "comments": [
+        {
+            "id": 1,
+            "author": "Pick Leader",
+            "date_created": "Mon May 31 09:35:30 2021",
+            "date_updated": null,
+            "content": "Everything went smoothly. Owner was very helpful.",
+            "harvest": 1
         }
     ],
     "about": "<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>",
