@@ -171,6 +171,9 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
+    pickers = serializers.ReadOnlyField(
+        source='get_pickers_data'
+    )
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
@@ -250,6 +253,7 @@ class HarvestDetailSerializer(HarvestSerializer):
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
     about = serializers.SerializerMethodField()
     status_display = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()

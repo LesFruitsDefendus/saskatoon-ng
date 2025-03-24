@@ -9,7 +9,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.views.generic import CreateView, UpdateView
-
+from logging import getLogger
 
 from harvest.forms import (
     CommentForm,
@@ -29,9 +29,11 @@ from harvest.models import (
     Property,
     RequestForParticipation as RFP,
 )
-
-from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
 from member.models import Organization
+from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
+from sitebase.models import EmailType
+
+logger = getLogger('saskatoon')
 
 
 class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -216,22 +218,31 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     success_message = _("Thanks for your interest in participating in this harvest! \
     Your request has been sent and a pick leader will contact you soon.")
 
+    def get_form_kwargs(self, *args, **kwargs):
+        try:
+            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
+        except Harvest.DoesNotExist as e:
+            self.harvest = None
+            logger.error(e)
+
+        return super().get_form_kwargs(*args, **kwargs) | {'harvest': self.harvest}
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            harvest = Harvest.objects.get(id=self.request.GET['hid'])
-            if self.request.user.is_authenticated or harvest.is_open_to_requests():
-                context['title'] = _("Request to join this harvest")
-                context['harvest'] = harvest
-                context['form'] = RFPForm(initial={'harvest_id': harvest.id})
-            else:
-                context['error'] = _(
-                    "Sorry, this harvest is not open for requests. \
-                    You can check the calendar for other harvests."
-                )
-        except KeyError:
-            context['error'] = _("Something went wrong")
-        return context
+
+        if self.harvest is None:
+            return context | {'error': _("Something went wrong")}
+
+        if self.request.user.is_authenticated or \
+           self.harvest.is_open_to_requests():
+            return context | {
+                'title': _("Request to join this harvest"),
+                'harvest': self.harvest,
+            }
+
+        return context | {'error': _(
+            "Sorry, this harvest is not open for requests. \
+            You can check the calendar for other harvests.")}
 
     def get_success_url(self):
         if self.request.user.is_authenticated:
@@ -257,7 +268,6 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
         action = self.kwargs.get('action')
         if action is not None:
-            context['harvest'] = self.object.harvest
             for a in RFP.Action.choices:
                 if action == a[0]:
                     context['save'] = a[1].upper()
@@ -266,11 +276,10 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super().get_form_kwargs(*args, **kwargs)
-        kwargs['status'] = {
-                RFP.Action.ACCEPT: RFP.Status.ACCEPTED,
-                RFP.Action.DECLINE: RFP.Status.DECLINED
-        }.get(self.kwargs.get('action'))
-
+        kwargs['status'], kwargs['emailType'] = {
+                RFP.Action.ACCEPT: (RFP.Status.ACCEPTED, EmailType.SELECTED_PICKER),
+                RFP.Action.DECLINE: (RFP.Status.DECLINED, EmailType.REJECTED_PICKER),
+        }.get(self.kwargs.get('action'), (None, None))
         return kwargs
 
     def get_success_url(self):

@@ -4,6 +4,9 @@ from datetime import datetime as dt
 from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+from logging import getLogger
+from postalcodes_ca import parse_postal_code
+
 from harvest.models import (
     Comment,
     Equipment,
@@ -14,8 +17,7 @@ from harvest.models import (
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person
-from postalcodes_ca import parse_postal_code
-from logging import getLogger
+from sitebase.models import Email, EmailType
 
 
 logger = getLogger('saskatoon')
@@ -27,7 +29,6 @@ class RFPForm(forms.ModelForm):
     class Meta:
         model = RequestForParticipation
         fields = [
-            'harvest_id',
             'first_name',
             'last_name',
             'email',
@@ -40,9 +41,6 @@ class RFPForm(forms.ModelForm):
             'number_of_pickers': _('How many people are you?'),
         }
 
-    harvest_id = forms.CharField(
-        widget=forms.HiddenInput()
-    )
     first_name = forms.CharField(
         label=_("First name")
     )
@@ -62,6 +60,10 @@ class RFPForm(forms.ModelForm):
         widget=forms.widgets.Textarea()
     )
 
+    def __init__(self, *args, **kwargs):
+        self.harvest = kwargs.pop('harvest')
+        super().__init__(*args, **kwargs)
+
     def clean(self):
         email = self.cleaned_data.get('email')
         if AuthUser.objects.filter(email=email).exists():
@@ -70,7 +72,7 @@ class RFPForm(forms.ModelForm):
             # check if a request with the same email already exists
             if RequestForParticipation.objects.filter(
                     picker=auth_user.person,
-                    harvest_id=self.cleaned_data['harvest_id']
+                    harvest_id=self.harvest_id
             ).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
@@ -78,13 +80,7 @@ class RFPForm(forms.ModelForm):
 
     def save(self):
         instance = super().save(commit=False)
-
-        try:
-            instance.harvest = Harvest.objects.get(
-                id=self.cleaned_data['harvest_id']
-            )
-        except Harvest.DoesNotExist:
-            raise forms.ValidationError("Harvest does not exist.")
+        instance.harvest = self.harvest
 
         # check if a user with the same email is already registered
         email = self.cleaned_data['person_email']
@@ -106,27 +102,67 @@ class RFPForm(forms.ModelForm):
             auth_user.groups.add(group)
 
         instance.save()
-        # TODO: send NEW_RFP email to pickleader here
+
+        Email(
+            recipient=instance.harvest.pick_leader.person,
+            type=EmailType.NEW_HARVEST_RFP,
+            harvest=instance.harvest,
+        ).send()
+
         return instance
 
 
 class RFPManageForm(forms.ModelForm):
-    """Pickleader RFP manage form."""
+    """Pickleader RFP edit form."""
 
     class Meta:
         model = RequestForParticipation
-        fields = ['status', 'notes']
+        fields = ['status', 'notes', 'send_email', 'email_body']
         widgets = {
             'status': forms.RadioSelect(),
             'notes': forms.widgets.Textarea(),
         }
 
+    send_email = forms.BooleanField(
+        label=_("Send confirmation email"),
+        required=False,
+        widget=forms.widgets.HiddenInput()
+    )
+
+    email_body = forms.CharField(
+        label=_("Message to requester"),
+        required=False,
+        widget=forms.widgets.HiddenInput()
+    )
+
     def __init__(self, *args, **kwargs):
         status = kwargs.pop('status')
+        emailType = kwargs.pop('emailType')
         super().__init__(*args, **kwargs)
+
         if status in RequestForParticipation.get_status_choices():
+            self.fields['status'].widget = forms.widgets.HiddenInput()
             self.initial['status'] = status
-            self.fields['status'].widget = forms.HiddenInput()
+
+        if emailType is not None:
+            self.fields['send_email'].widget = forms.widgets.CheckboxInput()
+            self.fields['email_body'].widget = forms.widgets.Textarea()
+            harvest = self.instance.harvest
+            self.email = Email(
+                recipient=self.instance.person,
+                type=emailType,
+                harvest=harvest
+            )
+            self.initial['send_email'] = True
+            self.initial['email_body'] = \
+                self.email.get_default_message(self.email.harvest_data)
+
+    def save(self):
+        if self.cleaned_data.get('send_email'):
+            email_body = self.cleaned_data.get('email_body')
+            self.email.send(email_body)
+
+        return super().save()
 
 
 class CommentForm(forms.ModelForm):
@@ -219,12 +255,12 @@ class PropertyCreateForm(PropertyForm):
         person = Person.objects.create(
             first_name=self.cleaned_data['owner_first_name'],
             family_name=self.cleaned_data['owner_last_name'],
-            phone=self.cleaned_data['owner_phone'])
-        person.save()
-
+            phone=self.cleaned_data['owner_phone']
+        )
         auth_user = AuthUser.objects.create(
             email=self.cleaned_data['owner_email'],
-            person=person)
+            person=person
+        )
         auth_user.set_roles(['owner'])
 
         instance.owner = person

@@ -61,11 +61,11 @@
                 "neighborhood": "Plateau-Mont-Royal"
             },
             "requests": {
-                "pending": 1,
+                "pending": 0,
                 "accepted": 1,
-                "declined": 1,
-                "cancelled": 1,
-                "obsolete": 1
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
             }
         },
         {
@@ -128,11 +128,11 @@
                 "neighborhood": "Plateau-Mont-Royal"
             },
             "requests": {
-                "pending": 3,
-                "accepted": 3,
-                "declined": 3,
-                "cancelled": 3,
-                "obsolete": 3
+                "pending": 0,
+                "accepted": 0,
+                "declined": 1,
+                "cancelled": 1,
+                "obsolete": 1
             }
         }
     ]

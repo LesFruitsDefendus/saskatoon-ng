@@ -3,6 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
+from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest, RequestForParticipation
@@ -10,12 +11,7 @@ from saskatoon.settings import (
     EQUIPMENT_POINTS_PDF_PATH,
     VOLUNTEER_WAIVER_PDF_PATH
 )
-from sitebase.models import Content
-
-VOLUNTEER_HOME_CONTENT_NAME = 'volunteer_home'
-PICKLEADER_HOME_CONTENT_NAME = 'pickleader_home'
-TERMS_CONDITIONS_CONTENT_NAME = 'terms_conditions'
-PRIVACY_POLICY_CONTENT_NAME = 'privacy_policy'
+from sitebase.models import PageContent
 
 
 class Index(TemplateView):
@@ -24,13 +20,15 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_name = VOLUNTEER_HOME_CONTENT_NAME
+        content_type = PageContent.Type.VOLUNTEER_HOME
 
         if self.request.user.is_authenticated:
-            content_name = PICKLEADER_HOME_CONTENT_NAME
+            content_type = PageContent.Type.PICKLEADER_HOME
 
-        home, _ = Content.objects.get_or_create(name=content_name)
-        context['content'] = home.content(self.request.LANGUAGE_CODE)
+        context['content'] = PageContent.get(
+            type=content_type,
+            lang=self.request.LANGUAGE_CODE
+        )
 
         return context
 
@@ -60,9 +58,10 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
-        terms, _ = Content.objects.get_or_create(name=TERMS_CONDITIONS_CONTENT_NAME)
-        context['content'] = terms.content(self.request.LANGUAGE_CODE)
+        context['content'] = PageContent.get(
+            type=PageContent.Type.TERMS_CONDITIONS,
+            lang=self.request.LANGUAGE_CODE
+        )
 
         return context
 
@@ -77,12 +76,11 @@ class PrivacyPolicyView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['content'] = PageContent.get(
+            type=PageContent.Type.PRIVACY_POLICY,
+            lang=self.request.LANGUAGE_CODE
 
-        content_name = PRIVACY_POLICY_CONTENT_NAME
-
-        privacy_policy, _ = Content.objects.get_or_create(name=content_name)
-        context['content'] = privacy_policy.content(self.request.LANGUAGE_CODE)
-
+        )
         return context
 
 
@@ -142,7 +140,8 @@ class JsonCalendar(View):
             ):
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
-                event['url'] = '/participation/create?hid='+str(harvest.id)
+
+                event['url'] = reverse_lazy('rfp-create', kwargs={'hid': harvest.id})
                 colors = ({
                     'scheduled': "#FFE180",
                     'ready': "#BADDFF",

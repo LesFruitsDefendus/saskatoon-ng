@@ -1,0 +1,7 @@
+[tool.pytype]
+
+inputs = [
+    'saskatoon/harvest/*.py',
+    'saskatoon/member/*.py',
+    'saskatoon/sitebase/*.py',
+]
