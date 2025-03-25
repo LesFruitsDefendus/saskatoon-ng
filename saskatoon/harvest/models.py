@@ -21,12 +21,42 @@ class TreeType(models.Model):
     class Meta:
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
-        ordering = ["name"]
+        ordering = ["name_en"]
 
-    name = models.CharField(
-        verbose_name=_("Name"),
+    name_en = models.CharField(
+        verbose_name=_("Tree name (en)"),
         max_length=20,
-        default=''
+        default=""
+    )
+
+    name_fr = models.CharField(
+        verbose_name=_("Nom de l'arbre (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_en = models.CharField(
+        verbose_name=_("Fruit name (en)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_fr = models.CharField(
+        verbose_name=_("Nom du fruit (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    maturity_start = models.DateField(
+        verbose_name=_("Maturity start date"),
+        blank=True,
+        null=True
+    )
+
+    maturity_end = models.DateField(
+        verbose_name=_("Maturity end date"),
+        blank=True,
+        null=True
     )
 
     image = models.ImageField(
@@ -35,18 +65,15 @@ class TreeType(models.Model):
         null=True
     )
 
-    fruit_name = models.CharField(
-        verbose_name=_("Fruit name"),
-        max_length=20
-    )
+    def get_name(self, lang='en'):
+        print("EN", self.name_en, "FR: ", self.name_fr)
+        return getattr(self, "name_{}".format(lang))
 
-    season_start = models.DateField(
-        verbose_name=_("Season start date"),
-        blank=True,
-        null=True
-    )
+    def get_fruit_name(self, lang='en'):
+        return getattr(self, "fruit_name_{}".format(lang))
 
     def __str__(self):
+        return "{} / {}".format(self.name_fr, self.name_en)
         return self.name
 
 
@@ -81,6 +108,7 @@ class Property(models.Model):
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
+        ordering = ['-id',]
 
     owner = models.ForeignKey(
         'member.Actor',
@@ -505,8 +533,7 @@ class Harvest(models.Model):
     about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
-        help_text=_("If any help is needed from volunteer pickers, "
-                    "please describe them here."),
+        help_text=_("Published on public facing calendar"),
         null=True,
         blank=True
     )
@@ -709,7 +736,6 @@ class RequestForParticipation(models.Model):
         self.__last_status = self.status
 
     def save(self, *args, **kwargs):
-
         if self.status != self.__last_status:
             self.__last_status = self.status
             self.date_status_updated = tz.now()
