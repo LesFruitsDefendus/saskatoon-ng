@@ -456,16 +456,6 @@ class HarvestForm(forms.ModelForm):
 
     class Meta:
         model = Harvest
-        help_texts = {
-            'status': ' ',
-            'property': ' ',
-            'trees': ' ',
-            'pick_leader': ' ',
-            'start_date': ' ',
-            'end_date': ' ',
-            'nb_required_pickers': ' ',
-            'about': ' ',
-        }
         fields = (
             'status',
             'property',
@@ -481,26 +471,22 @@ class HarvestForm(forms.ModelForm):
             'about',
         )
         widgets = {
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
+            ),
             'trees': autocomplete.ModelSelect2Multiple(
-                'tree-autocomplete'
+                url='tree-autocomplete',
+                forward=['property']
             ),
             'pick_leader': autocomplete.ModelSelect2(
                 'pickleader-autocomplete'
             ),
-            'equipment_reserved': autocomplete.ModelSelect2Multiple(
-                'equipment-autocomplete'
-            ),
-            'property': autocomplete.ModelSelect2(
-                'property-autocomplete'
-            ),
             'nb_required_pickers': forms.NumberInput()
         }
 
-    about = QuillFormField(
-        label=_("Public announcement"),
-        help_text=_("Published on public facing calendar"),
-        required=True
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print("TREE queryset here>>> ", self.fields['trees'].queryset)
 
     start_date = forms.DateTimeField(
         label=_('Start date/time'),
@@ -516,7 +502,7 @@ class HarvestForm(forms.ModelForm):
 
     publication_date = forms.DateTimeField(
         input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
-        label=_("Publication date (OPTIONAL)"),
+        label=_("Publication date (optional)"),
         help_text=_("Leave this field empty to publish harvest as soon as possible"),
         required=False
     )
@@ -536,7 +522,35 @@ class HarvestForm(forms.ModelForm):
 
         return end_dt
 
+    def clean_trees(self):
+        """Make sure selected trees are registered on property"""
+        property = self.cleaned_data['property']
+        invalid_trees = []
+        for tree in self.cleaned_data['trees']:
+            if tree not in property.trees.all():
+                invalid_trees.append(f"{tree.name_fr} ({tree.name_en})")
+        if invalid_trees:
+            raise forms.ValidationError(
+                _('Selected tree(s) <{}> not registered on the selected property.')
+                .format("; ".join(invalid_trees))
+            )
+
+    def clean_about(self):
+        """Make sure announcement is filled before publishing"""
+        status = self.cleaned_data['status']
+        if status not in [
+                Harvest.Status.ORPHAN,
+                Harvest.Status.PENDING,
+                Harvest.Status.CANCELLED
+        ]:
+            if not self.cleaned_data['about']:
+                raise forms.ValidationError(
+                    _('Please fill in the public announcement to be published on the calendar.')
+                )
+
+
     def clean(self):
+        """Make sure pick_leader and status fields are compatible"""
         data = super().clean()
 
         if data['status'] == Harvest.Status.ORPHAN:
