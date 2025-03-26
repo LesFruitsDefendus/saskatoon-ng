@@ -429,7 +429,7 @@ the type is unknown or not in the list, etc.)'),
         self.fields['complement'].widget.attrs['min'] = 0.0
 
     def clean(self):
-        cleaned_data = super(PublicPropertyForm, self).clean()
+        cleaned_data = super().clean()
         postal_code = cleaned_data['postal_code'].replace(" ", "")
 
         try:

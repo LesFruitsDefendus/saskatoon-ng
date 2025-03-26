@@ -296,6 +296,17 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
     template_name = 'app/forms/model_form.html'
     success_message = _("Comment added!")
 
+    def get_form_kwargs(self, *args, **kwargs):
+        """Retrieve harvest object and comment author"""
+
+        self.author = self.request.user
+        try:
+            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
+        except Harvest.DoesNotExist:
+            raise Exception('Invalid Harvest ID provided')
+
+        return super().get_form_kwargs(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add new comment")
@@ -303,14 +314,14 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
         return context
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.harvest = self.object.harvest
-        return super(CommentCreateView, self).form_valid(form)
+        form.instance.author = self.author
+        form.instance.harvest = self.harvest
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
             'harvest-detail',
-            kwargs={'pk': self.request.GET['hid']}
+            kwargs={'pk': self.harvest.id}
         )
 
 

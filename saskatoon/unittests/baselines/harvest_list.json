@@ -13,6 +13,7 @@
             "end_time": "12:00 PM",
             "status": "scheduled",
             "pick_leader": {
+                "email": "core@member.com",
                 "id": 4,
                 "name": "Core Member"
             },
@@ -44,6 +45,7 @@
             "end_time": "6:00 PM",
             "status": "ready",
             "pick_leader": {
+                "email": "pick@leader.com",
                 "id": 2,
                 "name": "Pick Leader"
             },
@@ -75,6 +77,7 @@
             "end_time": "6:00 PM",
             "status": "cancelled",
             "pick_leader": {
+                "email": "core@member.com",
                 "id": 4,
                 "name": "Core Member"
             },
@@ -106,6 +109,7 @@
             "end_time": "7:00 PM",
             "status": "succeeded",
             "pick_leader": {
+                "email": "pick@leader.com",
                 "id": 2,
                 "name": "Pick Leader"
             },
