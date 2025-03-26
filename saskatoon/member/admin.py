@@ -41,7 +41,7 @@ from member.models import (
 )
 from member.utils import reset_password
 from saskatoon.settings import EMAIL_LIST_OUTPUT
-from sitebase.models import Email, EmailContent
+from sitebase.models import Email, EmailType
 
 logger = getLogger('saskatoon')
 
@@ -437,7 +437,7 @@ class OnboardingAdmin(admin.ModelAdmin):
             o.all_sent = True
             o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
             for p in o.persons.filter(auth_user__password=''):
-                m = Email.objects.create(recipient=p, type=EmailContent.Type.REGISTRATION)
+                m = Email.objects.create(recipient=p, type=EmailType.REGISTRATION)
 
                 if m.send(data={'password': reset_password(p.auth_user)}) == 1:
                     num_sent += 1
