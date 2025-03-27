@@ -50,7 +50,7 @@ urlpatterns = [
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
 
-    path(r'comment/create/',
+    path(r'comment/create/<int:hid>/',
          views.CommentCreateView.as_view(),
          name='comment-create'),
 

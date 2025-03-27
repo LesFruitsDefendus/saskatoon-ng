@@ -161,7 +161,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    author = serializers.StringRelatedField(many=False)
+    author = PickLeaderSerializer(many=False, read_only=True)
     date_created = serializers.DateTimeField(format=r'%c')
     date_updated = serializers.DateTimeField(format=r'%c')
 

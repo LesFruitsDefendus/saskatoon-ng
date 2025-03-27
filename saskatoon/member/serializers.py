@@ -132,7 +132,7 @@ class PickerSerializer(serializers.ModelSerializer):
 class PickLeaderSerializer(serializers.ModelSerializer):
     class Meta:
         model = AuthUser
-        fields = ['id', 'name']
+        fields = ['id', 'name', 'email']
 
 
 class CommunitySerializer(serializers.ModelSerializer):

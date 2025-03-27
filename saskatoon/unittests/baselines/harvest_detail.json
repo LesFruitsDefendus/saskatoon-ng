@@ -7,6 +7,7 @@
     "end_time": "7:00 PM",
     "status": "succeeded",
     "pick_leader": {
+        "email": "pick@leader.com",
         "id": 2,
         "name": "Pick Leader"
     },
@@ -290,7 +291,11 @@
     "comments": [
         {
             "id": 1,
-            "author": "Pick Leader",
+            "author": {
+                "email": "pick@leader.com",
+                "id": 2,
+                "name": "Pick Leader"
+            },
             "date_created": "Mon May 31 09:35:30 2021",
             "date_updated": null,
             "content": "Everything went smoothly. Owner was very helpful.",
