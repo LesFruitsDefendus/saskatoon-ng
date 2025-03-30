@@ -28,11 +28,11 @@
         {% for choice in status_choices %}
             <li role="presentation">
                 <a
-                href="{% url 'harvest-status-change' id %}?status={{ choice }}"
+                href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
                 role="menuitem"
                 tabindex="-1"
                 >
-                {{ choice.label }}
+                {{ choice.1 }}
             </a>
             </li>
             {% if not forloop.last %}

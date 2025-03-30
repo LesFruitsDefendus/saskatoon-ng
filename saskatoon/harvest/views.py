@@ -405,29 +405,9 @@ def harvest_adopt(request, id):
 
 
 @login_required
-def harvest_leave(request, id):
-    """
-    Removes harvest pickleader and changes status to Orphan
-    Used in a button at harvest-detail/status template
-    """
-    harvest = get_object_or_404(Harvest, id=id)
-
-    if harvest.pick_leader is request.user:
-        harvest.pick_leader = None
-        harvest.status = Harvest.Status.ORPHAN
-        harvest.save()
-        messages.success(request, _("You successfully dropped this harvest!"))
-    else:
-        messages.error(request, _("You are not this harvest's pick leader!"))
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-@login_required
 def harvest_status_change(request, id):
     """
-    Changes harvest status
-    Used in a dropdown at harvest detail status template
+    Changes harvest status from the harvest detail dropdown menu
     """
     harvest = get_object_or_404(Harvest, id=id)
     request_status: str = request.GET['status']
@@ -438,12 +418,28 @@ def harvest_status_change(request, id):
             _("Harvest status already set to: {}").format(harvest.get_status_display())
         )
     elif is_core_or_admin(request.user) or request.user == harvest.pick_leader:
+        if request_status == Harvest.Status.ORPHAN:
+            unresolved_requests = harvest.requests.filter(
+                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+            )
+            if unresolved_requests.exists():
+                messages.warning(
+                    request,
+                    _("You can't leave this harvest as there are unresolved requests.")
+                )
+                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+            harvest.pick_leader = None
+            messages.warning(request, _("This harvest no longer have any pick leader"))
+        else:
+            messages.success(
+                request,
+                _("Harvest status successfully set to: {}").format(harvest.get_status_display())
+            )
+
         harvest.status = request_status
         harvest.save()
-        messages.success(
-            request,
-            _("Harvest status successfully set to: {}").format(harvest.get_status_display())
-        )
+
     else:
         messages.warning(request, _("You are not authorized to update this harvest status."))
 

@@ -38,10 +38,6 @@ urlpatterns = [
          views.harvest_adopt,
          name='harvest-adopt'),
 
-    path(r'harvest/leave/<int:id>/',
-         views.harvest_leave,
-         name='harvest-leave'),
-
     path(r'harvest/status-change/<int:id>/',
          views.harvest_status_change,
          name='harvest-status-change'),

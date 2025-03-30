@@ -305,11 +305,13 @@
     "about": "<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>",
     "status_display": "Succeeded",
     "status_choices": [
-        "pending",
-        "scheduled",
-        "ready",
-        "succeeded",
-        "cancelled"
+        ["orphan", "Orphan"],
+        ["adopted", "Adopted"],
+        ["pending", "To be confirmed"],
+        ["scheduled", "Date scheduled"],
+        ["ready", "Ready"],
+        ["succeeded", "Succeeded"],
+        ["cancelled", "Cancelled"]
     ],
     "end_date": "2021-07-19T19:00:00-04:00",
     "nb_required_pickers": 3

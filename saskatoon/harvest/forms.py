@@ -13,7 +13,7 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
-    RequestForParticipation,
+    RequestForParticipation as RFP,
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person
@@ -28,7 +28,7 @@ class RFPForm(forms.ModelForm):
     """Request For Participation form."""
 
     class Meta:
-        model = RequestForParticipation
+        model = RFP
         fields = [
             'first_name',
             'last_name',
@@ -65,17 +65,14 @@ class RFPForm(forms.ModelForm):
         self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
 
-    def clean(self):
+    def clean_email(self):
         email = self.cleaned_data.get('email')
 
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
 
             # check if a request with the same email already exists
-            if RequestForParticipation.objects.filter(
-                    person=auth_user.person,
-                    harvest_id=self.harvest.id
-            ).exists():
+            if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
                 )
@@ -118,7 +115,7 @@ class RFPManageForm(forms.ModelForm):
     """Pickleader RFP edit form."""
 
     class Meta:
-        model = RequestForParticipation
+        model = RFP
         fields = ['status', 'notes', 'send_email', 'email_body']
         widgets = {
             'status': forms.RadioSelect(),
@@ -142,7 +139,7 @@ class RFPManageForm(forms.ModelForm):
         emailType = kwargs.pop('emailType')
         super().__init__(*args, **kwargs)
 
-        if status in RequestForParticipation.get_status_choices():
+        if status in RFP.get_status_choices():
             self.fields['status'].widget = forms.widgets.HiddenInput()
             self.initial['status'] = status
 
@@ -512,14 +509,27 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
+    def clean_status(self):
+        if self.cleanead_data['status'] == Harvest.Status.ORPHAN:
+            unresolved_requests = self.instance.requests.filter(
+                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+            )
+            if unresolved_requests.exists():
+                raise forms.ValidationError(
+                    _("This harvest can't be left orphan, resolve requests first.")
+                )
+
     def clean_pick_leader(self):
         """check if pick-leader was selected"""
         pickleader = self.cleaned_data['pick_leader']
         status = self.cleaned_data['status']
-        if not pickleader and status not in [Harvest.Status.PENDING, Harvest.Status.ORPHAN]:
+        if pickleader is None and status not in [Harvest.Status.PENDING, Harvest.Status.ORPHAN]:
             raise forms.ValidationError(
                 _("You must choose a pick leader or change harvest status")
             )
+        elif status == Harvest.Status.ORPHAN:
+            pickleader = None
+
         return pickleader
 
     def clean_end_date(self):
