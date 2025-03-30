@@ -18,6 +18,7 @@ from harvest.models import (
 from member.forms import validate_email
 from member.models import AuthUser, Person
 from sitebase.models import Email, EmailType
+from sitebase.serializers import EmailRFPSerializer
 
 
 logger = getLogger('saskatoon')
@@ -66,13 +67,14 @@ class RFPForm(forms.ModelForm):
 
     def clean(self):
         email = self.cleaned_data.get('email')
+
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
 
             # check if a request with the same email already exists
             if RequestForParticipation.objects.filter(
-                    picker=auth_user.person,
-                    harvest_id=self.harvest_id
+                    person=auth_user.person,
+                    harvest_id=self.harvest.id
             ).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
@@ -82,16 +84,16 @@ class RFPForm(forms.ModelForm):
         instance = super().save(commit=False)
         instance.harvest = self.harvest
 
-        # check if a user with the same email is already registered
-        email = self.cleaned_data['person_email']
+        # # check if a user with the same email is already registered
+        email = self.cleaned_data['email']
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
             instance.person = auth_user.person
         else:
             instance.person = Person.objects.create(
-                first_name=self.cleaned_data['person_first_name'],
-                family_name=self.cleaned_data['person_family_name'],
-                phone=self.cleaned_data['person_phone'],
+                first_name=self.cleaned_data['first_name'],
+                family_name=self.cleaned_data['last_name'],
+                phone=self.cleaned_data['phone'],
             )
             auth_user = AuthUser.objects.create(
                 email=email,
@@ -107,7 +109,7 @@ class RFPForm(forms.ModelForm):
             recipient=instance.harvest.pick_leader.person,
             type=EmailType.NEW_HARVEST_RFP,
             harvest=instance.harvest,
-        ).send()
+        ).send(data=EmailRFPSerializer(instance).data)
 
         return instance
 
