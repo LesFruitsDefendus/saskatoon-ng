@@ -510,7 +510,8 @@ class HarvestForm(forms.ModelForm):
     )
 
     def clean_status(self):
-        if self.cleanead_data['status'] == Harvest.Status.ORPHAN:
+        status = self.cleaned_data['status']
+        if status == Harvest.Status.ORPHAN:
             unresolved_requests = self.instance.requests.filter(
                 status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
             )
@@ -518,6 +519,7 @@ class HarvestForm(forms.ModelForm):
                 raise forms.ValidationError(
                     _("This harvest can't be left orphan, resolve requests first.")
                 )
+        return status
 
     def clean_pick_leader(self):
         """check if pick-leader was selected"""
