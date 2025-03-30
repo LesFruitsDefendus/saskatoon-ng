@@ -245,10 +245,10 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             You can check the calendar for other harvests.")}
 
     def get_success_url(self):
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated and self.harvest is not None:
             return reverse_lazy(
                 'harvest-detail',
-                kwargs={'pk': self.request.GET['hid']}
+                kwargs={'pk': self.harvest.id}
             )
         return reverse_lazy('calendar')
 
