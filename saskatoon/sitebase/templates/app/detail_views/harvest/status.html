@@ -11,12 +11,10 @@
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
                         <p>{% translate "Harvest status" %}</p>
-                        {% if user|is_core_or_admin %}
-                            {% include 'app/detail_views/harvest/status_choices.html' %}
-                        {% elif pick_leader is not None and pick_leader.id == request.user.id %}
+                        {% if user|is_pickleader:id %}
                             {% include 'app/detail_views/harvest/status_choices.html' %}
                         {% else %}
-                        <h2>{{ status }}</h2>
+                            <h2>{{ status_display }}</h2>
                         {% endif %}
                     </div>
                 </div>
@@ -56,34 +54,19 @@
                             <div class="col-lg-8">
                                 <h2>{% trans "Missing" %}</h2>
                             </div>
-                            <div class="col-lg-4 breadcomb-report">
+                            {% if user|is_pickleader and not user|is_pickleader:id %}
+                            <div class="col-lg-4">
                                 <a href="{% url 'harvest-adopt' id %}">
                                     <button
                                     data-placement="left"
                                     title="Adopt it!"
-                                    class="btn"
+                                    class="btn btn-success notika-btn-success"
                                     >
                                         {% trans "Adopt it!" %}
                                     </button>
                                 </a>
                             </div>
-                        </div>
-                        {% elif pick_leader.id == request.user.id %}
-                        <div class="row">
-                            <div class="col-lg-7">
-                                <h2>{{ pick_leader.name }}</h2>
-                            </div>
-                            <div class="col-lg-5 breadcomb-report">
-                                <a href="{% url 'harvest-leave' id %}">
-                                    <button
-                                    data-placement="left"
-                                    title="Leave it!"
-                                    class="btn"
-                                    >
-                                        {% trans "Leave it!" %}
-                                    </button>
-                                </a>
-                            </div>
+                            {% endif %}
                         </div>
                         {% else %}
                         <h2>{{ pick_leader.name }}</h2>

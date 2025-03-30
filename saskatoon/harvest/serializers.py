@@ -265,13 +265,7 @@ class HarvestDetailSerializer(HarvestSerializer):
         return obj.get_status_display()
 
     def get_status_choices(self, obj):
-        return [
-            Harvest.Status.PENDING,
-            Harvest.Status.SCHEDULED,
-            Harvest.Status.READY,
-            Harvest.Status.SUCCEEDED,
-            Harvest.Status.CANCELLED
-        ]
+        return Harvest.Status.choices
 
 
 class HarvestListPropertySerializer(PropertySerializer):

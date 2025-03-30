@@ -4,6 +4,10 @@ from django.utils.translation import gettext_lazy
 from member.models import AuthUser
 
 
+def is_pickleader(user: AuthUser) -> bool:
+    return user.groups.filter(name__in=["pickleader"]).exists()
+
+
 def is_pickleader_or_core(user: AuthUser) -> bool:
     return user.groups.filter(name__in=["pickleader", "core"]).exists()
 
