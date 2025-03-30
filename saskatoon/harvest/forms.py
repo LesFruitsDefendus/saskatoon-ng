@@ -66,7 +66,7 @@ class RFPForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
     def clean_email(self):
-        email = self.cleaned_data.get('email')
+        email = self.cleaned_data['email']
 
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
@@ -77,11 +77,13 @@ class RFPForm(forms.ModelForm):
                     _("You have already requested to join this pick.")
                 )
 
+        return email
+
     def save(self):
         instance = super().save(commit=False)
         instance.harvest = self.harvest
 
-        # # check if a user with the same email is already registered
+        # check if a user with the same email is already registered
         email = self.cleaned_data['email']
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
