@@ -233,8 +233,13 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
         if self.harvest is None:
             return context | {'error': _("Something went wrong")}
 
-        if self.request.user.is_authenticated or \
-           self.harvest.is_open_to_requests():
+        if (
+                (
+                    self.request.user.is_authenticated and
+                    self.harvest.is_open_to_requests(False)
+                ) or
+                self.harvest.is_open_to_requests(True)
+        ):
             return context | {
                 'title': _("Request to join this harvest"),
                 'harvest': self.harvest,

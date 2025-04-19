@@ -574,11 +574,14 @@ class Harvest(models.Model):
             (self.status is Harvest.Status.SCHEDULED and days < 3)
         )
 
+    def is_ready(self):
+        return self.status is Harvest.Status.READY and \
+            tz.now() <= self.end_date
+
     def is_happening(self):
         if not self.start_date:
             return False
-        is_today = self.get_days_before_harvest() == 0
-        return is_today and self.status is Harvest.Status.READY
+        return self.is_ready() and self.get_days_before_harvest() == 0
 
     def is_publishable(self):
         if self.status not in self.PUBLISHABLE_STATUSES:
@@ -587,9 +590,19 @@ class Harvest(models.Model):
             return True
         return (tz.now() > self.publication_date)
 
-    def is_open_to_requests(self):
-        return self.status == Harvest.Status.SCHEDULED and \
-            tz.now() <= self.end_date
+    def is_open_to_requests(self, public: bool = True):
+        if tz.now() > self.end_date:
+            return False
+
+        valid_statuses = [Harvest.Status.SCHEDULED]
+        if not public:
+            valid_statuses += [
+                Harvest.Status.ADOPTED,
+                Harvest.Status.PENDING,
+                Harvest.Status.READY,
+            ]
+
+        return self.status in valid_statuses
 
 
 class RequestForParticipation(models.Model):
