@@ -177,7 +177,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
-    is_open_to_requests = serializers.ReadOnlyField()
+    is_open_to_requests = serializers.SerializerMethodField()
+    is_open_to_public_requests = serializers.SerializerMethodField()
     start_date = serializers.DateTimeField(
         source='get_local_start',
         format=r"%a. %b. %-d, %Y"
@@ -199,6 +200,12 @@ class HarvestSerializer(serializers.ModelSerializer):
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
+
+    def get_is_open_to_requests(self, obj):
+        return obj.is_open_to_requests(False)
+
+    def get_is_open_to_public_requests(self, obj):
+        return obj.is_open_to_requests(True)
 
     def get_pickers(self, obj):
         rfps = RFP.objects.select_related('person').filter(

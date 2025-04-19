@@ -2,6 +2,7 @@
     "id": 1,
     "total_distribution": 15.0,
     "is_open_to_requests": false,
+    "is_open_to_public_requests": false,
     "start_date": "Mon. Jul. 19, 2021",
     "start_time": "4:00 PM",
     "end_time": "7:00 PM",
