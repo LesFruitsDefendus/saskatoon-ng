@@ -350,7 +350,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
             total_harvests_rfp = \
                 RFP.objects.filter(person=p).count()
             total_harvests_accepted = \
-                RFP.objects.filter(picker=p, status=RFP.Status.ACCEPTED).count()
+                RFP.objects.filter(person=p, status=RFP.Status.ACCEPTED).count()
             total_harvests_recipient = \
                 self.harvest_yield_queryset.filter(recipient=p).count()
 
