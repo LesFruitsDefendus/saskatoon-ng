@@ -38,7 +38,7 @@
                     {% else %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Pickers requests" %}</p>
-                            <h2><span class="counter">{{ requests.count }}</span>
+                            <h2><span>{{ pickers|length }}</span>
                                 / {{ nb_required_pickers }}</h2>
                         </div>
                     {% endif %}
