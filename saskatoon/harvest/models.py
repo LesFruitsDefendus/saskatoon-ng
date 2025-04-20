@@ -1,5 +1,5 @@
 from datetime import datetime
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
@@ -654,7 +654,7 @@ class RequestForParticipation(models.Model):
     number_of_pickers = models.PositiveIntegerField(
         verbose_name=_("Number of pickers"),
         default=1,
-        validators=[MinValueValidator(1)]
+        validators=[MinValueValidator(1), MaxValueValidator(99)]
     )
 
     comment = models.TextField(
