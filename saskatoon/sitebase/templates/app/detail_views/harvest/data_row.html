@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load auth_users %}
 {% get_current_language as LANG %}
 <tr>
     <!-- Requester -->
@@ -81,7 +82,7 @@
 
     <!-- Action -->
     <td>
-        {% if r.status == 'pending' %}
+        {% if r.status == 'pending' and user|is_pickleader:id %}
             {% if pickers_count < nb_required_pickers %}
                 <a href="{% url 'participation-update' r.id %}accept/">
                     <button
