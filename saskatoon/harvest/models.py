@@ -6,7 +6,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
+from typing import Any, Optional, Tuple
 
 from sitebase.utils import local_datetime
 
@@ -542,7 +542,7 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_pickers_count(self, status: Optional[Status]) -> int:
+    def get_pickers_count(self, status: Optional[Tuple[str, Any]]) -> int:
         rfps = RequestForParticipation.objects.filter(harvest=self)
         if status is not None:
             rfps = rfps.filter(status=status)
