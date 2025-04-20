@@ -54,12 +54,12 @@
                             <div class="col-lg-8">
                                 <h2>{% trans "Missing" %}</h2>
                             </div>
-                            {% if user|is_pickleader and not user|is_pickleader:id %}
+                            {% if status == 'orphan' and user|is_pickleader and not user|is_pickleader:id %}
                             <div class="col-lg-4">
                                 <a href="{% url 'harvest-adopt' id %}">
                                     <button
                                     data-placement="left"
-                                    title="Adopt it!"
+                                    title="Adopt"
                                     class="btn btn-success notika-btn-success"
                                     >
                                         {% trans "Adopt it!" %}
