@@ -299,14 +299,14 @@ class HarvestListSerializer(HarvestSerializer):
             'pick_leader',
             'trees',
             'property',
-            'requests'
+            'volunteers'
         ]
 
     property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
-    requests = serializers.SerializerMethodField()
+    volunteers = serializers.SerializerMethodField()
 
-    def get_requests(self, harvest):
+    def get_volunteers(self, harvest):
         return dict([(s, harvest.get_pickers_count(s)) for s in RFP.get_status_choices()])
 
 
