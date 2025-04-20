@@ -10,7 +10,7 @@
     {% endfor %}
         <option selected disabled>{% translate 'Organizations' %}</option>
     {% for o in organizations %}
-        <option value={{ o.pk }}>{{ o.civil_name }}</option>
+        <option value={{ o.actor_id }}>{{ o.civil_name }}</option>
     {% endfor %}
     <option selected disabled hidden>{% translate 'Select a Recipient' %}</option>
 </select>
