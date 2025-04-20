@@ -1,12 +1,12 @@
 from datetime import datetime
-from django.core.validators import MinValueValidator
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
+from typing import Any, Optional, Tuple
 
 from sitebase.utils import local_datetime
 
@@ -542,11 +542,19 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_pickers_count(self, status: Optional[Status]) -> int:
+    def get_pickers_count(self, status: Optional[Tuple[str, Any]]) -> int:
         rfps = RequestForParticipation.objects.filter(harvest=self)
         if status is not None:
-            return rfps.filter(status=status).count()
-        return rfps.count()
+            rfps = rfps.filter(status=status)
+
+        if not rfps:
+            return 0
+
+        return rfps.aggregate(models.Sum('number_of_pickers')).get('number_of_pickers__sum', 0)
+
+    def has_enough_pickers(self) -> bool:
+        accepted = self.get_pickers_count(RequestForParticipation.Status.ACCEPTED)
+        return accepted >= self.nb_required_pickers
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
@@ -646,7 +654,7 @@ class RequestForParticipation(models.Model):
     number_of_pickers = models.PositiveIntegerField(
         verbose_name=_("Number of pickers"),
         default=1,
-        validators=[MinValueValidator(1)]
+        validators=[MinValueValidator(1), MaxValueValidator(99)]
     )
 
     comment = models.TextField(

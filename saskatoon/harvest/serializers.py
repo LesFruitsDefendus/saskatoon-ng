@@ -171,9 +171,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         model = Harvest
         fields = '__all__'
 
-    pickers = serializers.ReadOnlyField(
-        source='get_pickers_data'
-    )
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
@@ -199,6 +196,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
+    pickers_total_count = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
 
     def get_is_open_to_requests(self, obj):
@@ -213,6 +211,9 @@ class HarvestSerializer(serializers.ModelSerializer):
             status=RFP.Status.ACCEPTED
         )
         return PickerSerializer([rfp.person for rfp in rfps], many=True).data
+
+    def get_pickers_total_count(self, harvest):
+        return harvest.get_pickers_count(RFP.Status.ACCEPTED)
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
@@ -259,7 +260,6 @@ class HarvestDetailSerializer(HarvestSerializer):
 
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
-    requests = RequestForParticipationSerializer(many=True, read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     about = serializers.SerializerMethodField()
     status_display = serializers.SerializerMethodField()
@@ -299,14 +299,14 @@ class HarvestListSerializer(HarvestSerializer):
             'pick_leader',
             'trees',
             'property',
-            'requests'
+            'volunteers'
         ]
 
     property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = HarvestTreeTypeSerializer(many=True, read_only=True)
-    requests = serializers.SerializerMethodField()
+    volunteers = serializers.SerializerMethodField()
 
-    def get_requests(self, harvest):
+    def get_volunteers(self, harvest):
         return dict([(s, harvest.get_pickers_count(s)) for s in RFP.get_status_choices()])
 
 

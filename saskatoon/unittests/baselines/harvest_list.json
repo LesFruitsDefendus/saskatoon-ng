@@ -30,7 +30,7 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "requests": {
+            "volunteers": {
                 "pending": 0,
                 "accepted": 0,
                 "declined": 0,
@@ -62,9 +62,9 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "requests": {
+            "volunteers": {
                 "pending": 0,
-                "accepted": 1,
+                "accepted": 2,
                 "declined": 0,
                 "cancelled": 0,
                 "obsolete": 0
@@ -94,7 +94,7 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "requests": {
+            "volunteers": {
                 "pending": 0,
                 "accepted": 0,
                 "declined": 0,
@@ -131,7 +131,7 @@
                 "ladder_available": true,
                 "neighborhood": "Plateau-Mont-Royal"
             },
-            "requests": {
+            "volunteers": {
                 "pending": 0,
                 "accepted": 0,
                 "declined": 1,
