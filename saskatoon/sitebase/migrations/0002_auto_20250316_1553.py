@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
             name='Email',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('closing', 'Closing (common)'), ('new_rfp', 'New Request For Participation'), ('New Harvest Comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], max_length=20, verbose_name='Email type')),
+                ('type', models.CharField(choices=[('closing', 'Closing (common)'), ('registration', 'Pickleader Registration Invite'), ('password_reset', 'Password Reset'), ('new_rfp', 'New Request For Participation'), ('New Harvest Comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], max_length=20, verbose_name='Email type')),
                 ('sent', models.BooleanField(default=False, verbose_name='Successfully sent')),
                 ('body', models.TextField(blank=True)),
                 ('log', models.TextField(blank=True)),
@@ -35,7 +35,7 @@ class Migration(migrations.Migration):
             name='EmailContent',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(blank=True, choices=[('closing', 'Closing (common)'), ('new_rfp', 'New Request For Participation'), ('New Harvest Comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], default=None, max_length=20, null=True, unique=True, verbose_name='Email type')),
+                ('type', models.CharField(blank=True, choices=[('closing', 'Closing (common)'), ('registration', 'Pickleader Registration Invite'), ('password_reset', 'Password Reset'), ('new_rfp', 'New Request For Participation'), ('New Harvest Comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], default=None, max_length=20, null=True, unique=True, verbose_name='Email type')),
                 ('description', models.CharField(max_length=100, verbose_name='Ref. description')),
                 ('subject_en', models.CharField(max_length=100, verbose_name='Subject (en)')),
                 ('subject_fr', models.CharField(max_length=100, verbose_name='Objet (fr)')),
@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name': 'Email Content',
                 'verbose_name_plural': 'Email Content',
-                'ordering': ['type'],
+                'ordering': ['id'],
             },
         ),
         migrations.CreateModel(

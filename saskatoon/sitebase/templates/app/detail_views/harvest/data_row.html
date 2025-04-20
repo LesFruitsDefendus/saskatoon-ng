@@ -83,7 +83,7 @@
     <!-- Action -->
     <td>
         {% if r.status == 'pending' and user|is_pickleader:id %}
-            {% if pickers_count < nb_required_pickers %}
+            {% if pickers_total_count < nb_required_pickers %}
                 <a href="{% url 'participation-update' r.id %}accept/">
                     <button
                         title="Accept"
