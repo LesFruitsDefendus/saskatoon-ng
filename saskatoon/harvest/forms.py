@@ -521,31 +521,6 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
-    def clean_status(self):
-        status = self.cleaned_data['status']
-        if status == Harvest.Status.ORPHAN:
-            unresolved_requests = self.instance.requests.filter(
-                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
-            )
-            if unresolved_requests.exists():
-                raise forms.ValidationError(
-                    _("This harvest can't be left orphan, resolve requests first.")
-                )
-        return status
-
-    def clean_pick_leader(self):
-        """check if pick-leader was selected"""
-        pickleader = self.cleaned_data['pick_leader']
-        status = self.cleaned_data['status']
-        if pickleader is None and status not in [Harvest.Status.PENDING, Harvest.Status.ORPHAN]:
-            raise forms.ValidationError(
-                _("You must choose a pick leader or change harvest status")
-            )
-        elif status == Harvest.Status.ORPHAN:
-            pickleader = None
-
-        return pickleader
-
     def clean_end_date(self):
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
@@ -558,7 +533,34 @@ class HarvestForm(forms.ModelForm):
             raise forms.ValidationError(
                 _('End time must be after start time')
             )
+
         return end_dt
+
+    def clean(self):
+        data = super().clean()
+
+        if data['status'] == Harvest.Status.ORPHAN:
+            unresolved_requests = self.instance.requests.filter(
+                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+            )
+            if unresolved_requests.exists():
+                raise forms.ValidationError(
+                    _("This harvest can't be left orphan, resolve requests first.")
+                )
+
+            if data['pick_leader'] is not None:
+                data['status'] = Harvest.Status.ADOPTED
+
+        if data['pick_leader'] is None and data['status'] not in [
+                Harvest.Status.ORPHAN,
+                Harvest.Status.PENDING,
+                Harvest.Status.CANCELLED,
+        ]:
+            raise forms.ValidationError(
+                _("You must choose a pick leader or change harvest status")
+            )
+
+        return data
 
 
 class HarvestYieldForm(forms.ModelForm):
