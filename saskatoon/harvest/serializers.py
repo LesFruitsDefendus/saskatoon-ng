@@ -199,6 +199,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
+    pickers_count = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
 
     def get_is_open_to_requests(self, obj):
@@ -213,6 +214,9 @@ class HarvestSerializer(serializers.ModelSerializer):
             status=RFP.Status.ACCEPTED
         )
         return PickerSerializer([rfp.person for rfp in rfps], many=True).data
+
+    def get_pickers_count(self, harvest):
+        return harvest.get_pickers_count(RFP.Status.ACCEPTED)
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)

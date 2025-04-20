@@ -545,8 +545,16 @@ class Harvest(models.Model):
     def get_pickers_count(self, status: Optional[Status]) -> int:
         rfps = RequestForParticipation.objects.filter(harvest=self)
         if status is not None:
-            return rfps.filter(status=status).count()
-        return rfps.count()
+            rfps = rfps.filter(status=status)
+
+        if not rfps:
+            return 0
+
+        return rfps.aggregate(models.Sum('number_of_pickers')).get('number_of_pickers__sum', 0)
+
+    def has_enough_pickers(self) -> bool:
+        accepted = self.get_pickers_count(RequestForParticipation.Status.ACCEPTED)
+        return accepted >= self.nb_required_pickers
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date

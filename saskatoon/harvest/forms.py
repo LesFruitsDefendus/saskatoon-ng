@@ -158,6 +158,16 @@ class RFPManageForm(forms.ModelForm):
             self.initial['email_body'] = \
                 self.email.get_default_message(self.email.harvest_data)
 
+    def clean(self):
+        status = self.cleaned_data.get('status')
+        if status == RFP.Status.ACCEPTED and \
+           status != self.instance.status and \
+           self.instance.harvest.has_enough_pickers():
+            raise forms.ValidationError(
+                _("Enough pickers have already been accepted for this harvest. \
+                To accept more, increase the number of required pickers first.")
+            )
+
     def save(self):
         if self.cleaned_data.get('send_email'):
             email_body = self.cleaned_data.get('email_body')

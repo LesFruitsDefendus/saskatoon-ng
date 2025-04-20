@@ -82,15 +82,17 @@
     <!-- Action -->
     <td>
         {% if r.status == 'pending' %}
-        <a href="{% url 'participation-update' r.id %}accept/">
-            <button
-                title="Accept"
-                class="btn btn-success notika-btn-success"
-                style="margin-bottom: 0.25em;"
-            >
-                {% trans "Accept" %}
-            </button>
-        </a>
+            {% if pickers_count < nb_required_pickers %}
+                <a href="{% url 'participation-update' r.id %}accept/">
+                    <button
+                        title="Accept"
+                        class="btn btn-success notika-btn-success"
+                        style="margin-bottom: 0.25em;"
+                    >
+                        {% trans "Accept" %}
+                    </button>
+                </a>
+            {% endif %}
 
         <a href="{% url 'participation-update' r.id %}decline/">
             <button title="Decline" class="btn btn-danger notika-btn-danger">
