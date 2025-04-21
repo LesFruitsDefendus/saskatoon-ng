@@ -5,9 +5,8 @@ from django_quill.fields import QuillField
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save, pre_save
-from rest_framework.utils.serializer_helpers import ReturnDict
 from logging import getLogger
-from typing import Dict
+from typing import Dict, Any
 
 from member.models import Person
 from harvest.models import (
@@ -241,19 +240,18 @@ class Email(models.Model):
         return EmailContent.get(self.type)
 
     @property
-    def harvest_data(self) -> ReturnDict:
-        if self.harvest is None:
-            return {}
+    def harvest_data(self) -> Dict[str, Any]:
+        data = {}
+        if self.harvest is not None:
+            data.update(EmailHarvestSerializer(self.harvest).data)
+            data.update(EmailPickLeaderSerializer(self.harvest.pick_leader).data)
+            data.update(EmailPropertySerializer(self.harvest.property).data)
 
-        return (
-            EmailHarvestSerializer(self.harvest).data |
-            EmailPickLeaderSerializer(self.harvest.pick_leader).data |
-            EmailPropertySerializer(self.harvest.property).data
-        )
+        return data
 
     @property
-    def recipient_data(self) -> ReturnDict:
-        return EmailRecipientSerializer(self.recipient).data
+    def recipient_data(self) -> Dict[str, Any]:
+        return dict(EmailRecipientSerializer(self.recipient).data)
 
     @property
     def cc_list(self):
