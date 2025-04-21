@@ -43,8 +43,8 @@ class EmailContentAdmin(admin.ModelAdmin):
 
         test_harvest = Harvest.objects.last()
         test_data = (
-            EmailCommentSerializer(Comment.objects.last()).data |
-            EmailRFPSerializer(RequestForParticipation.objects.last()).data |
+            dict(EmailCommentSerializer(Comment.objects.last()).data) |
+            dict(EmailRFPSerializer(RequestForParticipation.objects.last()).data) |
             {'password': 'abcdef123456'}
         )
 

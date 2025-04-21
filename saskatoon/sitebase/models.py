@@ -320,11 +320,12 @@ class Email(models.Model):
         logger.error(log)
         return self.record_sent(False, body, log)
 
-    def send(self, message=None, data={}) -> bool:
+    def send(self, message=None, data: Dict[str, str] = {}) -> bool:
         if self.recipient.email is None:
             return self.record_failure(message, "Person <self.recipient> has no email address.")
 
-        data = data | self.harvest_data | self.recipient_data
+        data.update(self.harvest_data)
+        data.update(self.recipient_data)
 
         if message is None:
             message = self.get_default_message(data)
@@ -381,7 +382,7 @@ def notify_property_registered(sender, instance, **kwargs):
     Email.objects.create(
         recipient=recipient,
         type=EmailType.PROPERTY_REGISTERED,
-    ).send(data=EmailPropertySerializer(instance).data)
+    ).send(data=dict(EmailPropertySerializer(instance).data))
 
 
 @receiver(pre_save, sender=Harvest)
@@ -412,7 +413,7 @@ def notify_new_request_for_participation(sender, instance, **kwargs):
         recipient=pick_leader.person,
         type=EmailType.NEW_HARVEST_RFP,
         harvest=instance.harvest,
-    ).send(data=EmailRFPSerializer(instance).data)
+    ).send(data=dict(EmailRFPSerializer(instance).data))
 
 
 @receiver(post_save, sender=Comment)
@@ -425,4 +426,4 @@ def notify_new_harvest_comment(sender, instance, **kwargs):
         recipient=pick_leader.person,
         type=EmailType.NEW_HARVEST_COMMENT,
         harvest=instance.harvest,
-    ).send(data=EmailCommentSerializer(instance).data)
+    ).send(data=dict(EmailCommentSerializer(instance).data))

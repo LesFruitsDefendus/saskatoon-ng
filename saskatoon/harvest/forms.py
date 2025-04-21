@@ -108,7 +108,7 @@ class RFPForm(forms.ModelForm):
             recipient=instance.harvest.pick_leader.person,
             type=EmailType.NEW_HARVEST_RFP,
             harvest=instance.harvest,
-        ).send(data=EmailRFPSerializer(instance).data)
+        ).send(data=dict(EmailRFPSerializer(instance).data))
 
         return instance
 
