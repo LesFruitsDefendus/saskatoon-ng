@@ -1,14 +1,23 @@
 from django.core.mail import EmailMessage
 from django.db import models
+from django.dispatch import receiver
 from django_quill.fields import QuillField
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
+from django.db.models.signals import post_save, pre_save
 from rest_framework.utils.serializer_helpers import ReturnDict
 from logging import getLogger
 from typing import Dict
 
 from member.models import Person
+from harvest.models import (
+    Comment,
+    Harvest,
+    Property,
+    RequestForParticipation as RFP,
+)
 from sitebase.serializers import (
+    EmailCommentSerializer,
     EmailHarvestSerializer,
     EmailPickLeaderSerializer,
     EmailPropertySerializer,
@@ -336,3 +345,68 @@ class Email(models.Model):
             return self.record_failure(message, f"{type(e)}: {str(e)}")
 
         return self.record_failure(message, "Something went wrong.")
+
+
+@receiver(pre_save, sender=Property)
+def notify_property_registered(sender, instance, **kwargs):
+    if instance.id and instance.owner is not None:
+        original = sender.objects.get(id=instance.id)
+
+        if original.pending and not instance.pending:
+            if instance.owner.is_person:
+                recipient = instance.owner
+            elif instance.owner.is_organization:
+                recipient = instance.owner.contact_person
+            else:
+                logger.warning(
+                    "Property owner (actor: %i) is not a Person nor an Organization.",
+                    instance.owner.actor_id
+                )
+                return
+
+            Email.objects.create(
+                recipient=recipient,
+                type=EmailType.PROPERTY_REGISTERED,
+            ).send(data=EmailPropertySerializer(instance).data)
+
+
+@receiver(pre_save, sender=Harvest)
+def notify_unselected_pickers(sender, instance, **kwargs):
+    if instance.id:
+        original = sender.objects.get(id=instance.id)
+
+        if instance.status == Harvest.Status.READY and \
+           original.status == Harvest.Status.SCHEDULED:
+
+            for r in instance.requests.filter(status=RFP.Status.PENDING):
+                Email.objects.create(
+                    recipient=r.person,
+                    type=EmailType.UNSELECTED_PICKERS,
+                    harvest=instance,
+                ).send()
+
+
+@receiver(post_save, sender=RFP)
+def notify_new_request_for_participation(sender, instance, **kwargs):
+    pick_leader = instance.harvest.pick_leader
+    if pick_leader is None or pick_leader is instance.person:
+        return
+
+    Email.objects.create(
+        recipient=pick_leader.person,
+        type=EmailType.NEW_HARVEST_RFP,
+        harvest=instance.harvest,
+    ).send()
+
+
+@receiver(post_save, sender=Comment)
+def notify_new_harvest_comment(sender, instance, **kwargs):
+    pick_leader = instance.harvest.pick_leader
+    if pick_leader is None or pick_leader is instance.author:
+        return
+
+    Email.objects.create(
+        recipient=pick_leader.person,
+        type=EmailType.NEW_HARVEST_COMMENT,
+        harvest=instance.harvest,
+    ).send(data=EmailCommentSerializer(instance).data)
