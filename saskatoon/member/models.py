@@ -653,6 +653,7 @@ class Country(models.Model):
 def clear_cache_people(sender, instance, **kwargs):
     cache.delete_pattern("*person*")
 
+
 @receiver(post_save, sender=Organization)
 def clear_cache_organization(sender, instance, **kwargs):
     cache.delete_pattern("*organization*")

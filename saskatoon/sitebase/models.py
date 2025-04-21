@@ -21,6 +21,7 @@ from sitebase.serializers import (
     EmailHarvestSerializer,
     EmailPickLeaderSerializer,
     EmailPropertySerializer,
+    EmailRFPSerializer,
     EmailRecipientSerializer,
 )
 from saskatoon.settings import (
@@ -104,7 +105,7 @@ class EmailType(models.TextChoices):
     REGISTRATION = 'registration', _("Pickleader Registration Invite")
     PASSWORD_RESET = 'password_reset', _("Password Reset")
     NEW_HARVEST_RFP = 'new_rfp', _("New Request For Participation")
-    NEW_HARVEST_COMMENT = _("New Harvest Comment")
+    NEW_HARVEST_COMMENT = 'new_comment', _("New Harvest Comment")
 
     # Owner
     PROPERTY_REGISTERED = 'property_registered', _("Property was registered")
@@ -319,7 +320,7 @@ class Email(models.Model):
         logger.error(log)
         return self.record_sent(False, body, log)
 
-    def send(self, message=None, data: Dict[str, str] = {}) -> bool:
+    def send(self, message=None, data={}) -> bool:
         if self.recipient.email is None:
             return self.record_failure(message, "Person <self.recipient> has no email address.")
 
@@ -349,41 +350,56 @@ class Email(models.Model):
 
 @receiver(pre_save, sender=Property)
 def notify_property_registered(sender, instance, **kwargs):
-    if instance.id and instance.owner is not None:
+    if instance.pending:
+        return
+
+    try:
         original = sender.objects.get(id=instance.id)
+        if not original.pending:
+            return
+    except Property.DoesNotExist:
+        pass
 
-        if original.pending and not instance.pending:
-            if instance.owner.is_person:
-                recipient = instance.owner
-            elif instance.owner.is_organization:
-                recipient = instance.owner.contact_person
-            else:
-                logger.warning(
-                    "Property owner (actor: %i) is not a Person nor an Organization.",
-                    instance.owner.actor_id
-                )
-                return
+    if instance.owner is None:
+        logger.warning(
+            "Property %i has no registered owner.",
+            instance.id
+        )
+        return
 
-            Email.objects.create(
-                recipient=recipient,
-                type=EmailType.PROPERTY_REGISTERED,
-            ).send(data=EmailPropertySerializer(instance).data)
+    if instance.owner.is_person:
+        recipient = instance.owner.person
+    elif instance.owner.is_organization:
+        recipient = instance.owner.contact_person
+    else:
+        logger.warning(
+            "Property owner (actor: %i) is not a Person nor an Organization.",
+            instance.owner.actor_id
+        )
+        return
+
+    Email.objects.create(
+        recipient=recipient,
+        type=EmailType.PROPERTY_REGISTERED,
+    ).send(data=EmailPropertySerializer(instance).data)
 
 
 @receiver(pre_save, sender=Harvest)
 def notify_unselected_pickers(sender, instance, **kwargs):
-    if instance.id:
+    try:
         original = sender.objects.get(id=instance.id)
+        if original.status != Harvest.Status.SCHEDULED:
+            return
+    except Harvest.DoesNotExist:
+        pass
 
-        if instance.status == Harvest.Status.READY and \
-           original.status == Harvest.Status.SCHEDULED:
-
-            for r in instance.requests.filter(status=RFP.Status.PENDING):
-                Email.objects.create(
-                    recipient=r.person,
-                    type=EmailType.UNSELECTED_PICKERS,
-                    harvest=instance,
-                ).send()
+    if instance.status == Harvest.Status.READY:
+        for r in instance.requests.filter(status=RFP.Status.PENDING):
+            Email.objects.create(
+                recipient=r.person,
+                type=EmailType.UNSELECTED_PICKERS,
+                harvest=instance,
+            ).send()
 
 
 @receiver(post_save, sender=RFP)
@@ -396,7 +412,7 @@ def notify_new_request_for_participation(sender, instance, **kwargs):
         recipient=pick_leader.person,
         type=EmailType.NEW_HARVEST_RFP,
         harvest=instance.harvest,
-    ).send()
+    ).send(data=EmailRFPSerializer(instance).data)
 
 
 @receiver(post_save, sender=Comment)
