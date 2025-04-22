@@ -1,4 +1,5 @@
 import re
+from django.core.cache import cache
 from django.contrib.auth.models import (
     Group,
     AbstractBaseUser,
@@ -6,6 +7,8 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from phone_field import PhoneField
@@ -642,3 +645,15 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
+
+
+# CACHE #
+
+@receiver(post_save, sender=Person)
+def clear_cache_people(sender, instance, **kwargs):
+    cache.delete_pattern("*person*")
+
+
+@receiver(post_save, sender=Organization)
+def clear_cache_organization(sender, instance, **kwargs):
+    cache.delete_pattern("*organization*")

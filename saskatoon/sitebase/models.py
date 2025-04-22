@@ -1,17 +1,26 @@
 from django.core.mail import EmailMessage
 from django.db import models
+from django.dispatch import receiver
 from django_quill.fields import QuillField
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
-from rest_framework.utils.serializer_helpers import ReturnDict
+from django.db.models.signals import post_save, pre_save
 from logging import getLogger
-from typing import Dict
+from typing import Dict, Any
 
 from member.models import Person
+from harvest.models import (
+    Comment,
+    Harvest,
+    Property,
+    RequestForParticipation as RFP,
+)
 from sitebase.serializers import (
+    EmailCommentSerializer,
     EmailHarvestSerializer,
     EmailPickLeaderSerializer,
     EmailPropertySerializer,
+    EmailRFPSerializer,
     EmailRecipientSerializer,
 )
 from saskatoon.settings import (
@@ -95,7 +104,7 @@ class EmailType(models.TextChoices):
     REGISTRATION = 'registration', _("Pickleader Registration Invite")
     PASSWORD_RESET = 'password_reset', _("Password Reset")
     NEW_HARVEST_RFP = 'new_rfp', _("New Request For Participation")
-    NEW_HARVEST_COMMENT = _("New Harvest Comment")
+    NEW_HARVEST_COMMENT = 'new_comment', _("New Harvest Comment")
 
     # Owner
     PROPERTY_REGISTERED = 'property_registered', _("Property was registered")
@@ -231,19 +240,18 @@ class Email(models.Model):
         return EmailContent.get(self.type)
 
     @property
-    def harvest_data(self) -> ReturnDict:
-        if self.harvest is None:
-            return {}
+    def harvest_data(self) -> Dict[str, Any]:
+        data = {}
+        if self.harvest is not None:
+            data.update(EmailHarvestSerializer(self.harvest).data)
+            data.update(EmailPickLeaderSerializer(self.harvest.pick_leader).data)
+            data.update(EmailPropertySerializer(self.harvest.property).data)
 
-        return (
-            EmailHarvestSerializer(self.harvest).data |
-            EmailPickLeaderSerializer(self.harvest.pick_leader).data |
-            EmailPropertySerializer(self.harvest.property).data
-        )
+        return data
 
     @property
-    def recipient_data(self) -> ReturnDict:
-        return EmailRecipientSerializer(self.recipient).data
+    def recipient_data(self) -> Dict[str, Any]:
+        return dict(EmailRecipientSerializer(self.recipient).data)
 
     @property
     def cc_list(self):
@@ -314,7 +322,8 @@ class Email(models.Model):
         if self.recipient.email is None:
             return self.record_failure(message, "Person <self.recipient> has no email address.")
 
-        data = data | self.harvest_data | self.recipient_data
+        data.update(self.harvest_data)
+        data.update(self.recipient_data)
 
         if message is None:
             message = self.get_default_message(data)
@@ -336,3 +345,83 @@ class Email(models.Model):
             return self.record_failure(message, f"{type(e)}: {str(e)}")
 
         return self.record_failure(message, "Something went wrong.")
+
+
+@receiver(pre_save, sender=Property)
+def notify_property_registered(sender, instance, **kwargs):
+    if instance.pending:
+        return
+
+    try:
+        original = sender.objects.get(id=instance.id)
+        if not original.pending:
+            return
+    except Property.DoesNotExist:
+        pass
+
+    if instance.owner is None:
+        logger.warning(
+            "Property %i has no registered owner.",
+            instance.id
+        )
+        return
+
+    if instance.owner.is_person:
+        recipient = instance.owner.person
+    elif instance.owner.is_organization:
+        recipient = instance.owner.contact_person
+    else:
+        logger.warning(
+            "Property owner (actor: %i) is not a Person nor an Organization.",
+            instance.owner.actor_id
+        )
+        return
+
+    Email.objects.create(
+        recipient=recipient,
+        type=EmailType.PROPERTY_REGISTERED,
+    ).send(data=dict(EmailPropertySerializer(instance).data))
+
+
+@receiver(pre_save, sender=Harvest)
+def notify_unselected_pickers(sender, instance, **kwargs):
+    try:
+        original = sender.objects.get(id=instance.id)
+        if original.status != Harvest.Status.SCHEDULED:
+            return
+    except Harvest.DoesNotExist:
+        pass
+
+    if instance.status == Harvest.Status.READY:
+        for r in instance.requests.filter(status=RFP.Status.PENDING):
+            Email.objects.create(
+                recipient=r.person,
+                type=EmailType.UNSELECTED_PICKERS,
+                harvest=instance,
+            ).send()
+
+
+@receiver(post_save, sender=RFP)
+def notify_new_request_for_participation(sender, instance, **kwargs):
+    pick_leader = instance.harvest.pick_leader
+    if pick_leader is None or pick_leader is instance.person:
+        return
+
+    Email.objects.create(
+        recipient=pick_leader.person,
+        type=EmailType.NEW_HARVEST_RFP,
+        harvest=instance.harvest,
+    ).send(data=dict(EmailRFPSerializer(instance).data))
+
+
+@receiver(post_save, sender=Comment)
+def notify_new_harvest_comment(sender, instance, **kwargs):
+    pick_leader = instance.harvest.pick_leader
+    if pick_leader is None or pick_leader is instance.author:
+        return
+
+    Email.objects.create(
+        recipient=pick_leader.person,
+        type=EmailType.NEW_HARVEST_COMMENT,
+        harvest=instance.harvest,
+    ).send(data=dict(EmailCommentSerializer(instance).data))

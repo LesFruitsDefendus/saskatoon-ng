@@ -15,7 +15,7 @@
   "model": "sitebase.emailcontent",
   "pk": 2,
   "fields": {
-    "type": "New Harvest Comment",
+    "type": "new_comment",
     "description": "Sent to pickleader when a new comment is added",
     "subject_en": "New Comment on Harvest {harvest_id}",
     "subject_fr": "Commentaire sur la Récolte {harvest_id}",

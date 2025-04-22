@@ -1,7 +1,11 @@
+from crequest.middleware import CrequestMiddleware
 from datetime import datetime
+from django.core.cache import cache
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
@@ -542,8 +546,8 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_pickers_count(self, status: Optional[Tuple[str, Any]]) -> int:
-        rfps = RequestForParticipation.objects.filter(harvest=self)
+    def get_volunteers_count(self, status: Optional[Tuple[str, Any]]) -> int:
+        rfps = self.requests
         if status is not None:
             rfps = rfps.filter(status=status)
 
@@ -553,7 +557,7 @@ class Harvest(models.Model):
         return rfps.aggregate(models.Sum('number_of_pickers')).get('number_of_pickers__sum', 0)
 
     def has_enough_pickers(self) -> bool:
-        accepted = self.get_pickers_count(RequestForParticipation.Status.ACCEPTED)
+        accepted = self.get_volunteers_count(RequestForParticipation.Status.ACCEPTED)
         return accepted >= self.nb_required_pickers
 
     def get_days_before_harvest(self):
@@ -611,6 +615,15 @@ class Harvest(models.Model):
             ]
 
         return self.status in valid_statuses
+
+
+@receiver(pre_save, sender=Harvest)
+def harvest_changed_by(sender, instance, **kwargs):
+    request = CrequestMiddleware.get_request()
+    if not request:
+        return
+    instance.changed_by = \
+        None if request.user.is_anonymous else request.user
 
 
 class RequestForParticipation(models.Model):
@@ -881,3 +894,20 @@ class HarvestImage(models.Model):
 
     def __str__(self):
         return self.harvest.__str__()
+
+
+# CACHE #
+
+@receiver(post_save, sender=Property)
+def clear_cache_property(sender, instance, **kwargs):
+    cache.delete_pattern("*property*")
+
+
+@receiver(post_save, sender=Harvest)
+def clear_cache_harvest(sender, instance, **kwargs):
+    cache.delete_pattern("*harvest*")
+
+
+@receiver(post_save, sender=Equipment)
+def clear_cache_equipment(sender, instance, **kwargs):
+    cache.delete_pattern("*equipment*")

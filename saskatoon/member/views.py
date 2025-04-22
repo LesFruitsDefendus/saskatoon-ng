@@ -21,7 +21,7 @@ from member.forms import (
     OrganizationForm,
     PasswordChangeForm
 )
-from sitebase.models import Email, EmailContent
+from sitebase.models import Email, EmailType
 
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -178,7 +178,7 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
 
         m = Email.objects.create(
             recipient=user.person,
-            type=EmailContent.Type.PASSWORD_RESET,
+            type=EmailType.PASSWORD_RESET,
 
         )
 

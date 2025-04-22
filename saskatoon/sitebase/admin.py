@@ -42,11 +42,9 @@ class EmailContentAdmin(admin.ModelAdmin):
             return
 
         test_harvest = Harvest.objects.last()
-        test_data = (
-            EmailCommentSerializer(Comment.objects.last()).data |
-            EmailRFPSerializer(RequestForParticipation.objects.last()).data |
-            {'password': 'abcdef123456'}
-        )
+        test_data = {'password': 'abcdef123456'}
+        test_data.update(EmailCommentSerializer(Comment.objects.last()).data)
+        test_data.update(EmailRFPSerializer(RequestForParticipation.objects.last()).data)
 
         for email_content in queryset.exclude(type=EmailType.GENERIC_CLOSING):
             m = Email.objects.create(

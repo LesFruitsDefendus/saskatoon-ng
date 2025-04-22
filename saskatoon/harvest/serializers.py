@@ -213,7 +213,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         return PickerSerializer([rfp.person for rfp in rfps], many=True).data
 
     def get_pickers_total_count(self, harvest):
-        return harvest.get_pickers_count(RFP.Status.ACCEPTED)
+        return harvest.get_volunteers_count(RFP.Status.ACCEPTED)
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
@@ -307,7 +307,7 @@ class HarvestListSerializer(HarvestSerializer):
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_pickers_count(s)) for s in RFP.get_status_choices()])
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):
