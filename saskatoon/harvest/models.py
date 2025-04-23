@@ -77,6 +77,23 @@ class TreeType(models.Model):
         return self.name
 
 
+#TODO
+@receiver(pre_save, sender=TreeType)
+def update_orphan_harvests(sender, instance, **kwargs):
+    if instance.id:
+        original = sender.objects.get(id=instance.id)
+
+        if (original.maturity_start != instance.maturity_start or
+                original.maturity_end != instance.maturity_end):
+
+            orphans = Harvest.objects.filter(
+                status=Harvest.Status.ORPHAN,
+                trees__in=instance,  # TODO test this
+            )
+
+            print(len(orphans), "ORPHANS for ", instance.name_en, orphans)
+
+
 class EquipmentType(models.Model):
     """Equipment Type model"""
 
