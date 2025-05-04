@@ -402,16 +402,17 @@ def notify_unselected_pickers(sender, instance, **kwargs):
 
 
 @receiver(post_save, sender=RFP)
-def notify_new_request_for_participation(sender, instance, **kwargs):
-    pick_leader = instance.harvest.pick_leader
-    if pick_leader is None or pick_leader is instance.person:
-        return
+def notify_new_request_for_participation(sender, instance, created, **kwargs):
+    if created:
+        pick_leader = instance.harvest.pick_leader
+        if pick_leader is None or pick_leader is instance.person:
+            return
 
-    Email.objects.create(
-        recipient=pick_leader.person,
-        type=EmailType.NEW_HARVEST_RFP,
-        harvest=instance.harvest,
-    ).send(data=dict(EmailRFPSerializer(instance).data))
+        Email.objects.create(
+            recipient=pick_leader.person,
+            type=EmailType.NEW_HARVEST_RFP,
+            harvest=instance.harvest,
+        ).send(data=dict(EmailRFPSerializer(instance).data))
 
 
 @receiver(post_save, sender=Comment)
