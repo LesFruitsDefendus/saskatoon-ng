@@ -12,12 +12,18 @@
             "neighborhood": "Villeray",
             "trees": [
                 {
-                    "name": "Blackberry",
-                    "fruit_name": "Blackberry"
+                    "name_en": "Blackberry tree",
+                    "name_fr": "Mûrier",
+                    "fruit_name_en": "Blackberries",
+                    "fruit_name_fr": "Mûres",
+                    "fruit_icon": null
                 },
                 {
-                    "name": "Rhubarbe",
-                    "fruit_name": "Rhubarbe"
+                    "name_en": "Rhubarb",
+                    "name_fr": "Rhubarbe",
+                    "fruit_name_en": "Rhubarb",
+                    "fruit_name_fr": "Rhubarbe",
+                    "fruit_icon": null
                 }
             ],
             "ladder_available": false,
@@ -33,12 +39,18 @@
             "neighborhood": "Plateau-Mont-Royal",
             "trees": [
                 {
-                    "name": "Noyer",
-                    "fruit_name": "Noix de Grenoble"
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏"
                 },
                 {
-                    "name": "Pommier vert",
-                    "fruit_name": "Pomme verte"
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
                 }
             ],
             "ladder_available": true,
@@ -50,26 +62,101 @@
                 {
                     "id": 4,
                     "status": "scheduled",
+                    "status_display": "Scheduled",
                     "start_date": "2021-08-01",
-                    "pick_leader": "Core Member"
+                    "start_time": "9:00 AM",
+                    "end_date": "2021-08-01",
+                    "pick_leader": "Core Member",
+                    "trees": [
+                        {
+                            "id": 1,
+                            "name_en": "Apricot tree",
+                            "name_fr": "Abricotier",
+                            "fruit_name_en": "Apricots",
+                            "fruit_name_fr": "Abricots",
+                            "fruit_icon": "🍑",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
                 },
                 {
                     "id": 2,
                     "status": "ready",
+                    "status_display": "Ready",
                     "start_date": "2021-07-24",
-                    "pick_leader": "Pick Leader"
+                    "start_time": "3:00 PM",
+                    "end_date": "2021-07-24",
+                    "pick_leader": "Pick Leader",
+                    "trees": [
+                        {
+                            "id": 9,
+                            "name_en": "Walnut tree",
+                            "name_fr": "Noyer",
+                            "fruit_name_en": "Walnuts",
+                            "fruit_name_fr": "Noix de Grenoble",
+                            "fruit_icon": "🥜",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
                 },
                 {
                     "id": 3,
                     "status": "cancelled",
+                    "status_display": "Cancelled",
                     "start_date": "2021-07-22",
-                    "pick_leader": "Core Member"
+                    "start_time": "5:00 PM",
+                    "end_date": "2021-07-22",
+                    "pick_leader": "Core Member",
+                    "trees": [
+                        {
+                            "id": 1,
+                            "name_en": "Apricot tree",
+                            "name_fr": "Abricotier",
+                            "fruit_name_en": "Apricots",
+                            "fruit_name_fr": "Abricots",
+                            "fruit_icon": "🍑",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
                 },
                 {
                     "id": 1,
                     "status": "succeeded",
+                    "status_display": "Succeeded",
                     "start_date": "2021-07-19",
-                    "pick_leader": "Pick Leader"
+                    "start_time": "4:00 PM",
+                    "end_date": "2021-07-19",
+                    "pick_leader": "Pick Leader",
+                    "trees": [
+                        {
+                            "id": 14,
+                            "name_en": "Green apple tree",
+                            "name_fr": "Pommier vert",
+                            "fruit_name_en": "Green apples",
+                            "fruit_name_fr": "Pommes vertes",
+                            "fruit_icon": "🍏",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                        },
+                        {
+                            "id": 9,
+                            "name_en": "Walnut tree",
+                            "name_fr": "Noyer",
+                            "fruit_name_en": "Walnuts",
+                            "fruit_name_fr": "Noix de Grenoble",
+                            "fruit_icon": "🥜",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
                 }
             ]
         }
