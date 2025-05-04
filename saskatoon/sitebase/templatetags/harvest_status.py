@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter
 def color(status: str) -> str:
     return {
-        t[0].value: t[1] for t in [
+        t[0].value: t[1] for t in [  # type: ignore
             (Harvest.Status.ORPHAN, "#333"),
             (Harvest.Status.ADOPTED, "#CCC"),
             (Harvest.Status.SCHEDULED, "#FFC107"),
@@ -29,7 +29,7 @@ def progress(status: str) -> int:
     ]
 
     try:
-        idx = [s.value for s in statuses].index(status)
+        idx = [s.value for s in statuses].index(status)  # type: ignore
     except ValueError:
         return 0
 

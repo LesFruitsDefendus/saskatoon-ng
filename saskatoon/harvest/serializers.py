@@ -137,7 +137,7 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = [
+        fields = [  # type: ignore
             'name_en',
             'name_fr',
             'fruit_name_en',

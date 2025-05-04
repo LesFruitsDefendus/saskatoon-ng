@@ -32,5 +32,7 @@ def local_datetime(dt: Optional[datetime]) -> Optional[datetime]:
     return dt.astimezone(timezone.get_current_timezone())
 
 
-def to_datetime(date: date) -> datetime:
+def to_datetime(date: Optional[date]) -> Optional[datetime]:
+    if date is None:
+        return None
     return local_datetime(datetime.combine(date, datetime.min.time()))

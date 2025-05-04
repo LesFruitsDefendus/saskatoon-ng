@@ -101,6 +101,7 @@ def update_orphan_harvests(sender, instance, **kwargs):
 
             Harvest.objects.filter(
                 status=Harvest.Status.ORPHAN,
+                start_date__year=tz.now().date().year,
                 trees=instance,
             ).update(
                 start_date=to_datetime(instance.maturity_start),

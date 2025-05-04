@@ -1,4 +1,3 @@
-from django_quill.forms import QuillFormField
 from dal import autocomplete
 from datetime import datetime as dt
 from django import forms
@@ -484,10 +483,6 @@ class HarvestForm(forms.ModelForm):
             'nb_required_pickers': forms.NumberInput()
         }
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        print("TREE queryset here>>> ", self.fields['trees'].queryset)
-
     start_date = forms.DateTimeField(
         label=_('Start date/time'),
         input_formats=['%d/%m/%Y %H:%M'],
@@ -549,7 +544,6 @@ class HarvestForm(forms.ModelForm):
                 raise forms.ValidationError(
                     _('Please fill in the public announcement to be published on the calendar.')
                 )
-
 
     def clean(self):
         """Make sure pick_leader and status fields are compatible"""
