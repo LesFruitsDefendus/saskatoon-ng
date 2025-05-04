@@ -15,11 +15,13 @@
                                 </div>
                             </div>
                                 <div class="col-xs-6">
-                                    <a href="{% url 'rfp-create' %}?hid={{ id }}"
-                                    {% if is_open_to_requests %}
+                                    <a href="{% url 'rfp-create' id %}"
+                                    {% if is_open_to_public_requests %}
                                         class="btn btn-success notika-btn-success waves-effect"
-                                    {% else %}
+                                    {% elif is_open_to_requests %}
                                         class="btn btn-danger notika-btn-danger waves-effect"
+                                    {% else %}
+                                       class="btn btn-info notika-btn-info disabled"
                                     {% endif %}
                                         style="float: right">
                                         <i class="fa fa-plus"></i> {% trans "New request" %}

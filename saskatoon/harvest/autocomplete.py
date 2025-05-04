@@ -6,6 +6,11 @@ from django.db.models.query_utils import Q
 class TreeAutocomplete(autocomplete.Select2QuerySetView):
     def get_queryset(self):
         qs = TreeType.objects.all()
+
+        property = self.forwarded.get('property', None)
+        if property is not None:
+            qs = Property.objects.get(id=property).trees.all()
+
         if self.q:
             qs = qs.filter(name__icontains=self.q)
         return qs

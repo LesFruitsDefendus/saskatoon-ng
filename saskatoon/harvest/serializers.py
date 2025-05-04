@@ -59,9 +59,32 @@ class OwnerTypeSerializer(serializers.ModelSerializer):
 class PropertyHarvestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Harvest
-        fields = ['id', 'status', 'start_date', 'pick_leader']
+        fields = [
+            'id',
+            'status',
+            'status_display',
+            'start_date',
+            'start_time',
+            'end_date',
+            'pick_leader',
+            'trees',
+        ]
 
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = serializers.SerializerMethodField()
+    trees = TreeTypeSerializer(many=True, read_only=True)
+    start_date = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%Y-%m-%d"
+    )
+    start_time = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%-I:%M %p"
+    )
+    end_date = serializers.DateTimeField(
+        source='get_local_end',
+        format=r"%Y-%m-%d"
+    )
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader:
@@ -87,6 +110,7 @@ class PropertySerializer(serializers.ModelSerializer):
     pending_contact_name = serializers.ReadOnlyField()
     owner_type = serializers.SerializerMethodField()
     similar_properties = serializers.SerializerMethodField()
+    needs_orphan = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -113,7 +137,13 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = ['name', 'fruit_name']  # type: ignore
+        fields = [  # type: ignore
+            'name_en',
+            'name_fr',
+            'fruit_name_en',
+            'fruit_name_fr',
+            'fruit_icon',
+        ]
 
 
 class PropertyListSerializer(PropertySerializer):
@@ -161,7 +191,7 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = '__all__'
 
-    author = serializers.StringRelatedField(many=False)
+    author = PickLeaderSerializer(many=False, read_only=True)
     date_created = serializers.DateTimeField(format=r'%c')
     date_updated = serializers.DateTimeField(format=r'%c')
 
@@ -174,7 +204,8 @@ class HarvestSerializer(serializers.ModelSerializer):
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
-    is_open_to_requests = serializers.ReadOnlyField()
+    is_open_to_requests = serializers.SerializerMethodField()
+    is_open_to_public_requests = serializers.SerializerMethodField()
     start_date = serializers.DateTimeField(
         source='get_local_start',
         format=r"%a. %b. %-d, %Y"
@@ -188,6 +219,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         format=r"%-I:%M %p"
     )
     status = serializers.StringRelatedField(many=False)
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
@@ -195,7 +227,14 @@ class HarvestSerializer(serializers.ModelSerializer):
     harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
+    pickers_total_count = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
+
+    def get_is_open_to_requests(self, obj):
+        return obj.is_open_to_requests(False)
+
+    def get_is_open_to_public_requests(self, obj):
+        return obj.is_open_to_requests(True)
 
     def get_pickers(self, obj):
         rfps = RFP.objects.select_related('person').filter(
@@ -204,15 +243,12 @@ class HarvestSerializer(serializers.ModelSerializer):
         )
         return PickerSerializer([rfp.person for rfp in rfps], many=True).data
 
+    def get_pickers_total_count(self, harvest):
+        return harvest.get_volunteers_count(RFP.Status.ACCEPTED)
+
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
-
-
-class HarvestTreeTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TreeType
-        fields = ['id', 'name', 'fruit_name']
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -247,27 +283,17 @@ class HarvestDetailSerializer(HarvestSerializer):
             'changed_by'
         ]
 
-    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
-    requests = RequestForParticipationSerializer(many=True, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
     about = serializers.SerializerMethodField()
-    status_display = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()
 
     def get_about(self, obj):
         return obj.about.html
 
-    def get_status_display(self, obj):
-        return obj.get_status_display()
-
-    def get_status_choices(self, obj):
-        return [
-            Harvest.Status.PENDING,
-            Harvest.Status.SCHEDULED,
-            Harvest.Status.READY,
-            Harvest.Status.SUCCEEDED,
-            Harvest.Status.CANCELLED
-        ]
+    def get_status_choices(self, _obj):
+        return Harvest.get_status_choices()
 
 
 class HarvestListPropertySerializer(PropertySerializer):
@@ -291,18 +317,20 @@ class HarvestListSerializer(HarvestSerializer):
             'start_time',
             'end_time',
             'status',
+            'status_display',
             'pick_leader',
             'trees',
             'property',
-            'requests'
+            'volunteers'
         ]
 
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     property = HarvestListPropertySerializer(many=False, read_only=True)
-    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
-    requests = serializers.SerializerMethodField()
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    volunteers = serializers.SerializerMethodField()
 
-    def get_requests(self, harvest):
-        return dict([(s, harvest.get_pickers_count(s)) for s in RFP.get_status_choices()])
+    def get_volunteers(self, harvest):
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer):

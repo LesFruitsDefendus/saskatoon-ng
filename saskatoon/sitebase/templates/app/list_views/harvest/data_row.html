@@ -1,7 +1,8 @@
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
+{% load harvest_status %}
 
+{% get_current_language as LANG %}
 <tr>
     <td>
         {% if perms.harvest.delete_harvest %}
@@ -23,7 +24,19 @@
         <small>{{ harvest.start_time }}</small>
     </td>
     <td>
-        {% include 'app/list_views/harvest/status.html' %}
+        <div class="skill">
+            <div class="progress">
+                <div class="lead-content">{{ harvest.status_display }}</div>
+                {% with progress=harvest.status|progress %}
+                <div class="progress-bar wow fadeInLeft"
+                     data-progress="{{progress}}%"
+                     data-wow-delay="1.2s"
+                     data-wow-duration="1.5s"
+                     style="background-color: {{harvest.status|color}}; width: {{progress}}%;">
+                </div>
+                {% endwith %}
+            </div>
+        </div>
     </td>
     <td>
         <a href="{% url 'property-detail' harvest.property.id %}">{{ harvest.property.title }}</a>
@@ -31,7 +44,14 @@
     <td>{{ harvest.property.neighborhood }}</td>
     <td>
         {% for tree in harvest.trees %}
-        <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
+        <div class="text-nowrap">
+            {% if LANG == "en" %}
+                {{tree.fruit_name_en}}
+            {% else %}
+                {{tree.fruit_name_fr}}
+            {% endif %}
+            {{ tree.fruit_icon }}
+        </div>
         {% endfor %}
     </td>
     <td>
@@ -47,9 +67,9 @@
         {% endif %}
     </td>
     <td>
-        <i class="fa fa-check text-success"></i> {{harvest.requests.accepted}} &nbsp;
-        <i class="fa fa-question text-warning"></i> {{harvest.requests.pending}}<br>
-        <i class="fa fa-times text-danger"></i> {{ harvest.requests.declined}} &nbsp;
-        <i class="fa fa-times text-muted"></i> {{harvest.requests.cancelled}}
+        <i class="fa fa-check text-success"></i> {{harvest.volunteers.accepted}} &nbsp;
+        <i class="fa fa-question text-warning"></i> {{harvest.volunteers.pending}}<br>
+        <i class="fa fa-times text-danger"></i> {{ harvest.volunteers.declined}} &nbsp;
+        <i class="fa fa-times text-muted"></i> {{harvest.volunteers.cancelled}}
     </td>
 </tr>

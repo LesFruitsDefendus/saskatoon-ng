@@ -10,10 +10,10 @@ from django.urls import reverse_lazy, reverse
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView, View
 
-from .utils import send_reset_password_email
-from .models import Person, Organization, AuthUser
+from .utils import reset_password
 from harvest.models import Property
-from .forms import (
+from member.models import Person, Organization, AuthUser
+from member.forms import (
     PersonCreateForm,
     PersonUpdateForm,
     OnboardingPersonUpdateForm,
@@ -21,6 +21,7 @@ from .forms import (
     OrganizationForm,
     PasswordChangeForm
 )
+from sitebase.models import Email, EmailType
 
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -157,7 +158,7 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     form_class = PasswordChangeForm
 
     def get_success_url(self):
-        messages.success(self.request, _("Password successfully changed!"))
+        messages.info(self.request, _("Password successfully changed!"))
         return reverse('home')
 
 
@@ -166,58 +167,31 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
     permission_required = 'member.change_authuser'
 
     def dispatch(self, request, *args, **kwargs):
-        target_user = AuthUser.objects.get(id=self.kwargs['pk'])
+        user = AuthUser.objects.get(id=self.kwargs['pk'])
 
-        if target_user.password == '':
+        if user.password == '':
             messages.error(request, _(
-                "Cannot reset password for {email}: \
-                User does not have a password set."
-                .format(email=target_user.email)
-            ))
+                "Cannot reset password for {email}: User does not have a password set."
+                ).format(email=user.email)
+            )
             return redirect('community-list')
 
-        subject = "Les Fruits Défendus - Password reset"
+        m = Email.objects.create(
+            recipient=user.person,
+            type=EmailType.PASSWORD_RESET,
 
-        message = """Hi {name},
+        )
 
-Your password for the Saskatoon harvest management platform has been reset by an administrator \
-from Les Fruits Défendus. Please log in using the temporary credentials provided below and follow \
-the steps to update your new password.
-
-Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/
-Email address: {email}
-Temporary password: {{password}}
-
-Thanks for supporting your community!
-
---
-
-Bonjour {name},
-
-Votre mot de passe pour la plateforme de gestion Saskatoon a été réinitialisé par un.e \
-administrateur.ice des Fruits Défendus. Merci de vous connecter en utilisant les identifiants \
-fournis plus bas et de suivre les instructions pour remettre à jour votre nouveau mot de passe.
-
-Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/
-Adresse électronique: {email}
-Mot de passe temporaire: {{password}}
-
-Merci de soutenir votre communauté!
-
---
-
-Les Fruits Défendus
-""".format(name=target_user.person.first_name, email=target_user.email)
-
-        if send_reset_password_email(target_user, subject, message):
-            messages.success(request, _(
+        if m.send(data={'password': reset_password(user)}) == 1:
+            messages.info(request, _(
                 "Password reset email successfully sent to {email}"
-                .format(email=target_user.email)
-            ))
+                ).format(email=user.email))
         else:
+            user.password = ''
+            user.has_temporary_password = False
+            user.save()
             messages.error(request, _(
                 "Failed to send password reset email to {email}"
-                .format(email=target_user.email)
-            ))
+            ).format(email=user.email))
 
         return redirect('community-list')

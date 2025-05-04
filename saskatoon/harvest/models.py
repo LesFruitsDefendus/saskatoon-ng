@@ -1,15 +1,18 @@
-from harvest import signals
+from crequest.middleware import CrequestMiddleware
 from datetime import datetime
-from django.core.validators import MinValueValidator
+from django.core.cache import cache
+from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
+from django.db.models.signals import post_save, pre_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
+from typing import Any, Optional, Tuple
 
-from sitebase.utils import local_datetime
+from sitebase.utils import local_datetime, to_datetime
 
 
 class TreeType(models.Model):
@@ -18,33 +21,94 @@ class TreeType(models.Model):
     class Meta:
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
-        ordering = ["name"]
+        ordering = ["name_en"]
 
-    name = models.CharField(
-        verbose_name=_("Name"),
+    name_en = models.CharField(
+        verbose_name=_("Tree name (en)"),
         max_length=20,
-        default=''
+        default=""
+    )
+
+    name_fr = models.CharField(
+        verbose_name=_("Nom de l'arbre (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_en = models.CharField(
+        verbose_name=_("Fruit name (en)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_fr = models.CharField(
+        verbose_name=_("Nom du fruit (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_icon = models.CharField(
+        verbose_name=_("Fruit icon"),
+        max_length=2,
+        blank=True,
+        null=True,
+    )
+
+    maturity_start = models.DateField(
+        verbose_name=_("Maturity start date"),
+        blank=True,
+        null=True
+    )
+
+    maturity_end = models.DateField(
+        verbose_name=_("Maturity end date"),
+        blank=True,
+        null=True
     )
 
     image = models.ImageField(
         upload_to='fruits_images',
         verbose_name=_("Fruit image"),
-        null=True
-    )
-
-    fruit_name = models.CharField(
-        verbose_name=_("Fruit name"),
-        max_length=20
-    )
-
-    season_start = models.DateField(
-        verbose_name=_("Season start date"),
         blank=True,
         null=True
     )
 
+    def get_name(self, lang='en'):
+        return getattr(self, "name_{}".format(lang))
+
+    def get_fruit_name(self, lang='en'):
+        return getattr(self, "fruit_name_{}".format(lang))
+
+    @property
+    def fruit(self):
+        return "{} / {}".format(self.fruit_name_fr, self.fruit_name_en)
+
+    @property
+    def name(self):
+        return "{} / {}".format(self.name_fr, self.name_en)
+
     def __str__(self):
         return self.name
+
+
+@receiver(pre_save, sender=TreeType)
+def update_orphan_harvests(sender, instance, **kwargs):
+    try:
+        original = TreeType.objects.get(id=instance.id)
+
+        if (original.maturity_start != instance.maturity_start or
+                original.maturity_end != instance.maturity_end):
+
+            Harvest.objects.filter(
+                status=Harvest.Status.ORPHAN,
+                start_date__year=tz.now().date().year,
+                trees=instance,
+            ).update(
+                start_date=to_datetime(instance.maturity_start),
+                end_date=to_datetime(instance.maturity_end)
+            )
+    except TreeType.DoesNotExist:
+        pass
 
 
 class EquipmentType(models.Model):
@@ -53,6 +117,7 @@ class EquipmentType(models.Model):
     class Meta:
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
+
     name_fr = models.CharField(
         verbose_name=_("Nom (fr)"),
         max_length=50
@@ -77,6 +142,7 @@ class Property(models.Model):
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
+        ordering = ['-id',]
 
     owner = models.ForeignKey(
         'member.Actor',
@@ -270,7 +336,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
     neighborhood = models.ForeignKey(
         'member.Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         on_delete=models.CASCADE,
     )
@@ -380,10 +446,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         return u"(%s %s)" % (self.pending_contact_first_name,
                              self.pending_contact_family_name)
 
-    def __str__(self):
-        number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
-
     @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
@@ -396,6 +458,17 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         elif self.pending_contact_family_name:
             return self.pending_contact_family_name
         return ""
+
+    @property
+    def needs_orphan(self):
+        if not self.authorized or self.pending:
+            return False
+        return self.trees.count() > \
+            self.harvests.filter(start_date__year=tz.now().date().year).count()
+
+    def __str__(self):
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):
@@ -410,7 +483,7 @@ class Harvest(models.Model):
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
         PENDING = 'pending', _("To be confirmed")
-        SCHEDULED = 'scheduled', _("Date scheduled")
+        SCHEDULED = 'scheduled', _("Scheduled")
         READY = 'ready', _("Ready")
         SUCCEEDED = 'succeeded', _("Succeeded")
         CANCELLED = 'cancelled', _("Cancelled")
@@ -501,8 +574,7 @@ class Harvest(models.Model):
     about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
-        help_text=_("If any help is needed from volunteer pickers, "
-                    "please describe them here."),
+        help_text=_("Published on public facing calendar"),
         null=True,
         blank=True
     )
@@ -529,6 +601,12 @@ class Harvest(models.Model):
             )
         return _("Harvest for {}").format(self.property)
 
+    @staticmethod
+    def get_status_choices():
+        """Pending status is no longer used"""
+        return [s for s in Harvest.Status.choices
+                if s[0] != Harvest.Status.PENDING]
+
     def get_total_distribution(self):
         yields = HarvestYield.objects.filter(harvest=self)
         return sum([y.total_in_lb for y in yields])
@@ -542,11 +620,19 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_pickers_count(self, status: Optional[Status]) -> int:
-        rfps = RequestForParticipation.objects.filter(harvest=self)
-        if status is None:
-            return rfps.filter(status=status).count()
-        return rfps.count()
+    def get_volunteers_count(self, status: Optional[Tuple[str, Any]]) -> int:
+        rfps = self.requests
+        if status is not None:
+            rfps = rfps.filter(status=status)
+
+        if not rfps:
+            return 0
+
+        return rfps.aggregate(models.Sum('number_of_pickers')).get('number_of_pickers__sum', 0)
+
+    def has_enough_pickers(self) -> bool:
+        accepted = self.get_volunteers_count(RequestForParticipation.Status.ACCEPTED)
+        return accepted >= self.nb_required_pickers
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
@@ -556,7 +642,7 @@ class Harvest(models.Model):
         return self.property.neighborhood.name
 
     def get_fruits(self):
-        return [t.fruit_name for t in self.trees.all()]
+        return [t.fruit for t in self.trees.all()]
 
     def get_public_title(self):
         title = ", ".join(self.get_fruits())
@@ -574,11 +660,14 @@ class Harvest(models.Model):
             (self.status is Harvest.Status.SCHEDULED and days < 3)
         )
 
+    def is_ready(self):
+        return self.status is Harvest.Status.READY and \
+            tz.now() <= self.end_date
+
     def is_happening(self):
         if not self.start_date:
             return False
-        is_today = self.get_days_before_harvest() == 0
-        return is_today and self.status is Harvest.Status.READY
+        return self.is_ready() and self.get_days_before_harvest() == 0
 
     def is_publishable(self):
         if self.status not in self.PUBLISHABLE_STATUSES:
@@ -587,9 +676,28 @@ class Harvest(models.Model):
             return True
         return (tz.now() > self.publication_date)
 
-    def is_open_to_requests(self):
-        return self.status == Harvest.Status.SCHEDULED and \
-            tz.now() <= self.end_date
+    def is_open_to_requests(self, public: bool = True):
+        if tz.now() > self.end_date:
+            return False
+
+        valid_statuses = [Harvest.Status.SCHEDULED]
+        if not public:
+            valid_statuses += [
+                Harvest.Status.ADOPTED,
+                Harvest.Status.PENDING,
+                Harvest.Status.READY,
+            ]
+
+        return self.status in valid_statuses
+
+
+@receiver(pre_save, sender=Harvest)
+def harvest_changed_by(sender, instance, **kwargs):
+    request = CrequestMiddleware.get_request()
+    if not request:
+        return
+    instance.changed_by = \
+        None if request.user.is_anonymous else request.user
 
 
 class RequestForParticipation(models.Model):
@@ -633,7 +741,7 @@ class RequestForParticipation(models.Model):
     number_of_pickers = models.PositiveIntegerField(
         verbose_name=_("Number of pickers"),
         default=1,
-        validators=[MinValueValidator(1)]
+        validators=[MinValueValidator(1), MaxValueValidator(99)]
     )
 
     comment = models.TextField(
@@ -675,7 +783,6 @@ class RequestForParticipation(models.Model):
         self.__last_status = self.status
 
     def save(self, *args, **kwargs):
-
         if self.status != self.__last_status:
             self.__last_status = self.status
             self.date_status_updated = tz.now()
@@ -720,7 +827,7 @@ class HarvestYield(models.Model):
 
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
-               (self.total_in_lb, self.tree.fruit_name, self.recipient)
+               (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
 
 
 class Equipment(models.Model):
@@ -789,7 +896,7 @@ class Equipment(models.Model):
 
 
 class Comment(models.Model):
-    """Comment model"""
+    """Harvest comment model"""
 
     class Meta:
         verbose_name = _("comment")
@@ -798,14 +905,14 @@ class Comment(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("harvest"),
-        related_name="comment",
+        related_name="comments",
         on_delete=models.CASCADE,
     )
 
     author = models.ForeignKey(
         'member.AuthUser',
         verbose_name=_("Author"),
-        related_name="Comment",
+        related_name="comments",
         on_delete=models.CASCADE,
     )
 
@@ -862,54 +969,18 @@ class HarvestImage(models.Model):
         return self.harvest.__str__()
 
 
-# # SIGNALS # #
+# CACHE #
 
-# Property signals
-models.signals.pre_save.connect(
-    receiver=signals.changed_by,
-    sender=Property
-)
+@receiver(post_save, sender=Property)
+def clear_cache_property(sender, instance, **kwargs):
+    cache.delete_pattern("*property*")
 
-models.signals.pre_save.connect(
-    receiver=signals.notify_pending_status_update,
-    sender=Property
-)
 
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_property,
-    sender=Property
-)
+@receiver(post_save, sender=Harvest)
+def clear_cache_harvest(sender, instance, **kwargs):
+    cache.delete_pattern("*harvest*")
 
-# Send email on new comments
-models.signals.post_save.connect(
-    signals.comment_send_mail,
-    sender=Comment
-)
 
-# Harvest signals
-models.signals.pre_save.connect(
-    signals.changed_by,
-    sender=Harvest
-)
-
-models.signals.pre_save.connect(
-    receiver=signals.notify_unselected_pickers,
-    sender=Harvest
-)
-
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_harvest,
-    sender=Harvest
-)
-
-# RFP signal
-models.signals.post_save.connect(
-    signals.rfp_send_mail,
-    sender=RequestForParticipation
-)
-
-# Equipment signal
-models.signals.post_save.connect(
-    receiver=signals.clear_cache_equipment,
-    sender=Equipment
-)
+@receiver(post_save, sender=Equipment)
+def clear_cache_equipment(sender, instance, **kwargs):
+    cache.delete_pattern("*equipment*")

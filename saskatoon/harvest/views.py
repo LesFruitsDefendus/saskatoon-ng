@@ -7,9 +7,9 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
-from django.utils import timezone
+from django.utils import timezone as tz
 from django.views.generic import CreateView, UpdateView
-
+from logging import getLogger
 
 from harvest.forms import (
     CommentForm,
@@ -29,9 +29,12 @@ from harvest.models import (
     Property,
     RequestForParticipation as RFP,
 )
-
-from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
 from member.models import Organization
+from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
+from sitebase.models import EmailType
+from sitebase.utils import to_datetime
+
+logger = getLogger('saskatoon')
 
 
 class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
@@ -193,7 +196,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
             pick_leader = self.object.pick_leader
             harvests_as_pickleader = pick_leader.person.harvests_as_pickleader
             harvests_this_year = harvests_as_pickleader.filter(
-                start_date__year=timezone.now().date().year
+                start_date__year=tz.now().date().year
             )
             harvest_number: int = harvests_this_year.count()
             success_message_harvest_successful: str = _(
@@ -216,28 +219,42 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
     success_message = _("Thanks for your interest in participating in this harvest! \
     Your request has been sent and a pick leader will contact you soon.")
 
+    def get_form_kwargs(self, *args, **kwargs):
+        try:
+            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
+        except Harvest.DoesNotExist as e:
+            self.harvest = None
+            logger.error(e)
+
+        return super().get_form_kwargs(*args, **kwargs) | {'harvest': self.harvest}
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        try:
-            harvest = Harvest.objects.get(id=self.request.GET['hid'])
-            if self.request.user.is_authenticated or harvest.is_open_to_requests():
-                context['title'] = _("Request to join this harvest")
-                context['harvest'] = harvest
-                context['form'] = RFPForm(initial={'harvest_id': harvest.id})
-            else:
-                context['error'] = _(
-                    "Sorry, this harvest is not open for requests. \
-                    You can check the calendar for other harvests."
-                )
-        except KeyError:
-            context['error'] = _("Something went wrong")
-        return context
+
+        if self.harvest is None:
+            return context | {'error': _("Something went wrong")}
+
+        if (
+                (
+                    self.request.user.is_authenticated and
+                    self.harvest.is_open_to_requests(False)
+                ) or
+                self.harvest.is_open_to_requests(True)
+        ):
+            return context | {
+                'title': _("Request to join this harvest"),
+                'harvest': self.harvest,
+            }
+
+        return context | {'error': _(
+            "Sorry, this harvest is not open for requests. \
+            You can check the calendar for other harvests.")}
 
     def get_success_url(self):
-        if self.request.user.is_authenticated:
+        if self.request.user.is_authenticated and self.harvest is not None:
             return reverse_lazy(
                 'harvest-detail',
-                kwargs={'pk': self.request.GET['hid']}
+                kwargs={'pk': self.harvest.id}
             )
         return reverse_lazy('calendar')
 
@@ -257,7 +274,6 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
         action = self.kwargs.get('action')
         if action is not None:
-            context['harvest'] = self.object.harvest
             for a in RFP.Action.choices:
                 if action == a[0]:
                     context['save'] = a[1].upper()
@@ -266,11 +282,10 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
 
     def get_form_kwargs(self, *args, **kwargs):
         kwargs = super().get_form_kwargs(*args, **kwargs)
-        kwargs['status'] = {
-                RFP.Action.ACCEPT: RFP.Status.ACCEPTED,
-                RFP.Action.DECLINE: RFP.Status.DECLINED
-        }.get(self.kwargs.get('action'))
-
+        kwargs['status'], kwargs['emailType'] = {
+                RFP.Action.ACCEPT: (RFP.Status.ACCEPTED, EmailType.SELECTED_PICKER),
+                RFP.Action.DECLINE: (RFP.Status.DECLINED, EmailType.REJECTED_PICKER),
+        }.get(self.kwargs.get('action'), (None, None))
         return kwargs
 
     def get_success_url(self):
@@ -287,6 +302,17 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
     template_name = 'app/forms/model_form.html'
     success_message = _("Comment added!")
 
+    def get_form_kwargs(self, *args, **kwargs):
+        """Retrieve harvest object and comment author"""
+
+        self.author = self.request.user
+        try:
+            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
+        except Harvest.DoesNotExist:
+            raise Exception('Invalid Harvest ID provided')
+
+        return super().get_form_kwargs(*args, **kwargs)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add new comment")
@@ -294,14 +320,14 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
         return context
 
     def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.instance.harvest = self.object.harvest
-        return super(CommentCreateView, self).form_valid(form)
+        form.instance.author = self.author
+        form.instance.harvest = self.harvest
+        return super().form_valid(form)
 
     def get_success_url(self):
         return reverse_lazy(
             'harvest-detail',
-            kwargs={'pk': self.request.GET['hid']}
+            kwargs={'pk': self.harvest.id}
         )
 
 
@@ -355,7 +381,7 @@ def harvest_yield_create(request):
                 total_in_lb=weight
             )
             _yield.save()
-            messages.success(request, _("New Fruit Recipient successfully added!"))
+            messages.info(request, _("New Fruit Recipient successfully added!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -377,7 +403,7 @@ def harvest_adopt(request, id):
         harvest.pick_leader = request.user
         harvest.status = Harvest.Status.ADOPTED
         harvest.save()
-        messages.success(request, _("You successfully adopted this harvest!"))
+        messages.info(request, _("You successfully adopted this harvest!"))
     else:
         messages.error(request, _("This harvest already has a pickleader!"))
 
@@ -385,29 +411,9 @@ def harvest_adopt(request, id):
 
 
 @login_required
-def harvest_leave(request, id):
-    """
-    Removes harvest pickleader and changes status to Orphan
-    Used in a button at harvest-detail/status template
-    """
-    harvest = get_object_or_404(Harvest, id=id)
-
-    if harvest.pick_leader is request.user:
-        harvest.pick_leader = None
-        harvest.status = Harvest.Status.ORPHAN
-        harvest.save()
-        messages.success(request, _("You successfully dropped this harvest!"))
-    else:
-        messages.error(request, _("You are not this harvest's pick leader!"))
-
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-@login_required
 def harvest_status_change(request, id):
     """
-    Changes harvest status
-    Used in a dropdown at harvest detail status template
+    Changes harvest status from the harvest detail dropdown menu
     """
     harvest = get_object_or_404(Harvest, id=id)
     request_status: str = request.GET['status']
@@ -417,14 +423,85 @@ def harvest_status_change(request, id):
             request,
             _("Harvest status already set to: {}").format(harvest.get_status_display())
         )
-    elif is_core_or_admin(request.user) or request.user == harvest.pick_leader:
+    elif request.user != harvest.pick_leader:
+        messages.warning(request, _("You are not authorized to update this harvest status."))
+    elif request_status == Harvest.Status.ORPHAN:
+        unresolved_requests = harvest.requests.filter(
+            status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+        )
+        if unresolved_requests.exists():
+            messages.warning(
+                request,
+                _("You can't leave this harvest as there are unresolved requests.")
+            )
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        harvest.pick_leader = None
+        messages.warning(request, _("This harvest no longer have any pick leader"))
+    elif request_status == Harvest.Status.SCHEDULED and not harvest.about.html:
+        messages.error(
+            request,
+            _("Could not update harvest status. Please fill in the public anouncement field.")
+        )
+    else:
         harvest.status = request_status
         harvest.save()
         messages.success(
             request,
             _("Harvest status successfully set to: {}").format(harvest.get_status_display())
         )
+
+    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def property_create_orphans(request, id):
+    """
+    Create Orphan harvest(s) for a given property.
+    """
+    property = get_object_or_404(Property, id=id)
+
+    if not is_core_or_admin(request.user):
+        messages.error(
+            request,
+            _("You must be a core member to create a orphan harvest.")
+        )
+
+    if property.pending:
+        messages.error(
+            request,
+            _("Property is has not yet been validated!")
+        )
+
+    if not property.authorized:
+        messages.error(
+            request,
+            _("Property is not authorized for this season!")
+        )
+
+    harvests = property.harvests.filter(start_date__year=tz.now().date().year)
+
+    num_created = 0
+    for t in property.trees.all():
+        if not harvests.filter(trees__in=[t]).exists():
+            h = Harvest.objects.create(
+                status=Harvest.Status.ORPHAN,
+                property=property,
+                start_date=to_datetime(t.maturity_start),
+                end_date=to_datetime(t.maturity_end),
+            )
+            h.trees.add(t)
+            num_created += 1
+
+    if num_created > 0:
+        messages.success(
+            request,
+            _("Successfully created %i orphan harvests").format(num_created)
+        )
     else:
-        messages.warning(request, _("You are not authorized to update this harvest status."))
+        messages.warning(
+            request,
+            _("Property already has registered harvests for this season")
+        )
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

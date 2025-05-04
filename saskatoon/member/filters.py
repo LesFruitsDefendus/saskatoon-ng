@@ -10,6 +10,7 @@ from member.models import (
     Person,
     Neighborhood
 )
+from harvest.models import EquipmentType, Equipment
 
 
 class CommunityFilter(filters.FilterSet):
@@ -33,7 +34,7 @@ class CommunityFilter(filters.FilterSet):
     neighborhood = filters.ModelChoiceFilter(
         field_name='person__neighborhood',
         queryset=Neighborhood.objects.all(),
-        label=_("Neighborhood"),
+        label=_("Borough"),
     )
 
     language = filters.ChoiceFilter(
@@ -75,7 +76,7 @@ class OrganizationFilter(filters.FilterSet):
     )
 
     neighborhood = filters.ModelChoiceFilter(
-        label=_("Neighborhood"),
+        label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
@@ -95,7 +96,7 @@ class EquipmentPointFilter(filters.FilterSet):
         model = Organization
         fields = [
             'beneficiary',
-            'equipment__type',
+            'equipment_type',
             'neighborhood',
         ]
 
@@ -107,12 +108,24 @@ class EquipmentPointFilter(filters.FilterSet):
     )
 
     neighborhood = filters.ModelChoiceFilter(
-        label=_("Neighborhood"),
+        label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
+    )
+
+    equipment_type = filters.ModelChoiceFilter(
+        label=_("Equipment Type"),
+        queryset=EquipmentType.objects.all(),
+        method='equipment_type_filter'
     )
 
     def beneficiary_filter(self, queryset, name, value):
         if value:
             return queryset.filter(is_beneficiary=True)
+        return queryset
+
+    def equipment_type_filter(self, queryset, name, value):
+        if value:
+            equipments = Equipment.objects.filter(type=value)
+            return queryset.filter(equipment__in=equipments).distinct()
         return queryset

@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
+
+{% get_current_language as LANG %}
 <div class="container">
     <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -9,8 +10,14 @@
                     <div class="curved-ctn">
                         <h2>{% trans "Public announcement" %}</h2>
                         <hr><br>
-                        <h5>{% for tree in trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }},{% endfor %}
-                            {{ property.neighborhood }}</h5>
+                        <h5>
+                            {% if LANG == "en" %}
+                                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon }}, {% endfor %}
+                            {% else %}
+                                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon }}, {% endfor %}
+                            {% endif %}
+                            @ {{ property.neighborhood }}
+                        </h5>
                         <br>
                         <h4>{{start_date}}</h4>
                         <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
@@ -84,7 +91,5 @@
             </div>
         </div>
 
-
     </div>
 </div>
-<!-- End Realtime sts area-->

@@ -49,7 +49,7 @@ class HarvestFilter(filters.FilterSet):
 
     status = filters.ChoiceFilter(
         label=_("Status"),
-        choices=list(Harvest.Status.choices)
+        choices=list(Harvest.get_status_choices())
     )
 
     pick_leader = filters.ModelChoiceFilter(
@@ -75,7 +75,7 @@ class HarvestFilter(filters.FilterSet):
 
     neighborhood = filters.ModelChoiceFilter(
         field_name='property__neighborhood',
-        label=_("Neighborhood"),
+        label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
@@ -129,7 +129,7 @@ class PropertyFilter(filters.FilterSet):
 
     neighborhood = filters.ModelChoiceFilter(
         queryset=Neighborhood.objects.all(),
-        label=_("Neighborhood"),
+        label=_("Borough"),
         help_text="",
         required=False
     )

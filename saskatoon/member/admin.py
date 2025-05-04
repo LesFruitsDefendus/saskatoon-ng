@@ -8,8 +8,20 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.html import mark_safe
+from logging import getLogger
 from typing import Optional
 
+from member.admin_filters import (
+    ActorTypeAdminFilter,
+    OrganizationHasNoContactAdminFilter,
+    PersonHasNoUserAdminFilter,
+    UserGroupAdminFilter,
+    UserHasPropertyAdminFilter,
+    UserHasLedPicksAdminFilter,
+    UserHasVolunteeredAdminFilter,
+    UserIsContactAdminFilter,
+    UserIsOnboardingAdminFilter,
+)
 from member.admin_forms import (
     AuthUserChangeAdminForm,
     AuthUserCreationAdminForm,
@@ -27,19 +39,11 @@ from member.models import (
     Person,
     State,
 )
-from member.admin_filters import (
-    ActorTypeAdminFilter,
-    OrganizationHasNoContactAdminFilter,
-    PersonHasNoUserAdminFilter,
-    UserGroupAdminFilter,
-    UserHasPropertyAdminFilter,
-    UserHasLedPicksAdminFilter,
-    UserHasVolunteeredAdminFilter,
-    UserIsContactAdminFilter,
-    UserIsOnboardingAdminFilter,
-)
-from member.utils import send_invite_email
+from member.utils import reset_password
 from saskatoon.settings import EMAIL_LIST_OUTPUT
+from sitebase.models import Email, EmailType
+
+logger = getLogger('saskatoon')
 
 
 @admin.register(AuthUser)
@@ -428,47 +432,28 @@ class OnboardingAdmin(admin.ModelAdmin):
 
     @admin.action(description="Send registration invite to selected group(s)")
     def send_invite(self, request, queryset):
-        subject = "Les Fruits Défendus - Saskatoon Registration"
         num_sent = 0
-
-        def get_message(person):
-            name = person.first_name
-            mailto = person.auth_user.email
-            return "Hi " + name + ",\n\n\
-You are receiving this email following your recent participation to the Pickleader training \
-organized by Les Fruits Défendus. You can now log into the Saskatoon harvest management \
-platform using your email address and the temporary password provided below.\n\n\
-Login page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
-Email address: " + mailto + "\n\
-Temporary password: {password}\n\n\
-Thanks for supporting your community!\n\n--\n\n\
-Bonjour " + name + ",\n\n\
-Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe \
-de cueillette organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur \
-la plateforme de gestion Saskatoon en utilisant votre adresse courriel et le mot de passe \
-temporaire fourni plus bas.\n\n\
-Page de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\n\
-Adresse électronique: " + mailto + "\n\
-Mot de passe temporaire: {password}\n\n\
-Merci de soutenir votre communauté!\n\n--\n\n\
-Les Fruits Défendus"
-
         for o in queryset:
             o.all_sent = True
             o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
             for p in o.persons.filter(auth_user__password=''):
-                error_msg = send_invite_email(p.auth_user, subject, get_message(p))
-                if error_msg is None:
+                m = Email.objects.create(recipient=p, type=EmailType.REGISTRATION)
+
+                if m.send(data={'password': reset_password(p.auth_user)}) == 1:
                     num_sent += 1
                     o.log += f"\n\t> OK {p.auth_user.email}"
                 else:
+                    p.auth_user.password = ''
+                    p.auth_user.has_temporary_password = False
+                    p.auth_user.save()
                     o.all_sent = False
-                    o.log += f"\n\t> FAIL {p.auth_user.email}. {error_msg}"
+                    o.log += f"\n\t> FAIL {p.auth_user.email}"
                     messages.add_message(
                         request,
                         messages.ERROR,
                         f"Could not send Registration Invite to {p.auth_user.email}"
                     )
+
             if o.all_sent:
                 messages.add_message(
                     request,

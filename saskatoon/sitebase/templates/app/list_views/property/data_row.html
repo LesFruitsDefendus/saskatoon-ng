@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
 
 <tr>
     <td>
@@ -26,7 +25,7 @@
     </td>
     <td>
         {% for tree in property.trees %}
-            <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}</div>
+            <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_icon }}</div>
         {% endfor %}
     </td>
     <td>

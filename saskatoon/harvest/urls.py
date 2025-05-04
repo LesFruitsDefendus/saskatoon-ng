@@ -26,6 +26,10 @@ urlpatterns = [
          views.PropertyCreatePublicView.as_view(),
          name='property-create-public'),
 
+    path(r'property/<int:id>/create_orphans/',
+         views.property_create_orphans,
+         name='property-create-orphans'),
+
     # backward compatibility with saskatoon-og
     path(r'harvest/properties/create_pending/',
          RedirectView.as_view(url='/property/create_public/')),
@@ -38,19 +42,15 @@ urlpatterns = [
          views.harvest_adopt,
          name='harvest-adopt'),
 
-    path(r'harvest/leave/<int:id>/',
-         views.harvest_leave,
-         name='harvest-leave'),
-
     path(r'harvest/status-change/<int:id>/',
          views.harvest_status_change,
          name='harvest-status-change'),
 
-    path(r'participation/create/',
+    path(r'participation/create/<int:hid>/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
 
-    path(r'comment/create/',
+    path(r'comment/create/<int:hid>/',
          views.CommentCreateView.as_view(),
          name='comment-create'),
 

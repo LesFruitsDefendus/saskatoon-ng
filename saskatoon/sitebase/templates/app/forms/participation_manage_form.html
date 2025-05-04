@@ -9,27 +9,43 @@
 <div class="table-responsive">
     <table class="table compact">
         <tr>
-            <td>{% translate "Harvest" %} #{{ harvest.id }}</td>
-            <td>{{ harvest.start_date|date }}
+            <td>{% translate "Harvest" %} #{{ rfp.harvest.id }}</td>
+            <td>{{ rfp.harvest.start_date|date }}
                 {% if LANG == "en" %}at{% else %}à{% endif %}
-                {{ harvest.start_date|time }}
+                {{ rfp.harvest.start_date|time }}
             </td>
         </tr>
         <tr>
-            <td>{% translate "Property" %} #{{ harvest.property.id }}</td>
-            <td>{{ harvest.property }}</td>
+            <td>{% translate "Property" %} #{{ rfp.harvest.property.id }}</td>
+            <td>{{ rfp.harvest.property }}</td>
         </tr>
         <tr>
             <td>{% translate "Participant" %} #{{rfp.person.pk}}</td>
             <td>{{rfp.person.name}}<br>
                 <a href="mailto:{{rfp.person.email}}">{{rfp.person.email}}</a>
             </td>
-        </tr><tr>
+        </tr>
+        <tr>
+            <td>{% translate "Number of pickers" %}</td>
+            <td>{{rfp.number_of_pickers}}</td>
+        </tr>
+        <tr>
             <td>{% translate "Comments" %}</td>
             <td>{{rfp.comment}}</td>
         </tr>
     </table>
 </div>
 
+<script>
+    $(function () {
+        $('#id_send_email').change(function () {
+            if ($('#id_send_email').is(":checked")) {
+                $('#div_id_email_body').show();
+            } else {
+                $('#div_id_email_body').hide();
+            }
+        });
+    });
+</script>
 
 {% endblock header %}
