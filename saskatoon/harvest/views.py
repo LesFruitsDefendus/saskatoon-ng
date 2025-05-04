@@ -423,42 +423,42 @@ def harvest_status_change(request, id):
             request,
             _("Harvest status already set to: {}").format(harvest.get_status_display())
         )
-    elif is_core_or_admin(request.user) or request.user == harvest.pick_leader:
-        if request_status == Harvest.Status.ORPHAN:
-            unresolved_requests = harvest.requests.filter(
-                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
-            )
-            if unresolved_requests.exists():
-                messages.warning(
-                    request,
-                    _("You can't leave this harvest as there are unresolved requests.")
-                )
-                return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-            harvest.pick_leader = None
-            messages.warning(request, _("This harvest no longer have any pick leader"))
-        else:
-            messages.success(
+    elif request.user != harvest.pick_leader:
+        messages.warning(request, _("You are not authorized to update this harvest status."))
+    elif request_status == Harvest.Status.ORPHAN:
+        unresolved_requests = harvest.requests.filter(
+            status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+        )
+        if unresolved_requests.exists():
+            messages.warning(
                 request,
-                _("Harvest status successfully set to: {}").format(harvest.get_status_display())
+                _("You can't leave this harvest as there are unresolved requests.")
             )
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
+        harvest.pick_leader = None
+        messages.warning(request, _("This harvest no longer have any pick leader"))
+    elif request_status == Harvest.Status.SCHEDULED and not harvest.about.html:
+        messages.error(
+            request,
+            _("Could not update harvest status. Please fill in the public anouncement field.")
+        )
+    else:
         harvest.status = request_status
         harvest.save()
-        messages.info(
+        messages.success(
             request,
             _("Harvest status successfully set to: {}").format(harvest.get_status_display())
         )
-    else:
-        messages.warning(request, _("You are not authorized to update this harvest status."))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 @login_required
 def property_create_orphans(request, id):
-    """Create Orphan harvest(s) for a given property."""
-
+    """
+    Create Orphan harvest(s) for a given property.
+    """
     property = get_object_or_404(Property, id=id)
 
     if not is_core_or_admin(request.user):

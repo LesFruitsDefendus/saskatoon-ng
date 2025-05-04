@@ -821,7 +821,7 @@ class HarvestYield(models.Model):
 
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
-               (self.total_in_lb, self.tree.fruit_name, self.recipient)
+               (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
 
 
 class Equipment(models.Model):

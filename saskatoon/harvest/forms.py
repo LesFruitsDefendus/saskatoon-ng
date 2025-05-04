@@ -530,20 +530,24 @@ class HarvestForm(forms.ModelForm):
                 _('Selected tree(s) <{}> not registered on the selected property.')
                 .format("; ".join(invalid_trees))
             )
+
         return selected_trees
 
     def clean_about(self):
         """Make sure announcement is filled before publishing"""
         status = self.cleaned_data['status']
+        about = self.cleaned_data['about']
         if status not in [
                 Harvest.Status.ORPHAN,
+                Harvest.Status.ADOPTED,
                 Harvest.Status.PENDING,
                 Harvest.Status.CANCELLED
-        ]:
-            if not self.cleaned_data['about']:
-                raise forms.ValidationError(
-                    _('Please fill in the public announcement to be published on the calendar.')
-                )
+        ] and not about:
+            raise forms.ValidationError(
+                _('Please fill in the public announcement to be published on the calendar.')
+            )
+
+        return about
 
     def clean(self):
         """Make sure pick_leader and status fields are compatible"""
