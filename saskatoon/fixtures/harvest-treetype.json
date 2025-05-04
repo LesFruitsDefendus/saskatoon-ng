@@ -87,7 +87,7 @@
   "model": "harvest.treetype",
   "pk": 7,
   "fields": {
-    "name_en": "Gooseberry tree",
+    "name_en": "Redcurrant",
     "name_fr": "Groseillier",
     "fruit_name_en": "Gooseberries",
     "fruit_name_fr": "Groseilles",
@@ -102,9 +102,9 @@
   "pk": 8,
   "fields": {
     "name_en": "Blackberry tree",
-    "name_fr": "Mûrier",
+    "name_fr": "Mûrier sauvage",
     "fruit_name_en": "Blackberries",
-    "fruit_name_fr": "Mûres",
+    "fruit_name_fr": "Mûres sauvages",
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
@@ -217,7 +217,7 @@
     "name_fr": "Pommier jaune",
     "fruit_name_en": "Yellow apples",
     "fruit_name_fr": "Pommes jaunes",
-    "fruit_icon": null,
+    "fruit_icon": "🟡",
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
     "image": "fruits_images/220px-Golden_delicious_apple.jpg"
@@ -231,7 +231,7 @@
     "name_fr": "Pommettier",
     "fruit_name_en": "Crabapples",
     "fruit_name_fr": "Pommettes",
-    "fruit_icon": "🟡",
+    "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
     "image": ""
@@ -242,9 +242,9 @@
   "pk": 18,
   "fields": {
     "name_en": "Purple plum tree",
-    "name_fr": "Prunier",
+    "name_fr": "Prunier mauve",
     "fruit_name_en": "Purple plums",
-    "fruit_name_fr": "Prunes",
+    "fruit_name_fr": "Prunes mauves",
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
@@ -258,7 +258,7 @@
     "name_en": "Green grapevine",
     "name_fr": "Vigne verte",
     "fruit_name_en": "Green grapes",
-    "fruit_name_fr": "Raisins verts",
+    "fruit_name_fr": "Raisin vert",
     "fruit_icon": "🍇",
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
@@ -354,9 +354,9 @@
   "pk": 26,
   "fields": {
     "name_en": "Mulberry tree",
-    "name_fr": "Mûrier blanc",
+    "name_fr": "Mûrier",
     "fruit_name_en": "Mulberries",
-    "fruit_name_fr": "Mûres blanches",
+    "fruit_name_fr": "Mûres",
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
@@ -370,7 +370,7 @@
     "name_en": "Red grapevine",
     "name_fr": "Vigne rouge",
     "fruit_name_en": "Red grapes",
-    "fruit_name_fr": "Raisins rouges",
+    "fruit_name_fr": "Raisin rouge",
     "fruit_icon": "🍇",
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
@@ -410,13 +410,41 @@
   "pk": 30,
   "fields": {
     "name_en": "Green plum tree",
-    "name_fr": "Prunier vert",
+    "name_fr": "Prunier Reine-Claude",
     "fruit_name_en": "Green plums",
-    "fruit_name_fr": "Prunes vertes",
+    "fruit_name_fr": "Prunes Reine-Claude",
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
     "image": "fruits_images/img018_OX0YSyP.jpg"
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 31,
+  "fields": {
+    "name_en": "Ginkgo biloba",
+    "name_fr": "Ginkgo biloba",
+    "fruit_name_en": "Ginkgo nuts",
+    "fruit_name_fr": "Noix de ginkgo",
+    "fruit_icon": null,
+    "maturity_start": "2025-05-01",
+    "maturity_end": "2025-10-01",
+    "image": null
+  }
+},
+{
+  "model": "harvest.treetype",
+  "pk": 32,
+  "fields": {
+    "name_en": "Goji bush",
+    "name_fr": "Vigne de goji",
+    "fruit_name_en": "Goji Berries",
+    "fruit_name_fr": "Baies de goji",
+    "fruit_icon": null,
+    "maturity_start": "2025-05-01",
+    "maturity_end": "2025-10-01",
+    "image": null
   }
 }
 ]

@@ -121,7 +121,7 @@ class Migration(migrations.Migration):
             name='date_updated',
             field=models.DateTimeField(auto_now=True, null=True, verbose_name='Updated on'),
         ),
-        migrations.AddField(
+        migrations.AlterField(
             model_name='comment',
             name='date_created',
             field=models.DateTimeField(auto_now_add=True, default=tz.now, verbose_name='Created on'),

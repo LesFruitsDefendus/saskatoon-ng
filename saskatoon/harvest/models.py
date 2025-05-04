@@ -49,7 +49,7 @@ class TreeType(models.Model):
 
     fruit_icon = models.CharField(
         verbose_name=_("Fruit icon"),
-        max_length=2,
+        max_length=50,
         blank=True,
         null=True,
     )

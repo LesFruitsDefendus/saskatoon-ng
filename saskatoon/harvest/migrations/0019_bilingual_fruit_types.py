@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='treetype',
             name='fruit_icon',
-            field=models.CharField(blank=True, max_length=2, null=True, verbose_name='Fruit icon'),
+            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Fruit icon'),
         ),
         migrations.AlterField(
             model_name='treetype',
