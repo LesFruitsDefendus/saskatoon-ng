@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
@@ -30,3 +30,9 @@ def local_datetime(dt: Optional[datetime]) -> Optional[datetime]:
     if dt is None:
         return None
     return dt.astimezone(timezone.get_current_timezone())
+
+
+def to_datetime(date: Optional[date]) -> Optional[datetime]:
+    if date is None:
+        return None
+    return local_datetime(datetime.combine(date, datetime.min.time()))

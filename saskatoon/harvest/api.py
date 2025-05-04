@@ -4,7 +4,7 @@ from django.db.models import Sum
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.translation import ugettext_lazy as _
 from django.urls import reverse_lazy
-from rest_framework import viewsets, generics
+from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 from typing import Dict
@@ -102,7 +102,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
         self.serializer_class = PropertyListSerializer
-        response = super(PropertyViewset, self).list(request)
+        response = super().list(request)
         if renderer_format_needs_json_response(request):
             return response
         return Response(
@@ -121,6 +121,17 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
                     }
             }
         )
+
+    def partial_update(self, request, pk=None):
+        property = self.get_object()
+        response = super().partial_update(request, pk)
+        if response.status_code == status.HTTP_200_OK:
+            if not property.authorized and request.data.get('authorized'):
+                messages.info(request, _("Property successfully authorized!"))
+        else:
+            messages.error(request, _("Something went wrong"))
+
+        return response
 
 
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):

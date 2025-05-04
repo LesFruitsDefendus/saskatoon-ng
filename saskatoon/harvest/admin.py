@@ -63,8 +63,7 @@ class HarvestAdmin(admin.ModelAdmin):
                 h.save()
                 num_cancelled += 1
 
-        messages.add_message(request, messages.SUCCESS,
-                             f"Successfully cancelled {num_cancelled} harvest(s)")
+        messages.info(request, f"Successfully cancelled {num_cancelled} harvest(s)")
 
     actions = [cancel_harvests]
 
@@ -176,8 +175,7 @@ class PropertyAdmin(admin.ModelAdmin):
     def reset_authorize(self, request, queryset):
         """Set authorized=None to queryset"""
         queryset.update(**{'authorized': None})
-        messages.add_message(request, messages.SUCCESS,
-                             "Successfully reset authorizations for this season")
+        messages.info(request, "Successfully reset authorizations for this season")
 
     @admin.action(description="Create missing auth users using pending or comments email")
     def create_owner_user(self, request, queryset):
@@ -204,8 +202,7 @@ class PropertyAdmin(admin.ModelAdmin):
             except Exception as e:
                 messages.add_message(request, messages.ERROR, e)
 
-        messages.add_message(request, messages.SUCCESS,
-                             f"Successfully created {nb_users} new users!")
+        messages.info(request, f"Successfully created {nb_users} new users!")
 
     actions = [reset_authorize, create_owner_user]
 
@@ -217,7 +214,23 @@ class PropertyAdmin(admin.ModelAdmin):
         return queryset
 
 
-admin.site.register(TreeType)
+@admin.register(TreeType)
+class TreeTypeAdmin(admin.ModelAdmin):
+    model = TreeType
+    list_display = (
+        'name',
+        'fruit',
+        'fruit_icon',
+        'maturity_start',
+        'maturity_end',
+        'id'
+    )
+    search_fields = (
+        'fruit_name_en',
+        'fruit_name_fr',
+    )
+
+
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
 admin.site.register(Comment)

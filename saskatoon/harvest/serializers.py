@@ -59,9 +59,32 @@ class OwnerTypeSerializer(serializers.ModelSerializer):
 class PropertyHarvestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Harvest
-        fields = ['id', 'status', 'start_date', 'pick_leader']
+        fields = [
+            'id',
+            'status',
+            'status_display',
+            'start_date',
+            'start_time',
+            'end_date',
+            'pick_leader',
+            'trees',
+        ]
 
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = serializers.SerializerMethodField()
+    trees = TreeTypeSerializer(many=True, read_only=True)
+    start_date = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%Y-%m-%d"
+    )
+    start_time = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%-I:%M %p"
+    )
+    end_date = serializers.DateTimeField(
+        source='get_local_end',
+        format=r"%Y-%m-%d"
+    )
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader:
@@ -87,6 +110,7 @@ class PropertySerializer(serializers.ModelSerializer):
     pending_contact_name = serializers.ReadOnlyField()
     owner_type = serializers.SerializerMethodField()
     similar_properties = serializers.SerializerMethodField()
+    needs_orphan = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -113,7 +137,13 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = ['name', 'fruit_name']  # type: ignore
+        fields = [  # type: ignore
+            'name_en',
+            'name_fr',
+            'fruit_name_en',
+            'fruit_name_fr',
+            'fruit_icon',
+        ]
 
 
 class PropertyListSerializer(PropertySerializer):
@@ -189,6 +219,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         format=r"%-I:%M %p"
     )
     status = serializers.StringRelatedField(many=False)
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
@@ -218,12 +249,6 @@ class HarvestSerializer(serializers.ModelSerializer):
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
-
-
-class HarvestTreeTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TreeType
-        fields = ['id', 'name', 'fruit_name']
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -258,18 +283,14 @@ class HarvestDetailSerializer(HarvestSerializer):
             'changed_by'
         ]
 
-    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     property = HarvestDetailPropertySerializer(many=False, read_only=True)
     comments = CommentSerializer(many=True, read_only=True)
     about = serializers.SerializerMethodField()
-    status_display = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()
 
     def get_about(self, obj):
         return obj.about.html
-
-    def get_status_display(self, obj):
-        return obj.get_status_display()
 
     def get_status_choices(self, obj):
         return Harvest.Status.choices
@@ -296,14 +317,16 @@ class HarvestListSerializer(HarvestSerializer):
             'start_time',
             'end_time',
             'status',
+            'status_display',
             'pick_leader',
             'trees',
             'property',
             'volunteers'
         ]
 
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     property = HarvestListPropertySerializer(many=False, read_only=True)
-    trees = HarvestTreeTypeSerializer(many=True, read_only=True)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):

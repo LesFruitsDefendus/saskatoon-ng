@@ -21,7 +21,10 @@
         {
             "id": 4,
             "status": "scheduled",
-            "start_date": "2021-08-01T09:00:00-04:00",
+            "status_display": "Scheduled",
+            "start_date": "2021-08-01",
+            "start_time": "9:00 AM",
+            "end_date": "2021-08-01",
             "pick_leader": {
                 "actor_id": 5,
                 "roles": [
@@ -43,12 +46,28 @@
                     }
                 ],
                 "properties": []
-            }
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
         },
         {
             "id": 2,
             "status": "ready",
-            "start_date": "2021-07-24T15:00:00-04:00",
+            "status_display": "Ready",
+            "start_date": "2021-07-24",
+            "start_time": "3:00 PM",
+            "end_date": "2021-07-24",
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
@@ -72,12 +91,28 @@
                 ],
                 "organizations_as_contact": [],
                 "properties": []
-            }
+            },
+            "trees": [
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
         },
         {
             "id": 3,
             "status": "cancelled",
-            "start_date": "2021-07-22T17:00:00-04:00",
+            "status_display": "Cancelled",
+            "start_date": "2021-07-22",
+            "start_time": "5:00 PM",
+            "end_date": "2021-07-22",
             "pick_leader": {
                 "actor_id": 5,
                 "roles": [
@@ -99,12 +134,28 @@
                     }
                 ],
                 "properties": []
-            }
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
         },
         {
             "id": 1,
             "status": "succeeded",
-            "start_date": "2021-07-19T16:00:00-04:00",
+            "status_display": "Succeeded",
+            "start_date": "2021-07-19",
+            "start_time": "4:00 PM",
+            "end_date": "2021-07-19",
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
@@ -128,25 +179,57 @@
                 ],
                 "organizations_as_contact": [],
                 "properties": []
-            }
+            },
+            "trees": [
+                {
+                    "id": 14,
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                },
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
         }
     ],
     "last_succeeded_harvest_date": "2021-07-19T20:00:00Z",
     "address": "123 av. Mont-Royal, apt. 4",
     "trees": [
         {
-            "id": 9,
-            "name": "Noyer",
-            "image": null,
-            "fruit_name": "Noix de Grenoble",
-            "season_start": "9999-09-01"
+            "id": 14,
+            "name_en": "Green apple tree",
+            "name_fr": "Pommier vert",
+            "fruit_name_en": "Green apples",
+            "fruit_name_fr": "Pommes vertes",
+            "fruit_icon": "🍏",
+            "maturity_start": "2025-05-01",
+            "maturity_end": "2025-10-01",
+            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
         },
         {
-            "id": 14,
-            "name": "Pommier vert",
-            "image": "http://testserver/media/fruits_images/Granny_smith.jpg",
-            "fruit_name": "Pomme verte",
-            "season_start": "9999-08-15"
+            "id": 9,
+            "name_en": "Walnut tree",
+            "name_fr": "Noyer",
+            "fruit_name_en": "Walnuts",
+            "fruit_name_fr": "Noix de Grenoble",
+            "fruit_icon": "🥜",
+            "maturity_start": "2025-05-01",
+            "maturity_end": "2025-10-01",
+            "image": null
         }
     ],
     "owner": {
@@ -167,6 +250,7 @@
         "is_organization": false
     },
     "similar_properties": [],
+    "needs_orphan": true,
     "is_active": true,
     "authorized": true,
     "pending": false,

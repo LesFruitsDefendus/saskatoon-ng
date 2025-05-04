@@ -12,7 +12,7 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Any, Optional, Tuple
 
-from sitebase.utils import local_datetime
+from sitebase.utils import local_datetime, to_datetime
 
 
 class TreeType(models.Model):
@@ -21,33 +21,94 @@ class TreeType(models.Model):
     class Meta:
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
-        ordering = ["name"]
+        ordering = ["name_en"]
 
-    name = models.CharField(
-        verbose_name=_("Name"),
+    name_en = models.CharField(
+        verbose_name=_("Tree name (en)"),
         max_length=20,
-        default=''
+        default=""
+    )
+
+    name_fr = models.CharField(
+        verbose_name=_("Nom de l'arbre (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_en = models.CharField(
+        verbose_name=_("Fruit name (en)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_name_fr = models.CharField(
+        verbose_name=_("Nom du fruit (fr)"),
+        max_length=20,
+        default=""
+    )
+
+    fruit_icon = models.CharField(
+        verbose_name=_("Fruit icon"),
+        max_length=2,
+        blank=True,
+        null=True,
+    )
+
+    maturity_start = models.DateField(
+        verbose_name=_("Maturity start date"),
+        blank=True,
+        null=True
+    )
+
+    maturity_end = models.DateField(
+        verbose_name=_("Maturity end date"),
+        blank=True,
+        null=True
     )
 
     image = models.ImageField(
         upload_to='fruits_images',
         verbose_name=_("Fruit image"),
-        null=True
-    )
-
-    fruit_name = models.CharField(
-        verbose_name=_("Fruit name"),
-        max_length=20
-    )
-
-    season_start = models.DateField(
-        verbose_name=_("Season start date"),
         blank=True,
         null=True
     )
 
+    def get_name(self, lang='en'):
+        return getattr(self, "name_{}".format(lang))
+
+    def get_fruit_name(self, lang='en'):
+        return getattr(self, "fruit_name_{}".format(lang))
+
+    @property
+    def fruit(self):
+        return "{} / {}".format(self.fruit_name_fr, self.fruit_name_en)
+
+    @property
+    def name(self):
+        return "{} / {}".format(self.name_fr, self.name_en)
+
     def __str__(self):
         return self.name
+
+
+@receiver(pre_save, sender=TreeType)
+def update_orphan_harvests(sender, instance, **kwargs):
+    try:
+        original = TreeType.objects.get(id=instance.id)
+
+        if (original.maturity_start != instance.maturity_start or
+                original.maturity_end != instance.maturity_end):
+
+            Harvest.objects.filter(
+                status=Harvest.Status.ORPHAN,
+                start_date__year=tz.now().date().year,
+                trees=instance,
+            ).update(
+                start_date=to_datetime(instance.maturity_start),
+                end_date=to_datetime(instance.maturity_end)
+            )
+    except TreeType.DoesNotExist:
+        pass
 
 
 class EquipmentType(models.Model):
@@ -81,6 +142,7 @@ class Property(models.Model):
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
+        ordering = ['-id',]
 
     owner = models.ForeignKey(
         'member.Actor',
@@ -384,10 +446,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         return u"(%s %s)" % (self.pending_contact_first_name,
                              self.pending_contact_family_name)
 
-    def __str__(self):
-        number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
-
     @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
@@ -400,6 +458,17 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         elif self.pending_contact_family_name:
             return self.pending_contact_family_name
         return ""
+
+    @property
+    def needs_orphan(self):
+        if not self.authorized or self.pending:
+            return False
+        return self.trees.count() > \
+            self.harvests.filter(start_date__year=tz.now().date().year).count()
+
+    def __str__(self):
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):
@@ -414,7 +483,7 @@ class Harvest(models.Model):
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
         PENDING = 'pending', _("To be confirmed")
-        SCHEDULED = 'scheduled', _("Date scheduled")
+        SCHEDULED = 'scheduled', _("Scheduled")
         READY = 'ready', _("Ready")
         SUCCEEDED = 'succeeded', _("Succeeded")
         CANCELLED = 'cancelled', _("Cancelled")
@@ -505,8 +574,7 @@ class Harvest(models.Model):
     about = QuillField(
         verbose_name=_("Public announcement"),
         max_length=1000,
-        help_text=_("If any help is needed from volunteer pickers, "
-                    "please describe them here."),
+        help_text=_("Published on public facing calendar"),
         null=True,
         blank=True
     )
@@ -568,7 +636,7 @@ class Harvest(models.Model):
         return self.property.neighborhood.name
 
     def get_fruits(self):
-        return [t.fruit_name for t in self.trees.all()]
+        return [t.fruit for t in self.trees.all()]
 
     def get_public_title(self):
         title = ", ".join(self.get_fruits())
@@ -709,7 +777,6 @@ class RequestForParticipation(models.Model):
         self.__last_status = self.status
 
     def save(self, *args, **kwargs):
-
         if self.status != self.__last_status:
             self.__last_status = self.status
             self.date_status_updated = tz.now()
@@ -754,7 +821,7 @@ class HarvestYield(models.Model):
 
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
-               (self.total_in_lb, self.tree.fruit_name, self.recipient)
+               (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
 
 
 class Equipment(models.Model):

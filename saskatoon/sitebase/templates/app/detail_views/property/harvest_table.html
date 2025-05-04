@@ -7,31 +7,36 @@
                 <div class="data-table-list">
                     <div class="table-responsive">
                         <h4> {% trans Harvests %}
-                            {% if perms.harvest.add_harvest and authorized %}
-                                &nbsp;
+                            {% if perms.harvest.add_harvest and authorized and not pending %}
                                 <a href="{% url 'harvest-create' %}?pid={{ id }}">
-                                    <button title="New harvest"
-                                            class="btn btn-success notika-btn-success waves-effect">
+                                    <button title="New harvest" class="btn btn-success notika-btn-success waves-effect">
                                         <i class="fa fa-plus"></i>
                                         {% trans "New Harvest" %}
                                     </button>
-                                    <!-- </div> -->
                                 </a>
+                                {% if needs_orphan %}
+                                    <a href="{% url 'property-create-orphans' id %}">
+                                        <button title="Create Orphan Harvest(s)"
+                                                class="btn btn-warning notika-btn-warning">
+                                            <i class="fa fa-plus"></i>
+                                            {% trans "Create Orphan(s)" %}
+                                        </button>
+                                    </a>
+                                {% endif %}
                             {% endif %}
                         </h4>
                         <table class="table table-striped" id="data-table-basic">
                             <thead>
                             <tr>
-                                <th style="width: 20%">{% trans "Harvest" %}</th>
-                                <th style="width: 12%">{% trans "Pickleader" %}</th>
-                                <th style="width: 12%">{% trans "Status" %}</th>
-                                <th style="width: 20%">{% trans "Date" %}</th>
+                                <th class="col-xs-2">{% trans "Harvest" %}</th>
+                                <th class="col-xs-2">{% trans "Tree(s)" %}</th>
+                                <th class="col-xs-2">{% trans "Pickleader" %}</th>
+                                <th class="col-xs-2">{% trans "Status" %}</th>
+                                <th class="col-xs-2">{% trans "Date" %}</th>
                             </tr>
                             </thead>
                             {% for harvest in harvests %}
-
                                 {% include 'app/detail_views/property/harvest_row.html' %}
-
                             {% endfor %}
                         </table>
                     </div>

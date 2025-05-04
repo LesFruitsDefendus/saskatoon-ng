@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
+
+{% get_current_language as LANG %}
 <div class="breadcomb-area">
     <div class="container">
         <div class="row">
@@ -14,7 +15,11 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>#{{ id }}:
-                                        {% for tree in trees %} {{ tree.name }} {{ tree.fruit_name|get_fruit_name_icon }}, {% endfor %}
+                                        {% if LANG == "en" %}
+                                            {% for t in trees %} {{ t.name_en }} {{ t.fruit_icon }}, {% endfor %}
+                                        {% else %}
+                                            {% for t in trees %} {{ t.name_fr }} {{ t.fruit_icon }}, {% endfor %}
+                                        {% endif %}
                                         {{ property.address }},
                                         {{ property.neighborhood }}
                                     </h1>

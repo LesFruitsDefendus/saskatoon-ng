@@ -12,16 +12,19 @@
             "start_time": "9:00 AM",
             "end_time": "12:00 PM",
             "status": "scheduled",
+            "status_display": "Scheduled",
             "pick_leader": {
-                "email": "core@member.com",
                 "id": 4,
-                "name": "Core Member"
+                "name": "Core Member",
+                "email": "core@member.com"
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name": "Abricotier",
-                    "fruit_name": "Abricot"
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
                 }
             ],
             "property": {
@@ -44,16 +47,19 @@
             "start_time": "3:00 PM",
             "end_time": "6:00 PM",
             "status": "ready",
+            "status_display": "Ready",
             "pick_leader": {
-                "email": "pick@leader.com",
                 "id": 2,
-                "name": "Pick Leader"
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
             },
             "trees": [
                 {
-                    "id": 9,
-                    "name": "Noyer",
-                    "fruit_name": "Noix de Grenoble"
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
                 }
             ],
             "property": {
@@ -76,16 +82,19 @@
             "start_time": "5:00 PM",
             "end_time": "6:00 PM",
             "status": "cancelled",
+            "status_display": "Cancelled",
             "pick_leader": {
-                "email": "core@member.com",
                 "id": 4,
-                "name": "Core Member"
+                "name": "Core Member",
+                "email": "core@member.com"
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name": "Abricotier",
-                    "fruit_name": "Abricot"
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
                 }
             ],
             "property": {
@@ -108,21 +117,26 @@
             "start_time": "4:00 PM",
             "end_time": "7:00 PM",
             "status": "succeeded",
+            "status_display": "Succeeded",
             "pick_leader": {
-                "email": "pick@leader.com",
                 "id": 2,
-                "name": "Pick Leader"
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
             },
             "trees": [
                 {
-                    "id": 9,
-                    "name": "Noyer",
-                    "fruit_name": "Noix de Grenoble"
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏"
                 },
                 {
-                    "id": 14,
-                    "name": "Pommier vert",
-                    "fruit_name": "Pomme verte"
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
                 }
             ],
             "property": {
