@@ -127,7 +127,7 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
 
 
 class NeighborhoodAutocomplete(autocomplete.Select2QuerySetView):
-    """Neighborhoods"""
+    """Neighborhoods (aka Boroughs)"""
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:

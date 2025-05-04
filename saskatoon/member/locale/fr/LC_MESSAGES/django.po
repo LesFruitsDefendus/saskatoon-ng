@@ -152,7 +152,7 @@ msgid "Postal code"
 msgstr "Code postal"
 
 #: member/models.py:189 member/models.py:383
-msgid "Neighborhood"
+msgid "Borough"
 msgstr "Voisinage"
 
 #: member/models.py:197 member/models.py:390

@@ -273,7 +273,7 @@ class Person(Actor):
 
     neighborhood = models.ForeignKey(
         'Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -483,7 +483,7 @@ is currenlty made available'
 
     neighborhood = models.ForeignKey(
         'Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         on_delete=models.CASCADE,
     )
@@ -584,11 +584,11 @@ is currenlty made available'
 
 
 class Neighborhood(models.Model):
-    """Neighborhood model"""
+    """Borough model"""
 
     class Meta:
-        verbose_name = _("neighborhood")
-        verbose_name_plural = _("neighborhoods")
+        verbose_name = _("borough")
+        verbose_name_plural = _("boroughs")
         ordering = ["name"]
 
     name = models.CharField(

@@ -689,8 +689,8 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/harvest/view.html:12
 #: sitebase/templates/app/list_views/property/view.html:11
 #: sitebase/templates/app/participation_list.html:21
-msgid "Neighborhood"
-msgstr "Quartier"
+msgid "Borough"
+msgstr "Arrondissement"
 
 #: sitebase/templates/app/errors/400.html:9
 msgid "400 Bad Request"
@@ -1022,9 +1022,9 @@ msgstr ""
 
 #: sitebase/templates/app/stats.html:160
 #, fuzzy
-#| msgid "Neighborhood"
-msgid "Total per Neighborhood"
-msgstr "Quartier"
+#| msgid "Borough"
+msgid "Total per Borough"
+msgstr "Arrondissement"
 
 #: sitebase/templates/app/stats.html:199
 #, fuzzy
