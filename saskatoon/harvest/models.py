@@ -12,7 +12,7 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Any, Optional, Tuple
 
-from sitebase.utils import local_datetime
+from sitebase.utils import local_datetime, to_datetime
 
 
 class TreeType(models.Model):
@@ -47,6 +47,13 @@ class TreeType(models.Model):
         default=""
     )
 
+    fruit_icon = models.CharField(
+        verbose_name=_("Fruit icon"),
+        max_length=2,
+        blank=True,
+        null=True,
+    )
+
     maturity_start = models.DateField(
         verbose_name=_("Maturity start date"),
         blank=True,
@@ -62,36 +69,45 @@ class TreeType(models.Model):
     image = models.ImageField(
         upload_to='fruits_images',
         verbose_name=_("Fruit image"),
+        blank=True,
         null=True
     )
 
     def get_name(self, lang='en'):
-        print("EN", self.name_en, "FR: ", self.name_fr)
         return getattr(self, "name_{}".format(lang))
 
     def get_fruit_name(self, lang='en'):
         return getattr(self, "fruit_name_{}".format(lang))
 
-    def __str__(self):
+    @property
+    def fruit(self):
+        return "{} / {}".format(self.fruit_name_fr, self.fruit_name_en)
+
+    @property
+    def name(self):
         return "{} / {}".format(self.name_fr, self.name_en)
+
+    def __str__(self):
         return self.name
 
 
-#TODO
 @receiver(pre_save, sender=TreeType)
 def update_orphan_harvests(sender, instance, **kwargs):
-    if instance.id:
-        original = sender.objects.get(id=instance.id)
+    try:
+        original = TreeType.objects.get(id=instance.id)
 
         if (original.maturity_start != instance.maturity_start or
                 original.maturity_end != instance.maturity_end):
 
-            orphans = Harvest.objects.filter(
+            Harvest.objects.filter(
                 status=Harvest.Status.ORPHAN,
-                trees__in=instance,  # TODO test this
+                trees=instance,
+            ).update(
+                start_date=to_datetime(instance.maturity_start),
+                end_date=to_datetime(instance.maturity_end)
             )
-
-            print(len(orphans), "ORPHANS for ", instance.name_en, orphans)
+    except TreeType.DoesNotExist:
+        pass
 
 
 class EquipmentType(models.Model):
@@ -429,10 +445,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         return u"(%s %s)" % (self.pending_contact_first_name,
                              self.pending_contact_family_name)
 
-    def __str__(self):
-        number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
-
     @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
@@ -445,6 +457,17 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         elif self.pending_contact_family_name:
             return self.pending_contact_family_name
         return ""
+
+    @property
+    def needs_orphan(self):
+        if not self.authorized or self.pending:
+            return False
+        return self.trees.count() > \
+            self.harvests.filter(start_date__year=tz.now().date().year).count()
+
+    def __str__(self):
+        number = self.street_number if self.street_number else ""
+        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Harvest(models.Model):
@@ -459,7 +482,7 @@ class Harvest(models.Model):
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
         PENDING = 'pending', _("To be confirmed")
-        SCHEDULED = 'scheduled', _("Date scheduled")
+        SCHEDULED = 'scheduled', _("Scheduled")
         READY = 'ready', _("Ready")
         SUCCEEDED = 'succeeded', _("Succeeded")
         CANCELLED = 'cancelled', _("Cancelled")
@@ -612,7 +635,7 @@ class Harvest(models.Model):
         return self.property.neighborhood.name
 
     def get_fruits(self):
-        return [t.fruit_name for t in self.trees.all()]
+        return [t.fruit for t in self.trees.all()]
 
     def get_public_title(self):
         title = ", ".join(self.get_fruits())

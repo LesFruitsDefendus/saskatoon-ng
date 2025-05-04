@@ -26,6 +26,10 @@ urlpatterns = [
          views.PropertyCreatePublicView.as_view(),
          name='property-create-public'),
 
+    path(r'property/<int:id>/create_orphans/',
+         views.property_create_orphans,
+         name='property-create-orphans'),
+
     # backward compatibility with saskatoon-og
     path(r'harvest/properties/create_pending/',
          RedirectView.as_view(url='/property/create_public/')),

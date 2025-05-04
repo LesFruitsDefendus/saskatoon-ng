@@ -6,7 +6,7 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="breadcomb-list">
                     <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
                             <div class="breadcomb-wp">
                                 <div class="breadcomb-icon">
                                     <i class="notika-icon notika-windows"></i>
@@ -34,12 +34,22 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <div class="breadcomb-report">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
+                            <div class="form-group" style="margin-top: 1em;">
                                 {% if perms.harvest.change_property %}
+                                    {% if not pending and not authorized %}
+                                        <button title="Authorize"
+                                            class="btn btn-success notika-btn-success"
+                                            onclick="authorizeProperty({{id}})">
+                                            {% trans "Authorize" %}
+                                        </button>
+                                        &nbsp;
+                                    {% endif %}
                                     <a href="{% url 'property-update' id %}">
-                                        <button title="Edit Property" class="btn">
-                                            {% trans "Edit Property" %}</button>
+                                        <button title="Edit Property"
+                                                class="btn btn-primary notika-btn-primary">
+                                            {% trans "Edit Property" %}
+                                        </button>
                                     </a>
                                 {% endif %}
                             </div>
@@ -50,3 +60,40 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    function getToken() {
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i in cookies) {
+                const matches = /csrftoken=(.*)/.exec(cookies[i])
+                if (matches?.length > 1) {
+                    return decodeURIComponent(matches[1]);
+                }
+            }
+        }
+
+        return null;
+    }
+
+    function authorizeProperty(pk) {
+        console.log("token" , getToken())
+        fetch(`/property/${pk}/`, {
+            method: 'PATCH',
+            headers: {
+                'Content-type': 'application/json; charset=UTF-8',
+                'Accept': 'application/json',
+                'X-CSRFToken': getToken()
+            },
+            body: '{"authorized": true}'
+        }).then((response) => {
+            if (response.status == 200) {
+                location.reload();
+            } else {
+                alert(response.status);
+            }
+        });
+
+    }
+</script>

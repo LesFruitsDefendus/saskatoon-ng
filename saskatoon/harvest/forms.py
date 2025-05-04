@@ -525,8 +525,9 @@ class HarvestForm(forms.ModelForm):
     def clean_trees(self):
         """Make sure selected trees are registered on property"""
         property = self.cleaned_data['property']
+        selected_trees = self.cleaned_data['trees']
         invalid_trees = []
-        for tree in self.cleaned_data['trees']:
+        for tree in selected_trees:
             if tree not in property.trees.all():
                 invalid_trees.append(f"{tree.name_fr} ({tree.name_en})")
         if invalid_trees:
@@ -534,6 +535,7 @@ class HarvestForm(forms.ModelForm):
                 _('Selected tree(s) <{}> not registered on the selected property.')
                 .format("; ".join(invalid_trees))
             )
+        return selected_trees
 
     def clean_about(self):
         """Make sure announcement is filled before publishing"""

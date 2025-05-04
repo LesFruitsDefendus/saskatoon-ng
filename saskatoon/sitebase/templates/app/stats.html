@@ -1,7 +1,6 @@
 {% extends 'app/base/view.html' %}
 {% load i18n %}
 {% load static %}
-{% load get_fruit_name_icon %}
 
 {% block content %}
 
@@ -141,7 +140,7 @@
                                     <tbody>
                                         {% for fruit_name,total_harvests, total_weight in total_fruit %}
                                             <tr role="row">
-                                                <td>{{fruit_name}} {{fruit_name|get_fruit_name_icon}}</td>
+                                                <td>{{fruit_name_en}} {{fruit_icon}}</td>
                                                 <td>{{total_harvests}}</td>
                                                 <td>{{total_weight}}</td>
                                             </tr>
