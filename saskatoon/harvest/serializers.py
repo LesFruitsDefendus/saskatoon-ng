@@ -292,8 +292,8 @@ class HarvestDetailSerializer(HarvestSerializer):
     def get_about(self, obj):
         return obj.about.html
 
-    def get_status_choices(self, obj):
-        return Harvest.Status.choices
+    def get_status_choices(self, _obj):
+        return Harvest.get_status_choices()
 
 
 class HarvestListPropertySerializer(PropertySerializer):

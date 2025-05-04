@@ -601,6 +601,12 @@ class Harvest(models.Model):
             )
         return _("Harvest for {}").format(self.property)
 
+    @staticmethod
+    def get_status_choices():
+        """Pending status is no longer used"""
+        return [s for s in Harvest.Status.choices
+                if s[0] != Harvest.Status.PENDING]
+
     def get_total_distribution(self):
         yields = HarvestYield.objects.filter(harvest=self)
         return sum([y.total_in_lb for y in yields])

@@ -49,7 +49,7 @@ class HarvestFilter(filters.FilterSet):
 
     status = filters.ChoiceFilter(
         label=_("Status"),
-        choices=list(Harvest.Status.choices)
+        choices=list(Harvest.get_status_choices())
     )
 
     pick_leader = filters.ModelChoiceFilter(
