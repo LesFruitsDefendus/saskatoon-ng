@@ -394,11 +394,13 @@ def notify_unselected_pickers(sender, instance, **kwargs):
 
     if instance.status == Harvest.Status.READY:
         for r in instance.requests.filter(status=RFP.Status.PENDING):
-            Email.objects.create(
+            if Email.objects.create(
                 recipient=r.person,
                 type=EmailType.UNSELECTED_PICKERS,
                 harvest=instance,
-            ).send()
+            ).send():
+                r.status = RFP.Status.DECLINED
+                r.save()
 
 
 @receiver(post_save, sender=RFP)
