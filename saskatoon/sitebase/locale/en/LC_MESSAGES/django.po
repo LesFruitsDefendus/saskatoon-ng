@@ -64,7 +64,7 @@ msgstr ""
 #: sitebase/templates/app/equipment_list.html:21
 #: sitebase/templates/app/harvest_list.html:75
 #: sitebase/templates/app/property_list.html:74
-msgid "Neighborhood"
+msgid "Borough"
 msgstr ""
 
 #: sitebase/templates/app/community_list.html:76

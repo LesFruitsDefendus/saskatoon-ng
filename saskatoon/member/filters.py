@@ -34,7 +34,7 @@ class CommunityFilter(filters.FilterSet):
     neighborhood = filters.ModelChoiceFilter(
         field_name='person__neighborhood',
         queryset=Neighborhood.objects.all(),
-        label=_("Neighborhood"),
+        label=_("Borough"),
     )
 
     language = filters.ChoiceFilter(
@@ -76,7 +76,7 @@ class OrganizationFilter(filters.FilterSet):
     )
 
     neighborhood = filters.ModelChoiceFilter(
-        label=_("Neighborhood"),
+        label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
@@ -108,7 +108,7 @@ class EquipmentPointFilter(filters.FilterSet):
     )
 
     neighborhood = filters.ModelChoiceFilter(
-        label=_("Neighborhood"),
+        label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )

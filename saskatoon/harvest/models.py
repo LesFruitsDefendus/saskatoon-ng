@@ -336,7 +336,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
     neighborhood = models.ForeignKey(
         'member.Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         on_delete=models.CASCADE,
     )

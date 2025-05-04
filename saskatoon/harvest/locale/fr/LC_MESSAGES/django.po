@@ -48,8 +48,8 @@ msgstr "Arbre"
 
 #: harvest/filters.py:59 harvest/filters.py:97 harvest/filters.py:149
 #: harvest/filters.py:189 harvest/models.py:280
-msgid "Neighborhood"
-msgstr "Quartier"
+msgid "Borough"
+msgstr "Arrondissement"
 
 #: harvest/filters.py:80
 #, fuzzy
