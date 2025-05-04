@@ -1342,25 +1342,31 @@ ul.tab-ctn-list li:last-child{
 /*----------------------------------------*/
 /*  19.  Alert CSS
 /*----------------------------------------*/
+
+.alert {
+    font-size:20px;
+    padding: 1.5em;
+	border-radius:8px;
+}
+
 .alert-list p{
 	font-size:14px;
 	color:#333;
 }
 .alert-list .alert-success, .alert-list .alert-info, .alert-list .alert-warning, .alert-list .alert-danger{
-	border-radius:3px;
 	color:#e7e0f9;
 }
 .alert-list .alert-success{
-	background:#4CAF50;
+	background:#dff0d8;
 }
 .alert-list .alert-info{
-	background:#2196F3;
+	background:#d9edf7;
 }
 .alert-list .alert-warning{
-	background:#FFC107;
+	background:#fcf8e3;;
 }
 .alert-list .alert-danger{
-	background:#F44336;
+	background:#f2dede;;
 }
 .alert-mg-b-0{
 	margin-bottom:0px;
