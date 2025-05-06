@@ -30,19 +30,26 @@
 	background-color: #fff;
 }
 .btn-info.notika-btn-info, .btn-info.info-icon-notika{
-	background-color: #00BCD4;
+	background-color: #d4c7f9;
 }
 .btn-primary.notika-btn-primary, .btn-primary.notika-gp-primary, .btn-primary.primary-icon-notika{
-	background-color: #2196F3;
+	background-color: #440bd4;
+}
+.open > .dropdown-toggle.btn-primary:hover,
+.open > .dropdown-toggle.btn-primary:focus {
+	background-color: #d4c7f9;
 }
 .btn-success.notika-btn-success, .btn-success.success-icon-notika{
-	background-color: #2A3F54;
+	background-color: #8BC34A;
 }
-.btn-warning.notika-btn-warning, .btn-warning.warning-icon-notika{
-	background-color: #FF9800;
+.btn-warning.notika-btn-warning,
+.btn-warning.notika-btn-warning a,
+.btn-warning.warning-icon-notika {
+    color: #fff;
+	background-color: #ff2079;
 }
 .btn-danger.notika-btn-danger, .btn-danger.danger-icon-notika{
-	background-color: #F44336 !important;
+	background-color: #850122 !important;
 }
 .btn-default.notika-btn-default:hover, .btn-info.notika-btn-info:hover, .btn-primary.notika-btn-primary:hover, .btn-success.notika-btn-success:hover, .btn-warning.notika-btn-warning:hover, .btn-danger.notika-btn-danger:hover, .btn-primary.primary-icon-notika:hover, .btn-info.info-icon-notika:hover, .btn-success.success-icon-notika:hover, .btn-warning.warning-icon-notika:hover, .btn-danger.danger-icon-notika:hover, .btn-teal.teal-icon-notika:hover, .btn-orange.orange-icon-notika:hover, .btn-cyan.cyan-icon-notika:hover, .btn-lightgreen.lightgreen-icon-notika:hover, .btn-lime.lime-icon-notika:hover, .btn-amber.amber-icon-notika:hover, .btn-gray.gray-icon-notika:hover, .btn-lightblue.lightblue-icon-notika:hover, .btn-deeporange.deeporange-icon-notika:hover{
 	background:none;
@@ -50,19 +57,27 @@
 	outline:none;
 }
 .btn-info.notika-btn-info:hover, .btn-info.info-icon-notika:hover{
-	background: #00BCD4;
+	background: #d4c7f9;
+    box-shadow: none
 }
 .btn-primary.notika-btn-primary:hover, .btn-primary.notika-gp-primary:hover, .btn-primary.primary-icon-notika:hover{
-	background: #2196F3;
+    color: #d4c7f9;
+	background: #440bd4;
+    box-shadow: none
 }
 .btn-success.notika-btn-success:hover, .btn-success.success-icon-notika:hover{
-	background: #2A3F54;
+	background: #8BC34A;
 }
-.btn-warning.notika-btn-warning:hover, .btn-warning.warning-icon-notika:hover{
-	background: #FF9800;
+.btn-warning.notika-btn-warning:hover,
+.btn-warning.warning-icon-notika:hover {
+        color: #d4c7f9;
+	    background: #ff2079;
+        box-shadow: none
 }
 .btn-danger.notika-btn-danger:hover, .btn-danger.danger-icon-notika:hover{
-	background: #F44336 !important;
+    color: #d4c7f9;
+	background: #850122 !important;
+    box-shadow: none
 }
 .btn-primary.notika-gp-primary, .btn-primary.notika-gp-default{
 	margin-right:0px;
@@ -90,10 +105,10 @@
 	font-size:14px;
 }
 .notika-btn-cyan, .btn-cyan.cyan-icon-notika{
-	background:#00BCD4;
+	background:#d4c7f9;
 }
 .btn-cyan.cyan-icon-notika:hover{
-	background:#00BCD4;
+	background:#d4c7f9;
 }
 .notika-btn-teal, .btn-teal.teal-icon-notika{
 	background:#009688;
@@ -120,7 +135,7 @@
 	background:#FF5722;
 }
 .notika-btn-red{
-	background:#F44336;
+	background:#850122;
 }
 .notika-btn-pink{
 	background:#E91E63;
@@ -132,7 +147,7 @@
 	background:#03A9F4;
 }
 .notika-btn-blue{
-	background:#2196F3;
+	background:#04005e;
 }
 .notika-btn-indigo{
 	background:#3F51B5;

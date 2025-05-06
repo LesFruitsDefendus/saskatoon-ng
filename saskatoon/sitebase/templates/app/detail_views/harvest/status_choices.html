@@ -1,0 +1,43 @@
+<div class="dropdown">
+    <button style="margin-bottom: -5px"
+        {% if status == "succeeded" %}
+            class="btn btn-success notika-btn-success dropdown-toggle"
+        {% elif status == "cancelled" %}
+            class="btn btn-danger notika-btn-danger dropdown-toggle"
+        {% elif status == "ready" %}
+            class="btn btn-primary notika-btn-primary dropdown-toggle"
+        {% else %}
+            class="btn btn-warning notika-btn-warning dropdown-toggle"
+        {% endif %}
+            type="button"
+            id="harvest-status-dropdown"
+            data-toggle="dropdown"
+    >
+        <p style="font-size: 1.2em; color:white;">
+            <strong>
+                {{ status_display }}
+                <span class="caret"></span>
+            </strong>
+        </p>
+    </button>
+    <ul
+        class="dropdown-menu"
+        role="menu"
+        aria-labelledby="menu1"
+    >
+        {% for choice in status_choices %}
+            <li role="presentation">
+                <a
+                href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
+                role="menuitem"
+                tabindex="-1"
+                >
+                {{ choice.1 }}
+            </a>
+            </li>
+            {% if not forloop.last %}
+                <li role="presentation" class="divider"></li>
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>

@@ -34,12 +34,12 @@
                         data-info="{{org.address | default:""}}"
                         data-title="{{org.civil_name}}"
                         data-description="{{org.description}}"
-                        href="#beneficiary-modal">
+                        href="#modal">
                     {{org.civil_name}}
                 </a>
                 {% if perms.member.change_actor %}
                 &nbsp;
-                <small><a href="{% url 'beneficiary-update' org.actor_id %}" title="edit">
+                <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
                         <i class="fa fa-pencil"></i>
                     </a></small>
                 {% endif %}
@@ -66,7 +66,7 @@
                         {% endif %}
                            data-title="{{org.civil_name}}"
                            data-description="{{org.equipment_description}}"
-                           href="#beneficiary-modal">
+                           href="#modal">
                         {% trans "info" %}
                     </a>
                 {% endwith %}

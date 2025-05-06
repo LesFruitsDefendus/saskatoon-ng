@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ master, develop ]
+    branches: [ main, dev ]
   pull_request:
-    branches: [ master, develop ]
+    branches: [ main, dev ]
 
 jobs:
   tests:
@@ -38,15 +38,15 @@ jobs:
         python --version
         python -c "print('\nENVIRONMENT VARIABLES\n=====================\n')"
         python -c "import os; [print(f'{k}={v}') for k, v in os.environ.items()]"
-    
+
     - name: Create env file
       run: |
         saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
-    
+
     - name: Install Saskatoon
       run: |
         pip install '.[test]'
-    
+
     - name: Apply migrations
       run: |
         saskatoon/manage.py migrate --skip-checks
@@ -59,14 +59,18 @@ jobs:
       run: |
         tox -e checks
 
+    - name: Run unit tests
+      run: |
+        tox -e unittests
+
     - name: Create test super user
       run: |
         python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
-    
+
     - name: Prepare Selenium
       # https://github.com/marketplace/actions/setup-chromedriver
       uses: nanasess/setup-chromedriver@master
-    
+
     - name: Start XVFB
       run: Xvfb :99 &
 

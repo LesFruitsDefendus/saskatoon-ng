@@ -1,11 +1,9 @@
-from django.conf.urls import include, url
+from django.conf.urls import url
 from django.contrib.auth import views as auth_views
-from django.contrib import admin
 from django.urls import path, re_path
 from sitebase import views
 
 urlpatterns = [
-
     url(r'^$',
         views.Index.as_view(),
         name='home'),
@@ -49,5 +47,4 @@ urlpatterns = [
     path('reset_password_complete/',
          auth_views.PasswordResetCompleteView.as_view(),
          name='password_reset_complete'),
-
 ]

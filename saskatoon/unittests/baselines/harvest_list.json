@@ -1,0 +1,157 @@
+{
+    "count": 4,
+    "next": null,
+    "previous": null,
+    "pages_count": 1,
+    "current_page_number": 1,
+    "items_per_page": 10,
+    "results": [
+        {
+            "id": 4,
+            "start_date": "Sun. Aug. 1, 2021",
+            "start_time": "9:00 AM",
+            "end_time": "12:00 PM",
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "pick_leader": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "trees": [
+                {
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            }
+        },
+        {
+            "id": 2,
+            "start_date": "Sat. Jul. 24, 2021",
+            "start_time": "3:00 PM",
+            "end_time": "6:00 PM",
+            "status": "ready",
+            "status_display": "Ready",
+            "pick_leader": {
+                "id": 2,
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
+            },
+            "trees": [
+                {
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 2,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            }
+        },
+        {
+            "id": 3,
+            "start_date": "Thu. Jul. 22, 2021",
+            "start_time": "5:00 PM",
+            "end_time": "6:00 PM",
+            "status": "cancelled",
+            "status_display": "Cancelled",
+            "pick_leader": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "trees": [
+                {
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            }
+        },
+        {
+            "id": 1,
+            "start_date": "Mon. Jul. 19, 2021",
+            "start_time": "4:00 PM",
+            "end_time": "7:00 PM",
+            "status": "succeeded",
+            "status_display": "Succeeded",
+            "pick_leader": {
+                "id": 2,
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
+            },
+            "trees": [
+                {
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏"
+                },
+                {
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 0,
+                "declined": 1,
+                "cancelled": 1,
+                "obsolete": 1
+            }
+        }
+    ]
+}

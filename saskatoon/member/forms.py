@@ -1,14 +1,13 @@
-# coding: utf-8
+from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.widgets import PasswordInput
-
-from dal import autocomplete
 from logging import getLogger
+
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization, AUTH_GROUPS
+from member.models import AuthUser, Person, Organization
 from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
@@ -33,7 +32,7 @@ class PersonCreateForm(forms.ModelForm):
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=True
     )
 
@@ -45,7 +44,7 @@ class PersonCreateForm(forms.ModelForm):
 
     def save(self):
         # create Person instance
-        instance = super(PersonCreateForm, self).save()
+        instance = super().save()
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(
@@ -76,7 +75,7 @@ class PersonUpdateForm(forms.ModelForm):
 
     roles = forms.MultipleChoiceField(
         widget=forms.CheckboxSelectMultiple,
-        choices=AUTH_GROUPS,
+        choices=AuthUser.GROUPS,
         required=False
     )
 
@@ -89,7 +88,7 @@ class PersonUpdateForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         request_user = kwargs.pop('request_user')
-        super(PersonUpdateForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
         self.auth_user = None
         if not request_user.has_perm('member.change_authuser'):
@@ -145,6 +144,7 @@ class OrganizationForm(forms.ModelForm):
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
         labels = {
             'is_beneficiary': _("Beneficiary organization"),
+            'is_equipment_point': _("Equipment point"),
             'contact_person_role': _("Contact Position/Role"),
         }
 
@@ -163,7 +163,7 @@ class OrganizationCreateForm(OrganizationForm):
     )
 
     create_new_person = forms.BooleanField(
-        label=_("&nbsp;Register new contact person"),
+        label=_("Register new contact person"),
         required=False
     )
 
@@ -201,7 +201,6 @@ class OrganizationCreateForm(OrganizationForm):
                     Person or create a new one and provide their personal information"))
         return data
 
-
     def save(self):
         # # create Organization instance
         instance = super(OrganizationCreateForm, self).save()
@@ -230,9 +229,28 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         super().__init__(user, *args, **kwargs)
 
         # replace widgets with placeholder values to fit Notika theme
-        self.fields['old_password'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'current-password', 'placeholder': 'Old password', 'autofocus': True })
-        self.fields['new_password1'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'New password'})
-        self.fields['new_password2'].widget = PasswordInput(attrs={'class': 'form-control', 'autocomplete': 'new-password', 'placeholder': 'Confirm password'})
+        self.fields['old_password'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'current-password',
+                'placeholder': 'Old password',
+                'autofocus': True
+            }
+        )
+        self.fields['new_password1'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'New password'
+            }
+        )
+        self.fields['new_password2'].widget = PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': 'Confirm password'
+            }
+        )
 
     def clean_new_password1(self):
         old_password = self.cleaned_data.get('old_password')

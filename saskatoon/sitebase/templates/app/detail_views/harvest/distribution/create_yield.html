@@ -11,14 +11,14 @@
     </tr>
     <tbody>
         <tr>
-        <form action="/yield/create/" method="post" validate>
+        <form action="{% url 'harvest-yield-create' %}" method="post" validate>
         {% csrf_token %}
-            <input type="hidden" id="harvest-id" name="harvest" value={{harvest.id}}>
+            <input type="hidden" id="harvest-id" name="harvest" value={{id}}>
             <td> {% include 'app/detail_views/harvest/distribution/recipient_select.html' %} </td>
             <td> {% include 'app/detail_views/harvest/distribution/tree_select.html' %} </td>
             <td> {% include 'app/detail_views/harvest/distribution/weight_input.html' %} </td>
             <td class="col-md-1 text-center">
-                <button type="submit" class="btn btn-success notika-btn-success waves-effect">
+                <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
                     <i class="fa fa-check"></i></button>
             </td>
         </form>

@@ -24,9 +24,8 @@ setup(
         "cryptography>=3.3.2",
         "Django>=3.0.14,<4.0.0",
         "django-geojson==3.0.0",
-        # "django-leaflet>=0.29.1",
         "django-rest-knox==4.1.0",
-        "djangorestframework>=3.11.0",
+        "djangorestframework>=3.11.0,<=3.15.1",
         "django-autocomplete-light>=3.8.2",
         "django-select2",
         "django-filter",
@@ -35,7 +34,7 @@ setup(
         "django-extensions",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
-        "Pillow==9.0.1",
+        "Pillow==9.3.0",
         "pycparser==2.20",
         "pytz==2020.1",
         "six==1.15.0",
@@ -49,6 +48,13 @@ setup(
         "django-quill-editor==0.1.40",
     ],
     extras_require      =   {
-        'test': ['pytest', 'selenium', 'pytest-django', 'invoke', 'tox']
+        'test': [
+            'invoke',
+            'flake8',
+            'pytest',
+            'pytest-django',
+            'selenium',
+            'tox'
+        ]
     },
 )

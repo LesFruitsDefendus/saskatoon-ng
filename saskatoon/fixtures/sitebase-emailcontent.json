@@ -1,0 +1,110 @@
+[
+{
+  "model": "sitebase.emailcontent",
+  "pk": 1,
+  "fields": {
+    "type": "closing",
+    "description": "Generic email closing",
+    "subject_en": "N.A.",
+    "subject_fr": "N.A.",
+    "body_en": "Thank you for supporting your community!\r\n\r\n\r\nLes Fruits défendus Montréal - Urban Fruit Harvest Collective\r\n\r\nemail: info@lesfruitsdefendus.org\r\nphone: 514-360-8566\r\nwww.lesfruitsdefendus.org",
+    "body_fr": "Merci de soutenir votre communauté!\r\n\r\n\r\nLes Fruits défendus Montréal - Collectif de cueillette de fruits urbains\r\n\r\ncourriel: info@lesfruitsdefendus.org\r\ntél: 514-360-8566\r\nwww.lesfruitsdefendus.org"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 2,
+  "fields": {
+    "type": "new_comment",
+    "description": "Sent to pickleader when a new comment is added",
+    "subject_en": "New Comment on Harvest {harvest_id}",
+    "subject_fr": "Commentaire sur la Récolte {harvest_id}",
+    "body_en": "{comment_author} left a comment in the harvest #{harvest_id} on {comment_date}:\r\n<< {comment_content} >>\r\n\r\nHarvest detail page: {harvest_url}",
+    "body_fr": "{comment_author} a laissé un commentaire dans la récolte #{harvest_id} le {comment_date}:\r\n<< {comment_content} >>\r\n\r\nDétails sur la récolte: {harvest_url}"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 3,
+  "fields": {
+    "type": "registration",
+    "description": "Pickleader Onboarding Registration",
+    "subject_en": "Registration",
+    "subject_fr": "Inscription",
+    "body_en": "You are receiving this email following your recent participation to the Pick-leader training organized by Les Fruits Défendus. You can now log into the harvest management platform using your email address and the temporary password provided below.\r\n\r\nLogin page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\r\nEmail address: {recipient_email}\r\nTemporary password: {password}",
+    "body_fr": "Vous recevez ce courriel suite à votre récente participation à la formation de chef.fe de cueillette organisée par Les Fruits Défendus. Vous pouvez désormais vous connecter sur la plateforme de gestion de récoltes en utilisant votre adresse courriel et le mot de passe temporaire fourni plus bas.\r\n\r\nPage de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\r\nAdresse électronique: {recipient_email}\r\nMot de passe temporaire: {password}"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 4,
+  "fields": {
+    "type": "password_reset",
+    "description": "Password reset notification",
+    "subject_en": "Password reset",
+    "subject_fr": "Réinitialisation du mot the passe",
+    "body_en": "Your password for the Saskatoon harvest management platform has been reset by an administrator from Les Fruits Défendus. Please log in using the temporary credentials provided below and follow the steps to update your new password.\r\n\r\nLogin page: https://saskatoon.lesfruitsdefendus.org/accounts/login/\r\nEmail address: {recipient_email}\r\nTemporary password: {password}",
+    "body_fr": "Votre mot de passe pour la plateforme de gestion de récoltes a été réinitialisé par un.e administrateur.ice des Fruits Défendus. Merci de vous connecter en utilisant les identifiants fournis plus bas et de suivre les instructions pour remettre à jour votre nouveau mot de passe.\r\n\r\nPage de connexion: https://saskatoon.lesfruitsdefendus.org/accounts/login/\r\nAdresse électronique: {recipient_email}\r\nMot de passe temporaire: {password}"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 5,
+  "fields": {
+    "type": "new_rfp",
+    "description": "Sent to pickleader when receiving a new volunteer request",
+    "subject_en": "New request for participation to harvest #{harvest_id}",
+    "subject_fr": "Nouvelle demande de participation pour la récolte #{harvest_id}",
+    "body_en": "{rfp_name} requested to participate in the harvest #{harvest_id} ({harvest_date} at {property_address}):\r\n\r\nVolunteer email: {rfp_email}\r\nNumber of pickers: {rfp_number_of_pickers}\r\nComment: {rfp_comment}\r\nHarvest details: {harvest_url}",
+    "body_fr": "{rfp_name} vous a envoyé une demande de participation pour la récolte #{harvest_id} ({harvest_date} au {property_address}):\r\n\r\nCourriel: {rfp_email}\r\nNombre de participants: {rfp_number_of_pickers}\r\nCommentaire: {rfp_comment}\r\nDétails de la récolte: {harvest_url}"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 6,
+  "fields": {
+    "type": "property_registered",
+    "description": "Registration confirmation sent to property owners",
+    "subject_en": "Tree subscription completed",
+    "subject_fr": "Inscription d'arbre complétée",
+    "body_en": "Your tree subscription at <{property_address}> has been validated by the Les Fruits Défendus team.\r\n\r\nDepending on our capacity, we may contact you to plan a harvest on your property this season.",
+    "body_fr": "Votre inscription d'abre au <{property_address}> a été validée par l'équipe des Fruits Défendus.\r\n\r\nDépendamment de notre capacité, nous vous contacterons pour organiser une récolte sur votre propriété au cours de la saison."
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 7,
+  "fields": {
+    "type": "selected_picker",
+    "description": "Sent to volunteer when request is accepted",
+    "subject_en": "Request for participation accepted",
+    "subject_fr": "Demande de participation acceptée",
+    "body_en": "Your request for participation to the following harvest as been accepted: {harvest_public}\r\n\r\nYour pick-leader {pickleader_name} will be contacting you soon to confirm the details.\r\n\r\nIf you have any concerns or questions, please contact them directly at: {pickleader_email}",
+    "body_fr": "Votre demande de participation pour la récolte suivante a été acceptée: {harvest_public}\r\n\r\nVotre chef.fe de cueuillette vous contactera prochainement pour confirmer les détails.\r\n\r\nSi vous avez des questions ou préoccupations, merci de bien vouloir contacter {pickleader_name} à {pickleader_email}"
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 8,
+  "fields": {
+    "type": "unselected_pickers",
+    "description": "Sent to all pending requesters when harvest is marked as Ready",
+    "subject_en": "Request for participation expired",
+    "subject_fr": "Demande de participation échue",
+    "body_en": "We are sorry but enough pickers have already been selected for the following harvest: {harvest_public}.\r\n\r\nYou may still be contacted by the pick-leader if some of them end up cancelling and we will do our best to prioritize your participation next time you submit a request (please make sure to re-use the same email address so we can identify you).",
+    "body_fr": "Nous sommes désolé.es mais suffisement de bénévoles ont déjà été selectionné.es pour la récolte suivante: {harvest_public}.\r\n\r\nIl se peut que nous vous contactions en cas de désistement et nous ferons notre possible pour prioriser votre demande la prochaine fois que vous soumetterez une requête (svp assurez vous de réutiliser la même addresse courriel)."
+  }
+},
+{
+  "model": "sitebase.emailcontent",
+  "pk": 9,
+  "fields": {
+    "type": "rejected_picker",
+    "description": "Sent to volunteer when request is rejected",
+    "subject_en": "Request for participation declined",
+    "subject_fr": "Demande de participation déclinée",
+    "body_en": "We are sorry but your request to participate to the harvest has been declined: <{harvest_public}>.\r\n\r\nYou may still be contacted by the pick-leader if some of them end up cancelling and we will do our best to prioritize your participation next time you submit a request (please make sure to re-use the same email address so we can identify you).",
+    "body_fr": "Nous sommes désolé.es mais votre demande de participation pour la récolte suivante n'a pas été acceptée: <{harvest_public}>.\r\n\r\nIl se peut que nous vous contactions en cas de désistement et nous ferons notre possible pour prioriser votre demande la prochaine fois que vous soumetterez une requête (svp assurez vous de réutiliser la même addresse courriel)."
+  }
+}
+]

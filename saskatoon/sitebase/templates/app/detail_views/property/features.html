@@ -9,9 +9,9 @@
     <div class="search-eg-table">
         <table class="table">
             <tbody>
-            {% if property.is_active %}
+            {% if is_active %}
 
-                {% if property.pending %}
+                {% if pending %}
                     <tr> <td class="text-right">
                             <b class="text-danger">
                                 {% trans "Pending validation" %}
@@ -19,7 +19,7 @@
                             <i class="notika-icon notika-close"></i>
                     </td></tr>
 
-                    {% if property.pending_recurring %}
+                    {% if pending_recurring %}
                         <tr><td class="text-right">
                             <b>
                                 {% trans "Has already been registered in the past" %}
@@ -41,14 +41,14 @@
                 {% endif %}
 
 
-                {% if property.authorized is None %}
+                {% if authorized is None %}
                     <tr><td class="text-right">
                         <b class="text-danger">
                             {% trans "Not yet authorized" %}
                         </b>
                         <i class="notika-icon notika-checked"></i>
                     </td></tr>
-                {% elif property.authorized %}
+                {% elif authorized %}
                     <tr><td class="text-right">
                         {% trans "Authorized for the current season" %}
                         <i class="notika-icon notika-checked"></i>
@@ -71,7 +71,7 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.harvest_every_year %}
+            {% if harvest_every_year %}
                 <tr><td class="text-right">
                     {% trans "Produces fruits every year" %}
                     <i class="notika-icon notika-checked"></i>
@@ -83,9 +83,9 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.avg_nb_required_pickers %}
+            {% if avg_nb_required_pickers %}
                 <tr><td class="text-right">
-                    {{ property.avg_nb_required_pickers }}
+                    {{ avg_nb_required_pickers }}
                     {% trans "picker(s) needed" %}
                     <i class="notika-icon notika-checked"></i>
                 </td></tr>
@@ -96,12 +96,12 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.ladder_available %}
+            {% if ladder_available %}
                 <tr><td class="text-right">
                     {% trans "Ladder available" %}
                     <i class="notika-icon notika-checked"></i>
                 </td></tr>
-                {% if property.ladder_available_for_outside_picks %}
+                {% if ladder_available_for_outside_picks %}
                     <tr><td class="text-right">
                         {% trans "Ladder available for outside picks" %}
                         <i class="notika-icon notika-checked"></i>
@@ -114,7 +114,7 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.public_access %}
+            {% if public_access %}
                 <tr><td class="text-right">
                     {% trans "Publicly accessible" %}
                     <i class="notika-icon notika-checked"></i>
@@ -126,7 +126,7 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.neighbor_access %}
+            {% if neighbor_access %}
                 <tr><td class="text-right">
                     {% trans "Access to neighbors terrain" %}
                     <i class="notika-icon notika-checked"></i>
@@ -138,7 +138,7 @@
                 </td></tr>
             {% endif %}
 
-            {% if property.compost_bin %}
+            {% if compost_bin %}
                 <tr><td class="text-right">
                     {% trans "Compost bin closeby" %}
                     <i class="notika-icon notika-checked"></i>

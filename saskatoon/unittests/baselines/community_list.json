@@ -1,0 +1,230 @@
+{
+    "count": 5,
+    "next": null,
+    "previous": null,
+    "pages_count": 1,
+    "current_page_number": 1,
+    "items_per_page": 10,
+    "results": [
+        {
+            "id": 6,
+            "person": {
+                "actor_id": 6,
+                "roles": [
+                    "Contact Person"
+                ],
+                "name": "Contact Person",
+                "email": "contact@person.com",
+                "phone": null,
+                "neighborhood": null,
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 8,
+                        "civil_name": "Deprecated Org."
+                    },
+                    {
+                        "pk": 7,
+                        "civil_name": "L'Orgue Bien Équipée"
+                    }
+                ],
+                "properties": []
+            },
+            "roles": [
+                "Contact Person"
+            ],
+            "role_codes": [
+                "contact"
+            ],
+            "date_joined": "2025-03-17",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "contact@person.com",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                5
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 5,
+            "person": {
+                "actor_id": 1,
+                "roles": [
+                    "Property Owner"
+                ],
+                "name": "Nice Owner",
+                "email": "nice@owner.com",
+                "phone": "(514) 666-1234",
+                "neighborhood": {
+                    "id": 19,
+                    "name": "Plateau-Mont-Royal"
+                },
+                "comments": "Passer par l'arrière ruelle",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 2,
+                        "civil_name": "Les Fruits Défendus"
+                    }
+                ],
+                "properties": [
+                    {
+                        "id": 3,
+                        "short_address": "123 av. Mont-Royal, apt. 4"
+                    }
+                ]
+            },
+            "roles": [
+                "Property Owner"
+            ],
+            "role_codes": [
+                "owner"
+            ],
+            "date_joined": "2021-06-15",
+            "password": "pbkdf2_sha256$260000$x6u0VuwTbimW0Or07AA0Pz$Y3O+P8b9QPZSvDDgTS/+KE9gJX6o1C+4PC5Zv3n9Oqg=",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "nice@owner.com",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 4,
+            "person": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "roles": [
+                "Core Member"
+            ],
+            "role_codes": [
+                "core"
+            ],
+            "date_joined": "2021-06-14",
+            "password": "pbkdf2_sha256$260000$XSSo62sasEikkh7QT6pmhP$0euWqhRjDM+odkonz31c62r3ozp5Nm2tB6UyB20d7PA=",
+            "last_login": "2021-09-19T20:08:21.765000-04:00",
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "core@member.com",
+            "is_active": true,
+            "is_staff": true,
+            "groups": [
+                1
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 3,
+            "person": {
+                "actor_id": 4,
+                "roles": [
+                    "Volunteer Picker"
+                ],
+                "name": "Volunteer Picker",
+                "email": "volunteer@picker.com",
+                "phone": "(438) 666-1234",
+                "neighborhood": null,
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "roles": [
+                "Volunteer Picker"
+            ],
+            "role_codes": [
+                "volunteer"
+            ],
+            "date_joined": "2021-05-31",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "volunteer@picker.com",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                4
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 2,
+            "person": {
+                "actor_id": 3,
+                "roles": [
+                    "Pick Leader"
+                ],
+                "name": "Pick Leader",
+                "email": "pick@leader.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 34,
+                    "name": "Autre"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "roles": [
+                "Pick Leader"
+            ],
+            "role_codes": [
+                "pickleader"
+            ],
+            "date_joined": "2021-05-26",
+            "password": "pbkdf2_sha256$260000$B4izrSL5cMDhpz76Ml8oAd$y+vALyJB3hKoOGYietAefzmZQMA0TSPrbGq4WLI7yvs=",
+            "last_login": "2021-06-15T17:26:05.253000-04:00",
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "pick@leader.com",
+            "is_active": true,
+            "is_staff": true,
+            "groups": [
+                3
+            ],
+            "user_permissions": []
+        }
+    ]
+}

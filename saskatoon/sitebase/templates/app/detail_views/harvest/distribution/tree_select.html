@@ -1,8 +1,11 @@
 {% load static %}
-{% load get_fruit_name_icon %}
 
 <select name="tree" id="tree-select" class="form-control">
-    {% for t in harvest.trees %}
-        <option value="{{ t.id }}">{{ t.name }} {{ t.fruit_name|get_fruit_name_icon }}</option>
+    {% for t in trees %}
+        {% if LANG == "en" %}
+            <option value="{{ t.id }}">{{ t.name_en }} {{ t.fruit_name_en }}</option>
+        {% else %}
+            <option value="{{ t.id }}">{{ t.name_fr }} {{ t.fruit_name_fr }}</option>
+        {% endif %}
     {% endfor %}
 </select>
