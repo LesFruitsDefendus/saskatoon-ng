@@ -115,9 +115,13 @@ WSGI_APPLICATION = 'saskatoon.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
+DB_ENGINE = os.getenv('SASKATOON_DB_ENGINE')
+DB_OPTIONS = {'charset': 'utf8mb4'} if DB_ENGINE == 'django.db.backends.mysql' else {}
+
 DATABASES = {
     'default': {
-        'ENGINE': os.getenv('SASKATOON_DB_ENGINE'),
+        'ENGINE': DB_ENGINE,
+        'OPTIONS': DB_OPTIONS,
         'NAME': os.getenv('SASKATOON_DB_NAME'),
         'USER': os.getenv('SASKATOON_DB_USER'),
         'PASSWORD': os.getenv('SASKATOON_DB_PASSWORD'),

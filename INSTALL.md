@@ -131,11 +131,9 @@ There are two methods for setting up a local database. SQLite can be used to get
     $ sudo mysql -u root -p
     > CREATE USER '<user>'@'localhost' IDENTIFIED BY '<password>';
     > SELECT user FROM mysql.user;   // show all users
-    > CREATE DATABASE saskatoon_dev;
+    > CREATE DATABASE saskatoon_dev CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
     > SHOW DATABASES;
     > GRANT ALL PRIVILEGES ON saskatoon_dev.* TO '<user>'@'localhost';
-    > ALTER DATABASE saskatoon_dev CHARACTER SET utf8;
-
     ```
 
     Example mysql configuration in `.env` file:
@@ -163,16 +161,6 @@ $ . venv/bin/activate
 ```
 (venv)$ python3 saskatoon/manage.py migrate --skip-checks
 ```
-
-In case you have an error similar to this one:
-```
-django.db.utils.OperationalError: (1071, 'Specified key was too long; max key length is 767 bytes')
-```
-then you need set your MySQL database to UTF-8:
-```
-ALTER DATABASE 'your_saskatoon_database' CHARACTER SET utf8;
-```
-See [Django doc: unicode data](https://docs.djangoproject.com/en/3.2/ref/unicode/) for more details.
 
 #### Create administrator account
 
@@ -237,39 +225,6 @@ $ mysql -u <user> -p <db_name> < dump_file.sql
 > ```
 > $ head -n 5 dump_file.sql
 > ```
-
-### Migrate from old generation
-
-To migrate MySQL database from old generation [Saskatoon](https://github.com/LesFruitsDefendus/saskatoon) project:
-
-1. create an empty database  and import .sql dump file
-    ```
-    $ mysql -u root -p
-    > CREATE DATABASE saskatoon_prod;
-    > exit;
-    $ mysql -u <user> -p saskatoon_prod < saskatoon_prod_dump.sql
-    ```
-
-2. comment out `auth` dependency in `saskatoon/member/migrations/0001_initial.py`:
-    ```
-    class Migration(migrations.Migration):
-    
-    initial = True
-    
-    dependencies = [
-        # ('auth', '0012_alter_user_first_name_max_length'),
-    ]
-    
-    operations = [
-    ...
-    ```
-
-3. run migrations
-    ```
-    (venv)$ python3 saskatoon/manage.py migrate
-    ```
-
-> NOTE: `auth` dependency in `saskatoon/member/migrations/0001_initial.py` is absolutely needed for migrating from a fresh database.
 
 ## Running tests
 
