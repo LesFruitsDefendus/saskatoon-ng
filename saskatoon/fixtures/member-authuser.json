@@ -7,6 +7,8 @@
     "last_login": "2021-06-15T21:26:05.253Z",
     "is_superuser": false,
     "person": 3,
+    "has_temporary_password": false,
+    "agreed_terms": false,
     "email": "pick@leader.com",
     "date_joined": "2021-05-26T21:26:41.699Z",
     "is_active": true,
@@ -25,6 +27,8 @@
     "last_login": null,
     "is_superuser": false,
     "person": 4,
+    "has_temporary_password": false,
+    "agreed_terms": false,
     "email": "volunteer@picker.com",
     "date_joined": "2021-05-31T13:38:14.213Z",
     "is_active": true,
@@ -43,6 +47,8 @@
     "last_login": "2021-09-20T00:08:21.765Z",
     "is_superuser": false,
     "person": 5,
+    "has_temporary_password": false,
+    "agreed_terms": false,
     "email": "core@member.com",
     "date_joined": "2021-06-14T18:16:06.369Z",
     "is_active": true,
@@ -61,12 +67,34 @@
     "last_login": null,
     "is_superuser": false,
     "person": 1,
+    "has_temporary_password": false,
+    "agreed_terms": false,
     "email": "nice@owner.com",
     "date_joined": "2021-06-15T22:10:28.308Z",
     "is_active": true,
     "is_staff": false,
     "groups": [
       2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 6,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 6,
+    "has_temporary_password": false,
+    "agreed_terms": false,
+    "email": "contact@person.com",
+    "date_joined": "2025-03-18T00:39:56.792Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [
+      5
     ],
     "user_permissions": []
   }

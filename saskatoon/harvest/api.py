@@ -1,114 +1,85 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.db.models import Sum
+from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.translation import ugettext_lazy as _
-from django.urls import reverse, reverse_lazy
-from rest_framework import viewsets, generics
+from django.urls import reverse_lazy
+from rest_framework import generics, status, viewsets
+from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
-from django_filters import rest_framework as filters
-from harvest.filters import (HarvestFilter, PropertyFilter, EquipmentFilter,
-                             OrganizationFilter, CommunityFilter)
-from harvest.forms import (RequestForm, RFPManageForm, CommentForm, HarvestYieldForm)
-from harvest.models import (HARVESTS_STATUS_CHOICES, Equipment, Harvest, HarvestYield, Property,
-                            RequestForParticipation, Comment, TreeType)
-from harvest.serializers import (HarvestListSerializer, HarvestSerializer, PropertyListSerializer, PropertySerializer, EquipmentSerializer,
-                                 CommunitySerializer, BeneficiarySerializer,
-                                 RequestForParticipationSerializer)
-from harvest.utils import get_similar_properties
-from member.models import AuthUser, Organization, Neighborhood, Person
-from member.permissions import IsCoreOrAdmin, IsPickLeaderOrCoreOrAdmin
-
-
-def get_filter_context(viewset):
-    ''' create filters dictionary for list views
-    @param {obj} viewset: rest_framework.viewsets.ModelViewSet subclass instance
-    @returns {dic} filters: filters template dictionary
-    '''
-    f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
-    dic = {'form': f.form}
-    if any(field in viewset.request.GET for field in set(f.get_fields())):
-        dic['reset'] = reverse(viewset.basename + '-list')
-    return dic
+from typing import Dict
+from harvest.filters import (
+    HarvestFilter,
+    PropertyFilter,
+    EquipmentFilter,
+)
+from harvest.models import (
+    Equipment,
+    Harvest,
+    HarvestYield,
+    Property,
+    RequestForParticipation as RFP,
+    TreeType
+)
+from harvest.serializers import (
+    HarvestListSerializer,
+    HarvestDetailSerializer,
+    PropertyListSerializer,
+    PropertySerializer,
+    EquipmentSerializer,
+    RequestForParticipationSerializer,
+)
+from member.models import Organization, Neighborhood, Person
+from member.permissions import (
+    IsCoreOrAdmin,
+    IsPickLeaderOrCoreOrAdmin,
+)
+from sitebase.utils import (
+    get_filter_context,
+    renderer_format_needs_json_response,
+)
 
 
 class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     """Harvest viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Harvest.objects.all().order_by('-id')
-    serializer_class = HarvestSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    queryset = Harvest.objects.all().order_by('-start_date')
+    serializer_class = HarvestDetailSerializer
+    template_name = 'app/detail_views/harvest/view.html'
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = HarvestFilter
-    filterset_fields = ('pick_leader',
-                        'owner_fruit',
-                        'nb_required_pickers',
-                        'property',
-                        'about',
-                        'status',
-                        'season')
-
-    # Harvest detail
-    def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/detail_views/harvest/view.html'
-        pk = self.get_object().pk
-        response = super(HarvestViewset, self).retrieve(request, pk=pk)
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        # FIXME: serialize all this
-
-        harvest = Harvest.objects.get(id=self.kwargs['pk'])
-        requests = RequestForParticipation.objects.filter(harvest=harvest)
-        distribution = HarvestYield.objects.filter(harvest=harvest)
-        comments = Comment.objects.filter(harvest=harvest).order_by('-created_date')
-        pickers = [r.picker for r in requests.filter(is_accepted=True)]
-        if harvest.pick_leader:
-          pickers.append(harvest.pick_leader.person)
-        organizations = Organization.objects.filter(is_beneficiary=True)
-        status_options = (
-            harvest_status_choice_tuple[0]
-            for harvest_status_choice_tuple
-            in HARVESTS_STATUS_CHOICES
-            if harvest_status_choice_tuple[0]
-            not in (harvest.status, "Adopted", "Orphan")
-        )
-
-        return Response({'harvest': response.data,
-                         'harvest_date': harvest.get_local_start().strftime("%a. %b. %-d, %Y"),
-                         'harvest_start': harvest.get_local_start().strftime("%-I:%M %p"),
-                         'harvest_end': harvest.get_local_end().strftime("%-I:%M %p"),
-                         'form_request': RequestForm(),
-                         'form_comment': CommentForm(),
-                         'form_manage_request': RFPManageForm(),
-                         'requests': requests,
-                         'distribution': distribution,
-                         'comments': comments,
-                         'property': harvest.property,
-                         'pickers': pickers,
-                         'organizations': organizations,
-                         'form_edit_recipient': HarvestYieldForm(),
-                         'status_options': status_options,
-                         'about': harvest.about.html,
-                        })
+    search_fields = [
+        'id',
+        'property__owner__person__family_name',
+        'property__owner__person__first_name',
+        'property__street',
+        'property__street_number',
+    ]
 
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
         self.serializer_class = HarvestListSerializer
-
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return Response(response.data)
-        # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('harvest-create'),
-                                 'title': _("New Harvest")
-                                 }
-                         })
 
-    def update(request, *args, **kwargs):
-        pass
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                "new": {
+                    "url": reverse_lazy("harvest-create"),
+                    "title": _("New Harvest"),
+                },
+            }
+        )
 
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -117,45 +88,50 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    template_name = 'app/detail_views/property/view.html'
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = PropertyFilter
-    filterset_fields = ('is_active',
-                        'authorized',
-                        'pending',
-                        'neighborhood',
-                        'trees',
-                        'ladder_available',
-                        'ladder_available_for_outside_picks')
+    search_fields = [
+        'id',
+        'owner__person__family_name',
+        'owner__person__first_name',
+        'street',
+        'street_number',
+    ]
 
-    # Property detail
-    def retrieve(self, request, format='html', pk=None):
-        self.template_name = 'app/detail_views/property/view.html'
-
-        pk = self.get_object().pk
-        response = super(PropertyViewset, self).retrieve(request, pk=pk)
-
-        if format == 'json':
-            return response
-
-        # default request format is html:
-        return Response({'property': response.data,
-                         'similar': get_similar_properties(self.get_object())
-                         })
-
-    # Properties list
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
         self.serializer_class = PropertyListSerializer
-        response = super(PropertyViewset, self).list(request)
-        if request.accepted_renderer.format == 'json':
+        response = super().list(request)
+        if renderer_format_needs_json_response(request):
             return response
-        # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('property-create'),
-                                 'title': _("New Property")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                'filter': get_filter_context(self),
+                'new': {
+                    'url': reverse_lazy('property-create'),
+                    'title': _("New Property")
+                    }
+            }
+        )
+
+    def partial_update(self, request, pk=None):
+        property = self.get_object()
+        response = super().partial_update(request, pk)
+        if response.status_code == status.HTTP_200_OK:
+            if not property.authorized and request.data.get('authorized'):
+                messages.info(request, _("Property successfully authorized!"))
+        else:
+            messages.error(request, _("Something went wrong"))
+
+        return response
 
 
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
@@ -164,83 +140,60 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Equipment.objects.all().order_by('-id')
     serializer_class = EquipmentSerializer
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentFilter
     template_name = 'app/list_views/equipment/view.html'
+    search_fields = [
+        'type__name_en',
+        'type__name_fr',
+        'description',
+    ]
 
     def list(self, request, *args, **kwargs):
         response = super(EquipmentViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        if renderer_format_needs_json_response(request):
             return response
-        # default request format is html:
-        return Response({'data': response.data,
-                         'new': {'url': reverse_lazy('equipment-create'),
-                                 'title': _("New Equipment"),
-                                 },
-                         'filter': get_filter_context(self)
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "new": {
+                    "url": reverse_lazy("equipment-create"),
+                    "title": _("New Equipment"),
+                },
+                "filter": get_filter_context(self),
+            }
+        )
 
 
-class RequestForParticipationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Request for participation viewset"""
+class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+    """Request For Participation viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = RequestForParticipation.objects.all().order_by('-id')
+    queryset = RFP.objects.all().order_by('-id')
     serializer_class = RequestForParticipationSerializer
     template_name = 'app/participation_list.html'
 
     def list(self, request, *args, **kwargs):
-        response = super(RequestForParticipationViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
+        response = super().list(request, *args, **kwargs)
+        if renderer_format_needs_json_response(request):
             return response
-        # default request format is html:
-        return Response({'data': response.data})
-
-
-class BeneficiaryViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Beneficiary viewset"""
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.all().order_by('-actor_id')
-    serializer_class = BeneficiarySerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = OrganizationFilter
-    template_name = 'app/list_views/beneficiary/view.html'
-
-    def list(self, request, *args, **kwargs):
-        response = super(BeneficiaryViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
-            return response
-        # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('beneficiary-create'),
-                                 'title': _("New Organization")
-                                 }
-                         })
-
-
-class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
-    """Community viewset"""
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-id')
-    serializer_class = CommunitySerializer
-    filter_backends = (filters.DjangoFilterBackend,)
-    filterset_class = CommunityFilter
-    template_name = 'app/list_views/community/view.html'
-
-    def list(self, request, *args, **kwargs):
-        response = super(CommunityViewset, self).list(request, *args, **kwargs)
-        if request.accepted_renderer.format == 'json':
-            return response
-        # default request format is html:
-        return Response({'data': response.data,
-                         'filter': get_filter_context(self),
-                         'new': {'url': reverse_lazy('person-create'),
-                                 'title': _("New Person")
-                                 }
-                         })
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+            }
+        )
 
 
 class StatsView(LoginRequiredMixin, generics.ListAPIView):
@@ -248,24 +201,28 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
 
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
-    queryset = Harvest.objects.filter(status="Succeeded")
-    filter_backends = (filters.DjangoFilterBackend,)
+    queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
+    filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')
 
     def list(self, request, format="html", *args, **kwargs) -> Response:
         """Returns statistics on harvests for all seasons or a specific season"""
-        season = self.request.query_params.get('season')
         self.harvest_queryset = self.filter_queryset(self.get_queryset())
-        self.harvest_yield_queryset = HarvestYield.objects.filter(harvest__in=self.harvest_queryset)
+        self.harvest_yield_queryset = \
+            HarvestYield.objects.filter(harvest__in=self.harvest_queryset)
 
         if not self.harvest_queryset:
-            messages.error(request, "No harvests were found.", "danger")
+            messages.error(
+                request,
+                _("No harvests found for the selected season(s)"),
+                "danger",
+            )
 
         return Response(
             {
-                "season": season,
-                "seasons": self.filterset_class.YEARS,
+                "season": self.request.query_params.get('season'),
+                "seasons": [choice[0] for choice in Harvest.SEASON_CHOICES],
                 "highlights": self.get_highlights(),
                 "total_fruit": self.get_total_weight_harvest_per_fruit(),
                 "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),
@@ -274,7 +231,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
             }
         )
 
-    def get_highlights(self) -> dict:
+    def get_highlights(self) -> Dict[str, int]:
         """Returns general statistics of harvests"""
         total_beneficiaries = self.get_total_number_beneficiaries()
         total_pickers = (
@@ -396,32 +353,25 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView):
         pickers = Person.objects.all().order_by("first_name")
         total_weight_harvests_per_picker = []
 
-        for picker in pickers:
-            total_weight = self.harvest_yield_queryset.filter(
-                recipient=picker
-            ).aggregate(Sum("total_in_lb"))
-            total_harvests_leader = self.harvest_queryset.filter(
-                pick_leader__person=picker
-            ).count()
-            total_harvests_rfp = RequestForParticipation.objects.filter(
-                picker=picker
-            ).count()
-            total_harvests_is_accepted = (
-                RequestForParticipation.objects.filter(picker=picker)
-                .filter(is_accepted=True)
-                .count()
-            )
-            total_harvests_recipient = self.harvest_yield_queryset.filter(
-                recipient=picker
-            ).count()
+        for p in pickers:
+            total_weight = \
+                self.harvest_yield_queryset.filter(recipient=p).aggregate(Sum("total_in_lb"))
+            total_harvests_leader = \
+                self.harvest_queryset.filter(pick_leader__person=p).count()
+            total_harvests_rfp = \
+                RFP.objects.filter(person=p).count()
+            total_harvests_accepted = \
+                RFP.objects.filter(person=p, status=RFP.Status.ACCEPTED).count()
+            total_harvests_recipient = \
+                self.harvest_yield_queryset.filter(recipient=p).count()
 
             if total_weight.get("total_in_lb__sum") is not None:
                 total_weight_harvests_per_picker.append(
                     (
-                        picker,
+                        p,
                         total_harvests_leader,
                         total_harvests_rfp,
-                        total_harvests_is_accepted,
+                        total_harvests_accepted,
                         total_harvests_recipient,
                         total_weight.get("total_in_lb__sum"),
                     )

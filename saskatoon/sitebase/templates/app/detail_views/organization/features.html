@@ -1,0 +1,29 @@
+{% load i18n %}
+{% load static %}
+<div class="search-engine-int mg-t-30 sm-res-mg-t-30 tb-res-mg-t-30">
+  <div style="display: flex; flex-flow: row wrap;">
+    <div class="search-engine-int" style="flex: 50%">
+      <h4>
+        <span>{% translate 'Beneficiary' %}</span>
+        {% if is_beneficiary %}
+        <i class="notika-icon notika-checked"></i>
+        {% else %}
+        <i class="notika-icon notika-close"></i>
+        {% endif %}
+      </h4>
+      <p>{{ beneficiary_description }}</p>
+    </div>
+
+    <div class="search-engine-int" style="flex: 50%;">
+      <h4>
+        <span>{% translate 'Equipment Point' %}</span>
+        {% if is_equipment_point %}
+        <i class="notika-icon notika-checked"></i>
+        {% else %}
+        <i class="notika-icon notika-close"></i>
+        {% endif %}
+      </h4>
+      <p>{{ equipment_description }}</p>
+    </div>
+  </div>
+</div>

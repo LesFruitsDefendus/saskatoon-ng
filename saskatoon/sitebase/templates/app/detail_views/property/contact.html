@@ -3,13 +3,13 @@
 <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
 
     <div class="contact-hd search-hd-eg">
-        {% if property.owner %}
+        {% if owner %}
             <h2>{% trans "Owner" %}
-            {% if property.owner_type.is_organization %}
+            {% if owner_type.is_organization %}
                 <small>{% trans "(Organization)" %}</small>
-            {% elif property.owner_type.is_person and perms.member.change_person %}
+            {% elif owner_type.is_person and perms.member.change_person %}
                 &nbsp;
-                <small><a href="{% url 'person-update' property.owner.pk %}?pid={{property.id}}">
+                <small><a href="{% url 'person-update' owner.pk %}?pid={{id}}">
                         <i class="fa fa-pencil"></i> {% trans "edit" %}
                 </a></small>
             {% endif %}
@@ -18,7 +18,7 @@
             <h2>{% trans "Unregistered owner" %}
             {% if perms.member.add_person %}
                 &nbsp;
-                <small><a href="{% url 'person-create' %}?pid={{property.id}}">
+                <small><a href="{% url 'person-create' %}?pid={{id}}">
                         <i class="fa fa-pencil"></i> {% translate 'register' %}
                 </a></small>
             {% endif %}
@@ -28,20 +28,20 @@
     </div>
 
     <p class="lead">
-    {% if property.owner %}
-        {{ property.owner.name }}
+    {% if owner %}
+        {{ owner.name }}
     {% else %}
-        {{ property.pending_contact_first_name }} {{ property.pending_contact_family_name }}
+        {{ pending_contact_first_name }} {{ pending_contact_family_name }}
     {% endif %}
     </p>
 
     <table class="table">
         <tbody>
-        {% if property.owner_type.is_organization %}
+        {% if owner_type.is_organization %}
             <tr>
                 <td>{% trans "Contact" %}</td>
                 <td class="text-right">
-                    <h5>{{ property.owner.contact }}</h5>
+                    <h5>{{ owner.contact }}</h5>
                 </td>
             </tr>
         {% endif %}
@@ -50,10 +50,10 @@
             <td>{% trans "Phone" %}</td>
             <td class="text-right">
                 <h5>
-                {% if property.owner %}
-                    {{ property.owner.phone }}
+                {% if owner %}
+                    {{ owner.phone }}
                 {% else %}
-                    {{ property.pending_contact_phone }}
+                    {{ pending_contact_phone }}
                 {% endif %}
                 </h5>
             </td>
@@ -63,21 +63,21 @@
             <td>{% trans "Email" %}</td>
             <td class="text-right">
                 <h5>
-                {% if property.owner %}
-                    {{ property.owner.email }}
+                {% if owner %}
+                    {{ owner.email }}
                 {% else %}
-                    {{ property.pending_contact_email }}
+                    {{ pending_contact_email }}
                 {% endif %}
                 </h5>
             </td>
         </tr>
 
-        {% if property.owner %}
-            {% if property.owner.language %}
+        {% if owner %}
+            {% if owner.language %}
                 <tr>
                     <td>{% trans "Language" %}</td>
                     <td class="text-right">
-                        <h5>{{ property.owner.language }}</h5>
+                        <h5>{{ owner.language }}</h5>
                     </td>
                 </tr>
             {% endif %}
@@ -85,11 +85,11 @@
             <!-- TODO: preferred language -->
         {% endif %}
 
-        {% if property.owner.comments %}
+        {% if owner.comments %}
         <tr>
             <td>{% trans "Comments" %}</td>
             <td class="text-right">
-                <p>{{ property.owner.comments }}</p>
+                <p>{{ owner.comments }}</p>
             </td>
         </tr>
         {% endif %}

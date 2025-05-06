@@ -57,11 +57,11 @@
             {{ form.publishable_location|as_crispy_field }}
 
         <br>
-        <button type="submit" class="btn btn-primary">
+        <button type="submit" class="btn btn-primary notika-btn-primary">
             {% trans 'Save' %}
         </button>
         {% if cancel_url %}
-        <button type="button" class="btn btn-default" style="margin-left:1rem;">
+        <button type="button" class="btn btn-warning notika-btn-warning" style="margin-left:1rem;">
             <a href="{{ cancel_url }}">{% translate 'Cancel' %}</a>
             {% endif %}
         </button>

@@ -4,10 +4,95 @@
   "pk": 1,
   "fields": {
     "type": 3,
-    "description": "10ft aluminim step ladder",
     "owner": null,
     "property": 3,
+    "description": "10ft aluminim step ladder",
+    "count": 1,
     "shared": false
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 2,
+  "fields": {
+    "type": 3,
+    "owner": 7,
+    "property": null,
+    "description": "Step ladder",
+    "count": 2,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 3,
+  "fields": {
+    "type": 3,
+    "owner": 7,
+    "property": null,
+    "description": "20ft extension ladder",
+    "count": 1,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 4,
+  "fields": {
+    "type": 7,
+    "owner": 7,
+    "property": null,
+    "description": "10ft",
+    "count": 4,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 5,
+  "fields": {
+    "type": 6,
+    "owner": 7,
+    "property": null,
+    "description": "",
+    "count": 1,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 6,
+  "fields": {
+    "type": 11,
+    "owner": 9,
+    "property": null,
+    "description": "",
+    "count": 4,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 7,
+  "fields": {
+    "type": 7,
+    "owner": 9,
+    "property": null,
+    "description": "10ft",
+    "count": 2,
+    "shared": true
+  }
+},
+{
+  "model": "harvest.equipment",
+  "pk": 8,
+  "fields": {
+    "type": 7,
+    "owner": 9,
+    "property": null,
+    "description": "13ft",
+    "count": 1,
+    "shared": true
   }
 }
 ]

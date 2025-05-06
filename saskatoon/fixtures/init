@@ -13,11 +13,13 @@ cd $SCRIPT_DIR
 ../manage.py migrate --skip-checks
 
 # initial sequence order does matter!
-seq=(auth-group member-city \
+seq=(auth-group \
+     sitebase-pagecontent \
+     sitebase-emailcontent \
+     member-city \
      member-neighborhood \
      member-state \
      member-country \
-     member-language \
      member-actor \
      member-person \
      member-organization \
@@ -29,8 +31,7 @@ seq=(auth-group member-city \
      harvest-harvest \
      harvest-harvestyield \
      harvest-comment \
-     harvest-requestforparticipation \
-     sitebase-content )
+     harvest-requestforparticipation)
 
 ignore='saskatoon\.json'
 

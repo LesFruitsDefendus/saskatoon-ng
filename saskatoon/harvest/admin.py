@@ -1,48 +1,46 @@
-# coding: utf-8
-# from leaflet.admin import LeafletGeoAdmin  # type: ignore
 from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
-from harvest.models import (Property, Harvest, RequestForParticipation, TreeType,
-                            Equipment, EquipmentType, HarvestYield, Comment,
-                            PropertyImage, HarvestImage)
-from harvest.filters import (PropertyOwnerTypeAdminFilter, PropertyHasHarvestAdminFilter,
-                             HarvestSeasonAdminFilter, OwnerHasNoEmailAdminFilter)
-from harvest.forms import (RFPForm, HarvestYieldForm, EquipmentForm)
+
+from harvest.admin_filters import (
+    HarvestSeasonAdminFilter,
+    OwnerHasNoEmailAdminFilter,
+    PropertyOwnerTypeAdminFilter,
+    PropertyHasHarvestAdminFilter,
+    RFPSeasonAdminFilter,
+)
+from harvest.admin_forms import (
+    EquipmentAdminForm,
+    HarvestYieldInline,
+    HarvestImageInline,
+    RFPPersonInline,
+)
+from harvest.forms import RFPForm
+from harvest.models import (
+    Comment,
+    Equipment,
+    EquipmentType,
+    Harvest,
+    HarvestYield,
+    Property,
+    PropertyImage,
+    RequestForParticipation as RFP,
+    TreeType,
+)
 from member.models import AuthUser
-
-
-class PersonInline(admin.TabularInline):
-    model = RequestForParticipation
-    verbose_name = "Cueilleurs pour cette récolte"
-    verbose_name_plural = "Cueilleurs pour cette récolte"
-    form = RFPForm
-    exclude = ['creation_date', 'confirmation_date']
-    extra = 3
-
-
-class HarvestYieldInline(admin.TabularInline):
-    model = HarvestYield
-    form = HarvestYieldForm
-
-
-class HarvestImageInline(admin.TabularInline):
-    model = HarvestImage
-    extra = 3
 
 
 @admin.register(Harvest)
 class HarvestAdmin(admin.ModelAdmin):
-    model = Harvest
-    inlines = (PersonInline, HarvestYieldInline, HarvestImageInline)
+    inlines = (RFPPersonInline, HarvestYieldInline, HarvestImageInline)
     list_display = (
         'property',
         'tree_list',
         'status',
         'pick_leader',
-        'creation_date',
+        'date_created',
         'publication_date',
         'start_date',
         'id',
@@ -60,25 +58,37 @@ class HarvestAdmin(admin.ModelAdmin):
     def cancel_harvests(self, request, queryset):
         num_cancelled = 0
         for h in queryset:
-            if h.status != 'Cancelled':
-                h.status = 'Cancelled'
+            if h.status is not Harvest.Status.CANCELLED:
+                h.status = Harvest.Status.CANCELLED
                 h.save()
                 num_cancelled += 1
 
-        messages.add_message(request, messages.SUCCESS,
-                             f"Successfully cancelled {num_cancelled} harvest(s)")
+        messages.info(request, f"Successfully cancelled {num_cancelled} harvest(s)")
 
     actions = [cancel_harvests]
 
 
-@admin.register(RequestForParticipation)
+@admin.register(RFP)
 class RequestForParticipationAdmin(admin.ModelAdmin):
+    list_display = (
+        'person',
+        'status',
+        'number_of_pickers',
+        'date_created',
+        'date_status_updated',
+        'showed_up',
+        'id',
+    )
+    list_filter = (
+        RFPSeasonAdminFilter,
+        'status',
+    )
     form = RFPForm
 
 
 @admin.register(Equipment)
 class EquipmentAdmin(admin.ModelAdmin):
-    form = EquipmentForm
+    form = EquipmentAdminForm
 
 
 class PropertyImageInline(admin.TabularInline):
@@ -87,7 +97,6 @@ class PropertyImageInline(admin.TabularInline):
 
 
 @admin.register(Property)
-# class PropertyAdmin(LeafletGeoAdmin):
 class PropertyAdmin(admin.ModelAdmin):
     model = Property
     inlines = [PropertyImageInline]
@@ -166,8 +175,7 @@ class PropertyAdmin(admin.ModelAdmin):
     def reset_authorize(self, request, queryset):
         """Set authorized=None to queryset"""
         queryset.update(**{'authorized': None})
-        messages.add_message(request, messages.SUCCESS,
-                             "Successfully reset authorizations for this season")
+        messages.info(request, "Successfully reset authorizations for this season")
 
     @admin.action(description="Create missing auth users using pending or comments email")
     def create_owner_user(self, request, queryset):
@@ -184,7 +192,7 @@ class PropertyAdmin(admin.ModelAdmin):
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
                         messages.add_message(request, messages.WARNING,
-                                f"{_property} has multiple emails in comments")
+                                             f"{_property} has multiple emails in comments")
                         continue
                     elif len(emails) == 1:
                         email = emails[0]
@@ -194,8 +202,7 @@ class PropertyAdmin(admin.ModelAdmin):
             except Exception as e:
                 messages.add_message(request, messages.ERROR, e)
 
-        messages.add_message(request, messages.SUCCESS,
-                             f"Successfully created {nb_users} new users!")
+        messages.info(request, f"Successfully created {nb_users} new users!")
 
     actions = [reset_authorize, create_owner_user]
 
@@ -207,7 +214,23 @@ class PropertyAdmin(admin.ModelAdmin):
         return queryset
 
 
-admin.site.register(TreeType)
+@admin.register(TreeType)
+class TreeTypeAdmin(admin.ModelAdmin):
+    model = TreeType
+    list_display = (
+        'name',
+        'fruit',
+        'fruit_icon',
+        'maturity_start',
+        'maturity_end',
+        'id'
+    )
+    search_fields = (
+        'fruit_name_en',
+        'fruit_name_fr',
+    )
+
+
 admin.site.register(EquipmentType)
 admin.site.register(HarvestYield)
 admin.site.register(Comment)

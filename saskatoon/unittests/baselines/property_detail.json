@@ -1,0 +1,285 @@
+{
+    "id": 3,
+    "neighborhood": {
+        "id": 19,
+        "name": "Plateau-Mont-Royal"
+    },
+    "city": {
+        "id": 1,
+        "name": "Montreal"
+    },
+    "state": {
+        "id": 1,
+        "name": "Quebec"
+    },
+    "country": {
+        "id": 1,
+        "name": "Canada"
+    },
+    "title": "Nice Owner at 123 av. Mont-Royal",
+    "harvests": [
+        {
+            "id": 4,
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "start_date": "2021-08-01",
+            "start_time": "9:00 AM",
+            "end_date": "2021-08-01",
+            "pick_leader": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "status": "ready",
+            "status_display": "Ready",
+            "start_date": "2021-07-24",
+            "start_time": "3:00 PM",
+            "end_date": "2021-07-24",
+            "pick_leader": {
+                "actor_id": 3,
+                "roles": [
+                    "Pick Leader"
+                ],
+                "name": "Pick Leader",
+                "email": "pick@leader.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 34,
+                    "name": "Autre"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "status": "cancelled",
+            "status_display": "Cancelled",
+            "start_date": "2021-07-22",
+            "start_time": "5:00 PM",
+            "end_date": "2021-07-22",
+            "pick_leader": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        },
+        {
+            "id": 1,
+            "status": "succeeded",
+            "status_display": "Succeeded",
+            "start_date": "2021-07-19",
+            "start_time": "4:00 PM",
+            "end_date": "2021-07-19",
+            "pick_leader": {
+                "actor_id": 3,
+                "roles": [
+                    "Pick Leader"
+                ],
+                "name": "Pick Leader",
+                "email": "pick@leader.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 34,
+                    "name": "Autre"
+                },
+                "comments": "",
+                "harvests_as_pickleader": [
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 14,
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                },
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        }
+    ],
+    "last_succeeded_harvest_date": "2021-07-19T20:00:00Z",
+    "address": "123 av. Mont-Royal, apt. 4",
+    "trees": [
+        {
+            "id": 14,
+            "name_en": "Green apple tree",
+            "name_fr": "Pommier vert",
+            "fruit_name_en": "Green apples",
+            "fruit_name_fr": "Pommes vertes",
+            "fruit_icon": "🍏",
+            "maturity_start": "2025-05-01",
+            "maturity_end": "2025-10-01",
+            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+        },
+        {
+            "id": 9,
+            "name_en": "Walnut tree",
+            "name_fr": "Noyer",
+            "fruit_name_en": "Walnuts",
+            "fruit_name_fr": "Noix de Grenoble",
+            "fruit_icon": "🥜",
+            "maturity_start": "2025-05-01",
+            "maturity_end": "2025-10-01",
+            "image": null
+        }
+    ],
+    "owner": {
+        "pk": 1,
+        "name": "Nice Owner",
+        "email": "nice@owner.com",
+        "phone": "(514) 666-1234",
+        "language": "fr",
+        "comments": "Passer par l'arrière ruelle",
+        "neighborhood": 19,
+        "city": 1,
+        "state": 1,
+        "country": 1
+    },
+    "pending_contact_name": "",
+    "owner_type": {
+        "is_person": true,
+        "is_organization": false
+    },
+    "similar_properties": [],
+    "needs_orphan": true,
+    "is_active": true,
+    "authorized": true,
+    "pending": false,
+    "pending_contact_first_name": "",
+    "pending_contact_family_name": "",
+    "pending_contact_phone": null,
+    "pending_contact_email": null,
+    "pending_newsletter": false,
+    "pending_recurring": false,
+    "geom": null,
+    "trees_location": "Backyard",
+    "trees_accessibility": "Passer par l'arrière",
+    "avg_nb_required_pickers": 2,
+    "public_access": false,
+    "neighbor_access": false,
+    "compost_bin": true,
+    "ladder_available": true,
+    "ladder_available_for_outside_picks": false,
+    "harvest_every_year": false,
+    "number_of_trees": 2,
+    "approximative_maturity_date": "2021-06-06",
+    "fruits_height": 2,
+    "street_number": "123",
+    "street": "av. Mont-Royal",
+    "complement": "apt. 4",
+    "postal_code": "H2T 1V8",
+    "publishable_location": "Mont-Royal, coin Buillon",
+    "longitude": null,
+    "latitude": null,
+    "additional_info": "Je peux aider pour la ceuillète",
+    "changed_by": null
+}

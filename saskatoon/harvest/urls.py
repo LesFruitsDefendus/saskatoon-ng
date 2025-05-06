@@ -1,19 +1,18 @@
-from django.urls import include, path, re_path
-from rest_framework import routers
+from django.urls import path, re_path
 from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from harvest import api, views, autocomplete
+from rest_framework.routers import DefaultRouter
 
 # REST FRAMEWORK VIEWS
-router = routers.DefaultRouter()
+router = DefaultRouter()
 router.register('harvest', api.HarvestViewset, 'harvest')
 router.register('property', api.PropertyViewset, 'property')
 router.register('equipment', api.EquipmentViewset, 'equipment')
-router.register('beneficiary', api.BeneficiaryViewset, 'beneficiary')
-router.register('community', api.CommunityViewset, 'community')
-router.register('participation', api.RequestForParticipationViewset, 'participation')
+router.register('participation', api.RFPViewset, 'participation')
 
 urlpatterns = [
+
     # CREATE VIEWS
     path(r'equipment/create/',
          views.EquipmentCreateView.as_view(),
@@ -27,6 +26,10 @@ urlpatterns = [
          views.PropertyCreatePublicView.as_view(),
          name='property-create-public'),
 
+    path(r'property/<int:id>/create_orphans/',
+         views.property_create_orphans,
+         name='property-create-orphans'),
+
     # backward compatibility with saskatoon-og
     path(r'harvest/properties/create_pending/',
          RedirectView.as_view(url='/property/create_public/')),
@@ -35,23 +38,19 @@ urlpatterns = [
          views.HarvestCreateView.as_view(),
          name='harvest-create'),
 
-     path(r'harvest/adopt/<int:id>/',
+    path(r'harvest/adopt/<int:id>/',
          views.harvest_adopt,
          name='harvest-adopt'),
 
-     path(r'harvest/leave/<int:id>/',
-         views.harvest_leave,
-         name='harvest-leave'),
-
-     path(r'harvest/status-change/<int:id>/',
+    path(r'harvest/status-change/<int:id>/',
          views.harvest_status_change,
          name='harvest-status-change'),
 
-    path(r'participation/create/',
+    path(r'participation/create/<int:hid>/',
          views.RequestForParticipationCreateView.as_view(),
          name='rfp-create'),
 
-    path(r'comment/create/',
+    path(r'comment/create/<int:hid>/',
          views.CommentCreateView.as_view(),
          name='comment-create'),
 
@@ -70,9 +69,11 @@ urlpatterns = [
     re_path(r'^property/update/(?P<pk>\d+)/$',
             views.PropertyUpdateView.as_view(),
             name='property-update'),
-    re_path(r'^participation/update/(?P<pk>\d+)/$',
+
+    re_path(r'^participation/update/(?P<pk>\d+)/((?P<action>(accept|decline))/)?$',
             views.RequestForParticipationUpdateView.as_view(),
             name='participation-update'),
+
     re_path(r'^harvest/update/(?P<pk>\d+)/$',
             views.HarvestUpdateView.as_view(),
             name='harvest-update'),
@@ -98,6 +99,4 @@ urlpatterns = [
 
     path('stats/', api.StatsView.as_view(), name='statistics'),
 
-]
-
-urlpatterns += router.urls
+] + router.urls

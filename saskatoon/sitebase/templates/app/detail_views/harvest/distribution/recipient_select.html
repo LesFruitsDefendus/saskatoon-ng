@@ -3,14 +3,14 @@
 
 <select name="actor" id="recipient-select" class="form-control required">
     <option selected disabled>{% translate 'Owner' %}</option>
-    <option value={{ property.owner.pk }}>{{ property.owner }}</option>
+    <option value={{ property.owner.pk }}>{{ property.owner.name }}</option>
     <option selected disabled>{% translate 'Pickers' %}</option>
     {% for p in pickers %}
-        <option value={{ p.pk }}>{{ p }}</option>
+        <option value={{ p.pk }}>{{ p.name }}</option>
     {% endfor %}
-    <option selected disabled>{% translate 'Organizations' %}</option>
+        <option selected disabled>{% translate 'Organizations' %}</option>
     {% for o in organizations %}
-    <option value={{ o.pk }}>{{ o }}</option>
+        <option value={{ o.actor_id }}>{{ o.civil_name }}</option>
     {% endfor %}
     <option selected disabled hidden>{% translate 'Select a Recipient' %}</option>
 </select>

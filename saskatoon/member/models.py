@@ -1,28 +1,26 @@
-# coding: utf-8
-
 import re
+from django.core.cache import cache
+from django.contrib.auth.models import (
+    Group,
+    AbstractBaseUser,
+    PermissionsMixin,
+    BaseUserManager,
+)
 from django.db import models
-from django.db.models.query_utils import Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
-from django.contrib.auth.models import ( Group, AbstractBaseUser,
-                                         PermissionsMixin, BaseUserManager )
-from django.core.validators import RegexValidator
 from django.utils import timezone as tz
 from phone_field import PhoneField
-from harvest.models import RequestForParticipation, Harvest, Property
 
-AUTH_GROUPS = (
-    ('core', _("Core Member")),
-    ('pickleader', _("Pick Leader")),
-    ('volunteer', _("Volunteer Picker")),
-    ('owner', _("Property Owner")),
-    ('contact', _("Contact Person")),
+from harvest.models import (
+    RequestForParticipation as RFP,
+    Harvest,
 )
-
-STAFF_GROUPS = ['core', 'pickleader']
 
 
 class AuthUserManager(BaseUserManager):
+    """Base user management"""
 
     def create_user(self, email, password=None):
         if not email:
@@ -45,6 +43,17 @@ class AuthUserManager(BaseUserManager):
 
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
+    """Base user model"""
+
+    GROUPS = (
+        ('core', _("Core Member")),
+        ('pickleader', _("Pick Leader")),
+        ('volunteer', _("Volunteer Picker")),
+        ('owner', _("Property Owner")),
+        ('contact', _("Contact Person")),
+    )
+
+    STAFF_GROUPS = ['core', 'pickleader']
 
     person = models.OneToOneField(
         'Person',
@@ -53,72 +62,70 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         related_name='auth_user'
     )
 
-    alphanumeric = RegexValidator(
-        r'^[0-9a-zA-Z]*$',
-        message=_('Only alphanumeric characters are allowed.')
+    has_temporary_password = models.BooleanField(
+        default=False,
+        null=False
     )
 
-    # Redefine the basic fields that would normally be defined in User
+    agreed_terms = models.BooleanField(
+        default=False,
+        null=False
+    )
+
+    # AbstractBaseUser fields #
     email = models.EmailField(
         verbose_name=_('email address'),
         unique=True,
         max_length=255
     )
-
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
-
     date_joined = models.DateTimeField(auto_now_add=True)
-
     is_active = models.BooleanField(default=True, null=False)
-
     is_staff = models.BooleanField(default=False, null=False)
-
-    has_temporary_password = models.BooleanField(default=False, null=False)
-
-    agreed_terms = models.BooleanField(default=False, null=False)
 
     def add_role(self, role, commit=True):
         ''' add role to user
-            :param role: group name (see AUTH_GROUPS)
+            :param role: AuthUser.GROUP name
         '''
-        group, __ =  Group.objects.get_or_create(name=role)
+        group, _ = Group.objects.get_or_create(name=role)
         self.groups.add(group)
         if commit:
             self.save()
 
     def set_roles(self, roles):
         ''' updates user's groups
-            :param roles: list of group names (see AUTH_GROUPS)
+            :param roles: list of AuthUser.GROUP names
         '''
         self.groups.clear()
         for role in roles:
             self.add_role(role, False)
 
-        self.is_staff = any([r in STAFF_GROUPS for r in roles])
+        self.is_staff = any([r in self.STAFF_GROUPS for r in roles])
         self.save()
 
     @property
     def role_groups(self):
-        ''' return user's role groups'''
-        return self.groups.filter(name__in=[t[0] for t in AUTH_GROUPS])
+        ''' returns user's role groups'''
+        return self.groups.filter(name__in=[t[0] for t in self.GROUPS])
 
     @property
     def roles(self):
         ''' lists user's role names'''
-        return [dict(AUTH_GROUPS).get(g.name) for g in self.role_groups]
+        return [dict(self.GROUPS).get(g.name) for g in self.role_groups]
 
     @property
     def is_onboarding(self):
-        ''' return if user has yet to go through onboarding flow (only volunteer role with password)'''
-        # Retrieve only name fields from QuerySet of Groups
-        group_names = [g.name  for g in self.role_groups]
+        ''' whether the user has yet to go through the onboarding flow
+            (i.e. an authenticated user that has a volunteer role) '''
+        group_names = [g.name for g in self.role_groups]
         return ('pickleader' not in group_names and
                 'volunteer' in group_names and
                 self.has_temporary_password)
+
     @property
     def name(self):
-        if self.person:
+        if self.person is not None:
             return self.person.name
         return None
 
@@ -131,6 +138,10 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
 
 class Onboarding(models.Model):
     """Pickleader Registration"""
+
+    class Meta:
+        verbose_name = _("user onboarding")
+        verbose_name_plural = _("user onboarding")
 
     name = models.CharField(
         verbose_name=_("Reference name"),
@@ -150,10 +161,6 @@ class Onboarding(models.Model):
         default=""
     )
 
-    class Meta:
-        verbose_name = _("user onboarding")
-        verbose_name_plural = _("user onboarding")
-
     @property
     def user_count(self):
         return self.persons.count()
@@ -166,13 +173,15 @@ class Onboarding(models.Model):
 
 
 class Actor(models.Model):
-    actor_id = models.AutoField(
-        primary_key=True
-    )
+    """Actor (Person or Organization)"""
 
     class Meta:
         verbose_name = _("actor")
         verbose_name_plural = _("actors")
+
+    actor_id = models.AutoField(
+        primary_key=True
+    )
 
     def get_person(self):
         return Person.objects.filter(actor_id=self.actor_id).first()
@@ -198,10 +207,22 @@ class Actor(models.Model):
 
 
 class Person(Actor):
-    redmine_contact_id = models.IntegerField(
-        verbose_name=_("Redmine contact"),
-        null=True,
-        blank=True
+    """Person model"""
+
+    class Meta:
+        verbose_name = _("person")
+        verbose_name_plural = _("persons")
+        ordering = ["first_name"]
+
+    class Language(models.TextChoices):
+        FR = 'fr', "Français"
+        EN = 'en', "English"
+
+    language = models.CharField(
+        verbose_name=_("Preferred Language"),
+        max_length=2,
+        choices=Language.choices,
+        default=Language.FR,
     )
 
     first_name = models.CharField(
@@ -252,7 +273,7 @@ class Person(Actor):
 
     neighborhood = models.ForeignKey(
         'Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         blank=True,
         on_delete=models.CASCADE,
@@ -299,14 +320,6 @@ class Person(Actor):
         blank=True
     )
 
-    language = models.ForeignKey(
-        'member.Language',
-        null=True,
-        blank=True,
-        verbose_name=_("Preferred language"),
-        on_delete=models.CASCADE,
-    )
-
     comments = models.TextField(
         verbose_name=_("Comments"),
         blank=True
@@ -321,11 +334,6 @@ class Person(Actor):
         blank=True
      )
 
-    class Meta:
-        verbose_name = _("person")
-        verbose_name_plural = _("persons")
-        ordering = ["first_name"]
-
     def __str__(self):
         return u"%s %s" % (self.first_name, self.family_name)
 
@@ -335,54 +343,16 @@ class Person(Actor):
 
     @property
     def email(self):
-        try:
+        if self.auth_user is not None:
             return self.auth_user.email
-        except AuthUser.DoesNotExist:
-            return None
+        return None
 
     @property
     def comment_emails(self):
         """Look for emails in comments"""
-        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"
+        EMAIL_PATTERN = "([a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+)"  # noqa: W605
         matches = re.findall(EMAIL_PATTERN, self.comments)
         return matches
-
-    @property
-    def properties(self):
-        # TODO set up reverse relationship instead
-        return Property.objects.filter(owner=self)
-
-    @property
-    def harvests_as_pickleader(self):
-        return Harvest.objects.filter(pick_leader=self.auth_user, status="Succeeded")
-
-    @property
-    def requests_as_volunteer(self):
-        return RequestForParticipation.objects.filter(picker=self)
-
-    @property
-    def harvests_as_volunteer_accepted(self):
-        requests = self.requests_as_volunteer.filter(is_accepted=True)
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_succeeded(self):
-        return self.harvests_as_volunteer_accepted.filter(status="Succeeded")
-
-    @property
-    def harvests_as_volunteer_pending(self):
-        requests = self.requests_as_volunteer.exclude(Q(is_accepted=True)|Q(is_cancelled=True))
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_rejected(self):
-        requests = self.requests_as_volunteer.filter(is_accepted=False)
-        return Harvest.objects.filter(requests__in=requests)
-
-    @property
-    def harvests_as_volunteer_cancelled(self):
-        requests = self.requests_as_volunteer.filter(is_cancelled=True)
-        return Harvest.objects.filter(requests__in=requests)
 
     @property
     def harvests_as_owner(self):
@@ -392,15 +362,49 @@ class Person(Actor):
     def organizations_as_contact(self):
         return Organization.objects.filter(contact_person=self)
 
+    def get_harvests_as_pickleader(self, status=Harvest.Status.SUCCEEDED):
+        return Harvest.objects.filter(pick_leader=self.auth_user, status=status)
+
+    def get_harvests_as_volunteer(self, rfp_status=RFP.Status.ACCEPTED):
+        requests = RFP.objects.filter(person=self)
+        if rfp_status is not None:
+            requests = requests.filter(status=rfp_status)
+        return Harvest.objects.filter(
+            status=Harvest.Status.SUCCEEDED,
+            requests__in=requests
+        )
+
+    @property
+    def accept_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.ACCEPTED).count()
+
+    @property
+    def reject_count(self):
+        return self.get_harvests_as_volunteer(RFP.Status.DECLINED).count()
+
 
 class Organization(Actor):
+    """Organization model"""
+
+    class Meta:
+        verbose_name = _("organization")
+        verbose_name_plural = _("organizations")
+        ordering = ["civil_name"]
+
     is_beneficiary = models.BooleanField(
         verbose_name=_('Is Beneficiary'),
+        help_text=_(
+            'Only check this box if the Organization is currently accepting fruit donations'
+        ),
         default=False
     )
 
     is_equipment_point = models.BooleanField(
         verbose_name=_('Is Equipment Point'),
+        help_text=_(
+            'Only check this box if the equipment registered at this Organization \
+is currenlty made available'
+        ),
         default=False
     )
 
@@ -426,7 +430,7 @@ class Organization(Actor):
     )
 
     equipment_description = models.TextField(
-        verbose_name=_("Equipment description"),
+        verbose_name=_("Equipment point description"),
         blank=True
     )
 
@@ -450,7 +454,7 @@ class Organization(Actor):
     )
 
     street_number = models.CharField(
-        verbose_name=_("Number"),
+        verbose_name=_("Street number"),
         max_length=10,
         null=True,
         blank=True
@@ -479,7 +483,7 @@ class Organization(Actor):
 
     neighborhood = models.ForeignKey(
         'Neighborhood',
-        verbose_name=_("Neighborhood"),
+        verbose_name=_("Borough"),
         null=True,
         on_delete=models.CASCADE,
     )
@@ -557,11 +561,6 @@ class Organization(Actor):
             )
         return self.short_address
 
-    class Meta:
-        verbose_name = _("organization")
-        verbose_name_plural = _("organizations")
-        ordering = ["civil_name"]
-
     def __str__(self):
         return u"%s" % self.civil_name
 
@@ -579,74 +578,82 @@ class Organization(Actor):
 
     @property
     def language(self):
-        return self.contact_person.language if self.contact_person else None
+        if self.contact_person is not None:
+            return self.contact_person.language
+        return Person.Language.FR
 
 
 class Neighborhood(models.Model):
+    """Borough model"""
+
+    class Meta:
+        verbose_name = _("borough")
+        verbose_name_plural = _("boroughs")
+        ordering = ["name"]
+
     name = models.CharField(
         verbose_name=_("Name"),
         max_length=150
     )
-
-    class Meta:
-        verbose_name = _("neighborhood")
-        verbose_name_plural = _("neighborhoods")
 
     def __str__(self):
         return self.name
 
 
 class City(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """City model"""
 
     class Meta:
         verbose_name = _("city")
         verbose_name_plural = _("cities")
+
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
 
 
 class State(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """State model"""
 
     class Meta:
         verbose_name = _("state")
         verbose_name_plural = _("states")
+    name = models.CharField(
+        verbose_name=_("Name"),
+        max_length=150
+    )
 
     def __str__(self):
         return self.name
 
 
 class Country(models.Model):
-    name = models.CharField(
-        verbose_name=_("Name"),
-        max_length=150
-    )
+    """Country model"""
 
     class Meta:
         verbose_name = _("country")
         verbose_name_plural = _("countries")
 
-    def __str__(self):
-        return self.name
-
-
-class Language(models.Model):
     name = models.CharField(
         verbose_name=_("Name"),
         max_length=150
     )
 
-    class Meta:
-        verbose_name = _("language")
-        verbose_name_plural = _("languages")
-
     def __str__(self):
         return self.name
+
+
+# CACHE #
+
+@receiver(post_save, sender=Person)
+def clear_cache_people(sender, instance, **kwargs):
+    cache.delete_pattern("*person*")
+
+
+@receiver(post_save, sender=Organization)
+def clear_cache_organization(sender, instance, **kwargs):
+    cache.delete_pattern("*organization*")
