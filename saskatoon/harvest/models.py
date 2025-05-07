@@ -660,15 +660,6 @@ class Harvest(models.Model):
             (self.status is Harvest.Status.SCHEDULED and days < 3)
         )
 
-    def is_ready(self):
-        return self.status is Harvest.Status.READY and \
-            tz.now() <= self.end_date
-
-    def is_happening(self):
-        if not self.start_date:
-            return False
-        return self.is_ready() and self.get_days_before_harvest() == 0
-
     def is_publishable(self):
         if self.status not in self.PUBLISHABLE_STATUSES:
             return False
@@ -677,7 +668,7 @@ class Harvest(models.Model):
         return (tz.now() > self.publication_date)
 
     def is_open_to_requests(self, public: bool = True):
-        if tz.now() > self.end_date:
+        if self.end_date is not None and tz.now() > self.end_date:
             return False
 
         valid_statuses = [Harvest.Status.SCHEDULED]

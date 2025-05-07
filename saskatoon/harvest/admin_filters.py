@@ -84,6 +84,31 @@ class HarvestSeasonAdminFilter(SimpleListFilter):
         return queryset
 
 
+class HarvestHasNoDateAdminFilter(SimpleListFilter):
+    """Check if dates are missing in harvest"""
+
+    title = 'Missing Date Filter'
+    parameter_name = 'start_date'
+
+    def lookups(self, request, model_admin):
+        return [('0', 'Harvest has no start_date'),
+                ('1', 'Harvest has no end_date'),
+                ('2', 'Harvest has no publication_date'),
+                ('3', 'Harvest has no date_created')]
+
+    def queryset(self, request, queryset):
+
+        if self.value() == '0':
+            return queryset.filter(start_date__isnull=True)
+        elif self.value() == '1':
+            return queryset.filter(end_date__isnull=True)
+        elif self.value() == '2':
+            return queryset.filter(publication_date__isnull=True)
+        elif self.value() == '3':
+            return queryset.filter(date_created__isnull=True)
+        return queryset
+
+
 class RFPSeasonAdminFilter(HarvestSeasonAdminFilter):
     """Filter requests by year"""
 

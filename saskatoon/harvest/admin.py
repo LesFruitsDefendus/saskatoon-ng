@@ -6,6 +6,7 @@ from django.utils.html import mark_safe
 
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,
+    HarvestHasNoDateAdminFilter,
     OwnerHasNoEmailAdminFilter,
     PropertyOwnerTypeAdminFilter,
     PropertyHasHarvestAdminFilter,
@@ -40,13 +41,15 @@ class HarvestAdmin(admin.ModelAdmin):
         'tree_list',
         'status',
         'pick_leader',
+        'start_date',
+        'end_date',
         'date_created',
         'publication_date',
-        'start_date',
         'id',
     )
     list_filter = (
         HarvestSeasonAdminFilter,
+        HarvestHasNoDateAdminFilter,
         'status',
     )
 
@@ -65,7 +68,24 @@ class HarvestAdmin(admin.ModelAdmin):
 
         messages.info(request, f"Successfully cancelled {num_cancelled} harvest(s)")
 
-    actions = [cancel_harvests]
+    @admin.action(description="Clean harvest start/end dates")
+    def clean_dates(self, request, queryset):
+        num_cleaned = 0
+        for h in queryset:
+            save = False
+            if h.start_date is None:
+                h.start_date = h.date_created
+                save = True
+            if h.end_date is None:
+                h.end_date = h.start_date
+                save = True
+            if save:
+                h.save()
+                num_cleaned += 1
+
+        messages.info(request, f"Successfully cleaned {num_cleaned} harvest(s)")
+
+    actions = [cancel_harvests, clean_dates]
 
 
 @admin.register(RFP)
@@ -171,7 +191,7 @@ class PropertyAdmin(admin.ModelAdmin):
     def harvests(self, _property):
         return _property.harvests.count()
 
-    @admin.action(description="De-authorized selected properties")
+    @admin.action(description="UNAUTHORIZE selected properties ʕ•ᴥ•ʔ")
     def reset_authorize(self, request, queryset):
         """Set authorized=None to queryset"""
         queryset.update(**{'authorized': None})
@@ -205,6 +225,12 @@ class PropertyAdmin(admin.ModelAdmin):
         messages.info(request, f"Successfully created {nb_users} new users!")
 
     actions = [reset_authorize, create_owner_user]
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if 'delete_selected' in actions:
+            del actions['delete_selected']
+        return actions
 
     def get_queryset(self, request):
         queryset = super().get_queryset(request)
