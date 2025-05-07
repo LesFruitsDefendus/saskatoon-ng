@@ -1,5 +1,7 @@
 from django.contrib import admin
+from django.conf.urls.static import static
 from django.urls import path, include
+from saskatoon.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 import debug_toolbar
 
 urlpatterns = [
@@ -13,6 +15,10 @@ urlpatterns = [
     path('__debug__/', include(debug_toolbar.urls)),
     path('rosetta/', include('rosetta.urls'))
 ]
+
+print("MEDIA ROOT", MEDIA_ROOT)
+if DEBUG:
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 handler400 = 'sitebase.views.handler400'
 handler403 = 'sitebase.views.handler403'

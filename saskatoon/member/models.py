@@ -343,9 +343,9 @@ class Person(Actor):
 
     @property
     def email(self):
-        if self.auth_user is not None:
-            return self.auth_user.email
-        return None
+        if not hasattr(self, 'auth_user') or self.auth_user is None:
+            return None
+        return self.auth_user.email
 
     @property
     def comment_emails(self):
@@ -363,6 +363,8 @@ class Person(Actor):
         return Organization.objects.filter(contact_person=self)
 
     def get_harvests_as_pickleader(self, status=Harvest.Status.SUCCEEDED):
+        if not hasattr(self, 'auth_user'):
+            return Harvest.objects.none()
         return Harvest.objects.filter(pick_leader=self.auth_user, status=status)
 
     def get_harvests_as_volunteer(self, rfp_status=RFP.Status.ACCEPTED):

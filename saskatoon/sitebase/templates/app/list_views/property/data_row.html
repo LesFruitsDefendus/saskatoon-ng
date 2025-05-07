@@ -1,17 +1,18 @@
 {% load i18n %}
 {% load static %}
 
+{% get_current_language as LANG %}
 <tr>
     <td>
         {{ property.id }}
         {% if perms.harvest.delete_property %}
-            &nbsp;
-            <small>
-                <a href="{% url 'admin:harvest_property_delete' property.id %}"
-                onclick="return confirm('{% trans "Are you really sure you want to delete this property?" %}');">
-                    <i class="fa fa-trash text-danger"></i>
-                </a>
-            </small>
+        &nbsp;
+        <small>
+            <a href="{% url 'admin:harvest_property_delete' property.id %}" onclick="return confirm('{% trans " Are you
+                really sure you want to delete this property?" %}');">
+                <i class="fa fa-trash text-danger"></i>
+            </a>
+        </small>
         {% endif %}
     </td>
     <td>
@@ -25,7 +26,14 @@
     </td>
     <td>
         {% for tree in property.trees %}
-            <div class="text-nowrap">{{ tree.name }} {{ tree.fruit_icon }}</div>
+            <div class="text-nowrap">
+                {% if LANG == "en" %}
+                    {{tree.fruit_name_en}}
+                {% else %}
+                    {{tree.fruit_name_fr}}
+                {% endif %}
+                {{ tree.fruit_icon }}
+            </div>
         {% endfor %}
     </td>
     <td>

@@ -61,7 +61,8 @@ class RFPForm(forms.ModelForm):
     )
 
     def __init__(self, *args, **kwargs):
-        self.harvest = kwargs.pop('harvest')
+        if 'harvest' in kwargs:
+            self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
 
     def clean_email(self):
