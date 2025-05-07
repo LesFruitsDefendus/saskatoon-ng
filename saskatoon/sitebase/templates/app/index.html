@@ -8,9 +8,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="breadcomb-list">
+                <div class="breadcomb-list" style="margin-top: 1rem; margin-bottom: 1rem;">
                     <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
                             <div class="breadcomb-wp">
                                 <div class="breadcomb-icon">
                                     <i class="notika-icon notika-windows"></i>
@@ -23,10 +23,10 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
                             <div class="breadcomb-report">
                                 <a href="{% url 'calendar' %}">
-                                    <button data-placement="left" title="Calendar" class="btn">
+                                    <button data-placement="left" title="Calendar" class="btn btn-primary notika-btn-primary">
                                         {% trans 'Go to calendar' %}
                                     </button>
                                 </a>
@@ -34,8 +34,10 @@
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+
+                <img src="{{ MEDIA_URL }}/home.jpg" style="margin-bottom: 1rem;" />
+
+                <div class="wb-traffic-inner notika-shadow xs-res-mg-t-30">
                     <div class="website-traffic-ctn" style="font-size: 1.15em;">
                         {{ content.body.html | safe }}
                     </div>
