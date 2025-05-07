@@ -334,8 +334,13 @@ class ActorAdmin(admin.ModelAdmin):
 @admin.register(Organization)
 class OrganizationAdmin(admin.ModelAdmin):
     inlines = [OrganizationEquipmentInlineAdminForm]
-    list_display = ('__str__', 'contact', 'is_beneficiary', 'is_equipment_point', 'pk')
-    list_filter = (OrganizationHasNoContactAdminFilter,)
+    list_display = ('__str__', 'contact', 'neighborhood', 'is_beneficiary', 'is_equipment_point', 'pk')
+    list_filter = (
+        OrganizationHasNoContactAdminFilter,
+        'is_equipment_point',
+        'is_beneficiary',
+        'neighborhood',
+    )
 
     fieldsets = (
         (
