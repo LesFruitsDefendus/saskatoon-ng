@@ -85,7 +85,29 @@ class HarvestAdmin(admin.ModelAdmin):
 
         messages.info(request, f"Successfully cleaned {num_cleaned} harvest(s)")
 
-    actions = [cancel_harvests, clean_dates]
+    @admin.action(description="Clean harvest statuses")
+    def clean_statuses(self, request, queryset):
+        num_cleaned = 0
+
+        for h in queryset.filter(status__isnull=False):
+            status = {
+                'Orphan': Harvest.Status.ORPHAN,
+                'Adopted': Harvest.Status.ADOPTED,
+                'To-be-confirmed': Harvest.Status.PENDING,
+                'Scheduled': Harvest.Status.SCHEDULED,
+                'Ready': Harvest.Status.READY,
+                'Succeeded': Harvest.Status.SUCCEEDED,
+                'Cancelled': Harvest.Status.CANCELLED,
+            }.get(h.status)
+
+            if status is not None:
+                h.status = status
+                h.save()
+                num_cleaned += 1
+
+        messages.info(request, f"Successfully cleaned {num_cleaned} harvest(s)")
+
+    actions = [cancel_harvests, clean_dates, clean_statuses]
 
 
 @admin.register(RFP)
