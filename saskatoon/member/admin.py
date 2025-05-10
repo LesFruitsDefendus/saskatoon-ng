@@ -145,8 +145,7 @@ class AuthUserAdmin(UserAdmin):
     def deactivate_account(self, request, queryset):
         for u in queryset:
             if u.is_superuser:
-                messages.add_message(request, messages.ERROR,
-                                     f"Cannot deactivate account for superuser {u}")
+                messages.error(request, f"Cannot deactivate account for superuser {u}")
                 continue
             u.is_active = False
             u.save()
@@ -239,13 +238,13 @@ class AuthUserAdmin(UserAdmin):
                 email = EmailMessage("Saskatoon Email List", "", None, [mailto])
                 email.attach('Saskatoon_EmailList.csv', csvFile.read(), 'text/csv')
                 email.send()
-                messages.add_message(
-                    request, messages.SUCCESS,
+                messages.success(
+                    request,
                     f"Email list successfully sent to {mailto}"
                 )
             except Exception as e:
-                messages.add_message(
-                    request, messages.ERROR,
+                messages.error(
+                    request,
                     f"Something went wrong: {e}"
                 )
 
@@ -406,14 +405,14 @@ class OrganizationAdmin(admin.ModelAdmin):
         if not org.equipment.exists():
             org.is_equipment_point = False
             org.save()
-            messages.add_message(
-                request, messages.WARNING,
+            messages.warning(
+                request,
                 f"{org} cannot be listed as an Equipment Point because no equipment \
                 is currently registered for this Organization."
             )
         elif not org.is_equipment_point:
-            messages.add_message(
-                request, messages.WARNING,
+            messages.warning(
+                request,
                 f"{org} has equipment but is not listed as an Equipment Point. \
                 Only leave the \"Is Equipment Point\" box unchecked if the equipment \
                 is not currently available."
@@ -435,9 +434,8 @@ class OnboardingAdmin(admin.ModelAdmin):
         """Make sure all_sent is False if users get added later on"""
         if obj.all_sent and obj.persons.filter(auth_user__password='').exists():
             obj.all_sent = False
-            messages.add_message(
+            messages.warning(
                 request,
-                messages.WARNING,
                 f"Some users in {obj} were not yet invited."
             )
         super().save_model(request, obj, form, change)
@@ -460,16 +458,14 @@ class OnboardingAdmin(admin.ModelAdmin):
                     p.auth_user.save()
                     o.all_sent = False
                     o.log += f"\n\t> FAIL {p.auth_user.email}"
-                    messages.add_message(
+                    messages.error(
                         request,
-                        messages.ERROR,
                         f"Could not send Registration Invite to {p.auth_user.email}"
                     )
 
             if o.all_sent:
-                messages.add_message(
+                messages.success(
                     request,
-                    messages.SUCCESS,
                     f"Successfully sent Registration Invite to {num_sent} users"
                 )
             o.save()

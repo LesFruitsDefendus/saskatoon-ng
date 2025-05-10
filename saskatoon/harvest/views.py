@@ -362,8 +362,10 @@ def harvest_yield_create(request):
         try:
             actor_id = data['actor']  # can be empty
         except KeyError:
-            messages.error(request,
-                           _("New fruit distribution failed: please select a recipient"))
+            messages.error(
+                request,
+                _("New fruit distribution failed: please select a recipient")
+            )
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         harvest_id = data['harvest']
@@ -446,7 +448,7 @@ def harvest_status_change(request, id):
     else:
         harvest.status = request_status
         harvest.save()
-        messages.success(
+        messages.info(
             request,
             _("Harvest status successfully set to: {}").format(harvest.get_status_display())
         )
