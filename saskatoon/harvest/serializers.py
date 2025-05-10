@@ -138,6 +138,7 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
         fields = [  # type: ignore
+            'id',
             'name_en',
             'name_fr',
             'fruit_name_en',
@@ -224,7 +225,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     trees = TreeTypeSerializer(many=True, read_only=True)
     property = PropertySerializer(many=False, read_only=True)
     requests = RequestForParticipationSerializer(many=True, read_only=True)
-    harvestyield_set = HarvestYieldSerializer(many=True, read_only=True)
+    yields = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
     pickers_total_count = serializers.SerializerMethodField()
