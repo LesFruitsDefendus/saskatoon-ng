@@ -21,11 +21,10 @@
                                    data-toggle="dropdown"
                                    role="button"
                                    aria-expanded="false"
-                                   class="nav-link dropdown-toggle">
-                                    <span class="menu-it-icon-pro">
-                                        <span class="h5">{{ user }}</span>
+                                   class="nav-link dropdown-toggle notika-icon-link">
                                         <i class="notika-icon notika-support"></i>
-                                    </span>
+                                        {{ user }}
+                                        <i class="fa fa-caret-down"></i>
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li>
@@ -42,8 +41,11 @@
                                        data-toggle="dropdown"
                                        role="button"
                                        aria-expanded="false"
-                                       class="nav-link dropdown-toggle">
-                                        <span><i class="notika-icon notika-app"></i></span></a>
+                                       class="nav-link dropdown-toggle notika-icon-link"
+                                    >
+                                        <i class="notika-icon notika-app"></i> {% translate "Admin" %}
+                                        <i class="fa fa-caret-down"></i>
+                                    </a>
                                     <ul class="dropdown-menu">
                                         {% if perms.member.add_authuser %}
                                             <li>
@@ -73,11 +75,11 @@
                             {% endif %}
                         {% else %}
                             <li>
-                                <a href='{% url 'login' %}'>
-                                    <span class="menu-it-icon-pro">
-                                        <span class="h5">{% translate 'login' %}</span>
-                                        <i class="notika-icon notika-support"></i>
-                                    </span>
+                                <a href='{% url 'login' %}'
+                                   class="notika-icon-link"
+                                >
+                                    <i class="notika-icon notika-support"></i>
+                                    {% translate 'login' %}
                                 </a>
                             </li>
                         {% endif %}
@@ -86,16 +88,15 @@
                                data-toggle="dropdown"
                                role="button"
                                aria-expanded="false"
-                               class="nav-link dropdown-toggle">
-                                <span class="menu-it-icon-pro h5">
-                                    <span class="language-title">{% translate "Language" %}:</span>
-                                    {{ LANGUAGE_CODE }}
-                                    <i class="fa fa-caret-down"></i>
-                                </span>
+                               class="nav-link dropdown-toggle notika-icon-link"
+                            >
+                                {% translate "Language" %}: <b>{{ LANGUAGE_CODE }}</b>
+                                <i class="fa fa-caret-down"></i>
                                 <form action="{% url 'set_language' %}"
                                       method="post"
                                       style="display: none"
-                                      id="change_language_form">
+                                      id="change_language_form"
+                                >
                                     {% csrf_token %}
                                     <input type="hidden" value="" name="language" id="language" />
                                 </form>
@@ -103,7 +104,9 @@
                             <ul class="dropdown-menu">
                                 {% for language in languages %}
                                     <li>
-                                        <a lang_code="{{ language.code }}" class="change_language">{{ language.name_local|title }} ({{ language.code }})</a>
+                                        <a lang_code="{{ language.code }}" class="change_language">
+                                            {{ language.name_local|title }} ({{ language.code }})
+                                        </a>
                                     </li>
                                 {% endfor %}
                             </ul>

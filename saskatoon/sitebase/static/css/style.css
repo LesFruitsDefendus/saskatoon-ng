@@ -198,6 +198,9 @@ body {}
 .rtl-layout .navbar-nav>li>a{
 	padding: 20px 30px 20px 0px;
 }
+.nav.navbar-nav.notika-top-nav{
+    padding-top: 1em;
+}
 .nav.navbar-nav.notika-top-nav li a{
     background: #440bd4;
     color: #e7e0f9;
@@ -428,15 +431,14 @@ body {}
 /*  3.  Main Menu CSS
 /*----------------------------------------*/
 .nav-tabs.notika-menu-wrap{
-	border-bottom: 0px solid #ddd;
+    border-bottom: 0px solid #e7e0f9;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover {
     background: #e7e0f9;
 }
 .nav-tabs.notika-menu-wrap>li.active>a, .nav-tabs.notika-menu-wrap>li.active>a:focus, .nav-tabs.notika-menu-wrap>li.active>a:hover{
-	border: 0px solid #ddd;
-	border:none;
     font-weight: bold;
+    color: #333;
 }
 
 .nav-tabs > li > a:hover {
@@ -1634,6 +1636,7 @@ ul.wizard-nav-ac li .disabled{
 }
 
 .dropdown-menu {
+    margin-top: -1em !important;
     background: #440bd4;
 }
 
@@ -2356,12 +2359,10 @@ hr {
 	outline:none;
 }
 .search-input input[type="text"]{
-    background: #f0f;
 	padding: 8px 10px;
     width: 100%;
     border: 1px solid #ccc;
     font-size: 14px;
-    color: #00f;
 	transition:all .4s ease 0s;
 }
 .inbox-btn-st-ls .inbox-nx{
@@ -4686,17 +4687,15 @@ body.box-layout {
 /*----------------------------------------*/
 /*  58. Notika Icon CSS
 /*----------------------------------------*/
-.notika-icon-pro a{
-	text-align: center;
+.notika-icon-link a{
+    text-align: center;
     background: #F6F8FA;
     padding: 10px 15px;
     border-radius: 3px;
     margin: 5px 5px;
 }
-.notika-icon-pro i{
-	font-size:25px;
-	color:#333;
-	position: relative;
+.notika-icon-link i{
+    position: relative;
     top: 2px;
 }
 /*----------------------------------------*/
