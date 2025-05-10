@@ -12,6 +12,7 @@
             "neighborhood": "Villeray",
             "trees": [
                 {
+                    "id": 8,
                     "name_en": "Blackberry tree",
                     "name_fr": "Mûrier sauvage",
                     "fruit_name_en": "Blackberries",
@@ -19,6 +20,7 @@
                     "fruit_icon": null
                 },
                 {
+                    "id": 21,
                     "name_en": "Rhubarb",
                     "name_fr": "Rhubarbe",
                     "fruit_name_en": "Rhubarb",
@@ -39,6 +41,7 @@
             "neighborhood": "Plateau-Mont-Royal",
             "trees": [
                 {
+                    "id": 14,
                     "name_en": "Green apple tree",
                     "name_fr": "Pommier vert",
                     "fruit_name_en": "Green apples",
@@ -46,6 +49,7 @@
                     "fruit_icon": "🍏"
                 },
                 {
+                    "id": 9,
                     "name_en": "Walnut tree",
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",

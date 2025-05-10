@@ -16,7 +16,6 @@ urlpatterns = [
     path('rosetta/', include('rosetta.urls'))
 ]
 
-print("MEDIA ROOT", MEDIA_ROOT)
 if DEBUG:
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 

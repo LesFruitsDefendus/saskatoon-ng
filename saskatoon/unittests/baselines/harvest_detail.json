@@ -15,6 +15,7 @@
     },
     "trees": [
         {
+            "id": 14,
             "name_en": "Green apple tree",
             "name_fr": "Pommier vert",
             "fruit_name_en": "Green apples",
@@ -22,6 +23,7 @@
             "fruit_icon": "🍏"
         },
         {
+            "id": 9,
             "name_en": "Walnut tree",
             "name_fr": "Noyer",
             "fruit_name_en": "Walnuts",
@@ -103,6 +105,76 @@
             "comment": "I'm still interested if you need more pickers.",
             "notes": "Declined because we have enough pickers.",
             "showed_up": null,
+            "harvest": 1
+        }
+    ],
+    "yields": [
+        {
+            "id": 1,
+            "tree": {
+                "id": 9,
+                "name_en": "Walnut tree",
+                "name_fr": "Noyer",
+                "fruit_name_en": "Walnuts",
+                "fruit_name_fr": "Noix de Grenoble",
+                "fruit_icon": "🥜",
+                "maturity_start": "2025-05-01",
+                "maturity_end": "2025-10-01",
+                "image": null
+            },
+            "recipient": "Nice Owner",
+            "total_in_lb": 3.0,
+            "harvest": 1
+        },
+        {
+            "id": 2,
+            "tree": {
+                "id": 14,
+                "name_en": "Green apple tree",
+                "name_fr": "Pommier vert",
+                "fruit_name_en": "Green apples",
+                "fruit_name_fr": "Pommes vertes",
+                "fruit_icon": "🍏",
+                "maturity_start": "2025-05-01",
+                "maturity_end": "2025-10-01",
+                "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+            },
+            "recipient": "Les Fruits Défendus",
+            "total_in_lb": 6.0,
+            "harvest": 1
+        },
+        {
+            "id": 3,
+            "tree": {
+                "id": 9,
+                "name_en": "Walnut tree",
+                "name_fr": "Noyer",
+                "fruit_name_en": "Walnuts",
+                "fruit_name_fr": "Noix de Grenoble",
+                "fruit_icon": "🥜",
+                "maturity_start": "2025-05-01",
+                "maturity_end": "2025-10-01",
+                "image": null
+            },
+            "recipient": "Pick Leader",
+            "total_in_lb": 4.0,
+            "harvest": 1
+        },
+        {
+            "id": 4,
+            "tree": {
+                "id": 14,
+                "name_en": "Green apple tree",
+                "name_fr": "Pommier vert",
+                "fruit_name_en": "Green apples",
+                "fruit_name_fr": "Pommes vertes",
+                "fruit_icon": "🍏",
+                "maturity_start": "2025-05-01",
+                "maturity_end": "2025-10-01",
+                "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+            },
+            "recipient": "Nice Owner",
+            "total_in_lb": 2.0,
             "harvest": 1
         }
     ],

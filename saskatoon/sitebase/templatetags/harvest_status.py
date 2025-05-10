@@ -34,3 +34,10 @@ def progress(status: str) -> int:
         return 0
 
     return int(100/len(statuses))*(1 + idx)
+
+
+@register.filter
+def is_ready_or_succeeded(status: str) -> bool:
+    return status in [
+        s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]  # type: ignore
+    ]

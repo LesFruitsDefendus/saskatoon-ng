@@ -3,9 +3,9 @@
 <select name="tree" id="tree-select" class="form-control">
     {% for t in trees %}
         {% if LANG == "en" %}
-            <option value="{{ t.id }}">{{ t.name_en }} {{ t.fruit_name_en }}</option>
+            <option value="{{ t.id }}">{{ t.fruit_name_en }}</option>
         {% else %}
-            <option value="{{ t.id }}">{{ t.name_fr }} {{ t.fruit_name_fr }}</option>
+            <option value="{{ t.id }}">{{ t.fruit_name_fr }}</option>
         {% endif %}
     {% endfor %}
 </select>
