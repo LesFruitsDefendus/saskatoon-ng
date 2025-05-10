@@ -805,6 +805,8 @@ ul.notika-menu-wrap li a{
 /*  11.  Footer CSS
 /*----------------------------------------*/
 .footer {
+    background: #440bd4;
+    width: 100%;
     position: absolute;
     bottom: 0;
     font-size: 14px;
@@ -3685,7 +3687,7 @@ textarea.auto-size {
     right:-25px;
 }
 .nk-form, .error-page-wrap{
-    background:#ff4c94;
+    background:#e7e0f9;
     box-shadow:0 1px 1px rgba(0,0,0,.1);
     border-radius:2px;
 }
