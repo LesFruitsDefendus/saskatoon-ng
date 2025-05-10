@@ -1,6 +1,7 @@
 {% load static %}
 {% load i18n %}
 
+{% load harvest_status %}
 {% get_current_language as LANG %}
 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
     <div class="sale-statistic-inner notika-shadow mg-tb-30">
@@ -8,28 +9,41 @@
             <h2> {% trans "Fruit distribution" %} </h2>
             <br>
             <a data-toggle="collapse" href="#new-recipient"
-                class="btn btn-primary notika-btn-primary waves-effect">
-                <i class="fa fa-plus"></i> {% trans "New recipient" %}
+                {% if status|is_ready_or_succeeded %}
+                class="btn btn-primary notika-btn-primary waves-effect"
+                {% else %}
+                class="btn btn-info notika-btn-info disabled"
+                {% endif %}
+            >
+                <i class="fa fa-plus"></i>&nbsp; {% trans "New recipient" %}
             </a>
-            <br><br>
-            <table class="table">
+            <br>
+            <div class="collapse" id="new-recipient">
+                {% include 'app/detail_views/harvest/distribution/create_yield.html' %}
+            </div>
+
+            <table class="table" style="margin-top: 1em;">
                 <tr>
                     <th class="col-md-5"> {% trans "Recipient" %} </th>
-                    <th class="col-md-4"> {% trans "Tree" %} </th>
+                    <th class="col-md-4"> {% trans "Fruit" %} </th>
                     <th class="col-md-2"> {% trans "Weight" %} </th>
                     <th class="col-md-1 text-center"> {% trans "Delete" %} </th>
                 </tr>
                 <tbody>
-                    {% for hy in harvestyield_set %}
+                    {% for yield in yields %}
                     <tr>
-                        <td> {{ hy.recipient }} </td>
+                        <td> {{ yield.recipient }} </td>
                         <td>
-                            {% if LANG == "en" %}{{ hy.tree.fruit_name_en }}{% else %}{{hy.tree.fruit_name_fr}}{% endif %}
-                            &nbsp;{{ hy.tree.fruit_icon }}
+                            {% if LANG == "en" %}
+                                {{ yield.tree.fruit_name_en }}
+                            {% else %}
+                                {{yield.tree.fruit_name_fr}}
+                            {% endif %}
+                            &nbsp;{{ yield.tree.fruit_icon }}
                         </td>
-                        <td> {{ hy.total_in_lb }} lbs</td>
+                        <td> {{ yield.total_in_lb }} lbs</td>
                         <td class="text-center">
-                            <a href="{% url 'harvest-yield-delete' hy.id %}"
+                            <a href="{% url 'harvest-yield-delete' yield.id %}"
                                 onclick="return confirm('{% trans "Are you sure you want to delete this entry?" %}');">
                                 <i class="fa fa-trash text-danger"></i>
                             </a>

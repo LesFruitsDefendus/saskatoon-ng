@@ -191,19 +191,41 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
         )
         return context
 
+    def get_form_kwargs(self, *args, **kwargs):
+        return super().get_form_kwargs(*args, **kwargs) | {'yields': self.object.yields}
+
     def get_success_message(self, cleaned_data) -> str:
-        if self.object.status is Harvest.Status.SUCCEEDED:
-            pick_leader = self.object.pick_leader
-            harvests_as_pickleader = pick_leader.person.harvests_as_pickleader
-            harvests_this_year = harvests_as_pickleader.filter(
-                start_date__year=tz.now().date().year
+        if self.object.status == Harvest.Status.READY and \
+           self.object.has_pending_requests():
+            messages.error(
+                self.request,
+                _("Please resolve all requests for participation \
+                before marking the harvest as Ready.")
             )
-            harvest_number: int = harvests_this_year.count()
-            success_message_harvest_successful: str = _(
-                "You’ve just led your {} fruit harvest! \
+            self.object.status = Harvest.Status.SCHEDULED
+            self.object.save()
+            return ""
+
+        if self.object.status == Harvest.Status.SUCCEEDED:
+            if self.object.yields.count() == 0:
+                messages.error(
+                    self.request,
+                    _("Please complete fruit distribution \
+                    before marking the harvest as Succeeded.")
+                )
+                self.object.status = Harvest.Status.READY
+                self.object.save()
+                return ""
+
+            person = self.object.pick_leader.person
+            season_count = person.get_harvests_as_pickleader().filter(
+                start_date__year=tz.now().date().year
+            ).count()
+            return _(
+                "You’ve just led your {} fruit harvest this season! \
                 Thank you for supporting your community!"
-            ).format(ordinal(harvest_number))
-            return success_message_harvest_successful % cleaned_data
+            ).format(ordinal(season_count))
+
         return self.success_message
 
     def get_success_url(self):
@@ -333,7 +355,7 @@ class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
 
 @login_required
 def harvest_yield_delete(request, id):
-    """ deletes a fruit distribution entry (app/harvest/delete_yield.html)"""
+    """ Deletes a fruit distribution entry (delete_yield.html)"""
 
     if not is_pickleader_or_core_or_admin(request.user):
         messages.error(
@@ -350,7 +372,7 @@ def harvest_yield_delete(request, id):
 
 @login_required
 def harvest_yield_create(request):
-    """ handles new fruit distribution form (app/harvest/create_yield.html)"""
+    """ Handles new fruit distribution form (create_yield.html)"""
 
     if not is_pickleader_or_core_or_admin(request.user):
         messages.error(
@@ -362,8 +384,10 @@ def harvest_yield_create(request):
         try:
             actor_id = data['actor']  # can be empty
         except KeyError:
-            messages.error(request,
-                           _("New fruit distribution failed: please select a recipient"))
+            messages.error(
+                request,
+                _("New fruit distribution failed: please select a recipient")
+            )
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         harvest_id = data['harvest']
@@ -381,7 +405,7 @@ def harvest_yield_create(request):
                 total_in_lb=weight
             )
             _yield.save()
-            messages.info(request, _("New Fruit Recipient successfully added!"))
+            messages.success(request, _("New Fruit Recipient successfully added!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
@@ -403,7 +427,7 @@ def harvest_adopt(request, id):
         harvest.pick_leader = request.user
         harvest.status = Harvest.Status.ADOPTED
         harvest.save()
-        messages.info(request, _("You successfully adopted this harvest!"))
+        messages.success(request, _("You successfully adopted this harvest!"))
     else:
         messages.error(request, _("This harvest already has a pickleader!"))
 
@@ -437,11 +461,21 @@ def harvest_status_change(request, id):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         harvest.pick_leader = None
-        messages.warning(request, _("This harvest no longer have any pick leader"))
+        messages.warning(request, _("This harvest no longer has any pick leader"))
     elif request_status == Harvest.Status.SCHEDULED and not harvest.about.html:
         messages.error(
             request,
             _("Could not update harvest status. Please fill in the public anouncement field.")
+        )
+    elif request_status == Harvest.Status.READY and harvest.has_pending_requests():
+        messages.error(
+            request,
+            _("Please resolve all requests for participation before marking the harvest as ready.")
+        )
+    elif request_status == Harvest.Status.SUCCEEDED and harvest.yields.count() == 0:
+        messages.error(
+            request,
+            _("Please complete fruit distribution before marking the harvest as succeeded.")
         )
     else:
         harvest.status = request_status

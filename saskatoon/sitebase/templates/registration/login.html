@@ -1,12 +1,8 @@
-{% extends 'app/base/base.html' %}
+{% extends 'app/base/login.html' %}
 {% load i18n %}
 {% load static %}
 
 {% block body %}
-<!--[if lt IE 8]>
-<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-<![endif]-->
-<!-- Login Register area Start-->
 <div class="login-content">
     <!-- Login -->
     <div class="nk-block toggled" id="l-login">
@@ -31,7 +27,7 @@
                         </div>
                         <input type="hidden" name="next" value="{{ next }}"/>
                     </div>
-                    <button type="submit" value="login" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-primary btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></button>
+                    <button type="submit" value="login" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-primary notika-btn-primary btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></button>
                     <!--                <button type="submit"  value="login">{% trans "Login" %}</button>-->
                 </div>
         </form>
@@ -61,7 +57,7 @@
                 </div>
             </div>
 
-            <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login" class="btn btn-login btn-primary btn-float"><i class="notika-icon notika-right-arrow"></i></a>
+            <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login" class="btn btn-login btn-primary notika-btn-primary btn-float"><i class="notika-icon notika-right-arrow"></i></a>
         </div>
 
         <div class="nk-navigation rg-ic-stl">
@@ -82,7 +78,7 @@
                 </div>
             </div>
 
-            <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login" class="btn btn-login btn-primary btn-float"><i class="notika-icon notika-right-arrow"></i></a>
+            <a href="#l-login" data-ma-action="nk-login-switch" data-ma-block="#l-login" class="btn btn-login btn-primary notika-btn-primary btn-float"><i class="notika-icon notika-right-arrow"></i></a>
         </div>
 
         <div class="nk-navigation nk-lg-ic rg-ic-stl">

@@ -1,9 +1,14 @@
-from django.db.models import Q
+from django.db.models import Q, Sum
 from logging import getLogger
 
 from harvest.models import Property
 
 logger = getLogger('saskatoon')
+
+
+def sum_harvest_yields(harvest_yield_qs):
+    sum = harvest_yield_qs.aggregate(Sum("total_in_lb")).get("total_in_lb__sum")
+    return int(sum) if sum is not None else None
 
 
 def similar_properties(pending_property):

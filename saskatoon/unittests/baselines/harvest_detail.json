@@ -15,6 +15,7 @@
     },
     "trees": [
         {
+            "id": 14,
             "name_en": "Green apple tree",
             "name_fr": "Pommier vert",
             "fruit_name_en": "Green apples",
@@ -22,6 +23,7 @@
             "fruit_icon": "🍏"
         },
         {
+            "id": 9,
             "name_en": "Walnut tree",
             "name_fr": "Noyer",
             "fruit_name_en": "Walnuts",
@@ -106,7 +108,7 @@
             "harvest": 1
         }
     ],
-    "harvestyield_set": [
+    "yields": [
         {
             "id": 1,
             "tree": {

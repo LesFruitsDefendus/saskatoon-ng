@@ -233,8 +233,10 @@ class PropertyAdmin(admin.ModelAdmin):
                 if not email:
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
-                        messages.add_message(request, messages.WARNING,
-                                             f"{_property} has multiple emails in comments")
+                        messages.warning(
+                            request,
+                            f"{_property} has multiple emails in comments"
+                        )
                         continue
                     elif len(emails) == 1:
                         email = emails[0]
@@ -242,7 +244,7 @@ class PropertyAdmin(admin.ModelAdmin):
                     AuthUser.objects.create(email=email, person=_property.owner.person)
                     nb_users += 1
             except Exception as e:
-                messages.add_message(request, messages.ERROR, e)
+                messages.error(request, e)
 
         messages.info(request, f"Successfully created {nb_users} new users!")
 

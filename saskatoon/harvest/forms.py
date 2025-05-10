@@ -503,6 +503,11 @@ class HarvestForm(forms.ModelForm):
         required=False
     )
 
+    def __init__(self, *args, **kwargs):
+        if 'yields' in kwargs:
+            self.yields = kwargs.pop('yields')
+        super().__init__(*args, **kwargs)
+
     def clean_end_date(self):
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
@@ -560,9 +565,8 @@ class HarvestForm(forms.ModelForm):
             )
             if unresolved_requests.exists():
                 raise forms.ValidationError(
-                    _("This harvest can't be left orphan, resolve requests first.")
+                    _("This harvest cannot be left orphan, please resolve requests first.")
                 )
-
             if data['pick_leader'] is not None:
                 data['status'] = Harvest.Status.ADOPTED
 

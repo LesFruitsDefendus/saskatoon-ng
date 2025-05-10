@@ -1,0 +1,27 @@
+{% load static %}
+{% load i18n %}
+{% load auth_users %}
+
+<li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
+    <a href="{% url 'calendar' %}"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
+</li>
+<li class="{% if request.resolver_match.url_name == 'harvest-list' %}active{% endif %}">
+    <a href="{% url 'harvest-list' %}?season={% now 'Y' %}"><i class="fa fa-shopping-basket"></i> {% translate "Harvests" %}</a>
+</li>
+<li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
+    <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
+</li>
+<li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
+    <a href="{% url 'organization-list' %}?type=1"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
+</li>
+<li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
+    <a href="{% url 'equipment-point-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment Points" %}</a>
+</li>
+<li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
+    <a href="{% url 'community-list' %}?groups=3"><i class="fa fa-users"></i> {% translate "Community" %}</a>
+</li>
+{% if user|is_core_or_admin %}
+<li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
+    <a href="{% url 'statistics' %}?season={%now 'Y' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
+</li>
+{% endif %}

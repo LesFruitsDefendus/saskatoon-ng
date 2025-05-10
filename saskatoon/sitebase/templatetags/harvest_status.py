@@ -9,13 +9,13 @@ def color(status: str) -> str:
     return {
         t[0].value: t[1] for t in [  # type: ignore
             (Harvest.Status.ORPHAN, "#333"),
-            (Harvest.Status.ADOPTED, "#CCC"),
-            (Harvest.Status.SCHEDULED, "#FFC107"),
-            (Harvest.Status.READY, "#2196F3"),
-            (Harvest.Status.SUCCEEDED, "#4CAF50"),
-            (Harvest.Status.CANCELLED, "#F44336"),
+            (Harvest.Status.ADOPTED, "#e7e0f9"),
+            (Harvest.Status.SCHEDULED, "#e8ad2b"),
+            (Harvest.Status.READY, "#2da4f0"),
+            (Harvest.Status.SUCCEEDED, "#8bc34a"),
+            (Harvest.Status.CANCELLED, "#f54952"),
         ]
-    }.get(status, "#FFF")
+    }.get(status, "#fff")
 
 
 @register.filter
@@ -34,3 +34,10 @@ def progress(status: str) -> int:
         return 0
 
     return int(100/len(statuses))*(1 + idx)
+
+
+@register.filter
+def is_ready_or_succeeded(status: str) -> bool:
+    return status in [
+        s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]  # type: ignore
+    ]

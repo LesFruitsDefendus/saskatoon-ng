@@ -34,9 +34,8 @@ class EmailContentAdmin(admin.ModelAdmin):
 
         recipient = request.user.person
         if recipient is None:
-            messages.add_message(
+            messages.error(
                 request,
-                messages.ERROR,
                 f"User <{request.user}> has no Person attribute."
             )
             return
@@ -53,15 +52,13 @@ class EmailContentAdmin(admin.ModelAdmin):
                 harvest=test_harvest
             )
             if m.send(data=test_data) == 1:
-                messages.add_message(
+                messages.success(
                     request,
-                    messages.SUCCESS,
                     f"<{email_content}> email successfully sent to {m.recipient.email}"
                 )
             else:
-                messages.add_message(
+                messages.error(
                     request,
-                    messages.ERROR,
                     f"Could not send <{email_content}> email to {m.recipient.email}"
                 )
 

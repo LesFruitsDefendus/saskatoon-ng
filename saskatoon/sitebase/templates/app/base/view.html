@@ -1,31 +1,8 @@
 {% extends 'app/base/base.html' %}
-{% load i18n %}
-{% load static %}
-{% block body %}
-    {% include 'app/base/header.html' %}
 
-    <!-- Menu -->
+<!-- Menu -->
+{% block menu %}
     {% if user.is_authenticated %}
         {% include 'app/base/menu.html' %}
     {% endif %}
-    {% block message %}
-        {% if messages %}
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        {% for message in messages %}
-                            <div class="text-center alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
-                        {% endfor %}
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-    {% endblock message %}
-    <!-- Content -->
-    {% block content %}
-        <!-- {{ content }} -->
-    {% endblock content %}
-
-    <!-- Javascript (2/2) -->
-    {% include 'app/base/scripts.html' %}
-{% endblock body %}
+{% endblock menu %}

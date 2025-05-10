@@ -3,35 +3,34 @@
 {% load static %}
 
 {% block content %}
-
-    <!-- Start Highlights area -->
-    <div class="notika-status-area mg-tb-20">
-        <div class="container">
-            <div class="row">
-                <!-- Start Dropdown area -->
-                <div class="col-sm-2">
-                    <div class="col-12">
-                        <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                            <div class="tile_stats_count">
+<!-- Start Highlights area -->
+<div class="notika-status-area mg-tb-20">
+    <div class="container">
+        <div class="row">
+            <!-- Start Dropdown area -->
+            <div class="col-sm-2">
+                <div class="col-12">
+                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                        <div class="website-traffic-ctn">
                                 <span class="count_top"><i class="fa fa-calendar-check-o"></i> {% trans "Season" %}</span>
                                 <span class="count">
                                     <div class="dropdown">
                                         <button
-                                        class="btn btn-default dropdown-toggle"
-                                        id="menu1"
-                                        data-toggle="dropdown"
-                                        style="font-size:0.85em;font-weight:bold;color:#73879C;"
+                                            class="btn btn-default dropdown-toggle"
+                                            id="menu1"
+                                            data-toggle="dropdown"
+                                            style="font-size:0.85em;font-weight:bold;"
                                         >
-                                        <h3>
-                                            <span class="count">
-                                                {% if season is None %}
-                                                    {% trans "All" %}
-                                                {% else %}
-                                                    {{ season }}
-                                                {% endif %}
-                                            </span>
-                                            <span class="caret"></span>
-                                        </h3>
+                                            <h3>
+                                                <span class="count">
+                                                    {% if season is None %}
+                                                        {% trans "All" %}
+                                                    {% else %}
+                                                        {{ season }}
+                                                    {% endif %}
+                                                </span>
+                                                <span class="caret"></span>
+                                            </h3>
                                         </button>
                                         <ul
                                         class="dropdown-menu"
@@ -65,7 +64,7 @@
 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                                <div class="tile_stats_count">
+                                <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-shopping-basket"></i> {% trans "Harvests" %}</span>
                                     <h2><span class="count">{{highlights.total_harvests}}</span></h2>
                                     <span class="count_bottom text-muted">{% trans "Succeeded"%}</span>
@@ -76,7 +75,7 @@
 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                                <div class="tile_stats_count">
+                                <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-users"></i> {% trans "Pickers" %}</span>
                                     <h2><span class="count">{{highlights.total_pickers}}</span></h2>
                                     <span class="count_bottom text-muted">{% trans "Participated"%}</span>
@@ -87,7 +86,7 @@
 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                                <div class="tile_stats_count">
+                                <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-university"></i> {% trans "Beneficiary" %}</span>
                                     <h2><span class="count">{{highlights.total_beneficiaries}}</span></h2>
                                     <span class="count_bottom text-muted">{% trans "Organizations"%}</span>
@@ -98,7 +97,7 @@
 
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                                <div class="tile_stats_count">
+                                <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-balance-scale"></i> {%trans "Total weight" %}</span>
                                     <h2><span class="count">{{highlights.total_weight}}</span></h2>
                                     <span class="count_bottom text-muted">(lbs)</span>
@@ -138,9 +137,9 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for fruit_name,total_harvests, total_weight in total_fruit %}
+                                        {% for fruit_name, total_harvests, total_weight in total_fruit %}
                                             <tr role="row">
-                                                <td>{{fruit_name_en}} {{fruit_icon}}</td>
+                                                <td>{{fruit_name}} {{fruit_icon}}</td>
                                                 <td>{{total_harvests}}</td>
                                                 <td>{{total_weight}}</td>
                                             </tr>

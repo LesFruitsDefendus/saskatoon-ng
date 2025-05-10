@@ -59,7 +59,7 @@ body {
     min-height: 100vh;
     margin: 0;
     position: relative;
-    padding-bottom: 100px; /* W! footer height+margin */
+    padding-bottom: 100px; /* W! footer height */
     box-sizing: border-box;
     background:#fff;
 }
@@ -197,6 +197,9 @@ body {}
 }
 .rtl-layout .navbar-nav>li>a{
 	padding: 20px 30px 20px 0px;
+}
+.nav.navbar-nav.notika-top-nav{
+    padding-top: 1em;
 }
 .nav.navbar-nav.notika-top-nav li a{
     background: #440bd4;
@@ -428,15 +431,21 @@ body {}
 /*  3.  Main Menu CSS
 /*----------------------------------------*/
 .nav-tabs.notika-menu-wrap{
-	border-bottom: 0px solid #ddd;
+    border-bottom: 0px solid #e7e0f9;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover {
     background: #e7e0f9;
 }
 .nav-tabs.notika-menu-wrap>li.active>a, .nav-tabs.notika-menu-wrap>li.active>a:focus, .nav-tabs.notika-menu-wrap>li.active>a:hover{
-	border: 0px solid #ddd;
-	border:none;
+    font-weight: bold;
+    color: #333;
 }
+
+.nav-tabs > li > a:hover {
+    background: #440bd4;
+    color: #fff;
+}
+
 .notika-tab-menu-bg{
 	position:relative;
 }
@@ -796,15 +805,16 @@ ul.notika-menu-wrap li a{
 /*  11.  Footer CSS
 /*----------------------------------------*/
 .footer {
+    background: #440bd4;
+    width: 100%;
     position: absolute;
     bottom: 0;
     font-size: 14px;
-    margin-top: 20px;
-    height: 80px;
+    height: 100px;
 }
 
 .footer-copyright-area {
-    padding-top: 10px;
+    padding-top: 20px;
     width: 100%;
 }
 .footer-copyright-area p {
@@ -1307,10 +1317,10 @@ ul.tab-ctn-list li:last-child{
     margin-left: 2px;
 }
 .search-eg-table .notika-close{
-	color: #F44336;
+	color: #f54952;
 }
 .search-eg-table .notika-checked{
-	color: #5cb85c;
+	color: #8bc34a;
 }
 .search-eg-table .table tr, .search-eg-table .table td{
 	font-size:14px;
@@ -1344,33 +1354,39 @@ ul.tab-ctn-list li:last-child{
 /*----------------------------------------*/
 
 .alert {
-    font-size:20px;
-    padding: 1.5em;
+    font-size:14px;
+    padding: 1.25em;
+    margin-top: 1em;
 	border-radius:8px;
+    border-width: 0;
+	color: #000;
+    opacity: 0.8;
 }
 
-.alert-list p{
-	font-size:14px;
-	color:#333;
+.alert-success{
+	background:#8bc34a;
 }
-.alert-list .alert-success, .alert-list .alert-info, .alert-list .alert-warning, .alert-list .alert-danger{
-	color:#e7e0f9;
+.alert-info{
+	background:#2da4f0;
+    color: #fff;
 }
-.alert-list .alert-success{
-	background:#dff0d8;
+.alert-warning{
+	background:#e8ad2b;
 }
-.alert-list .alert-info{
-	background:#d9edf7;
+
+.alert-error, .alert-danger{
+	background:#ff2079;
+    color: #fff;
+    font-weight: bold;
+    opacity: 1;
 }
-.alert-list .alert-warning{
-	background:#fcf8e3;;
+
+.alert-block {
+    background: #e7e0f9;
+    color: #ff2079;
+    font-weight: bold;
 }
-.alert-list .alert-danger{
-	background:#f2dede;;
-}
-.alert-mg-b-0{
-	margin-bottom:0px;
-}
+
 .alert-list .alert-link{
 	color:#e7e0f9;
 }
@@ -1388,6 +1404,9 @@ ul.tab-ctn-list li:last-child{
 }
 .alert-hd{
 	margin-bottom:20px;
+}
+.alert-mg-b-0{
+	margin-bottom:0px;
 }
 /*----------------------------------------*/
 /*  20.  color CSS
@@ -1619,6 +1638,7 @@ ul.wizard-nav-ac li .disabled{
 }
 
 .dropdown-menu {
+    margin-top: -1em !important;
     background: #440bd4;
 }
 
@@ -1723,7 +1743,7 @@ ul.wizard-nav-ac li .disabled{
 	color:#440bd4;
 }
 .modals-default-cl .nk-red.btn-info{
-	background:#F44336;
+	background:#f54952;
 }
 .modals-default-cl .nk-light-blue.btn-info{
 	background:#03A9F4;
@@ -1738,13 +1758,13 @@ ul.wizard-nav-ac li .disabled{
 	background:#3F51B5;
 }
 .modals-default-cl .nk-blue.btn-info{
-	background:#2196F3;
+	background:#2da4f0;
 }
 .modals-default.nk-red .modal-content, .modals-default.nk-red .close, .modals-default.nk-red .modal-footer .btn-default{
-	background:#F44336;
+	background:#f54952;
 }
 .modals-default.nk-red .modal-content{
-	border: 1px solid #F44336;
+	border: 1px solid #f54952;
 }
 .modals-default.nk-light-blue .modal-content, .modals-default.nk-light-blue .close, .modals-default.nk-light-blue .modal-footer .btn-default{
 	background:#03A9F4;
@@ -1771,10 +1791,10 @@ ul.wizard-nav-ac li .disabled{
 	border: 1px solid #3F51B5;
 }
 .modals-default.nk-blue .modal-content, .modals-default.nk-blue .close, .modals-default.nk-blue .modal-footer .btn-default{
-	background:#2196F3;
+	background:#2da4f0;
 }
 .modals-default.nk-blue .modal-content{
-	border: 1px solid #2196F3;
+	border: 1px solid #2da4f0;
 }
 .modals-default.nk-red .modal-body h2, .modals-default.nk-red .modal-body p, .modals-default.nk-light-blue .modal-body h2, .modals-default.nk-light-blue .modal-body p, .modals-default.nk-cyan .modal-body h2, .modals-default.nk-cyan .modal-body p, .modals-default.nk-deep-purple .modal-body h2, .modals-default.nk-deep-purple .modal-body p, .modals-default.nk-indigo .modal-body h2, .modals-default.nk-indigo .modal-body p, .modals-default.nk-blue .modal-body h2, .modals-default.nk-blue .modal-body p{
 	color:#e7e0f9;
@@ -1877,13 +1897,13 @@ ul.wizard-nav-ac li .disabled{
     padding-right:5px
 }
 .panel-group:not([data-collapse-color]) .panel-collapse .panel-heading.active .panel-title>a:after{
-    background:#2196F3
+    background:#2da4f0
 }
 .panel-group[data-collapse-color=nk-green] .panel-collapse .panel-heading.active .panel-title>a:after{
     background:#440bd4
 }
 .panel-group[data-collapse-color=nk-red] .panel-collapse .panel-heading.active .panel-title>a:after{
-    background:#F44336
+    background:#f54952
 }
 .panel-group[data-collapse-color=nk-pink] .panel-collapse .panel-heading.active .panel-title>a:after{
     background:#E91E63
@@ -1895,7 +1915,7 @@ ul.wizard-nav-ac li .disabled{
     background:#3F51B5
 }
 .panel-group[data-collapse-color=nk-blue] .panel-collapse .panel-heading.active .panel-title>a:after{
-    background:#2196F3
+    background:#2da4f0
 }
 
 .notika-accordion-cus .panel-heading {
@@ -2341,12 +2361,10 @@ hr {
 	outline:none;
 }
 .search-input input[type="text"]{
-    background: #f0f;
 	padding: 8px 10px;
     width: 100%;
     border: 1px solid #ccc;
     font-size: 14px;
-    color: #00f;
 	transition:all .4s ease 0s;
 }
 .inbox-btn-st-ls .inbox-nx{
@@ -2817,7 +2835,7 @@ hr {
     border-left: 0px solid #ccc;
     border-right: 0px solid #ccc;
     border-bottom: 1px solid #ccc;
-    padding: 0px;
+    padding: 0.5em;
 	resize: none;
 	border-radius:0px;
 }
@@ -3086,7 +3104,7 @@ textarea.auto-size {
     width: 100%;
 }
 .bootstrap-select .notify{
-    background:#F44336 !important;
+    background:#f54952 !important;
 	color:#e7e0f9;
 }
 .bootstrap-select .dropdown-menu {
@@ -3306,7 +3324,7 @@ textarea.auto-size {
     background:rgba(244,67,54,.5);
 }
 .nk-toggle-switch[data-ts-color=red] input:not(:disabled):checked+.ts-helper:before{
-    background:#F44336;
+    background:#f54952;
 }
 .nk-toggle-switch[data-ts-color=red] input:not(:disabled):checked+.ts-helper:active:before{
     box-shadow:0 2px 8px rgba(0,0,0,.28),0 0 0 20px rgba(244,67,54,.2);
@@ -3315,7 +3333,7 @@ textarea.auto-size {
     background:rgba(33,150,243,.5);
 }
 .nk-toggle-switch[data-ts-color=blue] input:not(:disabled):checked+.ts-helper:before{
-    background:#2196F3;
+    background:#2da4f0;
 }
 .nk-toggle-switch[data-ts-color=blue] input:not(:disabled):checked+.ts-helper:active:before{
     box-shadow:0 2px 8px rgba(0,0,0,.28),0 0 0 20px rgba(33,150,243,.2);
@@ -3324,7 +3342,7 @@ textarea.auto-size {
     background:rgba(255,193,7,.5);
 }
 .nk-toggle-switch[data-ts-color=amber] input:not(:disabled):checked+.ts-helper:before{
-    background:#FFC107;
+    background:#e8ad2b;
 }
 .nk-toggle-switch[data-ts-color=amber] input:not(:disabled):checked+.ts-helper:active:before{
     box-shadow:0 2px 8px rgba(0,0,0,.28),0 0 0 20px rgba(255,193,7,.2);
@@ -3836,13 +3854,13 @@ textarea.auto-size {
 	color:#e7e0f9;
 }
 .date-inv{
-	background:#2196F3;
+	background:#2da4f0;
 }
 .wt-inv{
-	background:#4CAF50;
+	background:#8bc34a;
 }
 .gdt-inv{
-	background:#F44336;
+	background:#f54952;
 }
 .invoice-sp .table{
 	margin-bottom:0px;
@@ -4671,17 +4689,15 @@ body.box-layout {
 /*----------------------------------------*/
 /*  58. Notika Icon CSS
 /*----------------------------------------*/
-.notika-icon-pro a{
-	text-align: center;
+.notika-icon-link a{
+    text-align: center;
     background: #F6F8FA;
     padding: 10px 15px;
     border-radius: 3px;
     margin: 5px 5px;
 }
-.notika-icon-pro i{
-	font-size:25px;
-	color:#333;
-	position: relative;
+.notika-icon-link i{
+    position: relative;
     top: 2px;
 }
 /*----------------------------------------*/

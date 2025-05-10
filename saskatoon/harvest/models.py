@@ -73,10 +73,10 @@ class TreeType(models.Model):
         null=True
     )
 
-    def get_name(self, lang='en'):
+    def get_name(self, lang='fr'):
         return getattr(self, "name_{}".format(lang))
 
-    def get_fruit_name(self, lang='en'):
+    def get_fruit_name(self, lang='fr'):
         return getattr(self, "fruit_name_{}".format(lang))
 
     @property
@@ -129,7 +129,7 @@ class EquipmentType(models.Model):
         default="",
     )
 
-    def get_name(self, lang='en'):
+    def get_name(self, lang='fr'):
         return getattr(self, "name_{}".format(lang))
 
     def __str__(self):
@@ -607,9 +607,10 @@ class Harvest(models.Model):
         return [s for s in Harvest.Status.choices
                 if s[0] != Harvest.Status.PENDING]
 
-    def get_total_distribution(self):
-        yields = HarvestYield.objects.filter(harvest=self)
-        return sum([y.total_in_lb for y in yields])
+    def get_total_distribution(self) -> Optional[int]:
+        return self.yields.aggregate(
+            models.Sum("total_in_lb")
+        ).get("total_in_lb__sum")
 
     def get_local_start(self):
         return local_datetime(self.start_date)
@@ -633,6 +634,9 @@ class Harvest(models.Model):
     def has_enough_pickers(self) -> bool:
         accepted = self.get_volunteers_count(RequestForParticipation.Status.ACCEPTED)
         return accepted >= self.nb_required_pickers
+
+    def has_pending_requests(self) -> bool:
+        return self.get_volunteers_count(RequestForParticipation.Status.PENDING) > 0
 
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
@@ -794,6 +798,7 @@ class HarvestYield(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
+        related_name='yields',
         on_delete=models.CASCADE,
     )
 
@@ -874,7 +879,7 @@ class Equipment(models.Model):
             return self.owner.get_organization()
         return None
 
-    def inventory(self, lang='en'):
+    def inventory(self, lang='fr'):
         return "%i %s" % (self.count, self.type.get_name(lang))
 
     def __str__(self):

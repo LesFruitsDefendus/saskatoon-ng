@@ -10,29 +10,7 @@
                 <div class="mobile-menu">
                     <nav id="dropdown">
                         <ul class="mobile-menu-nav">
-                            <li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
-                                <a href="{% url 'calendar' %}">{% translate "Calendar" %} </a>
-                            </li>
-                            <li class="{% if request.resolver_match.url_name == 'harvest-list' %}active{% endif %}">
-                                <a href="{% url 'harvest-list' %}?season={% now 'Y' %}">{% translate "Harvests" %} </a>
-                            </li>
-                            <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
-                                <a href="{% url 'property-list' %}?is_active=true">{% translate "Properties" %}</a>
-                            </li>
-                            <li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
-                                <a href="{% url 'organization-list' %}?is_beneficiary=true">{% translate "Beneficiaries" %}</a>
-                            </li>
-                            <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
-                                <a href="{% url 'community-list' %}?groups=3">{% translate "Community" %}</a>
-                            </li>
-                            <li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
-                                <a href="{% url 'equipment-point-list' %}">{% translate "Equipment Point" %}</a>
-                            </li>
-                            {% if user|is_core_or_admin %}
-                            <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                                <a href="{% url 'statistics' %}">{% translate "Statistics" %}</a>
-                            </li>
-                            {% endif %}
+                            {% include 'app/base/menu-tabs.html' %}
                         </ul>
                     </nav>
                 </div>
@@ -44,32 +22,10 @@
 <!-- MAIN MENU-->
 <div class="main-menu-area">
     <div class="container">
-        <div class="row">
+        <div class="row" style="margin-top: 0.5em;">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <ul class="nav nav-tabs tab-nav-center notika-menu-wrap menu-it-icon-pro">
-                    <li class="{% if request.resolver_match.url_name == 'calendar' %}active{% endif %}">
-                        <a href="{% url 'calendar' %}"><i class="fa fa-table"></i> {% translate "Calendar" %}</a>
-                    </li>
-                    <li class="{% if request.resolver_match.url_name == 'harvest-list' %}active{% endif %}">
-                        <a href="{% url 'harvest-list' %}?season={% now 'Y' %}"><i class="fa fa-shopping-basket"></i> {% translate "Harvests" %}</a>
-                    </li>
-                    <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
-                        <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
-                    </li>
-                    <li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
-                        <a href="{% url 'organization-list' %}?type=1"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
-                    </li>
-                    <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
-                        <a href="{% url 'community-list' %}?groups=3"><i class="fa fa-users"></i> {% translate "Community" %}</a>
-                    </li>
-                    <li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
-                        <a href="{% url 'equipment-point-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment Points" %}</a>
-                    </li>
-                    {% if user|is_core_or_admin %}
-                    <li class="{% if request.resolver_match.url_name == 'statistics' %}active{% endif %}">
-                        <a href="{% url 'statistics' %}?season={%now 'Y' %}"><i class="fa fa-bar-chart fa-fw"></i> {% translate "Statistics" %}</a>
-                    </li>
-                    {% endif %}
+                    {% include 'app/base/menu-tabs.html' %}
                 </ul>
             </div>
         </div>
