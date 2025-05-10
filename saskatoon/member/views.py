@@ -158,7 +158,7 @@ class PasswordChangeView(auth_views.PasswordChangeView):
     form_class = PasswordChangeForm
 
     def get_success_url(self):
-        messages.info(self.request, _("Password successfully changed!"))
+        messages.success(self.request, _("Password successfully changed!"))
         return reverse('home')
 
 
@@ -183,7 +183,7 @@ class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMess
         )
 
         if m.send(data={'password': reset_password(user)}) == 1:
-            messages.info(request, _(
+            messages.success(request, _(
                 "Password reset email successfully sent to {email}"
                 ).format(email=user.email))
         else:

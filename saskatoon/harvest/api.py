@@ -97,6 +97,9 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         'owner__person__first_name',
         'street',
         'street_number',
+        'pending_contact_first_name',
+        'pending_contact_family_name',
+        'pending_contact_email',
     ]
 
     def list(self, request, *args, **kwargs):
@@ -127,7 +130,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         response = super().partial_update(request, pk)
         if response.status_code == status.HTTP_200_OK:
             if not property.authorized and request.data.get('authorized'):
-                messages.info(request, _("Property successfully authorized!"))
+                messages.success(request, _("Property successfully authorized!"))
         else:
             messages.error(request, _("Something went wrong"))
 

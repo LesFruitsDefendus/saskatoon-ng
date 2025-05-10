@@ -11,7 +11,6 @@ from typing import Dict, Any
 from member.models import Person
 from harvest.models import (
     Comment,
-    Harvest,
     Property,
     RequestForParticipation as RFP,
 )
@@ -383,6 +382,7 @@ def notify_property_registered(sender, instance, **kwargs):
     ).send(data=dict(EmailPropertySerializer(instance).data))
 
 
+"""disabled
 @receiver(pre_save, sender=Harvest)
 def notify_unselected_pickers(sender, instance, **kwargs):
     try:
@@ -401,6 +401,7 @@ def notify_unselected_pickers(sender, instance, **kwargs):
             ).send():
                 r.status = RFP.Status.DECLINED
                 r.save()
+"""
 
 
 @receiver(post_save, sender=RFP)
