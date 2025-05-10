@@ -1083,7 +1083,7 @@ msgstr ""
 #: harvest/views.py:440
 #, fuzzy
 #| msgid "Notes from the pick leader."
-msgid "This harvest no longer have any pick leader"
+msgid "This harvest no longer has any pick leader"
 msgstr "Notes du Chef (de la Cheffe) de cueillette"
 
 #: harvest/views.py:444
