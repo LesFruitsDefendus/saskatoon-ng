@@ -130,7 +130,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         response = super().partial_update(request, pk)
         if response.status_code == status.HTTP_200_OK:
             if not property.authorized and request.data.get('authorized'):
-                messages.info(request, _("Property successfully authorized!"))
+                messages.success(request, _("Property successfully authorized!"))
         else:
             messages.error(request, _("Something went wrong"))
 

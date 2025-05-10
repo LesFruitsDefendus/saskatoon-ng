@@ -635,6 +635,9 @@ class Harvest(models.Model):
         accepted = self.get_volunteers_count(RequestForParticipation.Status.ACCEPTED)
         return accepted >= self.nb_required_pickers
 
+    def has_pending_requests(self) -> bool:
+        return self.get_volunteers_count(RequestForParticipation.Status.PENDING) > 0
+
     def get_days_before_harvest(self):
         diff = datetime.now() - self.start_date
         return diff.days
