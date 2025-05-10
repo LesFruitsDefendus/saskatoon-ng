@@ -97,6 +97,9 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         'owner__person__first_name',
         'street',
         'street_number',
+        'pending_contact_first_name',
+        'pending_contact_family_name',
+        'pending_contact_email',
     ]
 
     def list(self, request, *args, **kwargs):
