@@ -1365,6 +1365,8 @@ ul.tab-ctn-list li:last-child{
 
 .alert-success{
 	background:#8bc34a;
+    color: #fff;
+    font-weight: bold;
 }
 .alert-info{
 	background:#2da4f0;
