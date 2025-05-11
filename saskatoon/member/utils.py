@@ -1,4 +1,5 @@
 from secrets import choice
+
 from member.models import AuthUser
 
 
