@@ -16,7 +16,7 @@
                         <div class="col-xs-6">
                             <span style ="float: right">
                             {% if perms.harvest.add_harvest and authorized and not pending %}
-                                {% if needs_orphan %}
+                                {% if user|is_core_or_admin and needs_orphan %}
                                     <a href="{% url 'property-create-orphans' id %}">
                                         <button title="Create Orphan Harvest(s)"
                                                 class="btn btn-warning notika-btn-warning"
