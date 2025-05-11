@@ -41,13 +41,13 @@
                                         <button title="Authorize"
                                             class="btn btn-success notika-btn-success"
                                             onclick="authorizeProperty({{id}})">
+                                            <i class="fa fa-check"></i>&nbsp;
                                             {% trans "Authorize" %}
-                                        </button>
-                                        &nbsp;
-                                    {% endif %}
-                                    <a href="{% url 'property-update' id %}">
-                                        <button title="Edit Property"
-                                                class="btn btn-primary notika-btn-primary">
+                                            </button>
+                                            &nbsp;
+                                            {% endif %}
+                                            <a href="{% url 'property-update' id %}">
+                                                <button title="Edit Property" class="btn btn-primary notika-btn-primary">
                                             <i class="fa fa-pencil"></i>&nbsp;
                                             {% trans "Edit Property" %}
                                         </button>
