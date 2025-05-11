@@ -7,6 +7,7 @@ from sitebase.models import (
     PageContent
 )
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
+from sitebase.tests import get_test_harvest
 
 
 @admin.register(PageContent)
@@ -34,13 +35,15 @@ class EmailContentAdmin(admin.ModelAdmin):
 
         recipient = request.user.person
         if recipient is None:
-            messages.error(
+            return messages.error(
                 request,
                 f"User <{request.user}> has no Person attribute."
             )
-            return
 
-        test_harvest = Harvest.objects.last()
+        test_harvest = get_test_harvest()
+        if test_harvest is None:
+            return messages.error(request, "Could not retrieve test harvest.")
+
         test_data = {'password': 'abcdef123456'}
         test_data.update(EmailCommentSerializer(Comment.objects.last()).data)
         test_data.update(EmailRFPSerializer(RequestForParticipation.objects.last()).data)

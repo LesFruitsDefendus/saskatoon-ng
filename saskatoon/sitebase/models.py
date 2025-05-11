@@ -254,7 +254,7 @@ class Email(models.Model):
 
     @property
     def cc_list(self):
-        if self.harvest is None:
+        if self.harvest is None or self.harvest.pick_leader is None:
             return []
         return [self.harvest.pick_leader.email]
 
