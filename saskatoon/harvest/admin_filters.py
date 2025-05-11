@@ -1,7 +1,9 @@
 from django.contrib.admin import SimpleListFilter
 from django.utils.translation import gettext_lazy as _
+from django.utils import timezone as tz
 
 from harvest.models import Harvest
+from sitebase.models import Email, EmailType
 
 
 class PropertyOwnerTypeAdminFilter(SimpleListFilter):
@@ -46,7 +48,7 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
     """Check if Property Owner has an email address"""
 
     title = 'Email Filter'
-    parameter_name = 'user'
+    parameter_name = 'email'
 
     def lookups(self, request, model_admin):
         return [('0', 'Owner has no email'),
@@ -66,6 +68,37 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
                 return qs1 | qs2
             elif self.value() == '1':
                 return (qs1 | qs2).filter(pending_contact_email__isnull=False)
+        return queryset
+
+
+class OwnerGotAuthorizationEmailFilter(SimpleListFilter):
+    """ Check if Property Owner has received an authorization email"""
+
+    title = 'Pending Authorization'
+    parameter_name = 'auth'
+
+    def lookups(self, request, model_admin):
+        return [('0', 'Has Received email for this season'),
+                ('1', 'Has not responded for this season'),
+                ('2', 'Has not received email this season')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            recipients = Email.objects.filter(
+                type=EmailType.SEASON_AUTHORIZATION,
+                date_sent__year=tz.now().date().year
+            ).values_list('recipient', flat=True)
+
+            if self.value() == '0':
+                return queryset.filter(owner__person__in=recipients)
+            elif self.value() == '1':
+                return queryset.filter(
+                    owner__person__in=recipients,
+                    authorized__isnull=True,
+                )
+            elif self.value() == '2':
+                return queryset.exclude(owner__person__in=recipients)
+
         return queryset
 
 

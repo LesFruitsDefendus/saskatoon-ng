@@ -447,6 +447,14 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
                              self.pending_contact_family_name)
 
     @property
+    def email_recipient(self):
+        if self.owner and self.owner.is_person:
+            return self.owner.person
+        elif self.owner and self.owner.is_organization:
+            return self.owner.contact_person
+        return None
+
+    @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
             return " ".join([

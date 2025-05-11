@@ -28,7 +28,7 @@ def get_test_property() -> Optional[Property]:
     return None
 
 
-def get_test_harvest() -> Harvest:
+def get_test_harvest() -> Optional[Harvest]:
     test_property = get_test_property()
 
     if test_property is not None:

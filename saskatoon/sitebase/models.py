@@ -107,6 +107,7 @@ class EmailType(models.TextChoices):
 
     # Owner
     PROPERTY_REGISTERED = 'property_registered', _("Property was registered")
+    SEASON_AUTHORIZATION = 'season_authorization', _("Seasonal property authorization")
 
     # Volunteers
     UNSELECTED_PICKERS = 'unselected_pickers', _("Unselected pickers")
@@ -191,6 +192,7 @@ class Email(models.Model):
 
     recipient = models.ForeignKey(
         'member.Person',
+        related_name='emails',
         verbose_name=_("Recipient"),
         on_delete=models.CASCADE
     )
@@ -365,11 +367,8 @@ def notify_property_registered(sender, instance, **kwargs):
         )
         return
 
-    if instance.owner.is_person:
-        recipient = instance.owner.person
-    elif instance.owner.is_organization:
-        recipient = instance.owner.contact_person
-    else:
+    recipient = instance.email_recipient
+    if recipient is None:
         logger.warning(
             "Property owner (actor: %i) is not a Person nor an Organization.",
             instance.owner.actor_id

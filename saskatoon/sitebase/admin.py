@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from harvest.models import Harvest, Comment, RequestForParticipation
+from harvest.models import Comment, RequestForParticipation
 from sitebase.models import (
     Email,
     EmailContent,

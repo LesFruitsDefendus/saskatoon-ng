@@ -4,10 +4,12 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.html import mark_safe
 
+from member.models import AuthUser
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,
     HarvestHasNoDateAdminFilter,
     OwnerHasNoEmailAdminFilter,
+    OwnerGotAuthorizationEmailFilter,
     PropertyOwnerTypeAdminFilter,
     PropertyHasHarvestAdminFilter,
     RFPSeasonAdminFilter,
@@ -30,7 +32,10 @@ from harvest.models import (
     RequestForParticipation as RFP,
     TreeType,
 )
-from member.models import AuthUser
+from sitebase.models import Email, EmailType
+from sitebase.serializers import (
+    EmailPropertySerializer,
+)
 
 
 @admin.register(Harvest)
@@ -162,6 +167,7 @@ class PropertyAdmin(admin.ModelAdmin):
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
         OwnerHasNoEmailAdminFilter,
+        OwnerGotAuthorizationEmailFilter,
         'authorized',
         'is_active',
         'pending',
@@ -248,7 +254,32 @@ class PropertyAdmin(admin.ModelAdmin):
 
         messages.info(request, f"Successfully created {nb_users} new users!")
 
-    actions = [reset_authorize, create_owner_user]
+    @admin.action(description="Send authorization email to selected property owners")
+    def send_authorization_email(self, request, queryset):
+        """Send email to property owners to ask for authorization for this season"""
+
+        num_sent = 0
+        for p in queryset:
+            recipient = p.email_recipient
+            if recipient is None:
+                messages.error(request, f"Could not find a recipient for {p}.")
+                continue
+
+            if Email.objects.create(
+                recipient=recipient,
+                type=EmailType.SEASON_AUTHORIZATION,
+            ).send(data=dict(EmailPropertySerializer(p).data)):
+                num_sent += 1
+            else:
+                messages.error(
+                    request,
+                    f"Could not send authorization email to {recipient.email}."
+                )
+
+        if num_sent > 1:
+            messages.info(request, f"Sent authorization emails to {num_sent} owners!")
+
+    actions = [reset_authorize, create_owner_user, send_authorization_email]
 
     def get_actions(self, request):
         actions = super().get_actions(request)
