@@ -183,12 +183,6 @@ class Actor(models.Model):
         primary_key=True
     )
 
-    def get_person(self):
-        return Person.objects.filter(actor_id=self.actor_id).first()
-
-    def get_organization(self):
-        return Organization.objects.filter(actor_id=self.actor_id).first()
-
     @property
     def is_person(self):
         return hasattr(self, 'person')
@@ -196,6 +190,16 @@ class Actor(models.Model):
     @property
     def is_organization(self):
         return hasattr(self, 'organization')
+
+    def get_person(self):
+        if self.is_person:
+            return self.person
+        return Person.objects.none()
+
+    def get_organization(self):
+        if self.is_organization:
+            return self.organization
+        return Organization.objects.none()
 
     def __str__(self):
         if self.is_person:

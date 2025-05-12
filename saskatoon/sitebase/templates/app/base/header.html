@@ -47,27 +47,39 @@
                                         <i class="fa fa-caret-down"></i>
                                     </a>
                                     <ul class="dropdown-menu">
-                                        {% if perms.member.add_authuser %}
-                                            <li>
-                                                <a href="{% url 'person-create' %}">{% translate "Add user" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.member.change_authuser %}
-                                            <li>
-                                                <a href="{% url 'admin:member_authuser_changelist' %}">{% translate "Manage user" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.member.change_organization %}
-                                            <li>
-                                                <a href="{% url 'admin:member_organization_changelist' %}">{% translate "Manage beneficiary" %}</a>
-                                            </li>
-                                        {% endif %}
                                         {% if user|is_core_or_admin %}
                                             <li>
                                                 <a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>
                                             </li>
+                                        {% endif %}
+                                        {% if perms.member.add_authuser %}
+                                        <li>
+                                            <a href="{% url 'person-create' %}">{% translate "Add new user" %}</a>
+                                        </li>
+                                        {% endif %}
+                                        {% if user|is_translator %}
                                             <li>
-                                                <a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Manage translations" %}</a>
+                                                <a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Translations" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if perms.sitebase.change_emailcontent %}
+                                            <li>
+                                                <a href="{% url 'admin:sitebase_emailcontent_changelist' %}">{% translate "Emails content" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if perms.sitebase.change_pagecontent %}
+                                            <li>
+                                                <a href="{% url 'admin:sitebase_pagecontent_changelist' %}">{% translate "Homepage content" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if perms.member.change_organization %}
+                                            <li>
+                                                <a href="{% url 'admin:member_organization_changelist' %}">{% translate "Equipment points" %}</a>
+                                            </li>
+                                        {% endif %}
+                                        {% if perms.harvest.change_treetype %}
+                                            <li>
+                                                <a href="{% url 'admin:harvest_treetype_changelist' %}">{% translate "Fruit maturity dates" %}</a>
                                             </li>
                                         {% endif %}
                                     </ul>
@@ -83,7 +95,7 @@
                                 </a>
                             </li>
                         {% endif %}
-                        <li class="nav-item">
+                        <li class="nav-item dropdown">
                             <a href="#"
                                data-toggle="dropdown"
                                role="button"
@@ -104,7 +116,7 @@
                             <ul class="dropdown-menu">
                                 {% for language in languages %}
                                     <li>
-                                        <a lang_code="{{ language.code }}" class="change_language">
+                                        <a lang_code="{{ language.code }}" class="change_language" href="#">
                                             {{ language.name_local|title }} ({{ language.code }})
                                         </a>
                                     </li>

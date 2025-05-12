@@ -29,3 +29,10 @@ def is_pickleader(user: AuthUser, hid: Optional[int] = None) -> bool:
         return harvest.pick_leader == user
 
     return perms.is_pickleader_or_core(user)
+
+
+@register.filter(name="is_translator")
+def is_translator(user: AuthUser) -> bool:
+    """ checks if the user making the request can access Rosetta"""
+
+    return perms.is_translator(user)
