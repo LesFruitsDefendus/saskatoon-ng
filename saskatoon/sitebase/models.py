@@ -349,8 +349,8 @@ class Email(models.Model):
 
 
 @receiver(pre_save, sender=Property)
-def notify_property_registered(sender, instance, **kwargs):
-    if instance.pending:
+def notify_property_validated(sender, instance, **kwargs):
+    if not instance.id or instance.pending:
         return
 
     try:
@@ -360,6 +360,18 @@ def notify_property_registered(sender, instance, **kwargs):
     except Property.DoesNotExist:
         pass
 
+    return notify_property_registered(sender, instance, **kwargs)
+
+
+@receiver(post_save, sender=Property)
+def notify_property_created(sender, instance, created, **kwargs):
+    if not created or instance.pending:
+        return
+
+    return notify_property_registered(sender, instance, **kwargs)
+
+
+def notify_property_registered(_sender, instance, **kwargs):
     if instance.owner is None:
         logger.warning(
             "Property %i has no registered owner.",

@@ -262,20 +262,21 @@ class PropertyCreateForm(PropertyForm):
         return data
 
     def save(self):
-        instance = super(PropertyCreateForm, self).save()
-        person = Person.objects.create(
-            first_name=self.cleaned_data['owner_first_name'],
-            family_name=self.cleaned_data['owner_last_name'],
-            phone=self.cleaned_data['owner_phone']
-        )
-        auth_user = AuthUser.objects.create(
-            email=self.cleaned_data['owner_email'],
-            person=person
-        )
-        auth_user.set_roles(['owner'])
+        instance = super().save()
+        if not self.cleaned_data['owner']:
+            person = Person.objects.create(
+                first_name=self.cleaned_data['owner_first_name'],
+                family_name=self.cleaned_data['owner_last_name'],
+                phone=self.cleaned_data['owner_phone']
+            )
+            auth_user = AuthUser.objects.create(
+                email=self.cleaned_data['owner_email'],
+                person=person
+            )
+            auth_user.set_roles(['owner'])
 
-        instance.owner = person
-        instance.save()
+            instance.owner = person
+            instance.save()
 
         return instance
 
