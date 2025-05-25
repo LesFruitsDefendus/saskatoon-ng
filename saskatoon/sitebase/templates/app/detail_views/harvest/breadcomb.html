@@ -15,11 +15,10 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>#{{ id }}:
-                                        {% if LANG == "en" %}
-                                            {% for t in trees %} {{ t.name_en }} {{ t.fruit_icon }}, {% endfor %}
-                                        {% else %}
-                                            {% for t in trees %} {{ t.name_fr }} {{ t.fruit_icon }}, {% endfor %}
-                                        {% endif %}
+
+                                        {% for t in trees %}
+                                            {% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }},
+                                        {% endfor %}
                                         {{ property.address }},
                                         {{ property.neighborhood }}
                                     </h1>
