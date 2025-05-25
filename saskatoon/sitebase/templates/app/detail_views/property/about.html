@@ -24,15 +24,23 @@
             </ul>
             <br>
 
-            <h2>{% translate 'Accessibility' %}</h2>
-            <ul>
-                <li>- {{ trees_location|default:"" }}</li>
-                <li>- {{ trees_accessibility|default:"" }}</li>
-            </ul>
-            <br>
+            {% if trees_location or trees_accessibility %}
+                <h2>{% translate 'Accessibility' %}</h2>
+                <ul>
+                    {% if trees_location %}
+                        <li>- {{ trees_location }}</li>
+                    {% endif %}
+                    {% if trees_accessibility %}
+                        <li>- {{ trees_accessibility }}</li>
+                    {% endif %}
+                </ul>
+                <br>
+            {% endif %}
 
-            <h2>{% translate 'Additional information' %}</h2>
-            <p>{{ additional_info|default:"" }}</p>
+            {% if additional_info %}
+                <h2>{% translate 'Additional information' %}</h2>
+                <p>{{ additional_info }}</p>
+            {% endif %}
         </div>
     </div>
 </div>
