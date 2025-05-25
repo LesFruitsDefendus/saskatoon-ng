@@ -230,6 +230,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     pickers = serializers.SerializerMethodField()
     pickers_total_count = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
+    maturity_range = serializers.SerializerMethodField()
 
     def get_is_open_to_requests(self, obj):
         return obj.is_open_to_requests(False)
@@ -250,6 +251,14 @@ class HarvestSerializer(serializers.ModelSerializer):
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
+
+    def get_maturity_range(self, obj):
+        if obj.trees.count() == 1:
+            return obj.trees.first().maturity_range
+        return "{} - {}".format(
+            obj.start_date.strftime("%b. %-d"),
+            obj.end_date.strftime("%b. %-d, %Y"),
+        )
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):

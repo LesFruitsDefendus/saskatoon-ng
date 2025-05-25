@@ -19,8 +19,10 @@
                             @ {{ property.neighborhood }}
                         </h5>
                         <br>
-                        <h4>{{start_date}}</h4>
-                        <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
+                        {% if status  != "orphan" %}
+                            <h4>{{start_date}}</h4>
+                            <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
+                        {% endif %}
                         <br>
                         {{about | safe}}
                     </div>

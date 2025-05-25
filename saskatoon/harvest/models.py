@@ -80,6 +80,13 @@ class TreeType(models.Model):
         return getattr(self, "fruit_name_{}".format(lang))
 
     @property
+    def maturity_range(self):
+        return "{} - {}".format(
+            self.maturity_start.strftime("%b. %-d"),
+            self.maturity_end.strftime("%b. %-d, %Y"),
+        )
+
+    @property
     def fruit(self):
         return "{} / {}".format(self.fruit_name_fr, self.fruit_name_en)
 
