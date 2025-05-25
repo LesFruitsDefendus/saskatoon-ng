@@ -12,7 +12,9 @@ class TreeAutocomplete(autocomplete.Select2QuerySetView):
             qs = Property.objects.get(id=property).trees.all()
 
         if self.q:
-            qs = qs.filter(name__icontains=self.q)
+            q0 = Q(name_fr__icontains=self.q)
+            q1 = Q(name_en__icontains=self.q)
+            return qs.filter(q0 | q1)
         return qs
 
 
