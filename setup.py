@@ -32,6 +32,7 @@ setup(
         "django-crequest",
         "django-debug-toolbar",
         "django-extensions",
+        "django-geojson==3.0.0",
         "jsonfield==3.1.0",
         "mysqlclient==1.4.6",
         "Pillow==9.3.0",
