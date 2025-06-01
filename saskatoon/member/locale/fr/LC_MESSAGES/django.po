@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-05-06 17:30-0400\n"
+"POT-Creation-Date: 2025-06-01 19:42-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -51,7 +51,7 @@ msgid "Role(s)"
 msgstr ""
 
 #: member/filters.py:37 member/filters.py:79 member/filters.py:111
-#: member/models.py:276 member/models.py:486
+#: member/models.py:280 member/models.py:492
 msgid "Borough"
 msgstr "Voisinage"
 
@@ -131,7 +131,7 @@ msgstr "Ce champ est requis"
 msgid "Last Name"
 msgstr "Nom"
 
-#: member/forms.py:188 member/models.py:241 member/models.py:438
+#: member/forms.py:188 member/models.py:245 member/models.py:444
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -192,180 +192,180 @@ msgstr "acteur"
 msgid "actors"
 msgstr "acteurs"
 
-#: member/models.py:213
+#: member/models.py:217
 msgid "person"
 msgstr "personne"
 
-#: member/models.py:214
+#: member/models.py:218
 #, fuzzy
 #| msgid "person"
 msgid "persons"
 msgstr "personne"
 
-#: member/models.py:222
+#: member/models.py:226
 #, fuzzy
 #| msgid "Preferred language"
 msgid "Preferred Language"
 msgstr "Langue de contact préférée"
 
-#: member/models.py:229
+#: member/models.py:233
 msgid "First name"
 msgstr "Prénom"
 
-#: member/models.py:234
+#: member/models.py:238
 msgid "Family name"
 msgstr "Nom"
 
-#: member/models.py:247
+#: member/models.py:251
 msgid "Number"
 msgstr "Numéro civique"
 
-#: member/models.py:254 member/models.py:464
+#: member/models.py:258 member/models.py:470
 msgid "Street"
 msgstr "Rue"
 
-#: member/models.py:261 member/models.py:471
+#: member/models.py:265 member/models.py:477
 msgid "Complement"
 msgstr "Complément"
 
-#: member/models.py:268 member/models.py:478
+#: member/models.py:272 member/models.py:484
 msgid "Postal code"
 msgstr "Code postal"
 
-#: member/models.py:284 member/models.py:493
+#: member/models.py:288 member/models.py:499
 msgid "City"
 msgstr "Ville"
 
-#: member/models.py:292 member/models.py:501
+#: member/models.py:296 member/models.py:507
 msgid "State"
 msgstr "Province"
 
-#: member/models.py:300 member/models.py:509
+#: member/models.py:304 member/models.py:515
 msgid "Country"
 msgstr "Pays"
 
-#: member/models.py:307
+#: member/models.py:311
 msgid "Newsletter subscription"
 msgstr "Souscription au bulletin d'information"
 
-#: member/models.py:312 member/models.py:516
+#: member/models.py:316 member/models.py:522
 msgid "Longitude"
 msgstr "Longitude"
 
-#: member/models.py:318 member/models.py:522
+#: member/models.py:322 member/models.py:528
 msgid "Latitude"
 msgstr "Latitude"
 
-#: member/models.py:324
+#: member/models.py:328
 msgid "Comments"
 msgstr "Commentaires"
 
-#: member/models.py:332
+#: member/models.py:336
 msgid "Onboarding group"
 msgstr ""
 
-#: member/models.py:390
+#: member/models.py:396
 msgid "organization"
 msgstr "Organisme"
 
-#: member/models.py:391
+#: member/models.py:397
 msgid "organizations"
 msgstr "Organismes"
 
-#: member/models.py:395
+#: member/models.py:401
 #, fuzzy
 #| msgid "is beneficiary"
 msgid "Is Beneficiary"
 msgstr "est bénéficiaire"
 
-#: member/models.py:397
+#: member/models.py:403
 msgid ""
 "Only check this box if the Organization is currently accepting fruit "
 "donations"
 msgstr ""
 
-#: member/models.py:403
+#: member/models.py:409
 msgid "Is Equipment Point"
 msgstr ""
 
-#: member/models.py:405
+#: member/models.py:411
 msgid ""
 "Only check this box if the equipment registered at this Organization is "
 "currenlty made available"
 msgstr ""
 
-#: member/models.py:412
+#: member/models.py:418
 msgid "Redmine contact"
 msgstr "Contact Redmine"
 
-#: member/models.py:418 member/models.py:595 member/models.py:611
-#: member/models.py:626 member/models.py:642
+#: member/models.py:424 member/models.py:601 member/models.py:617
+#: member/models.py:632 member/models.py:648
 msgid "Name"
 msgstr "Nom"
 
-#: member/models.py:423
+#: member/models.py:429
 #, fuzzy
 #| msgid "Description"
 msgid "Short description"
 msgstr "Description"
 
-#: member/models.py:428
+#: member/models.py:434
 #, fuzzy
 #| msgid "Beneficiary organization"
 msgid "Beneficiary description"
 msgstr "Organisme bénéficiaire"
 
-#: member/models.py:433
+#: member/models.py:439
 msgid "Equipment point description"
 msgstr ""
 
-#: member/models.py:445
+#: member/models.py:451
 msgid "Contact person"
 msgstr "Personne contact"
 
-#: member/models.py:450
+#: member/models.py:456
 msgid "Contact person role"
 msgstr "Responsabilités de la personne contact"
 
-#: member/models.py:457
+#: member/models.py:463
 #, fuzzy
 #| msgid "Street"
 msgid "Street number"
 msgstr "Rue"
 
-#: member/models.py:590
+#: member/models.py:596
 #, fuzzy
 #| msgid "Borough"
 msgid "borough"
 msgstr "Voisinage"
 
-#: member/models.py:591
+#: member/models.py:597
 #, fuzzy
 #| msgid "Borough"
 msgid "boroughs"
 msgstr "Voisinage"
 
-#: member/models.py:607
+#: member/models.py:613
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:608
+#: member/models.py:614
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:623
+#: member/models.py:629
 msgid "state"
 msgstr "province"
 
-#: member/models.py:624
+#: member/models.py:630
 msgid "states"
 msgstr "provinces"
 
-#: member/models.py:638
+#: member/models.py:644
 msgid "country"
 msgstr "pays"
 
-#: member/models.py:639
+#: member/models.py:645
 msgid "countries"
 msgstr "pays"
 
