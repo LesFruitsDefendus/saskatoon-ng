@@ -50,7 +50,7 @@
             {% else %}
                 {{tree.fruit_name_fr}}
             {% endif %}
-            {{ tree.fruit_icon }}
+            {{ tree.fruit_icon|default:"" }}
         </div>
         {% endfor %}
     </td>

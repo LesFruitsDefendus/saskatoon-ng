@@ -12,9 +12,9 @@
                         <hr><br>
                         <h5>
                             {% if LANG == "en" %}
-                                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon }}, {% endfor %}
+                                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
                             {% else %}
-                                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon }}, {% endfor %}
+                                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
                             {% endif %}
                             @ {{ property.neighborhood }}
                         </h5>
