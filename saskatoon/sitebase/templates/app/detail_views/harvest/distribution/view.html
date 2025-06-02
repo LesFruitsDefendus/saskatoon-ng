@@ -39,7 +39,7 @@
                             {% else %}
                                 {{yield.tree.fruit_name_fr}}
                             {% endif %}
-                            &nbsp;{{ yield.tree.fruit_icon }}
+                            &nbsp;{{ yield.tree.fruit_icon|default:"" }}
                         </td>
                         <td> {{ yield.total_in_lb }} lbs</td>
                         <td class="text-center">
