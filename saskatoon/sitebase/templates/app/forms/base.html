@@ -7,6 +7,17 @@
 
 {{ form.media }}
 
+{% if form.errors %}
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="text-center alert alert-danger" role="alert">
+                {% trans "Could not save form: some fields are invalid." %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% if form.non_field_errors %}
 <div class="container">
     <div class="row">
