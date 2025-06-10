@@ -1,5 +1,4 @@
 from dal import autocomplete
-from datetime import datetime as dt
 from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
@@ -487,13 +486,13 @@ class HarvestForm(forms.ModelForm):
 
     start_date = forms.DateTimeField(
         label=_('Start date/time'),
-        input_formats=['%d/%m/%Y %H:%M'],
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
     end_date = forms.DateTimeField(
-        label=_('End time'),
-        input_formats=['%H:%M'],
+        label=_('End date/time'),
+        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
@@ -513,16 +512,24 @@ class HarvestForm(forms.ModelForm):
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
         end = self.cleaned_data['end_date']
+        status = self.cleaned_data['status']
 
-        start_dt = start
-        end_dt = dt.combine(start.date(), end.time(), tzinfo=start.tzinfo)
+        if start.date() != end.date() and status not in [
+                Harvest.Status.ORPHAN,
+                Harvest.Status.ADOPTED,
+                Harvest.Status.CANCELLED,
+        ]:
+            raise forms.ValidationError(
+                _('Harvests cannot be scheduled over multiple days: \
+                start and end dates must match.')
+            )
 
-        if end_dt <= start_dt:
+        if end <= start:
             raise forms.ValidationError(
                 _('End time must be after start time')
             )
 
-        return end_dt
+        return end
 
     def clean_trees(self):
         """Make sure selected trees are registered on property"""
