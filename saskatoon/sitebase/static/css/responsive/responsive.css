@@ -1,3 +1,9 @@
+@media (min-width: 992px) {
+	.nav.navbar-nav.notika-top-nav {
+		padding-top: 0;
+	}
+}
+
 /* Normal desktop :992px. */
 @media (min-width: 992px) and (max-width: 1169px) {
 	.header-top-area{
