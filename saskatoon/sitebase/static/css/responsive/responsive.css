@@ -229,6 +229,9 @@
 	.breadcomb-area {
 		margin-top: 40px;
 	}
+	.breadcomb-area .container {
+		padding: 0;
+	}
 	.box-layout .header-top-area {
 		width: 100%;
 	}
@@ -326,7 +329,9 @@
  
 /* small mobile :320px. */
 @media (max-width: 767px) {
-	.container {width:300px}
+	.container {
+		width:auto;
+	}
 	.main-menu-area{
 		display:none;
 	}
@@ -398,6 +403,9 @@
 	}
 	.breadcomb-area {
 		margin-top: 40px;
+	}
+	.breadcomb-area .container {
+		padding: 0;
 	}
 	.breadcomb-report .tooltip{
 		width:150px;
@@ -643,7 +651,9 @@
  
 /* Large Mobile :480px. */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-	.container {width:450px}
+	.container {
+		width:auto;
+	}
 	.main-menu-area{
 		display:none;
 	}
