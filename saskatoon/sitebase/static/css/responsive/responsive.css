@@ -1,3 +1,13 @@
+@media (max-width: 992px) {
+	.nav.navbar-nav.notika-top-nav {
+		padding-top: 0;
+	}
+	.breadcomb-area .container {
+		padding: 0;
+	}
+
+}
+
 /* Normal desktop :992px. */
 @media (min-width: 992px) and (max-width: 1169px) {
 	.header-top-area{
@@ -326,7 +336,6 @@
  
 /* small mobile :320px. */
 @media (max-width: 767px) {
-	.container {width:300px}
 	.main-menu-area{
 		display:none;
 	}
@@ -643,7 +652,6 @@
  
 /* Large Mobile :480px. */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-	.container {width:450px}
 	.main-menu-area{
 		display:none;
 	}
