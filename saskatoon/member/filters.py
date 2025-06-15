@@ -10,7 +10,7 @@ from member.models import (
     Person,
     Neighborhood
 )
-from harvest.models import EquipmentType, Equipment
+from harvest.models import EquipmentType, Equipment, Harvest
 
 
 class CommunityFilter(filters.FilterSet):
@@ -22,6 +22,7 @@ class CommunityFilter(filters.FilterSet):
             'role',
             'neighborhood',
             'language',
+            'season'
         ]
 
     role = filters.MultipleChoiceFilter(
@@ -43,6 +44,14 @@ class CommunityFilter(filters.FilterSet):
         label=_("Language"),
     )
 
+    season = filters.ChoiceFilter(
+        label=_("Active in"),
+        field_name='season',
+        choices=Harvest.SEASON_CHOICES,
+        lookup_expr='year',
+        method='season_filter'
+    )
+
     def role_filter(self, queryset, name, roles):
         groups = Group.objects.filter(name__in=roles)
         return queryset.filter(groups__in=groups)
@@ -54,6 +63,16 @@ class CommunityFilter(filters.FilterSet):
     def person_family_name_filter(self, queryset, name, value):
         query = (Q(person__family_name__icontains=value))
         return queryset.filter(query)
+
+    def season_filter(self, queryset, name, year):
+        if year is None:
+            return queryset
+
+        harvests = Harvest.objects.filter(start_date__year=year)
+        leaders = Q(harvests__in=harvests)
+        owners = Q(person__properties__harvests__in=harvests)
+        pickers = Q(person__requests__harvest__in=harvests)
+        return queryset.filter(leaders | owners | pickers).distinct()
 
 
 class OrganizationFilter(filters.FilterSet):
