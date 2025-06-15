@@ -44,10 +44,14 @@ class PersonPropertySerializer(serializers.ModelSerializer):
 class PersonHarvestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Harvest
-        fields = ['id', 'pick_leader', 'property', 'status']
+        fields = ['id', 'pick_leader', 'property', 'status', 'start_date']
 
     pick_leader = serializers.StringRelatedField(many=False, read_only=True)
     property = serializers.StringRelatedField(many=False, read_only=True)
+    start_date = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%Y-%m-%d"
+    )
 
 
 class PersonBeneficiarySerializer(serializers.ModelSerializer):
@@ -82,7 +86,9 @@ class PersonSerializer(serializers.ModelSerializer):
     harvests_as_owner = PersonHarvestSerializer(
         source='get_harvests_as_owner', many=True, read_only=True
     )
-    harvests_as_volunteer = serializers.ReadOnlyField()
+    harvests_as_volunteer = PersonHarvestSerializer(
+        source='get_harvests_as_volunteer', many=True, read_only=True
+    )
     organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
     roles = serializers.SerializerMethodField()
 
