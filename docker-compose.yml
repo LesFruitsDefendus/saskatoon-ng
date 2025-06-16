@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - SASKATOON_DB_ENGINE=django.db.backends.mysql
+      - SASKATOON_DB_NAME=saskatoon_dev
+      - SASKATOON_DB_USER=saskatoon
+      - SASKATOON_DB_PASSWORD=saskatoon
+      - SASKATOON_DB_HOST=db
+      - SASKATOON_DEBUG=yes
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_DATABASE=saskatoon_dev
+      - MYSQL_USER=saskatoon
+      - MYSQL_PASSWORD=saskatoon
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:6.2
+    ports:
+      - "6379:6379"
+
+volumes:
+  mysql_data:
