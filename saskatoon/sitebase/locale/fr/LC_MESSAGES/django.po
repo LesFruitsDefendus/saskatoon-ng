@@ -10,7 +10,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-06-02 00:23+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
-"Last-Translator: Anonymous User <tris.la.tr@gmail.com>\n"
+"Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -70,7 +70,7 @@ msgstr "Nouveau commentaire de récolte"
 #: sitebase/models.py:109
 #| msgid "Properties"
 msgid "Property was registered"
-msgstr "Une propriété a été enregistrée"
+msgstr "Propriété enregistrée"
 
 #: sitebase/models.py:110
 msgid "Seasonal property authorization"
@@ -83,7 +83,7 @@ msgstr ""
 #: sitebase/models.py:114
 #| msgid "Recipient"
 msgid "Selected picker"
-msgstr ""
+msgstr "Participation acceptée"
 
 #: sitebase/models.py:115
 msgid "Rejected picker"
@@ -101,7 +101,7 @@ msgstr "Type de courriel"
 #: sitebase/models.py:137
 #| msgid "Description"
 msgid "Ref. description"
-msgstr "Ref. déscription"
+msgstr "Déscription ref."
 
 #: sitebase/models.py:152
 msgid "Body (en)"
@@ -587,12 +587,12 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 #: sitebase/templates/app/detail_views/harvest/status.html:13
 #| msgid "Harvest details"
 msgid "Harvest status"
-msgstr "Status de la récolte"
+msgstr "Statut de la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:26
 #, fuzzy
 msgid "Expected maturity"
-msgstr "Maturité approx"
+msgstr "Maturité approx."
 
 #: sitebase/templates/app/detail_views/harvest/status.html:40
 msgid "Total harvested:"
@@ -710,7 +710,7 @@ msgstr "Dernière récolte réussie"
 
 #: sitebase/templates/app/detail_views/property/breadcomb.html:32
 msgid "No succeeded harvest on this property so far"
-msgstr "Pas de récolte réussi pour l'instant"
+msgstr "Pas de récolte réussie pour l'instant"
 
 #: sitebase/templates/app/detail_views/property/breadcomb.html:45
 #| msgid "authorized"
@@ -737,12 +737,12 @@ msgstr "Propriétaire inconnu"
 #: sitebase/templates/app/detail_views/property/contact.html:22
 #| msgid "Unregistered owner"
 msgid "register"
-msgstr ""
+msgstr "Inscrire"
 
 #: sitebase/templates/app/detail_views/property/features.html:6
 #| msgid "Properties"
 msgid "Property features"
-msgstr "Détails de la propriétés"
+msgstr "Détails de la propriété"
 
 #: sitebase/templates/app/detail_views/property/features.html:17
 msgid "Pending validation"
@@ -927,7 +927,7 @@ msgstr "Envoyer"
 #: sitebase/templates/app/forms/participation_manage_form.html:23
 #| msgid "Participate"
 msgid "Participant"
-msgstr "Participant"
+msgstr "Participant.e"
 
 #: sitebase/templates/app/forms/participation_manage_form.html:29
 #| msgid "Number of pickers not specified"
@@ -1080,7 +1080,7 @@ msgstr "Réussie"
 #: sitebase/templates/app/stats.html:81
 #| msgid "Participate"
 msgid "Participated"
-msgstr "Participé"
+msgstr "ont participé"
 
 #: sitebase/templates/app/stats.html:101
 msgid "Total weight"
@@ -1112,7 +1112,7 @@ msgstr ""
 #: sitebase/templates/registration/login.html:20
 #| msgid "Address"
 msgid "Email address"
-msgstr "Adresse de courriel"
+msgstr "Adresse courriel"
 
 #: sitebase/templates/registration/login.html:26
 msgid "Password"
