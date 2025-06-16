@@ -461,6 +461,8 @@ def harvest_status_change(request, id):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         harvest.pick_leader = None
+        harvest.status = request_status
+        harvest.save()
         messages.warning(request, _("This harvest no longer has any pick leader"))
     elif request_status == Harvest.Status.SCHEDULED and not harvest.about.html:
         messages.error(
