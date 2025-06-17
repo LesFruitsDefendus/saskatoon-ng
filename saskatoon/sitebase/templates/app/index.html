@@ -34,18 +34,18 @@
                         </div>
                     </div>
                 </div>
-                
-                <div class="col-lg-6 col-md-6">
-                    <img src="{{ MEDIA_URL }}/home.jpg" style="margin-bottom: 1rem;" />
-                </div>
-                
-
-                <div class="wb-traffic-inner notika-shadow xs-res-mg-t-30">
-                    <div class="website-traffic-ctn" style="font-size: 1.15em;">
-                        {{ content.body.html | safe }}
-                    </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-bottom: 1rem">
+                <div class="breadcomb-list" style="font-size: 1.15em;">
+                    {{ content.body.html | safe }}
                 </div>
             </div>
+
+            <img src="{{ MEDIA_URL }}/home.jpg"  
+                class="col-lg-6 col-md-6 col-sm-6 col-xs-12" />                    
+            
         </div>
     </div>
 </div>
