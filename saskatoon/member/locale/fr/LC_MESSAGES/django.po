@@ -8,47 +8,44 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-01 19:42-0400\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2025-06-02 00:23+0000\n"
+"PO-Revision-Date: 2025-06-13 11:28-0518\n"
+"Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Translated-Using: django-rosetta 0.9.8\n"
 
 #: member/admin_filters.py:137
 msgid "None"
-msgstr ""
+msgstr "Aucun"
 
 #: member/admin_filters.py:138
-#, fuzzy
 #| msgid "person"
 msgid "Person"
-msgstr "personne"
+msgstr "Personne"
 
 #: member/admin_filters.py:139
-#, fuzzy
 #| msgid "organization"
 msgid "Organization"
 msgstr "Organisme"
 
 #: member/api.py:65 member/api.py:108
-#, fuzzy
 #| msgid "organization"
 msgid "New Organization"
-msgstr "Organisme"
+msgstr "Nouvel organisme"
 
 #: member/api.py:148
-#, fuzzy
 #| msgid "person"
 msgid "New Person"
-msgstr "personne"
+msgstr "Nouvelle personne"
 
 #: member/filters.py:29
 msgid "Role(s)"
-msgstr ""
+msgstr "Rôle(s)"
 
 #: member/filters.py:37 member/filters.py:79 member/filters.py:111
 #: member/models.py:280 member/models.py:492
@@ -56,34 +53,31 @@ msgid "Borough"
 msgstr "Voisinage"
 
 #: member/filters.py:43
-#, fuzzy
 #| msgid "language"
 msgid "Language"
-msgstr "langue"
+msgstr "Langue"
 
 #: member/filters.py:70
 msgid "Type"
-msgstr ""
+msgstr "Type"
 
 #: member/filters.py:72
-#, fuzzy
 #| msgid "is beneficiary"
 msgid "Beneficiaries"
-msgstr "est bénéficiaire"
+msgstr "Bénéficiaires "
 
 #: member/filters.py:73
 msgid "Equipment Points"
-msgstr ""
+msgstr "Points d'équipements"
 
 #: member/filters.py:105
-#, fuzzy
 #| msgid "is beneficiary"
 msgid "Beneficiary"
-msgstr "est bénéficiaire"
+msgstr "Bénéficiaire"
 
 #: member/filters.py:117
 msgid "Equipment Type"
-msgstr ""
+msgstr "Type d'équipement"
 
 #: member/forms.py:23 member/forms.py:83 member/forms.py:182
 msgid "Email"
@@ -91,11 +85,11 @@ msgstr "Courriel"
 
 #: member/forms.py:113
 msgid "Please assign at least one role to the user"
-msgstr ""
+msgstr "Merci d'assginer au moins un rôle à cet usager"
 
 #: member/forms.py:116
 msgid "An email address is required to assign a role to the user"
-msgstr ""
+msgstr "Une adresse courriel est requise pour assigner un rôle à cet usager"
 
 #: member/forms.py:146
 msgid "Beneficiary organization"
@@ -103,7 +97,7 @@ msgstr "Organisme bénéficiaire"
 
 #: member/forms.py:147
 msgid "Equipment point"
-msgstr ""
+msgstr "Point d'équipement"
 
 #: member/forms.py:148
 msgid "Contact Position/Role"
@@ -114,10 +108,9 @@ msgid "Select Person"
 msgstr "Sélectionner une Personne"
 
 #: member/forms.py:166
-#, fuzzy
 #| msgid "&nbsp;Register new contact person"
 msgid "Register new contact person"
-msgstr "&nbsp;Enregistrer une nouvelle personne contact"
+msgstr "Enregistrer une nouvelle personne contact"
 
 #: member/forms.py:171
 msgid "First Name"
@@ -137,16 +130,16 @@ msgstr "Téléphone"
 
 #: member/forms.py:200
 msgid ""
-"ERROR: You must either select a Contact                     Person or create "
-"a new one and provide their personal information"
+"ERROR: You must either select a Contact                     Person or create"
+" a new one and provide their personal information"
 msgstr ""
-"ERREUR: Vous devez soit sélectionner une Personne Contact existante soit "
-"créer une nouvelle Personne Contact en fournissant ses informations "
-"personnellespersonnelle"
+"ERREUR : vous devez soit sélectionner une personne contact existante, soit "
+"créer une nouvelle personne contact en fournissant ses informations "
+"personnelles"
 
 #: member/models.py:27
 msgid "Users must have an email address"
-msgstr ""
+msgstr "Les usagers doivent avoir une adresse courriel"
 
 #: member/models.py:49
 msgid "Core Member"
@@ -170,19 +163,19 @@ msgstr "Personne Contact"
 
 #: member/models.py:77
 msgid "email address"
-msgstr ""
+msgstr "adresse courriel"
 
 #: member/models.py:143 member/models.py:144
 msgid "user onboarding"
-msgstr ""
+msgstr "intégration des usagers"
 
 #: member/models.py:147
 msgid "Reference name"
-msgstr ""
+msgstr "Nom de référence"
 
 #: member/models.py:155
 msgid "All invites sent"
-msgstr ""
+msgstr "Toutes les invitations ont été envoyées"
 
 #: member/models.py:179
 msgid "actor"
@@ -197,13 +190,11 @@ msgid "person"
 msgstr "personne"
 
 #: member/models.py:218
-#, fuzzy
 #| msgid "person"
 msgid "persons"
-msgstr "personne"
+msgstr "personnes"
 
 #: member/models.py:226
-#, fuzzy
 #| msgid "Preferred language"
 msgid "Preferred Language"
 msgstr "Langue de contact préférée"
@@ -262,7 +253,7 @@ msgstr "Commentaires"
 
 #: member/models.py:336
 msgid "Onboarding group"
-msgstr ""
+msgstr "Groupe d'intégration"
 
 #: member/models.py:396
 msgid "organization"
@@ -273,26 +264,29 @@ msgid "organizations"
 msgstr "Organismes"
 
 #: member/models.py:401
-#, fuzzy
 #| msgid "is beneficiary"
 msgid "Is Beneficiary"
-msgstr "est bénéficiaire"
+msgstr "Est Bénéficiaire"
 
 #: member/models.py:403
 msgid ""
 "Only check this box if the Organization is currently accepting fruit "
 "donations"
 msgstr ""
+"Cochez cette case seulement si l'organisme accepte des dons de fruits en ce "
+"moment"
 
 #: member/models.py:409
 msgid "Is Equipment Point"
-msgstr ""
+msgstr "Est un point d'équipement"
 
 #: member/models.py:411
 msgid ""
 "Only check this box if the equipment registered at this Organization is "
 "currenlty made available"
 msgstr ""
+"Cochez cette boîte uniquement si l'équipement enregistré à cette "
+"organisation est disponible"
 
 #: member/models.py:418
 msgid "Redmine contact"
@@ -304,20 +298,18 @@ msgid "Name"
 msgstr "Nom"
 
 #: member/models.py:429
-#, fuzzy
 #| msgid "Description"
 msgid "Short description"
-msgstr "Description"
+msgstr "Courte description"
 
 #: member/models.py:434
-#, fuzzy
 #| msgid "Beneficiary organization"
 msgid "Beneficiary description"
-msgstr "Organisme bénéficiaire"
+msgstr "Description du bénéficiaire "
 
 #: member/models.py:439
 msgid "Equipment point description"
-msgstr ""
+msgstr "Description du point d'équipement"
 
 #: member/models.py:451
 msgid "Contact person"
@@ -328,22 +320,19 @@ msgid "Contact person role"
 msgstr "Responsabilités de la personne contact"
 
 #: member/models.py:463
-#, fuzzy
 #| msgid "Street"
 msgid "Street number"
-msgstr "Rue"
+msgstr "Numéro civique"
 
 #: member/models.py:596
-#, fuzzy
 #| msgid "Borough"
 msgid "borough"
-msgstr "Voisinage"
+msgstr "Arrondissement "
 
 #: member/models.py:597
-#, fuzzy
 #| msgid "Borough"
 msgid "boroughs"
-msgstr "Voisinage"
+msgstr "Arrondissement "
 
 #: member/models.py:613
 msgid "city"
@@ -372,24 +361,28 @@ msgstr "pays"
 #: member/permissions.py:28
 msgid "Viewing this page is restricted to core and admin users."
 msgstr ""
+"La lecture de cette page est disponible seulement aux administrateurs et aux"
+" membres de l'équipe noyau "
 
 #: member/permissions.py:37
 msgid "Viewing this page is restricted to pickleaders, core and admin users."
 msgstr ""
+"La lecture de cette page est disponible seulement aux chefs (cheffes) de "
+"cueillette, administrateurs et aux membres de l'équipe noyau "
 
 #: member/validators.py:16
-#, fuzzy
 #| msgid "ERROR: email address < {} > is already registered!"
 msgid "Email address < {} > is already registered!"
-msgstr "ERREUR: Le courriel < {} > est déjà enregistré!"
+msgstr "ERREUR: L'adresse courriel < {} > est déjà enregistrée!"
 
 #: member/validators.py:19
 msgid "Please enter an email address."
-msgstr ""
+msgstr "Merci d'entrer une adresse courriel."
 
 #: member/validators.py:28
 msgid "Your new password must be different than your old password."
 msgstr ""
+"Votre nouveau mot de passe doit être différent de votre ancien mot de passe."
 
 #: member/views.py:32
 msgid "New Person registered successfully!"
@@ -409,13 +402,12 @@ msgstr "Mise à jour d'une Personne"
 
 #: member/views.py:110
 msgid "Successfully onboarded!"
-msgstr ""
+msgstr "Personne intégrée avec succès! "
 
 #: member/views.py:118
-#, fuzzy
 #| msgid "Person Update"
 msgid "Onboarding Person Update"
-msgstr "Mise à jour d'une Personne"
+msgstr "Mise à jour d'une Personne en intégration"
 
 #: member/views.py:131
 msgid "New Organization registered successfully!"
@@ -434,25 +426,30 @@ msgid "Organization Update"
 msgstr "Mise à jour d'un Organisme"
 
 #: member/views.py:161
-#, fuzzy
 #| msgid "Person updated successfully!"
 msgid "Password successfully changed!"
-msgstr "Mise à jour de la Personne réussie!"
+msgstr "Mise à jour du mot de passe réussie!"
 
 #: member/views.py:174
 #, python-brace-format
 msgid "Cannot reset password for {email}: User does not have a password set."
 msgstr ""
+"Impossible de changer le mot de passe pour {email} : L'usager n'a pas de mot"
+" de passe."
 
 #: member/views.py:187
 #, python-brace-format
 msgid "Password reset email successfully sent to {email}"
 msgstr ""
+"Courriel de requête de changement de mot de passe envoyé avec succès à "
+"{email}"
 
 #: member/views.py:194
 #, python-brace-format
 msgid "Failed to send password reset email to {email}"
 msgstr ""
+"Échec de l'envoie du courriel de requête de changement de mot de passe à "
+"{email}"
 
 #~ msgid "people"
 #~ msgstr "gens"
