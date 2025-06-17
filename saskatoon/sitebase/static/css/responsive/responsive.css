@@ -2,6 +2,10 @@
 	.nav.navbar-nav.notika-top-nav {
 		padding-top: 0;
 	}
+	.breadcomb-area .container {
+		padding: 0;
+	}
+
 }
 
 /* Normal desktop :992px. */
@@ -235,9 +239,6 @@
 	.breadcomb-area {
 		margin-top: 40px;
 	}
-	.breadcomb-area .container {
-		padding: 0;
-	}
 	.box-layout .header-top-area {
 		width: 100%;
 	}
@@ -335,9 +336,6 @@
  
 /* small mobile :320px. */
 @media (max-width: 767px) {
-	.container {
-		width:auto;
-	}
 	.main-menu-area{
 		display:none;
 	}
@@ -409,9 +407,6 @@
 	}
 	.breadcomb-area {
 		margin-top: 40px;
-	}
-	.breadcomb-area .container {
-		padding: 0;
 	}
 	.breadcomb-report .tooltip{
 		width:150px;
@@ -657,9 +652,6 @@
  
 /* Large Mobile :480px. */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-	.container {
-		width:auto;
-	}
 	.main-menu-area{
 		display:none;
 	}
