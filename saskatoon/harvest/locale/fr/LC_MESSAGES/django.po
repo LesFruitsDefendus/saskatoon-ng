@@ -188,7 +188,7 @@ msgstr ""
 
 #: harvest/forms.py:185
 msgid "Pickleader notes"
-msgstr "Notes du chef de cueille"
+msgstr "Notes du/de la chef.fe de cueillette"
 
 #: harvest/forms.py:188
 #| msgid "Your comment here."
@@ -385,18 +385,17 @@ msgstr ""
 #: harvest/forms.py:554
 msgid ""
 "Please fill in the public announcement to be published on the calendar."
-msgstr "Remplissez l'annonce publique pour la publier sur le calendrier."
+msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
 #: harvest/forms.py:569
 msgid "This harvest cannot be left orphan, please resolve requests first."
 msgstr ""
-"Cette récolte ne peut pas être laissée orpheline, merci de résoudre la "
-"requête en premier. "
+"Cette récolte ne peut pas être laissée orpheline, merci de résoudre les demandes de participation en cours."
 
 #: harvest/forms.py:580
 msgid "You must choose a pick leader or change harvest status"
 msgstr ""
-"Vous devez choisir un chef de ceuille ou changer le statut de la récolte"
+"Vous devez choisir un.e chef.fe de ceuillette ou changer le statut de la récolte"
 
 #: harvest/models.py:22
 msgid "tree type"
@@ -576,7 +575,7 @@ msgstr "Accessibilité des arbres"
 #: harvest/models.py:243
 msgid "Any info on how to access the tree (eg. key, gate etc)"
 msgstr ""
-"Tout renseignement sur comment atteindre les arbres (par example porte, clé,"
+"Tout renseignement sur comment accéder aux arbres (par example porte, clé,"
 " etc...)"
 
 #: harvest/models.py:250
@@ -904,7 +903,7 @@ msgstr "Mis à jour le"
 #: harvest/serializers.py:50
 #| msgid "New Organization"
 msgid "Owner is an Organization"
-msgstr "Le propriétaire est une organisation"
+msgstr "Le propriétaire est un organisme"
 
 #: harvest/views.py:46
 msgid "Equipment created successfully!"
@@ -1008,7 +1007,7 @@ msgid ""
 "calendar for other harvests."
 msgstr ""
 "Désolé, la cueillette n'est pas ouverte aux demandes. Veuillez consulter le "
-"calendrier pour trouver d'autres cueillettes. "
+"calendrier pour trouver d'autres cueillettes."
 
 #: harvest/views.py:289
 msgid "Request updated successfully!"
@@ -1030,14 +1029,12 @@ msgstr "Ajouter un nouveau commentaire"
 #: harvest/views.py:363
 msgid "You must be a pickleader to delete a fruit distribution entry!"
 msgstr ""
-"Vous devez être chef de cueillette pour supprimer un fruit au champ de "
-"distribution !"
+"Vous devez être chef de cueillette pour supprimer une entrée dans la distribution de fruits!"
 
 #: harvest/views.py:380
 msgid "You must be a pickleader to add a fruit distribution entry!"
 msgstr ""
-"Vous devez être chef de cueillette pour ajouter un fruit au champ de "
-"distribution !"
+"Vous devez être chef de cueillette pour ajouter une entrée dans la distribution de fruits!"
 
 #: harvest/views.py:389
 msgid "New fruit distribution failed: please select a recipient"
@@ -1060,22 +1057,22 @@ msgstr "Vous devez être chef de cueillette pour adopter cette cueillette"
 
 #: harvest/views.py:430
 msgid "You successfully adopted this harvest!"
-msgstr "Vous avez adopté cette cueillette avec succès ! "
+msgstr "Vous avez adopté cette cueillette avec succès !"
 
 #: harvest/views.py:432
 #| msgid "Notes from the pick leader."
 msgid "This harvest already has a pickleader!"
-msgstr "Cette cueillette a déjà un cher de cueillette ! "
+msgstr "Cette cueillette a déjà un.e chef.fe de cueillette!"
 
 #: harvest/views.py:448
 msgid "Harvest status already set to: {}"
-msgstr "Le statut de la cueillette a été mis à: {}"
+msgstr "Le statut de la cueillette a été changé pour: {}"
 
 #: harvest/views.py:451
 msgid "You are not authorized to update this harvest status."
 msgstr ""
 "Vous n'avez pas l'autorisation de mettre à jour le statut de cette "
-"cueillette. "
+"cueillette."
 
 #: harvest/views.py:459
 msgid "You can't leave this harvest as there are unresolved requests."
@@ -1086,7 +1083,7 @@ msgstr ""
 #: harvest/views.py:464
 #| msgid "Notes from the pick leader."
 msgid "This harvest no longer has any pick leader"
-msgstr "Cette cueillette n'a plus de chef de cueillette"
+msgstr "Cette récolte n'a plus de chef.fe de cueillette"
 
 #: harvest/views.py:468
 msgid ""
@@ -1094,7 +1091,7 @@ msgid ""
 "field."
 msgstr ""
 "Le statut de la cueillette n'a pas pu être mis à jour. Merci de remplir la "
-"case de l'annonce publique. "
+"case de l'annonce publique."
 
 #: harvest/views.py:473
 msgid ""
@@ -1102,14 +1099,14 @@ msgid ""
 "ready."
 msgstr ""
 "Merci de résoudre toutes les requêtes de participation avant de marquer "
-"cette cueillette comme étant prête. "
+"cette cueillette comme étant prête."
 
 #: harvest/views.py:478
 msgid ""
 "Please complete fruit distribution before marking the harvest as succeeded."
 msgstr ""
 "Merci de compléter la distribution des fruits avant de marquer la cueillette"
-" comme réussie. "
+" comme réussie."
 
 #: harvest/views.py:485
 #| msgid "Harvest created successfully!"
@@ -1123,17 +1120,17 @@ msgstr ""
 
 #: harvest/views.py:507
 msgid "Property is has not yet been validated!"
-msgstr "La propriété n'a pas encore été validée pour cette saison! "
+msgstr "La propriété n'a pas encore été validée pour cette saison!"
 
 #: harvest/views.py:513
 #| msgid "Authorized for this season"
 msgid "Property is not authorized for this season!"
-msgstr "La propriété n'est pas autorisée pour cette saison! "
+msgstr "La propriété n'est pas autorisée pour cette saison!"
 
 #: harvest/views.py:533
 #, python-format
 msgid "Successfully created %i orphan harvests"
-msgstr "%i cueillettes orphelines créées avec succès "
+msgstr "%i cueillettes orphelines créées avec succès"
 
 #: harvest/views.py:538
 msgid "Property already has registered harvests for this season"

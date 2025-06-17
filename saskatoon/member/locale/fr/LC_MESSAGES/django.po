@@ -64,7 +64,7 @@ msgstr "Type"
 #: member/filters.py:72
 #| msgid "is beneficiary"
 msgid "Beneficiaries"
-msgstr "Bénéficiaires "
+msgstr "Bénéficiaires"
 
 #: member/filters.py:73
 msgid "Equipment Points"
@@ -305,7 +305,7 @@ msgstr "Courte description"
 #: member/models.py:434
 #| msgid "Beneficiary organization"
 msgid "Beneficiary description"
-msgstr "Description du bénéficiaire "
+msgstr "Description du bénéficiaire"
 
 #: member/models.py:439
 msgid "Equipment point description"
@@ -327,12 +327,12 @@ msgstr "Numéro civique"
 #: member/models.py:596
 #| msgid "Borough"
 msgid "borough"
-msgstr "Arrondissement "
+msgstr "Arrondissement"
 
 #: member/models.py:597
 #| msgid "Borough"
 msgid "boroughs"
-msgstr "Arrondissement "
+msgstr "Arrondissement"
 
 #: member/models.py:613
 msgid "city"
@@ -402,12 +402,12 @@ msgstr "Mise à jour d'une Personne"
 
 #: member/views.py:110
 msgid "Successfully onboarded!"
-msgstr "Personne intégrée avec succès! "
+msgstr "Personne inscrite avec succès!"
 
 #: member/views.py:118
 #| msgid "Person Update"
 msgid "Onboarding Person Update"
-msgstr "Mise à jour d'une Personne en intégration"
+msgstr "Mise à jour d'une Personne en inscription"
 
 #: member/views.py:131
 msgid "New Organization registered successfully!"
