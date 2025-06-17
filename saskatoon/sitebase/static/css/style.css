@@ -62,7 +62,7 @@ body {
     background:#fff;
 }
 .main-body {
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 100px); /* wrt. footer height */
 }
 .floatleft {float:left}
 .floatright {float:right}
@@ -71,9 +71,9 @@ body {
 .aligncenter {display:block;margin:0 auto 15px}
 a:focus {outline:0px solid}
 .container {
-		width:auto;
-        max-width: 1170px;
-	}
+    width:auto;
+    max-width: 1170px;
+}
 img {
     max-width: 100%;
     max-height: 100%;
@@ -816,7 +816,7 @@ ul.notika-menu-wrap li a{
 }
 
 .footer-copyright-area {
-    padding-top: 20px;
+    padding-top: 15px;
     padding-bottom: 15px;
     width: 100%;
 }
