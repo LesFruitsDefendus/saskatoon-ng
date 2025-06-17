@@ -11,12 +11,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
 
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v5
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Use Node.js 12
       uses: actions/setup-node@v1
@@ -24,7 +24,7 @@ jobs:
         node-version: 12.x
 
     - name: Start Redis
-      uses: supercharge/redis-github-action@1.4.0
+      uses: supercharge/redis-github-action@ea9b21c6ecece47bd99595c532e481390ea0f044
       with:
         redis-version: 6
 
@@ -69,7 +69,7 @@ jobs:
 
     - name: Prepare Selenium
       # https://github.com/marketplace/actions/setup-chromedriver
-      uses: nanasess/setup-chromedriver@master
+      uses: nanasess/setup-chromedriver@e93e57b843c0c92788f22483f1a31af8ee48db25
 
     - name: Start XVFB
       run: Xvfb :99 &
