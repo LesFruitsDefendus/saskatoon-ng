@@ -20,6 +20,10 @@ services:
 
   db:
     image: mysql:8.0
+    ports:
+      # export port for debugging
+      # different port in case default one on local machine already used
+      - "3307:3306"
     environment:
       - MYSQL_DATABASE=saskatoon_dev
       - MYSQL_USER=saskatoon
@@ -31,7 +35,9 @@ services:
   redis:
     image: redis:6.2
     ports:
-      - "6379:6379"
+      # export port for debugging
+      # different port in case default one on local machine already used
+      - "6380:6379"
 
 volumes:
   mysql_data:
