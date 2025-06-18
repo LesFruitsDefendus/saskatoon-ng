@@ -14,6 +14,8 @@ services:
       - SASKATOON_DB_PASSWORD=saskatoon
       - SASKATOON_DB_HOST=db
       - SASKATOON_DEBUG=yes
+      - SASKATOON_REDIS_HOST=redis
+      - SASKATOON_REDIS_PORT=6379
     depends_on:
       - db
       - redis
@@ -35,9 +37,10 @@ services:
   redis:
     image: redis:6.2
     ports:
-      # export port for debugging
-      # different port in case default one on local machine already used
-      - "6380:6379"
+      # if needed you can export a different port for debugging
+      # if the default one on local machine is already used
+      # - "6380:6379"
+      - "6379:6379"
 
 volumes:
   mysql_data:
