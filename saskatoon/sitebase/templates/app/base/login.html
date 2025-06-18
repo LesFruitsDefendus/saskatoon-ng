@@ -24,16 +24,16 @@
     </head>
     <!-- <body class="d-flex flex-column min-vh-100"> -->
     <body>
-        {% block body %}
-            <!-- content -->
-        {% endblock body %}
-    </body>
+        <div class="main-body">
+            {% block body %}
+                <!-- content -->
+            {% endblock body %}
+        </div>
 
-    <footer>
-        {% block footer %}
-        <span class="footer">
-            <!-- footer -->
-        </span>
-        {% endblock footer %}
-    </footer>
+        <footer>
+            {% block footer %}
+            {% include 'app/base/footer.html' %}
+            {% endblock footer %}
+        </footer>
+    </body>
 </html>
