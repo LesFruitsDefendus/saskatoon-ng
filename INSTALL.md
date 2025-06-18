@@ -12,15 +12,22 @@ This guide provides instructions for setting up Saskatoon using Docker, which is
 docker-compose up --build
 ```
 
-3. In a new terminal, create a superuser:
+3. In a new terminal, create a superuser and grant your DB user privileges for running tests:
 
 ```bash
 docker-compose exec web python saskatoon/manage.py createsuperuser
+docker-compose exec db mysql -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'saskatoon'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 ```
 
 4. Access the application at http://localhost:8000
 
-5. On subsequent runs just use `docker-compose up`.
+## Other notes
+
+On subsequent runs just use `docker-compose up`.
+
+To run commands on the app prepend your command with `docker-compose exec web`. E.g. for unit tests run `docker-compose exec web python -m pytest saskatoon/unittests -s`. Use `python` instead of `python3`.
+
+To bring down the whole docker setup and start fresh again, use `docker-compose down -v`.
 
 ## What's Included
 
