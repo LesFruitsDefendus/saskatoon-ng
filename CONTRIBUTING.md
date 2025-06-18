@@ -9,11 +9,11 @@ Please follow instructions in `INSTALL.md` to set up your local development envi
 
 ## Branches
 
-Unless instructed otherwise by maintainers all pull requests should target the `develop` branch.
+Unless instructed otherwise by maintainers all pull requests should target the `main` branch.
 
 If your branch directly addresses an opened `Issue`, you may name your branch using the following scheme: `Fix-<Issue#>-A_short_description`
 
-Maintainers may create specific `Feature-<Issue#>-A_short_description` branches for larger issues so contributors can merge their patches into these branches before they get integrated into `develop`.
+Maintainers may create specific `Feature-<Issue#>-A_short_description` branches for larger issues so contributors can merge their patches into these branches before they get integrated into `main`.
 
 
 ## Pull requests
