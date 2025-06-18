@@ -62,7 +62,7 @@ body {
     background:#fff;
 }
 .main-body {
-    min-height: calc(100vh - 95px); /* wrt. footer height */
+    min-height: calc(100vh - 90px); /* wrt. footer height */
 }
 .floatleft {float:left}
 .floatright {float:right}
