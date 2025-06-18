@@ -58,10 +58,14 @@ html, body {font-family: 'Roboto', sans-serif;font-weight:400;}
 body {
     min-height: 100vh;
     margin: 0;
+    display: flex;
+    flex-direction: column;
     position: relative;
-    padding-bottom: 100px; /* W! footer height */
     box-sizing: border-box;
     background:#fff;
+}
+.main-content {
+    flex: 1;
 }
 .floatleft {float:left}
 .floatright {float:right}
@@ -806,11 +810,9 @@ ul.notika-menu-wrap li a{
 /*----------------------------------------*/
 .footer {
     background: #440bd4;
+    color: #e7e0f9;
     width: 100%;
-    position: absolute;
-    bottom: 0;
     font-size: 14px;
-    height: 100px;
 }
 
 .footer-copyright-area {
