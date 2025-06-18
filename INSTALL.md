@@ -12,14 +12,15 @@ This guide provides instructions for setting up Saskatoon using Docker, which is
 docker-compose up --build
 ```
 
-3. In a new terminal, run migrations and create a superuser:
+3. In a new terminal, create a superuser:
 
 ```bash
-docker-compose exec web python saskatoon/manage.py migrate
 docker-compose exec web python saskatoon/manage.py createsuperuser
 ```
 
 4. Access the application at http://localhost:8000
+
+5. On subsequent runs just use `docker-compose up`.
 
 ## What's Included
 
@@ -29,6 +30,7 @@ The Docker setup includes:
 - MySQL database
 - Redis server
 - All required system dependencies
+- Performs a DB migration
 
 ## Alternative Installation
 

@@ -20,23 +20,13 @@ RUN apt-get update && apt-get install -y \
     libcharls2 \
     && rm -rf /var/lib/apt/lists/*
 
-# Set working directory
 WORKDIR /app
 
-# Copy project files
-COPY . .
-
-# Install Python dependencies
-RUN pip install --no-cache-dir .
-
-# Copy env template and create .env
-RUN cp saskatoon/env.template saskatoon/.env
-
-# Start Redis server in background
-RUN service redis-server start
+# No need to copy the project files or pip install
+# because docker-compose sets a bind mount
 
 # Expose port for Django
 EXPOSE 8000
 
 # Command to run the development server
-CMD ["python", "saskatoon/manage.py", "runserver", "0.0.0.0:8000"] 
+CMD ["bash", "./docker-entrypoint.sh"] 
