@@ -1,19 +1,18 @@
+{% load harvest_status %}
+{% load rfp_status %}
 
-<li>
-    <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-       title="#{{ harvest.id }}: {{harvest.property}} - {{ harvest.start_date }}">
-        {% if harvest.status == "succeeded" %}
-            <i class="fa fa-shopping-basket fa-lg text-success"
-               title="succeeded"
-               style="padding-top:7px;"></i>
-        {% elif harvest.status == "cancelled" %}
-            <i class="fa fa-shopping-basket fa-lg text-danger"
-               title="cancelled"
-               style="padding-top:7px;"></i>
-        {% else %}
-            <i class="fa fa-shopping-basket fa-lg text-info"
-               title="upcomming"
-               style="padding-top:7px;"></i>
-        {% endif %}
-    </a>
-</li>
+{% for harvest in user.person.harvests %}
+  {% if harvest.role == "volunteer" %}
+    {% with icon="hand-paper-o" color=harvest.rfp_status|rfp_color status=harvest.rfp_status|rfp_status_display%}
+      {% include 'app/list_views/community/harvest_icon.html' %}
+    {% endwith %}
+  {% elif harvest.role == "pickleader" %}
+    {% with icon="star" color=harvest.status|color status=harvest.status_display %}
+      {% include 'app/list_views/community/harvest_icon.html' %}
+    {% endwith %}
+  {% elif harvest.role == "owner" %}
+    {% with icon="home" color=harvest.status|color status=harvest.status_display %}
+      {% include 'app/list_views/community/harvest_icon.html' %}
+    {% endwith %}
+  {% endif %}
+{% endfor %}

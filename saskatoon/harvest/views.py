@@ -218,7 +218,9 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
                 return ""
 
             person = self.object.pick_leader.person
-            season_count = person.get_harvests_as_pickleader().filter(
+            season_count = person.get_harvests_as_pickleader(
+                status=Harvest.Status.SUCCEEDED
+            ).filter(
                 start_date__year=tz.now().date().year
             ).count()
             return _(
