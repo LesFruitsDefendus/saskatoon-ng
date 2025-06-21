@@ -1,14 +1,8 @@
+{% load harvest_status %}
+
 <div class="dropdown">
-    <button style="margin-bottom: -5px"
-        {% if status == "succeeded" %}
-            class="btn btn-success notika-btn-success dropdown-toggle"
-        {% elif status == "cancelled" %}
-            class="btn btn-danger notika-btn-danger dropdown-toggle"
-        {% elif status == "ready" %}
-            class="btn btn-primary notika-btn-primary dropdown-toggle"
-        {% else %}
-            class="btn btn-warning notika-btn-warning dropdown-toggle"
-        {% endif %}
+    <button class="btn btn-default notika-btn-default dropdown-toggle"
+            style="margin-bottom: -5px; background-color: {{status|color}};"
             type="button"
             id="harvest-status-dropdown"
             data-toggle="dropdown"
