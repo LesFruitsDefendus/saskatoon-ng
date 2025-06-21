@@ -3,19 +3,18 @@ from harvest.models import Harvest
 
 register = template.Library()
 
-
 @register.filter
-def color(status: str) -> str:
+def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1] for t in [  # type: ignore
             (Harvest.Status.ORPHAN, "#333"),
             (Harvest.Status.ADOPTED, "#e7e0f9"),
-            (Harvest.Status.SCHEDULED, "#e8ad2b"),
-            (Harvest.Status.READY, "#2da4f0"),
-            (Harvest.Status.SUCCEEDED, "#8bc34a"),
-            (Harvest.Status.CANCELLED, "#f54952"),
+            (Harvest.Status.SCHEDULED, "#e8ad2b"),  # btn-warning
+            (Harvest.Status.READY, "#2da4f0"),   # btn-info
+            (Harvest.Status.SUCCEEDED, "#8bc34a"),  # btn-success
+            (Harvest.Status.CANCELLED, "#ff2079"),  # btn-danger
         ]
-    }.get(status, "#fff")
+    }.get(harvest_status, "#d4c7f9")  # btn-default
 
 
 @register.filter

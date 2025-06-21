@@ -11,7 +11,10 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
+from itertools import chain
+from operator import attrgetter
 from phone_field import PhoneField
+from typing import Optional
 
 from harvest.models import (
     RequestForParticipation as RFP,
@@ -44,6 +47,11 @@ class AuthUserManager(BaseUserManager):
 
 class AuthUser(AbstractBaseUser, PermissionsMixin):
     """Base user model"""
+
+    class Meta:
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
+        ordering = ["date_joined"]
 
     GROUPS = (
         ('core', _("Core Member")),
@@ -358,35 +366,68 @@ class Person(Actor):
         matches = re.findall(EMAIL_PATTERN, self.comments)
         return matches
 
-    @property
-    def harvests_as_owner(self):
-        return Harvest.objects.filter(property__in=self.properties)
-
-    @property
-    def organizations_as_contact(self):
+    def get_organizations_as_contact(self):
         return Organization.objects.filter(contact_person=self)
 
-    def get_harvests_as_pickleader(self, status=Harvest.Status.SUCCEEDED):
+    def get_harvests_as_owner(self, status: Optional[Harvest.Status] = None):
+        harvests = Harvest.objects.filter(
+            property__in=self.properties.all()
+        ).annotate(role=models.Value('owner'))
+        if status is not None:
+            return harvests.filter(status=status)
+        return harvests
+
+    def get_harvests_as_pickleader(self, status: Optional[Harvest.Status] = None):
         if not hasattr(self, 'auth_user'):
             return Harvest.objects.none()
-        return Harvest.objects.filter(pick_leader=self.auth_user, status=status)
+        harvests = self.auth_user.harvests.annotate(role=models.Value('pickleader'))
+        if status is not None:
+            return harvests.filter(status=status)
+        return harvests
 
-    def get_harvests_as_volunteer(self, rfp_status=RFP.Status.ACCEPTED):
-        requests = RFP.objects.filter(person=self)
+    def get_requests_as_volunteer(self, rfp_status: Optional[Harvest.Status] = None):
+        rfps = self.requests.filter(harvest__status=Harvest.Status.SUCCEEDED)
         if rfp_status is not None:
-            requests = requests.filter(status=rfp_status)
-        return Harvest.objects.filter(
+            return rfps.filter(status=rfp_status)
+        return rfps
+
+    def get_harvests_as_volunteer(self):
+        harvests = Harvest.objects.filter(
             status=Harvest.Status.SUCCEEDED,
-            requests__in=requests
+            requests__in=self.requests.all()
+        )
+        return list(chain.from_iterable([
+            harvests.filter(
+                requests__in=self.requests.filter(status=s)
+            ).annotate(
+                rfp_status=models.Value(s),
+                role=models.Value('volunteer'),
+            )
+            for s in [
+                RFP.Status.ACCEPTED,
+                RFP.Status.DECLINED,
+                RFP.Status.CANCELLED,
+            ]
+        ]))
+
+    def get_harvests(self):
+        return sorted(
+            chain(
+                self.get_harvests_as_owner(),
+                self.get_harvests_as_pickleader(),
+                self.get_harvests_as_volunteer(),
+            ),
+            key=attrgetter('start_date'),
+            reverse=True,
         )
 
     @property
     def accept_count(self):
-        return self.get_harvests_as_volunteer(RFP.Status.ACCEPTED).count()
+        return self.get_requests_as_volunteer(RFP.Status.ACCEPTED).count()
 
     @property
     def reject_count(self):
-        return self.get_harvests_as_volunteer(RFP.Status.DECLINED).count()
+        return self.get_requests_as_volunteer(RFP.Status.DECLINED).count()
 
 
 class Organization(Actor):

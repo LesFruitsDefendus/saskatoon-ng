@@ -1,6 +1,7 @@
 from dal import autocomplete
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
+from django.db.models import Count
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
@@ -10,7 +11,7 @@ from member.models import (
     Person,
     Neighborhood
 )
-from harvest.models import EquipmentType, Equipment, Harvest
+from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
 
 class CommunityFilter(filters.FilterSet):
@@ -52,6 +53,16 @@ class CommunityFilter(filters.FilterSet):
         method='season_filter'
     )
 
+    sort = filters.ChoiceFilter(
+        label=_("Sort by"),
+        choices=[
+            ('leads', _("Most harvests led")),
+            ('picks', _("Most participations")),
+        ],
+        help_text="",
+        method='sort_filter'
+    )
+
     def role_filter(self, queryset, name, roles):
         groups = Group.objects.filter(name__in=roles)
         return queryset.filter(groups__in=groups)
@@ -68,11 +79,31 @@ class CommunityFilter(filters.FilterSet):
         if year is None:
             return queryset
 
-        harvests = Harvest.objects.filter(start_date__year=year)
+        harvests = Harvest.objects.filter(
+            start_date__year=year,
+            status__in=[
+                Harvest.Status.ADOPTED,
+                Harvest.Status.SCHEDULED,
+                Harvest.Status.SUCCEEDED,
+            ]
+        )
         leaders = Q(harvests__in=harvests)
         owners = Q(person__properties__harvests__in=harvests)
         pickers = Q(person__requests__harvest__in=harvests)
         return queryset.filter(leaders | owners | pickers).distinct()
+
+    def sort_filter(self, queryset, name, choice):
+        if choice == 'leads':
+            return queryset.annotate(leads=Count('harvests', filter=Q(
+                harvests__status__in=[Harvest.Status.SUCCEEDED, Harvest.Status.SCHEDULED]))
+            ).order_by('-leads')
+        elif choice == 'picks':
+            return queryset.annotate(picks=Count('person__requests', filter=Q(
+                person__requests__status=RequestForParticipation.Status.ACCEPTED,
+                person__requests__harvest__status=Harvest.Status.SUCCEEDED))
+            ).order_by('-picks')
+        else:
+            return queryset
 
 
 class OrganizationFilter(filters.FilterSet):

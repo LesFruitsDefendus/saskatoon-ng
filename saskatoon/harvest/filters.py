@@ -53,6 +53,7 @@ class HarvestFilter(filters.FilterSet):
     )
 
     pick_leader = filters.ModelChoiceFilter(
+        label=_("Pick leader"),
         queryset=AuthUserAutocomplete.get_roles_queryset(
             AuthUser.objects.all(),
             ['pickleader', 'core']
