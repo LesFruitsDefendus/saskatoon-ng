@@ -836,6 +836,45 @@ ul.notika-menu-wrap li a{
     color:#ff2079;
 	transition:all .2s ease 0s;
 }
+.footer-section {
+    margin-bottom: 20px;
+}
+.footer-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 5px;
+}
+.footer-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2px;
+    line-height: 1.4;
+}
+.footer-item i {
+    width: 20px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    color: #aaa;
+}
+.footer-item a {
+    text-decoration: none;
+    word-break: break-word;
+}
+.footer-item a:hover {
+    text-decoration: underline;
+}
+.footer-about {
+    line-height: 1.6;
+    margin: 0;
+}
+.footer-about a {
+    text-decoration: none;
+}
+.footer-about a:hover {
+    text-decoration: underline;
+}
 /*----------------------------------------*/
 /*  12.  Todo CSS
 /*----------------------------------------*/
