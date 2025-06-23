@@ -1,4 +1,4 @@
-{% extends 'app/base/login.html' %}
+{% extends 'app/base/document.html' %}
 {% load i18n %}
 {% load static %}
 {% block body %}
@@ -28,10 +28,6 @@
     {% block content %}
         <!-- content -->
     {% endblock content %}
-
-    {% block footer %}
-    {% include 'app/base/footer.html' %}
-    {% endblock footer %}
 
     <!-- Javascript (2/2) -->
     {% include 'app/base/scripts.html' %}
