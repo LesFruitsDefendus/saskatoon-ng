@@ -15,6 +15,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from dotenv import read_dotenv
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,6 +51,29 @@ if DOMAIN_NAME:
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
+
+# Add Docker internal IPs for debug toolbar
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS += [ip[:-1] + '1' for ip in ips]
+# Add common Docker bridge network IPs
+INTERNAL_IPS.extend([
+    '10.0.2.2',
+    '172.17.0.1',
+    '172.18.0.1',
+    '172.19.0.1',
+    '172.20.0.1',
+    '172.21.0.1',
+    '172.22.0.1',
+    '172.23.0.1',
+    '172.24.0.1',
+    '172.25.0.1',
+    '172.26.0.1',
+    '172.27.0.1',
+    '172.28.0.1',
+    '172.29.0.1',
+    '172.30.0.1',
+    '172.31.0.1',
+])
 
 INSTALLED_APPS = [
     'dal',
