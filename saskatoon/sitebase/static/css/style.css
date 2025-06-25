@@ -820,8 +820,8 @@ ul.notika-menu-wrap li a{
 }
 
 .footer-copyright-area {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 21px;
+    padding-bottom: 21px;
     width: 100%;
 }
 .footer-copyright-area p {
@@ -838,6 +838,9 @@ ul.notika-menu-wrap li a{
 }
 .footer-section {
     margin-bottom: 20px;
+}
+.footer-about-section {
+    margin-bottom: 0px;
 }
 .footer-section-title {
     font-size: 16px;

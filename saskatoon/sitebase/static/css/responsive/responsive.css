@@ -8,6 +8,13 @@
 
 }
 
+/* Normal desktop :992px and up */
+@media (min-width: 992px) {
+	.footer-section {
+		margin-bottom: 0px;
+	}
+}
+
 /* Normal desktop :992px. */
 @media (min-width: 992px) and (max-width: 1169px) {
 	.header-top-area{
@@ -650,6 +657,9 @@
 	.footer-section {
 		margin-bottom: 25px;
 		text-align: center;
+	}
+	.footer-about-section {
+		margin-bottom: 0px;
 	}
 
 	.footer-item {
