@@ -3,6 +3,7 @@ FROM python:3.9-slim-bullseye
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
+    default-mysql-client \
     redis-server \
     libtiff5-dev \
     libjpeg-dev \
