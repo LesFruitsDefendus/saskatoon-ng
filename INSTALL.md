@@ -1,43 +1,15 @@
 # Installation Guide
 
-This guide provides instructions for setting up Saskatoon using Docker, which is the recommended approach for development.
+This guide provides instructions for setting up Saskatoon. Choose the installation method that best suits your needs.
 
-## Quick Start with Docker
+## Installation Options
 
-1. Make sure you have [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/install/) installed.
+### Docker Installation (Recommended)
+For development and quick setup, we recommend using Docker. This approach provides a consistent environment and includes all necessary dependencies.
 
-2. Start the application:
+**[Docker Installation Guide](doc/setup/docker-install.md)**
 
-```bash
-docker-compose up --build
-```
+### Local Installation
+For production deployment or if you prefer to install Saskatoon directly on your system.
 
-3. In a new terminal, create a superuser for your site login:
-
-```bash
-docker-compose exec web python saskatoon/manage.py createsuperuser
-```
-
-4. Access the application at http://localhost:8000
-
-## Other notes
-
-On subsequent runs just use `docker-compose up`.
-
-To run commands on the app prepend your command with `docker-compose exec web`. E.g. for unit tests run `docker-compose exec web python -m pytest saskatoon/unittests -s`. Use `python` instead of `python3`.
-
-To bring down the whole docker setup and start fresh again, use `docker-compose down -v`.
-
-## What's Included
-
-The Docker setup includes:
-
-- Python 3.9 environment
-- MySQL database
-- Redis server
-- All required system dependencies
-- Performs a DB migration
-
-## Alternative Installation
-
-If you prefer to install Saskatoon directly on your system, please refer to the [local installation guide](doc/local-install.md).
+**[Local Installation Guide](doc/setup/local-install.md)**
