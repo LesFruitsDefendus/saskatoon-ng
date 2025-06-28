@@ -1,84 +1,103 @@
 {% load i18n %}
 <div class="footer footer-copyright-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-xs-3">
-                <table class="footer-table">
-                    <tr>
-                        <td>
-                            <i class="fa fa-envelope-square text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="mailto:info@lesfruitsdefendus.org" target="_blank" rel="noopener noreferrer">
-                                info@lesfruitsdefendus.org
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-phone-square text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="http://lesfruitsdefendus.us8.list-manage.com/subscribe?u=077416e5dbd93e699db08894e&id=14ad4180da" target="_blank" rel="noopener noreferrer">
-                                {% trans "newsletter signup" %}
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-phone-square text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="tel:514-360-8566" target="_blank" rel="noopener noreferrer">
-                                514-360-8566
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                </div>
-                <div class="col-xs-3">
-                <table class="footer-table">
-                    <tr>
-                        <td>
-                            <i class="fa fa-facebook-square text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="https://www.facebook.com/lesfruitsdefendus.montreal" target="_blank" rel="noopener noreferrer">
-                                lesfruitsdefendus.montreal
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-instagram text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="https://instagram.com/fruitsdefendus/" target="_blank" rel="noopener noreferrer">
-                                @fruitsdefendus
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <i class="fa fa-github-square text-muted"></i> &nbsp;
-                        </td>
-                        <td>
-                            <a href="https://github.com/LesFruitsDefendus/saskatoon-ng" target="_blank" rel="noopener noreferrer">
-                                github.com/LesFruitsDefendus
-                            </a>
-                        </td>
-                    </tr>
-                </table>
-                </div>
-                <div class="col-xs-6">
-                    <p>
-                        <a href="https://santropolroulant.org/en/what-is-the-roulant/collectives/fruits-defendus/" target="_blank" rel="noopener noreferrer">Les Fruits Défendus</a>
-                        is a Montreal-based urban fruit harvesting collective
-                        hosted by <a href="https://santropolroulant.org/en/what-is-the-roulant/" target="_blank" rel="noopener noreferrer">Santropol Roulant</a>
-                        which connects local fruit tree owners with volunteer harvesters.
-                    </p>
-                </div>
-            </div>
+  <div class="container">
+    <div class="row">
+      <!-- Contact Info Column -->
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="footer-section">
+          <h5 class="footer-section-title">{% trans "Contact" %}</h5>
+          <div class="footer-item">
+            <i class="fa fa-envelope-square"></i>
+            <a
+              href="mailto:info@lesfruitsdefendus.org"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              info@lesfruitsdefendus.org
+            </a>
+          </div>
+          <div class="footer-item">
+            <i class="fa fa-rss-square"></i>
+            <a
+              href="http://lesfruitsdefendus.us8.list-manage.com/subscribe?u=077416e5dbd93e699db08894e&id=14ad4180da"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {% trans "newsletter signup" %}
+            </a>
+          </div>
+          <div class="footer-item">
+            <i class="fa fa-phone-square"></i>
+            <a
+              href="tel:514-360-8566"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              514-360-8566
+            </a>
+          </div>
         </div>
+      </div>
+
+      <!-- Social Media Column -->
+      <div class="col-xs-12 col-sm-6 col-md-3">
+        <div class="footer-section">
+          <h5 class="footer-section-title">{% trans "Social Media" %}</h5>
+          <div class="footer-item">
+            <i class="fa fa-facebook-square"></i>
+            <a
+              href="https://www.facebook.com/lesfruitsdefendus.montreal"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              lesfruitsdefendus.montreal
+            </a>
+          </div>
+          <div class="footer-item">
+            <i class="fa fa-instagram"></i>
+            <a
+              href="https://instagram.com/fruitsdefendus/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              @fruitsdefendus
+            </a>
+          </div>
+          <div class="footer-item">
+            <i class="fa fa-github-square"></i>
+            <a
+              href="https://github.com/LesFruitsDefendus/saskatoon-ng"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              github.com/LesFruitsDefendus
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About Column -->
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="footer-section footer-about-section">
+          <h5 class="footer-section-title">{% trans "About" %}</h5>
+          <p class="footer-about">
+            <a
+              href="https://santropolroulant.org/en/what-is-the-roulant/collectives/fruits-defendus/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Les Fruits Défendus</a
+            >
+            is a Montreal-based urban fruit harvesting collective hosted by
+            <a
+              href="https://santropolroulant.org/en/what-is-the-roulant/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >Santropol Roulant</a
+            >
+            which connects local fruit tree owners with volunteer harvesters.
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
