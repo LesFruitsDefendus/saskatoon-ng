@@ -282,6 +282,11 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             )
         return reverse_lazy('calendar')
 
+    def get_success_message(self, cleaned_data) -> str:
+        if self.request.user.is_authenticated:
+            return _("New request for participation successfully added!")
+        return super().get_success_message(cleaned_data)
+
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     permission_required = 'harvest.change_requestforparticipation'
