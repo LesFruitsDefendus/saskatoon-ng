@@ -1,6 +1,7 @@
 {
     "id": 1,
     "total_distribution": 15.0,
+    "volunteers_count": 0,
     "is_open_to_requests": false,
     "is_open_to_public_requests": false,
     "start_date": "Mon. Jul. 19, 2021",
@@ -178,8 +179,12 @@
             "harvest": 1
         }
     ],
-    "pickers": [],
-    "pickers_total_count": 0,
+    "pickers": [
+        {
+            "pk": 3,
+            "name": "Pick Leader"
+        }
+    ],
     "organizations": [
         {
             "actor_id": 9,
