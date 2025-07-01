@@ -244,7 +244,9 @@ class HarvestSerializer(serializers.ModelSerializer):
     def get_pickers(self, obj):
         # used for the Fruit Distribution recipient list (includes pick_leader)
         rfps = obj.requests.filter(status=RFP.Status.ACCEPTED).select_related('person')
-        pickers = [obj.pick_leader.person] + [rfp.person for rfp in rfps]
+        pickers = [rfp.person for rfp in rfps]
+        if obj.pick_leader is not None:
+            pickers += [obj.pick_leader.person]
         return PickerSerializer(pickers, many=True).data
 
     def get_organizations(self, obj):
