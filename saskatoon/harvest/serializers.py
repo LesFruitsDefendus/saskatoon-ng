@@ -4,13 +4,14 @@ from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
     CitySerializer,
+    ContactPersonSerializer,
     CountrySerializer,
     StateSerializer,
     PersonOwnerSerializer,
-    PersonRFPSerializer,
     PersonSerializer,
     PickLeaderSerializer,
     PickerSerializer,
+    RequestForParticipationPersonSerializer,
 )
 from harvest.models import (
     Comment,
@@ -36,7 +37,7 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
         model = RFP
         fields = '__all__'
 
-    person = PersonRFPSerializer(many=False)
+    person = RequestForParticipationPersonSerializer(many=False)
     date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
     time_created = serializers.DateTimeField(source='date_created', format=r"%I:%H %p")
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
@@ -384,7 +385,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'inventory'
         ]
 
-    contact_person = PersonSerializer(many=False, read_only=True)
+    contact_person = ContactPersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()

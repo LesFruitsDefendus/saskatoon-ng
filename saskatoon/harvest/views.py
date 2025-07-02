@@ -218,7 +218,9 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
                 return ""
 
             person = self.object.pick_leader.person
-            season_count = person.get_harvests_as_pickleader().filter(
+            season_count = person.get_harvests_as_pickleader(
+                status=Harvest.Status.SUCCEEDED
+            ).filter(
                 start_date__year=tz.now().date().year
             ).count()
             return _(
@@ -279,6 +281,11 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
                 kwargs={'pk': self.harvest.id}
             )
         return reverse_lazy('calendar')
+
+    def get_success_message(self, cleaned_data) -> str:
+        if self.request.user.is_authenticated:
+            return _("New request for participation successfully added!")
+        return super().get_success_message(cleaned_data)
 
 
 class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
@@ -461,6 +468,8 @@ def harvest_status_change(request, id):
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         harvest.pick_leader = None
+        harvest.status = request_status
+        harvest.save()
         messages.warning(request, _("This harvest no longer has any pick leader"))
     elif request_status == Harvest.Status.SCHEDULED and not harvest.about.html:
         messages.error(

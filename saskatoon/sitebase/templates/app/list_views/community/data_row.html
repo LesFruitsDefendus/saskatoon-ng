@@ -2,7 +2,14 @@
 {% load static %}
 <tr>
     <td>
-        {{ user.person.actor_id }}
+        <span><b>{{ user.person.name }}</b> &nbsp;
+        {% if perms.member.change_person %}
+            <small><a href="{% url 'person-update' user.person.actor_id %}"
+                    title="edit">
+                <i class="fa fa-pencil"></i>
+                &nbsp;
+            </a></small>
+        {% endif %}
         {% if perms.member.delete_actor %}
             &nbsp;
             <small>
@@ -11,15 +18,6 @@
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             </small>
-        {% endif %}
-    </td>
-    <td>
-        <span><b>{{ user.person.name }}</b> &nbsp;
-        {% if perms.member.change_person %}
-            <small><a href="{% url 'person-update' user.person.actor_id %}"
-                    title="edit">
-                <i class="fa fa-pencil"></i>
-            </a></small>
         {% endif %}
         </span><br>
         <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
@@ -44,25 +42,7 @@
     </td>
     <td>
         <ul class="list-inline">
-            {% if 'core' in user.role_codes or 'pickleader' in user.role_codes %}
-                {% for harvest in user.person.harvests_as_pickleader %}
-                    {% include 'app/list_views/community/harvest_list.html' %}
-                {% endfor %}
-            {% elif 'volunteer' in user.role_codes %}
-                {% for harvest in user.person.harvests_as_volunteer_suceeeded %}
-                    {% include 'app/list_views/community/harvest_list.html' %}
-                {% endfor %}
-                {% for harvest in user.person.harvests_as_volunteer_pending %}
-                    {% include 'app/list_views/community/pending_list.html' %}
-                {% endfor %}
-                {% for harvest in user.person.harvests_as_volunteer_cancelled %}
-                    {% include 'app/list_views/community/cancelled_list.html' %}
-                {% endfor %}
-            {% elif 'owner' in user.role_codes %}
-                {% for harvest in user.person.harvests_as_owner %}
-                    {% include 'app/list_views/community/harvest_list.html' %}
-                {% endfor %}
-            {% endif %}
+            {% include 'app/list_views/community/harvest_list.html' %}
         </ul>
     </td>
     <td>
