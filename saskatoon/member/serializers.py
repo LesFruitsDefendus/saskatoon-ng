@@ -10,9 +10,6 @@ from member.models import (
 )
 from harvest.models import Harvest, Property, RequestForParticipation
 
-from logging import getLogger
-logger = getLogger('saskatoon')
-
 
 class NeighborhoodSerializer(serializers.ModelSerializer):
     class Meta:
@@ -70,20 +67,11 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
     rfp_status = serializers.ReadOnlyField()
 
 
-class PersonRFPSerializer(serializers.ModelSerializer):
+class RequestForParticipationPersonSerializer(serializers.ModelSerializer):
     class Meta:
-        model = RequestForParticipation
-        fields = [
-            'status',
-            'harvest',
-            'name',
-            'email',
-            'phone',
-            'accept_count',
-            'reject_count'
-        ]
+        model = Person
+        fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
 
-    harvest = PersonHarvestSerializer(many=False)
     accept_count = serializers.ReadOnlyField()
     reject_count = serializers.ReadOnlyField()
 
@@ -128,6 +116,10 @@ class PersonSerializer(serializers.ModelSerializer):
         return ""
 
 
+class ContactPersonSerializer(PersonSerializer):
+    class Meta:
+        model = Person
+        fields = ['actor_id', 'roles', 'name', 'email', 'phone']
 
 
 class PersonOwnerSerializer(serializers.ModelSerializer):

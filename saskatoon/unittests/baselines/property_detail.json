@@ -38,7 +38,66 @@
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [],
+                "harvests": [
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2021-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2021-07-22",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    }
+                ],
                 "organizations_as_contact": [
                     {
                         "pk": 9,
@@ -81,12 +140,24 @@
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [
+                "harvests": [
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2021-07-24",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 1,
                         "pick_leader": "Pick Leader",
                         "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [],
@@ -126,7 +197,66 @@
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [],
+                "harvests": [
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2021-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2021-07-22",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    }
+                ],
                 "organizations_as_contact": [
                     {
                         "pk": 9,
@@ -169,12 +299,24 @@
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [
+                "harvests": [
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2021-07-24",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 1,
                         "pick_leader": "Pick Leader",
                         "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [],
