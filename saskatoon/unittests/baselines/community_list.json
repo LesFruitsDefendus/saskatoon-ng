@@ -18,7 +18,7 @@
                 "phone": null,
                 "neighborhood": null,
                 "comments": "",
-                "harvests_as_pickleader": [],
+                "harvests": [],
                 "organizations_as_contact": [
                     {
                         "pk": 8,
@@ -66,7 +66,44 @@
                     "name": "Plateau-Mont-Royal"
                 },
                 "comments": "Passer par l'arrière ruelle",
-                "harvests_as_pickleader": [],
+                "harvests": [
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2021-08-01",
+                        "role": "owner"
+                    },
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2021-07-24",
+                        "role": "owner"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2021-07-22",
+                        "role": "owner"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "owner"
+                    }
+                ],
                 "organizations_as_contact": [
                     {
                         "pk": 2,
@@ -115,7 +152,66 @@
                     "name": "Mile End"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [],
+                "harvests": [
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2021-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2021-07-22",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    }
+                ],
                 "organizations_as_contact": [
                     {
                         "pk": 9,
@@ -156,7 +252,7 @@
                 "phone": "(438) 666-1234",
                 "neighborhood": null,
                 "comments": "",
-                "harvests_as_pickleader": [],
+                "harvests": [],
                 "organizations_as_contact": [],
                 "properties": []
             },
@@ -195,12 +291,24 @@
                     "name": "Autre"
                 },
                 "comments": "",
-                "harvests_as_pickleader": [
+                "harvests": [
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2021-07-24",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 1,
                         "pick_leader": "Pick Leader",
                         "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded"
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [],
