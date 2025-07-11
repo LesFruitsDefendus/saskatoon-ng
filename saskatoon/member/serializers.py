@@ -8,7 +8,7 @@ from member.models import (
     Person,
     State,
 )
-from harvest.models import Harvest, Property, RequestForParticipation
+from harvest.models import Harvest, Property
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer):

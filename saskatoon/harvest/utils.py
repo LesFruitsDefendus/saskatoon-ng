@@ -1,7 +1,7 @@
 from django.db.models import Q, Sum
 from logging import getLogger
 
-from harvest.models import Property, Harvest
+from harvest.models import Property
 
 logger = getLogger('saskatoon')
 
