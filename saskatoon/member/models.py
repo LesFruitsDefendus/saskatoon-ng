@@ -14,12 +14,17 @@ from django.utils import timezone as tz
 from itertools import chain
 from operator import attrgetter
 from phone_field import PhoneField
-from typing import Optional
+from typing import Optional, Any, Tuple
 
 from harvest.models import (
     RequestForParticipation as RFP,
     Harvest,
 )
+
+
+# type aliases to satisfy pytype
+HarvestStatus = Optional[Tuple[Any, str]]  # Optional[Harvest.Status]
+RFPStatus = Optional[Tuple[Any, str]]  # Optional[RFP.Status]
 
 
 class AuthUserManager(BaseUserManager):
@@ -369,7 +374,7 @@ class Person(Actor):
     def get_organizations_as_contact(self):
         return Organization.objects.filter(contact_person=self)
 
-    def get_harvests_as_owner(self, status: Optional[Harvest.Status] = None):
+    def get_harvests_as_owner(self, status: HarvestStatus = None):
         harvests = Harvest.objects.filter(
             property__in=self.properties.all()
         ).annotate(role=models.Value('owner'))
@@ -377,7 +382,7 @@ class Person(Actor):
             return harvests.filter(status=status)
         return harvests
 
-    def get_harvests_as_pickleader(self, status: Optional[Harvest.Status] = None):
+    def get_harvests_as_pickleader(self, status: HarvestStatus = None):
         if not hasattr(self, 'auth_user'):
             return Harvest.objects.none()
         harvests = self.auth_user.harvests.annotate(role=models.Value('pickleader'))
@@ -385,7 +390,7 @@ class Person(Actor):
             return harvests.filter(status=status)
         return harvests
 
-    def get_requests_as_volunteer(self, rfp_status: Optional[Harvest.Status] = None):
+    def get_requests_as_volunteer(self, rfp_status: RFPStatus = None):
         rfps = self.requests.filter(harvest__status=Harvest.Status.SUCCEEDED)
         if rfp_status is not None:
             return rfps.filter(status=rfp_status)
