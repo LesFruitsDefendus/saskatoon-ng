@@ -11,7 +11,7 @@ def sum_harvest_yields(harvest_yield_qs):
     return int(sum) if sum is not None else None
 
 
-def similar_properties(pending_property):
+def similar_properties(pending_property: Property):
     """Look for potential property/owner duplicates"""
 
     p = pending_property

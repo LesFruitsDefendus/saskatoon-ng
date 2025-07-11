@@ -554,6 +554,7 @@ class Harvest(models.Model):
         null=True,
         blank=True,
         verbose_name="Pick leader",
+        related_name='harvests',
         on_delete=models.CASCADE,
     )
 
@@ -731,13 +732,14 @@ class RequestForParticipation(models.Model):
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("Harvest"),
-        related_name="requests",
+        related_name='requests',
         on_delete=models.CASCADE,
     )
 
     person = models.ForeignKey(
         'member.Person',
         verbose_name=_("Requester"),
+        related_name='requests',
         on_delete=models.CASCADE,
     )
 
