@@ -5,19 +5,19 @@
 {% get_current_language as LANG %}
 <tr>
     <td>
+        <a href="{% url 'harvest-detail' harvest.id %}">
+           # {{ harvest.id }}&nbsp;
+            <small><i class="fa fa-pencil"></i></small>
+        </a>
         {% if perms.harvest.delete_harvest %}
+        &nbsp;&nbsp;
         <small>
             <a href="{% url 'admin:harvest_harvest_delete' harvest.id %}"
                onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
                 <i class="fa fa-trash text-danger"></i>
             </a>
         </small>
-        &nbsp; &nbsp;
         {% endif %}
-        <a href="{% url 'harvest-detail' harvest.id %}">
-           # {{ harvest.id }} &nbsp;
-            <small><i class="fa fa-pencil"></i></small>
-        </a>
     </td>
     <td>
         <div class="text-nowrap">{{ harvest.start_date }}</div>

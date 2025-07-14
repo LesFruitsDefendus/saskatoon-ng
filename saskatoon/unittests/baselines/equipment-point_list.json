@@ -16,20 +16,7 @@
                 ],
                 "name": "Core Member",
                 "email": "core@member.com",
-                "phone": "(514) 123-4321",
-                "neighborhood": {
-                    "id": 11,
-                    "name": "Mile End"
-                },
-                "comments": "",
-                "harvests_as_pickleader": [],
-                "organizations_as_contact": [
-                    {
-                        "pk": 9,
-                        "civil_name": "Le Vestibule Vert"
-                    }
-                ],
-                "properties": []
+                "phone": "(514) 123-4321"
             },
             "phone": "(555) 444-3333",
             "short_address": "6 Ontario, Est",
@@ -99,21 +86,7 @@
                 ],
                 "name": "Contact Person",
                 "email": "contact@person.com",
-                "phone": null,
-                "neighborhood": null,
-                "comments": "",
-                "harvests_as_pickleader": [],
-                "organizations_as_contact": [
-                    {
-                        "pk": 8,
-                        "civil_name": "Deprecated Org."
-                    },
-                    {
-                        "pk": 7,
-                        "civil_name": "L'Orgue Bien Équipée"
-                    }
-                ],
-                "properties": []
+                "phone": null
             },
             "phone": "123-456-1234",
             "short_address": "45 av. de la Fourchette",

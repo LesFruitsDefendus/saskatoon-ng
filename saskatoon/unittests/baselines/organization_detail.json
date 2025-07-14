@@ -8,25 +8,7 @@
         ],
         "name": "Nice Owner",
         "email": "nice@owner.com",
-        "phone": "(514) 666-1234",
-        "neighborhood": {
-            "id": 19,
-            "name": "Plateau-Mont-Royal"
-        },
-        "comments": "Passer par l'arrière ruelle",
-        "harvests_as_pickleader": [],
-        "organizations_as_contact": [
-            {
-                "pk": 2,
-                "civil_name": "Les Fruits Défendus"
-            }
-        ],
-        "properties": [
-            {
-                "id": 3,
-                "short_address": "123 av. Mont-Royal, apt. 4"
-            }
-        ]
+        "phone": "(514) 666-1234"
     },
     "phone": "(514) 360-8566",
     "short_address": "111 rue Roy Est",
