@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load auth_users %}
 
 {% get_current_language as LANG %}
 <div class="breadcomb-area">
@@ -27,6 +28,7 @@
                         </div>
                         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
                             <div class="breadcomb-report">
+                                {% if user|is_core_or_admin or user|is_pickleader:id %}
                                 <a href="{% url 'harvest-update' id %}">
                                     <button data-placement="left" title="Edit harvest" class="btn">
 
@@ -34,6 +36,7 @@
                                        {% trans "Edit Harvest" %}
                                     </button>
                                 </a>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
