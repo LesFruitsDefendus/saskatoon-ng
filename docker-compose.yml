@@ -8,6 +8,7 @@ services:
     volumes:
       - .:/app
     environment:
+      - SASKATOON_SECRET_KEY=secret_key
       - SASKATOON_DB_ENGINE=django.db.backends.mysql
       - SASKATOON_DB_NAME=saskatoon_dev
       - SASKATOON_DB_USER=saskatoon
