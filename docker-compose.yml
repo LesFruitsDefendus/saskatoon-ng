@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      # Default environment variables - these will be overridden by .env file if it exists
+      - SASKATOON_SECRET_KEY=secret_key
+      - SASKATOON_DB_ENGINE=django.db.backends.mysql
+      - SASKATOON_DB_NAME=saskatoon_dev
+      - SASKATOON_DB_USER=saskatoon
+      - SASKATOON_DB_PASSWORD=saskatoon
+      - SASKATOON_DB_HOST=db
+      - SASKATOON_DEBUG=yes
+      - SASKATOON_REDIS_HOST=redis
+      - SASKATOON_REDIS_PORT=6379
+    extra_hosts:
+      - "local:host-gateway"  
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:8.0
+    ports:
+      # export port for debugging
+      # different port in case default one on local machine already used
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=saskatoon_dev
+      - MYSQL_USER=saskatoon
+      - MYSQL_PASSWORD=saskatoon
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:6.2
+    ports:
+      # if needed you can export a different port for debugging
+      # if the default one on local machine is already used
+      # - "6380:6379"
+      - "6379:6379"
+
+volumes:
+  mysql_data:

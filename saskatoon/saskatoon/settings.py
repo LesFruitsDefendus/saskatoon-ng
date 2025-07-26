@@ -15,6 +15,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from dotenv import read_dotenv
+import socket
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -50,6 +51,12 @@ if DOMAIN_NAME:
 
 # needed by debug toolbar
 INTERNAL_IPS = ['127.0.0.1']
+
+# Add Docker internal IPs for debug toolbar
+hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+INTERNAL_IPS.extend([ip[:-1] + '1' for ip in ips])
+# Add common Docker bridge network IPs
+INTERNAL_IPS.extend(['10.0.2.2'] + [f'172.{i}.0.1' for i in range(17, 32)])
 
 INSTALLED_APPS = [
     'dal',
@@ -232,10 +239,14 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'saskatoon.pagination.BasicPageNumberPagination',
 }
 
+# Redis configuration - use Docker service name when in Docker, localhost for local dev
+REDIS_HOST = os.getenv('SASKATOON_REDIS_HOST', '127.0.0.1')
+REDIS_PORT = os.getenv('SASKATOON_REDIS_PORT', '6379')
+
 CACHES = {
     'default': {
         'BACKEND': "django_redis.cache.RedisCache",
-        'LOCATION': "redis://127.0.0.1:6379/1",
+        'LOCATION': f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
         'OPTIONS': {
             'CLIENT_CLASS': "django_redis.client.DefaultClient",
         }
