@@ -17,10 +17,7 @@ fi
 echo "Ensuring dependencies are up to date..."
 pip install --no-cache-dir '.[test]'
 
-echo "Running database migrations..."
-python saskatoon/manage.py migrate
-
-echo "Initializing fixtures..."
+echo "Running database migrations and initializing fixtures..."
 saskatoon/fixtures/init
 
 # Wait for database to be ready and grant privileges needed for tests to work
