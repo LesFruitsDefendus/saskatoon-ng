@@ -11,6 +11,8 @@ if [ -f /app/saskatoon/.env ]; then
     set +a
     echo "Loaded environment variables from .env file"
 else
+    # copy the template file to the .env file, otherwise the app will fail to start
+    cp /app/saskatoon/env.template /app/saskatoon/.env
     echo "No .env file found, using Docker environment variables"
 fi
 
