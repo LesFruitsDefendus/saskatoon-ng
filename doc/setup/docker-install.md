@@ -20,6 +20,34 @@ docker-compose exec web python saskatoon/manage.py createsuperuser
 
 4. Access the application at http://localhost:8000
 
+## Database Configuration
+
+By default, the Docker setup uses a MySQL container included in the docker-compose stack. However, you can also connect to a local database running on your host machine.
+
+### Option 1: Use Docker MySQL (Default)
+
+No additional configuration needed. The application will connect to the MySQL container automatically using the default environment variables.
+
+### Option 2: Connect to Local/Host Database
+
+If you want to connect to a MySQL database running on your host machine instead of the Docker container:
+
+1. Create a `.env` file in the `saskatoon/` directory by copying `saskatoon/env.template`.
+
+2. Edit `saskatoon/.env` and set the database host to `local`:
+
+```bash
+SASKATOON_DB_ENGINE=django.db.backends.mysql
+SASKATOON_DB_NAME=your_database_name
+SASKATOON_DB_USER=your_username
+SASKATOON_DB_PASSWORD=your_password
+SASKATOON_DB_HOST=local  # Important: use 'local', not 'localhost' or '127.0.0.1'
+```
+
+**Why `local` instead of `localhost`?**
+
+Inside Docker containers, `localhost` and `127.0.0.1` refer to the container's internal network, not your host machine. The docker-compose.yml includes an `extra_hosts` mapping that makes `local` resolve to your host machine's IP address.
+
 ## Other notes
 
 On subsequent runs just use `docker-compose up`.

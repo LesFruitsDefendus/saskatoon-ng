@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e
 
+# Handle .env file precedence
+if [ -f /app/saskatoon/.env ]; then
+    echo "Loading .env file (will override Docker environment variables)..."
+    # Source the .env file to override environment variables
+    # Use 'set -a' to automatically export all variables
+    set -a
+    . /app/saskatoon/.env
+    set +a
+    echo "Loaded environment variables from .env file"
+else
+    echo "No .env file found, using Docker environment variables"
+fi
+
 echo "Ensuring dependencies are up to date..."
 pip install --no-cache-dir '.[test]'
 
