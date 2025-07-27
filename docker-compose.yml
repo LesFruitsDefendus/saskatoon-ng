@@ -16,6 +16,7 @@ services:
       - SASKATOON_DEBUG=yes
       - SASKATOON_REDIS_HOST=redis
       - SASKATOON_REDIS_PORT=6379
+      - IS_DEV_DOCKER=true
     extra_hosts:
       - "local:host-gateway"  
     depends_on:
