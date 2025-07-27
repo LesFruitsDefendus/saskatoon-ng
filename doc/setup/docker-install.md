@@ -48,6 +48,10 @@ To run commands on the app prepend your command with `docker-compose exec web`. 
 
 To bring down the whole docker setup and start fresh again, use `docker-compose down -v`.
 
+## Limitations
+
+The workflow runs fixtures/init every time you start up the dev setup. This allows updates to the fixtures to get applied automatically, but if you make edits to the initialized data (e.g. change the address of a property from the fixtures in your DB), then those values will be reset when you restart your server. Note: re-running the fixtures will not affect new data you add (e.g. you create new harvests, restart the server, those will be preserved).
+
 ## What's Included
 
 The Docker setup includes:
