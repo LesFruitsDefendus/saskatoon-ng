@@ -33,4 +33,8 @@ saskatoon/fixtures/init
 echo "Granting database privileges..."
 mysql -h db -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'saskatoon'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 
+export DJANGO_SUPERUSER_EMAIL=dev@dev.com
+export DJANGO_SUPERUSER_PASSWORD=dev
+python saskatoon/manage.py createsuperuser --noinput
+
 exec python saskatoon/manage.py runserver 0.0.0.0:8000

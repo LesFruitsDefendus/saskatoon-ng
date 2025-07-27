@@ -12,13 +12,7 @@ This guide provides instructions for setting up Saskatoon using Docker, which is
 docker-compose up
 ```
 
-3. In a new terminal, create a superuser for your site login:
-
-```bash
-docker-compose exec web python saskatoon/manage.py createsuperuser
-```
-
-4. Access the application at http://localhost:8000
+3. Access the application at http://localhost:8000. You will have a login available with dev@dev.com and password "dev".
 
 ## Database Configuration
 
