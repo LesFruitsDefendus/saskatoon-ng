@@ -6,16 +6,6 @@ services:
     volumes:
       - .:/app
     environment:
-      # Default environment variables - these will be overridden by .env file if it exists
-      - SASKATOON_SECRET_KEY=secret_key
-      - SASKATOON_DB_ENGINE=django.db.backends.mysql
-      - SASKATOON_DB_NAME=saskatoon_dev
-      - SASKATOON_DB_USER=saskatoon
-      - SASKATOON_DB_PASSWORD=saskatoon
-      - SASKATOON_DB_HOST=db
-      - SASKATOON_DEBUG=yes
-      - SASKATOON_REDIS_HOST=redis
-      - SASKATOON_REDIS_PORT=6379
       - IS_DEV_DOCKER=true
     extra_hosts:
       - "local:host-gateway"  
