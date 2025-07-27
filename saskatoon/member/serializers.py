@@ -44,10 +44,36 @@ class PersonPropertySerializer(serializers.ModelSerializer):
 class PersonHarvestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Harvest
-        fields = ['id', 'pick_leader', 'property', 'status']
+        fields = [
+            'id',
+            'pick_leader',
+            'property',
+            'status',
+            'status_display',
+            'start_date',
+            'role',
+            'rfp_status'
+        ]
 
+    status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = serializers.StringRelatedField(many=False, read_only=True)
     property = serializers.StringRelatedField(many=False, read_only=True)
+    start_date = serializers.DateTimeField(
+        source='get_local_start',
+        format=r"%Y-%m-%d"
+    )
+    # annotated fields from person.get_harvests()
+    role = serializers.ReadOnlyField()
+    rfp_status = serializers.ReadOnlyField()
+
+
+class RequestForParticipationPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Person
+        fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
+
+    accept_count = serializers.ReadOnlyField()
+    reject_count = serializers.ReadOnlyField()
 
 
 class PersonBeneficiarySerializer(serializers.ModelSerializer):
@@ -67,23 +93,21 @@ class PersonSerializer(serializers.ModelSerializer):
             'phone',
             'neighborhood',
             'comments',
-            'harvests_as_owner',
-            'harvests_as_pickleader',
-            'harvests_as_volunteer',
+            'harvests',
             'organizations_as_contact',
             'properties',
         ]
 
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
-    harvests_as_pickleader = PersonHarvestSerializer(
-        source='get_harvests_as_pickleader', many=True, read_only=True
+
+    harvests = PersonHarvestSerializer(
+        source='get_harvests', many=True, read_only=True
     )
-    harvests_as_owner = PersonHarvestSerializer(
-        source='get_harvests_as_owner', many=True, read_only=True
+
+    organizations_as_contact = PersonBeneficiarySerializer(
+        source='get_organizations_as_contact', many=True, read_only=True
     )
-    harvests_as_volunteer = serializers.ReadOnlyField()
-    organizations_as_contact = PersonBeneficiarySerializer(many=True, read_only=True)
     roles = serializers.SerializerMethodField()
 
     def get_roles(self, person):
@@ -92,13 +116,10 @@ class PersonSerializer(serializers.ModelSerializer):
         return ""
 
 
-class PersonRFPSerializer(serializers.ModelSerializer):
+class ContactPersonSerializer(PersonSerializer):
     class Meta:
         model = Person
-        fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
-
-    accept_count = serializers.ReadOnlyField()
-    reject_count = serializers.ReadOnlyField()
+        fields = ['actor_id', 'roles', 'name', 'email', 'phone']
 
 
 class PersonOwnerSerializer(serializers.ModelSerializer):

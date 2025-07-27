@@ -27,10 +27,10 @@
 	font-size:14px;
 }
 .btn-default.notika-btn-default{
-	background-color: #fff;
+	background-color: #d4c7f9;
 }
 .btn-info.notika-btn-info, .btn-info.info-icon-notika{
-	background-color: #d4c7f9;
+	background-color: #2da4f0;
 }
 .btn-primary.notika-btn-primary, .btn-primary.notika-gp-primary, .btn-primary.primary-icon-notika{
 	background-color: #440bd4;
@@ -40,16 +40,16 @@
 	background-color: #d4c7f9;
 }
 .btn-success.notika-btn-success, .btn-success.success-icon-notika{
-	background-color: #8BC34A;
+	background-color: #8bc34a;
 }
 .btn-warning.notika-btn-warning,
 .btn-warning.notika-btn-warning a,
 .btn-warning.warning-icon-notika {
     color: #fff;
-	background-color: #ff2079;
+	background-color: #e8ad2b;
 }
 .btn-danger.notika-btn-danger, .btn-danger.danger-icon-notika{
-	background-color: #850122 !important;
+	background-color: #ff2079 !important;
 }
 .btn-default.notika-btn-default:hover, .btn-info.notika-btn-info:hover, .btn-primary.notika-btn-primary:hover, .btn-success.notika-btn-success:hover, .btn-warning.notika-btn-warning:hover, .btn-danger.notika-btn-danger:hover, .btn-primary.primary-icon-notika:hover, .btn-info.info-icon-notika:hover, .btn-success.success-icon-notika:hover, .btn-warning.warning-icon-notika:hover, .btn-danger.danger-icon-notika:hover, .btn-teal.teal-icon-notika:hover, .btn-orange.orange-icon-notika:hover, .btn-cyan.cyan-icon-notika:hover, .btn-lightgreen.lightgreen-icon-notika:hover, .btn-lime.lime-icon-notika:hover, .btn-amber.amber-icon-notika:hover, .btn-gray.gray-icon-notika:hover, .btn-lightblue.lightblue-icon-notika:hover, .btn-deeporange.deeporange-icon-notika:hover{
 	background:none;
@@ -57,7 +57,7 @@
 	outline:none;
 }
 .btn-info.notika-btn-info:hover, .btn-info.info-icon-notika:hover{
-	background: #d4c7f9;
+	background: #2da4f0;
     box-shadow: none
 }
 .btn-primary.notika-btn-primary:hover, .btn-primary.notika-gp-primary:hover, .btn-primary.primary-icon-notika:hover{
@@ -71,12 +71,12 @@
 .btn-warning.notika-btn-warning:hover,
 .btn-warning.warning-icon-notika:hover {
         color: #d4c7f9;
-	    background: #ff2079;
+	    background: #e8ad2b;
         box-shadow: none
 }
 .btn-danger.notika-btn-danger:hover, .btn-danger.danger-icon-notika:hover{
     color: #d4c7f9;
-	background: #850122 !important;
+	background: #ff2079 !important;
     box-shadow: none
 }
 .btn-primary.notika-gp-primary, .btn-primary.notika-gp-default{

@@ -24,10 +24,17 @@
     {% endif %}
     {% endblock message %}
 
-    <!-- Content -->
-    {% block content %}
-        <!-- content -->
-    {% endblock content %}
+    <div class="main-content">
+        {% block content %}
+            <!-- content -->
+        {% endblock content %}
+    </div>
+
+    <footer>
+        {% block footer %}
+        {% include 'app/base/footer.html' %}
+        {% endblock footer %}
+    </footer>
 
     <!-- Javascript (2/2) -->
     {% include 'app/base/scripts.html' %}

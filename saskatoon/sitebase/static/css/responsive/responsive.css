@@ -8,6 +8,13 @@
 
 }
 
+/* Normal desktop :992px and up */
+@media (min-width: 992px) {
+	.footer-section {
+		margin-bottom: 0px;
+	}
+}
+
 /* Normal desktop :992px. */
 @media (min-width: 992px) and (max-width: 1169px) {
 	.header-top-area{
@@ -647,6 +654,22 @@
 	.table.table-hover > tbody > tr > td, .table.table-hover > tbody > tr > th, .table.table-hover > tfoot > tr > td, .table.table-hover > tfoot > tr > th, .table.table-hover > thead > tr > td, .table.table-hover > thead > tr > th {
 		white-space: nowrap;
 	}
+	.footer-section {
+		margin-bottom: 25px;
+		text-align: center;
+	}
+	.footer-about-section {
+		margin-bottom: 0px;
+	}
+
+	.footer-item {
+		justify-content: center;
+		text-align: center;
+	}
+
+	.footer-about {
+		text-align: center;
+	}
 	
 }
  
@@ -694,6 +717,12 @@
 	.bread-ntd{
 		display:inline-block;
 	}
-	
+	.footer-item a {
+		font-size: 14px;
+	}
+	.footer-about {
+		font-size: 14px;
+	}
+ 
 }
  

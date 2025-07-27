@@ -4,13 +4,14 @@ from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
     CitySerializer,
+    ContactPersonSerializer,
     CountrySerializer,
     StateSerializer,
     PersonOwnerSerializer,
-    PersonRFPSerializer,
     PersonSerializer,
     PickLeaderSerializer,
     PickerSerializer,
+    RequestForParticipationPersonSerializer,
 )
 from harvest.models import (
     Comment,
@@ -36,7 +37,7 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
         model = RFP
         fields = '__all__'
 
-    person = PersonRFPSerializer(many=False)
+    person = RequestForParticipationPersonSerializer(many=False)
     date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
     time_created = serializers.DateTimeField(source='date_created', format=r"%I:%H %p")
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
@@ -205,6 +206,7 @@ class HarvestSerializer(serializers.ModelSerializer):
     total_distribution = serializers.ReadOnlyField(
         source='get_total_distribution'
     )
+    volunteers_count = serializers.SerializerMethodField()
     is_open_to_requests = serializers.SerializerMethodField()
     is_open_to_public_requests = serializers.SerializerMethodField()
     start_date = serializers.DateTimeField(
@@ -228,9 +230,11 @@ class HarvestSerializer(serializers.ModelSerializer):
     yields = HarvestYieldSerializer(many=True, read_only=True)
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
-    pickers_total_count = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
     maturity_range = serializers.SerializerMethodField()
+
+    def get_volunteers_count(self, obj):
+        return obj.get_volunteers_count(status=RFP.Status.ACCEPTED)
 
     def get_is_open_to_requests(self, obj):
         return obj.is_open_to_requests(False)
@@ -239,14 +243,12 @@ class HarvestSerializer(serializers.ModelSerializer):
         return obj.is_open_to_requests(True)
 
     def get_pickers(self, obj):
-        rfps = RFP.objects.select_related('person').filter(
-            harvest=obj,
-            status=RFP.Status.ACCEPTED
-        )
-        return PickerSerializer([rfp.person for rfp in rfps], many=True).data
-
-    def get_pickers_total_count(self, harvest):
-        return harvest.get_volunteers_count(RFP.Status.ACCEPTED)
+        # used for the Fruit Distribution recipient list (includes pick_leader)
+        rfps = obj.requests.filter(status=RFP.Status.ACCEPTED).select_related('person')
+        pickers = [rfp.person for rfp in rfps]
+        if obj.pick_leader is not None:
+            pickers += [obj.pick_leader.person]
+        return PickerSerializer(pickers, many=True).data
 
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
@@ -383,7 +385,7 @@ class OrganizationSerializer(serializers.ModelSerializer):
             'inventory'
         ]
 
-    contact_person = PersonSerializer(many=False, read_only=True)
+    contact_person = ContactPersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()

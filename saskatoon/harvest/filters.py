@@ -53,6 +53,7 @@ class HarvestFilter(filters.FilterSet):
     )
 
     pick_leader = filters.ModelChoiceFilter(
+        label=_("Pick leader"),
         queryset=AuthUserAutocomplete.get_roles_queryset(
             AuthUser.objects.all(),
             ['pickleader', 'core']
@@ -147,10 +148,25 @@ class PropertyFilter(filters.FilterSet):
         help_text="",
     )
 
+    season = filters.ChoiceFilter(
+        label=_("Harvested in"),
+        field_name='season',
+        choices=Harvest.SEASON_CHOICES,
+        lookup_expr='year',
+        method='season_filter'
+    )
+
     def authorized_filter(self, queryset, name, choice):
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
+
+    def season_filter(self, queryset, name, year):
+        if year is None:
+            return queryset
+
+        harvests = Harvest.objects.filter(start_date__year=year)
+        return queryset.filter(harvests__in=harvests)
 
 
 class EquipmentFilter(filters.FilterSet):
