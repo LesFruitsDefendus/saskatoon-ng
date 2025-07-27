@@ -2,19 +2,14 @@
 set -e
 
 # Handle .env file precedence
-if [ -f /app/saskatoon/.env ]; then
-    echo "Loading .env file (will override Docker environment variables)..."
-    # Source the .env file to override environment variables
-    # Use 'set -a' to automatically export all variables
-    set -a
-    . /app/saskatoon/.env
-    set +a
-    echo "Loaded environment variables from .env file"
-else
-    # copy the template file to the .env file, otherwise the app will fail to start
+# the web container has its default env vars, but we can override and extend them with the .env file if needed
+if [ ! -f /app/saskatoon/.env ]; then
+    echo "No .env file found, creating one from template..."
+    # a .env file must exist (even if empty file), otherwise the app will fail to start
     cp /app/saskatoon/env.template /app/saskatoon/.env
-    echo "No .env file found, using Docker environment variables"
 fi
+set -a && . /app/saskatoon/.env && set +a
+echo "Loaded environment variables from .env file"
 
 echo "Ensuring dependencies are up to date..."
 pip install --no-cache-dir '.[test]'
