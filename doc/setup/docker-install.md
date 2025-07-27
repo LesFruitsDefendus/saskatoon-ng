@@ -9,7 +9,7 @@ This guide provides instructions for setting up Saskatoon using Docker, which is
 2. Start the application:
 
 ```bash
-docker-compose up --build
+docker-compose up
 ```
 
 3. In a new terminal, create a superuser for your site login:
@@ -49,8 +49,6 @@ SASKATOON_DB_HOST=local  # Important: use 'local', not 'localhost' or '127.0.0.1
 Inside Docker containers, `localhost` and `127.0.0.1` refer to the container's internal network, not your host machine. The docker-compose.yml includes an `extra_hosts` mapping that makes `local` resolve to your host machine's IP address.
 
 ## Other notes
-
-On subsequent runs just use `docker-compose up`.
 
 To run commands on the app prepend your command with `docker-compose exec web`. E.g. for unit tests run `docker-compose exec web python -m pytest saskatoon/unittests -s`.
 
