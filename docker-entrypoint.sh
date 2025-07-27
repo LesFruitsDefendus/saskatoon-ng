@@ -15,9 +15,8 @@ echo "Ensuring dependencies are up to date..."
 pip install --no-cache-dir '.[test]'
 
 
-# Wait for database to be ready and grant privileges needed for tests to work
 echo "Waiting for database to be ready..."
-while ! mysql -h db -u root -proot -e "SELECT 1" &> /dev/null; do
+while ! mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_PASSWORD" -e "SELECT 1" &> /dev/null; do
     echo "Database not ready yet, waiting..."
     sleep 2
 done
@@ -25,8 +24,11 @@ done
 echo "Running database migrations and initializing fixtures..."
 saskatoon/fixtures/init
 
-echo "Granting database privileges..."
-mysql -h db -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO 'saskatoon'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+# Grant DB privileges needed for tests to work, if we're using the containerized database
+if [ "$SASKATOON_DB_HOST" = "db" ]; then
+    echo "Granting database privileges..."
+    mysql -h "$SASKATOON_DB_HOST" -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '$SASKATOON_DB_USER'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
+fi
 
 {
     export DJANGO_SUPERUSER_EMAIL=dev@dev.com
