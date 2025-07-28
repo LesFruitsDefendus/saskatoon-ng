@@ -1,4 +1,4 @@
-# Local Installation guide
+# Manual Installation guide
 
 Please follow each part of this documentation in order to run your own instance of Saskatoon.
 
