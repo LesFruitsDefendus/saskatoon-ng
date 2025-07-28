@@ -20,8 +20,10 @@ while ! mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_P
     sleep 2
 done
 
-echo "Running database migrations and initializing fixtures..."
-saskatoon/fixtures/init
+if [ "$SASKATOON_INIT_FIXTURES" = "true" ]; then
+    echo "Running database migrations and initializing fixtures..."
+    saskatoon/fixtures/init
+fi
 
 # Grant DB privileges needed for tests to work, if we're using the containerized database
 if [ "$SASKATOON_DB_HOST" = "db" ]; then
