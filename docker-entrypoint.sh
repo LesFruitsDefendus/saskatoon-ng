@@ -1,8 +1,7 @@
 #!/bin/bash
 set -e
 
-# Handle .env file precedence
-# the web container has its default env vars, but we can override and extend them with the .env file if needed
+# Load environment variables from .env file
 if [ ! -f /app/saskatoon/.env ]; then
     echo "No .env file found, creating one from template..."
     # a .env file must exist (even if empty file), otherwise the app will fail to start
