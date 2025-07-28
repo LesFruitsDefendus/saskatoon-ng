@@ -31,8 +31,7 @@ if [ "$SASKATOON_DB_HOST" = "db" ]; then
 fi
 
 {
-    export DJANGO_SUPERUSER_EMAIL=dev@dev.com
-    export DJANGO_SUPERUSER_PASSWORD=dev
+    # Uses DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD from .env file
     python saskatoon/manage.py createsuperuser --noinput
 } || {
     echo "Failed to create superuser. Possibly because it already exists. Check the logs for more information."
