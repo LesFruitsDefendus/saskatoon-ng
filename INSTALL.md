@@ -9,7 +9,7 @@ For development and quick setup, we recommend using Docker. This approach provid
 
 **[Docker Installation Guide](doc/setup/docker-install.md)**
 
-### Local Installation
+### Manual Installation
 For production deployment or if you prefer to install Saskatoon directly on your system.
 
 **[Manual Installation Guide](doc/setup/manual-install.md)**

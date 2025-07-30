@@ -2,12 +2,12 @@
 set -e
 
 # Load environment variables from .env file
-if [ ! -f /app/saskatoon/.env ]; then
+if [ ! -f saskatoon/.env ]; then
     echo "No .env file found, creating one from template..."
     # a .env file must exist (even if empty file), otherwise the app will fail to start
-    cp /app/saskatoon/env.template /app/saskatoon/.env
+    cp -p saskatoon/env.template saskatoon/.env
 fi
-set -a && . /app/saskatoon/.env && set +a
+set -a && . saskatoon/.env && set +a
 echo "Loaded environment variables from .env file"
 
 echo "Ensuring dependencies are up to date..."
@@ -31,11 +31,14 @@ if [ "$SASKATOON_DB_HOST" = "db" ]; then
     mysql -h "$SASKATOON_DB_HOST" -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '$SASKATOON_DB_USER'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 fi
 
-{
-    # Uses DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD from .env file
-    python saskatoon/manage.py createsuperuser --noinput
-} || {
-    echo "Failed to create superuser. Possibly because it already exists. Check the logs for more information."
-}
+# Set DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD in .env file to automatically create a superuser  
+if [ -n "$DJANGO_SUPERUSER_EMAIL" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]; then
+    {
+        # Uses DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD from .env file
+        python saskatoon/manage.py createsuperuser --noinput
+    } || {
+        echo "Failed to create superuser. Possibly because it already exists. Check the logs for more information."
+    }
+fi
 
 exec python saskatoon/manage.py runserver 0.0.0.0:8000
