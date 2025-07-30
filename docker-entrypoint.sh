@@ -14,6 +14,15 @@ echo "Ensuring dependencies are up to date..."
 pip install --no-cache-dir '.[test]'
 
 
+# Convert localhost/127.0.0.1 to local for Docker networking
+if [ "$SASKATOON_DB_HOST" = "localhost" ] || [ "$SASKATOON_DB_HOST" = "127.0.0.1" ]; then
+    export SASKATOON_DB_HOST="local"
+fi
+# same for redis host
+if [ "$SASKATOON_REDIS_HOST" = "localhost" ] || [ "$SASKATOON_REDIS_HOST" = "127.0.0.1" ]; then
+    export SASKATOON_REDIS_HOST="local"
+fi
+
 echo "Waiting for database to be ready..."
 while ! mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_PASSWORD" -e "SELECT 1" &> /dev/null; do
     echo "Database not ready yet, waiting..."
