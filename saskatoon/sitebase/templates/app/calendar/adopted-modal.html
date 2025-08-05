@@ -1,7 +1,7 @@
 {% load static %}
 {% load i18n %}
 
-<div id="orphanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harvestModal" aria-hidden="true">
+<div id="adoptedModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harvestModal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: 0 none">
@@ -9,7 +9,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <div><i class="text-info"> {% trans "this harvest hasn't been adopted yet!" %} </i></div>
+                <div><i class="text-info"> {% trans "this harvest has been adopted" %} </i></div>
             </div>
 
             <div class="modal-body">
@@ -28,7 +28,7 @@
                         <span class="count_top"><i class="fa fa-user"></i>
                             {% trans "Status" %}
                         </span>
-                        <div class="count green"><b>{% trans "Orphan" %}</b></div>
+                        <div class="count green"><b>{% trans "Adopted" %}</b></div>
                     </div>
                 </div>
 

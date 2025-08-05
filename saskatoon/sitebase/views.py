@@ -133,11 +133,16 @@ class JsonCalendar(View):
             start_date__isnull=False,
             end_date__isnull=False,
         )
-        q1 = Q(start_date__gte=start_date, end_date__lte=end_date)
-        q2 = Q(status=Harvest.Status.ORPHAN)
+
+        if request.user.is_authenticated:
+            q1 = Q(start_date__gte=start_date, end_date__lte=end_date)
+            q2 = Q(status__in=[Harvest.Status.ORPHAN, Harvest.Status.ADOPTED])
+            harvests = harvests.filter(q1 | q2).distinct()
+        else:
+            harvests = harvests.filter(start_date__gte=start_date, end_date__lte=end_date)
 
         events = []
-        for harvest in harvests.filter(q1 | q2).distinct():
+        for harvest in harvests:
             if (
                     is_pickleader_or_core_or_admin(self.request.user) or
                     harvest.is_publishable()
@@ -151,6 +156,7 @@ class JsonCalendar(View):
                     Harvest.Status.READY: "#2da4f0cc",  # btn-info
                     Harvest.Status.SUCCEEDED: "#8bc34acc",  # btn-success
                     Harvest.Status.CANCELLED: "#ff2079cc",  # btn-danger
+                    Harvest.Status.ADOPTED: "#440bd466",  # btn-primary
                     Harvest.Status.ORPHAN: "#cccccccc",
                 })
                 event['display'] = "block"
