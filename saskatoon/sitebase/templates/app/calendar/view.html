@@ -57,11 +57,14 @@
                   case "orphan":
                       $('#orphanModal').modal();
                       break;
+                  case "adopted":
+                      $('#adoptedModal').modal();
+                      break;
               }
           },
           eventMouseEnter: function(info) {
               var props = info.event.extendedProps;
-              var timeRange = props.status == "orphan" ?
+              var timeRange = ["orphan", "adopted"].includes(props.status) ?
                               (props.start_date + " - " + props.end_date) :
                               (props.start_time + " - " + props.end_time);
               info.el.title = info.event.title + "\n" + timeRange;
@@ -108,5 +111,7 @@
 {% include 'app/calendar/cancelled-modal.html' %}
 
 {% include 'app/calendar/orphan-modal.html' %}
+
+{% include 'app/calendar/adopted-modal.html' %}
 
 {% endblock content %}
