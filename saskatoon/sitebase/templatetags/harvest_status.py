@@ -8,12 +8,12 @@ register = template.Library()
 def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1] for t in [  # type: ignore
-            (Harvest.Status.ORPHAN, "#ff2079"),  # btn-danger
+            (Harvest.Status.ORPHAN, "#666"),
             (Harvest.Status.ADOPTED, "#440bd4"),  # btn-primary
             (Harvest.Status.SCHEDULED, "#e8ad2b"),  # btn-warning
             (Harvest.Status.READY, "#2da4f0"),   # btn-info
             (Harvest.Status.SUCCEEDED, "#8bc34a"),  # btn-success
-            (Harvest.Status.CANCELLED, "#666"),
+            (Harvest.Status.CANCELLED, "#ff2079"),  # btn-danger
         ]
     }.get(harvest_status, "#d4c7f9")  # btn-default
 

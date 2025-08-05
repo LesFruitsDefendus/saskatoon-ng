@@ -539,7 +539,7 @@ def property_create_orphans(request, id):
     if num_created > 0:
         messages.success(
             request,
-            _("Successfully created %i orphan harvests").format(num_created)
+            _("Successfully created {} orphan harvests").format(num_created)
         )
     else:
         messages.warning(
