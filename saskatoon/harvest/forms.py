@@ -520,8 +520,7 @@ class HarvestForm(forms.ModelForm):
                 Harvest.Status.CANCELLED,
         ]:
             raise forms.ValidationError(
-                _('Harvests cannot be scheduled over multiple days: \
-                start and end dates must match.')
+                _('Harvests cannot be scheduled over multiple days: start and end dates must match.')  # noqa: E501
             )
 
         if end <= start:
