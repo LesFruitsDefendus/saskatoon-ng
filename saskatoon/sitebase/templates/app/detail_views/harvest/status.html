@@ -22,7 +22,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
-                        {% if status == "orphan" %}
+                        {% if status == "orphan"  or start_date != end_date %}
                             <p> {% translate "Expected maturity" %}</p>
                             <h2>{{maturity_range}}</h2>
                         {% else %}

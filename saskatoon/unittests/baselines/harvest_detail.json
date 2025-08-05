@@ -5,6 +5,7 @@
     "is_open_to_requests": false,
     "is_open_to_public_requests": false,
     "start_date": "Mon. Jul. 19, 2021",
+    "end_date": "Mon. Jul. 19, 2021",
     "start_time": "4:00 PM",
     "end_time": "7:00 PM",
     "status": "succeeded",
@@ -287,7 +288,7 @@
             }
         }
     ],
-    "maturity_range": "Jul. 19 - Jul. 19, 2021",
+    "maturity_range": "",
     "comments": [
         {
             "id": 1,
@@ -329,6 +330,5 @@
             "Cancelled"
         ]
     ],
-    "end_date": "2021-07-19T19:00:00-04:00",
     "nb_required_pickers": 3
 }

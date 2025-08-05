@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-04 23:47-0400\n"
+"POT-Creation-Date: 2025-08-05 00:41-0400\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1064,14 +1064,15 @@ msgstr ""
 msgid "This harvest no longer has any pick leader"
 msgstr "Cette récolte n'a plus de chef.fe de cueillette"
 
-#: harvest/views.py:477
-msgid ""
-"Could not update harvest status. Please fill in the public anouncement field."
-msgstr ""
-"Le statut de la cueillette n'a pas pu être mis à jour. Merci de remplir la "
-"case de l'annonce publique."
+#: harvest/views.py:478
+msgid "Please fill in the public anouncement field before publishing."
+msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
-#: harvest/views.py:482
+#: harvest/views.py:483
+msgid "Please set a date before marking the harvest as scheduled."
+msgstr "Merci de fixer une date de récolte avant de marquer la cueillette comme programmée."
+
+#: harvest/views.py:489
 msgid ""
 "Please resolve all requests for participation before marking the harvest as "
 "ready."
@@ -1079,37 +1080,44 @@ msgstr ""
 "Merci de résoudre toutes les requêtes de participation avant de marquer "
 "cette cueillette comme étant prête."
 
-#: harvest/views.py:487
+#: harvest/views.py:494
 msgid ""
 "Please complete fruit distribution before marking the harvest as succeeded."
 msgstr ""
 "Merci de compléter la distribution des fruits avant de marquer la cueillette "
 "comme réussie."
 
-#: harvest/views.py:494
+#: harvest/views.py:501
 msgid "Harvest status successfully set to: {}"
 msgstr "Statut de la cueillette changé avec succès pour: {}"
 
-#: harvest/views.py:510
+#: harvest/views.py:517
 msgid "You must be a core member to create a orphan harvest."
 msgstr ""
 "Vous devez être membre de l'équipe Core pour créer une cueillette orpheline."
 
-#: harvest/views.py:516
+#: harvest/views.py:523
 msgid "Property is has not yet been validated!"
 msgstr "La propriété n'a pas encore été validée pour cette saison!"
 
-#: harvest/views.py:522
+#: harvest/views.py:529
 msgid "Property is not authorized for this season!"
 msgstr "La propriété n'est pas autorisée pour cette saison!"
 
-#: harvest/views.py:542
+#: harvest/views.py:549
 msgid "Successfully created {} orphan harvests"
 msgstr "{} cueillettes orphelines créées avec succès"
 
-#: harvest/views.py:547
+#: harvest/views.py:554
 msgid "Property already has registered harvests for this season"
 msgstr "La propriété a déjà des cueillettes d'enregistré pour cette saison"
+
+#~ msgid ""
+#~ "Could not update harvest status. Please fill in the public anouncement "
+#~ "field."
+#~ msgstr ""
+#~ "Le statut de la cueillette n'a pas pu être mis à jour. Merci de remplir "
+#~ "la case de l'annonce publique."
 
 #~| msgid "End date"
 #~ msgid "End time"

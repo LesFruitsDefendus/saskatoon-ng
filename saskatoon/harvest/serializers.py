@@ -213,6 +213,10 @@ class HarvestSerializer(serializers.ModelSerializer):
         source='get_local_start',
         format=r"%a. %b. %-d, %Y"
     )
+    end_date = serializers.DateTimeField(
+        source='get_local_end',
+        format=r"%a. %b. %-d, %Y"
+    )
     start_time = serializers.DateTimeField(
         source='get_local_start',
         format=r"%-I:%M %p"
@@ -255,12 +259,19 @@ class HarvestSerializer(serializers.ModelSerializer):
         return OrganizationSerializer(organizations, many=True).data
 
     def get_maturity_range(self, obj):
+        if (
+                obj.status == Harvest.Status.ORPHAN or
+                obj.end_date.date() > obj.start_date.date()
+        ):
+            return "{} - {}".format(
+                obj.start_date.strftime("%b. %-d"),
+                obj.end_date.strftime("%b. %-d, %Y"),
+            )
+
         if obj.trees.count() == 1:
             return obj.trees.first().maturity_range
-        return "{} - {}".format(
-            obj.start_date.strftime("%b. %-d"),
-            obj.end_date.strftime("%b. %-d, %Y"),
-        )
+
+        return ""
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
