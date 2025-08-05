@@ -1,0 +1,54 @@
+{% load static %}
+{% load i18n %}
+
+<div id="orphanModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harvestModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="border-bottom: 0 none">
+                <span class="h4 modal-title"></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div><i class="text-info"> {% trans "this harvest hasn't been adopted yet!" %} </i></div>
+            </div>
+
+            <div class="modal-body">
+                <div class="row tile_count">
+                    <div class="col-md-6 col-sm-4 col-xs-6">
+                        <span class="count_top"><i class="fa fa-clock-o"></i>
+                            {% trans "Approx. Maturity Dates" %}
+                        </span>
+                        <div>
+                            <b><span class="count start-date"> </span></b>
+                            <span> {% trans "to" %} </span>
+                            <b><span class="count end-date"> </span></b>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4 col-xs-6">
+                        <span class="count_top"><i class="fa fa-user"></i>
+                            {% trans "Status" %}
+                        </span>
+                        <div class="count green"><b>{% trans "Orphan" %}</b></div>
+                    </div>
+                </div>
+
+                <hr>
+                <blockquote>
+                    <p class="description"></p>
+                </blockquote>
+                <hr>
+
+                {% if perms.harvest.view_harvest %}
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <a class="btn btn-default harvest-url" href="">
+                            {% trans "Harvest details" %}
+                        </a>
+                    </div>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

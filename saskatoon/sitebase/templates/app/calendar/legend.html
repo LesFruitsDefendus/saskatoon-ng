@@ -3,21 +3,25 @@
 <table id="calendar-legend" class="table table-dark">
     <tbody>
         <tr>
-            <th style="background-color: #BADDFF; opacity: 0.9"> {% trans "Full" %} </th>
+            <th style="color: #000; background-color: #2da4f0; opacity: 0.8"> {% trans "Full" %} </th>
             <td> {% trans "enough pickers have been registered" %} </td>
         </tr>
         <tr>
-            <th style="background-color: #FFE180; opacity: 0.9"> {% trans "Open" %} </th>
+            <th style="color: #000; background-color: #e8ad2b; opacity: 0.8"> {% trans "Open" %} </th>
             <td><b> {% trans "still accepts participation requests" %} </b></td>
         </tr>
         <tr>
-            <th style="background-color: #9CF0DB; opacity: 0.9"> {% trans "succeeded" %} </th>
+            <th style="color: #000; background-color: #8bc34a; opacity: 0.8"> {% trans "Succeeded" %} </th>
             <td> {% trans "completed successfully" %} </td>
         </tr>
         {% if user.is_authenticated %}
         <tr>
-            <th style="background-color: #ED6D62; opacity: 0.9"> {% trans "Cancelled" %} </th>
+            <th style="color: #000; background-color: #ff2079; opacity: 0.8"> {% trans "Cancelled" %} </th>
             <td> {% trans "will no longer take place" %} </td>
+        <tr>
+        <tr>
+            <th style="color: #000; background-color: #ccc; opacity: 0.8"> {% trans "Orphan" %} </th>
+            <td> {% trans "needs to get adopted" %} </td>
         <tr>
         {% endif %}
     </tbody>
