@@ -213,10 +213,6 @@ class HarvestSerializer(serializers.ModelSerializer):
         source='get_local_start',
         format=r"%a. %b. %-d, %Y"
     )
-    end_date = serializers.DateTimeField(
-        source='get_local_end',
-        format=r"%a. %b. %-d, %Y"
-    )
     start_time = serializers.DateTimeField(
         source='get_local_start',
         format=r"%-I:%M %p"
@@ -260,13 +256,7 @@ class HarvestSerializer(serializers.ModelSerializer):
 
     def get_maturity_range(self, obj):
         date_range = obj.get_date_range()
-        if date_range is not None:
-            return date_range
-
-        if obj.trees.count() == 1:
-            return obj.trees.first().maturity_range
-
-        return ""
+        return date_range if date_range is not None else ""
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -298,7 +288,8 @@ class HarvestDetailSerializer(HarvestSerializer):
             'publication_date',
             'equipment_reserved',
             'date_created',
-            'changed_by'
+            'changed_by',
+            'end_date',
         ]
 
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
