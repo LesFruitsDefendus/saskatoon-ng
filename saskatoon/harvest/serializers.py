@@ -259,14 +259,9 @@ class HarvestSerializer(serializers.ModelSerializer):
         return OrganizationSerializer(organizations, many=True).data
 
     def get_maturity_range(self, obj):
-        if (
-                obj.status == Harvest.Status.ORPHAN or
-                obj.end_date.date() > obj.start_date.date()
-        ):
-            return "{} - {}".format(
-                obj.start_date.strftime("%b. %-d"),
-                obj.end_date.strftime("%b. %-d, %Y"),
-            )
+        date_range = obj.get_date_range()
+        if date_range is not None:
+            return date_range
 
         if obj.trees.count() == 1:
             return obj.trees.first().maturity_range

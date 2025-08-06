@@ -471,17 +471,17 @@ def harvest_status_change(request, id):
         harvest.status = request_status
         harvest.save()
         messages.warning(request, _("This harvest no longer has any pick leader"))
-    elif request_status == Harvest.Status.SCHEDULED:
-        if not harvest.about.html:
-            messages.error(
-                request,
-                _("Please fill in the public anouncement field before publishing.")
-            )
-        if harvest.start_date != harvest.end_date:
-            messages.error(
-                request,
-                _("Please set a date before marking the harvest as scheduled.")
-            )
+    elif request_status == Harvest.Status.SCHEDULED and not harvest.has_public_announcement():
+        messages.error(
+            request,
+            _("Please fill in the public anouncement field so the harvest can be published.")
+        )
+
+    elif request_status == Harvest.Status.SCHEDULED and harvest.get_date_range() is not None:
+        messages.error(
+            request,
+            _("Please set a date before marking the harvest as scheduled.")
+        )
 
     elif request_status == Harvest.Status.READY and harvest.has_pending_requests():
         messages.error(

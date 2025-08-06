@@ -1,7 +1,11 @@
+import re
+
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
+
+HTML_TAGS_REGEX = re.compile('<.*?>|\s+')
 
 
 def get_filter_context(viewset, basename=None):
@@ -36,3 +40,7 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
     if date is None:
         return None
     return local_datetime(datetime.combine(date, datetime.min.time()))
+
+
+def is_quill_html_empty(html: str) -> bool:
+    return not len(re.sub(HTML_TAGS_REGEX, '', html))

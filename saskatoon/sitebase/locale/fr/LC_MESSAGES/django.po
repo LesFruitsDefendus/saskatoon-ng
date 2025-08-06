@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-05 00:41-0400\n"
+"POT-Creation-Date: 2025-08-06 22:53-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -263,7 +263,7 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/calendar/scheduled-modal.html:25
 #: sitebase/templates/app/calendar/succeeded-modal.html:25
 #: sitebase/templates/app/detail_views/harvest/about.html:24
-#: sitebase/templates/app/detail_views/harvest/status.html:30
+#: sitebase/templates/app/detail_views/harvest/status.html:29
 #: sitebase/templates/app/forms/participation_create_form.html:42
 msgid "to"
 msgstr "à"
@@ -614,27 +614,27 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 msgid "Harvest status"
 msgstr "Statut de la récolte"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:27
+#: sitebase/templates/app/detail_views/harvest/status.html:26
 msgid "Expected maturity"
 msgstr "Maturité approx."
 
-#: sitebase/templates/app/detail_views/harvest/status.html:41
+#: sitebase/templates/app/detail_views/harvest/status.html:40
 msgid "Total harvested:"
 msgstr "Total récolté:"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:46
+#: sitebase/templates/app/detail_views/harvest/status.html:45
 msgid "Pickers count"
 msgstr "Nombre de bénévoles"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:57
+#: sitebase/templates/app/detail_views/harvest/status.html:56
 msgid "Pick leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:61
+#: sitebase/templates/app/detail_views/harvest/status.html:60
 msgid "Missing"
 msgstr "Manquant"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:71
+#: sitebase/templates/app/detail_views/harvest/status.html:70
 msgid "Adopt it!"
 msgstr "Adopter la!"
 
