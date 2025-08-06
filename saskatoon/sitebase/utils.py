@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
 
-HTML_TAGS_REGEX = re.compile('<.*?>|\s+')
+HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
 
 def get_filter_context(viewset, basename=None):
