@@ -255,12 +255,8 @@ class HarvestSerializer(serializers.ModelSerializer):
         return OrganizationSerializer(organizations, many=True).data
 
     def get_maturity_range(self, obj):
-        if obj.trees.count() == 1:
-            return obj.trees.first().maturity_range
-        return "{} - {}".format(
-            obj.start_date.strftime("%b. %-d"),
-            obj.end_date.strftime("%b. %-d, %Y"),
-        )
+        date_range = obj.get_date_range()
+        return date_range if date_range is not None else ""
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -292,7 +288,8 @@ class HarvestDetailSerializer(HarvestSerializer):
             'publication_date',
             'equipment_reserved',
             'date_created',
-            'changed_by'
+            'changed_by',
+            'end_date',
         ]
 
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
