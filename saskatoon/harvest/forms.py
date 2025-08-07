@@ -1,3 +1,4 @@
+import json
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
@@ -17,6 +18,7 @@ from member.forms import validate_email
 from member.models import AuthUser, Person
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
+from sitebase.utils import is_quill_html_empty
 
 
 logger = getLogger('saskatoon')
@@ -555,7 +557,7 @@ class HarvestForm(forms.ModelForm):
                 Harvest.Status.ADOPTED,
                 Harvest.Status.PENDING,
                 Harvest.Status.CANCELLED
-        ] and not about:
+        ] and (not about or is_quill_html_empty(json.loads(about).get('html'))):
             raise forms.ValidationError(
                 _('Please fill in the public announcement to be published on the calendar.')
             )
