@@ -47,6 +47,15 @@ jobs:
       run: |
         pip install '.[test]'
 
+    - name: Check translations
+      run: |
+        sudo apt install gettext
+        bash scripts/check_translations.sh || (echo "Translations files are not up to date. Please run 'make translations'"; exit 1)
+
+    - name: Check migrations
+      run: |
+        bash scripts/check_migrations.sh || (echo "Migration files are not up to date. Please run 'make migrations'"; exit 1)
+
     - name: Apply migrations
       run: |
         saskatoon/manage.py migrate --skip-checks

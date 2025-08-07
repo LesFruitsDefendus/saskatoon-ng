@@ -16,7 +16,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.8'
+        python-version: '3.9'
 
     - name: Install tox
       run: |
@@ -29,18 +29,14 @@ jobs:
         python -c "print('\nENVIRONMENT VARIABLES\n=====================\n')"
         python -c "import os; [print(f'{k}={v}') for k, v in os.environ.items()]"
 
-    - name: Run pytype
-      run: |
-        tox -e pytype
-
     - name: Run mypy
       run: |
         tox -e mypy
 
-    - name: Run pyflakes
-      run: |
-        tox -e pyflakes
-
     - name: Run flake8
       run: |
         tox -e flake8
+
+    - name: Run pytype
+      run: |
+        tox -e pytype
