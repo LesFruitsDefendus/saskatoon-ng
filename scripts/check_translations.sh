@@ -14,7 +14,6 @@ for app in harvest member sitebase
 do
     filename="$app/locale/fr/LC_MESSAGES/django.po"
     diffs=$(git diff --shortstat $filename | sed -E 's/.* ([0-9]+) insertion.* ([0-9]+) deletion.*/\1,\2/')
-    echo "$filename >> $diffs"
     if [ "$diffs" != "1,1" ]; then
         more=$(git diff $filename)
         echo "$filename is not up to date: $more"

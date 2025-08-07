@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-04 23:47-0400\n"
+"POT-Creation-Date: 2025-08-07 00:31-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -287,9 +287,9 @@ msgstr "Statut"
 msgid "Adopted"
 msgstr "Adoptée"
 
-#: sitebase/templates/app/calendar/adopted-modal.html:45
+#: sitebase/templates/app/calendar/adopted-modal.html:41
 #: sitebase/templates/app/calendar/cancelled-modal.html:48
-#: sitebase/templates/app/calendar/orphan-modal.html:45
+#: sitebase/templates/app/calendar/orphan-modal.html:41
 #: sitebase/templates/app/calendar/ready-modal.html:54
 #: sitebase/templates/app/calendar/scheduled-modal.html:55
 #: sitebase/templates/app/calendar/succeeded-modal.html:54
