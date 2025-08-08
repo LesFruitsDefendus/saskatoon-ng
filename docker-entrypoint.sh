@@ -4,7 +4,6 @@ set -e
 # Load environment variables from .env file
 if [ ! -f saskatoon/.env ]; then
     echo "No .env file found, creating one from template..."
-    # a .env file must exist (even if empty file), otherwise the app will fail to start
     cp -p saskatoon/env.template saskatoon/.env
 fi
 set -a && . saskatoon/.env && set +a
