@@ -211,11 +211,7 @@ class PropertyForm(forms.ModelForm):
         }
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%Y-%m-%d',),
         required=False,
-        widget=forms.DateInput(
-            format='%Y-%m-%d',
-        )
     )
 
     field_order = ['pending', 'is_active', 'authorized', 'owner']
@@ -364,11 +360,7 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%Y-%m-%d',),
         required=False,
-        widget=forms.DateInput(
-            format='%Y-%m-%d',
-        )
     )
 
     trees_location = forms.CharField(
@@ -488,18 +480,15 @@ class HarvestForm(forms.ModelForm):
 
     start_date = forms.DateTimeField(
         label=_('Start date/time'),
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
     end_date = forms.DateTimeField(
         label=_('End date/time'),
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
     publication_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         label=_("Publication date (optional)"),
         help_text=_("Leave this field empty to publish harvest as soon as possible"),
         required=False
