@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    environment:
+      - IS_DEV_DOCKER=true
+    extra_hosts:
+      - "local:host-gateway"  
+    depends_on:
+      - db
+      - redis
+
+  db:
+    image: mysql:8.0
+    ports:
+      # export port for debugging
+      # different port in case default one on local machine already used
+      - "3307:3306"
+    environment:
+      - MYSQL_DATABASE=saskatoon_dev
+      - MYSQL_USER=saskatoon
+      - MYSQL_PASSWORD=saskatoon
+      - MYSQL_ROOT_PASSWORD=root
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  redis:
+    image: redis:6.2
+    ports:
+      # if needed you can export a different port for debugging
+      # if the default one on local machine is already used
+      # - "6380:6379"
+      - "6379:6379"
+
+volumes:
+  mysql_data:
