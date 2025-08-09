@@ -221,6 +221,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         source='get_local_end',
         format=r"%-I:%M %p"
     )
+    date_range = serializers.ReadOnlyField(source='get_date_range')
     status = serializers.StringRelatedField(many=False)
     status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
@@ -231,7 +232,6 @@ class HarvestSerializer(serializers.ModelSerializer):
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
-    maturity_range = serializers.SerializerMethodField()
 
     def get_volunteers_count(self, obj):
         return obj.get_volunteers_count(status=RFP.Status.ACCEPTED)
@@ -253,10 +253,6 @@ class HarvestSerializer(serializers.ModelSerializer):
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
-
-    def get_maturity_range(self, obj):
-        date_range = obj.get_date_range()
-        return date_range if date_range is not None else ""
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -325,6 +321,7 @@ class HarvestListSerializer(HarvestSerializer):
             'start_date',
             'start_time',
             'end_time',
+            'date_range',
             'status',
             'status_display',
             'pick_leader',
