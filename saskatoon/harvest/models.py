@@ -634,11 +634,11 @@ class Harvest(models.Model):
     def get_local_end(self):
         return local_datetime(self.end_date)
 
-    def get_date_range(self) -> Optional[str]:
+    def get_date_range(self) -> str:
         start = self.get_local_start()
         end = self.get_local_end()
         if start is None or end is None or start.date() == end.date():
-            return None
+            return ""
 
         return "{} - {}".format(
             start.strftime("%b. %-d"),

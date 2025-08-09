@@ -7,6 +7,7 @@
     "start_date": "Mon. Jul. 19, 2021",
     "start_time": "4:00 PM",
     "end_time": "7:00 PM",
+    "date_range": "",
     "status": "succeeded",
     "status_display": "Succeeded",
     "pick_leader": {
@@ -287,7 +288,6 @@
             }
         }
     ],
-    "maturity_range": "",
     "comments": [
         {
             "id": 1,
