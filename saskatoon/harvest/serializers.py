@@ -221,6 +221,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         source='get_local_end',
         format=r"%-I:%M %p"
     )
+    date_range = serializers.ReadOnlyField(source='get_date_range')
     status = serializers.StringRelatedField(many=False)
     status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
@@ -231,7 +232,6 @@ class HarvestSerializer(serializers.ModelSerializer):
     comment = CommentSerializer(many=True, read_only=True)
     pickers = serializers.SerializerMethodField()
     organizations = serializers.SerializerMethodField()
-    maturity_range = serializers.SerializerMethodField()
 
     def get_volunteers_count(self, obj):
         return obj.get_volunteers_count(status=RFP.Status.ACCEPTED)
@@ -253,14 +253,6 @@ class HarvestSerializer(serializers.ModelSerializer):
     def get_organizations(self, obj):
         organizations = Organization.objects.filter(is_beneficiary=True)
         return OrganizationSerializer(organizations, many=True).data
-
-    def get_maturity_range(self, obj):
-        if obj.trees.count() == 1:
-            return obj.trees.first().maturity_range
-        return "{} - {}".format(
-            obj.start_date.strftime("%b. %-d"),
-            obj.end_date.strftime("%b. %-d, %Y"),
-        )
 
 
 class HarvestBeneficiarySerializer(serializers.ModelSerializer):
@@ -292,7 +284,8 @@ class HarvestDetailSerializer(HarvestSerializer):
             'publication_date',
             'equipment_reserved',
             'date_created',
-            'changed_by'
+            'changed_by',
+            'end_date',
         ]
 
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
@@ -328,6 +321,7 @@ class HarvestListSerializer(HarvestSerializer):
             'start_date',
             'start_time',
             'end_time',
+            'date_range',
             'status',
             'status_display',
             'pick_leader',

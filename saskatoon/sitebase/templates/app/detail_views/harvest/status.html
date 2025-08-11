@@ -1,5 +1,4 @@
 {% load i18n %}
-{% load l10n %}
 {% load static %}
 {% load tz %}
 {% load auth_users %}
@@ -22,9 +21,9 @@
             <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                 <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                     <div class="website-traffic-ctn">
-                        {% if status == "orphan" %}
+                        {% if date_range %}
                             <p> {% translate "Expected maturity" %}</p>
-                            <h2>{{maturity_range}}</h2>
+                            <h2>{{date_range}}</h2>
                         {% else %}
                             <p>{{start_time}} {% trans "to" %} {{end_time}}</p>
                             <h2>{{start_date}} </h2>
@@ -38,7 +37,7 @@
                     {% if status == "succeeded" %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Total harvested:" %}</p>
-                            <h2><span class="counter">{{ total_distribution|unlocalize }}</span> lbs</h2>
+                            <h2><span class="counter">{{ total_distribution }}</span> lbs</h2>
                         </div>
                     {% else %}
                         <div class="website-traffic-ctn">

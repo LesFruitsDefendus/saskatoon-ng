@@ -19,7 +19,7 @@
                             @ {{ property.neighborhood }}
                         </h5>
                         <br>
-                        {% if status  != "orphan" %}
+                        {% if status != "orphan" and status != "adopted" %}
                             <h4>{{start_date}}</h4>
                             <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
                         {% endif %}

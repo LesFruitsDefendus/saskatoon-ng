@@ -1,12 +1,14 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
+from django.db.models import Q
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
-from harvest.models import Harvest, RequestForParticipation
+from harvest.models import Harvest
+from member.permissions import is_pickleader_or_core_or_admin
 from saskatoon.settings import (
     EQUIPMENT_POINTS_PDF_PATH,
     VOLUNTEER_WAIVER_PDF_PATH
@@ -128,53 +130,56 @@ class JsonCalendar(View):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
         harvests = Harvest.objects.filter(
-            end_date__lte=end_date,
-            start_date__gte=start_date
+            start_date__isnull=False,
+            end_date__isnull=False,
         )
+
+        if request.user.is_authenticated:
+            q1 = Q(start_date__gte=start_date, end_date__lte=end_date)
+            q2 = Q(status__in=[Harvest.Status.ORPHAN, Harvest.Status.ADOPTED])
+            harvests = harvests.filter(q1 | q2).distinct()
+        else:
+            harvests = harvests.filter(start_date__gte=start_date, end_date__lte=end_date)
+
         events = []
         for harvest in harvests:
             if (
-                    harvest.start_date and
-                    harvest.end_date and
-                    (self.request.user.is_staff or harvest.is_publishable())
+                    is_pickleader_or_core_or_admin(self.request.user) or
+                    harvest.is_publishable()
             ):
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
 
                 event['url'] = reverse_lazy('rfp-create', kwargs={'hid': harvest.id})
                 colors = ({
-                    'scheduled': "#FFE180",
-                    'ready': "#BADDFF",
-                    'succeeded': "#9CF0DB",
-                    'cancelled': "#ED6D62"
+                    Harvest.Status.SCHEDULED: "#e8ad2bcc",  # btn-warning
+                    Harvest.Status.READY: "#2da4f0cc",  # btn-info
+                    Harvest.Status.SUCCEEDED: "#8bc34acc",  # btn-success
+                    Harvest.Status.CANCELLED: "#ff2079cc",  # btn-danger
+                    Harvest.Status.ADOPTED: "#440bd466",  # btn-primary
+                    Harvest.Status.ORPHAN: "#cccccccc",
                 })
                 event['display'] = "block"
-                event['backgroundColor'] = colors.get(harvest.status, "#ededed")
+                event['backgroundColor'] = colors.get(harvest.status, "#d4c7f9")
                 event['borderColor'] = event['backgroundColor']
-                event['textColor'] = "#2A3F54"
+                event['textColor'] = "#000"
                 event['title'] = harvest.get_public_title()
 
                 # http://fullcalendar.io/docs/timezone/timezone/
                 event['allday'] = "false"
-                if harvest.start_date:
-                    event['start'] = harvest.get_local_start()
-                if harvest.end_date:
-                    event['end'] = harvest.get_local_end()
-
-                # additional info passed to 'extendedProps'
-                requests_count = RequestForParticipation.objects \
-                    .filter(harvest=harvest).count()
+                event['start'] = harvest.get_local_start()
+                event['end'] = harvest.get_local_end()
 
                 event['extendedProps'] = {
                     'start_date': event['start'].strftime("%a. %b. %-d, %Y"),
-                    # TODO handle scenario when end_date > start_date
                     'start_time': event['start'].strftime("%-I:%M %p"),
+                    'end_date': event['end'].strftime("%a. %b. %-d, %Y"),
                     'end_time': event['end'].strftime("%-I:%M %p"),
                     'harvest_id': harvest.id,
                     'description': harvest.about.html,
                     'status': harvest.status,
                     'nb_required_pickers': harvest.nb_required_pickers,
-                    'nb_requests': requests_count,
+                    'nb_requests': harvest.get_volunteers_count(None),
                     'trees': harvest.get_fruits(),
                     'total_harvested': harvest.get_total_distribution()
                 }

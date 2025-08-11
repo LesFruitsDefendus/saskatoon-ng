@@ -181,10 +181,12 @@ LOCALE_PATHS = [
     'saskatoon/locale/'
 ]
 
+DATE_INPUT_FORMATS = ["%Y-%m-%d"]
+DATETIME_INPUT_FORMATS = ["%Y-%m-%d %H:%M"]
 TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
 
 USE_I18N = True
-USE_L10N = True
+USE_L10N = False
 USE_TZ = True
 
 CSRF_COOKIE_SECURE = True

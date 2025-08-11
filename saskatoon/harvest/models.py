@@ -12,7 +12,7 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Any, Optional, Tuple
 
-from sitebase.utils import local_datetime, to_datetime
+from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
 
 
 class TreeType(models.Model):
@@ -633,6 +633,20 @@ class Harvest(models.Model):
 
     def get_local_end(self):
         return local_datetime(self.end_date)
+
+    def get_date_range(self) -> str:
+        start = self.get_local_start()
+        end = self.get_local_end()
+        if start is None or end is None or start.date() == end.date():
+            return ""
+
+        return "{} - {}".format(
+            start.strftime("%b. %-d"),
+            end.strftime("%b. %-d, %Y"),
+        )
+
+    def has_public_announcement(self) -> bool:
+        return self.about is not None and not is_quill_html_empty(self.about.html)
 
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)

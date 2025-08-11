@@ -1,3 +1,4 @@
+import json
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
@@ -17,6 +18,7 @@ from member.forms import validate_email
 from member.models import AuthUser, Person
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
+from sitebase.utils import is_quill_html_empty
 
 
 logger = getLogger('saskatoon')
@@ -209,11 +211,7 @@ class PropertyForm(forms.ModelForm):
         }
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%Y-%m-%d',),
         required=False,
-        widget=forms.DateInput(
-            format='%Y-%m-%d',
-        )
     )
 
     field_order = ['pending', 'is_active', 'authorized', 'owner']
@@ -362,11 +360,7 @@ class PublicPropertyForm(forms.ModelForm):
     )
 
     approximative_maturity_date = forms.DateField(
-        input_formats=('%Y-%m-%d',),
         required=False,
-        widget=forms.DateInput(
-            format='%Y-%m-%d',
-        )
     )
 
     trees_location = forms.CharField(
@@ -486,18 +480,15 @@ class HarvestForm(forms.ModelForm):
 
     start_date = forms.DateTimeField(
         label=_('Start date/time'),
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
     end_date = forms.DateTimeField(
         label=_('End date/time'),
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         required=True
     )
 
     publication_date = forms.DateTimeField(
-        input_formats=['%d/%m/%Y %H:%M', '%d/%m/%Y %H:%M:%S'],
         label=_("Publication date (optional)"),
         help_text=_("Leave this field empty to publish harvest as soon as possible"),
         required=False
@@ -520,8 +511,7 @@ class HarvestForm(forms.ModelForm):
                 Harvest.Status.CANCELLED,
         ]:
             raise forms.ValidationError(
-                _('Harvests cannot be scheduled over multiple days: \
-                start and end dates must match.')
+                _('Harvests cannot be scheduled over multiple days: start and end dates must match.')  # noqa: E501
             )
 
         if end <= start:
@@ -556,7 +546,7 @@ class HarvestForm(forms.ModelForm):
                 Harvest.Status.ADOPTED,
                 Harvest.Status.PENDING,
                 Harvest.Status.CANCELLED
-        ] and not about:
+        ] and (not about or is_quill_html_empty(json.loads(about).get('html'))):
             raise forms.ValidationError(
                 _('Please fill in the public announcement to be published on the calendar.')
             )

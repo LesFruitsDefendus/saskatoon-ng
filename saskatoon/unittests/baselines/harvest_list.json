@@ -11,6 +11,7 @@
             "start_date": "Sun. Aug. 1, 2021",
             "start_time": "9:00 AM",
             "end_time": "12:00 PM",
+            "date_range": "",
             "status": "scheduled",
             "status_display": "Scheduled",
             "pick_leader": {
@@ -47,6 +48,7 @@
             "start_date": "Sat. Jul. 24, 2021",
             "start_time": "3:00 PM",
             "end_time": "6:00 PM",
+            "date_range": "",
             "status": "ready",
             "status_display": "Ready",
             "pick_leader": {
@@ -83,6 +85,7 @@
             "start_date": "Thu. Jul. 22, 2021",
             "start_time": "5:00 PM",
             "end_time": "6:00 PM",
+            "date_range": "",
             "status": "cancelled",
             "status_display": "Cancelled",
             "pick_leader": {
@@ -119,6 +122,7 @@
             "start_date": "Mon. Jul. 19, 2021",
             "start_time": "4:00 PM",
             "end_time": "7:00 PM",
+            "date_range": "",
             "status": "succeeded",
             "status_display": "Succeeded",
             "pick_leader": {

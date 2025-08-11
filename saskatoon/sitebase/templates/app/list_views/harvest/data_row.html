@@ -6,7 +6,7 @@
 <tr>
     <td>
         <a href="{% url 'harvest-detail' harvest.id %}">
-           # {{ harvest.id }}&nbsp;
+            # {{ harvest.id }}&nbsp;
             <small><i class="fa fa-pencil"></i></small>
         </a>
         {% if perms.harvest.delete_harvest %}
@@ -20,8 +20,14 @@
         {% endif %}
     </td>
     <td>
-        <div class="text-nowrap">{{ harvest.start_date }}</div>
-        <small>{{ harvest.start_time }}</small>
+        <div class="text-nowrap">
+        {% if harvest.date_range %}
+            {{ harvest.date_range }}
+        {% else %}
+            <b>{{ harvest.start_date }}</b><br>
+            <small>{{ harvest.start_time }} - {{ harvest.end_time}}</small>
+        {% endif %}
+        </div>
     </td>
     <td>
         <div class="skill">

@@ -29,18 +29,16 @@
 
               /* filling modal templates*/
               $('.harvest-id').attr('value', info.event.extendedProps.harvest_id);
-              $('.harvest-url').attr('href', "/harvest/"+info.event.extendedProps.harvest_id);
+              $('.harvest-url').attr('href', "/harvest/" + info.event.extendedProps.harvest_id);
               $('.rfp-url').attr('href', info.event.url);
-
               $('.modal-title').html(info.event.title);
               $('.start-date').html(info.event.extendedProps.start_date);
               $('.start-time').html(info.event.extendedProps.start_time);
+              $('.end-date').html(info.event.extendedProps.end_date);
               $('.end-time').html(info.event.extendedProps.end_time);
               $('.description').html(info.event.extendedProps.description);
               $('.nb-required').html(info.event.extendedProps.nb_required_pickers);
               $('.nb-requests').html(info.event.extendedProps.nb_requests);
-
-              $('.tree-list').html(info.event.extendedProps.trees);
               $('.total-harvested').html(info.event.extendedProps.total_harvested);
 
               switch(info.event.extendedProps.status){
@@ -56,12 +54,20 @@
                   case "cancelled":
                       $('#cancelledModal').modal();
                       break;
+                  case "orphan":
+                      $('#orphanModal').modal();
+                      break;
+                  case "adopted":
+                      $('#adoptedModal').modal();
+                      break;
               }
           },
           eventMouseEnter: function(info) {
-              info.el.title = info.event.title + "\n" +
-                              info.event.extendedProps.start_time +
-                              " - " + info.event.extendedProps.end_time;
+              var props = info.event.extendedProps;
+              var timeRange = ["orphan", "adopted"].includes(props.status) ?
+                              (props.start_date + " - " + props.end_date) :
+                              (props.start_time + " - " + props.end_time);
+              info.el.title = info.event.title + "\n" + timeRange;
           }
       });
 
@@ -103,5 +109,9 @@
 {% include 'app/calendar/succeeded-modal.html' %}
 
 {% include 'app/calendar/cancelled-modal.html' %}
+
+{% include 'app/calendar/orphan-modal.html' %}
+
+{% include 'app/calendar/adopted-modal.html' %}
 
 {% endblock content %}
