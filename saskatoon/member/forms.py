@@ -38,6 +38,10 @@ class PersonCreateForm(forms.ModelForm):
 
     field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['neighborhood'].required = True
+
     def clean(self):
         cleaned_data = super().clean()
         validate_email(cleaned_data['email'])
@@ -89,6 +93,7 @@ class PersonUpdateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         request_user = kwargs.pop('request_user')
         super().__init__(*args, **kwargs)
+        self.fields['neighborhood'].required = True
 
         self.auth_user = None
         if not request_user.has_perm('member.change_authuser'):
