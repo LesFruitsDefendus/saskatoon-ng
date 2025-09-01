@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-08-09 00:23-0400\n"
+"POT-Creation-Date: 2025-09-01 16:08-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -88,55 +88,55 @@ msgstr "Bénéficiaire"
 msgid "Equipment Type"
 msgstr "Type d'équipement"
 
-#: member/forms.py:23 member/forms.py:83 member/forms.py:182
+#: member/forms.py:23 member/forms.py:87 member/forms.py:187
 msgid "Email"
 msgstr "Courriel"
 
-#: member/forms.py:113
+#: member/forms.py:118
 msgid "Please assign at least one role to the user"
 msgstr "Merci d'assginer au moins un rôle à cet usager"
 
-#: member/forms.py:116
+#: member/forms.py:121
 msgid "An email address is required to assign a role to the user"
 msgstr "Une adresse courriel est requise pour assigner un rôle à cet usager"
 
-#: member/forms.py:146
+#: member/forms.py:151
 msgid "Beneficiary organization"
 msgstr "Organisme bénéficiaire"
 
-#: member/forms.py:147
+#: member/forms.py:152
 msgid "Equipment point"
 msgstr "Point d'équipement"
 
-#: member/forms.py:148
+#: member/forms.py:153
 msgid "Contact Position/Role"
 msgstr "Titre/Responsabilités de la Personne Contact"
 
-#: member/forms.py:160
+#: member/forms.py:165
 msgid "Select Person"
 msgstr "Sélectionner une Personne"
 
-#: member/forms.py:166
+#: member/forms.py:171
 msgid "Register new contact person"
 msgstr "Enregistrer une nouvelle personne contact"
 
-#: member/forms.py:171
+#: member/forms.py:176
 msgid "First Name"
 msgstr "Prénom"
 
-#: member/forms.py:172 member/forms.py:183
+#: member/forms.py:177 member/forms.py:188
 msgid "This field is required"
 msgstr "Ce champ est requis"
 
-#: member/forms.py:177
+#: member/forms.py:182
 msgid "Last Name"
 msgstr "Nom"
 
-#: member/forms.py:188 member/models.py:258 member/models.py:490
+#: member/forms.py:193 member/models.py:258 member/models.py:490
 msgid "Phone"
 msgstr "Téléphone"
 
-#: member/forms.py:200
+#: member/forms.py:205
 msgid ""
 "ERROR: You must either select a Contact                     Person or create "
 "a new one and provide their personal information"
