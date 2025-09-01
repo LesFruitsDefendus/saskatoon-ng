@@ -474,7 +474,7 @@ body {}
 ul.notika-menu-wrap li a{
 	font-size: 15px;
     color: #333;
-    padding: 15px 25px;
+    padding: 15px 15px;
 	border:none;
 }
 .custom-menu-content ul.notika-main-menu-dropdown li{
