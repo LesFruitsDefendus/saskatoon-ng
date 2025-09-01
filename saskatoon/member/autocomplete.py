@@ -46,7 +46,7 @@ class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
     @staticmethod
     def get_roles_queryset(queryset, roles):
         groups = Group.objects.filter(name__in=roles).values('id')
-        return queryset.filter(groups__in=groups)
+        return queryset.filter(groups__in=groups).distinct()
 
     def get_queryset(self):
         if not self.request.user.is_authenticated:
