@@ -1020,6 +1020,14 @@ msgstr "Organisation"
 msgid "Equipment"
 msgstr "Équipement"
 
+#: sitebase/templates/app/list_views/pagination.html:61
+msgid "Show"
+msgstr "Afficher"
+
+#: sitebase/templates/app/list_views/pagination.html:83
+msgid "entries"
+msgstr "entrées"
+
 #: sitebase/templates/app/list_views/property/status.html:9
 msgid "validated"
 msgstr "validée"
