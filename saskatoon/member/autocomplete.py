@@ -2,6 +2,7 @@ from dal import autocomplete
 from django.contrib.auth.models import Group
 from django.db.models.query_utils import Q
 from .models import AuthUser, Organization, Person, Actor, Neighborhood
+from harvest.utils import available_equipment_points
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
 
@@ -122,6 +123,13 @@ class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
 
         if self.q:
             qs = qs.filter(organization__civil_name__icontains=self.q)
+
+        start = self.forwarded.get('start_date', None)
+        end = self.forwarded.get('end_date', None)
+
+        if start and end:
+            available = available_equipment_points(start, end).values("id")
+            qs = qs.filter(organization__id__contained_by=available)
 
         return qs.distinct()
 
