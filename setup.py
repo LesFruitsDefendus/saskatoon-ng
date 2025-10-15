@@ -47,6 +47,7 @@ setup(
         "django-phone-field==1.8.1",
         "postalcodes-ca==0.0.9",
         "django-quill-editor==0.1.40",
+        "django-stubs[compatible-mypy]",
     ],
     extras_require      =   {
         'test': [
