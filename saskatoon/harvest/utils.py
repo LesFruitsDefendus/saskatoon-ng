@@ -1,8 +1,8 @@
 from django.db.models import Q, Sum
 from logging import getLogger
-from datetime import timedelta
+from datetime import timedelta, datetime
 
-from harvest.models import Property, Harvest, Equipment
+from harvest.models import Property, Equipment
 from member.models import Organization
 
 logger = getLogger('saskatoon')
@@ -50,13 +50,12 @@ def similar_properties(pending_property: Property):
         logger.warning("Could not find similar properties to <%s> (%s: %s)", p, type(_e), str(_e))
         return Property.objects.none()
 
-def available_equipment_points(harvest: Harvest):
+def available_equipment_points(start: datetime, end: datetime):
     """List all available equipment points for a harvest"""
-    h = harvest
 
     try:
-        start = h.start_date - timedelta(hours=1)
-        end = h.end_date + timedelta(hours=1)
+        start = start - timedelta(hours=1)
+        end = end + timedelta(hours=1)
 
         return Organization.objects.exclude(
             id__contained_by=Equipment.objects.filter(
