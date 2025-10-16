@@ -11,7 +11,7 @@ from django.contrib.auth.forms import (
 )
 
 
-class AuthUserCreationAdminForm(UserCreationForm):
+class AuthUserCreationAdminForm(UserCreationForm[AuthUser]):
     """A form for creating new users. Includes all the required fields,
     plus a repeated password."""
 
@@ -26,7 +26,7 @@ class AuthUserCreationAdminForm(UserCreationForm):
         required=False
     )
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = AuthUser
         fields = ('email',)
 
@@ -48,14 +48,14 @@ class AuthUserCreationAdminForm(UserCreationForm):
         return user
 
 
-class AuthUserChangeAdminForm(UserChangeForm):
+class AuthUserChangeAdminForm(UserChangeForm[AuthUser]):
     password = ReadOnlyPasswordHashField(
         help_text="""Raw passwords are not stored, so there is no way to
         see this user's password, but you can change the password using
         <a href=\"../password/\"> this form</a>."""
     )
 
-    class Meta(UserChangeForm.Meta):
+    class Meta:
         model = AuthUser
         exclude = ('date_joined',)
 
@@ -66,7 +66,7 @@ class AuthUserChangeAdminForm(UserChangeForm):
         return self.initial["password"]
 
 
-class PendingPickLeaderAdminForm(forms.ModelForm):
+class PendingPickLeaderAdminForm(forms.ModelForm[Person]):
     """A simple form to onboard new pickleaders"""
 
     class Meta:

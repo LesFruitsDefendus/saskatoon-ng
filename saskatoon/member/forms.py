@@ -13,7 +13,7 @@ from member.validators import validate_email, validate_new_password
 logger = getLogger('saskatoon')
 
 
-class PersonCreateForm(forms.ModelForm):
+class PersonCreateForm(forms.ModelForm[Person]):
 
     class Meta:
         model = Person
@@ -71,7 +71,7 @@ class PersonCreateForm(forms.ModelForm):
         return instance
 
 
-class PersonUpdateForm(forms.ModelForm):
+class PersonUpdateForm(forms.ModelForm[Person]):
 
     class Meta:
         model = Person
@@ -131,7 +131,7 @@ class PersonUpdateForm(forms.ModelForm):
             self.auth_user.set_roles(roles)  # calls auth_user.save()
 
 
-class OnboardingPersonUpdateForm(forms.ModelForm):
+class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
 
     class Meta:
         model = Person
@@ -142,7 +142,7 @@ class OnboardingPersonUpdateForm(forms.ModelForm):
         self.instance.auth_user.add_role('pickleader')
 
 
-class OrganizationForm(forms.ModelForm):
+class OrganizationForm(forms.ModelForm[Organization]):
 
     class Meta:
         model = Organization

@@ -47,7 +47,7 @@ logger = getLogger('saskatoon')
 
 
 @admin.register(AuthUser)
-class AuthUserAdmin(UserAdmin):
+class AuthUserAdmin(UserAdmin[AuthUser]):
     form = AuthUserChangeAdminForm
     add_form = AuthUserCreationAdminForm
     search_fields = ('email', 'person__first_name', 'person__family_name')
@@ -270,7 +270,7 @@ class AuthUserAdmin(UserAdmin):
 
 
 @admin.register(Person)
-class PersonAdmin(admin.ModelAdmin):
+class PersonAdmin(admin.ModelAdmin[Person]):
     list_display = (
         '__str__',
         'authuser',
@@ -316,7 +316,7 @@ class PersonAdmin(admin.ModelAdmin):
 
 
 @admin.register(Actor)
-class ActorAdmin(admin.ModelAdmin):
+class ActorAdmin(admin.ModelAdmin[Actor]):
     list_display = ('__str__', 'type', 'pk')
     list_filter = (ActorTypeAdminFilter,)
 
@@ -331,7 +331,7 @@ class ActorAdmin(admin.ModelAdmin):
 
 
 @admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin):
+class OrganizationAdmin(admin.ModelAdmin[Organization]):
     inlines = [OrganizationEquipmentInlineAdminForm]
     list_display = (
         '__str__',
@@ -426,7 +426,7 @@ admin.site.register(Country)
 
 
 @admin.register(Onboarding)
-class OnboardingAdmin(admin.ModelAdmin):
+class OnboardingAdmin(admin.ModelAdmin[Onboarding]):
     inlines = [PendingPickLeaderInlineAdminForm]
     list_display = ('name', 'datetime', 'user_count', 'all_sent', 'id')
 

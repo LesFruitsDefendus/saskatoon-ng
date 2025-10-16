@@ -26,8 +26,7 @@ from harvest.models import (
 HarvestStatus = Optional[Tuple[Any, str]]  # Optional[Harvest.Status]
 RFPStatus = Optional[Tuple[Any, str]]  # Optional[RFP.Status]
 
-
-class AuthUserManager(BaseUserManager):
+class AuthUserManager(BaseUserManager[AbstractBaseUser]):
     """Base user management"""
 
     def create_user(self, email, password=None):
