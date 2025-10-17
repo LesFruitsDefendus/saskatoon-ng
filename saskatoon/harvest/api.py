@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django_filters.rest_framework import DjangoFilterBackend
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter

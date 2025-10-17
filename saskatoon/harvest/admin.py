@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
-from django.utils.html import mark_safe
+from django.utils.safestring import mark_safe
 
 from member.models import AuthUser
 from harvest.admin_filters import (
