@@ -138,7 +138,7 @@ class EquipmentAdmin(admin.ModelAdmin[Equipment]):
     form = EquipmentAdminForm
 
 
-class PropertyImageInline(admin.TabularInline):
+class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
     model = PropertyImage
     extra = 3
 

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
@@ -24,7 +25,7 @@ from member.forms import (
 from sitebase.models import Email, EmailType
 
 
-class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin[PersonCreateForm], CreateView[Person, PersonCreateForm]):
     permission_required = 'member.add_person'
     model = Person
     form_class = PersonCreateForm
@@ -76,7 +77,7 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView)
         return self.render_to_response(context)
 
 
-class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin[PersonUpdateForm], UpdateView[Person, PersonUpdateForm]):
     permission_required = 'member.change_person'
     model = Person
     form_class = PersonUpdateForm
@@ -103,7 +104,7 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         return kwargs
 
 
-class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin[OnboardingPersonUpdateForm], UpdateView[Person, OnboardingPersonUpdateForm]):
     model = Person
     form_class = OnboardingPersonUpdateForm
     template_name = 'app/forms/model_form.html'
@@ -123,7 +124,7 @@ class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin, Update
         return reverse_lazy('home')
 
 
-class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin[OrganizationCreateForm], CreateView[Organization, OrganizationCreateForm]):
     permission_required = 'member.add_organization'
     model = Organization
     form_class = OrganizationCreateForm
@@ -138,7 +139,7 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin, Creat
         return context
 
 
-class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin[OrganizationForm], UpdateView[Organization, OrganizationForm]):
     permission_required = 'member.change_organization'
     model = Organization
     form_class = OrganizationForm
@@ -162,7 +163,7 @@ class PasswordChangeView(auth_views.PasswordChangeView):
         return reverse('home')
 
 
-class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin, View):
+class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin[PasswordResetForm], View):
     """View for sending reset password email, with redirect on success."""
     permission_required = 'member.change_authuser'
 
