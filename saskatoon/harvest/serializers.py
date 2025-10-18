@@ -9,6 +9,7 @@ from member.serializers import (
     StateSerializer,
     PersonOwnerSerializer,
     PersonSerializer,
+    OrganizationOwnerSerializer,
     PickLeaderSerializer,
     PickerSerializer,
     RequestForParticipationPersonSerializer,
@@ -41,15 +42,6 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
     date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
     time_created = serializers.DateTimeField(source='date_created', format=r"%I:%H %p")
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
-
-
-class OrganizationOwnerSerializer(PersonOwnerSerializer):
-    class Meta(PersonOwnerSerializer.Meta):
-        model = Organization
-
-    def get_comments(self, obj):
-        return _("Owner is an Organization")
-
 
 class OwnerTypeSerializer(serializers.ModelSerializer):
     class Meta:

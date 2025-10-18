@@ -143,6 +143,24 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
     def get_comments(self, obj):
         return obj.person.comments
 
+class OrganizationOwnerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organization
+        fields = [
+            'pk',
+            'name',
+            'email',
+            'phone',
+            'neighborhood',
+            'city',
+            'state',
+            'country'
+        ]
+
+    comments = serializers.SerializerMethodField()
+
+    def get_comments(self, obj):
+        return obj.person.comments
 
 class PickerSerializer(serializers.ModelSerializer):
     class Meta:
