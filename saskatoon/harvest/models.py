@@ -11,6 +11,7 @@ from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Optional
+from enum import Enum
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
 
@@ -559,7 +560,7 @@ class Harvest(models.Model):
         verbose_name_plural = _("harvests")
         ordering = ['-start_date']
 
-    class Status(models.TextChoices):
+    class Status(models.TextChoices, Enum):
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
         PENDING = 'pending', _("To be confirmed")
@@ -797,7 +798,7 @@ class RequestForParticipation(models.Model):
         verbose_name = _("request for participation")
         verbose_name_plural = _("requests for participation")
 
-    class Status(models.TextChoices):
+    class Status(models.TextChoices, Enum):
         PENDING = 'pending', _("Pending")
         ACCEPTED = 'accepted', _("Accepted")
         DECLINED = 'declined', _("Declined")
