@@ -17,7 +17,7 @@ urlpatterns = [
 ]
 
 if DEBUG:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT) # type: ignore
 
 handler400 = 'sitebase.views.handler400'
 handler403 = 'sitebase.views.handler403'
