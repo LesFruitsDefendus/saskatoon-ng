@@ -25,7 +25,11 @@ from member.forms import (
 from sitebase.models import Email, EmailType
 
 
-class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin[PersonCreateForm], CreateView[Person, PersonCreateForm]):
+class PersonCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PersonCreateForm],
+    CreateView[Person, PersonCreateForm]
+):
     permission_required = 'member.add_person'
     model = Person
     form_class = PersonCreateForm
@@ -77,7 +81,11 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin[PersonCreate
         return self.render_to_response(context)
 
 
-class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin[PersonUpdateForm], UpdateView[Person, PersonUpdateForm]):
+class PersonUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PersonUpdateForm],
+    UpdateView[Person, PersonUpdateForm]
+):
     permission_required = 'member.change_person'
     model = Person
     form_class = PersonUpdateForm
@@ -104,7 +112,11 @@ class PersonUpdateView(PermissionRequiredMixin, SuccessMessageMixin[PersonUpdate
         return kwargs
 
 
-class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin[OnboardingPersonUpdateForm], UpdateView[Person, OnboardingPersonUpdateForm]):
+class OnboardingPersonUpdateView(
+    LoginRequiredMixin,
+    SuccessMessageMixin[OnboardingPersonUpdateForm],
+    UpdateView[Person, OnboardingPersonUpdateForm]
+):
     model = Person
     form_class = OnboardingPersonUpdateForm
     template_name = 'app/forms/model_form.html'
@@ -124,7 +136,11 @@ class OnboardingPersonUpdateView(LoginRequiredMixin, SuccessMessageMixin[Onboard
         return reverse_lazy('home')
 
 
-class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin[OrganizationCreateForm], CreateView[Organization, OrganizationCreateForm]):
+class OrganizationCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[OrganizationCreateForm],
+    CreateView[Organization, OrganizationCreateForm]
+):
     permission_required = 'member.add_organization'
     model = Organization
     form_class = OrganizationCreateForm
@@ -139,7 +155,11 @@ class OrganizationCreateView(PermissionRequiredMixin, SuccessMessageMixin[Organi
         return context
 
 
-class OrganizationUpdateView(PermissionRequiredMixin, SuccessMessageMixin[OrganizationForm], UpdateView[Organization, OrganizationForm]):
+class OrganizationUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[OrganizationForm],
+    UpdateView[Organization, OrganizationForm]
+):
     permission_required = 'member.change_organization'
     model = Organization
     form_class = OrganizationForm
@@ -163,7 +183,12 @@ class PasswordChangeView(auth_views.PasswordChangeView):
         return reverse('home')
 
 
-class PasswordResetView(LoginRequiredMixin, PermissionRequiredMixin, SuccessMessageMixin[PasswordResetForm], View):
+class PasswordResetView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PasswordResetForm],
+    View
+):
     """View for sending reset password email, with redirect on success."""
     permission_required = 'member.change_authuser'
 

@@ -14,12 +14,13 @@ from django.utils import timezone as tz
 from itertools import chain
 from operator import attrgetter
 from phone_field import PhoneField
-from typing import Optional, Any, Tuple
+from typing import Optional
 
 from harvest.models import (
     RequestForParticipation as RFP,
     Harvest,
 )
+
 
 class AuthUserManager(BaseUserManager[AbstractBaseUser]):
     """Base user management"""

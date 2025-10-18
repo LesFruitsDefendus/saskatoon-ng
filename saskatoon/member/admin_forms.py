@@ -100,7 +100,13 @@ class PendingPickLeaderAdminForm(forms.ModelForm[Person]):
         return super().save(commit)
 
 
-class PendingPickLeaderInlineAdminFormSet(forms.models.BaseInlineFormSet[Person, Person, PendingPickLeaderAdminForm]):
+class PendingPickLeaderInlineAdminFormSet(
+    forms.models.BaseInlineFormSet[
+        Person,
+        Person,
+        PendingPickLeaderAdminForm
+    ]
+):
 
     def get_emails(self):
         return dict([(f.instance.pk, f.cleaned_data.get('email'))
@@ -137,7 +143,7 @@ class PendingPickLeaderInlineAdminForm(admin.TabularInline[Person, Person]):
     model = Person
     fields = ['email', 'first_name', 'family_name', 'phone', 'language']
     form = PendingPickLeaderAdminForm
-    formset = PendingPickLeaderInlineAdminFormSet # type: ignore
+    formset = PendingPickLeaderInlineAdminFormSet  # type: ignore
     extra = 9
 
 

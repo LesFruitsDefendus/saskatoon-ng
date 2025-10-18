@@ -1,4 +1,3 @@
-from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import Actor, Organization
 from member.serializers import (
@@ -42,6 +41,7 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
     date_created = serializers.DateTimeField(format=r"%Y-%m-%d")
     time_created = serializers.DateTimeField(source='date_created', format=r"%I:%H %p")
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
+
 
 class OwnerTypeSerializer(serializers.ModelSerializer):
     class Meta:

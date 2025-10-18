@@ -12,7 +12,6 @@ from django.views.generic import CreateView, UpdateView
 from django_stubs_ext import StrOrPromise
 
 from logging import getLogger
-from typing import Union
 
 from harvest.forms import (
     CommentForm,
@@ -40,7 +39,11 @@ from sitebase.utils import to_datetime
 logger = getLogger('saskatoon')
 
 
-class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin[EquipmentForm], CreateView[Equipment, EquipmentForm]):
+class EquipmentCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[EquipmentForm],
+    CreateView[Equipment, EquipmentForm]
+):
     permission_required = 'harvest.add_equipment'
     model = Equipment
     form_class = EquipmentForm
@@ -70,7 +73,11 @@ class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin[Equipment
         return context
 
 
-class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin[EquipmentForm], UpdateView[Equipment, EquipmentForm]):
+class EquipmentUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[EquipmentForm],
+    UpdateView[Equipment, EquipmentForm]
+):
     permission_required = 'harvest.change_equipment'
     model = Equipment
     form_class = EquipmentForm
@@ -85,7 +92,11 @@ class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin[Equipment
         return context
 
 
-class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin[PropertyCreateForm], CreateView[Property, PropertyCreateForm]):
+class PropertyCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PropertyCreateForm],
+    CreateView[Property, PropertyCreateForm]
+):
     permission_required = 'harvest.add_property'
     model = Property
     form_class = PropertyCreateForm
@@ -100,7 +111,10 @@ class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin[PropertyCr
         return context
 
 
-class PropertyCreatePublicView(SuccessMessageMixin[PublicPropertyForm], CreateView[Property, PublicPropertyForm]):
+class PropertyCreatePublicView(
+    SuccessMessageMixin[PublicPropertyForm],
+    CreateView[Property, PublicPropertyForm]
+):
     """Public View"""
 
     model = Property
@@ -113,7 +127,11 @@ class PropertyCreatePublicView(SuccessMessageMixin[PublicPropertyForm], CreateVi
     )
 
 
-class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin[PropertyForm], UpdateView[Property, PropertyForm]):
+class PropertyUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PropertyForm],
+    UpdateView[Property, PropertyForm]
+):
     permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
@@ -133,7 +151,11 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin[PropertyFo
         return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin[HarvestForm], CreateView[Harvest, HarvestForm]):
+class HarvestCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[HarvestForm],
+    CreateView[Harvest, HarvestForm]
+):
     permission_required = 'harvest.add_harvest'
     model = Harvest
     form_class = HarvestForm
@@ -178,7 +200,11 @@ class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin[HarvestForm
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin[HarvestForm], UpdateView[Harvest, HarvestForm]):
+class HarvestUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[HarvestForm],
+    UpdateView[Harvest, HarvestForm]
+):
     permission_required = 'harvest.change_harvest'
     model = Harvest
     form_class = HarvestForm
@@ -298,7 +324,11 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
         return super().get_success_message(cleaned_data)
 
 
-class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin[RFPManageForm], UpdateView[RFP, RFPManageForm]):
+class RequestForParticipationUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[RFPManageForm],
+    UpdateView[RFP, RFPManageForm]
+):
     permission_required = 'harvest.change_requestforparticipation'
     model = RFP
     form_class = RFPManageForm
@@ -334,7 +364,11 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
         )
 
 
-class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin[CommentForm], CreateView[Comment, CommentForm]):
+class CommentCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[CommentForm],
+    CreateView[Comment, CommentForm]
+):
     permission_required = 'harvest.add_comment'
     model = Comment
     form_class = CommentForm

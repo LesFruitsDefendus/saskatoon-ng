@@ -143,6 +143,7 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
     def get_comments(self, obj):
         return obj.person.comments
 
+
 class OrganizationOwnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organization
@@ -161,6 +162,7 @@ class OrganizationOwnerSerializer(serializers.ModelSerializer):
 
     def get_comments(self, obj):
         return obj.person.comments
+
 
 class PickerSerializer(serializers.ModelSerializer):
     class Meta:

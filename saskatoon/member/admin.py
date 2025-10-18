@@ -47,7 +47,7 @@ logger = getLogger('saskatoon')
 
 
 @admin.register(AuthUser)
-class AuthUserAdmin(UserAdmin[AuthUser]): # type: ignore
+class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
     form = AuthUserChangeAdminForm
     add_form = AuthUserCreationAdminForm
     search_fields = ('email', 'person__first_name', 'person__family_name')

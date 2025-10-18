@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Any, Optional, Tuple
+from typing import Optional
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
 
@@ -485,6 +485,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         number = self.street_number if self.street_number else ""
         return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
+
 class Equipment(models.Model):
     """Equipment model"""
 
@@ -548,7 +549,6 @@ class Equipment(models.Model):
         if self.get_equipment_point() is not None:
             self.shared = True
         super().save(*args, **kwargs)
-
 
 
 class Harvest(models.Model):
@@ -920,6 +920,7 @@ class HarvestYield(models.Model):
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
                (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
+
 
 class Comment(models.Model):
     """Harvest comment model"""
