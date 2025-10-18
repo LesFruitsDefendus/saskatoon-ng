@@ -125,8 +125,7 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
         source='get_local_start',
         format="%Y-%m-%d"
     )
-    pick_leader = serializers.StringRelatedField(many=False)
-
+    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore  # mypy says it's a SerializerMethodField
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):

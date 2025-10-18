@@ -29,7 +29,7 @@ def is_translator(user: AuthUser) -> bool:
 class IsCoreOrAdmin(IsAuthenticated):
     message = gettext_lazy("Viewing this page is restricted to core and admin users.")
 
-    def has_permission(self, request: HttpRequest, view):
+    def has_permission(self, request, view):
         if super().has_permission(request, view):
             return is_core_or_admin(request.user)
         return False
@@ -38,7 +38,7 @@ class IsCoreOrAdmin(IsAuthenticated):
 class IsPickLeaderOrCoreOrAdmin(IsAuthenticated):
     message = gettext_lazy("Viewing this page is restricted to pickleaders, core and admin users.")
 
-    def has_permission(self, request: HttpRequest, view):
+    def has_permission(self, request, view):
         if super().has_permission(request, view):
             return is_pickleader_or_core_or_admin(request.user)
         return False
