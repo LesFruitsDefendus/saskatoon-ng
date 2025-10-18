@@ -49,6 +49,7 @@ setup(
         "django-quill-editor==0.1.40",
         "django-stubs[compatible-mypy]",
         "django-stubs-ext",
+        "djangorestframework-stubs[compatible-mypy]",
         "types-setuptools"
     ],
     extras_require      =   {
