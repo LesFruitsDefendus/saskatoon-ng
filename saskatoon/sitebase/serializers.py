@@ -11,7 +11,7 @@ def add_key_prefix(serializer, obj, key):
     return {f"{key}_{k}": v for k, v in d.items()}
 
 
-class EmailRecipientSerializer(serializers.ModelSerializer):
+class EmailRecipientSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = ['name', 'email']
@@ -20,7 +20,7 @@ class EmailRecipientSerializer(serializers.ModelSerializer):
         return add_key_prefix(self, obj, "recipient")
 
 
-class EmailPickLeaderSerializer(serializers.ModelSerializer):
+class EmailPickLeaderSerializer(serializers.ModelSerializer[AuthUser]):
     class Meta:
         model = AuthUser
         fields = ['name', 'email']
@@ -29,7 +29,7 @@ class EmailPickLeaderSerializer(serializers.ModelSerializer):
         return add_key_prefix(self, obj, "pickleader")
 
 
-class EmailPropertySerializer(serializers.ModelSerializer):
+class EmailPropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
         fields = ['id', 'address', 'owner']
@@ -41,7 +41,7 @@ class EmailPropertySerializer(serializers.ModelSerializer):
         return add_key_prefix(self, obj, "property")
 
 
-class EmailCommentSerializer(serializers.ModelSerializer):
+class EmailCommentSerializer(serializers.ModelSerializer[Comment]):
     class Meta:
         model = Comment
         fields = ['author', 'content', 'date', 'time']
@@ -60,7 +60,7 @@ class EmailCommentSerializer(serializers.ModelSerializer):
         return add_key_prefix(self, obj, "comment")
 
 
-class EmailHarvestSerializer(serializers.ModelSerializer):
+class EmailHarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = ['id', 'public', 'date', 'url']
@@ -81,7 +81,7 @@ class EmailHarvestSerializer(serializers.ModelSerializer):
         return add_key_prefix(self, obj, "harvest")
 
 
-class EmailRFPSerializer(serializers.ModelSerializer):
+class EmailRFPSerializer(serializers.ModelSerializer[RequestForParticipation]):
     class Meta:
         model = RequestForParticipation
         fields = ['name', 'email', 'comment', 'number_of_pickers']

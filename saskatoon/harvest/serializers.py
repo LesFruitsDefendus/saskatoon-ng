@@ -26,13 +26,13 @@ from harvest.models import (
 from harvest.utils import similar_properties
 
 
-class TreeTypeSerializer(serializers.ModelSerializer):
+class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
     class Meta:
         model = TreeType
         fields = '__all__'
 
 
-class RequestForParticipationSerializer(serializers.ModelSerializer):
+class RequestForParticipationSerializer(serializers.ModelSerializer[RFP]):
     class Meta:
         model = RFP
         fields = '__all__'
@@ -43,13 +43,13 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
 
 
-class OwnerTypeSerializer(serializers.ModelSerializer):
+class OwnerTypeSerializer(serializers.ModelSerializer[Actor]):
     class Meta:
         model = Actor
         fields = ['is_person', 'is_organization']
 
 
-class PropertyHarvestSerializer(serializers.ModelSerializer):
+class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = [
@@ -85,7 +85,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer):
         return None
 
 
-class PropertySerializer(serializers.ModelSerializer):
+class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
         fields = '__all__'
@@ -171,7 +171,7 @@ class PropertyEquipmentSerializer(PropertyListSerializer):
         ]
 
 
-class HarvestYieldSerializer(serializers.ModelSerializer):
+class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
     class Meta:
         model = HarvestYield
         fields = '__all__'
@@ -180,7 +180,7 @@ class HarvestYieldSerializer(serializers.ModelSerializer):
     recipient = serializers.StringRelatedField(many=False)
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer[Comment]):
     class Meta:
         model = Comment
         fields = '__all__'
@@ -190,7 +190,7 @@ class CommentSerializer(serializers.ModelSerializer):
     date_updated = serializers.DateTimeField(format=r'%c')
 
 
-class HarvestSerializer(serializers.ModelSerializer):
+class HarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = '__all__'
@@ -247,7 +247,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         return OrganizationSerializer(organizations, many=True).data
 
 
-class HarvestBeneficiarySerializer(serializers.ModelSerializer):
+class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
         fields = ['actor_id', 'civil_name']
@@ -331,7 +331,7 @@ class HarvestListSerializer(HarvestSerializer):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
 
 
-class EquipmentTypeSerializer(serializers.ModelSerializer):
+class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
     class Meta:
         model = EquipmentType
         fields = ['name', 'name_fr', 'name_en']
@@ -342,7 +342,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
         return type.name_fr
 
 
-class EquipmentSerializer(serializers.ModelSerializer):
+class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
         model = Equipment
         fields = '__all__'
@@ -351,7 +351,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
     type = EquipmentTypeSerializer(many=False, read_only=True)
 
 
-class OrganizationSerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
         fields = [
