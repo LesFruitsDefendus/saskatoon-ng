@@ -220,7 +220,14 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin[HarvestForm
                 self.object.save()
                 return ""
 
-            person = self.object.pick_leader.person
+            maybe_auth = self.object.pick_leader
+
+            assert maybe_auth is not None
+
+            person = maybe_auth.person
+
+            assert person is not None
+
             season_count = person.get_harvests_as_pickleader(
                 status=Harvest.Status.SUCCEEDED
             ).filter(
