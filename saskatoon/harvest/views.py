@@ -197,7 +197,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin[HarvestForm
     def get_form_kwargs(self, *args, **kwargs):
         return super().get_form_kwargs(*args, **kwargs) | {'yields': self.object.yields}
 
-    def get_success_message(self, cleaned_data) -> str:
+    def get_success_message(self, cleaned_data) -> StrOrPromise:
         if self.object.status == Harvest.Status.READY and \
            self.object.has_pending_requests():
             messages.error(
