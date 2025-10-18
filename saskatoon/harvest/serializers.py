@@ -125,7 +125,9 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
         source='get_local_start',
         format="%Y-%m-%d"
     )
-    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore  # mypy says it's a SerializerMethodField
+    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it's a SerializerMethodField
+
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
@@ -155,7 +157,8 @@ class PropertyListSerializer(PropertySerializer):
             'harvests'
         ]
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
 
@@ -264,7 +267,8 @@ class HarvestDetailPropertySerializer(PropertySerializer):
             'neighborhood'
         ]  # type: ignore
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
 
 
 class HarvestDetailSerializer(HarvestSerializer):
@@ -303,7 +307,8 @@ class HarvestListPropertySerializer(PropertySerializer):
             'neighborhood'
         ]  # type: ignore
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
 
 
 class HarvestListSerializer(HarvestSerializer):

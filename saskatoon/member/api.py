@@ -111,13 +111,17 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
         return Response(context)
 
 
-class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
     """Community viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    # Incompatible types in assignment (expression has type
+    # "QuerySet[AbstractBaseUser, AbstractBaseUser]",
+    # base class "GenericAPIView" defined the type as
+    # "Union[QuerySet[AuthUser, AuthUser], Manager[AuthUser], None]")
     queryset = AuthUser.objects \
                        .filter(person__first_name__isnull=False) \
-                       .order_by('-date_joined')
+                       .order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = CommunityFilter
