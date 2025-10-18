@@ -1,5 +1,4 @@
 from rest_framework.permissions import IsAuthenticated
-from django.http import HttpRequest
 from django.utils.translation import gettext_lazy
 from django.contrib.auth.models import AnonymousUser
 from member.models import AuthUser
