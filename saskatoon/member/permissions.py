@@ -1,7 +1,9 @@
 from rest_framework.permissions import IsAuthenticated
 from django.http import HttpRequest
 from django.utils.translation import gettext_lazy
+from django.contrib.auth.models import AnonymousUser
 from member.models import AuthUser
+from typing import Union
 
 
 def is_pickleader(user: AuthUser) -> bool:
@@ -12,11 +14,11 @@ def is_pickleader_or_core(user: AuthUser) -> bool:
     return user.groups.filter(name__in=["pickleader", "core"]).exists()
 
 
-def is_core_or_admin(user: AuthUser) -> bool:
+def is_core_or_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
     return user.groups.filter(name__in=["core", "admin"]).exists()
 
 
-def is_pickleader_or_core_or_admin(user: AuthUser) -> bool:
+def is_pickleader_or_core_or_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
     return user.groups.filter(name__in=["pickleader", "core", "admin"]).exists()
 
 
