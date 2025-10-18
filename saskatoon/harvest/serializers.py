@@ -176,7 +176,9 @@ class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
         fields = '__all__'
 
     tree = TreeTypeSerializer(many=False, read_only=True)
-    recipient = serializers.StringRelatedField(many=False)
+    recipient: serializers.StringRelatedField[HarvestYield] = serializers.StringRelatedField(
+        many=False
+    )
 
 
 class CommentSerializer(serializers.ModelSerializer[Comment]):
@@ -213,7 +215,7 @@ class HarvestSerializer(serializers.ModelSerializer[Harvest]):
         format=r"%-I:%M %p"
     )
     date_range = serializers.ReadOnlyField(source='get_date_range')
-    status = serializers.StringRelatedField(many=False)
+    status: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(many=False)
     status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)

@@ -26,7 +26,7 @@ from sitebase.utils import (
 )
 
 
-class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization]):
     """Organization viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -67,7 +67,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         })
 
 
-class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
+class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
     """List view for organizations that are equipment points."""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
