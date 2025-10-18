@@ -21,11 +21,6 @@ from harvest.models import (
     Harvest,
 )
 
-
-# type aliases to satisfy pytype
-HarvestStatus = Optional[Tuple[Any, str]]  # Optional[Harvest.Status]
-RFPStatus = Optional[Tuple[Any, str]]  # Optional[RFP.Status]
-
 class AuthUserManager(BaseUserManager[AbstractBaseUser]):
     """Base user management"""
 
@@ -373,7 +368,7 @@ class Person(Actor):
     def get_organizations_as_contact(self):
         return Organization.objects.filter(contact_person=self)
 
-    def get_harvests_as_owner(self, status: HarvestStatus = None):
+    def get_harvests_as_owner(self, status: Optional[Harvest.Status] = None):
         harvests = Harvest.objects.filter(
             property__in=self.properties.all()
         ).annotate(role=models.Value('owner'))
@@ -381,7 +376,7 @@ class Person(Actor):
             return harvests.filter(status=status)
         return harvests
 
-    def get_harvests_as_pickleader(self, status: HarvestStatus = None):
+    def get_harvests_as_pickleader(self, status: Optional[Harvest.Status] = None):
         if not hasattr(self, 'auth_user'):
             return Harvest.objects.none()
         harvests = self.auth_user.harvests.annotate(role=models.Value('pickleader'))
@@ -389,7 +384,7 @@ class Person(Actor):
             return harvests.filter(status=status)
         return harvests
 
-    def get_requests_as_volunteer(self, rfp_status: RFPStatus = None):
+    def get_requests_as_volunteer(self, rfp_status: Optional[RFP.Status] = None):
         rfps = self.requests.filter(harvest__status=Harvest.Status.SUCCEEDED)
         if rfp_status is not None:
             return rfps.filter(status=rfp_status)

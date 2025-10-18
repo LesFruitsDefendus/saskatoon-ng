@@ -716,7 +716,7 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_volunteers_count(self, status: Optional[Tuple[str, Any]]) -> int:
+    def get_volunteers_count(self, status: Optional['RequestForParticipation.Status']) -> int:
         rfps = self.requests.get_queryset()
         if status is not None:
             rfps = rfps.filter(status=status)
