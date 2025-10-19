@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-18 14:37+0000\n"
+"POT-Creation-Date: 2025-10-19 14:23+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgstr "Nouvelle Propriété"
 msgid "Property successfully authorized!"
 msgstr "Création de propriété réussie!"
 
-#: harvest/api.py:135 harvest/views.py:295
+#: harvest/api.py:135 harvest/views.py:289
 msgid "Something went wrong"
 msgstr "Une erreur est survenue"
 
@@ -952,15 +952,19 @@ msgstr ""
 "Merci de compléter la distribution des fruits avant de marquer cette "
 "cueillette comme Réussie. "
 
-#: harvest/views.py:263
+#: harvest/views.py:257
+#, fuzzy
+#| msgid ""
+#| "You’ve just led your {} fruit harvest this season!                 Thank "
+#| "you for supporting your community!"
 msgid ""
-"You’ve just led your {} fruit harvest this season!                 Thank you "
-"for supporting your community!"
+"You’ve just led your {} fruit harvest this season!                     Thank "
+"you for supporting your community!"
 msgstr ""
 "Vous avez mené votre {} cueillette de fruits de la saison ! Merci de "
 "supporter votre communauté ! "
 
-#: harvest/views.py:279
+#: harvest/views.py:273
 msgid ""
 "Thanks for your interest in participating in this harvest!     Your request "
 "has been sent and a pick leader will contact you soon."
@@ -969,11 +973,11 @@ msgstr ""
 "participation a été transmise au Chef (à la Cheffe) de cueillette qui vous "
 "répondra prochainement."
 
-#: harvest/views.py:305
+#: harvest/views.py:299
 msgid "Request to join this harvest"
 msgstr "Demandez à joindre cette cueillette"
 
-#: harvest/views.py:310
+#: harvest/views.py:304
 msgid ""
 "Sorry, this harvest is not open for requests.             You can check the "
 "calendar for other harvests."
@@ -981,99 +985,99 @@ msgstr ""
 "Désolé, la cueillette n'est pas ouverte aux demandes. Veuillez consulter le "
 "calendrier pour trouver d'autres cueillettes."
 
-#: harvest/views.py:323
+#: harvest/views.py:317
 msgid "New request for participation successfully added!"
 msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e)!"
 
-#: harvest/views.py:336
+#: harvest/views.py:330
 msgid "Request updated successfully!"
 msgstr "Mise à jour de la demande réussie!"
 
-#: harvest/views.py:340
+#: harvest/views.py:334
 msgid "Request For Participation"
 msgstr "Demande de participation"
 
-#: harvest/views.py:376
+#: harvest/views.py:370
 msgid "Comment added!"
 msgstr "Commentaire ajouté!"
 
-#: harvest/views.py:391
+#: harvest/views.py:385
 msgid "Add new comment"
 msgstr "Ajouter un nouveau commentaire"
 
-#: harvest/views.py:414
+#: harvest/views.py:408
 msgid "You must be a pickleader to delete a fruit distribution entry!"
 msgstr ""
 "Vous devez être chef de cueillette pour supprimer une entrée dans la "
 "distribution de fruits!"
 
-#: harvest/views.py:431
+#: harvest/views.py:425
 msgid "You must be a pickleader to add a fruit distribution entry!"
 msgstr ""
 "Vous devez être chef de cueillette pour ajouter une entrée dans la "
 "distribution de fruits!"
 
-#: harvest/views.py:440
+#: harvest/views.py:434
 msgid "New fruit distribution failed: please select a recipient"
 msgstr ""
 "La nouvelle distribution de fruit a échouée: merci de sélectionner un(e) "
 "bénéficiaire"
 
-#: harvest/views.py:450
+#: harvest/views.py:444
 msgid "New fruit distribution failed: weight must be positive"
 msgstr ""
 "La nouvelle distribution de fruit a échouée: les poids doivent être positifs"
 
-#: harvest/views.py:459
+#: harvest/views.py:453
 msgid "New Fruit Recipient successfully added!"
 msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e)!"
 
-#: harvest/views.py:475
+#: harvest/views.py:469
 msgid "You must be a pickleader to adopt this harvest!"
 msgstr "Vous devez être chef de cueillette pour adopter cette cueillette"
 
-#: harvest/views.py:481
+#: harvest/views.py:475
 msgid "You successfully adopted this harvest!"
 msgstr "Vous avez adopté cette cueillette avec succès !"
 
-#: harvest/views.py:483
+#: harvest/views.py:477
 msgid "This harvest already has a pickleader!"
 msgstr "Cette cueillette a déjà un.e chef.fe de cueillette!"
 
-#: harvest/views.py:499
+#: harvest/views.py:493
 msgid "Harvest status already set to: {}"
 msgstr "Le statut de la cueillette a été changé pour: {}"
 
-#: harvest/views.py:502
+#: harvest/views.py:496
 msgid "You are not authorized to update this harvest status."
 msgstr ""
 "Vous n'avez pas l'autorisation de mettre à jour le statut de cette "
 "cueillette."
 
-#: harvest/views.py:510
+#: harvest/views.py:504
 msgid "You can't leave this harvest as there are unresolved requests."
 msgstr ""
 "Vous ne pouvez pas quitter cette cueillette puisqu'il y a des requêtes non "
 "résolues."
 
-#: harvest/views.py:517
+#: harvest/views.py:511
 msgid "This harvest no longer has any pick leader"
 msgstr "Cette récolte n'a plus de chef.fe de cueillette"
 
-#: harvest/views.py:521
+#: harvest/views.py:515
 #, fuzzy
 #| msgid "Please fill in the public anouncement field before publishing."
 msgid ""
 "Please fill in the public anouncement field so the harvest can be published."
 msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
-#: harvest/views.py:527
+#: harvest/views.py:521
 msgid "Please set a date before marking the harvest as scheduled."
 msgstr ""
 "Merci de fixer une date de récolte avant de marquer la cueillette comme "
 "programmée."
 
-#: harvest/views.py:533
+#: harvest/views.py:527
 msgid ""
 "Please resolve all requests for participation before marking the harvest as "
 "ready."
@@ -1081,35 +1085,35 @@ msgstr ""
 "Merci de résoudre toutes les requêtes de participation avant de marquer "
 "cette cueillette comme étant prête."
 
-#: harvest/views.py:538
+#: harvest/views.py:532
 msgid ""
 "Please complete fruit distribution before marking the harvest as succeeded."
 msgstr ""
 "Merci de compléter la distribution des fruits avant de marquer la cueillette "
 "comme réussie."
 
-#: harvest/views.py:545
+#: harvest/views.py:539
 msgid "Harvest status successfully set to: {}"
 msgstr "Statut de la cueillette changé avec succès pour: {}"
 
-#: harvest/views.py:561
+#: harvest/views.py:555
 msgid "You must be a core member to create a orphan harvest."
 msgstr ""
 "Vous devez être membre de l'équipe Core pour créer une cueillette orpheline."
 
-#: harvest/views.py:567
+#: harvest/views.py:561
 msgid "Property is has not yet been validated!"
 msgstr "La propriété n'a pas encore été validée pour cette saison!"
 
-#: harvest/views.py:573
+#: harvest/views.py:567
 msgid "Property is not authorized for this season!"
 msgstr "La propriété n'est pas autorisée pour cette saison!"
 
-#: harvest/views.py:593
+#: harvest/views.py:587
 msgid "Successfully created {} orphan harvests"
 msgstr "{} cueillettes orphelines créées avec succès"
 
-#: harvest/views.py:598
+#: harvest/views.py:592
 msgid "Property already has registered harvests for this season"
 msgstr "La propriété a déjà des cueillettes d'enregistré pour cette saison"
 

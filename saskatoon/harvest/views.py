@@ -246,23 +246,17 @@ class HarvestUpdateView(
                 self.object.save()
                 return ""
 
-            maybe_auth = self.object.pick_leader
+            if (pl := self.object.pick_leader) is not None and (person := pl.person) is not None:
+                season_count = person.get_harvests_as_pickleader(
+                    status=Harvest.Status.SUCCEEDED
+                ).filter(
+                    start_date__year=tz.now().date().year
+                ).count()
 
-            assert maybe_auth is not None
-
-            person = maybe_auth.person
-
-            assert person is not None
-
-            season_count = person.get_harvests_as_pickleader(
-                status=Harvest.Status.SUCCEEDED
-            ).filter(
-                start_date__year=tz.now().date().year
-            ).count()
-            return _(
-                "You’ve just led your {} fruit harvest this season! \
-                Thank you for supporting your community!"
-            ).format(ordinal(season_count))
+                return _(
+                    "You’ve just led your {} fruit harvest this season! \
+                    Thank you for supporting your community!"
+                ).format(ordinal(season_count))
 
         return self.success_message
 
