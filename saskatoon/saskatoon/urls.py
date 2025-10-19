@@ -1,10 +1,12 @@
 from django.contrib import admin
 from django.conf.urls.static import static
-from django.urls import path, include
+from django.urls import path, include, URLPattern, URLResolver
+from typing import List, Union
+
 from saskatoon.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 import debug_toolbar
 
-urlpatterns = [
+urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('', include('sitebase.urls')),
     path('', include('member.urls')),
     path('', include('harvest.urls')),
@@ -17,7 +19,7 @@ urlpatterns = [
 ]
 
 if DEBUG:
-    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)  # type: ignore
+    urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
 
 handler400 = 'sitebase.views.handler400'
 handler403 = 'sitebase.views.handler403'

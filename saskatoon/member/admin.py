@@ -46,6 +46,8 @@ from sitebase.models import Email, EmailType
 logger = getLogger('saskatoon')
 
 
+# see https://github.com/typeddjango/django-stubs/issues/2878
+# for the type ignore
 @admin.register(AuthUser)
 class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
     form = AuthUserChangeAdminForm

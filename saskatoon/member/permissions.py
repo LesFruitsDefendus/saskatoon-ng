@@ -18,7 +18,7 @@ def is_core_or_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
     return user.groups.filter(name__in=["core", "admin"]).exists()
 
 
-def is_pickleader_or_core_or_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
+def is_pickleader_or_core_or_admin(user: AuthUser) -> bool:
     return user.groups.filter(name__in=["pickleader", "core", "admin"]).exists()
 
 
@@ -31,7 +31,11 @@ class IsCoreOrAdmin(IsAuthenticated):
 
     def has_permission(self, request: HttpRequest, view):
         if super().has_permission(request, view):
-            return is_core_or_admin(request.user)
+            user = request.user
+            if not user.is_authenticated:
+                return False
+
+            return is_core_or_admin(user)
         return False
 
 
@@ -40,5 +44,9 @@ class IsPickLeaderOrCoreOrAdmin(IsAuthenticated):
 
     def has_permission(self, request: HttpRequest, view):
         if super().has_permission(request, view):
-            return is_pickleader_or_core_or_admin(request.user)
+            user = request.user
+            if not user.is_authenticated:
+                return False
+
+            return is_pickleader_or_core_or_admin(user)
         return False
