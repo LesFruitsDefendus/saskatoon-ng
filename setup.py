@@ -59,7 +59,6 @@ setup(
             'tox',
             'hypothesis',
             'hypothesis[django]',
-            'hypothesis-auto',
         ]
     },
 )
