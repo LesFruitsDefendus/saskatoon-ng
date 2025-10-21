@@ -1,6 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django_filters.rest_framework import DjangoFilterBackend
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from rest_framework import viewsets, generics
 from rest_framework.filters import SearchFilter
@@ -26,7 +26,7 @@ from sitebase.utils import (
 )
 
 
-class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization]):
     """Organization viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -67,7 +67,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         })
 
 
-class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
+class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
     """List view for organizations that are equipment points."""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -111,13 +111,17 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView):
         return Response(context)
 
 
-class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
     """Community viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    # Incompatible types in assignment (expression has type
+    # "QuerySet[AbstractBaseUser, AbstractBaseUser]",
+    # base class "GenericAPIView" defined the type as
+    # "Union[QuerySet[AuthUser, AuthUser], Manager[AuthUser], None]")
     queryset = AuthUser.objects \
                        .filter(person__first_name__isnull=False) \
-                       .order_by('-date_joined')
+                       .order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = CommunityFilter

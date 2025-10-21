@@ -11,37 +11,37 @@ from member.models import (
 from harvest.models import Harvest, Property
 
 
-class NeighborhoodSerializer(serializers.ModelSerializer):
+class NeighborhoodSerializer(serializers.ModelSerializer[Neighborhood]):
     class Meta:
         model = Neighborhood
         fields = '__all__'
 
 
-class CitySerializer(serializers.ModelSerializer):
+class CitySerializer(serializers.ModelSerializer[City]):
     class Meta:
         model = City
         fields = '__all__'
 
 
-class StateSerializer(serializers.ModelSerializer):
+class StateSerializer(serializers.ModelSerializer[State]):
     class Meta:
         model = State
         fields = '__all__'
 
 
-class CountrySerializer(serializers.ModelSerializer):
+class CountrySerializer(serializers.ModelSerializer[Country]):
     class Meta:
         model = Country
         fields = '__all__'
 
 
-class PersonPropertySerializer(serializers.ModelSerializer):
+class PersonPropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
         fields = ['id', 'short_address']
 
 
-class PersonHarvestSerializer(serializers.ModelSerializer):
+class PersonHarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = [
@@ -56,8 +56,14 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
         ]
 
     status_display = serializers.ReadOnlyField(source='get_status_display')
-    pick_leader = serializers.StringRelatedField(many=False, read_only=True)
-    property = serializers.StringRelatedField(many=False, read_only=True)
+    pick_leader: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
+        many=False,
+        read_only=True
+    )
+    property: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
+        many=False,
+        read_only=True
+    )
     start_date = serializers.DateTimeField(
         source='get_local_start',
         format=r"%Y-%m-%d"
@@ -67,7 +73,7 @@ class PersonHarvestSerializer(serializers.ModelSerializer):
     rfp_status = serializers.ReadOnlyField()
 
 
-class RequestForParticipationPersonSerializer(serializers.ModelSerializer):
+class RequestForParticipationPersonSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = ['name', 'email', 'phone', 'accept_count', 'reject_count']
@@ -76,13 +82,13 @@ class RequestForParticipationPersonSerializer(serializers.ModelSerializer):
     reject_count = serializers.ReadOnlyField()
 
 
-class PersonBeneficiarySerializer(serializers.ModelSerializer):
+class PersonBeneficiarySerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
         fields = ['pk', 'civil_name']
 
 
-class PersonSerializer(serializers.ModelSerializer):
+class PersonSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = [
@@ -122,7 +128,7 @@ class ContactPersonSerializer(PersonSerializer):
         fields = ['actor_id', 'roles', 'name', 'email', 'phone']
 
 
-class PersonOwnerSerializer(serializers.ModelSerializer):
+class PersonOwnerSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = [
@@ -144,19 +150,39 @@ class PersonOwnerSerializer(serializers.ModelSerializer):
         return obj.person.comments
 
 
-class PickerSerializer(serializers.ModelSerializer):
+class OrganizationOwnerSerializer(serializers.ModelSerializer[Organization]):
+    class Meta:
+        model = Organization
+        fields = [
+            'pk',
+            'name',
+            'email',
+            'phone',
+            'neighborhood',
+            'city',
+            'state',
+            'country'
+        ]
+
+    comments = serializers.SerializerMethodField()
+
+    def get_comments(self, obj):
+        return obj.person.comments
+
+
+class PickerSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = ['pk', 'name']
 
 
-class PickLeaderSerializer(serializers.ModelSerializer):
+class PickLeaderSerializer(serializers.ModelSerializer[AuthUser]):
     class Meta:
         model = AuthUser
         fields = ['id', 'name', 'email']
 
 
-class CommunitySerializer(serializers.ModelSerializer):
+class CommunitySerializer(serializers.ModelSerializer[AuthUser]):
     class Meta:
         model = AuthUser
         fields = '__all__'
