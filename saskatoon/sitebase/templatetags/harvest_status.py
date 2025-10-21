@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter
 def color(harvest_status: str) -> str:
     return {
-        t[0].value: t[1] for t in [  # type: ignore
+        t[0].value: t[1] for t in [
             (Harvest.Status.ORPHAN, "#666"),
             (Harvest.Status.ADOPTED, "#440bd4"),  # btn-primary
             (Harvest.Status.SCHEDULED, "#e8ad2b"),  # btn-warning
@@ -29,7 +29,7 @@ def progress(status: str) -> int:
     ]
 
     try:
-        idx = [s.value for s in statuses].index(status)  # type: ignore
+        idx = [s.value for s in statuses].index(status)
     except ValueError:
         return 0
 
@@ -39,5 +39,5 @@ def progress(status: str) -> int:
 @register.filter
 def is_ready_or_succeeded(status: str) -> bool:
     return status in [
-        s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]  # type: ignore
+        s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]
     ]

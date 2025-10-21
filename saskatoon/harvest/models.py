@@ -10,7 +10,8 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Any, Optional, Tuple
+from typing import Optional
+from enum import Enum
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
 
@@ -221,7 +222,7 @@ and needs to be validated by an administrator"),
 
     geom = PointField(null=True, blank=True)
 
-    trees = models.ManyToManyField(
+    trees: models.ManyToManyField[TreeType, models.Model] = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
         help_text=_(
@@ -486,6 +487,71 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
+class Equipment(models.Model):
+    """Equipment model"""
+
+    class Meta:
+        verbose_name = _("equipment")
+        verbose_name_plural = _("equipment")
+
+    type = models.ForeignKey(
+        'EquipmentType',
+        verbose_name=_("Type"),
+        on_delete=models.CASCADE,
+    )
+
+    owner = models.ForeignKey(
+        'member.Actor',
+        verbose_name=_("Owner"),
+        related_name="equipment",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
+
+    property = models.ForeignKey(
+        'Property',
+        verbose_name=_("Property"),
+        related_name="equipment",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+
+    description = models.CharField(
+        verbose_name=_("Description"),
+        max_length=50,
+        blank=True
+    )
+
+    count = models.SmallIntegerField(
+        verbose_name=_("Number available"),
+        default=1
+    )
+
+    shared = models.BooleanField(
+        verbose_name=_("Shared"),
+        help_text=_("Can be used in harvests outside of property"),
+        default=False
+    )
+
+    def get_equipment_point(self):
+        if self.owner is not None and self.owner.is_organization:
+            return self.owner.get_organization()
+        return None
+
+    def inventory(self, lang='fr'):
+        return "%i %s" % (self.count, self.type.get_name(lang))
+
+    def __str__(self):
+        return "%s (%s)" % (self.description, self.type)
+
+    def save(self, *args, **kwargs):
+        if self.get_equipment_point() is not None:
+            self.shared = True
+        super().save(*args, **kwargs)
+
+
 class Harvest(models.Model):
     """Harvest model"""
 
@@ -494,7 +560,7 @@ class Harvest(models.Model):
         verbose_name_plural = _("harvests")
         ordering = ['-start_date']
 
-    class Status(models.TextChoices):
+    class Status(models.TextChoices, Enum):
         ORPHAN = 'orphan', _("Orphan")
         ADOPTED = 'adopted', _("Adopted")
         PENDING = 'pending', _("To be confirmed")
@@ -529,7 +595,7 @@ class Harvest(models.Model):
         on_delete=models.CASCADE,
     )
 
-    trees = models.ManyToManyField(
+    trees: models.ManyToManyField[TreeType, models.Model] = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit trees")
     )
@@ -576,7 +642,7 @@ class Harvest(models.Model):
         null=True
     )
 
-    equipment_reserved = models.ManyToManyField(
+    equipment_reserved: models.ManyToManyField[Equipment, models.Model] = models.ManyToManyField(
         'Equipment',
         verbose_name=_("Reserve equipment"),
         blank=True
@@ -651,8 +717,8 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_volunteers_count(self, status: Optional[Tuple[str, Any]]) -> int:
-        rfps = self.requests
+    def get_volunteers_count(self, status: Optional['RequestForParticipation.Status']) -> int:
+        rfps = self.requests.get_queryset()
         if status is not None:
             rfps = rfps.filter(status=status)
 
@@ -732,7 +798,7 @@ class RequestForParticipation(models.Model):
         verbose_name = _("request for participation")
         verbose_name_plural = _("requests for participation")
 
-    class Status(models.TextChoices):
+    class Status(models.TextChoices, Enum):
         PENDING = 'pending', _("Pending")
         ACCEPTED = 'accepted', _("Accepted")
         DECLINED = 'declined', _("Declined")
@@ -855,71 +921,6 @@ class HarvestYield(models.Model):
     def __str__(self):
         return "%.2f lbs of %s to %s" % \
                (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
-
-
-class Equipment(models.Model):
-    """Equipment model"""
-
-    class Meta:
-        verbose_name = _("equipment")
-        verbose_name_plural = _("equipment")
-
-    type = models.ForeignKey(
-        'EquipmentType',
-        verbose_name=_("Type"),
-        on_delete=models.CASCADE,
-    )
-
-    owner = models.ForeignKey(
-        'member.Actor',
-        verbose_name=_("Owner"),
-        related_name="equipment",
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE,
-    )
-
-    property = models.ForeignKey(
-        'Property',
-        verbose_name=_("Property"),
-        related_name="equipment",
-        null=True,
-        blank=True,
-        on_delete=models.CASCADE
-    )
-
-    description = models.CharField(
-        verbose_name=_("Description"),
-        max_length=50,
-        blank=True
-    )
-
-    count = models.SmallIntegerField(
-        verbose_name=_("Number available"),
-        default=1
-    )
-
-    shared = models.BooleanField(
-        verbose_name=_("Shared"),
-        help_text=_("Can be used in harvests outside of property"),
-        default=False
-    )
-
-    def get_equipment_point(self):
-        if self.owner is not None and self.owner.is_organization:
-            return self.owner.get_organization()
-        return None
-
-    def inventory(self, lang='fr'):
-        return "%i %s" % (self.count, self.type.get_name(lang))
-
-    def __str__(self):
-        return "%s (%s)" % (self.description, self.type)
-
-    def save(self, *args, **kwargs):
-        if self.get_equipment_point() is not None:
-            self.shared = True
-        super().save(*args, **kwargs)
 
 
 class Comment(models.Model):

@@ -6,9 +6,11 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from django.views.generic import CreateView, UpdateView
+from django_stubs_ext import StrOrPromise
+
 from logging import getLogger
 
 from harvest.forms import (
@@ -37,7 +39,11 @@ from sitebase.utils import to_datetime
 logger = getLogger('saskatoon')
 
 
-class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class EquipmentCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[EquipmentForm],
+    CreateView[Equipment, EquipmentForm]
+):
     permission_required = 'harvest.add_equipment'
     model = Equipment
     form_class = EquipmentForm
@@ -67,7 +73,11 @@ class EquipmentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVi
         return context
 
 
-class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class EquipmentUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[EquipmentForm],
+    UpdateView[Equipment, EquipmentForm]
+):
     permission_required = 'harvest.change_equipment'
     model = Equipment
     form_class = EquipmentForm
@@ -82,7 +92,11 @@ class EquipmentUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVi
         return context
 
 
-class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class PropertyCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PropertyCreateForm],
+    CreateView[Property, PropertyCreateForm]
+):
     permission_required = 'harvest.add_property'
     model = Property
     form_class = PropertyCreateForm
@@ -97,7 +111,10 @@ class PropertyCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateVie
         return context
 
 
-class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
+class PropertyCreatePublicView(
+    SuccessMessageMixin[PublicPropertyForm],
+    CreateView[Property, PublicPropertyForm]
+):
     """Public View"""
 
     model = Property
@@ -110,7 +127,11 @@ class PropertyCreatePublicView(SuccessMessageMixin, CreateView):
     )
 
 
-class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class PropertyUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[PropertyForm],
+    UpdateView[Property, PropertyForm]
+):
     permission_required = 'harvest.change_property'
     model = Property
     form_class = PropertyForm
@@ -130,7 +151,11 @@ class PropertyUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
         return reverse_lazy('property-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class HarvestCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[HarvestForm],
+    CreateView[Harvest, HarvestForm]
+):
     permission_required = 'harvest.add_harvest'
     model = Harvest
     form_class = HarvestForm
@@ -175,7 +200,11 @@ class HarvestCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
-class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class HarvestUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[HarvestForm],
+    UpdateView[Harvest, HarvestForm]
+):
     permission_required = 'harvest.change_harvest'
     model = Harvest
     form_class = HarvestForm
@@ -194,7 +223,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
     def get_form_kwargs(self, *args, **kwargs):
         return super().get_form_kwargs(*args, **kwargs) | {'yields': self.object.yields}
 
-    def get_success_message(self, cleaned_data) -> str:
+    def get_success_message(self, cleaned_data) -> StrOrPromise:
         if self.object.status == Harvest.Status.READY and \
            self.object.has_pending_requests():
             messages.error(
@@ -217,16 +246,17 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
                 self.object.save()
                 return ""
 
-            person = self.object.pick_leader.person
-            season_count = person.get_harvests_as_pickleader(
-                status=Harvest.Status.SUCCEEDED
-            ).filter(
-                start_date__year=tz.now().date().year
-            ).count()
-            return _(
-                "You’ve just led your {} fruit harvest this season! \
-                Thank you for supporting your community!"
-            ).format(ordinal(season_count))
+            if (pl := self.object.pick_leader) is not None and (person := pl.person) is not None:
+                season_count = person.get_harvests_as_pickleader(
+                    status=Harvest.Status.SUCCEEDED
+                ).filter(
+                    start_date__year=tz.now().date().year
+                ).count()
+
+                return _(
+                    "You’ve just led your {} fruit harvest this season! \
+                    Thank you for supporting your community!"
+                ).format(ordinal(season_count))
 
         return self.success_message
 
@@ -234,7 +264,7 @@ class HarvestUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
-class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
+class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView[RFP, RFPForm]):
     """Public RFP View"""
 
     model = RFP
@@ -282,13 +312,17 @@ class RequestForParticipationCreateView(SuccessMessageMixin, CreateView):
             )
         return reverse_lazy('calendar')
 
-    def get_success_message(self, cleaned_data) -> str:
+    def get_success_message(self, cleaned_data) -> StrOrPromise:
         if self.request.user.is_authenticated:
             return _("New request for participation successfully added!")
         return super().get_success_message(cleaned_data)
 
 
-class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class RequestForParticipationUpdateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[RFPManageForm],
+    UpdateView[RFP, RFPManageForm]
+):
     permission_required = 'harvest.change_requestforparticipation'
     model = RFP
     form_class = RFPManageForm
@@ -324,7 +358,11 @@ class RequestForParticipationUpdateView(PermissionRequiredMixin, SuccessMessageM
         )
 
 
-class CommentCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class CommentCreateView(
+    PermissionRequiredMixin,
+    SuccessMessageMixin[CommentForm],
+    CreateView[Comment, CommentForm]
+):
     permission_required = 'harvest.add_comment'
     model = Comment
     form_class = CommentForm

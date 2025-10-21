@@ -11,7 +11,7 @@ from sitebase.tests import get_test_harvest
 
 
 @admin.register(PageContent)
-class ContentAdmin(admin.ModelAdmin):
+class ContentAdmin(admin.ModelAdmin[PageContent]):
     model = PageContent
     list_display = (
         'type',
@@ -22,7 +22,7 @@ class ContentAdmin(admin.ModelAdmin):
 
 
 @admin.register(EmailContent)
-class EmailContentAdmin(admin.ModelAdmin):
+class EmailContentAdmin(admin.ModelAdmin[EmailContent]):
     model = EmailContent
     list_display = (
         'type',
@@ -77,7 +77,7 @@ class EmailContentAdmin(admin.ModelAdmin):
 
 
 @admin.register(Email)
-class EmailAdmin(admin.ModelAdmin):
+class EmailAdmin(admin.ModelAdmin[Email]):
     model = Email
     list_display = (
         '__str__',

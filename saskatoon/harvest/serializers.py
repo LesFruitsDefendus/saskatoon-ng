@@ -1,4 +1,3 @@
-from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from member.models import Actor, Organization
 from member.serializers import (
@@ -9,6 +8,7 @@ from member.serializers import (
     StateSerializer,
     PersonOwnerSerializer,
     PersonSerializer,
+    OrganizationOwnerSerializer,
     PickLeaderSerializer,
     PickerSerializer,
     RequestForParticipationPersonSerializer,
@@ -26,13 +26,13 @@ from harvest.models import (
 from harvest.utils import similar_properties
 
 
-class TreeTypeSerializer(serializers.ModelSerializer):
+class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
     class Meta:
         model = TreeType
         fields = '__all__'
 
 
-class RequestForParticipationSerializer(serializers.ModelSerializer):
+class RequestForParticipationSerializer(serializers.ModelSerializer[RFP]):
     class Meta:
         model = RFP
         fields = '__all__'
@@ -43,21 +43,13 @@ class RequestForParticipationSerializer(serializers.ModelSerializer):
     date_status_updated = serializers.DateTimeField(format=r"%Y-%m-%d")
 
 
-class OrganizationOwnerSerializer(PersonOwnerSerializer):
-    class Meta(PersonOwnerSerializer.Meta):
-        model = Organization
-
-    def get_comments(self, obj):
-        return _("Owner is an Organization")
-
-
-class OwnerTypeSerializer(serializers.ModelSerializer):
+class OwnerTypeSerializer(serializers.ModelSerializer[Actor]):
     class Meta:
         model = Actor
         fields = ['is_person', 'is_organization']
 
 
-class PropertyHarvestSerializer(serializers.ModelSerializer):
+class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = [
@@ -93,7 +85,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer):
         return None
 
 
-class PropertySerializer(serializers.ModelSerializer):
+class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
         fields = '__all__'
@@ -133,7 +125,8 @@ class PropertyListHarvestSerializer(PropertyHarvestSerializer):
         source='get_local_start',
         format="%Y-%m-%d"
     )
-    pick_leader = serializers.StringRelatedField(many=False)
+    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it's a SerializerMethodField
 
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
@@ -164,7 +157,8 @@ class PropertyListSerializer(PropertySerializer):
             'harvests'
         ]
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
 
@@ -179,16 +173,18 @@ class PropertyEquipmentSerializer(PropertyListSerializer):
         ]
 
 
-class HarvestYieldSerializer(serializers.ModelSerializer):
+class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
     class Meta:
         model = HarvestYield
         fields = '__all__'
 
     tree = TreeTypeSerializer(many=False, read_only=True)
-    recipient = serializers.StringRelatedField(many=False)
+    recipient: serializers.StringRelatedField[HarvestYield] = serializers.StringRelatedField(
+        many=False
+    )
 
 
-class CommentSerializer(serializers.ModelSerializer):
+class CommentSerializer(serializers.ModelSerializer[Comment]):
     class Meta:
         model = Comment
         fields = '__all__'
@@ -198,7 +194,7 @@ class CommentSerializer(serializers.ModelSerializer):
     date_updated = serializers.DateTimeField(format=r'%c')
 
 
-class HarvestSerializer(serializers.ModelSerializer):
+class HarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
         fields = '__all__'
@@ -222,7 +218,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         format=r"%-I:%M %p"
     )
     date_range = serializers.ReadOnlyField(source='get_date_range')
-    status = serializers.StringRelatedField(many=False)
+    status: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(many=False)
     status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = PickLeaderSerializer(many=False, read_only=True)
     trees = TreeTypeSerializer(many=True, read_only=True)
@@ -255,7 +251,7 @@ class HarvestSerializer(serializers.ModelSerializer):
         return OrganizationSerializer(organizations, many=True).data
 
 
-class HarvestBeneficiarySerializer(serializers.ModelSerializer):
+class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
         fields = ['actor_id', 'civil_name']
@@ -271,7 +267,8 @@ class HarvestDetailPropertySerializer(PropertySerializer):
             'neighborhood'
         ]  # type: ignore
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
 
 
 class HarvestDetailSerializer(HarvestSerializer):
@@ -310,7 +307,8 @@ class HarvestListPropertySerializer(PropertySerializer):
             'neighborhood'
         ]  # type: ignore
 
-    neighborhood = serializers.StringRelatedField(many=False)
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    # mypy says it should be a NeighborhoodSerializer
 
 
 class HarvestListSerializer(HarvestSerializer):
@@ -339,7 +337,7 @@ class HarvestListSerializer(HarvestSerializer):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
 
 
-class EquipmentTypeSerializer(serializers.ModelSerializer):
+class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
     class Meta:
         model = EquipmentType
         fields = ['name', 'name_fr', 'name_en']
@@ -350,7 +348,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer):
         return type.name_fr
 
 
-class EquipmentSerializer(serializers.ModelSerializer):
+class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
         model = Equipment
         fields = '__all__'
@@ -359,7 +357,7 @@ class EquipmentSerializer(serializers.ModelSerializer):
     type = EquipmentTypeSerializer(many=False, read_only=True)
 
 
-class OrganizationSerializer(serializers.ModelSerializer):
+class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
         fields = [

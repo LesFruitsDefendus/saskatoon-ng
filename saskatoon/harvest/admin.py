@@ -2,7 +2,7 @@ from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
-from django.utils.html import mark_safe
+from django.utils.safestring import mark_safe
 
 from member.models import AuthUser
 from harvest.admin_filters import (
@@ -39,7 +39,7 @@ from sitebase.serializers import (
 
 
 @admin.register(Harvest)
-class HarvestAdmin(admin.ModelAdmin):
+class HarvestAdmin(admin.ModelAdmin[Harvest]):
     inlines = (RFPPersonInline, HarvestYieldInline, HarvestImageInline)
     list_display = (
         'property',
@@ -116,7 +116,7 @@ class HarvestAdmin(admin.ModelAdmin):
 
 
 @admin.register(RFP)
-class RequestForParticipationAdmin(admin.ModelAdmin):
+class RequestForParticipationAdmin(admin.ModelAdmin[RFP]):
     list_display = (
         'person',
         'status',
@@ -134,17 +134,17 @@ class RequestForParticipationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Equipment)
-class EquipmentAdmin(admin.ModelAdmin):
+class EquipmentAdmin(admin.ModelAdmin[Equipment]):
     form = EquipmentAdminForm
 
 
-class PropertyImageInline(admin.TabularInline):
+class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
     model = PropertyImage
     extra = 3
 
 
 @admin.register(Property)
-class PropertyAdmin(admin.ModelAdmin):
+class PropertyAdmin(admin.ModelAdmin[Property]):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
@@ -296,7 +296,7 @@ class PropertyAdmin(admin.ModelAdmin):
 
 
 @admin.register(TreeType)
-class TreeTypeAdmin(admin.ModelAdmin):
+class TreeTypeAdmin(admin.ModelAdmin[TreeType]):
     model = TreeType
     list_display = (
         'name',

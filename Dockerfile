@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
     libfribidi-dev \
     libxcb1-dev \
     libcharls2 \
+    gettext \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app

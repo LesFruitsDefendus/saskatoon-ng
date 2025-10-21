@@ -24,7 +24,7 @@ from sitebase.utils import is_quill_html_empty
 logger = getLogger('saskatoon')
 
 
-class RFPForm(forms.ModelForm):
+class RFPForm(forms.ModelForm[RFP]):
     """Request For Participation form."""
 
     class Meta:
@@ -114,7 +114,7 @@ class RFPForm(forms.ModelForm):
         return instance
 
 
-class RFPManageForm(forms.ModelForm):
+class RFPManageForm(forms.ModelForm[RFP]):
     """Pickleader RFP edit form."""
 
     class Meta:
@@ -177,7 +177,7 @@ class RFPManageForm(forms.ModelForm):
         return super().save()
 
 
-class CommentForm(forms.ModelForm):
+class CommentForm(forms.ModelForm[Comment]):
     class Meta:
         model = Comment
         fields = ['content']
@@ -191,7 +191,7 @@ class CommentForm(forms.ModelForm):
     )
 
 
-class PropertyForm(forms.ModelForm):
+class PropertyForm(forms.ModelForm[Property]):
     """Property base form."""
 
     class Meta:
@@ -278,7 +278,7 @@ class PropertyCreateForm(PropertyForm):
         return instance
 
 
-class PublicPropertyForm(forms.ModelForm):
+class PublicPropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         fields = (
@@ -446,7 +446,7 @@ the type is unknown or not in the list, etc.)'),
         return cleaned_data
 
 
-class HarvestForm(forms.ModelForm):
+class HarvestForm(forms.ModelForm[Harvest]):
 
     class Meta:
         model = Harvest
@@ -580,7 +580,7 @@ class HarvestForm(forms.ModelForm):
         return data
 
 
-class HarvestYieldForm(forms.ModelForm):
+class HarvestYieldForm(forms.ModelForm[HarvestYield]):
     class Meta:
         model = HarvestYield
         fields = ('__all__')
@@ -594,7 +594,7 @@ class HarvestYieldForm(forms.ModelForm):
         }
 
 
-class EquipmentForm(forms.ModelForm):
+class EquipmentForm(forms.ModelForm[Equipment]):
     """Equipment form."""
 
     class Meta:
