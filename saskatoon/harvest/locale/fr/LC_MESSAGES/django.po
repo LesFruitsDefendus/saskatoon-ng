@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-19 14:23+0000\n"
+"POT-Creation-Date: 2025-10-21 21:11+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr "Récoltée en"
 msgid "Type"
 msgstr "Type"
 
-#: harvest/filters.py:192 harvest/forms.py:609
+#: harvest/filters.py:192 harvest/forms.py:614
 msgid "Equipment Point"
 msgstr "Point d'équipement"
 
@@ -345,23 +345,23 @@ msgstr ""
 "fréquence de production de fruits, description des fruits si ceux-ci ne sont "
 "pas déjà dans la liste, etc..."
 
-#: harvest/forms.py:482
+#: harvest/forms.py:487
 msgid "Start date/time"
 msgstr "Date de début"
 
-#: harvest/forms.py:487
+#: harvest/forms.py:492
 msgid "End date/time"
 msgstr "Date/heure de fin"
 
-#: harvest/forms.py:492
+#: harvest/forms.py:497
 msgid "Publication date (optional)"
 msgstr "Date de publication"
 
-#: harvest/forms.py:493
+#: harvest/forms.py:498
 msgid "Leave this field empty to publish harvest as soon as possible"
 msgstr "Laissez ce champ vide pour publier la récolte le plus tôt possible"
 
-#: harvest/forms.py:514
+#: harvest/forms.py:519
 msgid ""
 "Harvests cannot be scheduled over multiple days: start and end dates must "
 "match."
@@ -369,26 +369,26 @@ msgstr ""
 "Une récolte ne peut pas être schedulée sur plusieurs jours: les dates de "
 "début et de fin doivent être les mêmes."
 
-#: harvest/forms.py:519
+#: harvest/forms.py:524
 msgid "End time must be after start time"
 msgstr "La date de fin doit être après la date de début"
 
-#: harvest/forms.py:534
+#: harvest/forms.py:539
 msgid "Selected tree(s) <{}> not registered on the selected property."
 msgstr ""
 "L'arbre sélectionné <{}> n'est pas enregistré sur la propriété sélectionnée."
 
-#: harvest/forms.py:551
+#: harvest/forms.py:556
 msgid "Please fill in the public announcement to be published on the calendar."
 msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
-#: harvest/forms.py:566
+#: harvest/forms.py:571
 msgid "This harvest cannot be left orphan, please resolve requests first."
 msgstr ""
 "Cette récolte ne peut pas être laissée orpheline, merci de résoudre les "
 "demandes de participation en cours."
 
-#: harvest/forms.py:577
+#: harvest/forms.py:582
 msgid "You must choose a pick leader or change harvest status"
 msgstr ""
 "Vous devez choisir un.e chef.fe de ceuillette ou changer le statut de la "

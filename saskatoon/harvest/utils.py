@@ -1,7 +1,7 @@
 import deal
 from django.db.models import Q, Sum, QuerySet
 from logging import getLogger
-from datetime import timedelta, datetime, timezone
+from datetime import timedelta, datetime
 from typeguard import typechecked
 
 from harvest.models import Property, Equipment
@@ -52,21 +52,29 @@ def similar_properties(pending_property: Property):
         logger.warning("Could not find similar properties to <%s> (%s: %s)", p, type(_e), str(_e))
         return Property.objects.none()
 
+
 @typechecked
 def valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
     try:
-        s = start - buffer
-        e = end + buffer
+        start - buffer
+        end + buffer
 
         return True
     except Exception:
         return False
 
 
-@deal.pre(lambda start, end, buffer: start < end, message='end must be later then start')
-@deal.pre(valid_date_contract, message='Substracting the buffer from the start date and adding the buffer to the end date must result in valid dates')
+@deal.pre(lambda start, end, buffer: start < end,
+          message='end must be later then start')
+@deal.pre(valid_date_contract,
+          message='Substracting the buffer from the start date and '
+          'adding the buffer to the end date must result in valid dates')
 @typechecked
-def available_equipment_points(start: datetime, end: datetime, buffer: timedelta) -> QuerySet[Organization]:
+def available_equipment_points(
+    start: datetime,
+    end: datetime,
+    buffer: timedelta
+) -> QuerySet[Organization]:
     """List all available equipment points for a harvest"""
 
     try:
@@ -84,4 +92,3 @@ def available_equipment_points(start: datetime, end: datetime, buffer: timedelta
     except Exception as _e:
         logger.warning(_e)
         return Organization.objects.none()
-

@@ -15,18 +15,18 @@ def harvest(db) -> Harvest:
     state = State.objects.create(name="Test State")
     country = Country.objects.create(name="Test Country")
     org = Organization.objects.create(
-        is_equipment_point = True,
-        civil_name = "Test Equipment Point",
-        neighborhood = hood,
-        city = city,
-        state = state,
-        country = country,
+        is_equipment_point=True,
+        civil_name="Test Equipment Point",
+        neighborhood=hood,
+        city=city,
+        state=state,
+        country=country,
     )
-    equip_type = EquipmentType.objects.create(name_fr = "Type d'Equipement Test")
+    equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
     equip = Equipment.objects.create(
-        type = equip_type,
-        owner = org,
-        shared = True,
+        type=equip_type,
+        owner=org,
+        shared=True,
     )
 
     tzinfo = timezone(timedelta(hours=-5))
@@ -34,9 +34,9 @@ def harvest(db) -> Harvest:
     delta = delta = timedelta(hours=2)
 
     harvest = Harvest.objects.create(
-        status = Harvest.Status.SCHEDULED,
-        start_date = now,
-        end_date = now + delta
+        status=Harvest.Status.SCHEDULED,
+        start_date=now,
+        end_date=now + delta
     )
     harvest.equipment_reserved.set([equip])
 
@@ -54,8 +54,8 @@ def test_available_equipment_points_fuzz() -> None:
     cases = deal.cases(
         func=available_equipment_points,
         kwargs=dict(
-            start = date_strat,
-            end = date_strat
+            start=date_strat,
+            end=date_strat
         ),
     )
 
