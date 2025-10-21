@@ -11,7 +11,7 @@ from harvest.models import (
 )
 
 
-class RFPPersonInline(admin.TabularInline):
+class RFPPersonInline(admin.TabularInline[RFP, RFP]):
     model = RFP
     form = RFPForm
     verbose_name = "Cueilleurs pour cette récolte"
@@ -20,17 +20,17 @@ class RFPPersonInline(admin.TabularInline):
     extra = 3
 
 
-class HarvestYieldInline(admin.TabularInline):
+class HarvestYieldInline(admin.TabularInline[HarvestYield, HarvestYield]):
     model = HarvestYield
     form = HarvestYieldForm
 
 
-class HarvestImageInline(admin.TabularInline):
+class HarvestImageInline(admin.TabularInline[HarvestImage, HarvestImage]):
     model = HarvestImage
     extra = 3
 
 
-class EquipmentAdminForm(forms.ModelForm):
+class EquipmentAdminForm(forms.ModelForm[Equipment]):
     def clean(self):
         cleaned_data = super(EquipmentAdminForm, self).clean()
         bool1 = bool(self.cleaned_data['property'])

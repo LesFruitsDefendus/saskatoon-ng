@@ -1,7 +1,7 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django_filters.rest_framework import DjangoFilterBackend
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter
@@ -40,7 +40,7 @@ from sitebase.utils import (
 )
 
 
-class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
     """Harvest viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -82,7 +82,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         )
 
 
-class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
     """Property viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -137,7 +137,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         return response
 
 
-class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet[Equipment]):
     """Equipment viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -174,7 +174,7 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         )
 
 
-class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet):
+class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet[RFP]):
     """Request For Participation viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
@@ -199,7 +199,7 @@ class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet):
         )
 
 
-class StatsView(LoginRequiredMixin, generics.ListAPIView):
+class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
     """Statistics list view"""
 
     permission_classes = [IsCoreOrAdmin]

@@ -47,6 +47,11 @@ setup(
         "django-phone-field==1.8.1",
         "postalcodes-ca==0.0.9",
         "django-quill-editor==0.1.40",
+        "deal[all]",
+        "django-stubs[compatible-mypy]",
+        "django-stubs-ext",
+        "djangorestframework-stubs[compatible-mypy]",
+        "types-setuptools"
     ],
     extras_require      =   {
         'test': [
@@ -55,7 +60,9 @@ setup(
             'pytest',
             'pytest-django',
             'selenium',
-            'tox'
+            'tox',
+            'hypothesis',
+            'hypothesis[django]',
         ]
     },
 )

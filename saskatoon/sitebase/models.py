@@ -242,7 +242,7 @@ class Email(models.Model):
 
     @property
     def harvest_data(self) -> Dict[str, Any]:
-        data = {}
+        data: Dict[str, Any] = {}
         if self.harvest is not None:
             data.update(EmailHarvestSerializer(self.harvest).data)
             data.update(EmailPickLeaderSerializer(self.harvest.pick_leader).data)

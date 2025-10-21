@@ -16,6 +16,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from dotenv import read_dotenv
 import socket
+import django_stubs_ext
+
+# Monkeypatching Django, so stubs will work for all generics,
+# see: https://github.com/typeddjango/django-stubs
+django_stubs_ext.monkeypatch()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
