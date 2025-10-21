@@ -1,6 +1,8 @@
-from django.db.models import Q, Sum
+import deal
+from django.db.models import Q, Sum, QuerySet
 from logging import getLogger
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, timezone
+from typeguard import typechecked
 
 from harvest.models import Property, Equipment
 from member.models import Organization
@@ -50,19 +52,36 @@ def similar_properties(pending_property: Property):
         logger.warning("Could not find similar properties to <%s> (%s: %s)", p, type(_e), str(_e))
         return Property.objects.none()
 
-def available_equipment_points(start: datetime, end: datetime):
+@typechecked
+def valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
+    try:
+        s = start - buffer
+        e = end + buffer
+
+        return True
+    except Exception:
+        return False
+
+
+@deal.pre(lambda start, end, buffer: start < end, message='end must be later then start')
+@deal.pre(valid_date_contract, message='Substracting the buffer from the start date and adding the buffer to the end date must result in valid dates')
+@typechecked
+def available_equipment_points(start: datetime, end: datetime, buffer: timedelta) -> QuerySet[Organization]:
     """List all available equipment points for a harvest"""
 
     try:
-        start = start - timedelta(hours=1)
-        end = end + timedelta(hours=1)
+        start = start - buffer
+        end = end + buffer
+
+        start_between = Q(harvest__start_date__gte=start) & Q(harvest__start_date__lte=end)
+        end_between = Q(harvest__end_date__gte=start) & Q(harvest__end_date__lte=end)
 
         return Organization.objects.exclude(
-            id__contained_by=Equipment.objects.filter(
-                harvests__start_date__contained_by=(start, end),
-                harvests__end_date__contained_by=(start, end)
+            actor_id__in=Equipment.objects.filter(
+                start_between | end_between
             ).values("owner")).filter(is_equipment_point=True)
 
     except Exception as _e:
-        logger.warning("There are no equipment points available for this harvest")
+        logger.warning(_e)
         return Organization.objects.none()
+
