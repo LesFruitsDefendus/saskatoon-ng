@@ -4,7 +4,7 @@ from logging import getLogger
 from datetime import timedelta, datetime
 from typeguard import typechecked
 
-from harvest.models import Property, Equipment
+from harvest.models import Property, Equipment, Harvest
 from member.models import Organization
 
 logger = getLogger('saskatoon')
@@ -85,11 +85,15 @@ def available_equipment_points(
 
         start_between = Q(harvest__start_date__gte=start) & Q(harvest__start_date__lte=end)
         end_between = Q(harvest__end_date__gte=start) & Q(harvest__end_date__lte=end)
+        is_active = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
 
-        return Organization.objects.exclude(
-            actor_id__in=Equipment.objects.filter(
-                start_between | end_between
-            ).values("owner")).filter(is_equipment_point=True)
+        conflicting_reservations = Equipment.objects.filter(
+            (start_between | end_between) & is_active
+        )
+
+        return Organization.objects.filter(is_equipment_point=True).exclude(
+            pk__in=conflicting_reservations.values("owner")
+        )
 
     except Exception as _e:
         logger.warning(_e)

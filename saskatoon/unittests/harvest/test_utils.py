@@ -40,6 +40,13 @@ def harvest(db) -> Harvest:
     )
     harvest.equipment_reserved.set([equip])
 
+    harvest = Harvest.objects.create(
+        status=Harvest.Status.CANCELLED,
+        start_date=now,
+        end_date=now + delta
+    )
+    harvest.equipment_reserved.set([equip])
+
     return harvest
 
 
@@ -51,6 +58,7 @@ def test_available_equipment_points_fuzz() -> None:
          timezones=st.timezones(),
          allow_imaginary=True,
      )
+
     cases = deal.cases(
         func=available_equipment_points,
         kwargs=dict(
