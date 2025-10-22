@@ -70,7 +70,7 @@ def __valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> 
           message='Substracting the buffer from the start date and '
           'adding the buffer to the end date must result in valid dates')
 @deal.pre(lambda _: _.start.tzinfo is not None and _.end.tzinfo is not None,
-           message='start and end must be offset aware')
+          message='start and end must be offset aware')
 @typechecked
 def available_equipment_points(
     start: datetime,
