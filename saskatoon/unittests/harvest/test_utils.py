@@ -9,45 +9,42 @@ from member.models import Organization, Country, State, City, Neighborhood
 
 
 @pytest.fixture
-def harvest(db) -> Harvest:
-    hood = Neighborhood.objects.create(name="Test Hood")
-    city = City.objects.create(name="Test City")
-    state = State.objects.create(name="Test State")
-    country = Country.objects.create(name="Test Country")
+def harvest(db, request) -> Harvest:
+    tzinfo = timezone(timedelta(hours=-5))
+    now = datetime.now(tzinfo)
+    delta = delta = timedelta(hours=2)
+
+    return Harvest.objects.create(
+        status=request.param,
+        start_date=now,
+        end_date=now + delta
+     )
+
+
+@pytest.fixture
+def equipment(db) -> Equipment:
+    location = {
+        'neighborhood': Neighborhood.objects.create(name="Test Hood"),
+        'city': City.objects.create(name="Test City"),
+        'state': State.objects.create(name="Test State"),
+        'country': Country.objects.create(name="Test Country")
+    }
+
     org = Organization.objects.create(
         is_equipment_point=True,
-        civil_name="Test Equipment Point",
-        neighborhood=hood,
-        city=city,
-        state=state,
-        country=country,
+        civil_name=" Test Equipment Point",
+        **location
     )
+
     equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
-    equip = Equipment.objects.create(
+
+    equipment = Equipment.objects.create(
         type=equip_type,
         owner=org,
         shared=True,
     )
 
-    tzinfo = timezone(timedelta(hours=-5))
-    now = datetime.now(tzinfo)
-    delta = delta = timedelta(hours=2)
-
-    harvest = Harvest.objects.create(
-        status=Harvest.Status.SCHEDULED,
-        start_date=now,
-        end_date=now + delta
-    )
-    harvest.equipment_reserved.set([equip])
-
-    harvest = Harvest.objects.create(
-        status=Harvest.Status.CANCELLED,
-        start_date=now,
-        end_date=now + delta
-    )
-    harvest.equipment_reserved.set([equip])
-
-    return harvest
+    return equipment
 
 
 @pytest.mark.django_db
@@ -72,22 +69,29 @@ def test_available_equipment_points_fuzz() -> None:
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_end_during(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
+def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
     """Check availability when it ends during another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(
         harvest.start_date - timedelta(hours=5),
         harvest.end_date - timedelta(hours=1),
         timedelta(hours=1)
     )
 
-    assert points.count() == 0
+    if harvest.status == Harvest.Status.SCHEDULED or harvest.status == Harvest.Status.READY:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_start_during(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+def test_available_equipment_points_start_during(db, harvest, equipment) -> None:
     """Check availability when it starts during another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(
         harvest.start_date + timedelta(hours=1),
         harvest.end_date + timedelta(hours=5),
@@ -98,17 +102,21 @@ def test_available_equipment_points_start_during(db, harvest) -> None:
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_same_dates(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
     """Check availability on the same time as another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(harvest.start_date, harvest.end_date, timedelta(hours=1))
     assert points.count() == 0
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_after(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+def test_available_equipment_points_after(db, harvest, equipment) -> None:
     """Check availability after another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
     points = available_equipment_points(
         harvest.start_date + delta,
@@ -120,9 +128,11 @@ def test_available_equipment_points_after(db, harvest) -> None:
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_before(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+def test_available_equipment_points_before(db, harvest, equipment) -> None:
     """Check availability before another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
     points = available_equipment_points(
         harvest.start_date - delta,
@@ -134,9 +144,11 @@ def test_available_equipment_points_before(db, harvest) -> None:
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_buffer(db, harvest) -> None:
+@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+def test_available_equipment_points_buffer(db, harvest, equipment) -> None:
     """Check availability right after another harvest"""
 
+    harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=2)
     points = available_equipment_points(
         harvest.start_date + delta,
