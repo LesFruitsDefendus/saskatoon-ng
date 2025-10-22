@@ -3,7 +3,7 @@ import deal
 from datetime import timedelta, datetime, timezone
 import hypothesis.strategies as st
 
-from harvest.utils import available_equipment_points
+from member.utils import available_equipment_points
 from harvest.models import Harvest, Equipment, EquipmentType
 from member.models import Organization, Country, State, City, Neighborhood
 

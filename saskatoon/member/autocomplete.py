@@ -4,8 +4,8 @@ from django.db.models import Q, QuerySet
 from typeguard import typechecked
 from datetime import timedelta
 
-from .models import AuthUser, Organization, Person, Actor, Neighborhood
-from harvest.utils import available_equipment_points
+from member.models import AuthUser, Organization, Person, Actor, Neighborhood
+from member.utils import available_equipment_points
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
 
