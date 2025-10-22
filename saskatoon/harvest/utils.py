@@ -54,7 +54,7 @@ def similar_properties(pending_property: Property):
 
 
 @typechecked
-def valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
+def __valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
     try:
         start - buffer
         end + buffer
@@ -64,11 +64,13 @@ def valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bo
         return False
 
 
-@deal.pre(lambda start, end, buffer: start < end,
+@deal.pre(lambda _: _.start < _.end,
           message='end must be later then start')
-@deal.pre(valid_date_contract,
+@deal.pre(__valid_date_contract,
           message='Substracting the buffer from the start date and '
           'adding the buffer to the end date must result in valid dates')
+@deal.pre(lambda _: _.start.tzinfo is not None and _.end.tzinfo is not None,
+           message='start and end must be offset aware')
 @typechecked
 def available_equipment_points(
     start: datetime,
