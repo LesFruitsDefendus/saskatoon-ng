@@ -1,16 +1,22 @@
+from typeguard import typechecked
+import deal
 import json
+from datetime import datetime
+from json import JSONDecodeError
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 from logging import getLogger
 from postalcodes_ca import parse_postal_code
+from typing import Any, List
 
 from harvest.models import (
     Comment,
     Equipment,
     Harvest,
     HarvestYield,
+    TreeType,
     Property,
     RequestForParticipation as RFP,
 )
@@ -446,6 +452,7 @@ the type is unknown or not in the list, etc.)'),
         return cleaned_data
 
 
+@typechecked
 class HarvestForm(forms.ModelForm[Harvest]):
 
     class Meta:
@@ -499,12 +506,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
         required=False
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, **kwargs) -> None:
         if 'yields' in kwargs:
             self.yields = kwargs.pop('yields')
         super().__init__(*args, **kwargs)
 
-    def clean_end_date(self):
+    @deal.raises(forms.ValidationError)
+    def clean_end_date(self) -> datetime:
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
         end = self.cleaned_data['end_date']
@@ -526,7 +534,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return end
 
-    def clean_trees(self):
+    @deal.raises(forms.ValidationError)
+    def clean_trees(self) -> List[TreeType]:
         """Make sure selected trees are registered on property"""
         property = self.cleaned_data['property']
         selected_trees = self.cleaned_data['trees']
@@ -542,7 +551,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return selected_trees
 
-    def clean_about(self):
+    @deal.raises(forms.ValidationError, JSONDecodeError, TypeError)
+    def clean_about(self) -> Harvest.about:
         """Make sure announcement is filled before publishing"""
         status = self.cleaned_data['status']
         about = self.cleaned_data['about']
@@ -558,9 +568,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return about
 
-    def clean(self):
+    @deal.raises(forms.ValidationError)
+    def clean(self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean()
+
+        if data is None:
+            raise forms.ValidationError(
+                _("The form data was empty, please try again")
+            )
 
         if data['status'] == Harvest.Status.ORPHAN:
             unresolved_requests = self.instance.requests.filter(
