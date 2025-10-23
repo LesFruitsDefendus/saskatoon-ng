@@ -21,7 +21,7 @@ from harvest.models import (
     RequestForParticipation as RFP,
 )
 from member.forms import validate_email
-from member.models import AuthUser, Person
+from member.models import AuthUser, Person, Organization
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -470,6 +470,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
             'publication_date',
             'nb_required_pickers',
             'about',
+            'equipment_reserved',
+            'equipment_point',
         )
         widgets = {
             'property': autocomplete.ModelSelect2(
@@ -483,10 +485,12 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 'pickleader-autocomplete'
             ),
             'nb_required_pickers': forms.NumberInput(),
-            'equipment': autocomplete.ModelSelect2(
+            'equipment_reserved': forms.HiddenInput(),
+            'equipment_point': autocomplete.ModelSelect2(
                 url='equipmentpoint-autocomplete',
                 forward=['start_date', 'end_date'],
             ),
+
 
         }
 
@@ -504,6 +508,12 @@ class HarvestForm(forms.ModelForm[Harvest]):
         label=_("Publication date (optional)"),
         help_text=_("Leave this field empty to publish harvest as soon as possible"),
         required=False
+    )
+
+    equipment_point = forms.ModelMultipleChoiceField(
+        queryset=Organization.objects.filter(is_equipment_point=True),
+        label=_('Equipment Point'),
+        required=False,
     )
 
     def __init__(self, *args, **kwargs) -> None:
@@ -599,6 +609,20 @@ class HarvestForm(forms.ModelForm[Harvest]):
             )
 
         return data
+
+    def save(self, commit: bool = False) -> Harvest:
+        """"
+        Convert list of autocomplete equipment points into all equipment
+        owned by said equipment points. i.e. Reserving an equipment point
+        will reserve all its equipment for the duration of the harvest.
+        """
+
+        instance = super(HarvestForm, self).save(commit=commit)
+        equipment_points = self.cleaned_data["equipment_point"]
+        equipment_owned_by_equipment_points = Equipment.objects.filter(owner__in=equipment_points)
+        instance.equipment_reserved = equipment_owned_by_equipment_points
+        instance.save
+        return instance
 
 
 class HarvestYieldForm(forms.ModelForm[HarvestYield]):
