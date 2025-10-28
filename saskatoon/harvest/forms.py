@@ -476,10 +476,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 'pickleader-autocomplete'
             ),
             'nb_required_pickers': forms.NumberInput(),
-            'equipment': autocomplete.ModelSelect2(
-                url='equipmentpoint-autocomplete',
-                forward=['start_date', 'end_date'],
-            ),
 
         }
 
