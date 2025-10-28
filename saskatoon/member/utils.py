@@ -54,13 +54,24 @@ def available_equipment_points(
     """List all available equipment points for a given datetime range"""
 
     try:
+        """ A buffer gives pick leaders a bit of leeway in picking up and returning
+             the equipment, since some harvest sites can be further away """
         start = start - buffer
         end = end + buffer
 
+        """ If a harvest has already reserved the equipment point and starts or ends during the
+              requested date range, then the equipment point is unavailable """
         start_between = Q(harvest__start_date__gte=start) & Q(harvest__start_date__lte=end)
         end_between = Q(harvest__end_date__gte=start) & Q(harvest__end_date__lte=end)
+
+        """ We only want scheduled and ready harvests to impact availability """
         is_active = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
 
+        """ To keep things simple, pick leaders must reserve entire equipment points.
+              But in the interest of allowing a more granular system in the future,
+              the harvest model still has a list of reserved equipment. This means that
+              any equipment reservation for a harvest will make that entire equipment
+              point reserved, even if part of it's equipment has not been added to the harvest """
         conflicting_reservations = Equipment.objects.filter(
             (start_between | end_between) & is_active
         ).values("owner")
