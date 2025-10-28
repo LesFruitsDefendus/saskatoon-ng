@@ -80,7 +80,9 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
         timedelta(hours=1)
     )
 
-    if harvest.status == Harvest.Status.SCHEDULED or harvest.status == Harvest.Status.READY:
+    available_equipment_points
+
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
     else:
         assert points.count() == 1
