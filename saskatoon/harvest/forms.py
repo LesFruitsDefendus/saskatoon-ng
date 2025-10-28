@@ -491,7 +491,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 forward=['start_date', 'end_date'],
             ),
 
-
         }
 
     start_date = forms.DateTimeField(
