@@ -44,6 +44,14 @@ def equipment(db) -> Equipment:
         shared=True,
     )
 
+    """ A second equipment that is not reserved allows us to test that renting any part
+          of an equipment point makes the entire equipment point unavailable. """
+    Equipment.objects.create(
+        type=equip_type,
+        owner=org,
+        shared=True,
+    )
+
     return equipment
 
 
@@ -80,8 +88,6 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
         timedelta(hours=1)
     )
 
-    available_equipment_points
-
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
     else:
@@ -89,7 +95,7 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_start_during(db, harvest, equipment) -> None:
     """Check availability when it starts during another harvest"""
 
@@ -100,21 +106,28 @@ def test_available_equipment_points_start_during(db, harvest, equipment) -> None
         timedelta(hours=1)
     )
 
-    assert points.count() == 0
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
     """Check availability on the same time as another harvest"""
 
     harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(harvest.start_date, harvest.end_date, timedelta(hours=1))
-    assert points.count() == 0
+
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_after(db, harvest, equipment) -> None:
     """Check availability after another harvest"""
 
@@ -130,7 +143,7 @@ def test_available_equipment_points_after(db, harvest, equipment) -> None:
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_before(db, harvest, equipment) -> None:
     """Check availability before another harvest"""
 
@@ -146,7 +159,7 @@ def test_available_equipment_points_before(db, harvest, equipment) -> None:
 
 
 @pytest.mark.django_db
-@pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_buffer(db, harvest, equipment) -> None:
     """Check availability right after another harvest"""
 
@@ -158,4 +171,7 @@ def test_available_equipment_points_buffer(db, harvest, equipment) -> None:
         timedelta(hours=1)
     )
 
-    assert points.count() == 0
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
