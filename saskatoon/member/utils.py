@@ -26,6 +26,9 @@ def reset_password(user: AuthUser) -> str:
 
 @typechecked
 def _valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
+    """ If any of these result in an OverflowError then the
+          the condition is broken. We catch the exception so
+          that Deal can report the contract violation correctly """
     try:
         start - buffer
         end + buffer
