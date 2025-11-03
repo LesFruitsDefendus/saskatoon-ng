@@ -79,13 +79,16 @@ def test_available_equipment_points_fuzz() -> None:
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
-    """Check availability when it ends during another harvest"""
+    """
+        If the requested end time conflicts with another harvest,
+        there should only be an available equipment point if conflicting
+        harvests are not scheduled or ready
+    """
 
     harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(
         harvest.start_date - timedelta(hours=5),
-        harvest.end_date - timedelta(hours=1),
-        timedelta(hours=1)
+        harvest.end_date - timedelta(hours=1)
     )
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
@@ -97,13 +100,16 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_start_during(db, harvest, equipment) -> None:
-    """Check availability when it starts during another harvest"""
+    """
+        If the requested start time conflicts with another harvest,
+        there should only be an available equipment point if conflicting
+        harvests are not scheduled or ready
+    """
 
     harvest.equipment_reserved.set([equipment])
     points = available_equipment_points(
         harvest.start_date + timedelta(hours=1),
-        harvest.end_date + timedelta(hours=5),
-        timedelta(hours=1)
+        harvest.end_date + timedelta(hours=5)
     )
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
@@ -115,10 +121,13 @@ def test_available_equipment_points_start_during(db, harvest, equipment) -> None
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
-    """Check availability on the same time as another harvest"""
+    """
+        There should only be an available equipment point if concurrent harvests
+        are not scheduled or ready
+    """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(harvest.start_date, harvest.end_date, timedelta(hours=1))
+    points = available_equipment_points(harvest.start_date, harvest.end_date)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
@@ -129,14 +138,16 @@ def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_after(db, harvest, equipment) -> None:
-    """Check availability after another harvest"""
+    """
+        There should be an available equipment point if all
+        other harvests have passed
+    """
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
     points = available_equipment_points(
         harvest.start_date + delta,
-        harvest.end_date + delta,
-        timedelta(hours=1)
+        harvest.end_date + delta
     )
 
     assert points.count() == 1
@@ -145,14 +156,16 @@ def test_available_equipment_points_after(db, harvest, equipment) -> None:
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 def test_available_equipment_points_before(db, harvest, equipment) -> None:
-    """Check availability before another harvest"""
+    """
+        There should be an available equipment point if the next
+        harvest if further then the alloted buffer
+    """
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
     points = available_equipment_points(
         harvest.start_date - delta,
-        harvest.end_date - delta,
-        timedelta(hours=1)
+        harvest.end_date - delta
     )
 
     assert points.count() == 1
@@ -160,15 +173,38 @@ def test_available_equipment_points_before(db, harvest, equipment) -> None:
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_buffer(db, harvest, equipment) -> None:
-    """Check availability right after another harvest"""
+def test_available_equipment_points_buffer_after(db, harvest, equipment) -> None:
+    """
+        There should be no available equipment points right after
+        a scheduled or ready harvest
+    """
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=2)
     points = available_equipment_points(
         harvest.start_date + delta,
-        harvest.end_date + delta,
-        timedelta(hours=1)
+        harvest.end_date + delta
+    )
+
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
+def test_available_equipment_points_buffer_before(db, harvest, equipment) -> None:
+    """
+        There should be no available equipment points right before
+        a scheduled or ready harvest
+    """
+
+    harvest.equipment_reserved.set([equipment])
+    delta = timedelta(hours=2)
+    points = available_equipment_points(
+        harvest.start_date + delta,
+        harvest.end_date + delta
     )
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
