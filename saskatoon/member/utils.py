@@ -25,13 +25,13 @@ def reset_password(user: AuthUser) -> str:
 
 
 @typechecked
-def _valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> bool:
+def _valid_date_contract(_) -> bool:
     """ If any of these result in an OverflowError then the
           the condition is broken. We catch the exception so
           that Deal can report the contract violation correctly """
     try:
-        start - buffer
-        end + buffer
+        _.start - _.buffer
+        _.end + _.buffer
 
         return True
     except Exception:
@@ -49,7 +49,7 @@ def _valid_date_contract(start: datetime, end: datetime, buffer: timedelta) -> b
 def available_equipment_points(
     start: datetime,
     end: datetime,
-    buffer: timedelta
+    buffer: timedelta = timedelta(hours=1)
 ) -> QuerySet[Organization]:
     """List all available equipment points for a given datetime range"""
 

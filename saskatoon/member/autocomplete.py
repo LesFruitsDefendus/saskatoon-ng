@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
 from datetime import timedelta
@@ -51,18 +51,11 @@ class AuthUserAutocomplete(Autocomplete):
         self.roles = roles
 
     @staticmethod
-    def get_roles_queryset(queryset, roles) -> QuerySet[Group]:
+    def get_roles_queryset(queryset, roles) -> QuerySet[AbstractBaseUser]:
         groups = Group.objects.filter(name__in=roles).values('id')
         return queryset.filter(groups__in=groups).distinct()
 
-    """
-    I (Patrick) could not get this method to typecheck properly, mypy does not recognize
-    AuthUser, it calls it AbstractBaseUser and the qs = self.get_roles_queryset line
-    causes since it's already initiated as a QuerySet[AbstractBaseUser], but I'm
-    not sure if the Q invocations after are used on qs in the case of self.q, so I've
-    left it untyped for now.
-    """
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[AbstractBaseUser]:
         if not self.is_authenticated():
             return AuthUser.objects.none()
 
