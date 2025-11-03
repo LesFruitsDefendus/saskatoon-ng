@@ -10,6 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from logging import getLogger
 from postalcodes_ca import parse_postal_code
 from typing import Any, List
+from typing_extensions import Self
 
 from harvest.models import (
     Comment,
@@ -515,13 +516,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
         required=False,
     )
 
-    def __init__(self, *args, **kwargs) -> None:
+    def __init__(self: Self, *args, **kwargs) -> None:
         if 'yields' in kwargs:
             self.yields = kwargs.pop('yields')
         super().__init__(*args, **kwargs)
 
-    @deal.raises(forms.ValidationError)
-    def clean_end_date(self) -> datetime:
+    @deal.raises(forms.ValidationError, AttributeError)
+    def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
         end = self.cleaned_data['end_date']
@@ -543,8 +544,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return end
 
-    @deal.raises(forms.ValidationError)
-    def clean_trees(self) -> List[TreeType]:
+    @deal.raises(forms.ValidationError, AttributeError)
+    def clean_trees(self: Self) -> List[TreeType]:
         """Make sure selected trees are registered on property"""
         property = self.cleaned_data['property']
         selected_trees = self.cleaned_data['trees']
@@ -560,8 +561,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return selected_trees
 
-    @deal.raises(forms.ValidationError, JSONDecodeError, TypeError)
-    def clean_about(self) -> Harvest.about:
+    @deal.raises(forms.ValidationError, AttributeError, JSONDecodeError, TypeError)
+    def clean_about(self: Self) -> Harvest.about:
         """Make sure announcement is filled before publishing"""
         status = self.cleaned_data['status']
         about = self.cleaned_data['about']
@@ -577,8 +578,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return about
 
-    @deal.raises(forms.ValidationError)
-    def clean(self) -> dict[str, Any]:
+    @deal.raises(forms.ValidationError, AttributeError)
+    def clean(self: Self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean()
 
@@ -609,7 +610,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return data
 
-    def save(self, commit: bool = False) -> Harvest:
+    def save(self: Self, commit: bool = False) -> Harvest:
         """"
         Convert list of autocomplete equipment points into all equipment
         owned by said equipment points. i.e. Reserving an equipment point
