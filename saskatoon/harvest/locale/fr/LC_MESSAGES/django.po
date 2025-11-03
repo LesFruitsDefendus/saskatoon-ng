@@ -131,7 +131,7 @@ msgstr "Récoltée en"
 msgid "Type"
 msgstr "Type"
 
-#: harvest/filters.py:192 harvest/forms.py:479 harvest/forms.py:631
+#: harvest/filters.py:192 harvest/forms.py:479 harvest/forms.py:635
 msgid "Equipment Point"
 msgstr "Point d'équipement"
 
@@ -388,17 +388,17 @@ msgid ""
 "ready."
 msgstr ""
 
-#: harvest/forms.py:569
+#: harvest/forms.py:578
 msgid "The form data was empty, please try again"
 msgstr ""
 
-#: harvest/forms.py:576
+#: harvest/forms.py:585
 msgid "This harvest cannot be left orphan, please resolve requests first."
 msgstr ""
 "Cette récolte ne peut pas être laissée orpheline, merci de résoudre les "
 "demandes de participation en cours."
 
-#: harvest/forms.py:587
+#: harvest/forms.py:596
 msgid "You must choose a pick leader or change harvest status"
 msgstr ""
 "Vous devez choisir un.e chef.fe de ceuillette ou changer le statut de la "

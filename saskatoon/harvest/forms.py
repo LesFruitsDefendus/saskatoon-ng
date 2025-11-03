@@ -560,6 +560,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
         return equipment_point
 
     @deal.raises(forms.ValidationError, AttributeError)
+    def clean_equipment(self: Self) -> List[Equipment]:
+        equipment_point = self.cleaned_data["equipment_point"]
+
+        equipment = (Equipment.objects.filter(owner__in=equipment_points)
+                     if equipment_points is not None else [])
+
+        return equipment
+
+    @deal.raises(forms.ValidationError, AttributeError)
     def clean(self: Self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean()
@@ -596,12 +605,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """
 
         instance = super(HarvestForm, self).save(commit=commit)
-        equipment_points = self.cleaned_data["equipment_point"]
 
-        equipment = (Equipment.objects.filter(owner__in=equipment_points)
-                     if equipment_points is not None else [])
-
-        instance.equipment_reserved.set(equipment)
         instance.save
         return instance
 
