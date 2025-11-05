@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
-from datetime import timedelta
 
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
 from member.utils import available_equipment_points
@@ -135,7 +134,7 @@ class EquipmentPointAutocomplete(Autocomplete):
         end = self.forwarded.get('end_date', None)
 
         if start and end:
-            qs = available_equipment_points(start, end, timedelta(hours=1))
+            qs = available_equipment_points(start, end, None)
 
         return qs.distinct()
 
