@@ -72,7 +72,7 @@ def test_available_equipment_points_fuzz() -> None:
 
     cases = deal.cases(
         func=available_equipment_points,
-        kwargs=dict(start=date_strat, end=date_strat),
+        kwargs=dict(start=date_strat, end=date_strat, harvest=st.just(None)),
     )
 
     for case in cases:
