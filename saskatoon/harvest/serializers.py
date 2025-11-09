@@ -257,6 +257,26 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
         fields = ['actor_id', 'civil_name']
 
 
+class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
+    class Meta:
+        model = EquipmentType
+        fields = ['name', 'name_fr', 'name_en']
+
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, type):
+        return type.name_fr
+
+
+class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+
+    property = PropertyEquipmentSerializer(many=False, read_only=True)
+    type = EquipmentTypeSerializer(many=False, read_only=True)
+
+
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
         fields = [
@@ -279,7 +299,6 @@ class HarvestDetailSerializer(HarvestSerializer):
             'owner_help',
             'owner_fruit',
             'publication_date',
-            'equipment_reserved',
             'date_created',
             'changed_by',
             'end_date',
@@ -290,6 +309,7 @@ class HarvestDetailSerializer(HarvestSerializer):
     comments = CommentSerializer(many=True, read_only=True)
     about = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()
+    equipment_reserved = EquipmentSerializer(many=True, read_only=True)
 
     def get_about(self, obj):
         return obj.about.html
@@ -335,27 +355,6 @@ class HarvestListSerializer(HarvestSerializer):
 
     def get_volunteers(self, harvest):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
-
-
-class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
-    class Meta:
-        model = EquipmentType
-        fields = ['name', 'name_fr', 'name_en']
-
-    name = serializers.SerializerMethodField()
-
-    def get_name(self, type):
-        return type.name_fr
-
-
-class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
-    class Meta:
-        model = Equipment
-        fields = '__all__'
-
-    property = PropertyEquipmentSerializer(many=False, read_only=True)
-    type = EquipmentTypeSerializer(many=False, read_only=True)
-
 
 class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     class Meta:
