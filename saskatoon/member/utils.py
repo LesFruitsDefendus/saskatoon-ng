@@ -64,6 +64,7 @@ def available_equipment_points(
               requested date range, then the equipment point is unavailable """
         start_between = Q(harvest__start_date__gte=start) & Q(
             harvest__start_date__lte=end)
+
         end_between = Q(harvest__end_date__gte=start) & Q(
             harvest__end_date__lte=end)
         """ We only want scheduled and ready harvests to impact availability """
@@ -82,7 +83,9 @@ def available_equipment_points(
               But in the interest of allowing a more granular system in the future,
               the harvest model still has a list of reserved equipment. This means that
               any equipment reservation for a harvest will make that entire equipment
-              point reserved, even if part of it's equipment has not been added to the harvest """
+              point reserved, even if part of it's equipment has
+              not been added to the harvest
+        """
         conflicting_reservations = Equipment.objects.filter(filters).values(
             "owner")
 

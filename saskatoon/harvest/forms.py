@@ -484,12 +484,12 @@ class HarvestForm(forms.ModelForm[Harvest]):
             self.yields = kwargs.pop("yields")
 
         instance = kwargs.get('instance', None)
-
         super().__init__(*args, **kwargs)
-        """ not sure how to fix this one
-            but mypy doesnt like that we're assigning to a Mapping
+        """ I think since it's a custom field mypy cant detect
+            that the assignment is valid, but I'd love to fix it
         """
-        self.initial['id'] = instance.id  # type: ignore
+        if self.initial is not None and hasattr(self.initial, 'id'):
+            self.initial['id'] = instance.id  # type: ignore
 
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
@@ -545,9 +545,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
         return about
 
     def clean_equipment_point(self: Self) -> Optional[Organization]:
-        """Clear equipment point if not scheduled or ready"""
+        """Clear equipment point if no longer available or if harvest is not scheduled or ready"""
+        harvest_id = self.cleaned_data["id"]
         status = self.cleaned_data["status"]
         equipment_point = self.cleaned_data["equipment_point"]
+        start = self.cleaned_data["start_date"]
+        end = self.cleaned_data["end_date"]
+
+        if equipment_point is None:
+            return equipment_point
 
         if (status not in [
                 Harvest.Status.SCHEDULED,
@@ -557,6 +563,16 @@ class HarvestForm(forms.ModelForm[Harvest]):
             raise forms.ValidationError(
                 _("You cannot reserve an equipment point if"
                   " the harvest is not yet scheduled or ready."))
+
+        harvest = Harvest.objects.get(
+            pk=harvest_id) if harvest_id is not None else None
+
+        available_points = available_equipment_points(start, end, harvest)
+
+        if available_points.filter(pk=equipment_point.pk).count() != 1:
+            raise forms.ValidationError(
+                _("The " + equipment_point.civil_name +
+                  " equipment point is no longer available."))
 
         return equipment_point
 
@@ -586,15 +602,22 @@ class HarvestForm(forms.ModelForm[Harvest]):
             raise forms.ValidationError(
                 _("You must choose a pick leader or change harvest status"))
 
-        return data
-
-    def save(self: Self, commit: bool = False) -> Harvest:
-        """ "
+        """
         Convert list of autocomplete equipment points into all equipment
         owned by said equipment points. i.e. Reserving an equipment point
         will reserve all its equipment for the duration of the harvest.
         """
+        equipment_point = getattr(data, "equipment_point", None)
 
+        if equipment_point is not None:
+            data['equipment_reserved'] = Equipment.objects.filter(
+                owner__in=equipment_point)
+        else:
+            data['equipment_reserved'] = Equipment.objects.none()
+
+        return data
+
+    def save(self: Self, commit: bool = False) -> Harvest:
         instance = super(HarvestForm, self).save(commit=commit)
 
         instance.save
