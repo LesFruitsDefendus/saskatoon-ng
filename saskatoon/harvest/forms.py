@@ -441,7 +441,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
             "publication_date",
             "nb_required_pickers",
             "about",
-            "equipment_reserved",
         )
         widgets = {
             "property":
@@ -453,8 +452,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
             autocomplete.ModelSelect2("pickleader-autocomplete"),
             "nb_required_pickers":
             forms.NumberInput(),
-            "equipment_reserved":
-            forms.HiddenInput()
         }
 
     id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
@@ -488,7 +485,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """ I think since it's a custom field mypy cant detect
             that the assignment is valid, but I'd love to fix it
         """
-        if self.initial is not None and hasattr(self.initial, 'id'):
+        if self.initial is not None:
             self.initial['id'] = instance.id  # type: ignore
 
     def clean_end_date(self: Self) -> datetime:
@@ -602,23 +599,23 @@ class HarvestForm(forms.ModelForm[Harvest]):
             raise forms.ValidationError(
                 _("You must choose a pick leader or change harvest status"))
 
+        return data
+
+    def save(self: Self, commit: bool = False) -> Harvest:
+        instance = super(HarvestForm, self).save(commit=commit)
         """
         Convert list of autocomplete equipment points into all equipment
         owned by said equipment points. i.e. Reserving an equipment point
         will reserve all its equipment for the duration of the harvest.
         """
-        equipment_point = getattr(data, "equipment_point", None)
+        equipment_point = self.cleaned_data["equipment_point"]
+        logger.warning(equipment_point)
 
         if equipment_point is not None:
-            data['equipment_reserved'] = Equipment.objects.filter(
-                owner__in=equipment_point)
+            instance.equipment_reserved.set(
+                Equipment.objects.filter(owner=equipment_point))
         else:
-            data['equipment_reserved'] = Equipment.objects.none()
-
-        return data
-
-    def save(self: Self, commit: bool = False) -> Harvest:
-        instance = super(HarvestForm, self).save(commit=commit)
+            instance.equipment_reserved.set(Equipment.objects.none())
 
         instance.save
         return instance
