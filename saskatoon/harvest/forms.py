@@ -484,9 +484,18 @@ class HarvestForm(forms.ModelForm[Harvest]):
         super().__init__(*args, **kwargs)
         """ I think since it's a custom field mypy cant detect
             that the assignment is valid, but I'd love to fix it
+            We need the harvest id so equipment point
+            autocomplete will work correctly
         """
-        if self.initial is not None and hasattr(instance, 'id'):
+        if instance is not None and hasattr(instance, 'id'):
             self.initial['id'] = instance.id  # type: ignore
+        """ Assumes that a harvest can only reserve one equipment
+            point at a time so all reserved equipment belongs to the same owner.
+        """
+        if instance is not None and hasattr(instance, 'equipment_reserved'):
+            equipment = instance.equipment_reserved.values()
+            self.initial['equipment_point'] = equipment[0][  # type: ignore
+                "owner_id"] if equipment.count() > 0 else None
 
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
