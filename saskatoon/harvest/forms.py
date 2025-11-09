@@ -1,15 +1,14 @@
 from typeguard import typechecked
-import deal
 import json
 from datetime import datetime
-from json import JSONDecodeError
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+from django.db.models import QuerySet
 from logging import getLogger
 from postalcodes_ca import parse_postal_code
-from typing import Any, List
+from typing import Any, Optional
 from typing_extensions import Self
 
 from harvest.models import (
@@ -23,6 +22,7 @@ from harvest.models import (
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
+from member.utils import available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -442,7 +442,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
             "nb_required_pickers",
             "about",
             "equipment_reserved",
-            "equipment_point",
         )
         widgets = {
             "property":
@@ -455,13 +454,10 @@ class HarvestForm(forms.ModelForm[Harvest]):
             "nb_required_pickers":
             forms.NumberInput(),
             "equipment_reserved":
-            forms.HiddenInput(),
-            "equipment_point":
-            autocomplete.ModelSelect2(
-                url="equipmentpoint-autocomplete",
-                forward=["start_date", "end_date"],
-            ),
+            forms.HiddenInput()
         }
+
+    id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     start_date = forms.DateTimeField(label=_("Start date/time"), required=True)
 
@@ -475,7 +471,10 @@ class HarvestForm(forms.ModelForm[Harvest]):
     )
 
     equipment_point = forms.ModelChoiceField(
-        queryset=Organization.objects.filter(is_equipment_point=True),
+        queryset=Organization.objects.all(),
+        widget=autocomplete.ModelSelect2(
+            url='equipmentpoint-autocomplete',
+            forward=["id", "start_date", "end_date"]),
         label=_("Equipment Point"),
         required=False,
     )
@@ -483,9 +482,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
     def __init__(self: Self, *args, **kwargs) -> None:
         if "yields" in kwargs:
             self.yields = kwargs.pop("yields")
-        super().__init__(*args, **kwargs)
 
-    @deal.raises(forms.ValidationError, AttributeError)
+        instance = kwargs.get('instance', None)
+
+        super().__init__(*args, **kwargs)
+        """ not sure how to fix this one
+            but mypy doesnt like that we're assigning to a Mapping
+        """
+        self.initial['id'] = instance.id  # type: ignore
+
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
         start = self.cleaned_data["start_date"]
@@ -507,8 +512,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return end
 
-    @deal.raises(forms.ValidationError, AttributeError)
-    def clean_trees(self: Self) -> List[TreeType]:
+    def clean_trees(self: Self) -> QuerySet[TreeType]:
         """Make sure selected trees are registered on property"""
         property = self.cleaned_data["property"]
         selected_trees = self.cleaned_data["trees"]
@@ -523,9 +527,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return selected_trees
 
-    @deal.raises(forms.ValidationError, AttributeError, JSONDecodeError,
-                 TypeError)
-    def clean_about(self: Self) -> Harvest.about:
+    def clean_about(self: Self):
         """Make sure announcement is filled before publishing"""
         status = self.cleaned_data["status"]
         about = self.cleaned_data["about"]
@@ -542,8 +544,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return about
 
-    @deal.raises(forms.ValidationError, AttributeError)
-    def clean_equipment_point(self: Self) -> Organization:
+    def clean_equipment_point(self: Self) -> Optional[Organization]:
         """Clear equipment point if not scheduled or ready"""
         status = self.cleaned_data["status"]
         equipment_point = self.cleaned_data["equipment_point"]
@@ -552,23 +553,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 Harvest.Status.SCHEDULED,
                 Harvest.Status.READY,
                 Harvest.Status.SUCCEEDED,
-        ] and equipment_point is not None):
+        ]):
             raise forms.ValidationError(
                 _("You cannot reserve an equipment point if"
                   " the harvest is not yet scheduled or ready."))
 
         return equipment_point
 
-    @deal.raises(forms.ValidationError, AttributeError)
-    def clean_equipment(self: Self) -> List[Equipment]:
-        equipment_point = self.cleaned_data["equipment_point"]
-
-        equipment = (Equipment.objects.filter(owner__in=equipment_points)
-                     if equipment_points is not None else [])
-
-        return equipment
-
-    @deal.raises(forms.ValidationError, AttributeError)
     def clean(self: Self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean()
