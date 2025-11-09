@@ -485,7 +485,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """ I think since it's a custom field mypy cant detect
             that the assignment is valid, but I'd love to fix it
         """
-        if self.initial is not None:
+        if self.initial is not None and hasattr(instance, 'id'):
             self.initial['id'] = instance.id  # type: ignore
 
     def clean_end_date(self: Self) -> datetime:
