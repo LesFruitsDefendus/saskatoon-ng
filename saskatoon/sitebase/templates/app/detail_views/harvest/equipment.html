@@ -1,34 +1,30 @@
 {% load i18n %}
 {% load static %}
 
-<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+{% get_current_language as LANG %}
+
+<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     <div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
                 <div class="row" style="margin-bottom: 15px">
                     <div class="col-xs-6">
                         <div class="basic-tb-hd">
-                            <h2>{% trans "Equipment Reserved" %}</h2>
+                            <h2>{% trans "Equipment Point" %}</h2>
                         </div>
                     </div>
                 </div>
         <div class="card-box">
-                    <ul>
-                        <table>
-                        {% for equipment in equipment_reserved %}
-                        <tr>
-                            <td><div style="margin-bottom: 1em;">
-                                <b>{{ equipment.owner.civil_name }}
-                            </div></td>
-                            <td><div class="conversation-text" style="margin-bottom: 1em;">
-                                <div class="ctext-wrap">
-                                    <p>{{ equipment.inventory }}</p>
-                                </div>
-                            </div></td>
-                        </tr>
-                        {% endfor %}
-                        </table>
-                    </ul>
-                </div>
-            </div>
+             {% if equipment_point is not None%}
+                  {{ equipment_point.civil_name.value }}
+                  </br>
+                      {% if LANG == "en" %}
+                          {{ equipment_point.inventory.value.en }}
+                      {% elif LANG == "fr" %}
+                          {{ equipment_point.inventory.value.fr }}
+                      {% endif %}
+             {% else %}
+                  {% trans "No equipment point has been reserved" %}
+             {% endif %}
+
         </div>
     </div>
 </div>
