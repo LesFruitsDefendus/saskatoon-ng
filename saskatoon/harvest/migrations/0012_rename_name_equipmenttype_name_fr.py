@@ -2,10 +2,7 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
-    dependencies = [
-        ('harvest', '0011_alter_harvest_about')
-    ]
+    dependencies = [('harvest', '0011_alter_harvest_about')]
 
     operations = [
         migrations.RenameField(

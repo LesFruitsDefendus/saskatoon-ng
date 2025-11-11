@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0010_authuser_agreed_terms'),
     ]
@@ -14,6 +13,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='person',
             name='onboarding',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='persons', to='member.onboarding', verbose_name='Onboarding group'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='persons',
+                to='member.onboarding',
+                verbose_name='Onboarding group',
+            ),
         ),
     ]

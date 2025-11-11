@@ -11,7 +11,7 @@ ENDPOINT_BASELINE_PAIRS = [
     ('organization', 'organization_list.json'),
     ('organization/2', 'organization_detail.json'),
     ('community', 'community_list.json'),
-    ('equipment-point', 'equipment-point_list.json')
+    ('equipment-point', 'equipment-point_list.json'),
 ]
 
 
@@ -21,7 +21,9 @@ def get_json_url(page_name: str) -> str:
 
 @pytest.mark.parametrize("endpoint, baseline_filename", ENDPOINT_BASELINE_PAIRS)
 @pytest.mark.django_db
-def test_serializers(django_db_setup_with_fixtures, client_core_user, endpoint, baseline_filename):
+def test_serializers(
+    django_db_setup_with_fixtures, client_core_user, endpoint, baseline_filename
+):
     response = client_core_user.get(get_json_url(endpoint))
     assert response.status_code == 200
 

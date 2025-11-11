@@ -86,7 +86,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'django_quill',
     'rosetta',
-    'phone_field'
+    'phone_field',
 ]
 
 MIDDLEWARE = [
@@ -173,8 +173,8 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = [
-    ('fr', u'Français'),
-    ('en', u'English'),
+    ('fr', 'Français'),
+    ('en', 'English'),
 ]
 
 ROSETTA_ACCESS_CONTROL_FUNCTION = 'member.permissions.is_translator'
@@ -183,7 +183,7 @@ LOCALE_PATHS = [
     'harvest/locale/',
     'member/locale/',
     'sitebase/locale/',
-    'saskatoon/locale/'
+    'saskatoon/locale/',
 ]
 
 DATE_INPUT_FORMATS = ["%Y-%m-%d"]
@@ -237,9 +237,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    'DEFAULT_FILTER_BACKENDS': [
-        'django_filters.rest_framework.DjangoFilterBackend'
-    ],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'PAGINATE_BY': 10,
     'DEFAULT_RENDERER_CLASSES': (
         get_drf_template_mode(),
@@ -258,7 +256,7 @@ CACHES = {
         'LOCATION': f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
         'OPTIONS': {
             'CLIENT_CLASS': "django_redis.client.DefaultClient",
-        }
+        },
     }
 }
 
@@ -275,7 +273,7 @@ LOGGING = {
         'console': {
             'level': 'DEBUG',
             'class': 'logging.StreamHandler',
-            'formatter': 'brief'
+            'formatter': 'brief',
         },
         'file_django': {
             'level': 'INFO',
@@ -294,7 +292,7 @@ LOGGING = {
             'interval': 1,
             'backupCount': 7,
             'formatter': 'verbose',
-        }
+        },
     },
     'loggers': {
         'django': {
@@ -306,7 +304,7 @@ LOGGING = {
             'handlers': ['file_saskatoon', 'console'],
             'level': 'DEBUG',
             'propagate': False,
-        }
+        },
     },
     'formatters': {
         'brief': {
@@ -317,8 +315,8 @@ LOGGING = {
             'format': '{levelname} {asctime} {module} {name}.{funcName} {process:d} {thread:d} {message}',  # noqa: E501
             'datefmt': "%d/%b/%Y %H:%M:%S",
             'style': '{',
-        }
-    }
+        },
+    },
 }
 
 EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0011_alter_person_onboarding'),
     ]
@@ -27,6 +26,8 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='onboarding',
             name='name',
-            field=models.CharField(default='', max_length=50, verbose_name='Reference name'),
+            field=models.CharField(
+                default='', max_length=50, verbose_name='Reference name'
+            ),
         ),
     ]

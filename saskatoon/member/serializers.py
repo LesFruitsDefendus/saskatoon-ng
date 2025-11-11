@@ -52,22 +52,17 @@ class PersonHarvestSerializer(serializers.ModelSerializer[Harvest]):
             'status_display',
             'start_date',
             'role',
-            'rfp_status'
+            'rfp_status',
         ]
 
     status_display = serializers.ReadOnlyField(source='get_status_display')
-    pick_leader: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
-        many=False,
-        read_only=True
+    pick_leader: serializers.StringRelatedField[Harvest] = (
+        serializers.StringRelatedField(many=False, read_only=True)
     )
     property: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
-        many=False,
-        read_only=True
+        many=False, read_only=True
     )
-    start_date = serializers.DateTimeField(
-        source='get_local_start',
-        format=r"%Y-%m-%d"
-    )
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
     # annotated fields from person.get_harvests()
     role = serializers.ReadOnlyField()
     rfp_status = serializers.ReadOnlyField()
@@ -107,9 +102,7 @@ class PersonSerializer(serializers.ModelSerializer[Person]):
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     properties = PersonPropertySerializer(many=True, read_only=True)
 
-    harvests = PersonHarvestSerializer(
-        source='get_harvests', many=True, read_only=True
-    )
+    harvests = PersonHarvestSerializer(source='get_harvests', many=True, read_only=True)
 
     organizations_as_contact = PersonBeneficiarySerializer(
         source='get_organizations_as_contact', many=True, read_only=True
@@ -141,7 +134,7 @@ class PersonOwnerSerializer(serializers.ModelSerializer[Person]):
             'neighborhood',
             'city',
             'state',
-            'country'
+            'country',
         ]
 
     comments = serializers.SerializerMethodField()
@@ -161,7 +154,7 @@ class OrganizationOwnerSerializer(serializers.ModelSerializer[Organization]):
             'neighborhood',
             'city',
             'state',
-            'country'
+            'country',
         ]
 
     comments = serializers.SerializerMethodField()
@@ -190,9 +183,7 @@ class CommunitySerializer(serializers.ModelSerializer[AuthUser]):
     person = PersonSerializer(many=False, read_only=True)
     roles = serializers.ReadOnlyField()
     role_codes = serializers.SerializerMethodField()
-    date_joined = serializers.DateTimeField(
-        format="%Y-%m-%d"
-    )
+    date_joined = serializers.DateTimeField(format="%Y-%m-%d")
 
     def get_role_codes(self, instance):
         return [g.name for g in instance.role_groups]

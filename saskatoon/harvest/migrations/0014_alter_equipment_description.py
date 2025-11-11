@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0013_auto_20240902_1947'),
     ]
@@ -13,6 +12,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='equipment',
             name='description',
-            field=models.CharField(blank=True, max_length=50, verbose_name='Description'),
+            field=models.CharField(
+                blank=True, max_length=50, verbose_name='Description'
+            ),
         ),
     ]

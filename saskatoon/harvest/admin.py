@@ -161,7 +161,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         'neighborhood',
         'city',
         'postal_code',
-        'id'
+        'id',
     )
     list_filter = (
         PropertyOwnerTypeAdminFilter,
@@ -199,7 +199,9 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         for attr in ['person', 'organization']:
             if hasattr(owner, attr):
                 obj = getattr(owner, attr)
-                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                url = reverse(
+                    f"admin:member_{attr}_change", kwargs={'object_id': obj.pk}
+                )
                 return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
@@ -225,13 +227,17 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         queryset.update(**{'authorized': None})
         messages.info(request, "Successfully reset authorizations for this season")
 
-    @admin.action(description="Create missing auth users using pending or comments email")
+    @admin.action(
+        description="Create missing auth users using pending or comments email"
+    )
     def create_owner_user(self, request, queryset):
         """Create new AuthUser objects for owners (Persons) without email address"""
 
-        qs = queryset.filter(owner__organization__isnull=True,
-                             owner__person__isnull=False,
-                             owner__person__auth_user__isnull=True)
+        qs = queryset.filter(
+            owner__organization__isnull=True,
+            owner__person__isnull=False,
+            owner__person__auth_user__isnull=True,
+        )
         nb_users = 0
         for _property in qs:
             try:
@@ -240,8 +246,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
                         messages.warning(
-                            request,
-                            f"{_property} has multiple emails in comments"
+                            request, f"{_property} has multiple emails in comments"
                         )
                         continue
                     elif len(emails) == 1:
@@ -272,8 +277,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
                 num_sent += 1
             else:
                 messages.error(
-                    request,
-                    f"Could not send authorization email to {recipient.email}."
+                    request, f"Could not send authorization email to {recipient.email}."
                 )
 
         if num_sent > 1:
@@ -304,7 +308,7 @@ class TreeTypeAdmin(admin.ModelAdmin[TreeType]):
         'fruit_icon',
         'maturity_start',
         'maturity_end',
-        'id'
+        'id',
     )
     search_fields = (
         'fruit_name_en',

@@ -13,9 +13,7 @@ class PropertyOwnerTypeAdminFilter(SimpleListFilter):
     parameter_name = 'owner'
 
     def lookups(self, request, model_admin):
-        return [('0', _("Unknown")),
-                ('1', _("Person")),
-                ('2', _("Organization"))]
+        return [('0', _("Unknown")), ('1', _("Person")), ('2', _("Organization"))]
 
     def queryset(self, request, queryset):
         if self.value() == '0':
@@ -34,8 +32,7 @@ class PropertyHasHarvestAdminFilter(SimpleListFilter):
     parameter_name = 'harvest'
 
     def lookups(self, request, model_admin):
-        return [('0', 'Has harvest(s)'),
-                ('1', 'No harvest yet')]
+        return [('0', 'Has harvest(s)'), ('1', 'No harvest yet')]
 
     def queryset(self, request, queryset):
         if self.value():
@@ -51,18 +48,17 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
     parameter_name = 'email'
 
     def lookups(self, request, model_admin):
-        return [('0', 'Owner has no email'),
-                ('1', 'Pending email only')]
+        return [('0', 'Owner has no email'), ('1', 'Pending email only')]
 
     def queryset(self, request, queryset):
         if self.value():
             qs1 = queryset.filter(
                 owner__person__isnull=False,
-                owner__person__auth_user__email__isnull=True
+                owner__person__auth_user__email__isnull=True,
             )
             qs2 = queryset.filter(
                 owner__organization__isnull=False,
-                owner__organization__contact_person__auth_user__email__isnull=True
+                owner__organization__contact_person__auth_user__email__isnull=True,
             )
             if self.value() == '0':
                 return qs1 | qs2
@@ -72,21 +68,23 @@ class OwnerHasNoEmailAdminFilter(SimpleListFilter):
 
 
 class OwnerGotAuthorizationEmailFilter(SimpleListFilter):
-    """ Check if Property Owner has received an authorization email"""
+    """Check if Property Owner has received an authorization email"""
 
     title = 'Pending Authorization'
     parameter_name = 'auth'
 
     def lookups(self, request, model_admin):
-        return [('0', 'Has Received email for this season'),
-                ('1', 'Has not responded for this season'),
-                ('2', 'Has not received email this season')]
+        return [
+            ('0', 'Has Received email for this season'),
+            ('1', 'Has not responded for this season'),
+            ('2', 'Has not received email this season'),
+        ]
 
     def queryset(self, request, queryset):
         if self.value():
             recipients = Email.objects.filter(
                 type=EmailType.SEASON_AUTHORIZATION,
-                date_sent__year=tz.now().date().year
+                date_sent__year=tz.now().date().year,
             ).values_list('recipient', flat=True)
 
             if self.value() == '0':
@@ -124,13 +122,14 @@ class HarvestHasNoDateAdminFilter(SimpleListFilter):
     parameter_name = 'start_date'
 
     def lookups(self, request, model_admin):
-        return [('0', 'Harvest has no start_date'),
-                ('1', 'Harvest has no end_date'),
-                ('2', 'Harvest has no publication_date'),
-                ('3', 'Harvest has no date_created')]
+        return [
+            ('0', 'Harvest has no start_date'),
+            ('1', 'Harvest has no end_date'),
+            ('2', 'Harvest has no publication_date'),
+            ('3', 'Harvest has no date_created'),
+        ]
 
     def queryset(self, request, queryset):
-
         if self.value() == '0':
             return queryset.filter(start_date__isnull=True)
         elif self.value() == '1':

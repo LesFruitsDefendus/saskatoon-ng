@@ -54,7 +54,10 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
     add_form = AuthUserCreationAdminForm
     search_fields = ('email', 'person__first_name', 'person__family_name')
     ordering = ('email', 'person', 'date_joined', 'last_login')
-    filter_horizontal = ('groups', 'user_permissions',)
+    filter_horizontal = (
+        'groups',
+        'user_permissions',
+    )
     list_display = (
         'email',
         'person',
@@ -110,24 +113,18 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
                     'person',
                     'agreed_terms',
                 )
-            }
+            },
         ),
         (
             'Permissions',
-            {
-                'fields': (
-                    'is_active',
-                    'is_staff',
-                    'is_superuser',
-                    'groups'
-                )
-            }
+            {'fields': ('is_active', 'is_staff', 'is_superuser', 'groups')},
         ),
     )
 
     add_fieldsets = (
         (
-            None, {
+            None,
+            {
                 'classes': 'wide',
                 'fields': (
                     'email',
@@ -136,9 +133,9 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
                     'has_temporary_password',
                     'is_staff',
                     'is_superuser',
-                    'groups'
-                )
-            }
+                    'groups',
+                ),
+            },
         ),
     )
 
@@ -217,9 +214,7 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
     @admin.action(description="Export email list with selected User(s)")
     def export_emails(self, request, queryset):
         contacts = queryset.values_list(
-            'person__first_name',
-            'person__family_name',
-            'email'
+            'person__first_name', 'person__family_name', 'email'
         ).order_by('person__first_name')
 
         def clean_column(col: Optional[str]) -> str:
@@ -240,15 +235,9 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
                 email = EmailMessage("Saskatoon Email List", "", None, [mailto])
                 email.attach('Saskatoon_EmailList.csv', csvFile.read(), 'text/csv')
                 email.send()
-                messages.success(
-                    request,
-                    f"Email list successfully sent to {mailto}"
-                )
+                messages.success(request, f"Email list successfully sent to {mailto}")
             except Exception as e:
-                messages.error(
-                    request,
-                    f"Something went wrong: {e}"
-                )
+                messages.error(request, f"Something went wrong: {e}")
 
     @admin.action(description="Reset selected User(s)'s T&C agreement")
     def reset_agreed_terms(self, request, queryset):
@@ -283,7 +272,7 @@ class PersonAdmin(admin.ModelAdmin[Person]):
         'postal_code',
         'newsletter_subscription',
         'language',
-        'pk'
+        'pk',
     )
     list_filter = (
         PersonHasNoUserAdminFilter,
@@ -327,7 +316,9 @@ class ActorAdmin(admin.ModelAdmin[Actor]):
         for attr in ['person', 'organization']:
             if hasattr(actor, attr):
                 obj = getattr(actor, attr)
-                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
+                url = reverse(
+                    f"admin:member_{attr}_change", kwargs={'object_id': obj.pk}
+                )
                 return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
         return None
 
@@ -341,7 +332,7 @@ class OrganizationAdmin(admin.ModelAdmin[Organization]):
         'neighborhood',
         'is_beneficiary',
         'is_equipment_point',
-        'pk'
+        'pk',
     )
     list_filter = (
         OrganizationHasNoContactAdminFilter,
@@ -367,7 +358,7 @@ class OrganizationAdmin(admin.ModelAdmin[Organization]):
                     'city',
                     'state',
                     'country',
-                    )
+                )
             },
         ),
         (
@@ -385,8 +376,8 @@ class OrganizationAdmin(admin.ModelAdmin[Organization]):
                 'fields': (
                     'is_equipment_point',
                     'equipment_description',
-                    )
-            }
+                )
+            },
         ),
     )
 
@@ -410,14 +401,14 @@ class OrganizationAdmin(admin.ModelAdmin[Organization]):
             messages.warning(
                 request,
                 f"{org} cannot be listed as an Equipment Point because no equipment \
-                is currently registered for this Organization."
+                is currently registered for this Organization.",
             )
         elif not org.is_equipment_point:
             messages.warning(
                 request,
                 f"{org} has equipment but is not listed as an Equipment Point. \
                 Only leave the \"Is Equipment Point\" box unchecked if the equipment \
-                is not currently available."
+                is not currently available.",
             )
 
 
@@ -438,17 +429,16 @@ class OnboardingAdmin(admin.ModelAdmin[Onboarding]):
         if obj.all_sent and obj.persons.filter(auth_user__password='').exists():
             obj.all_sent = False
             obj.save()
-            messages.warning(
-                request,
-                f"Some users in {obj} were not yet invited."
-            )
+            messages.warning(request, f"Some users in {obj} were not yet invited.")
 
     @admin.action(description="Send registration invite to selected group(s)")
     def send_invite(self, request, queryset):
         num_sent = 0
         for o in queryset:
             o.all_sent = True
-            o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
+            o.log += "\n[{}]".format(
+                tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p")
+            )
             for p in o.persons.filter(auth_user__password=''):
                 m = Email.objects.create(recipient=p, type=EmailType.REGISTRATION)
 
@@ -463,16 +453,14 @@ class OnboardingAdmin(admin.ModelAdmin[Onboarding]):
                     o.log += f"\n\t> FAIL {p.auth_user.email}"
                     messages.error(
                         request,
-                        f"Could not send Registration Invite to {p.auth_user.email}"
+                        f"Could not send Registration Invite to {p.auth_user.email}",
                     )
 
             if o.all_sent:
                 messages.success(
                     request,
-                    f"Successfully sent Registration Invite to {num_sent} users"
+                    f"Successfully sent Registration Invite to {num_sent} users",
                 )
             o.save()
 
-    actions = [
-        send_invite
-    ]
+    actions = [send_invite]

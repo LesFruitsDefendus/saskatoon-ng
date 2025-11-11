@@ -1,10 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
-from django.contrib.auth.mixins import (
-    LoginRequiredMixin,
-    PermissionRequiredMixin
-)
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
 from django.urls import reverse_lazy, reverse
@@ -20,7 +17,7 @@ from member.forms import (
     OnboardingPersonUpdateForm,
     OrganizationCreateForm,
     OrganizationForm,
-    PasswordChangeForm
+    PasswordChangeForm,
 )
 from sitebase.models import Email, EmailType
 
@@ -28,7 +25,7 @@ from sitebase.models import Email, EmailType
 class PersonCreateView(
     PermissionRequiredMixin,
     SuccessMessageMixin[PersonCreateForm],
-    CreateView[Person, PersonCreateForm]
+    CreateView[Person, PersonCreateForm],
 ):
     permission_required = 'member.add_person'
     model = Person
@@ -55,7 +52,7 @@ class PersonCreateView(
                 'country': p.country,
                 'newsletter_subscription': p.pending_newsletter,
                 'comments': p.additional_info,
-                'pending_property_id': p.id
+                'pending_property_id': p.id,
             }
             cancel_url = '/property/' + str(p.id)
         except KeyError:
@@ -84,7 +81,7 @@ class PersonCreateView(
 class PersonUpdateView(
     PermissionRequiredMixin,
     SuccessMessageMixin[PersonUpdateForm],
-    UpdateView[Person, PersonUpdateForm]
+    UpdateView[Person, PersonUpdateForm],
 ):
     permission_required = 'member.change_person'
     model = Person
@@ -115,7 +112,7 @@ class PersonUpdateView(
 class OnboardingPersonUpdateView(
     LoginRequiredMixin,
     SuccessMessageMixin[OnboardingPersonUpdateForm],
-    UpdateView[Person, OnboardingPersonUpdateForm]
+    UpdateView[Person, OnboardingPersonUpdateForm],
 ):
     model = Person
     form_class = OnboardingPersonUpdateForm
@@ -139,7 +136,7 @@ class OnboardingPersonUpdateView(
 class OrganizationCreateView(
     PermissionRequiredMixin,
     SuccessMessageMixin[OrganizationCreateForm],
-    CreateView[Organization, OrganizationCreateForm]
+    CreateView[Organization, OrganizationCreateForm],
 ):
     permission_required = 'member.add_organization'
     model = Organization
@@ -158,7 +155,7 @@ class OrganizationCreateView(
 class OrganizationUpdateView(
     PermissionRequiredMixin,
     SuccessMessageMixin[OrganizationForm],
-    UpdateView[Organization, OrganizationForm]
+    UpdateView[Organization, OrganizationForm],
 ):
     permission_required = 'member.change_organization'
     model = Organization
@@ -187,37 +184,45 @@ class PasswordResetView(
     LoginRequiredMixin,
     PermissionRequiredMixin,
     SuccessMessageMixin[PasswordResetForm],
-    View
+    View,
 ):
     """View for sending reset password email, with redirect on success."""
+
     permission_required = 'member.change_authuser'
 
     def dispatch(self, request, *args, **kwargs):
         user = AuthUser.objects.get(id=self.kwargs['pk'])
 
         if user.password == '':
-            messages.error(request, _(
-                "Cannot reset password for {email}: User does not have a password set."
-                ).format(email=user.email)
+            messages.error(
+                request,
+                _(
+                    "Cannot reset password for {email}: User does not have a password set."
+                ).format(email=user.email),
             )
             return redirect('community-list')
 
         m = Email.objects.create(
             recipient=user.person,
             type=EmailType.PASSWORD_RESET,
-
         )
 
         if m.send(data={'password': reset_password(user)}) == 1:
-            messages.success(request, _(
-                "Password reset email successfully sent to {email}"
-                ).format(email=user.email))
+            messages.success(
+                request,
+                _("Password reset email successfully sent to {email}").format(
+                    email=user.email
+                ),
+            )
         else:
             user.password = ''
             user.has_temporary_password = False
             user.save()
-            messages.error(request, _(
-                "Failed to send password reset email to {email}"
-            ).format(email=user.email))
+            messages.error(
+                request,
+                _("Failed to send password reset email to {email}").format(
+                    email=user.email
+                ),
+            )
 
         return redirect('community-list')

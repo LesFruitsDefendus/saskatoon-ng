@@ -87,8 +87,12 @@ class PageContent(models.Model):
         return "{}[{}]".format(self.type, self.id)
 
     def content(self, lang):
-        return dict([(key, getattr(self, f"{key}_{lang}"))
-                     for key in ['title', 'subtitle', 'body']])
+        return dict(
+            [
+                (key, getattr(self, f"{key}_{lang}"))
+                for key in ['title', 'subtitle', 'body']
+            ]
+        )
 
     @staticmethod
     def get(type, lang):
@@ -160,9 +164,7 @@ class EmailContent(models.Model):
         return self.type
 
     def subject(self, lang):
-        return "[Les Fruits Défendus] {}".format(
-            getattr(self, f"subject_{lang}")
-        )
+        return "[Les Fruits Défendus] {}".format(getattr(self, f"subject_{lang}"))
 
     def body(self, lang):
         return getattr(self, f"body_{lang}")
@@ -194,7 +196,7 @@ class Email(models.Model):
         'member.Person',
         related_name='emails',
         verbose_name=_("Recipient"),
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     type = models.CharField(
@@ -211,10 +213,7 @@ class Email(models.Model):
         null=True,
     )
 
-    sent = models.BooleanField(
-        verbose_name=_("Successfully sent"),
-        default=False
-    )
+    sent = models.BooleanField(verbose_name=_("Successfully sent"), default=False)
 
     body = models.TextField(
         blank=True,
@@ -231,10 +230,7 @@ class Email(models.Model):
     )
 
     def __str__(self):
-        return "<{type}> {mailto}".format(
-            type=self.type,
-            mailto=self.recipient.email
-        )
+        return "<{type}> {mailto}".format(type=self.type, mailto=self.recipient.email)
 
     @property
     def content(self):
@@ -277,7 +273,7 @@ class Email(models.Model):
     def get_intro(self, lang):
         return {
             'fr': f"Bonjour {self.recipient.name},\n\n",
-            'en': f"Hi {self.recipient.name},\n\n"
+            'en': f"Hi {self.recipient.name},\n\n",
         }[lang]
 
     def get_default_message(self, data: Dict[str, str]) -> str:
@@ -287,8 +283,8 @@ class Email(models.Model):
             msg = "* * Version française plus bas * *\n\n{en}\n\n{sep}\n\n{fr}"
 
         msg = msg.format(
-            fr=self.get_intro('fr')+self.content.message('fr'),
-            en=self.get_intro('en')+self.content.message('en'),
+            fr=self.get_intro('fr') + self.content.message('fr'),
+            en=self.get_intro('en') + self.content.message('en'),
             sep="___________________________________",
         )
 
@@ -304,8 +300,7 @@ class Email(models.Model):
 
     def record_success(self, body: str) -> bool:
         log = "Successfully sent email {email} to {mailto}".format(
-            email=self.__str__(),
-            mailto=self.recipient.email
+            email=self.__str__(), mailto=self.recipient.email
         )
         logger.info(log)
         return self.record_sent(True, body, log)
@@ -321,7 +316,9 @@ class Email(models.Model):
 
     def send(self, message=None, data: Dict[str, str] = {}) -> bool:
         if self.recipient.email is None:
-            return self.record_failure(message, "Person <self.recipient> has no email address.")
+            return self.record_failure(
+                message, "Person <self.recipient> has no email address."
+            )
 
         data.update(self.harvest_data)
         data.update(self.recipient_data)
@@ -330,13 +327,13 @@ class Email(models.Model):
             message = self.get_default_message(data)
 
         m = EmailMessage(
-                subject=self.get_subject(data),
-                body=message,
-                from_email=DEFAULT_FROM_EMAIL,
-                to=[self.recipient.email],
-                cc=self.cc_list,
-                bcc=self.bcc_list,
-                reply_to=self.reply_to_list,
+            subject=self.get_subject(data),
+            body=message,
+            from_email=DEFAULT_FROM_EMAIL,
+            to=[self.recipient.email],
+            cc=self.cc_list,
+            bcc=self.bcc_list,
+            reply_to=self.reply_to_list,
         )
 
         try:
@@ -373,17 +370,14 @@ def notify_property_created(sender, instance, created, **kwargs):
 
 def notify_property_registered(_sender, instance, **kwargs):
     if instance.owner is None:
-        logger.warning(
-            "Property %i has no registered owner.",
-            instance.id
-        )
+        logger.warning("Property %i has no registered owner.", instance.id)
         return
 
     recipient = instance.email_recipient
     if recipient is None:
         logger.warning(
             "Property owner (actor: %i) is not a Person nor an Organization.",
-            instance.owner.actor_id
+            instance.owner.actor_id,
         )
         return
 

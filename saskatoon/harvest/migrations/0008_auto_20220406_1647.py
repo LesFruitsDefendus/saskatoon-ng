@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0007_alter_property_pending_contact_phone'),
     ]
@@ -18,11 +17,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='pending_contact_first_name',
-            field=models.CharField(blank=True, help_text='First name of the person to be contacted for confirmation', max_length=50, verbose_name='Contact first name'),
+            field=models.CharField(
+                blank=True,
+                help_text='First name of the person to be contacted for confirmation',
+                max_length=50,
+                verbose_name='Contact first name',
+            ),
         ),
         migrations.AddField(
             model_name='property',
             name='pending_contact_family_name',
-            field=models.CharField(blank=True, help_text='Family name of the person to be contacted for confirmation', max_length=50, verbose_name='Contact family name'),
+            field=models.CharField(
+                blank=True,
+                help_text='Family name of the person to be contacted for confirmation',
+                max_length=50,
+                verbose_name='Contact family name',
+            ),
         ),
     ]

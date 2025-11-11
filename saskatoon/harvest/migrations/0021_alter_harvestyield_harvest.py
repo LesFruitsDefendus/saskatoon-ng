@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0020_auto_20250504_1308'),
     ]
@@ -14,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvestyield',
             name='harvest',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='yields', to='harvest.harvest', verbose_name='Harvest'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='yields',
+                to='harvest.harvest',
+                verbose_name='Harvest',
+            ),
         ),
     ]
