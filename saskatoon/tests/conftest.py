@@ -30,11 +30,15 @@ def django_db_setup():
 @pytest.fixture(scope="module")
 def driver():
     # The webdriver class is instantiated dynamically
-    assert TESTDRIVER is not None, ".env variable SASKATOON_TEST_WEBDRIVER not defined, \
+    assert TESTDRIVER is not None, (
+        ".env variable SASKATOON_TEST_WEBDRIVER not defined, \
 please set the webdriver. i.e. 'Chrome' or 'Firefox'"
+    )
 
-    assert hasattr(selenium.webdriver, TESTDRIVER), f"unknown driver value '{TESTDRIVER}' in .env \
+    assert hasattr(selenium.webdriver, TESTDRIVER), (
+        f"unknown driver value '{TESTDRIVER}' in .env \
 variable SASKATOON_TEST_WEBDRIVER config. Please set a valid webdriver. i.e. 'Chrome' or 'Firefox'"
+    )
 
     # Create new driver
     testdriver = getattr(selenium.webdriver, TESTDRIVER)()

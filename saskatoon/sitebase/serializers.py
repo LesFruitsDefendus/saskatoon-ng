@@ -65,9 +65,7 @@ class EmailHarvestSerializer(serializers.ModelSerializer[Harvest]):
         model = Harvest
         fields = ['id', 'public', 'date', 'url']
 
-    public = serializers.ReadOnlyField(
-        source='get_public_title'
-    )
+    public = serializers.ReadOnlyField(source='get_public_title')
     date = serializers.DateTimeField(
         source='date_created',
         format='%Y-%m-%d',

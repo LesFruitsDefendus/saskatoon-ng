@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0016_alter_person_language'),
     ]
@@ -13,16 +12,31 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='neighborhood',
-            options={'ordering': ['name'], 'verbose_name': 'borough', 'verbose_name_plural': 'boroughs'},
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'borough',
+                'verbose_name_plural': 'boroughs',
+            },
         ),
         migrations.AlterField(
             model_name='organization',
             name='neighborhood',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.neighborhood', verbose_name='Borough'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='member.neighborhood',
+                verbose_name='Borough',
+            ),
         ),
         migrations.AlterField(
             model_name='person',
             name='neighborhood',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.neighborhood', verbose_name='Borough'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='member.neighborhood',
+                verbose_name='Borough',
+            ),
         ),
     ]

@@ -7,10 +7,11 @@ register = template.Library()
 @register.filter
 def rfp_color(status: str) -> str:
     return {
-        t[0].value: t[1] for t in [
+        t[0].value: t[1]
+        for t in [
             (RFP.Status.OBSOLETE, "#666"),
             (RFP.Status.DECLINED, "#e8ad2b"),  # btn-warning
-            (RFP.Status.PENDING, "#2da4f0"),   # btn-info
+            (RFP.Status.PENDING, "#2da4f0"),  # btn-info
             (RFP.Status.ACCEPTED, "#8bc34a"),  # btn-success
             (RFP.Status.CANCELLED, "#ff2079"),  # btn-danger
         ]

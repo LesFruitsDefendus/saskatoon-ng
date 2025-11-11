@@ -34,7 +34,7 @@ def _clean_url(url: str) -> str:
 def get_pages_range(page_number: int) -> List[int]:
     """Returns a list containing numbers leading to the page_number param"""
     try:
-        return [i for i in range(1, page_number+1)]
+        return [i for i in range(1, page_number + 1)]
     except Exception:
         return [page_number]
 

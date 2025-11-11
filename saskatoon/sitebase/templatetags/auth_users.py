@@ -22,7 +22,7 @@ def is_core_or_admin(user: AuthUser) -> bool:
 
 @register.filter(name="is_pickleader")
 def is_pickleader(user: AuthUser, hid: Optional[int] = None) -> bool:
-    """ checks if the user making the request is a or *the* pickleader"""
+    """checks if the user making the request is a or *the* pickleader"""
 
     if hid is not None:
         harvest = Harvest.objects.get(id=hid)
@@ -33,6 +33,6 @@ def is_pickleader(user: AuthUser, hid: Optional[int] = None) -> bool:
 
 @register.filter(name="is_translator")
 def is_translator(user: AuthUser) -> bool:
-    """ checks if the user making the request can access Rosetta"""
+    """checks if the user making the request can access Rosetta"""
 
     return perms.is_translator(user)

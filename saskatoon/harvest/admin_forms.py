@@ -45,10 +45,6 @@ class EquipmentAdminForm(forms.ModelForm[Equipment]):
         model = Equipment
         fields = '__all__'
         widgets = {
-            'property': autocomplete.ModelSelect2(
-                'property-autocomplete'
-            ),
-            'owner': autocomplete.ModelSelect2(
-                'actor-autocomplete'
-            ),
+            'property': autocomplete.ModelSelect2('property-autocomplete'),
+            'owner': autocomplete.ModelSelect2('actor-autocomplete'),
         }

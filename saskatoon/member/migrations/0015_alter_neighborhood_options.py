@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0014_auto_20241126_0852'),
     ]
@@ -12,6 +11,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='neighborhood',
-            options={'ordering': ['name'], 'verbose_name': 'neighborhood', 'verbose_name_plural': 'neighborhoods'},
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'neighborhood',
+                'verbose_name_plural': 'neighborhoods',
+            },
         ),
     ]

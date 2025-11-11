@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0006_alter_organization_contact_person'),
     ]
@@ -14,9 +13,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Onboarding',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('datetime', models.DateTimeField(auto_now_add=True)),
-                ('invite_sent', models.BooleanField(default=False, verbose_name='Invitation sent')),
+                (
+                    'invite_sent',
+                    models.BooleanField(default=False, verbose_name='Invitation sent'),
+                ),
             ],
             options={
                 'verbose_name': 'user onboarding',
@@ -25,11 +35,21 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterModelOptions(
             name='person',
-            options={'ordering': ['first_name'], 'verbose_name': 'person', 'verbose_name_plural': 'persons'},
+            options={
+                'ordering': ['first_name'],
+                'verbose_name': 'person',
+                'verbose_name_plural': 'persons',
+            },
         ),
         migrations.AddField(
             model_name='person',
             name='onboarding',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='users', to='member.onboarding', verbose_name='Onboarding group'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='users',
+                to='member.onboarding',
+                verbose_name='Onboarding group',
+            ),
         ),
     ]

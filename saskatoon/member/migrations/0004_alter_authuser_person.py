@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0003_alter_person_neighborhood'),
     ]
@@ -14,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='authuser',
             name='person',
-            field=models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='auth_user', to='member.person'),
+            field=models.OneToOneField(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='auth_user',
+                to='member.person',
+            ),
         ),
     ]

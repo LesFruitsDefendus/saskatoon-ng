@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0003_auto_20210527_2150'),
     ]
@@ -12,6 +11,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='treetype',
-            options={'ordering': ['name'], 'verbose_name': 'tree type', 'verbose_name_plural': 'tree types'},
+            options={
+                'ordering': ['name'],
+                'verbose_name': 'tree type',
+                'verbose_name_plural': 'tree types',
+            },
         ),
     ]

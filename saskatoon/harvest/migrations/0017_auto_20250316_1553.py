@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
         ('harvest', '0016_alter_harvest_rfp_status'),
@@ -16,11 +15,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='comment',
             name='author',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to=settings.AUTH_USER_MODEL, verbose_name='Author'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='comments',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Author',
+            ),
         ),
         migrations.AlterField(
             model_name='comment',
             name='harvest',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='comments', to='harvest.harvest', verbose_name='harvest'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='comments',
+                to='harvest.harvest',
+                verbose_name='harvest',
+            ),
         ),
     ]

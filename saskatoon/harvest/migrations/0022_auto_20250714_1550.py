@@ -6,7 +6,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0018_alter_authuser_options'),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -17,11 +16,23 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='pick_leader',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='harvests', to=settings.AUTH_USER_MODEL, verbose_name='Pick leader'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='harvests',
+                to=settings.AUTH_USER_MODEL,
+                verbose_name='Pick leader',
+            ),
         ),
         migrations.AlterField(
             model_name='requestforparticipation',
             name='person',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='requests', to='member.person', verbose_name='Requester'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='requests',
+                to='member.person',
+                verbose_name='Requester',
+            ),
         ),
     ]

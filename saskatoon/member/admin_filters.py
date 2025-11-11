@@ -42,10 +42,11 @@ class UserIsOnboardingAdminFilter(SimpleListFilter):
             return queryset
 
         group = Group.objects.get(name='volunteer')
-        return queryset \
-            .filter(groups__in=[group]) \
-            .exclude(password__exact='') \
+        return (
+            queryset.filter(groups__in=[group])
+            .exclude(password__exact='')
             .filter(has_temporary_password=True)
+        )
 
 
 class UserHasPropertyAdminFilter(SimpleListFilter):
@@ -60,9 +61,13 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            properties = Property.objects.select_related('owner').filter(owner__isnull=False)
+            properties = Property.objects.select_related('owner').filter(
+                owner__isnull=False
+            )
             owners = set([p.owner.actor_id for p in properties])
-            persons = Person.objects.select_related('actor_id').filter(actor_id__in=owners)
+            persons = Person.objects.select_related('actor_id').filter(
+                actor_id__in=owners
+            )
             users = queryset.select_related('person').filter(person__in=persons)
             return users
         return queryset
@@ -133,11 +138,7 @@ class ActorTypeAdminFilter(SimpleListFilter):
     default_value = None
 
     def lookups(self, request, model_admin):
-        return [
-            ('0', _("None")),
-            ('1', _("Person")),
-            ('2', _("Organization"))
-        ]
+        return [('0', _("None")), ('1', _("Person")), ('2', _("Organization"))]
 
     def queryset(self, request, queryset):
         if self.value() == '0':

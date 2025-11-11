@@ -5,7 +5,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0017_auto_20250316_1553'),
     ]
@@ -14,6 +13,13 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='requestforparticipation',
             name='number_of_pickers',
-            field=models.PositiveIntegerField(default=1, validators=[django.core.validators.MinValueValidator(1), django.core.validators.MaxValueValidator(99)], verbose_name='Number of pickers'),
+            field=models.PositiveIntegerField(
+                default=1,
+                validators=[
+                    django.core.validators.MinValueValidator(1),
+                    django.core.validators.MaxValueValidator(99),
+                ],
+                verbose_name='Number of pickers',
+            ),
         ),
     ]

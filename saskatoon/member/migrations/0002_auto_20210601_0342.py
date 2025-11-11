@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0001_initial'),
     ]
@@ -12,11 +11,19 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='organization',
-            options={'ordering': ['civil_name'], 'verbose_name': 'organization', 'verbose_name_plural': 'organizations'},
+            options={
+                'ordering': ['civil_name'],
+                'verbose_name': 'organization',
+                'verbose_name_plural': 'organizations',
+            },
         ),
         migrations.AlterModelOptions(
             name='person',
-            options={'ordering': ['first_name'], 'verbose_name': 'person', 'verbose_name_plural': 'people'},
+            options={
+                'ordering': ['first_name'],
+                'verbose_name': 'person',
+                'verbose_name_plural': 'people',
+            },
         ),
         migrations.AlterModelOptions(
             name='state',

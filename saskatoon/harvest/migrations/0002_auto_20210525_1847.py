@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0001_initial'),
     ]
@@ -13,16 +12,25 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='authorized',
-            field=models.BooleanField(default=None, help_text='Harvest in this property has been authorized for the current season by its owner', null=True, verbose_name='Authorized for this season'),
+            field=models.BooleanField(
+                default=None,
+                help_text='Harvest in this property has been authorized for the current season by its owner',
+                null=True,
+                verbose_name='Authorized for this season',
+            ),
         ),
         migrations.AlterField(
             model_name='requestforparticipation',
             name='is_accepted',
-            field=models.BooleanField(blank=True, default=None, null=True, verbose_name='Accepted'),
+            field=models.BooleanField(
+                blank=True, default=None, null=True, verbose_name='Accepted'
+            ),
         ),
         migrations.AlterField(
             model_name='requestforparticipation',
             name='showed_up',
-            field=models.BooleanField(blank=True, default=None, null=True, verbose_name='Showed up'),
+            field=models.BooleanField(
+                blank=True, default=None, null=True, verbose_name='Showed up'
+            ),
         ),
     ]

@@ -5,7 +5,6 @@ import django_quill.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0010_alter_requestforparticipation_number_of_people'),
     ]
@@ -14,6 +13,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='about',
-            field=django_quill.fields.QuillField(blank=True, help_text='If any help is needed from volunteer pickers, please describe them here.', max_length=1000, null=True, verbose_name='Public announcement'),
+            field=django_quill.fields.QuillField(
+                blank=True,
+                help_text='If any help is needed from volunteer pickers, please describe them here.',
+                max_length=1000,
+                null=True,
+                verbose_name='Public announcement',
+            ),
         ),
     ]

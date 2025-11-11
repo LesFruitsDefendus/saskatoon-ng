@@ -2,6 +2,7 @@
 """
 Command to create a new .env file based on a given sqlite_db_path (for testing only).
 """
+
 import string
 import shlex
 import pathlib
@@ -26,14 +27,17 @@ def get_parser() -> argparse.ArgumentParser:
         usage="Usage: saskatoon/tests/newenvfile.py <sqlite_db_path> > saskatoon/.env"
     )
     parser.add_argument('sqlite_db_path')
-    parser.add_argument('--admin-email', )
-    parser.add_argument('--admin-password', )
+    parser.add_argument(
+        '--admin-email',
+    )
+    parser.add_argument(
+        '--admin-password',
+    )
     parser.add_argument('--virtual-display', action='store_true')
     return parser
 
 
 if __name__ == "__main__":
-
     args = get_parser().parse_args()
 
     db_path = pathlib.Path(args.sqlite_db_path).absolute()

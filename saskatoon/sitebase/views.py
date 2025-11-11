@@ -9,10 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest
 from member.permissions import is_pickleader_or_core_or_admin
-from saskatoon.settings import (
-    EQUIPMENT_POINTS_PDF_PATH,
-    VOLUNTEER_WAIVER_PDF_PATH
-)
+from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import PageContent
 
 
@@ -28,8 +25,7 @@ class Index(TemplateView):
             content_type = PageContent.Type.PICKLEADER_HOME
 
         context['content'] = PageContent.get(
-            type=content_type,
-            lang=self.request.LANGUAGE_CODE
+            type=content_type, lang=self.request.LANGUAGE_CODE
         )
 
         return context
@@ -56,13 +52,13 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
     """
     Show terms and conditions with option to agree, updating AuthUser.
     """
+
     template_name = 'app/terms_conditions.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['content'] = PageContent.get(
-            type=PageContent.Type.TERMS_CONDITIONS,
-            lang=self.request.LANGUAGE_CODE
+            type=PageContent.Type.TERMS_CONDITIONS, lang=self.request.LANGUAGE_CODE
         )
 
         return context
@@ -79,9 +75,7 @@ class PrivacyPolicyView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['content'] = PageContent.get(
-            type=PageContent.Type.PRIVACY_POLICY,
-            lang=self.request.LANGUAGE_CODE
-
+            type=PageContent.Type.PRIVACY_POLICY, lang=self.request.LANGUAGE_CODE
         )
         return context
 
@@ -125,7 +119,6 @@ class Calendar(TemplateView):
 
 
 class JsonCalendar(View):
-
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
@@ -139,26 +132,28 @@ class JsonCalendar(View):
             q2 = Q(status__in=[Harvest.Status.ORPHAN, Harvest.Status.ADOPTED])
             harvests = harvests.filter(q1 | q2).distinct()
         else:
-            harvests = harvests.filter(start_date__gte=start_date, end_date__lte=end_date)
+            harvests = harvests.filter(
+                start_date__gte=start_date, end_date__lte=end_date
+            )
 
         events = []
         for harvest in harvests:
             if (
-                    is_pickleader_or_core_or_admin(self.request.user) or
-                    harvest.is_publishable()
+                is_pickleader_or_core_or_admin(self.request.user)
+                or harvest.is_publishable()
             ):
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
 
                 event['url'] = reverse_lazy('rfp-create', kwargs={'hid': harvest.id})
-                colors = ({
+                colors = {
                     Harvest.Status.SCHEDULED: "#e8ad2bcc",  # btn-warning
                     Harvest.Status.READY: "#2da4f0cc",  # btn-info
                     Harvest.Status.SUCCEEDED: "#8bc34acc",  # btn-success
                     Harvest.Status.CANCELLED: "#ff2079cc",  # btn-danger
                     Harvest.Status.ADOPTED: "#440bd466",  # btn-primary
                     Harvest.Status.ORPHAN: "#cccccccc",
-                })
+                }
                 event['display'] = "block"
                 event['backgroundColor'] = colors.get(harvest.status, "#d4c7f9")
                 event['borderColor'] = event['backgroundColor']
@@ -181,7 +176,7 @@ class JsonCalendar(View):
                     'nb_required_pickers': harvest.nb_required_pickers,
                     'nb_requests': harvest.get_volunteers_count(None),
                     'trees': harvest.get_fruits(),
-                    'total_harvested': harvest.get_total_distribution()
+                    'total_harvested': harvest.get_total_distribution(),
                 }
 
                 events.append(event)

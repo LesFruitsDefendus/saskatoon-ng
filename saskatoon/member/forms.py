@@ -14,26 +14,17 @@ logger = getLogger('saskatoon')
 
 
 class PersonCreateForm(forms.ModelForm[Person]):
-
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
-    email = forms.EmailField(
-        label=_("Email"),
-        required=True
-    )
+    email = forms.EmailField(label=_("Email"), required=True)
 
     # when registering owner based off pending property info
-    pending_property_id = forms.IntegerField(
-        widget=forms.HiddenInput(),
-        required=False
-    )
+    pending_property_id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     roles = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-        choices=AuthUser.GROUPS,
-        required=True
+        widget=forms.CheckboxSelectMultiple, choices=AuthUser.GROUPS, required=True
     )
 
     field_order = ['roles', 'first_name', 'family_name', 'email', 'language']
@@ -52,8 +43,7 @@ class PersonCreateForm(forms.ModelForm[Person]):
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(
-                email=self.cleaned_data['email'],
-                person=instance
+            email=self.cleaned_data['email'], person=instance
         )
         roles = self.cleaned_data['roles']
         auth_user.set_roles(roles)
@@ -72,21 +62,15 @@ class PersonCreateForm(forms.ModelForm[Person]):
 
 
 class PersonUpdateForm(forms.ModelForm[Person]):
-
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
     roles = forms.MultipleChoiceField(
-        widget=forms.CheckboxSelectMultiple,
-        choices=AuthUser.GROUPS,
-        required=False
+        widget=forms.CheckboxSelectMultiple, choices=AuthUser.GROUPS, required=False
     )
 
-    email = forms.EmailField(
-        label=_("Email"),
-        required=False
-    )
+    email = forms.EmailField(label=_("Email"), required=False)
 
     field_order = ['roles', 'email', 'first_name', 'family_name', 'language']
 
@@ -105,7 +89,9 @@ class PersonUpdateForm(forms.ModelForm[Person]):
                 self.initial['roles'] = [g for g in self.auth_user.groups.all()]
                 self.initial['email'] = self.auth_user.email
             except ObjectDoesNotExist:
-                logger.warning("Person {} has no associated Auth.User!".format(self.instance))
+                logger.warning(
+                    "Person {} has no associated Auth.User!".format(self.instance)
+                )
 
     def clean(self):
         super().clean()
@@ -115,10 +101,12 @@ class PersonUpdateForm(forms.ModelForm[Person]):
         roles = self.cleaned_data.get('roles', None)
         if email and not roles:
             raise forms.ValidationError(
-                _("Please assign at least one role to the user"))
+                _("Please assign at least one role to the user")
+            )
         elif roles and not email:
             raise forms.ValidationError(
-                _("An email address is required to assign a role to the user"))
+                _("An email address is required to assign a role to the user")
+            )
 
     def save(self):
         instance = super().save()
@@ -132,7 +120,6 @@ class PersonUpdateForm(forms.ModelForm[Person]):
 
 
 class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
-
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
@@ -143,7 +130,6 @@ class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
 
 
 class OrganizationForm(forms.ModelForm[Organization]):
-
     class Meta:
         model = Organization
         exclude = ['redmine_contact_id', 'longitude', 'latitude']
@@ -159,7 +145,6 @@ class OrganizationForm(forms.ModelForm[Organization]):
 
 
 class OrganizationCreateForm(OrganizationForm):
-
     contact_person = forms.ModelChoiceField(
         queryset=Person.objects.all(),
         label=_("Select Person"),
@@ -168,31 +153,20 @@ class OrganizationCreateForm(OrganizationForm):
     )
 
     create_new_person = forms.BooleanField(
-        label=_("Register new contact person"),
-        required=False
+        label=_("Register new contact person"), required=False
     )
 
     contact_first_name = forms.CharField(
-        label=_("First Name"),
-        help_text=_("This field is required"),
-        required=False
+        label=_("First Name"), help_text=_("This field is required"), required=False
     )
 
-    contact_last_name = forms.CharField(
-        label=_("Last Name"),
-        required=False
-    )
+    contact_last_name = forms.CharField(label=_("Last Name"), required=False)
 
     contact_email = forms.EmailField(
-        label=_("Email"),
-        help_text=_("This field is required"),
-        required=False
+        label=_("Email"), help_text=_("This field is required"), required=False
     )
 
-    contact_phone = forms.CharField(
-        label=_("Phone"),
-        required=False
-    )
+    contact_phone = forms.CharField(label=_("Phone"), required=False)
 
     def clean(self):
         data = super().clean()
@@ -202,8 +176,11 @@ class OrganizationCreateForm(OrganizationForm):
                 validate_email(data['contact_email'])
             else:
                 raise forms.ValidationError(
-                    _("ERROR: You must either select a Contact \
-                    Person or create a new one and provide their personal information"))
+                    _(
+                        "ERROR: You must either select a Contact \
+                    Person or create a new one and provide their personal information"
+                    )
+                )
         return data
 
     def save(self):
@@ -214,12 +191,13 @@ class OrganizationCreateForm(OrganizationForm):
         person = Person.objects.create(
             first_name=self.cleaned_data['contact_first_name'],
             family_name=self.cleaned_data['contact_last_name'],
-            phone=self.cleaned_data['contact_phone'])
+            phone=self.cleaned_data['contact_phone'],
+        )
         person.save()
 
         auth_user = AuthUser.objects.create(
-            email=self.cleaned_data['contact_email'],
-            person=person)
+            email=self.cleaned_data['contact_email'], person=person
+        )
         auth_user.set_roles(['contact'])
 
         # # associate Contact to Organization
@@ -239,21 +217,21 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
                 'class': 'form-control',
                 'autocomplete': 'current-password',
                 'placeholder': 'Old password',
-                'autofocus': True
+                'autofocus': True,
             }
         )
         self.fields['new_password1'].widget = PasswordInput(
             attrs={
                 'class': 'form-control',
                 'autocomplete': 'new-password',
-                'placeholder': 'New password'
+                'placeholder': 'New password',
             }
         )
         self.fields['new_password2'].widget = PasswordInput(
             attrs={
                 'class': 'form-control',
                 'autocomplete': 'new-password',
-                'placeholder': 'Confirm password'
+                'placeholder': 'Confirm password',
             }
         )
 

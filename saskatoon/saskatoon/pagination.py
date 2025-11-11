@@ -9,12 +9,16 @@ class BasicPageNumberPagination(PageNumberPagination):
     max_page_size = 200
 
     def get_paginated_response(self, data):
-        return Response(OrderedDict([
-            ('count', self.page.paginator.count),
-            ('next', self.get_next_link()),
-            ('previous', self.get_previous_link()),
-            ('pages_count', self.page.paginator.num_pages),
-            ('current_page_number', self.page.number),
-            ('items_per_page', self.page.paginator.per_page),
-            ('results', data),
-        ]))
+        return Response(
+            OrderedDict(
+                [
+                    ('count', self.page.paginator.count),
+                    ('next', self.get_next_link()),
+                    ('previous', self.get_previous_link()),
+                    ('pages_count', self.page.paginator.num_pages),
+                    ('current_page_number', self.page.number),
+                    ('items_per_page', self.page.paginator.per_page),
+                    ('results', data),
+                ]
+            )
+        )

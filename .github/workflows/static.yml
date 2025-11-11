@@ -37,9 +37,9 @@ jobs:
       run: |
         tox -e mypy
 
-    - name: Run flake8
+    - name: Run ruff
       run: |
-        tox -e flake8
+        tox -e ruff
 
     - name: Run pytype
       run: |

@@ -4,7 +4,6 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0017_auto_20250504_1308'),
     ]
@@ -12,6 +11,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='authuser',
-            options={'ordering': ['date_joined'], 'verbose_name': 'user', 'verbose_name_plural': 'users'},
+            options={
+                'ordering': ['date_joined'],
+                'verbose_name': 'user',
+                'verbose_name_plural': 'users',
+            },
         ),
     ]

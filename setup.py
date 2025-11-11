@@ -6,18 +6,18 @@ import pathlib
 # To install 'test' extra packages: (venv)$ pip3 install 'Saskatoon[test]'
 
 setup(
-    name                =   "Saskatoon",
-    description         =   "Saskatoon - harverst management system",
-    url                 =   "https://github.com/LesFruitsDefendus/saskatoon-ng",
-    maintainer          =   "Les Fruits Défendus",
-    author              =   "Tassia Camoes Araujo, Tiago Bortoletto Vaz, Tristan Landes-Tremblay",
-    version             =   "2.dev0",
-    classifiers         =   ["Programming Language :: Python :: 3"],
-    license             =   "GNU AFFERO GENERAL PUBLIC LICENSE",
-    long_description    =   pathlib.Path(__file__).parent.joinpath("README.md").read_text(),
-    long_description_content_type   =   "text/markdown",
-    packages = ["saskatoon"],
-    install_requires    =   [
+    name="Saskatoon",
+    description="Saskatoon - harverst management system",
+    url="https://github.com/LesFruitsDefendus/saskatoon-ng",
+    maintainer="Les Fruits Défendus",
+    author="Tassia Camoes Araujo, Tiago Bortoletto Vaz, Tristan Landes-Tremblay",
+    version="2.dev0",
+    classifiers=["Programming Language :: Python :: 3"],
+    license="GNU AFFERO GENERAL PUBLIC LICENSE",
+    long_description=pathlib.Path(__file__).parent.joinpath("README.md").read_text(),
+    long_description_content_type="text/markdown",
+    packages=["saskatoon"],
+    install_requires=[
         "asgiref>=3.2.7",
         "cffi>=1.14.0",
         "crispy-bootstrap4>=2022.1",
@@ -51,18 +51,18 @@ setup(
         "django-stubs[compatible-mypy]",
         "django-stubs-ext",
         "djangorestframework-stubs[compatible-mypy]",
-        "types-setuptools"
+        "types-setuptools",
     ],
-    extras_require      =   {
+    extras_require={
         'test': [
             'invoke',
-            'flake8',
             'pytest',
             'pytest-django',
             'selenium',
             'tox',
             'hypothesis',
             'hypothesis[django]',
+            'ruff'
         ]
     },
 )

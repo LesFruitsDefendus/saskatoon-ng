@@ -23,7 +23,7 @@ FIXTURE_SEQUENCE = [
     'harvest-harvestyield',
     'harvest-comment',
     'harvest-requestforparticipation',
-    'sitebase-pagecontent'
+    'sitebase-pagecontent',
 ]
 
 AuthUser = get_user_model()

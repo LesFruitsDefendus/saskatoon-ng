@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0005_auto_20210818_1735'),
     ]
@@ -13,6 +12,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='equipment',
             name='shared',
-            field=models.BooleanField(default=False, help_text='Can be used in harvests outside of property', verbose_name='Shared'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Can be used in harvests outside of property',
+                verbose_name='Shared',
+            ),
         ),
     ]

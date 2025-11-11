@@ -5,12 +5,7 @@ from django.db.models import Count
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
-from member.models import (
-    AuthUser,
-    Organization,
-    Person,
-    Neighborhood
-)
+from member.models import AuthUser, Organization, Person, Neighborhood
 from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
 
@@ -19,18 +14,13 @@ class CommunityFilter(filters.FilterSet):
 
     class Meta:
         model = AuthUser
-        fields = [
-            'role',
-            'neighborhood',
-            'language',
-            'season'
-        ]
+        fields = ['role', 'neighborhood', 'language', 'season']
 
     role = filters.MultipleChoiceFilter(
         choices=AuthUser.GROUPS,
         label=_("Role(s)"),
         widget=forms.CheckboxSelectMultiple,
-        method='role_filter'
+        method='role_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -50,7 +40,7 @@ class CommunityFilter(filters.FilterSet):
         field_name='season',
         choices=Harvest.SEASON_CHOICES,
         lookup_expr='year',
-        method='season_filter'
+        method='season_filter',
     )
 
     sort = filters.ChoiceFilter(
@@ -60,7 +50,7 @@ class CommunityFilter(filters.FilterSet):
             ('picks', _("Most participations")),
         ],
         help_text="",
-        method='sort_filter'
+        method='sort_filter',
     )
 
     def role_filter(self, queryset, name, roles):
@@ -68,11 +58,11 @@ class CommunityFilter(filters.FilterSet):
         return queryset.filter(groups__in=groups)
 
     def person_first_name_filter(self, queryset, name, value):
-        query = (Q(person__first_name__icontains=value))
+        query = Q(person__first_name__icontains=value)
         return queryset.filter(query)
 
     def person_family_name_filter(self, queryset, name, value):
-        query = (Q(person__family_name__icontains=value))
+        query = Q(person__family_name__icontains=value)
         return queryset.filter(query)
 
     def season_filter(self, queryset, name, year):
@@ -85,7 +75,7 @@ class CommunityFilter(filters.FilterSet):
                 Harvest.Status.ADOPTED,
                 Harvest.Status.SCHEDULED,
                 Harvest.Status.SUCCEEDED,
-            ]
+            ],
         )
         leaders = Q(harvests__in=harvests)
         owners = Q(person__properties__harvests__in=harvests)
@@ -94,13 +84,26 @@ class CommunityFilter(filters.FilterSet):
 
     def sort_filter(self, queryset, name, choice):
         if choice == 'leads':
-            return queryset.annotate(leads=Count('harvests', filter=Q(
-                harvests__status__in=[Harvest.Status.SUCCEEDED, Harvest.Status.SCHEDULED]))
+            return queryset.annotate(
+                leads=Count(
+                    'harvests',
+                    filter=Q(
+                        harvests__status__in=[
+                            Harvest.Status.SUCCEEDED,
+                            Harvest.Status.SCHEDULED,
+                        ]
+                    ),
+                )
             ).order_by('-leads')
         elif choice == 'picks':
-            return queryset.annotate(picks=Count('person__requests', filter=Q(
-                person__requests__status=RequestForParticipation.Status.ACCEPTED,
-                person__requests__harvest__status=Harvest.Status.SUCCEEDED))
+            return queryset.annotate(
+                picks=Count(
+                    'person__requests',
+                    filter=Q(
+                        person__requests__status=RequestForParticipation.Status.ACCEPTED,
+                        person__requests__harvest__status=Harvest.Status.SUCCEEDED,
+                    ),
+                )
             ).order_by('-picks')
         else:
             return queryset
@@ -122,7 +125,7 @@ class OrganizationFilter(filters.FilterSet):
             ('1', _('Beneficiaries')),
             ('2', _('Equipment Points')),
         ],
-        method='type_filter'
+        method='type_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -154,7 +157,7 @@ class EquipmentPointFilter(filters.FilterSet):
         field_name='is_beneficiary',
         label=_("Beneficiary"),
         widget=forms.CheckboxInput,
-        method='beneficiary_filter'
+        method='beneficiary_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -166,7 +169,7 @@ class EquipmentPointFilter(filters.FilterSet):
     equipment_type = filters.ModelChoiceFilter(
         label=_("Equipment Type"),
         queryset=EquipmentType.objects.all(),
-        method='equipment_type_filter'
+        method='equipment_type_filter',
     )
 
     def beneficiary_filter(self, queryset, name, value):

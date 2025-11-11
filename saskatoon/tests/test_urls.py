@@ -36,10 +36,8 @@ def test_urls(driver: Remote) -> None:
 
         className = "main-menu-area" if needs_auth else "footer-copyright-area"
         WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
-            EC.visibility_of_all_elements_located(
-                (By.CLASS_NAME,  className)
-            ),
-            f"Can't locate {className} on page {url}"
+            EC.visibility_of_all_elements_located((By.CLASS_NAME, className)),
+            f"Can't locate {className} on page {url}",
         )
         assert url in driver.current_url
         assert 'html' in driver.page_source
