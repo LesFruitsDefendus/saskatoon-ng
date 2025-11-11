@@ -395,5 +395,9 @@ class HarvestDetailSerializer(HarvestSerializer):
             return None
 
         owner_id = equipment[0]["owner_id"]
-        owner = Organization.objects.get(pk=owner_id)
-        return OrganizationSerializer(owner, many=False, read_only=True).data
+        owner = Organization.objects.filter(pk=owner_id)
+
+        if owner.count() == 1:
+            return OrganizationSerializer(owner.first(), many=False, read_only=True).data
+
+        return None

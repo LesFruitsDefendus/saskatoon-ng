@@ -329,5 +329,9 @@
             "Cancelled"
         ]
     ],
-    "nb_required_pickers": 3
+    "equipment_point": null,
+    "nb_required_pickers": 3,
+    "equipment_reserved": [
+        1
+    ]
 }
