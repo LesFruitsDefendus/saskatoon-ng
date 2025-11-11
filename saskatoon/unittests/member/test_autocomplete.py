@@ -1,15 +1,25 @@
 import pytest
 
 from member.autocomplete import (
-    PersonAutocomplete, ContactAutocomplete, AuthUserAutocomplete,
-    PickLeaderAutocomplete, ActorAutocomplete, OwnerAutocomplete,
-    EquipmentPointAutocomplete, NeighborhoodAutocomplete
+    PersonAutocomplete,
+    ContactAutocomplete,
+    AuthUserAutocomplete,
+    PickLeaderAutocomplete,
+    ActorAutocomplete,
+    OwnerAutocomplete,
+    EquipmentPointAutocomplete,
+    NeighborhoodAutocomplete,
 )
 
 autocomplete_classes = [
-    PersonAutocomplete, ContactAutocomplete, AuthUserAutocomplete,
-    PickLeaderAutocomplete, ActorAutocomplete, OwnerAutocomplete,
-    EquipmentPointAutocomplete, NeighborhoodAutocomplete
+    PersonAutocomplete,
+    ContactAutocomplete,
+    AuthUserAutocomplete,
+    PickLeaderAutocomplete,
+    ActorAutocomplete,
+    OwnerAutocomplete,
+    EquipmentPointAutocomplete,
+    NeighborhoodAutocomplete,
 ]
 
 
