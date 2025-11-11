@@ -270,15 +270,6 @@ class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
         return type.name_fr
 
 
-class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
-    class Meta:
-        model = Equipment
-        fields = '__all__'
-
-    property = PropertyEquipmentSerializer(many=False, read_only=True)
-    type = EquipmentTypeSerializer(many=False, read_only=True)
-
-
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
         fields = [
@@ -329,6 +320,15 @@ class HarvestListSerializer(HarvestSerializer):
 
     def get_volunteers(self, harvest):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
+
+class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
+    class Meta:
+        model = Equipment
+        fields = '__all__'
+
+    property = PropertyEquipmentSerializer(many=False, read_only=True)
+    type = EquipmentTypeSerializer(many=False, read_only=True)
+
 
 class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     class Meta:
@@ -390,6 +390,10 @@ class HarvestDetailSerializer(HarvestSerializer):
 
     def get_equipment_point(self, obj):
         equipment = obj.equipment_reserved.values()
-        owner_id = equipment[0]["owner_id"] if equipment.count() > 0 else None
-        owner = Organization.objects.get(pk=owner_id) if owner_id is not None else None
-        return OrganizationSerializer(owner, many=False, read_only=True) if owner is not None else None
+
+        if equipment.count() == 0:
+            return None
+
+        owner_id = equipment[0]["owner_id"]
+        owner = Organization.objects.get(pk=owner_id)
+        return OrganizationSerializer(owner, many=False, read_only=True).data
