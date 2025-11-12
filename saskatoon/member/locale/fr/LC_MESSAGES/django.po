@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-11 17:25+0000\n"
+"POT-Creation-Date: 2025-11-12 13:07+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,15 +19,15 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
-#: member/admin_filters.py:137
+#: member/admin_filters.py:138
 msgid "None"
 msgstr "Aucun"
 
-#: member/admin_filters.py:138
+#: member/admin_filters.py:139
 msgid "Person"
 msgstr "Personne"
 
-#: member/admin_filters.py:139
+#: member/admin_filters.py:140
 msgid "Organization"
 msgstr "Organisme"
 
