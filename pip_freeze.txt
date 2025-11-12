@@ -5,7 +5,7 @@ cffi==1.16.0
 charset-normalizer==3.3.2
 crispy-bootstrap4==2022.1
 cryptography==42.0.7
-Django==3.2.25
+Django==4.2.26
 django-appconf==1.0.6
 django-autocomplete-light==3.11.0
 django-crequest==2018.5.11
