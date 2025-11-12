@@ -65,9 +65,6 @@ setup(
             'tox',
             'hypothesis',
             'hypothesis[django]',
-        ],
-        'dev': [
-            'yapf',
         ]
     },
 )
