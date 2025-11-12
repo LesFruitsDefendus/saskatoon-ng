@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-10-19 14:23+0000\n"
+"POT-Creation-Date: 2025-11-11 17:25+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -486,7 +486,7 @@ msgstr "Téléphone"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: sitebase/templates/app/detail_views/harvest/breadcomb.html:34
+#: sitebase/templates/app/detail_views/harvest/breadcomb.html:36
 msgid "Edit Harvest"
 msgstr "Éditer la récolte"
 

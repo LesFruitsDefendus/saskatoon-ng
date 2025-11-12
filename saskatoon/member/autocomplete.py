@@ -1,19 +1,23 @@
-from dal import autocomplete
-from django.contrib.auth.models import Group
-from django.db.models.query_utils import Q
-from .models import AuthUser, Organization, Person, Actor, Neighborhood
+from django.contrib.auth.models import Group, AbstractBaseUser
+from django.db.models import Q, QuerySet
+from typeguard import typechecked
+
+from member.models import AuthUser, Organization, Person, Actor, Neighborhood
+from member.utils import available_equipment_points
+from saskatoon.autocomplete import Autocomplete
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
 
 
-class PersonAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class PersonAutocomplete(Autocomplete):
     """Person autocomplete with optional role filter"""
 
-    def __init__(self, roles=[]):
+    def __init__(self, roles=[]) -> None:
         self.roles = roles
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
+    def get_queryset(self) -> QuerySet[Person]:
+        if not self.is_authenticated():
             return Person.objects.none()
 
         qs = Person.objects.all()
@@ -30,26 +34,28 @@ class PersonAutocomplete(autocomplete.Select2QuerySetView):
         return qs.distinct()
 
 
+@typechecked
 class ContactAutocomplete(PersonAutocomplete):
     """Persons with contact role (aka Organizations' contact persons)"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(['contact'])
 
 
-class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class AuthUserAutocomplete(Autocomplete):
     """AuthUser autocomplete with optional role filter"""
 
-    def __init__(self, roles=[]):
+    def __init__(self, roles=[]) -> None:
         self.roles = roles
 
     @staticmethod
-    def get_roles_queryset(queryset, roles):
+    def get_roles_queryset(queryset, roles) -> QuerySet[AbstractBaseUser]:
         groups = Group.objects.filter(name__in=roles).values('id')
         return queryset.filter(groups__in=groups).distinct()
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
+    def get_queryset(self) -> QuerySet[AbstractBaseUser]:
+        if not self.is_authenticated():
             return AuthUser.objects.none()
 
         qs = AuthUser.objects.all()
@@ -66,18 +72,20 @@ class AuthUserAutocomplete(autocomplete.Select2QuerySetView):
         return qs.distinct()
 
 
+@typechecked
 class PickLeaderAutocomplete(AuthUserAutocomplete):
     """AuthUser autocomplete for core members and pickleaders"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__(['pickleader', 'core'])
 
 
-class ActorAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class ActorAutocomplete(Autocomplete):
     """Actor autocomplete"""
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
+    def get_queryset(self) -> QuerySet[Actor]:
+        if not self.is_authenticated():
             return Actor.objects.none()
 
         qs = Actor.objects.all()
@@ -91,11 +99,12 @@ class ActorAutocomplete(autocomplete.Select2QuerySetView):
         return qs.distinct()
 
 
-class OwnerAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class OwnerAutocomplete(Autocomplete):
     """Organizations + Persons with owner role"""
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
+    def get_queryset(self) -> QuerySet[Actor]:
+        if not self.is_authenticated():
             return Actor.objects.none()
 
         f1 = Q(organization__isnull=False)
@@ -111,26 +120,31 @@ class OwnerAutocomplete(autocomplete.Select2QuerySetView):
         return qs.distinct()
 
 
-class EquipmentPointAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class EquipmentPointAutocomplete(Autocomplete):
     """Organizations that are Equipment Points"""
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
-            return Organization.objects.none()
+    def get_queryset(self) -> QuerySet[Organization]:
+        qs = Organization.objects.none()
 
-        qs = Organization.objects.filter(is_equipment_point=True)
+        if not self.is_authenticated():
+            return qs
 
-        if self.q:
-            qs = qs.filter(organization__civil_name__icontains=self.q)
+        start = self.forwarded.get('start_date', None)
+        end = self.forwarded.get('end_date', None)
+
+        if start and end:
+            qs = available_equipment_points(start, end, None)
 
         return qs.distinct()
 
 
-class NeighborhoodAutocomplete(autocomplete.Select2QuerySetView):
+@typechecked
+class NeighborhoodAutocomplete(Autocomplete):
     """Neighborhoods (aka Boroughs)"""
 
-    def get_queryset(self):
-        if not self.request.user.is_authenticated:
+    def get_queryset(self) -> QuerySet[Neighborhood]:
+        if not self.is_authenticated():
             return Neighborhood.objects.none()
 
         return Neighborhood.objects.all()

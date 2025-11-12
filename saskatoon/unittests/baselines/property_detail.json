@@ -19,6 +19,117 @@
     "title": "Nice Owner at 123 av. Mont-Royal",
     "harvests": [
         {
+            "id": 5,
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "start_date": "3000-08-01",
+            "start_time": "8:00 AM",
+            "end_date": "3000-08-01",
+            "pick_leader": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "3000-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2021-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2021-07-22",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2021-07-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    }
+                ],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        },
+        {
             "id": 4,
             "status": "scheduled",
             "status_display": "Scheduled",
@@ -39,6 +150,15 @@
                 },
                 "comments": "",
                 "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "3000-08-01",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 4,
                         "pick_leader": "Core Member",
@@ -198,6 +318,15 @@
                 },
                 "comments": "",
                 "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "3000-08-01",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 4,
                         "pick_leader": "Core Member",

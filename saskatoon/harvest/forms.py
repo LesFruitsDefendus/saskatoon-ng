@@ -475,7 +475,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
             'pick_leader': autocomplete.ModelSelect2(
                 'pickleader-autocomplete'
             ),
-            'nb_required_pickers': forms.NumberInput()
+            'nb_required_pickers': forms.NumberInput(),
+
         }
 
     start_date = forms.DateTimeField(

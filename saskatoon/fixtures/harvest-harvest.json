@@ -17,8 +17,8 @@
     "changed_by": null,
     "date_created": "2021-05-26T21:42:50.701Z",
     "trees": [
-      9,
-      14
+      14,
+      9
     ],
     "equipment_reserved": [
       1
@@ -92,6 +92,31 @@
       1
     ],
     "equipment_reserved": []
+  }
+},
+{
+  "model": "harvest.harvest",
+  "pk": 5,
+  "fields": {
+    "status": "scheduled",
+    "property": 3,
+    "owner_present": true,
+    "owner_help": true,
+    "owner_fruit": false,
+    "pick_leader": 4,
+    "start_date": "3000-08-01T13:00:00Z",
+    "end_date": "3000-08-01T16:00:00Z",
+    "publication_date": "2021-07-19T18:23:32.853Z",
+    "nb_required_pickers": 4,
+    "about": "{\"delta\": \"\", \"html\": \"<p>Used for testing equipment reservation conflicts</p>\"}",
+    "changed_by": null,
+    "date_created": "2021-07-19T18:23:32.854Z",
+    "trees": [
+      1
+    ],
+    "equipment_reserved": [
+      2
+    ]
   }
 }
 ]
