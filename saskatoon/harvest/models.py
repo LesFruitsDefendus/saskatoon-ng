@@ -10,10 +10,9 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional, Union
+from typing import Optional
 from enum import Enum
 from typeguard import typechecked
-import deal
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, rgetattr
 
@@ -553,6 +552,7 @@ class Equipment(models.Model):
             self.shared = True
         super().save(*args, **kwargs)
 
+
 @typechecked
 class Harvest(models.Model):
     """Harvest model"""
@@ -881,8 +881,8 @@ class RequestForParticipation(models.Model):
     )
 
     @staticmethod
-    def get_status_choices():
-        return [s[0] for s in RequestForParticipation.Status.choices]
+    def get_status_enum() -> 'RequestForParticipation.Status':
+        return RequestForParticipation.Status
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

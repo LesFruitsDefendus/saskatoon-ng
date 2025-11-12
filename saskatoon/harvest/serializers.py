@@ -319,7 +319,7 @@ class HarvestListSerializer(HarvestSerializer):
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_enum()])
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:

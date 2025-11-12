@@ -52,7 +52,8 @@ setup(
         "django-stubs-ext",
         "djangorestframework-stubs[compatible-mypy]",
         "types-setuptools",
-        "typeguard==3.0.2"
+        "typeguard==3.0.2",
+        "types-django-filter"
     ],
     extras_require      =   {
         'test': [
