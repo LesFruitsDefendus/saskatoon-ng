@@ -1,9 +1,10 @@
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
+from typing import Optional
 
 from harvest.models import Property, Harvest, RequestForParticipation
-from member.models import Organization, Person
+from member.models import Organization, Person, Actor
 
 
 class UserGroupAdminFilter(SimpleListFilter):
@@ -11,7 +12,7 @@ class UserGroupAdminFilter(SimpleListFilter):
 
     title = 'Group Filter'
     parameter_name = 'group'
-    default_value = None
+    default_value: Optional[Group] = None
 
     def lookups(self, request, model_admin):
         list_of_roles = [('0', '__none__')]
@@ -32,7 +33,7 @@ class UserIsOnboardingAdminFilter(SimpleListFilter):
 
     title = 'Onboarding PickLeader Filter'
     parameter_name = 'pending'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'volunteer w/ password')]
@@ -53,7 +54,7 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
 
     title = 'Property Filter'
     parameter_name = 'property'
-    default_value = None
+    default_value: Optional[Property] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'has a property')]
@@ -73,7 +74,7 @@ class UserHasLedPicksAdminFilter(SimpleListFilter):
 
     title = 'Pick-Leader Filter'
     parameter_name = 'leader'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'has led pick(s)')]
@@ -92,7 +93,7 @@ class UserHasVolunteeredAdminFilter(SimpleListFilter):
 
     title = 'Volunteer Filter'
     parameter_name = 'picker'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'has volunteered')]
@@ -111,7 +112,7 @@ class UserIsContactAdminFilter(SimpleListFilter):
 
     title = 'Contact Filter'
     parameter_name = 'contact'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'is contact')]
@@ -130,7 +131,7 @@ class ActorTypeAdminFilter(SimpleListFilter):
 
     title = 'Type Filter'
     parameter_name = 'actor'
-    default_value = None
+    default_value: Optional[Actor] = None
 
     def lookups(self, request, model_admin):
         return [
@@ -154,7 +155,7 @@ class PersonHasNoUserAdminFilter(SimpleListFilter):
 
     title = 'AuthUser Filter'
     parameter_name = 'user'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('0', 'has no auth_user')]
@@ -170,7 +171,7 @@ class OrganizationHasNoContactAdminFilter(SimpleListFilter):
 
     title = 'Contact Filter'
     parameter_name = 'contact'
-    default_value = None
+    default_value: Optional[Person] = None
 
     def lookups(self, request, model_admin):
         return [('0', 'has no contact')]

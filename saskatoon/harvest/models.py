@@ -10,10 +10,12 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
+from typing import Optional, Union
 from enum import Enum
+from typeguard import typechecked
+import deal
 
-from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
+from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, rgetattr
 
 
 class TreeType(models.Model):
@@ -551,7 +553,7 @@ class Equipment(models.Model):
             self.shared = True
         super().save(*args, **kwargs)
 
-
+@typechecked
 class Harvest(models.Model):
     """Harvest model"""
 
@@ -674,14 +676,15 @@ class Harvest(models.Model):
         auto_now_add=True
     )
 
-    def __str__(self):
+    def __str__(self) -> str:
         start = self.get_local_start()
         if start is not None:
             return _("Harvest on {} for {}").format(
                 start.strftime("%d/%m/%Y %H:%M"),
                 self.property
             )
-        return _("Harvest for {}").format(self.property)
+        else:
+            return _("Harvest for {}").format(self.property)
 
     @staticmethod
     def get_status_choices():
@@ -689,15 +692,15 @@ class Harvest(models.Model):
         return [s for s in Harvest.Status.choices
                 if s[0] != Harvest.Status.PENDING]
 
-    def get_total_distribution(self) -> Optional[int]:
+    def get_total_distribution(self) -> Optional[float]:
         return self.yields.aggregate(
             models.Sum("total_in_lb")
         ).get("total_in_lb__sum")
 
-    def get_local_start(self):
+    def get_local_start(self) -> Optional[datetime]:
         return local_datetime(self.start_date)
 
-    def get_local_end(self):
+    def get_local_end(self) -> Optional[datetime]:
         return local_datetime(self.end_date)
 
     def get_date_range(self) -> str:
@@ -714,7 +717,7 @@ class Harvest(models.Model):
     def has_public_announcement(self) -> bool:
         return self.about is not None and not is_quill_html_empty(self.about.html)
 
-    def get_local_publish_date(self):
+    def get_local_publish_date(self) -> Optional[datetime]:
         return local_datetime(self.publication_date)
 
     def get_volunteers_count(self, status: Optional['RequestForParticipation.Status']) -> int:
@@ -734,40 +737,51 @@ class Harvest(models.Model):
     def has_pending_requests(self) -> bool:
         return self.get_volunteers_count(RequestForParticipation.Status.PENDING) > 0
 
-    def get_days_before_harvest(self):
-        diff = datetime.now() - self.start_date
-        return diff.days
+    def get_days_before_harvest(self) -> Optional[int]:
+        start_date = self.start_date
+        if start_date is not None:
+            diff = datetime.now() - start_date
+            return diff.days
 
-    def get_neighborhood(self):
-        return self.property.neighborhood.name
+        return None
+
+    def get_neighborhood(self) -> str:
+        name: Optional[str] = rgetattr(self, 'property.neighborhood.name', None)
+
+        if name is None:
+            return ""
+        else:
+            return name
 
     def get_fruits(self):
         return [t.fruit for t in self.trees.all()]
 
-    def get_public_title(self):
+    def get_public_title(self) -> str:
         title = ", ".join(self.get_fruits())
-        if self.property.neighborhood.name != "Other":
-            title += f" @ {self.property.neighborhood.name}"
+        neighborhood_name: Optional[str]  = rgetattr(self, 'property.neighborhood.name', "")
+        if neighborhood_name != "Other":
+            title += f" @ {neighborhood_name}"
         return title
 
-    def is_urgent(self):
-        if not self.start_date:
+    def is_urgent(self) -> bool:
+        days = self.get_days_before_harvest()
+
+        if days is None:
             return False
 
-        days = self.get_days_before_harvest()
         return (
             (self.status is Harvest.Status.ORPHAN and days < 14) or
             (self.status is Harvest.Status.SCHEDULED and days < 3)
         )
 
-    def is_publishable(self):
+    def is_publishable(self) -> bool:
         if self.status not in self.PUBLISHABLE_STATUSES:
             return False
         if not self.publication_date:
             return True
         return (tz.now() > self.publication_date)
 
-    def is_open_to_requests(self, public: bool = True):
+    def is_open_to_requests(self, public: bool = True) -> bool:
         if self.end_date is not None and tz.now() > self.end_date:
             return False
 
