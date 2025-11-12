@@ -1,11 +1,48 @@
 {
-    "count": 4,
+    "count": 5,
     "next": null,
     "previous": null,
     "pages_count": 1,
     "current_page_number": 1,
     "items_per_page": 10,
     "results": [
+        {
+            "id": 5,
+            "start_date": "Fri. Aug. 1, 3000",
+            "start_time": "8:00 AM",
+            "end_time": "11:00 AM",
+            "date_range": "",
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "pick_leader": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            }
+        },
         {
             "id": 4,
             "start_date": "Sun. Aug. 1, 2021",

@@ -1,9 +1,10 @@
 import re
-
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional
+from typing import Optional, TypeVar, MutableMapping
+from functools import reduce
+from typeguard import typechecked
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
@@ -44,3 +45,12 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
+
+T = TypeVar('T')
+V = TypeVar('V')
+@typechecked
+def rgetattr(obj, attr: str, *args) -> Optional[T]:
+    """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
+    def _getattr(obj: MutableMapping[str, V], attr: str) -> V:
+        return getattr(obj, attr, *args)
+    return reduce(_getattr, [obj] + attr.split('.'))

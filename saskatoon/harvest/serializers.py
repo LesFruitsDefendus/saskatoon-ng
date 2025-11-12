@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from typeguard import typechecked
+
 from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
@@ -257,6 +259,17 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
         fields = ['actor_id', 'civil_name']
 
 
+class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
+    class Meta:
+        model = EquipmentType
+        fields = ['name', 'name_fr', 'name_en']
+
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, type):
+        return type.name_fr
+
+
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
         fields = [
@@ -269,34 +282,6 @@ class HarvestDetailPropertySerializer(PropertySerializer):
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
-
-
-class HarvestDetailSerializer(HarvestSerializer):
-    class Meta:
-        model = Harvest
-        exclude = [
-            'owner_present',
-            'owner_help',
-            'owner_fruit',
-            'publication_date',
-            'equipment_reserved',
-            'date_created',
-            'changed_by',
-            'end_date',
-        ]
-
-    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
-    property = HarvestDetailPropertySerializer(many=False, read_only=True)
-    comments = CommentSerializer(many=True, read_only=True)
-    about = serializers.SerializerMethodField()
-    status_choices = serializers.SerializerMethodField()
-
-    def get_about(self, obj):
-        return obj.about.html
-
-    def get_status_choices(self, _obj):
-        return Harvest.get_status_choices()
-
 
 class HarvestListPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
@@ -334,19 +319,7 @@ class HarvestListSerializer(HarvestSerializer):
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
-
-
-class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
-    class Meta:
-        model = EquipmentType
-        fields = ['name', 'name_fr', 'name_en']
-
-    name = serializers.SerializerMethodField()
-
-    def get_name(self, type):
-        return type.name_fr
-
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_enum()])
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
@@ -387,3 +360,44 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
             for lang in ['fr', 'en']
         ])
+
+@typechecked
+class HarvestDetailSerializer(HarvestSerializer):
+    class Meta:
+        model = Harvest
+        exclude = [
+            'owner_present',
+            'owner_help',
+            'owner_fruit',
+            'publication_date',
+            'date_created',
+            'changed_by',
+            'end_date',
+        ]
+
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    property = HarvestDetailPropertySerializer(many=False, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    about = serializers.SerializerMethodField()
+    status_choices = serializers.SerializerMethodField()
+    equipment_point = serializers.SerializerMethodField()
+
+    def get_about(self, obj):
+        return obj.about.html
+
+    def get_status_choices(self, _obj):
+        return Harvest.get_status_choices()
+
+    def get_equipment_point(self, obj):
+        equipment = obj.equipment_reserved.values()
+
+        if equipment.count() == 0:
+            return None
+
+        owner_id = equipment[0]["owner_id"]
+        owner = Organization.objects.filter(pk=owner_id)
+
+        if owner.count() == 1:
+            return OrganizationSerializer(owner.first(), many=False, read_only=True).data
+
+        return None

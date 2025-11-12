@@ -77,7 +77,7 @@ class Migration(migrations.Migration):
                 ('pending_contact_email', models.EmailField(blank=True, help_text='Email address to be used for confirmation', max_length=254, null=True, verbose_name='Contact email')),
                 ('pending_newsletter', models.BooleanField(default=False, verbose_name='Newsletter subscription')),
                 ('pending_recurring', models.BooleanField(default=False, verbose_name='Recurring property signup')),
-                ('geom', djgeojson.fields.PointField(blank=True, null=True)),
+                ('geom', djgeojson.fields.PointField(blank=True, null=True)),  # type: ignore  # no type stubs for djgeojson
                 ('trees_location', models.CharField(blank=True, help_text='Front yard or backyard?', max_length=200, null=True, verbose_name='Trees location')),
                 ('trees_accessibility', models.CharField(blank=True, help_text='Any info on how to access the tree (eg. key, gate etc)', max_length=200, null=True, verbose_name='Trees accessibility')),
                 ('avg_nb_required_pickers', models.PositiveIntegerField(default=1, null=True, verbose_name='Required pickers on average')),

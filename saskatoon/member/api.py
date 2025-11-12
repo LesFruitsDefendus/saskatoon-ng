@@ -33,7 +33,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
     queryset = Organization.objects.all().order_by('-actor_id')
     template_name = 'app/detail_views/organization/view.html'
     serializer_class = OrganizationSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
     filterset_class = OrganizationFilter
     search_fields = [
         'actor_id',
@@ -73,7 +73,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
     serializer_class = OrganizationSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # same thing
     filterset_class = EquipmentPointFilter
     template_name = 'app/list_views/organization/organizations.html'
     search_fields = [
@@ -123,7 +123,7 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
                        .filter(person__first_name__isnull=False) \
                        .order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # same thing
     filterset_class = CommunityFilter
     search_fields = [
         'id',

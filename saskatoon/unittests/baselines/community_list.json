@@ -68,6 +68,15 @@
                 "comments": "Passer par l'arrière ruelle",
                 "harvests": [
                     {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "3000-08-01",
+                        "role": "owner"
+                    },
+                    {
                         "id": 4,
                         "pick_leader": "Core Member",
                         "property": "Nice Owner at 123 av. Mont-Royal",
@@ -153,6 +162,15 @@
                 },
                 "comments": "",
                 "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "3000-08-01",
+                        "role": "pickleader"
+                    },
                     {
                         "id": 4,
                         "pick_leader": "Core Member",

@@ -64,6 +64,28 @@
             "pending": false,
             "harvests": [
                 {
+                    "id": 5,
+                    "status": "scheduled",
+                    "status_display": "Scheduled",
+                    "start_date": "3000-08-01",
+                    "start_time": "8:00 AM",
+                    "end_date": "3000-08-01",
+                    "pick_leader": "Core Member",
+                    "trees": [
+                        {
+                            "id": 1,
+                            "name_en": "Apricot tree",
+                            "name_fr": "Abricotier",
+                            "fruit_name_en": "Apricots",
+                            "fruit_name_fr": "Abricots",
+                            "fruit_icon": "🍑",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
+                },
+                {
                     "id": 4,
                     "status": "scheduled",
                     "status_display": "Scheduled",
