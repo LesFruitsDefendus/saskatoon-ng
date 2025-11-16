@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'django_quill',
     'rosetta',
     'phone_field',
+    'sortedm2m',
 ]
 
 MIDDLEWARE = [
