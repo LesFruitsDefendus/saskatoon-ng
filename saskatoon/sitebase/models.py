@@ -45,6 +45,7 @@ class PageContent(models.Model):
         PICKLEADER_HOME = 'pickleader_home', _("Pickleader Home")
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
+        FAQ = 'faq', _("FAQ")
 
     type = models.CharField(
         verbose_name=_("Page type"),
@@ -104,7 +105,7 @@ class FAQItem(models.Model):
     class Meta:
         verbose_name = _("FAQ Item")
         verbose_name_plural = _("FAQ Items")
-        ordering = ['is_active', 'id']
+        ordering = ['id']
 
     question_en = models.CharField(
         verbose_name="Question (en)",
@@ -126,12 +127,6 @@ class FAQItem(models.Model):
     answer_fr = models.TextField(
         verbose_name="Réponse (fr)",
         blank=False,
-    )
-
-    is_active = models.BooleanField(
-        verbose_name=_("Enabled"),
-        default=True,
-        null=False
     )
 
     def __str__(self):
