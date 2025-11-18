@@ -22,7 +22,6 @@ class FAQuestionAdmin(admin.ModelAdmin[FAQItem]):
     list_display = (
         'question_en',
         'question_fr',
-        'is_active',
         'id',
     )
 

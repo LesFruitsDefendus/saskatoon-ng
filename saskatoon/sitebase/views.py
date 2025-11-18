@@ -10,10 +10,12 @@ from django.views.generic import View, TemplateView
 from harvest.models import Harvest
 from member.permissions import is_pickleader_or_core_or_admin
 from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
-from sitebase.models import PageContent
+from sitebase.models import PageContent, FAQList
 
 
 class Index(TemplateView):
+    """Home page."""
+
     template_name = 'app/index.html'
 
     def get_context_data(self, **kwargs):
@@ -44,6 +46,27 @@ class Index(TemplateView):
                 return redirect('change-password')
 
         return super().dispatch(request, *args, **kwargs)
+
+
+class FAQView(TemplateView):
+    """Frequently Asked Questions page."""
+
+    template_name = 'app/faq.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        lang = self.request.LANGUAGE_CODE
+
+        context['content'] = PageContent.get(type=PageContent.Type.FAQ, lang=lang)
+
+        faq = FAQList.objects.filter(is_active=True).first()
+        if faq is not None:
+            context['items'] = [
+                dict([(key, getattr(item, f"{key}_{lang}")) for key in ['question', 'answer']])
+                for item in faq.items.all()
+            ]
+
+        return context
 
 
 class TermsConditionsView(LoginRequiredMixin, TemplateView):
@@ -105,6 +128,8 @@ class VolunteerWaiverPDFView(RestrictedPDFView):
 
 
 class Calendar(TemplateView):
+    """Calendar wrapper view"""
+
     template_name = 'app/calendar/view.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -117,6 +142,8 @@ class Calendar(TemplateView):
 
 
 class JsonCalendar(View):
+    """Calendar events"""
+
     def get(self, request, *args, **kwargs):
         start_date = request.GET.get('start')
         end_date = request.GET.get('end')
