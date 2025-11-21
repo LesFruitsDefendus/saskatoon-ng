@@ -68,18 +68,9 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     status_display = serializers.ReadOnlyField(source='get_status_display')
     pick_leader = serializers.SerializerMethodField()
     trees = TreeTypeSerializer(many=True, read_only=True)
-    start_date = serializers.DateTimeField(
-        source='get_local_start',
-        format=r"%Y-%m-%d"
-    )
-    start_time = serializers.DateTimeField(
-        source='get_local_start',
-        format=r"%-I:%M %p"
-    )
-    end_date = serializers.DateTimeField(
-        source='get_local_end',
-        format=r"%Y-%m-%d"
-    )
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
+    start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader:
@@ -123,10 +114,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
 
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
-    start_date = serializers.DateTimeField(
-        source='get_local_start',
-        format="%Y-%m-%d"
-    )
+    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
     pick_leader = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it's a SerializerMethodField
 
@@ -156,7 +144,7 @@ class PropertyListSerializer(PropertySerializer):
             'is_active',
             'authorized',
             'pending',
-            'harvests'
+            'harvests',
         ]
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
@@ -167,12 +155,7 @@ class PropertyListSerializer(PropertySerializer):
 
 class PropertyEquipmentSerializer(PropertyListSerializer):
     class Meta(PropertyListSerializer.Meta):
-        fields = [
-            'id',
-            'title',
-            'neighborhood',
-            'owner'
-        ]
+        fields = ['id', 'title', 'neighborhood', 'owner']
 
 
 class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
@@ -201,24 +184,13 @@ class HarvestSerializer(serializers.ModelSerializer[Harvest]):
         model = Harvest
         fields = '__all__'
 
-    total_distribution = serializers.ReadOnlyField(
-        source='get_total_distribution'
-    )
+    total_distribution = serializers.ReadOnlyField(source='get_total_distribution')
     volunteers_count = serializers.SerializerMethodField()
     is_open_to_requests = serializers.SerializerMethodField()
     is_open_to_public_requests = serializers.SerializerMethodField()
-    start_date = serializers.DateTimeField(
-        source='get_local_start',
-        format=r"%a. %b. %-d, %Y"
-    )
-    start_time = serializers.DateTimeField(
-        source='get_local_start',
-        format=r"%-I:%M %p"
-    )
-    end_time = serializers.DateTimeField(
-        source='get_local_end',
-        format=r"%-I:%M %p"
-    )
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
+    start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    end_time = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
     date_range = serializers.ReadOnlyField(source='get_date_range')
     status: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(many=False)
     status_display = serializers.ReadOnlyField(source='get_status_display')
@@ -272,25 +244,15 @@ class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
 
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = [
-            'id',
-            'title',
-            'address',
-            'owner',
-            'neighborhood'
-        ]  # type: ignore
+        fields = ['id', 'title', 'address', 'owner', 'neighborhood']  # type: ignore
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
 
+
 class HarvestListPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = [
-            'id',
-            'title',
-            'ladder_available',
-            'neighborhood'
-        ]  # type: ignore
+        fields = ['id', 'title', 'ladder_available', 'neighborhood']  # type: ignore
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
@@ -310,7 +272,7 @@ class HarvestListSerializer(HarvestSerializer):
             'pick_leader',
             'trees',
             'property',
-            'volunteers'
+            'volunteers',
         ]
 
     status_display = serializers.ReadOnlyField(source='get_status_display')
@@ -320,6 +282,7 @@ class HarvestListSerializer(HarvestSerializer):
 
     def get_volunteers(self, harvest):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_enum()])
+
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
@@ -347,7 +310,7 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'is_equipment_point',
             'equipment_description',
             'equipment',
-            'inventory'
+            'inventory',
         ]
 
     contact_person = ContactPersonSerializer(many=False, read_only=True)
@@ -356,10 +319,13 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     inventory = serializers.SerializerMethodField()
 
     def get_inventory(self, org):
-        return dict([
-            (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
-            for lang in ['fr', 'en']
-        ])
+        return dict(
+            [
+                (lang, "&;".join([e.inventory(lang) for e in org.equipment.all()]))
+                for lang in ['fr', 'en']
+            ]
+        )
+
 
 @typechecked
 class HarvestDetailSerializer(HarvestSerializer):

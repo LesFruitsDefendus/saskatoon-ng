@@ -29,7 +29,7 @@ def similar_properties(pending_property: Property):
         if first_name and family_name:
             q_first_name = Q(owner__person__first_name__icontains=first_name)
             q_family_name = Q(owner__person__family_name__icontains=family_name)
-            query |= (q_first_name & q_family_name)
+            query |= q_first_name & q_family_name
 
         phone = p.pending_contact_phone
         if phone:

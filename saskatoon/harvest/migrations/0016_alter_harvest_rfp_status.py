@@ -21,7 +21,6 @@ def migrate_rfp_status(apps, _schema_editor):
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0015_alter_harvest_status'),
     ]
@@ -30,7 +29,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='requestforparticipation',
             name='status',
-            field=models.CharField(choices=[('pending', 'Pending'), ('accepted', 'Accepted'), ('declined', 'Declined'), ('cancelled', 'Cancelled'), ('obsolete', 'Obsolete')], default='pending', max_length=20, verbose_name='Request status'),
+            field=models.CharField(
+                choices=[
+                    ('pending', 'Pending'),
+                    ('accepted', 'Accepted'),
+                    ('declined', 'Declined'),
+                    ('cancelled', 'Cancelled'),
+                    ('obsolete', 'Obsolete'),
+                ],
+                default='pending',
+                max_length=20,
+                verbose_name='Request status',
+            ),
         ),
         migrations.RunPython(migrate_rfp_status),
         migrations.RemoveField(
@@ -69,7 +79,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='requestforparticipation',
             name='number_of_pickers',
-            field=models.PositiveIntegerField(default=1, validators=[validators.MinValueValidator(1)], verbose_name='Number of pickers'),
+            field=models.PositiveIntegerField(
+                default=1,
+                validators=[validators.MinValueValidator(1)],
+                verbose_name='Number of pickers',
+            ),
         ),
         migrations.RenameField(
             model_name='requestforparticipation',
@@ -94,7 +108,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='requestforparticipation',
             name='showed_up',
-            field=models.BooleanField(blank=True, default=None, null=True, verbose_name='Picker(s) showed up'),
+            field=models.BooleanField(
+                blank=True, default=None, null=True, verbose_name='Picker(s) showed up'
+            ),
         ),
         migrations.RenameField(
             model_name='harvest',
@@ -104,12 +120,31 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='status',
-            field=models.CharField(choices=[('orphan', 'Orphan'), ('adopted', 'Adopted'), ('pending', 'To be confirmed'), ('scheduled', 'Date scheduled'), ('ready', 'Ready'), ('succeeded', 'Succeeded'), ('cancelled', 'Cancelled')], default='orphan', max_length=20, verbose_name='Harvest status'),
+            field=models.CharField(
+                choices=[
+                    ('orphan', 'Orphan'),
+                    ('adopted', 'Adopted'),
+                    ('pending', 'To be confirmed'),
+                    ('scheduled', 'Date scheduled'),
+                    ('ready', 'Ready'),
+                    ('succeeded', 'Succeeded'),
+                    ('cancelled', 'Cancelled'),
+                ],
+                default='orphan',
+                max_length=20,
+                verbose_name='Harvest status',
+            ),
         ),
         migrations.AlterField(
             model_name='harvest',
             name='changed_by',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.SET_NULL, related_name='harvest_edited', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=models.deletion.SET_NULL,
+                related_name='harvest_edited',
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.RenameField(
             model_name='comment',
@@ -124,12 +159,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='comment',
             name='date_created',
-            field=models.DateTimeField(auto_now_add=True, default=tz.now, verbose_name='Created on'),
+            field=models.DateTimeField(
+                auto_now_add=True, default=tz.now, verbose_name='Created on'
+            ),
             preserve_default=False,
         ),
         migrations.AlterField(
             model_name='property',
             name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=models.deletion.CASCADE, related_name='properties', to='member.actor', verbose_name='Owner'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=models.deletion.CASCADE,
+                related_name='properties',
+                to='member.actor',
+                verbose_name='Owner',
+            ),
         ),
     ]

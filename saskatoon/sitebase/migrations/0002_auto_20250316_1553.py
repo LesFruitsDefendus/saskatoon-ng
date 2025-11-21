@@ -6,7 +6,6 @@ import django_quill.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0017_auto_20250316_1553'),
         ('member', '0016_alter_person_language'),
@@ -17,14 +16,61 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Email',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(choices=[('closing', 'Closing (common)'), ('registration', 'Pickleader Registration Invite'), ('password_reset', 'Password Reset'), ('new_rfp', 'New Request For Participation'), ('new_comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], max_length=20, verbose_name='Email type')),
-                ('sent', models.BooleanField(default=False, verbose_name='Successfully sent')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'type',
+                    models.CharField(
+                        choices=[
+                            ('closing', 'Closing (common)'),
+                            ('registration', 'Pickleader Registration Invite'),
+                            ('password_reset', 'Password Reset'),
+                            ('new_rfp', 'New Request For Participation'),
+                            ('new_comment', 'New Harvest Comment'),
+                            ('property_registered', 'Property was registered'),
+                            ('unselected_pickers', 'Unselected pickers'),
+                            ('selected_picker', 'Selected picker'),
+                            ('rejected_picker', 'Rejected picker'),
+                        ],
+                        max_length=20,
+                        verbose_name='Email type',
+                    ),
+                ),
+                (
+                    'sent',
+                    models.BooleanField(default=False, verbose_name='Successfully sent'),
+                ),
                 ('body', models.TextField(blank=True)),
                 ('log', models.TextField(blank=True)),
-                ('date_sent', models.DateTimeField(blank=True, null=True, verbose_name='Date')),
-                ('harvest', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='harvest.harvest', verbose_name='Harvest')),
-                ('recipient', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='member.person', verbose_name='Recipient')),
+                (
+                    'date_sent',
+                    models.DateTimeField(blank=True, null=True, verbose_name='Date'),
+                ),
+                (
+                    'harvest',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to='harvest.harvest',
+                        verbose_name='Harvest',
+                    ),
+                ),
+                (
+                    'recipient',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.person',
+                        verbose_name='Recipient',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'Email',
@@ -34,11 +80,49 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EmailContent',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(blank=True, choices=[('closing', 'Closing (common)'), ('registration', 'Pickleader Registration Invite'), ('password_reset', 'Password Reset'), ('new_rfp', 'New Request For Participation'), ('new_comment', 'New Harvest Comment'), ('property_registered', 'Property was registered'), ('unselected_pickers', 'Unselected pickers'), ('selected_picker', 'Selected picker'), ('rejected_picker', 'Rejected picker')], default=None, max_length=20, null=True, unique=True, verbose_name='Email type')),
-                ('description', models.CharField(max_length=100, verbose_name='Ref. description')),
-                ('subject_en', models.CharField(max_length=100, verbose_name='Subject (en)')),
-                ('subject_fr', models.CharField(max_length=100, verbose_name='Objet (fr)')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'type',
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ('closing', 'Closing (common)'),
+                            ('registration', 'Pickleader Registration Invite'),
+                            ('password_reset', 'Password Reset'),
+                            ('new_rfp', 'New Request For Participation'),
+                            ('new_comment', 'New Harvest Comment'),
+                            ('property_registered', 'Property was registered'),
+                            ('unselected_pickers', 'Unselected pickers'),
+                            ('selected_picker', 'Selected picker'),
+                            ('rejected_picker', 'Rejected picker'),
+                        ],
+                        default=None,
+                        max_length=20,
+                        null=True,
+                        unique=True,
+                        verbose_name='Email type',
+                    ),
+                ),
+                (
+                    'description',
+                    models.CharField(max_length=100, verbose_name='Ref. description'),
+                ),
+                (
+                    'subject_en',
+                    models.CharField(max_length=100, verbose_name='Subject (en)'),
+                ),
+                (
+                    'subject_fr',
+                    models.CharField(max_length=100, verbose_name='Objet (fr)'),
+                ),
                 ('body_en', models.TextField(verbose_name='Body (en)')),
                 ('body_fr', models.TextField(verbose_name='Corps (fr)')),
             ],
@@ -51,12 +135,48 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='PageContent',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', models.CharField(blank=True, choices=[('volunteer_home', 'Volunteer Home'), ('pickleader_home', 'Pickleader Home'), ('terms_conditions', 'Terms & Conditions'), ('privacy_policy', 'Privacy Policy')], default=None, max_length=20, null=True, unique=True, verbose_name='Page type')),
-                ('title_en', models.CharField(blank=True, max_length=100, verbose_name='Title (en)')),
-                ('title_fr', models.CharField(blank=True, max_length=100, verbose_name='Titre (fr)')),
-                ('subtitle_en', models.CharField(blank=True, max_length=100, verbose_name='Subtitle (en)')),
-                ('subtitle_fr', models.CharField(blank=True, max_length=100, verbose_name='Sous-titre (fr)')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
+                (
+                    'type',
+                    models.CharField(
+                        blank=True,
+                        choices=[
+                            ('volunteer_home', 'Volunteer Home'),
+                            ('pickleader_home', 'Pickleader Home'),
+                            ('terms_conditions', 'Terms & Conditions'),
+                            ('privacy_policy', 'Privacy Policy'),
+                        ],
+                        default=None,
+                        max_length=20,
+                        null=True,
+                        unique=True,
+                        verbose_name='Page type',
+                    ),
+                ),
+                (
+                    'title_en',
+                    models.CharField(blank=True, max_length=100, verbose_name='Title (en)'),
+                ),
+                (
+                    'title_fr',
+                    models.CharField(blank=True, max_length=100, verbose_name='Titre (fr)'),
+                ),
+                (
+                    'subtitle_en',
+                    models.CharField(blank=True, max_length=100, verbose_name='Subtitle (en)'),
+                ),
+                (
+                    'subtitle_fr',
+                    models.CharField(blank=True, max_length=100, verbose_name='Sous-titre (fr)'),
+                ),
                 ('body_en', django_quill.fields.QuillField()),
                 ('body_fr', django_quill.fields.QuillField()),
             ],

@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0017_auto_20250504_1308'),
         ('harvest', '0019_bilingual_fruit_types'),
@@ -15,11 +14,29 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='status',
-            field=models.CharField(choices=[('orphan', 'Orphan'), ('adopted', 'Adopted'), ('pending', 'To be confirmed'), ('scheduled', 'Scheduled'), ('ready', 'Ready'), ('succeeded', 'Succeeded'), ('cancelled', 'Cancelled')], default='orphan', max_length=20, verbose_name='Harvest status'),
+            field=models.CharField(
+                choices=[
+                    ('orphan', 'Orphan'),
+                    ('adopted', 'Adopted'),
+                    ('pending', 'To be confirmed'),
+                    ('scheduled', 'Scheduled'),
+                    ('ready', 'Ready'),
+                    ('succeeded', 'Succeeded'),
+                    ('cancelled', 'Cancelled'),
+                ],
+                default='orphan',
+                max_length=20,
+                verbose_name='Harvest status',
+            ),
         ),
         migrations.AlterField(
             model_name='property',
             name='neighborhood',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.neighborhood', verbose_name='Borough'),
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='member.neighborhood',
+                verbose_name='Borough',
+            ),
         ),
     ]

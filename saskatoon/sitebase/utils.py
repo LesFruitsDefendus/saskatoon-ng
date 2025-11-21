@@ -10,23 +10,23 @@ HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
 
 def get_filter_context(viewset, basename=None):
-    ''' create filters dictionary for list views
+    '''create filters dictionary for list views
     @param {obj} viewset: ModelViewSet subclass instance
     @returns {dic} filters: filters template dictionary
     '''
     f = viewset.filterset_class(viewset.request.GET, viewset.queryset)
     dic = {'form': f.form}
     if any(field in viewset.request.GET for field in set(f.get_fields())):
-        dic['reset'] = reverse("{}-list".format(
-            basename if basename is not None else viewset.basename
-        ))
+        dic['reset'] = reverse(
+            "{}-list".format(basename if basename is not None else viewset.basename)
+        )
     return dic
 
 
 def renderer_format_needs_json_response(request) -> bool:
-    """ Checks if the template renderer format is json or the DRF browsable api
-        which require the response to be plain json.
-        Default request format is html.
+    """Checks if the template renderer format is json or the DRF browsable api
+    which require the response to be plain json.
+    Default request format is html.
     """
     return request.accepted_renderer.format in ('json', 'api')
 
@@ -46,11 +46,16 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
 
+
 T = TypeVar('T')
 V = TypeVar('V')
+
+
 @typechecked
 def rgetattr(obj, attr: str, *args) -> Optional[T]:
     """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
+
     def _getattr(obj: MutableMapping[str, V], attr: str) -> V:
         return getattr(obj, attr, *args)
+
     return reduce(_getattr, [obj] + attr.split('.'))

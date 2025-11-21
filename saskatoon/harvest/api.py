@@ -18,7 +18,7 @@ from harvest.models import (
     HarvestYield,
     Property,
     RequestForParticipation as RFP,
-    TreeType
+    TreeType,
 )
 from harvest.serializers import (
     HarvestListSerializer,
@@ -120,8 +120,8 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
                 'filter': get_filter_context(self),
                 'new': {
                     'url': reverse_lazy('property-create'),
-                    'title': _("New Property")
-                    }
+                    'title': _("New Property"),
+                },
             }
         )
 
@@ -281,13 +281,12 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
         total_weight_harvests_per_neighborhood = []
         for neighborhood in Neighborhood.objects.all().order_by("name"):
             total_weight = sum_harvest_yields(
-                self.harvest_yield_qs.filter(
-                    harvest__property__neighborhood=neighborhood
-                )
+                self.harvest_yield_qs.filter(harvest__property__neighborhood=neighborhood)
             )
             if total_weight is not None:
-                total_harvests = \
-                    self.harvest_qs.filter(property__neighborhood=neighborhood).count()
+                total_harvests = self.harvest_qs.filter(
+                    property__neighborhood=neighborhood
+                ).count()
                 total_weight_harvests_per_neighborhood.append(
                     (neighborhood, total_harvests, total_weight)
                 )
@@ -320,16 +319,13 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
         total_weight_harvests_per_picker = []
 
         for p in pickers:
-            total_weight = \
-                sum_harvest_yields(self.harvest_yield_qs.filter(recipient=p))
-            total_harvests_leader = \
-                self.harvest_qs.filter(pick_leader__person=p).count()
-            total_harvests_rfp = \
-                RFP.objects.filter(person=p).count()
-            total_harvests_accepted = \
-                RFP.objects.filter(person=p, status=RFP.Status.ACCEPTED).count()
-            total_harvests_recipient = \
-                self.harvest_yield_qs.filter(recipient=p).count()
+            total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(recipient=p))
+            total_harvests_leader = self.harvest_qs.filter(pick_leader__person=p).count()
+            total_harvests_rfp = RFP.objects.filter(person=p).count()
+            total_harvests_accepted = RFP.objects.filter(
+                person=p, status=RFP.Status.ACCEPTED
+            ).count()
+            total_harvests_recipient = self.harvest_yield_qs.filter(recipient=p).count()
 
             if total_weight is not None:
                 total_weight_harvests_per_picker.append(
@@ -339,7 +335,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
                         total_harvests_rfp,
                         total_harvests_accepted,
                         total_harvests_recipient,
-                        total_weight
+                        total_weight,
                     )
                 )
 

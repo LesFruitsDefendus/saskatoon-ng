@@ -15,10 +15,7 @@ from member.filters import (
     EquipmentPointFilter,
     OrganizationFilter,
 )
-from member.permissions import (
-    IsPickLeaderOrCoreOrAdmin,
-    is_core_or_admin
-)
+from member.permissions import IsPickLeaderOrCoreOrAdmin, is_core_or_admin
 from member.serializers import CommunitySerializer
 from sitebase.utils import (
     get_filter_context,
@@ -51,20 +48,22 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         if renderer_format_needs_json_response(request):
             return response
 
-        return Response({
-            "data": response.data["results"],
-            "count": response.data["count"],
-            "next": response.data["next"],
-            "previous": response.data["previous"],
-            "pages_count": response.data["pages_count"],
-            "current_page_number": response.data["current_page_number"],
-            "items_per_page": response.data["items_per_page"],
-            "filter": get_filter_context(self),
-            'new': {
-                'url': reverse_lazy('organization-create'),
-                'title': _("New Organization"),
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                'new': {
+                    'url': reverse_lazy('organization-create'),
+                    'title': _("New Organization"),
+                },
             }
-        })
+        )
 
 
 class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
@@ -105,7 +104,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
         if is_core_or_admin(self.request.user):
             context['new'] = {
                 'url': reverse_lazy('admin:member_organization_add'),
-                'title': _("New Organization")
+                'title': _("New Organization"),
             }
 
         return Response(context)
@@ -119,18 +118,11 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
     # "QuerySet[AbstractBaseUser, AbstractBaseUser]",
     # base class "GenericAPIView" defined the type as
     # "Union[QuerySet[AuthUser, AuthUser], Manager[AuthUser], None]")
-    queryset = AuthUser.objects \
-                       .filter(person__first_name__isnull=False) \
-                       .order_by('-date_joined')  # type: ignore
+    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # same thing
     filterset_class = CommunityFilter
-    search_fields = [
-        'id',
-        'email',
-        'person__first_name',
-        'person__family_name'
-    ]
+    search_fields = ['id', 'email', 'person__first_name', 'person__family_name']
     template_name = 'app/list_views/community/view.html'
 
     def list(self, request, *args, **kwargs):

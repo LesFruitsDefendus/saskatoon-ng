@@ -5,7 +5,6 @@ import phone_field.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0006_alter_equipment_shared'),
     ]
@@ -14,6 +13,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='pending_contact_phone',
-            field=phone_field.models.PhoneField(blank=True, help_text='Phone number to be used for confirmation', max_length=31, verbose_name='Contact phone number'),
+            field=phone_field.models.PhoneField(
+                blank=True,
+                help_text='Phone number to be used for confirmation',
+                max_length=31,
+                verbose_name='Contact phone number',
+            ),
         ),
     ]

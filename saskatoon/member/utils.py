@@ -66,15 +66,11 @@ def available_equipment_points(
 
         # If a harvest has already reserved the equipment point and starts or ends during the
         # requested date range, then the equipment point is unavailable
-        start_between = Q(harvest__start_date__gte=start) & Q(
-            harvest__start_date__lte=end
-        )
+        start_between = Q(harvest__start_date__gte=start) & Q(harvest__start_date__lte=end)
         end_between = Q(harvest__end_date__gte=start) & Q(harvest__end_date__lte=end)
 
         # We only want scheduled and ready harvests to impact availability
-        is_active = Q(
-            harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY]
-        )
+        is_active = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
 
         not_conflicting = (start_between | end_between) & is_active
 
@@ -88,9 +84,7 @@ def available_equipment_points(
         # the harvest model still has a list of reserved equipment. This means that
         # any equipment reservation for a harvest will make that entire equipment
         # point reserved, even if part of it's equipment has not been added to the harvest
-        conflicting_orgs = Equipment.objects.filter(
-            not_itself & not_conflicting
-        ).values("owner")
+        conflicting_orgs = Equipment.objects.filter(not_itself & not_conflicting).values("owner")
 
         return Organization.objects.filter(is_equipment_point=True).exclude(
             pk__in=conflicting_orgs

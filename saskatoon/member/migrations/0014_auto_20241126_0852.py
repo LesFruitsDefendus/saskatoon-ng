@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0013_auto_20240825_1909'),
     ]
@@ -18,16 +17,26 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='is_beneficiary',
-            field=models.BooleanField(default=False, help_text='Only check this box if the Organization is currently accepting fruit donations', verbose_name='Is Beneficiary'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Only check this box if the Organization is currently accepting fruit donations',
+                verbose_name='Is Beneficiary',
+            ),
         ),
         migrations.AlterField(
             model_name='organization',
             name='is_equipment_point',
-            field=models.BooleanField(default=False, help_text='Only check this box if the equipment registered at this Organization is currenlty made available', verbose_name='Is Equipment Point'),
+            field=models.BooleanField(
+                default=False,
+                help_text='Only check this box if the equipment registered at this Organization is currenlty made available',
+                verbose_name='Is Equipment Point',
+            ),
         ),
         migrations.AlterField(
             model_name='organization',
             name='street_number',
-            field=models.CharField(blank=True, max_length=10, null=True, verbose_name='Street number'),
+            field=models.CharField(
+                blank=True, max_length=10, null=True, verbose_name='Street number'
+            ),
         ),
     ]
