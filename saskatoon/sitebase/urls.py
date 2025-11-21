@@ -23,9 +23,7 @@ urlpatterns = [
         views.VolunteerWaiverPDFView.as_view(),
         name='volunteer-waiver',
     ),
-    path(
-        'reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'
-    ),
+    path('reset_password/', auth_views.PasswordResetView.as_view(), name='reset_password'),
     path(
         'reset_password_sent/',
         auth_views.PasswordResetDoneView.as_view(),

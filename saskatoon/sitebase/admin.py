@@ -29,9 +29,7 @@ class EmailContentAdmin(admin.ModelAdmin[EmailContent]):
     def test_email_content(self, request, queryset):
         recipient = request.user.person
         if recipient is None:
-            return messages.error(
-                request, f"User <{request.user}> has no Person attribute."
-            )
+            return messages.error(request, f"User <{request.user}> has no Person attribute.")
 
         test_harvest = get_test_harvest()
         if test_harvest is None:
@@ -39,9 +37,7 @@ class EmailContentAdmin(admin.ModelAdmin[EmailContent]):
 
         test_data = {'password': 'abcdef123456'}
         test_data.update(EmailCommentSerializer(Comment.objects.last()).data)
-        test_data.update(
-            EmailRFPSerializer(RequestForParticipation.objects.last()).data
-        )
+        test_data.update(EmailRFPSerializer(RequestForParticipation.objects.last()).data)
 
         for email_content in queryset.exclude(type=EmailType.GENERIC_CLOSING):
             m = Email.objects.create(

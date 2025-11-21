@@ -13,9 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='phone',
-            field=phone_field.models.PhoneField(
-                max_length=31, null=True, verbose_name='Phone'
-            ),
+            field=phone_field.models.PhoneField(max_length=31, null=True, verbose_name='Phone'),
         ),
         migrations.AlterField(
             model_name='person',

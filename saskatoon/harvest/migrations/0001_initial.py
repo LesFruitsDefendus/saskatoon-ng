@@ -107,15 +107,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'owner_present',
-                    models.BooleanField(
-                        default=False, verbose_name='Owner wants to be present'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Owner wants to be present'),
                 ),
                 (
                     'owner_help',
-                    models.BooleanField(
-                        default=False, verbose_name='Owner wants to participate'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Owner wants to participate'),
                 ),
                 (
                     'owner_fruit',
@@ -125,27 +121,19 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'start_date',
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name='Start date'
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name='Start date'),
                 ),
                 (
                     'end_date',
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name='End date'
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name='End date'),
                 ),
                 (
                     'publication_date',
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name='Publication date'
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name='Publication date'),
                 ),
                 (
                     'creation_date',
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name='Creation date'
-                    ),
+                    models.DateTimeField(auto_now_add=True, verbose_name='Creation date'),
                 ),
                 (
                     'nb_required_pickers',
@@ -261,15 +249,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'pending_newsletter',
-                    models.BooleanField(
-                        default=False, verbose_name='Newsletter subscription'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Newsletter subscription'),
                 ),
                 (
                     'pending_recurring',
-                    models.BooleanField(
-                        default=False, verbose_name='Recurring property signup'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Recurring property signup'),
                 ),
                 ('geom', djgeojson.fields.PointField(blank=True, null=True)),
                 (
@@ -300,9 +284,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'public_access',
-                    models.BooleanField(
-                        default=False, verbose_name='Publicly accessible'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Publicly accessible'),
                 ),
                 (
                     'neighbor_access',
@@ -313,9 +295,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'compost_bin',
-                    models.BooleanField(
-                        default=False, verbose_name='Compost bin closeby'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Compost bin closeby'),
                 ),
                 (
                     'ladder_available',
@@ -333,9 +313,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'harvest_every_year',
-                    models.BooleanField(
-                        default=False, verbose_name='Produces fruits every year'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Produces fruits every year'),
                 ),
                 (
                     'number_of_trees',
@@ -362,15 +340,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'street_number',
-                    models.CharField(
-                        blank=True, max_length=10, null=True, verbose_name='Number'
-                    ),
+                    models.CharField(blank=True, max_length=10, null=True, verbose_name='Number'),
                 ),
                 (
                     'street',
-                    models.CharField(
-                        blank=True, max_length=50, null=True, verbose_name='Street'
-                    ),
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='Street'),
                 ),
                 (
                     'complement',
@@ -504,9 +478,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'season_start',
-                    models.DateField(
-                        blank=True, null=True, verbose_name='Season start date'
-                    ),
+                    models.DateField(blank=True, null=True, verbose_name='Season start date'),
                 ),
             ],
             options={
@@ -557,9 +529,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'acceptation_date',
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name='Accepted on'
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name='Accepted on'),
                 ),
                 (
                     'is_accepted',
@@ -713,9 +683,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='harvest',
             name='trees',
-            field=models.ManyToManyField(
-                to='harvest.TreeType', verbose_name='Fruit trees'
-            ),
+            field=models.ManyToManyField(to='harvest.TreeType', verbose_name='Fruit trees'),
         ),
         migrations.AddField(
             model_name='equipment',
@@ -753,9 +721,7 @@ class Migration(migrations.Migration):
                 ('content', models.CharField(max_length=500, verbose_name='Content')),
                 (
                     'created_date',
-                    models.DateTimeField(
-                        auto_now_add=True, verbose_name='Created date'
-                    ),
+                    models.DateTimeField(auto_now_add=True, verbose_name='Created date'),
                 ),
                 (
                     'author',

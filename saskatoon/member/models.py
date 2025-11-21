@@ -73,9 +73,7 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
     agreed_terms = models.BooleanField(default=False, null=False)
 
     # AbstractBaseUser fields #
-    email = models.EmailField(
-        verbose_name=_('email address'), unique=True, max_length=255
-    )
+    email = models.EmailField(verbose_name=_('email address'), unique=True, max_length=255)
     objects = AuthUserManager()
     USERNAME_FIELD = 'email'
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -232,9 +230,7 @@ class Person(Actor):
         verbose_name=_("Number"), max_length=10, null=True, blank=True
     )
 
-    street = models.CharField(
-        verbose_name=_("Street"), max_length=50, null=True, blank=True
-    )
+    street = models.CharField(verbose_name=_("Street"), max_length=50, null=True, blank=True)
 
     complement = models.CharField(
         verbose_name=_("Complement"), max_length=150, null=True, blank=True
@@ -347,9 +343,7 @@ class Person(Actor):
         return list(
             chain.from_iterable(
                 [
-                    harvests.filter(
-                        requests__in=self.requests.filter(status=s)
-                    ).annotate(
+                    harvests.filter(requests__in=self.requests.filter(status=s)).annotate(
                         rfp_status=models.Value(s),
                         role=models.Value('volunteer'),
                     )
@@ -440,9 +434,7 @@ is currenlty made available'
         verbose_name=_("Street number"), max_length=10, null=True, blank=True
     )
 
-    street = models.CharField(
-        verbose_name=_("Street"), max_length=50, null=True, blank=True
-    )
+    street = models.CharField(verbose_name=_("Street"), max_length=50, null=True, blank=True)
 
     complement = models.CharField(
         verbose_name=_("Complement"), max_length=150, null=True, blank=True

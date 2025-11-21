@@ -25,9 +25,7 @@ def login(driver: Remote) -> None:
 
     # Wait for the login form to show up
     WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(
-        EC.element_to_be_clickable(
-            (By.CSS_SELECTOR, "#l-login > form > div.nk-form > button")
-        ),
+        EC.element_to_be_clickable((By.CSS_SELECTOR, "#l-login > form > div.nk-form > button")),
         "Can't locate login form",
     )
 
@@ -37,9 +35,7 @@ def login(driver: Remote) -> None:
 
     # Click on login button
     time.sleep(0.25)
-    driver.find_element(
-        By.CSS_SELECTOR, "#l-login > form > div.nk-form > button"
-    ).click()
+    driver.find_element(By.CSS_SELECTOR, "#l-login > form > div.nk-form > button").click()
 
     try:
         WebDriverWait(driver, PAGE_LOAD_TIMEOUT).until(

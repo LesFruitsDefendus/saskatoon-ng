@@ -21,9 +21,7 @@ if __name__ == "__main__":
         watchers=[
             invoke.watchers.Responder('Email address', sys.argv[1] + '\n'),
             invoke.watchers.Responder('Password', sys.argv[2] + '\n'),
-            invoke.watchers.Responder(
-                'Bypass password validation and create user anyway?', 'y\n'
-            ),
+            invoke.watchers.Responder('Bypass password validation and create user anyway?', 'y\n'),
         ],
         timeout=5,
     )

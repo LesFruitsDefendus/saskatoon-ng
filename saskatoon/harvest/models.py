@@ -24,17 +24,11 @@ class TreeType(models.Model):
         verbose_name_plural = _("tree types")
         ordering = ["name_en"]
 
-    name_en = models.CharField(
-        verbose_name=_("Tree name (en)"), max_length=20, default=""
-    )
+    name_en = models.CharField(verbose_name=_("Tree name (en)"), max_length=20, default="")
 
-    name_fr = models.CharField(
-        verbose_name=_("Nom de l'arbre (fr)"), max_length=20, default=""
-    )
+    name_fr = models.CharField(verbose_name=_("Nom de l'arbre (fr)"), max_length=20, default="")
 
-    fruit_name_en = models.CharField(
-        verbose_name=_("Fruit name (en)"), max_length=20, default=""
-    )
+    fruit_name_en = models.CharField(verbose_name=_("Fruit name (en)"), max_length=20, default="")
 
     fruit_name_fr = models.CharField(
         verbose_name=_("Nom du fruit (fr)"), max_length=20, default=""
@@ -47,13 +41,9 @@ class TreeType(models.Model):
         null=True,
     )
 
-    maturity_start = models.DateField(
-        verbose_name=_("Maturity start date"), blank=True, null=True
-    )
+    maturity_start = models.DateField(verbose_name=_("Maturity start date"), blank=True, null=True)
 
-    maturity_end = models.DateField(
-        verbose_name=_("Maturity end date"), blank=True, null=True
-    )
+    maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
 
     image = models.ImageField(
         upload_to='fruits_images', verbose_name=_("Fruit image"), blank=True, null=True
@@ -257,9 +247,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     )
 
     ladder_available_for_outside_picks = models.BooleanField(
-        verbose_name=_(
-            "A ladder is available in the property and can be used for nearby picks"
-        ),
+        verbose_name=_("A ladder is available in the property and can be used for nearby picks"),
         default=False,
     )
 
@@ -289,9 +277,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         verbose_name=_("Number"), max_length=10, null=True, blank=True
     )
 
-    street = models.CharField(
-        verbose_name=_("Street"), max_length=50, null=True, blank=True
-    )
+    street = models.CharField(verbose_name=_("Street"), max_length=50, null=True, blank=True)
 
     complement = models.CharField(
         verbose_name=_("Complement"), max_length=150, null=True, blank=True
@@ -376,9 +362,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def last_succeeded_harvest_date(self):
         """Date of the last successful harvest for this property"""
         last_harvest = (
-            self.harvests.filter(status=Harvest.Status.SUCCEEDED)
-            .order_by('start_date')
-            .last()
+            self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
         )
         return last_harvest.start_date if last_harvest else None
 
@@ -477,9 +461,7 @@ class Equipment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    description = models.CharField(
-        verbose_name=_("Description"), max_length=50, blank=True
-    )
+    description = models.CharField(verbose_name=_("Description"), max_length=50, blank=True)
 
     count = models.SmallIntegerField(verbose_name=_("Number available"), default=1)
 
@@ -547,13 +529,9 @@ class Harvest(models.Model):
         'TreeType', verbose_name=_("Fruit trees")
     )
 
-    owner_present = models.BooleanField(
-        verbose_name=_("Owner wants to be present"), default=False
-    )
+    owner_present = models.BooleanField(verbose_name=_("Owner wants to be present"), default=False)
 
-    owner_help = models.BooleanField(
-        verbose_name=_("Owner wants to participate"), default=False
-    )
+    owner_help = models.BooleanField(verbose_name=_("Owner wants to participate"), default=False)
 
     owner_fruit = models.BooleanField(
         verbose_name=_("Owner wants their share of fruits"), default=False
@@ -568,9 +546,7 @@ class Harvest(models.Model):
         on_delete=models.CASCADE,
     )
 
-    start_date = models.DateTimeField(
-        verbose_name=_("Start date"), blank=True, null=True
-    )
+    start_date = models.DateTimeField(verbose_name=_("Start date"), blank=True, null=True)
 
     end_date = models.DateTimeField(verbose_name=_("End date"), blank=True, null=True)
 
@@ -578,10 +554,8 @@ class Harvest(models.Model):
         verbose_name=_("Publication date"), blank=True, null=True
     )
 
-    equipment_reserved: models.ManyToManyField[Equipment, models.Model] = (
-        models.ManyToManyField(
-            'Equipment', verbose_name=_("Reserve equipment"), blank=True
-        )
+    equipment_reserved: models.ManyToManyField[Equipment, models.Model] = models.ManyToManyField(
+        'Equipment', verbose_name=_("Reserve equipment"), blank=True
     )
 
     nb_required_pickers = models.PositiveIntegerField(
@@ -604,9 +578,7 @@ class Harvest(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    date_created = models.DateTimeField(
-        verbose_name=_("Creation date"), auto_now_add=True
-    )
+    date_created = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True)
 
     def __str__(self):
         start = self.get_local_start()
@@ -647,9 +619,7 @@ class Harvest(models.Model):
     def get_local_publish_date(self):
         return local_datetime(self.publication_date)
 
-    def get_volunteers_count(
-        self, status: Optional['RequestForParticipation.Status']
-    ) -> int:
+    def get_volunteers_count(self, status: Optional['RequestForParticipation.Status']) -> int:
         rfps = self.requests.get_queryset()
         if status is not None:
             rfps = rfps.filter(status=status)
@@ -657,9 +627,7 @@ class Harvest(models.Model):
         if not rfps:
             return 0
 
-        return rfps.aggregate(models.Sum('number_of_pickers')).get(
-            'number_of_pickers__sum', 0
-        )
+        return rfps.aggregate(models.Sum('number_of_pickers')).get('number_of_pickers__sum', 0)
 
     def has_enough_pickers(self) -> bool:
         accepted = self.get_volunteers_count(RequestForParticipation.Status.ACCEPTED)
@@ -768,9 +736,7 @@ class RequestForParticipation(models.Model):
         validators=[MinValueValidator(1), MaxValueValidator(99)],
     )
 
-    comment = models.TextField(
-        verbose_name=_("Comment from participant"), null=True, blank=True
-    )
+    comment = models.TextField(verbose_name=_("Comment from participant"), null=True, blank=True)
 
     notes = models.TextField(verbose_name=_("PickLeader notes"), null=True, blank=True)
 

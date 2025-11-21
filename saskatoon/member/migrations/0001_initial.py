@@ -132,9 +132,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'redmine_contact_id',
-                    models.IntegerField(
-                        blank=True, null=True, verbose_name='Redmine contact'
-                    ),
+                    models.IntegerField(blank=True, null=True, verbose_name='Redmine contact'),
                 ),
                 (
                     'first_name',
@@ -148,21 +146,15 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'phone',
-                    models.CharField(
-                        blank=True, max_length=30, null=True, verbose_name='Phone'
-                    ),
+                    models.CharField(blank=True, max_length=30, null=True, verbose_name='Phone'),
                 ),
                 (
                     'street_number',
-                    models.CharField(
-                        blank=True, max_length=10, null=True, verbose_name='Number'
-                    ),
+                    models.CharField(blank=True, max_length=10, null=True, verbose_name='Number'),
                 ),
                 (
                     'street',
-                    models.CharField(
-                        blank=True, max_length=50, null=True, verbose_name='Street'
-                    ),
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='Street'),
                 ),
                 (
                     'complement',
@@ -178,9 +170,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'newsletter_subscription',
-                    models.BooleanField(
-                        default=False, verbose_name='Newsletter subscription'
-                    ),
+                    models.BooleanField(default=False, verbose_name='Newsletter subscription'),
                 ),
                 (
                     'longitude',
@@ -267,9 +257,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'redmine_contact_id',
-                    models.IntegerField(
-                        blank=True, null=True, verbose_name='Redmine contact'
-                    ),
+                    models.IntegerField(blank=True, null=True, verbose_name='Redmine contact'),
                 ),
                 ('civil_name', models.CharField(max_length=50, verbose_name='Name')),
                 (
@@ -291,15 +279,11 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'street_number',
-                    models.CharField(
-                        blank=True, max_length=10, null=True, verbose_name='Number'
-                    ),
+                    models.CharField(blank=True, max_length=10, null=True, verbose_name='Number'),
                 ),
                 (
                     'street',
-                    models.CharField(
-                        blank=True, max_length=50, null=True, verbose_name='Street'
-                    ),
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='Street'),
                 ),
                 (
                     'complement',
@@ -391,9 +375,7 @@ class Migration(migrations.Migration):
                 ('password', models.CharField(max_length=128, verbose_name='password')),
                 (
                     'last_login',
-                    models.DateTimeField(
-                        blank=True, null=True, verbose_name='last login'
-                    ),
+                    models.DateTimeField(blank=True, null=True, verbose_name='last login'),
                 ),
                 (
                     'is_superuser',
@@ -405,9 +387,7 @@ class Migration(migrations.Migration):
                 ),
                 (
                     'email',
-                    models.EmailField(
-                        max_length=255, unique=True, verbose_name='email address'
-                    ),
+                    models.EmailField(max_length=255, unique=True, verbose_name='email address'),
                 ),
                 ('date_joined', models.DateTimeField(auto_now_add=True)),
                 ('is_active', models.BooleanField(default=True)),

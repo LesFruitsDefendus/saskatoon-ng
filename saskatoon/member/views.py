@@ -196,9 +196,9 @@ class PasswordResetView(
         if user.password == '':
             messages.error(
                 request,
-                _(
-                    "Cannot reset password for {email}: User does not have a password set."
-                ).format(email=user.email),
+                _("Cannot reset password for {email}: User does not have a password set.").format(
+                    email=user.email
+                ),
             )
             return redirect('community-list')
 
@@ -210,9 +210,7 @@ class PasswordResetView(
         if m.send(data={'password': reset_password(user)}) == 1:
             messages.success(
                 request,
-                _("Password reset email successfully sent to {email}").format(
-                    email=user.email
-                ),
+                _("Password reset email successfully sent to {email}").format(email=user.email),
             )
         else:
             user.password = ''
@@ -220,9 +218,7 @@ class PasswordResetView(
             user.save()
             messages.error(
                 request,
-                _("Failed to send password reset email to {email}").format(
-                    email=user.email
-                ),
+                _("Failed to send password reset email to {email}").format(email=user.email),
             )
 
         return redirect('community-list')

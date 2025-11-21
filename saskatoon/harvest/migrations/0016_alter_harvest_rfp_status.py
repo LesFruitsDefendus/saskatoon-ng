@@ -69,9 +69,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='requestforparticipation',
             name='date_status_updated',
-            field=models.DateTimeField(
-                blank=True, null=True, verbose_name='Status updated on'
-            ),
+            field=models.DateTimeField(blank=True, null=True, verbose_name='Status updated on'),
         ),
         migrations.RenameField(
             model_name='requestforparticipation',
@@ -100,16 +98,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='requestforparticipation',
             name='notes',
-            field=models.TextField(
-                blank=True, null=True, verbose_name='PickLeader notes'
-            ),
+            field=models.TextField(blank=True, null=True, verbose_name='PickLeader notes'),
         ),
         migrations.AlterField(
             model_name='requestforparticipation',
             name='comment',
-            field=models.TextField(
-                blank=True, null=True, verbose_name='Comment from participant'
-            ),
+            field=models.TextField(blank=True, null=True, verbose_name='Comment from participant'),
         ),
         migrations.AlterField(
             model_name='requestforparticipation',
@@ -160,9 +154,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='comment',
             name='date_updated',
-            field=models.DateTimeField(
-                auto_now=True, null=True, verbose_name='Updated on'
-            ),
+            field=models.DateTimeField(auto_now=True, null=True, verbose_name='Updated on'),
         ),
         migrations.AlterField(
             model_name='comment',

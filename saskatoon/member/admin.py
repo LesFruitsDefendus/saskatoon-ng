@@ -316,9 +316,7 @@ class ActorAdmin(admin.ModelAdmin[Actor]):
         for attr in ['person', 'organization']:
             if hasattr(actor, attr):
                 obj = getattr(actor, attr)
-                url = reverse(
-                    f"admin:member_{attr}_change", kwargs={'object_id': obj.pk}
-                )
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
                 return mark_safe(f"<a href={url}>{attr.capitalize()}</a>")
         return None
 
@@ -436,9 +434,7 @@ class OnboardingAdmin(admin.ModelAdmin[Onboarding]):
         num_sent = 0
         for o in queryset:
             o.all_sent = True
-            o.log += "\n[{}]".format(
-                tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p")
-            )
+            o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
             for p in o.persons.filter(auth_user__password=''):
                 m = Email.objects.create(recipient=p, type=EmailType.REGISTRATION)
 

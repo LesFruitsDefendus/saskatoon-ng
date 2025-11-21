@@ -56,8 +56,8 @@ class PersonHarvestSerializer(serializers.ModelSerializer[Harvest]):
         ]
 
     status_display = serializers.ReadOnlyField(source='get_status_display')
-    pick_leader: serializers.StringRelatedField[Harvest] = (
-        serializers.StringRelatedField(many=False, read_only=True)
+    pick_leader: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
+        many=False, read_only=True
     )
     property: serializers.StringRelatedField[Harvest] = serializers.StringRelatedField(
         many=False, read_only=True

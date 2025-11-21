@@ -29,30 +29,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='treetype',
             name='name_en',
-            field=models.CharField(
-                default='', max_length=20, verbose_name='Tree name (en)'
-            ),
+            field=models.CharField(default='', max_length=20, verbose_name='Tree name (en)'),
         ),
         migrations.AddField(
             model_name='treetype',
             name='fruit_name_en',
-            field=models.CharField(
-                default='', max_length=20, verbose_name='Fruit name (en)'
-            ),
+            field=models.CharField(default='', max_length=20, verbose_name='Fruit name (en)'),
         ),
         migrations.AddField(
             model_name='treetype',
             name='maturity_end',
-            field=models.DateField(
-                blank=True, null=True, verbose_name='Maturity end date'
-            ),
+            field=models.DateField(blank=True, null=True, verbose_name='Maturity end date'),
         ),
         migrations.AddField(
             model_name='treetype',
             name='maturity_start',
-            field=models.DateField(
-                blank=True, null=True, verbose_name='Maturity start date'
-            ),
+            field=models.DateField(blank=True, null=True, verbose_name='Maturity start date'),
         ),
         migrations.AlterField(
             model_name='harvest',
@@ -80,16 +72,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='treetype',
             name='fruit_name_fr',
-            field=models.CharField(
-                default='', max_length=20, verbose_name='Nom du fruit (fr)'
-            ),
+            field=models.CharField(default='', max_length=20, verbose_name='Nom du fruit (fr)'),
         ),
         migrations.AlterField(
             model_name='treetype',
             name='name_fr',
-            field=models.CharField(
-                default='', max_length=20, verbose_name="Nom de l'arbre (fr)"
-            ),
+            field=models.CharField(default='', max_length=20, verbose_name="Nom de l'arbre (fr)"),
         ),
         migrations.AddField(
             model_name='treetype',

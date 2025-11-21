@@ -24,9 +24,7 @@ class Index(TemplateView):
         if self.request.user.is_authenticated:
             content_type = PageContent.Type.PICKLEADER_HOME
 
-        context['content'] = PageContent.get(
-            type=content_type, lang=self.request.LANGUAGE_CODE
-        )
+        context['content'] = PageContent.get(type=content_type, lang=self.request.LANGUAGE_CODE)
 
         return context
 
@@ -132,16 +130,11 @@ class JsonCalendar(View):
             q2 = Q(status__in=[Harvest.Status.ORPHAN, Harvest.Status.ADOPTED])
             harvests = harvests.filter(q1 | q2).distinct()
         else:
-            harvests = harvests.filter(
-                start_date__gte=start_date, end_date__lte=end_date
-            )
+            harvests = harvests.filter(start_date__gte=start_date, end_date__lte=end_date)
 
         events = []
         for harvest in harvests:
-            if (
-                is_pickleader_or_core_or_admin(self.request.user)
-                or harvest.is_publishable()
-            ):
+            if is_pickleader_or_core_or_admin(self.request.user) or harvest.is_publishable():
                 # https://fullcalendar.io/docs/event-object
                 event = dict()
 

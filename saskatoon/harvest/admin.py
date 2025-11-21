@@ -199,9 +199,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         for attr in ['person', 'organization']:
             if hasattr(owner, attr):
                 obj = getattr(owner, attr)
-                url = reverse(
-                    f"admin:member_{attr}_change", kwargs={'object_id': obj.pk}
-                )
+                url = reverse(f"admin:member_{attr}_change", kwargs={'object_id': obj.pk})
                 return mark_safe(f"<a href={url}>{obj}</a>")
         return None
 
@@ -227,9 +225,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         queryset.update(**{'authorized': None})
         messages.info(request, "Successfully reset authorizations for this season")
 
-    @admin.action(
-        description="Create missing auth users using pending or comments email"
-    )
+    @admin.action(description="Create missing auth users using pending or comments email")
     def create_owner_user(self, request, queryset):
         """Create new AuthUser objects for owners (Persons) without email address"""
 
@@ -245,9 +241,7 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
                 if not email:
                     emails = _property.owner.person.comment_emails
                     if len(emails) > 1:
-                        messages.warning(
-                            request, f"{_property} has multiple emails in comments"
-                        )
+                        messages.warning(request, f"{_property} has multiple emails in comments")
                         continue
                     elif len(emails) == 1:
                         email = emails[0]

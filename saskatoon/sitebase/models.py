@@ -88,10 +88,7 @@ class PageContent(models.Model):
 
     def content(self, lang):
         return dict(
-            [
-                (key, getattr(self, f"{key}_{lang}"))
-                for key in ['title', 'subtitle', 'body']
-            ]
+            [(key, getattr(self, f"{key}_{lang}")) for key in ['title', 'subtitle', 'body']]
         )
 
     @staticmethod
@@ -316,9 +313,7 @@ class Email(models.Model):
 
     def send(self, message=None, data: Dict[str, str] = {}) -> bool:
         if self.recipient.email is None:
-            return self.record_failure(
-                message, "Person <self.recipient> has no email address."
-            )
+            return self.record_failure(message, "Person <self.recipient> has no email address.")
 
         data.update(self.harvest_data)
         data.update(self.recipient_data)

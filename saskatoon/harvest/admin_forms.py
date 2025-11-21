@@ -36,9 +36,7 @@ class EquipmentAdminForm(forms.ModelForm[Equipment]):
         bool1 = bool(self.cleaned_data['property'])
         bool2 = bool(self.cleaned_data['owner'])
         if not (bool1 != bool2):
-            raise forms.ValidationError(
-                'Fill in one of the two fields: property or owner.'
-            )
+            raise forms.ValidationError('Fill in one of the two fields: property or owner.')
         return cleaned_data
 
     class Meta:

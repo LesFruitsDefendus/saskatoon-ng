@@ -12,9 +12,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='equipment_description',
-            field=models.TextField(
-                blank=True, verbose_name='Equipment point description'
-            ),
+            field=models.TextField(blank=True, verbose_name='Equipment point description'),
         ),
         migrations.AlterField(
             model_name='organization',

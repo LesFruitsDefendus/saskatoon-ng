@@ -41,9 +41,7 @@ class HarvestFilter(filters.FilterSet):
         method='date_filter',
     )
 
-    status = filters.ChoiceFilter(
-        label=_("Status"), choices=list(Harvest.get_status_choices())
-    )
+    status = filters.ChoiceFilter(label=_("Status"), choices=list(Harvest.get_status_choices()))
 
     pick_leader = filters.ModelChoiceFilter(
         label=_("Pick leader"),

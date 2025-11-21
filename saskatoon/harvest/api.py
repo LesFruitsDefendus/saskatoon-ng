@@ -223,9 +223,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
                 "season": self.request.query_params.get('season'),
                 "seasons": [choice[0] for choice in Harvest.SEASON_CHOICES],
                 "highlights": self.get_highlights(),
-                "total_fruit": self.get_total_weight_harvest_per_fruit(
-                    request.LANGUAGE_CODE
-                ),
+                "total_fruit": self.get_total_weight_harvest_per_fruit(request.LANGUAGE_CODE),
                 "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),
                 "total_beneficiary": self.get_total_weight_harvest_per_beneficiary(),
                 "total_picker": self.get_total_weight_harvest_per_picker(),
@@ -240,9 +238,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
 
         return {
             "total_beneficiaries": self.get_total_number_beneficiaries(),
-            "total_pickers": self.harvest_yield_qs.values("recipient")
-            .distinct()
-            .count(),
+            "total_pickers": self.harvest_yield_qs.values("recipient").distinct().count(),
             "total_weight": total_weight,
             "total_harvests": self.harvest_qs.count(),
         }
@@ -285,9 +281,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
         total_weight_harvests_per_neighborhood = []
         for neighborhood in Neighborhood.objects.all().order_by("name"):
             total_weight = sum_harvest_yields(
-                self.harvest_yield_qs.filter(
-                    harvest__property__neighborhood=neighborhood
-                )
+                self.harvest_yield_qs.filter(harvest__property__neighborhood=neighborhood)
             )
             if total_weight is not None:
                 total_harvests = self.harvest_qs.filter(
@@ -307,13 +301,9 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
         total_weight_harvests_per_beneficiary = []
 
         for beneficiary in Organization.objects.filter(is_beneficiary=True):
-            total_weight = sum_harvest_yields(
-                self.harvest_yield_qs.filter(recipient=beneficiary)
-            )
+            total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(recipient=beneficiary))
             if total_weight is not None:
-                total_harvests = self.harvest_yield_qs.filter(
-                    recipient=beneficiary
-                ).count()
+                total_harvests = self.harvest_yield_qs.filter(recipient=beneficiary).count()
                 total_weight_harvests_per_beneficiary.append(
                     (beneficiary, total_harvests, total_weight)
                 )
@@ -330,9 +320,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
 
         for p in pickers:
             total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(recipient=p))
-            total_harvests_leader = self.harvest_qs.filter(
-                pick_leader__person=p
-            ).count()
+            total_harvests_leader = self.harvest_qs.filter(pick_leader__person=p).count()
             total_harvests_rfp = RFP.objects.filter(person=p).count()
             total_harvests_accepted = RFP.objects.filter(
                 person=p, status=RFP.Status.ACCEPTED

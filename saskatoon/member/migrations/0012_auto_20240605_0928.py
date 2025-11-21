@@ -26,8 +26,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='onboarding',
             name='name',
-            field=models.CharField(
-                default='', max_length=50, verbose_name='Reference name'
-            ),
+            field=models.CharField(default='', max_length=50, verbose_name='Reference name'),
         ),
     ]

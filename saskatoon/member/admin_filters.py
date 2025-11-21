@@ -61,13 +61,9 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            properties = Property.objects.select_related('owner').filter(
-                owner__isnull=False
-            )
+            properties = Property.objects.select_related('owner').filter(owner__isnull=False)
             owners = set([p.owner.actor_id for p in properties])
-            persons = Person.objects.select_related('actor_id').filter(
-                actor_id__in=owners
-            )
+            persons = Person.objects.select_related('actor_id').filter(actor_id__in=owners)
             users = queryset.select_related('person').filter(person__in=persons)
             return users
         return queryset

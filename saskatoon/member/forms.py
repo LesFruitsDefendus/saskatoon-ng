@@ -42,9 +42,7 @@ class PersonCreateForm(forms.ModelForm[Person]):
         instance = super().save()
 
         # create associated auth.user
-        auth_user = AuthUser.objects.create(
-            email=self.cleaned_data['email'], person=instance
-        )
+        auth_user = AuthUser.objects.create(email=self.cleaned_data['email'], person=instance)
         roles = self.cleaned_data['roles']
         auth_user.set_roles(roles)
 
@@ -89,9 +87,7 @@ class PersonUpdateForm(forms.ModelForm[Person]):
                 self.initial['roles'] = [g for g in self.auth_user.groups.all()]
                 self.initial['email'] = self.auth_user.email
             except ObjectDoesNotExist:
-                logger.warning(
-                    "Person {} has no associated Auth.User!".format(self.instance)
-                )
+                logger.warning("Person {} has no associated Auth.User!".format(self.instance))
 
     def clean(self):
         super().clean()
@@ -100,9 +96,7 @@ class PersonUpdateForm(forms.ModelForm[Person]):
 
         roles = self.cleaned_data.get('roles', None)
         if email and not roles:
-            raise forms.ValidationError(
-                _("Please assign at least one role to the user")
-            )
+            raise forms.ValidationError(_("Please assign at least one role to the user"))
         elif roles and not email:
             raise forms.ValidationError(
                 _("An email address is required to assign a role to the user")
@@ -152,9 +146,7 @@ class OrganizationCreateForm(OrganizationForm):
         required=False,
     )
 
-    create_new_person = forms.BooleanField(
-        label=_("Register new contact person"), required=False
-    )
+    create_new_person = forms.BooleanField(label=_("Register new contact person"), required=False)
 
     contact_first_name = forms.CharField(
         label=_("First Name"), help_text=_("This field is required"), required=False

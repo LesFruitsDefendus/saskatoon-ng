@@ -18,9 +18,7 @@ urlpatterns = [
         views.EquipmentCreateView.as_view(),
         name='equipment-create',
     ),
-    path(
-        r'property/create/', views.PropertyCreateView.as_view(), name='property-create'
-    ),
+    path(r'property/create/', views.PropertyCreateView.as_view(), name='property-create'),
     path(
         r'property/create_public/',
         views.PropertyCreatePublicView.as_view(),

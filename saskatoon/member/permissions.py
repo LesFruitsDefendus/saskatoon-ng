@@ -39,9 +39,7 @@ class IsCoreOrAdmin(IsAuthenticated):
 
 
 class IsPickLeaderOrCoreOrAdmin(IsAuthenticated):
-    message = gettext_lazy(
-        "Viewing this page is restricted to pickleaders, core and admin users."
-    )
+    message = gettext_lazy("Viewing this page is restricted to pickleaders, core and admin users.")
 
     def has_permission(self, request, view):
         if super().has_permission(request, view):

@@ -70,9 +70,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
     """List view for organizations that are equipment points."""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.filter(is_equipment_point=True).order_by(
-        '-actor_id'
-    )
+    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
     serializer_class = OrganizationSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentPointFilter
@@ -120,9 +118,7 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
     # "QuerySet[AbstractBaseUser, AbstractBaseUser]",
     # base class "GenericAPIView" defined the type as
     # "Union[QuerySet[AuthUser, AuthUser], Manager[AuthUser], None]")
-    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by(
-        '-date_joined'
-    )  # type: ignore
+    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = CommunityFilter
