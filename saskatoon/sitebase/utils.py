@@ -5,6 +5,7 @@ from django.utils import timezone
 from typing import Optional, TypeVar, MutableMapping
 from functools import reduce
 from typeguard import typechecked
+from typing import Union
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
@@ -49,10 +50,11 @@ def is_quill_html_empty(html: str) -> bool:
 
 T = TypeVar('T')
 V = TypeVar('V')
+NestedDict = Union[MutableMapping[str, 'NestedDict'], MutableMapping[str, Optional[T]]]
 
 
 @typechecked
-def rgetattr(obj, attr: str, *args) -> Optional[T]:
+def rgetattr(obj: NestedDict, attr: str, *args) -> Optional[T]:
     """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
 
     def _getattr(obj: MutableMapping[str, V], attr: str) -> V:

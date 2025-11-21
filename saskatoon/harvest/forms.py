@@ -467,7 +467,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         required=False,
     )
 
-    def __init__(self: Self, *args, **kwargs) -> None:
+    def __init__(self, *args, **kwargs) -> None:
         if "yields" in kwargs:
             self.yields = kwargs.pop("yields")
 
