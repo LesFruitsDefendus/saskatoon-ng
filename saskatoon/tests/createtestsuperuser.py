@@ -2,8 +2,8 @@
 """
 Command to create a test super user.
 """
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     import pathlib
     import invoke
     import sys
@@ -14,10 +14,7 @@ if __name__ == "__main__":
 
     project_dir = pathlib.Path(__file__).parent.parent.parent.absolute()
 
-    invoke.run(
-        f'{project_dir}/saskatoon/manage.py migrate --skip-checks',
-        pty=True
-    )
+    invoke.run(f'{project_dir}/saskatoon/manage.py migrate --skip-checks', pty=True)
     invoke.run(
         f'{project_dir}/saskatoon/manage.py createsuperuser',
         pty=True,
@@ -26,5 +23,5 @@ if __name__ == "__main__":
             invoke.watchers.Responder('Password', sys.argv[2] + '\n'),
             invoke.watchers.Responder('Bypass password validation and create user anyway?', 'y\n'),
         ],
-        timeout=5
+        timeout=5,
     )

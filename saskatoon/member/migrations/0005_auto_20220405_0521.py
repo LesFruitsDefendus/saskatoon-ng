@@ -5,7 +5,6 @@ import phone_field.models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0004_alter_authuser_person'),
     ]
@@ -19,6 +18,8 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='person',
             name='phone',
-            field=phone_field.models.PhoneField(blank=True, max_length=31, null=True, verbose_name='Phone'),
+            field=phone_field.models.PhoneField(
+                blank=True, max_length=31, null=True, verbose_name='Phone'
+            ),
         ),
     ]

@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0002_auto_20210525_1847'),
     ]
@@ -13,11 +12,15 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='owner_fruit',
-            field=models.BooleanField(default=False, verbose_name='Owner wants their share of fruits'),
+            field=models.BooleanField(
+                default=False, verbose_name='Owner wants their share of fruits'
+            ),
         ),
         migrations.AlterField(
             model_name='property',
             name='fruits_height',
-            field=models.PositiveIntegerField(blank=True, null=True, verbose_name='Height of lowest fruits (meters)'),
+            field=models.PositiveIntegerField(
+                blank=True, null=True, verbose_name='Height of lowest fruits (meters)'
+            ),
         ),
     ]

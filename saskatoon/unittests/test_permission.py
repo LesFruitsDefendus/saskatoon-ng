@@ -11,7 +11,7 @@ STATIC_PAGES_PERMISSION_REQUIRED = {
     'organization': ['core', 'pickleader'],
     'community': ['core', 'pickleader'],
     'equipment': ['core', 'pickleader'],
-    'stats': ['core']
+    'stats': ['core'],
 }
 
 AuthUser = get_user_model()

@@ -15,15 +15,9 @@ class AuthUserCreationAdminForm(UserCreationForm[AuthUser]):
     """A form for creating new users. Includes all the required fields,
     plus a repeated password."""
 
-    password1 = forms.CharField(
-        label='Password',
-        widget=forms.PasswordInput,
-        required=False
-    )
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput, required=False)
     password2 = forms.CharField(
-        label='Password Confirmation',
-        widget=forms.PasswordInput,
-        required=False
+        label='Password Confirmation', widget=forms.PasswordInput, required=False
     )
 
     class Meta:
@@ -101,16 +95,16 @@ class PendingPickLeaderAdminForm(forms.ModelForm[Person]):
 
 
 class PendingPickLeaderInlineAdminFormSet(
-    forms.models.BaseInlineFormSet[
-        Person,
-        Person,
-        PendingPickLeaderAdminForm
-    ]
+    forms.models.BaseInlineFormSet[Person, Person, PendingPickLeaderAdminForm]
 ):
-
     def get_emails(self):
-        return dict([(f.instance.pk, f.cleaned_data.get('email'))
-                     for f in self.forms if f.instance.pk is not None])
+        return dict(
+            [
+                (f.instance.pk, f.cleaned_data.get('email'))
+                for f in self.forms
+                if f.instance.pk is not None
+            ]
+        )
 
     def clean(self):
         email_list = list(self.get_emails().values())

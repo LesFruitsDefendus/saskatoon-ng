@@ -36,19 +36,13 @@ class EquipmentAdminForm(forms.ModelForm[Equipment]):
         bool1 = bool(self.cleaned_data['property'])
         bool2 = bool(self.cleaned_data['owner'])
         if not (bool1 != bool2):
-            raise forms.ValidationError(
-                'Fill in one of the two fields: property or owner.'
-            )
+            raise forms.ValidationError('Fill in one of the two fields: property or owner.')
         return cleaned_data
 
     class Meta:
         model = Equipment
         fields = '__all__'
         widgets = {
-            'property': autocomplete.ModelSelect2(
-                'property-autocomplete'
-            ),
-            'owner': autocomplete.ModelSelect2(
-                'actor-autocomplete'
-            ),
+            'property': autocomplete.ModelSelect2('property-autocomplete'),
+            'owner': autocomplete.ModelSelect2('actor-autocomplete'),
         }

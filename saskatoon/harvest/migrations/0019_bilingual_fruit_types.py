@@ -3,7 +3,6 @@ import django_quill.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0018_alter_requestforparticipation_number_of_pickers'),
     ]
@@ -11,7 +10,11 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='property',
-            options={'ordering': ['-id'], 'verbose_name': 'property', 'verbose_name_plural': 'properties'},
+            options={
+                'ordering': ['-id'],
+                'verbose_name': 'property',
+                'verbose_name_plural': 'properties',
+            },
         ),
         migrations.RenameField(
             model_name='treetype',
@@ -46,11 +49,21 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvest',
             name='about',
-            field=django_quill.fields.QuillField(blank=True, help_text='Published on public facing calendar', max_length=1000, null=True, verbose_name='Public announcement'),
+            field=django_quill.fields.QuillField(
+                blank=True,
+                help_text='Published on public facing calendar',
+                max_length=1000,
+                null=True,
+                verbose_name='Public announcement',
+            ),
         ),
         migrations.AlterModelOptions(
             name='treetype',
-            options={'ordering': ['name_en'], 'verbose_name': 'tree type', 'verbose_name_plural': 'tree types'},
+            options={
+                'ordering': ['name_en'],
+                'verbose_name': 'tree type',
+                'verbose_name_plural': 'tree types',
+            },
         ),
         migrations.RemoveField(
             model_name='treetype',
@@ -69,11 +82,18 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='treetype',
             name='fruit_icon',
-            field=models.CharField(blank=True, max_length=50, null=True, verbose_name='Fruit icon'),
+            field=models.CharField(
+                blank=True, max_length=50, null=True, verbose_name='Fruit icon'
+            ),
         ),
         migrations.AlterField(
             model_name='treetype',
             name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='fruits_images', verbose_name='Fruit image'),
+            field=models.ImageField(
+                blank=True,
+                null=True,
+                upload_to='fruits_images',
+                verbose_name='Fruit image',
+            ),
         ),
     ]

@@ -24,28 +24,14 @@ class TreeType(models.Model):
         verbose_name_plural = _("tree types")
         ordering = ["name_en"]
 
-    name_en = models.CharField(
-        verbose_name=_("Tree name (en)"),
-        max_length=20,
-        default=""
-    )
+    name_en = models.CharField(verbose_name=_("Tree name (en)"), max_length=20, default="")
 
-    name_fr = models.CharField(
-        verbose_name=_("Nom de l'arbre (fr)"),
-        max_length=20,
-        default=""
-    )
+    name_fr = models.CharField(verbose_name=_("Nom de l'arbre (fr)"), max_length=20, default="")
 
-    fruit_name_en = models.CharField(
-        verbose_name=_("Fruit name (en)"),
-        max_length=20,
-        default=""
-    )
+    fruit_name_en = models.CharField(verbose_name=_("Fruit name (en)"), max_length=20, default="")
 
     fruit_name_fr = models.CharField(
-        verbose_name=_("Nom du fruit (fr)"),
-        max_length=20,
-        default=""
+        verbose_name=_("Nom du fruit (fr)"), max_length=20, default=""
     )
 
     fruit_icon = models.CharField(
@@ -55,23 +41,12 @@ class TreeType(models.Model):
         null=True,
     )
 
-    maturity_start = models.DateField(
-        verbose_name=_("Maturity start date"),
-        blank=True,
-        null=True
-    )
+    maturity_start = models.DateField(verbose_name=_("Maturity start date"), blank=True, null=True)
 
-    maturity_end = models.DateField(
-        verbose_name=_("Maturity end date"),
-        blank=True,
-        null=True
-    )
+    maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
 
     image = models.ImageField(
-        upload_to='fruits_images',
-        verbose_name=_("Fruit image"),
-        blank=True,
-        null=True
+        upload_to='fruits_images', verbose_name=_("Fruit image"), blank=True, null=True
     )
 
     def get_name(self, lang='fr'):
@@ -104,16 +79,17 @@ def update_orphan_harvests(sender, instance, **kwargs):
     try:
         original = TreeType.objects.get(id=instance.id)
 
-        if (original.maturity_start != instance.maturity_start or
-                original.maturity_end != instance.maturity_end):
-
+        if (
+            original.maturity_start != instance.maturity_start
+            or original.maturity_end != instance.maturity_end
+        ):
             Harvest.objects.filter(
                 status=Harvest.Status.ORPHAN,
                 start_date__year=tz.now().date().year,
                 trees=instance,
             ).update(
                 start_date=to_datetime(instance.maturity_start),
-                end_date=to_datetime(instance.maturity_end)
+                end_date=to_datetime(instance.maturity_end),
             )
     except TreeType.DoesNotExist:
         pass
@@ -126,10 +102,7 @@ class EquipmentType(models.Model):
         verbose_name = _("equipment type")
         verbose_name_plural = _("equipment types")
 
-    name_fr = models.CharField(
-        verbose_name=_("Nom (fr)"),
-        max_length=50
-    )
+    name_fr = models.CharField(verbose_name=_("Nom (fr)"), max_length=50)
 
     name_en = models.CharField(
         verbose_name=_("Name (en)"),
@@ -145,12 +118,14 @@ class EquipmentType(models.Model):
 
 
 class Property(models.Model):
-    """ Property model"""
+    """Property model"""
 
     class Meta:
         verbose_name = _("property")
         verbose_name_plural = _("properties")
-        ordering = ['-id',]
+        ordering = [
+            '-id',
+        ]
 
     owner = models.ForeignKey(
         'member.Actor',
@@ -164,7 +139,7 @@ class Property(models.Model):
     is_active = models.BooleanField(
         verbose_name=_("Is active"),
         help_text=_("This property exists and may be able to host a pick"),
-        default=True
+        default=True,
     )
 
     authorized = models.BooleanField(
@@ -173,28 +148,30 @@ class Property(models.Model):
             "Harvest in this property has been authorized for the current season by its owner"
         ),
         null=True,
-        default=None
+        default=None,
     )
 
     pending = models.BooleanField(
         verbose_name=_("Pending"),
-        help_text=_("This property was created through a public form \
-and needs to be validated by an administrator"),
-        default=True
+        help_text=_(
+            "This property was created through a public form \
+and needs to be validated by an administrator"
+        ),
+        default=True,
     )
 
     pending_contact_first_name = models.CharField(
         blank=True,
         verbose_name=_("Contact first name"),
         help_text=_("First name of the person to be contacted for confirmation"),
-        max_length=50
+        max_length=50,
     )
 
     pending_contact_family_name = models.CharField(
         blank=True,
         verbose_name=_("Contact family name"),
         help_text=_("Family name of the person to be contacted for confirmation"),
-        max_length=50
+        max_length=50,
     )
 
     pending_contact_phone = PhoneField(
@@ -211,13 +188,11 @@ and needs to be validated by an administrator"),
     )
 
     pending_newsletter = models.BooleanField(
-        verbose_name=_("Newsletter subscription"),
-        default=False
+        verbose_name=_("Newsletter subscription"), default=False
     )
 
     pending_recurring = models.BooleanField(
-        verbose_name=_("Recurring property signup"),
-        default=False
+        verbose_name=_("Recurring property signup"), default=False
     )
 
     geom = PointField(null=True, blank=True)
@@ -236,7 +211,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         help_text=_("Front yard or backyard?"),
         null=True,
         blank=True,
-        max_length=200
+        max_length=200,
     )
 
     trees_accessibility = models.CharField(
@@ -244,13 +219,11 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         help_text=_("Any info on how to access the tree (eg. key, gate etc)"),
         null=True,
         blank=True,
-        max_length=200
+        max_length=200,
     )
 
     avg_nb_required_pickers = models.PositiveIntegerField(
-        verbose_name=_("Required pickers on average"),
-        null=True,
-        default=1
+        verbose_name=_("Required pickers on average"), null=True, default=1
     )
 
     public_access = models.BooleanField(
@@ -274,9 +247,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     )
 
     ladder_available_for_outside_picks = models.BooleanField(
-        verbose_name=_(
-            "A ladder is available in the property and can be used for nearby picks"
-        ),
+        verbose_name=_("A ladder is available in the property and can be used for nearby picks"),
         default=False,
     )
 
@@ -288,48 +259,32 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     number_of_trees = models.PositiveIntegerField(
         verbose_name=_("Total number of trees/vines on this property"),
         blank=True,
-        null=True
+        null=True,
     )
 
     approximative_maturity_date = models.DateField(
         verbose_name=_("Approximative maturity date"),
         help_text=_("When is the tree commonly ready to be harvested?"),
         blank=True,
-        null=True
+        null=True,
     )
 
     fruits_height = models.PositiveIntegerField(
-        verbose_name=_("Height of lowest fruits (meters)"),
-        blank=True,
-        null=True
+        verbose_name=_("Height of lowest fruits (meters)"), blank=True, null=True
     )
 
     street_number = models.CharField(
-        verbose_name=_("Number"),
-        max_length=10,
-        null=True,
-        blank=True
+        verbose_name=_("Number"), max_length=10, null=True, blank=True
     )
 
-    street = models.CharField(
-        verbose_name=_("Street"),
-        max_length=50,
-        null=True,
-        blank=True
-    )
+    street = models.CharField(verbose_name=_("Street"), max_length=50, null=True, blank=True)
 
     complement = models.CharField(
-        verbose_name=_("Complement"),
-        max_length=150,
-        null=True,
-        blank=True
+        verbose_name=_("Complement"), max_length=150, null=True, blank=True
     )
 
     postal_code = models.CharField(
-        verbose_name=_("Postal code"),
-        max_length=10,
-        null=True,
-        blank=True
+        verbose_name=_("Postal code"), max_length=10, null=True, blank=True
     )
 
     publishable_location = models.CharField(
@@ -339,7 +294,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         ),
         max_length=50,
         null=True,
-        blank=True
+        blank=True,
     )
 
     neighborhood = models.ForeignKey(
@@ -373,24 +328,16 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         on_delete=models.CASCADE,
     )
 
-    longitude = models.FloatField(
-        verbose_name=_("Longitude"),
-        null=True,
-        blank=True
-    )
+    longitude = models.FloatField(verbose_name=_("Longitude"), null=True, blank=True)
 
-    latitude = models.FloatField(
-        verbose_name=_("Latitude"),
-        null=True,
-        blank=True
-    )
+    latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
 
     additional_info = models.CharField(
         verbose_name=_("Additional information"),
         help_text=_("Any additional information that we should be aware of"),
         max_length=1000,
         null=True,
-        blank=True
+        blank=True,
     )
 
     changed_by = models.ForeignKey(
@@ -403,30 +350,20 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     @property
     def short_address(self):
         if self.street_number and self.street and self.complement:
-            return "%s %s, %s" % (
-                self.street_number,
-                self.street,
-                self.complement
-            )
+            return "%s %s, %s" % (self.street_number, self.street, self.complement)
         elif self.street and self.street_number:
-            return "%s %s" % (
-                self.street_number,
-                self.street
-            )
+            return "%s %s" % (self.street_number, self.street)
         elif self.street and self.complement:
-            return "%s, %s" % (
-                self.street,
-                self.complement
-            )
+            return "%s, %s" % (self.street, self.complement)
         else:
             return self.street
 
     @property
     def last_succeeded_harvest_date(self):
         """Date of the last successful harvest for this property"""
-        last_harvest = self.harvests\
-                           .filter(status=Harvest.Status.SUCCEEDED)\
-                           .order_by('start_date').last()
+        last_harvest = (
+            self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
+        )
         return last_harvest.start_date if last_harvest else None
 
     def get_owner_subclass(self):
@@ -451,8 +388,10 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def owner_name(self):
         if self.owner:
             return self.owner.__str__()
-        return u"(%s %s)" % (self.pending_contact_first_name,
-                             self.pending_contact_family_name)
+        return "(%s %s)" % (
+            self.pending_contact_first_name,
+            self.pending_contact_family_name,
+        )
 
     @property
     def email_recipient(self):
@@ -465,10 +404,12 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     @property
     def pending_contact_name(self):
         if self.pending_contact_first_name and self.pending_contact_family_name:
-            return " ".join([
-                self.pending_contact_first_name,
-                self.pending_contact_family_name,
-            ])
+            return " ".join(
+                [
+                    self.pending_contact_first_name,
+                    self.pending_contact_family_name,
+                ]
+            )
         elif self.pending_contact_first_name:
             return self.pending_contact_first_name
         elif self.pending_contact_family_name:
@@ -479,12 +420,14 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def needs_orphan(self):
         if not self.authorized or self.pending:
             return False
-        return self.trees.count() > \
-            self.harvests.filter(start_date__year=tz.now().date().year).count()
+        return (
+            self.trees.count()
+            > self.harvests.filter(start_date__year=tz.now().date().year).count()
+        )
 
     def __str__(self):
         number = self.street_number if self.street_number else ""
-        return u"%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
+        return "%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
 
 
 class Equipment(models.Model):
@@ -515,24 +458,17 @@ class Equipment(models.Model):
         related_name="equipment",
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
-    description = models.CharField(
-        verbose_name=_("Description"),
-        max_length=50,
-        blank=True
-    )
+    description = models.CharField(verbose_name=_("Description"), max_length=50, blank=True)
 
-    count = models.SmallIntegerField(
-        verbose_name=_("Number available"),
-        default=1
-    )
+    count = models.SmallIntegerField(verbose_name=_("Number available"), default=1)
 
     shared = models.BooleanField(
         verbose_name=_("Shared"),
         help_text=_("Can be used in harvests outside of property"),
-        default=False
+        default=False,
     )
 
     def get_equipment_point(self):
@@ -569,15 +505,9 @@ class Harvest(models.Model):
         SUCCEEDED = 'succeeded', _("Succeeded")
         CANCELLED = 'cancelled', _("Cancelled")
 
-    PUBLISHABLE_STATUSES = [
-        Status.READY,
-        Status.SCHEDULED,
-        Status.SUCCEEDED
-    ]
+    PUBLISHABLE_STATUSES = [Status.READY, Status.SCHEDULED, Status.SUCCEEDED]
 
-    SEASON_CHOICES = [
-        (y, y) for y in range(datetime.now().year, 2015, -1)
-    ]
+    SEASON_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
     status = models.CharField(
         choices=Status.choices,
@@ -596,23 +526,15 @@ class Harvest(models.Model):
     )
 
     trees: models.ManyToManyField[TreeType, models.Model] = models.ManyToManyField(
-        'TreeType',
-        verbose_name=_("Fruit trees")
+        'TreeType', verbose_name=_("Fruit trees")
     )
 
-    owner_present = models.BooleanField(
-        verbose_name=_("Owner wants to be present"),
-        default=False
-    )
+    owner_present = models.BooleanField(verbose_name=_("Owner wants to be present"), default=False)
 
-    owner_help = models.BooleanField(
-        verbose_name=_("Owner wants to participate"),
-        default=False
-    )
+    owner_help = models.BooleanField(verbose_name=_("Owner wants to participate"), default=False)
 
     owner_fruit = models.BooleanField(
-        verbose_name=_("Owner wants their share of fruits"),
-        default=False
+        verbose_name=_("Owner wants their share of fruits"), default=False
     )
 
     pick_leader = models.ForeignKey(
@@ -624,33 +546,20 @@ class Harvest(models.Model):
         on_delete=models.CASCADE,
     )
 
-    start_date = models.DateTimeField(
-        verbose_name=_("Start date"),
-        blank=True,
-        null=True
-    )
+    start_date = models.DateTimeField(verbose_name=_("Start date"), blank=True, null=True)
 
-    end_date = models.DateTimeField(
-        verbose_name=_("End date"),
-        blank=True,
-        null=True
-    )
+    end_date = models.DateTimeField(verbose_name=_("End date"), blank=True, null=True)
 
     publication_date = models.DateTimeField(
-        verbose_name=_("Publication date"),
-        blank=True,
-        null=True
+        verbose_name=_("Publication date"), blank=True, null=True
     )
 
     equipment_reserved: models.ManyToManyField[Equipment, models.Model] = models.ManyToManyField(
-        'Equipment',
-        verbose_name=_("Reserve equipment"),
-        blank=True
+        'Equipment', verbose_name=_("Reserve equipment"), blank=True
     )
 
     nb_required_pickers = models.PositiveIntegerField(
-        verbose_name=_("Number of required pickers"),
-        default=3
+        verbose_name=_("Number of required pickers"), default=3
     )
 
     about = QuillField(
@@ -658,7 +567,7 @@ class Harvest(models.Model):
         max_length=1000,
         help_text=_("Published on public facing calendar"),
         null=True,
-        blank=True
+        blank=True,
     )
 
     changed_by = models.ForeignKey(
@@ -669,30 +578,23 @@ class Harvest(models.Model):
         on_delete=models.SET_NULL,
     )
 
-    date_created = models.DateTimeField(
-        verbose_name=_("Creation date"),
-        auto_now_add=True
-    )
+    date_created = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True)
 
     def __str__(self):
         start = self.get_local_start()
         if start is not None:
             return _("Harvest on {} for {}").format(
-                start.strftime("%d/%m/%Y %H:%M"),
-                self.property
+                start.strftime("%d/%m/%Y %H:%M"), self.property
             )
         return _("Harvest for {}").format(self.property)
 
     @staticmethod
     def get_status_choices():
         """Pending status is no longer used"""
-        return [s for s in Harvest.Status.choices
-                if s[0] != Harvest.Status.PENDING]
+        return [s for s in Harvest.Status.choices if s[0] != Harvest.Status.PENDING]
 
     def get_total_distribution(self) -> Optional[int]:
-        return self.yields.aggregate(
-            models.Sum("total_in_lb")
-        ).get("total_in_lb__sum")
+        return self.yields.aggregate(models.Sum("total_in_lb")).get("total_in_lb__sum")
 
     def get_local_start(self):
         return local_datetime(self.start_date)
@@ -755,9 +657,8 @@ class Harvest(models.Model):
             return False
 
         days = self.get_days_before_harvest()
-        return (
-            (self.status is Harvest.Status.ORPHAN and days < 14) or
-            (self.status is Harvest.Status.SCHEDULED and days < 3)
+        return (self.status is Harvest.Status.ORPHAN and days < 14) or (
+            self.status is Harvest.Status.SCHEDULED and days < 3
         )
 
     def is_publishable(self):
@@ -765,7 +666,7 @@ class Harvest(models.Model):
             return False
         if not self.publication_date:
             return True
-        return (tz.now() > self.publication_date)
+        return tz.now() > self.publication_date
 
     def is_open_to_requests(self, public: bool = True):
         if self.end_date is not None and tz.now() > self.end_date:
@@ -787,8 +688,7 @@ def harvest_changed_by(sender, instance, **kwargs):
     request = CrequestMiddleware.get_request()
     if not request:
         return
-    instance.changed_by = \
-        None if request.user.is_anonymous else request.user
+    instance.changed_by = None if request.user.is_anonymous else request.user
 
 
 class RequestForParticipation(models.Model):
@@ -833,37 +733,21 @@ class RequestForParticipation(models.Model):
     number_of_pickers = models.PositiveIntegerField(
         verbose_name=_("Number of pickers"),
         default=1,
-        validators=[MinValueValidator(1), MaxValueValidator(99)]
+        validators=[MinValueValidator(1), MaxValueValidator(99)],
     )
 
-    comment = models.TextField(
-        verbose_name=_("Comment from participant"),
-        null=True,
-        blank=True
-    )
+    comment = models.TextField(verbose_name=_("Comment from participant"), null=True, blank=True)
 
-    notes = models.TextField(
-        verbose_name=_("PickLeader notes"),
-        null=True,
-        blank=True
-    )
+    notes = models.TextField(verbose_name=_("PickLeader notes"), null=True, blank=True)
 
-    date_created = models.DateTimeField(
-        verbose_name=_("Created on"),
-        auto_now_add=True
-    )
+    date_created = models.DateTimeField(verbose_name=_("Created on"), auto_now_add=True)
 
     date_status_updated = models.DateTimeField(
-        verbose_name=_("Status updated on"),
-        null=True,
-        blank=True
+        verbose_name=_("Status updated on"), null=True, blank=True
     )
 
     showed_up = models.BooleanField(
-        verbose_name=_("Picker(s) showed up"),
-        default=None,
-        null=True,
-        blank=True
+        verbose_name=_("Picker(s) showed up"), default=None, null=True, blank=True
     )
 
     @staticmethod
@@ -906,10 +790,7 @@ class HarvestYield(models.Model):
     )
 
     total_in_lb = models.FloatField(
-        verbose_name=_("Weight (lb)"),
-        validators=[
-            MinValueValidator(0.0)
-        ]
+        verbose_name=_("Weight (lb)"), validators=[MinValueValidator(0.0)]
     )
 
     recipient = models.ForeignKey(
@@ -919,8 +800,11 @@ class HarvestYield(models.Model):
     )
 
     def __str__(self):
-        return "%.2f lbs of %s to %s" % \
-               (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
+        return "%.2f lbs of %s to %s" % (
+            self.total_in_lb,
+            self.tree.fruit_name_en,
+            self.recipient,
+        )
 
 
 class Comment(models.Model):
@@ -944,15 +828,9 @@ class Comment(models.Model):
         on_delete=models.CASCADE,
     )
 
-    content = models.CharField(
-        verbose_name=_("Content"),
-        max_length=500
-    )
+    content = models.CharField(verbose_name=_("Content"), max_length=500)
 
-    date_created = models.DateTimeField(
-        verbose_name=_("Created on"),
-        auto_now_add=True
-    )
+    date_created = models.DateTimeField(verbose_name=_("Created on"), auto_now_add=True)
 
     date_updated = models.DateTimeField(
         verbose_name=_("Updated on"),
@@ -971,7 +849,6 @@ class PropertyImage(models.Model):
         Property,
         related_name='images',
         on_delete=models.CASCADE,
-
     )
     image = models.ImageField(
         upload_to='properties_images',
@@ -998,6 +875,7 @@ class HarvestImage(models.Model):
 
 
 # CACHE #
+
 
 @receiver(post_save, sender=Property)
 def clear_cache_property(sender, instance, **kwargs):

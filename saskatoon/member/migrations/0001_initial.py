@@ -5,11 +5,10 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
-       ('auth', '0012_alter_user_first_name_max_length'),
+        ('auth', '0012_alter_user_first_name_max_length'),
     ]
 
     operations = [
@@ -26,7 +25,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='City',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, verbose_name='Name')),
             ],
             options={
@@ -37,7 +44,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Country',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, verbose_name='Name')),
             ],
             options={
@@ -48,7 +63,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Language',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, verbose_name='Name')),
             ],
             options={
@@ -59,7 +82,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Neighborhood',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, verbose_name='Name')),
             ],
             options={
@@ -70,7 +101,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='State',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=150, verbose_name='Name')),
             ],
             options={
@@ -80,24 +119,117 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Person',
             fields=[
-                ('actor_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='member.actor')),
-                ('redmine_contact_id', models.IntegerField(blank=True, null=True, verbose_name='Redmine contact')),
-                ('first_name', models.CharField(max_length=30, verbose_name='First name')),
-                ('family_name', models.CharField(blank=True, max_length=50, null=True, verbose_name='Family name')),
-                ('phone', models.CharField(blank=True, max_length=30, null=True, verbose_name='Phone')),
-                ('street_number', models.CharField(blank=True, max_length=10, null=True, verbose_name='Number')),
-                ('street', models.CharField(blank=True, max_length=50, null=True, verbose_name='Street')),
-                ('complement', models.CharField(blank=True, max_length=150, null=True, verbose_name='Complement')),
-                ('postal_code', models.CharField(blank=True, max_length=10, null=True, verbose_name='Postal code')),
-                ('newsletter_subscription', models.BooleanField(default=False, verbose_name='Newsletter subscription')),
-                ('longitude', models.FloatField(blank=True, null=True, verbose_name='Longitude')),
-                ('latitude', models.FloatField(blank=True, null=True, verbose_name='Latitude')),
+                (
+                    'actor_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='member.actor',
+                    ),
+                ),
+                (
+                    'redmine_contact_id',
+                    models.IntegerField(blank=True, null=True, verbose_name='Redmine contact'),
+                ),
+                (
+                    'first_name',
+                    models.CharField(max_length=30, verbose_name='First name'),
+                ),
+                (
+                    'family_name',
+                    models.CharField(
+                        blank=True, max_length=50, null=True, verbose_name='Family name'
+                    ),
+                ),
+                (
+                    'phone',
+                    models.CharField(blank=True, max_length=30, null=True, verbose_name='Phone'),
+                ),
+                (
+                    'street_number',
+                    models.CharField(blank=True, max_length=10, null=True, verbose_name='Number'),
+                ),
+                (
+                    'street',
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='Street'),
+                ),
+                (
+                    'complement',
+                    models.CharField(
+                        blank=True, max_length=150, null=True, verbose_name='Complement'
+                    ),
+                ),
+                (
+                    'postal_code',
+                    models.CharField(
+                        blank=True, max_length=10, null=True, verbose_name='Postal code'
+                    ),
+                ),
+                (
+                    'newsletter_subscription',
+                    models.BooleanField(default=False, verbose_name='Newsletter subscription'),
+                ),
+                (
+                    'longitude',
+                    models.FloatField(blank=True, null=True, verbose_name='Longitude'),
+                ),
+                (
+                    'latitude',
+                    models.FloatField(blank=True, null=True, verbose_name='Latitude'),
+                ),
                 ('comments', models.TextField(blank=True, verbose_name='Comments')),
-                ('city', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.city', verbose_name='City')),
-                ('country', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.country', verbose_name='Country')),
-                ('language', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.language', verbose_name='Preferred language')),
-                ('neighborhood', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.neighborhood', verbose_name='Neighborhood')),
-                ('state', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.state', verbose_name='State')),
+                (
+                    'city',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.city',
+                        verbose_name='City',
+                    ),
+                ),
+                (
+                    'country',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.country',
+                        verbose_name='Country',
+                    ),
+                ),
+                (
+                    'language',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.language',
+                        verbose_name='Preferred language',
+                    ),
+                ),
+                (
+                    'neighborhood',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.neighborhood',
+                        verbose_name='Neighborhood',
+                    ),
+                ),
+                (
+                    'state',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.state',
+                        verbose_name='State',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'person',
@@ -108,24 +240,119 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Organization',
             fields=[
-                ('actor_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='member.actor')),
-                ('is_beneficiary', models.BooleanField(default=False, verbose_name='is beneficiary')),
-                ('redmine_contact_id', models.IntegerField(blank=True, null=True, verbose_name='Redmine contact')),
+                (
+                    'actor_ptr',
+                    models.OneToOneField(
+                        auto_created=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        parent_link=True,
+                        primary_key=True,
+                        serialize=False,
+                        to='member.actor',
+                    ),
+                ),
+                (
+                    'is_beneficiary',
+                    models.BooleanField(default=False, verbose_name='is beneficiary'),
+                ),
+                (
+                    'redmine_contact_id',
+                    models.IntegerField(blank=True, null=True, verbose_name='Redmine contact'),
+                ),
                 ('civil_name', models.CharField(max_length=50, verbose_name='Name')),
-                ('description', models.TextField(blank=True, verbose_name='Description')),
-                ('phone', models.CharField(max_length=50, null=True, verbose_name='Phone')),
-                ('contact_person_role', models.CharField(blank=True, max_length=50, null=True, verbose_name='Contact person role')),
-                ('street_number', models.CharField(blank=True, max_length=10, null=True, verbose_name='Number')),
-                ('street', models.CharField(blank=True, max_length=50, null=True, verbose_name='Street')),
-                ('complement', models.CharField(blank=True, max_length=150, null=True, verbose_name='Complement')),
-                ('postal_code', models.CharField(blank=True, max_length=10, null=True, verbose_name='Postal code')),
-                ('longitude', models.FloatField(blank=True, null=True, verbose_name='Longitude')),
-                ('latitude', models.FloatField(blank=True, null=True, verbose_name='Latitude')),
-                ('city', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.city', verbose_name='City')),
-                ('contact_person', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.person', verbose_name='Contact person')),
-                ('country', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.country', verbose_name='Country')),
-                ('neighborhood', models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.neighborhood', verbose_name='Neighborhood')),
-                ('state', models.ForeignKey(default=1, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.state', verbose_name='State')),
+                (
+                    'description',
+                    models.TextField(blank=True, verbose_name='Description'),
+                ),
+                (
+                    'phone',
+                    models.CharField(max_length=50, null=True, verbose_name='Phone'),
+                ),
+                (
+                    'contact_person_role',
+                    models.CharField(
+                        blank=True,
+                        max_length=50,
+                        null=True,
+                        verbose_name='Contact person role',
+                    ),
+                ),
+                (
+                    'street_number',
+                    models.CharField(blank=True, max_length=10, null=True, verbose_name='Number'),
+                ),
+                (
+                    'street',
+                    models.CharField(blank=True, max_length=50, null=True, verbose_name='Street'),
+                ),
+                (
+                    'complement',
+                    models.CharField(
+                        blank=True, max_length=150, null=True, verbose_name='Complement'
+                    ),
+                ),
+                (
+                    'postal_code',
+                    models.CharField(
+                        blank=True, max_length=10, null=True, verbose_name='Postal code'
+                    ),
+                ),
+                (
+                    'longitude',
+                    models.FloatField(blank=True, null=True, verbose_name='Longitude'),
+                ),
+                (
+                    'latitude',
+                    models.FloatField(blank=True, null=True, verbose_name='Latitude'),
+                ),
+                (
+                    'city',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.city',
+                        verbose_name='City',
+                    ),
+                ),
+                (
+                    'contact_person',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.person',
+                        verbose_name='Contact person',
+                    ),
+                ),
+                (
+                    'country',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.country',
+                        verbose_name='Country',
+                    ),
+                ),
+                (
+                    'neighborhood',
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.neighborhood',
+                        verbose_name='Neighborhood',
+                    ),
+                ),
+                (
+                    'state',
+                    models.ForeignKey(
+                        default=1,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.state',
+                        verbose_name='State',
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'organization',
@@ -136,17 +363,65 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='AuthUser',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('password', models.CharField(max_length=128, verbose_name='password')),
-                ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
-                ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
-                ('email', models.EmailField(max_length=255, unique=True, verbose_name='email address')),
+                (
+                    'last_login',
+                    models.DateTimeField(blank=True, null=True, verbose_name='last login'),
+                ),
+                (
+                    'is_superuser',
+                    models.BooleanField(
+                        default=False,
+                        help_text='Designates that this user has all permissions without explicitly assigning them.',
+                        verbose_name='superuser status',
+                    ),
+                ),
+                (
+                    'email',
+                    models.EmailField(max_length=255, unique=True, verbose_name='email address'),
+                ),
                 ('date_joined', models.DateTimeField(auto_now_add=True)),
                 ('is_active', models.BooleanField(default=True)),
                 ('is_staff', models.BooleanField(default=False)),
-                ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.Group', verbose_name='groups')),
-                ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.Permission', verbose_name='user permissions')),
-                ('person', models.OneToOneField(null=True, on_delete=django.db.models.deletion.CASCADE, to='member.person')),
+                (
+                    'groups',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.Group',
+                        verbose_name='groups',
+                    ),
+                ),
+                (
+                    'user_permissions',
+                    models.ManyToManyField(
+                        blank=True,
+                        help_text='Specific permissions for this user.',
+                        related_name='user_set',
+                        related_query_name='user',
+                        to='auth.Permission',
+                        verbose_name='user permissions',
+                    ),
+                ),
+                (
+                    'person',
+                    models.OneToOneField(
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to='member.person',
+                    ),
+                ),
             ],
             options={
                 'abstract': False,

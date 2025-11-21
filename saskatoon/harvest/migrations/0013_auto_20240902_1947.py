@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0013_auto_20240825_1909'),
         ('harvest', '0012_rename_name_equipmenttype_name_fr'),
@@ -25,7 +24,14 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='equipment',
             name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='equipment', to='member.actor', verbose_name='Owner'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='equipment',
+                to='member.actor',
+                verbose_name='Owner',
+            ),
         ),
         migrations.AlterField(
             model_name='equipmenttype',

@@ -11,7 +11,7 @@ ENDPOINT_BASELINE_PAIRS = [
     ('organization', 'organization_list.json'),
     ('organization/2', 'organization_detail.json'),
     ('community', 'community_list.json'),
-    ('equipment-point', 'equipment-point_list.json')
+    ('equipment-point', 'equipment-point_list.json'),
 ]
 
 
