@@ -2,10 +2,9 @@ import re
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional, TypeVar, MutableMapping
+from typing import Optional, Any
 from functools import reduce
 from typeguard import typechecked
-from typing import Union
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
@@ -48,16 +47,11 @@ def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
 
 
-T = TypeVar('T')
-V = TypeVar('V')
-NestedDict = Union[MutableMapping[str, 'NestedDict'], MutableMapping[str, Optional[T]]]
-
-
 @typechecked
-def rgetattr(obj: NestedDict, attr: str, *args) -> Optional[T]:
+def rgetattr(obj, attr: str, *args) -> Optional[Any]:
     """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
 
-    def _getattr(obj: MutableMapping[str, V], attr: str) -> V:
+    def _getattr(obj, attr: str) -> Optional[Any]:
         return getattr(obj, attr, *args)
 
     return reduce(_getattr, [obj] + attr.split('.'))
