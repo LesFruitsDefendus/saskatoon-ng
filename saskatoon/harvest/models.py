@@ -534,7 +534,7 @@ class Harvest(models.Model):
         default=Status.ORPHAN,
     )
 
-    # WARNING: confilcts with @property decorator :/
+    # WARNING: conflicts with @property decorator :/
     property = models.ForeignKey(
         'Property',
         null=True,

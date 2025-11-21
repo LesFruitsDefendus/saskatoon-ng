@@ -42,14 +42,23 @@ class RFPForm(forms.ModelForm[RFP]):
             'number_of_pickers': _('How many people are you?'),
         }
 
-    first_name = forms.CharField(label=_("First name"))
-    last_name = forms.CharField(label=_("Last name"))
-    email = forms.EmailField(
-        label=_("Email"), help_text=_("Enter a valid email address, please.")
+    first_name = forms.CharField(
+        label=_("First name")
     )
-    phone = forms.CharField(label=_("Phone number"))
+    last_name = forms.CharField(
+        label=_("Last name")
+    )
+    email = forms.EmailField(
+        label=_("Email"),
+        help_text=_("Enter a valid email address, please.")
+    )
+    phone = forms.CharField(
+        label=_("Phone number")
+    )
     comment = forms.CharField(
-        label=_("Comments"), required=False, widget=forms.widgets.Textarea()
+        label=_("Comments"),
+        required=False,
+        widget=forms.widgets.Textarea()
     )
 
     def __init__(self, *args, **kwargs):
@@ -64,9 +73,7 @@ class RFPForm(forms.ModelForm[RFP]):
             auth_user = AuthUser.objects.get(email=email)
 
             # check if a request with the same email already exists
-            if RFP.objects.filter(
-                person=auth_user.person, harvest_id=self.harvest.id
-            ).exists():
+            if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
                 raise forms.ValidationError(
                     _("You have already requested to join this pick.")
                 )
@@ -88,7 +95,10 @@ class RFPForm(forms.ModelForm[RFP]):
                 family_name=self.cleaned_data['last_name'],
                 phone=self.cleaned_data['phone'],
             )
-            auth_user = AuthUser.objects.create(email=email, person=instance.person)
+            auth_user = AuthUser.objects.create(
+                email=email,
+                person=instance.person
+            )
 
             group, __ = Group.objects.get_or_create(name='volunteer')
             auth_user.groups.add(group)
@@ -118,13 +128,13 @@ class RFPManageForm(forms.ModelForm[RFP]):
     send_email = forms.BooleanField(
         label=_("Send confirmation email"),
         required=False,
-        widget=forms.widgets.HiddenInput(),
+        widget=forms.widgets.HiddenInput()
     )
 
     email_body = forms.CharField(
         label=_("Message to requester"),
         required=False,
-        widget=forms.widgets.HiddenInput(),
+        widget=forms.widgets.HiddenInput()
     )
 
     def __init__(self, *args, **kwargs):
@@ -141,25 +151,22 @@ class RFPManageForm(forms.ModelForm[RFP]):
             self.fields['email_body'].widget = forms.widgets.Textarea()
             harvest = self.instance.harvest
             self.email = Email(
-                recipient=self.instance.person, type=emailType, harvest=harvest
+                recipient=self.instance.person,
+                type=emailType,
+                harvest=harvest
             )
             self.initial['send_email'] = True
-            self.initial['email_body'] = self.email.get_default_message(
-                self.email.harvest_data
-            )
+            self.initial['email_body'] = \
+                self.email.get_default_message(self.email.harvest_data)
 
     def clean(self):
         status = self.cleaned_data.get('status')
-        if (
-            status == RFP.Status.ACCEPTED
-            and status != self.instance.status
-            and self.instance.harvest.has_enough_pickers()
-        ):
+        if status == RFP.Status.ACCEPTED and \
+           status != self.instance.status and \
+           self.instance.harvest.has_enough_pickers():
             raise forms.ValidationError(
-                _(
-                    "Enough pickers have already been accepted for this harvest. \
-                To accept more, increase the number of required pickers first."
-                )
+                _("Enough pickers have already been accepted for this harvest. \
+                To accept more, increase the number of required pickers first.")
             )
 
     def save(self):
@@ -178,7 +185,9 @@ class CommentForm(forms.ModelForm[Comment]):
     content = forms.CharField(
         label=_("Pickleader notes"),
         required=False,
-        widget=forms.widgets.Textarea(attrs={'placeholder': _("Your comment here")}),
+        widget=forms.widgets.Textarea(
+            attrs={'placeholder': _("Your comment here")}
+        )
     )
 
 
@@ -188,22 +197,17 @@ class PropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         exclude = [
-            'longitude',
-            'latitude',
-            'geom',
-            'pending_contact_first_name',
-            'pending_contact_family_name',
-            'pending_contact_phone',
-            'pending_contact_email',
-            'pending_recurring',
-            'pending_newsletter',
+            'longitude', 'latitude', 'geom',
+            'pending_contact_first_name', 'pending_contact_family_name',
+            'pending_contact_phone', 'pending_contact_email',
+            'pending_recurring', 'pending_newsletter',
             'changed_by',
         ]
         widgets = {
             'owner': autocomplete.ModelSelect2('owner-autocomplete'),
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
             'additional_info': forms.Textarea(),
-            'avg_nb_required_pickers': forms.NumberInput(),
+            'avg_nb_required_pickers': forms.NumberInput()
         }
 
     approximative_maturity_date = forms.DateField(
@@ -216,17 +220,31 @@ class PropertyForm(forms.ModelForm[Property]):
 class PropertyCreateForm(PropertyForm):
     """Property create form."""
 
-    create_new_owner = forms.BooleanField(label=_("Register new owner"), required=False)
+    create_new_owner = forms.BooleanField(
+        label=_("Register new owner"),
+        required=False
+
+    )
     owner_first_name = forms.CharField(
-        label=_("First Name"), help_text=_("This field is required"), required=False
+        label=_("First Name"),
+        help_text=_("This field is required"),
+        required=False
     )
 
-    owner_last_name = forms.CharField(label=_("Last Name"), required=False)
+    owner_last_name = forms.CharField(
+        label=_("Last Name"),
+        required=False
+    )
 
-    owner_phone = forms.CharField(label=_("Phone"), required=False)
+    owner_phone = forms.CharField(
+        label=_("Phone"),
+        required=False
+    )
 
     owner_email = forms.EmailField(
-        label=_("Email"), help_text=_("This field is required"), required=False
+        label=_("Email"),
+        help_text=_("This field is required"),
+        required=False
     )
 
     def clean(self):
@@ -236,11 +254,8 @@ class PropertyCreateForm(PropertyForm):
                 validate_email(data['owner_email'])
             else:
                 raise forms.ValidationError(
-                    _(
-                        "You must either select an Owner \
-                    or create a new one and provide their personal information"
-                    )
-                )
+                    _("You must either select an Owner \
+                    or create a new one and provide their personal information"))
         return data
 
     def save(self):
@@ -249,10 +264,11 @@ class PropertyCreateForm(PropertyForm):
             person = Person.objects.create(
                 first_name=self.cleaned_data['owner_first_name'],
                 family_name=self.cleaned_data['owner_last_name'],
-                phone=self.cleaned_data['owner_phone'],
+                phone=self.cleaned_data['owner_phone']
             )
             auth_user = AuthUser.objects.create(
-                email=self.cleaned_data['owner_email'], person=person
+                email=self.cleaned_data['owner_email'],
+                person=person
             )
             auth_user.set_roles(['owner'])
 
@@ -298,14 +314,14 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         )
 
         widgets = {
-            'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
+            'trees': autocomplete.ModelSelect2Multiple(
+                'tree-autocomplete'
+            ),
             'avg_nb_required_pickers': forms.NumberInput(),
         }
 
     neighbor_access = forms.BooleanField(
-        label=_(
-            "Volunteers have permission to go on the neighbours' property to access fruits"
-        ),
+        label=_("Volunteers have permission to go on the neighbours' property to access fruits"),
         required=False,
     )
 
@@ -325,10 +341,8 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     )
 
     harvest_every_year = forms.BooleanField(
-        label=_(
-            'My tree(s)/vine(s) produce fruit every year \
-(if not, please include info about frequency in additional comments at the bottom)'
-        ),
+        label=_('My tree(s)/vine(s) produce fruit every year \
+(if not, please include info about frequency in additional comments at the bottom)'),
         required=False,
     )
 
@@ -339,15 +353,10 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     )
 
     authorized = forms.ChoiceField(
-        label=_(
-            'Do you give us permission to harvest your tree(s) and/or vine(s) this season?'
-        ),
-        choices=[
-            (True, _('Yes')),
-            (False, _('Not this year, but maybe in future seasons')),
-        ],
+        label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
+        choices=[(True, _('Yes')), (False, _('Not this year, but maybe in future seasons'))],
         widget=forms.RadioSelect(),
-        required=True,
+        required=True
     )
 
     approximative_maturity_date = forms.DateField(
@@ -357,60 +366,63 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     trees_location = forms.CharField(
         label=_('Location of tree(s) or vine(s)'),
         help_text=_('Location on the property (e.g. Front yard, back yard, etc.)'),
-        required=False,
+        required=False
     )
 
     trees_accessibility = forms.CharField(
         label=_('Access to tree(s) or vine(s)'),
-        help_text=_(
-            'Any info on how to access the tree(s) or vine(s) \
-(e.g. locked gate in back, publicly accessible from sidewalk, etc.)'
-        ),
-        required=False,
+        help_text=_('Any info on how to access the tree(s) or vine(s) \
+(e.g. locked gate in back, publicly accessible from sidewalk, etc.)'),
+        required=False
     )
 
     avg_nb_required_pickers = forms.DecimalField(
         label=_('Number of pickers'),
-        help_text=_(
-            'Approximate number of pickers needed for a two-hour harvesting period.'
-        ),
-        required=False,
+        help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
+        required=False
     )
 
     fruits_height = forms.DecimalField(
-        label=_('Height of lowest fruits (meters)'), required=False
+        label=_('Height of lowest fruits (meters)'),
+        required=False
     )
 
-    street_number = forms.DecimalField(label=_('Address number'), required=True)
+    street_number = forms.DecimalField(
+        label=_('Address number'),
+        required=True
+    )
 
     number_of_trees = forms.DecimalField(
-        label=_('Total number of trees/vines on this property'), required=True
+        label=_('Total number of trees/vines on this property'),
+        required=True
     )
 
-    street = forms.CharField(label=_('Street name'), required=True)
+    street = forms.CharField(
+        label=_('Street name'),
+        required=True
+    )
 
     complement = forms.DecimalField(
-        label=_('Apartment # (if applicable)'), required=False
+        label=_('Apartment # (if applicable)'),
+        required=False
     )
 
-    postal_code = forms.CharField(required=True)
+    postal_code = forms.CharField(
+        required=True
+    )
 
     pending_newsletter = forms.BooleanField(
-        label=_(
-            'I would like to receive emails from \
-Les Fruits Defendus such as newsletters and updates'
-        ),
-        required=False,
+        label=_('I would like to receive emails from \
+Les Fruits Defendus such as newsletters and updates'),
+        required=False
     )
 
     additional_info = forms.CharField(
-        help_text=_(
-            'Any additional information that we should be aware of \
+        help_text=_('Any additional information that we should be aware of \
 (e.g. details about how often tree produces fruit, description of fruit if \
-the type is unknown or not in the list, etc.)'
-        ),
+the type is unknown or not in the list, etc.)'),
         widget=forms.widgets.Textarea(),
-        required=False,
+        required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -435,6 +447,7 @@ the type is unknown or not in the list, etc.)'
 
 
 class HarvestForm(forms.ModelForm[Harvest]):
+
     class Meta:
         model = Harvest
         fields = (
@@ -452,22 +465,34 @@ class HarvestForm(forms.ModelForm[Harvest]):
             'about',
         )
         widgets = {
-            'property': autocomplete.ModelSelect2('property-autocomplete'),
-            'trees': autocomplete.ModelSelect2Multiple(
-                url='tree-autocomplete', forward=['property']
+            'property': autocomplete.ModelSelect2(
+                'property-autocomplete'
             ),
-            'pick_leader': autocomplete.ModelSelect2('pickleader-autocomplete'),
+            'trees': autocomplete.ModelSelect2Multiple(
+                url='tree-autocomplete',
+                forward=['property']
+            ),
+            'pick_leader': autocomplete.ModelSelect2(
+                'pickleader-autocomplete'
+            ),
             'nb_required_pickers': forms.NumberInput(),
+
         }
 
-    start_date = forms.DateTimeField(label=_('Start date/time'), required=True)
+    start_date = forms.DateTimeField(
+        label=_('Start date/time'),
+        required=True
+    )
 
-    end_date = forms.DateTimeField(label=_('End date/time'), required=True)
+    end_date = forms.DateTimeField(
+        label=_('End date/time'),
+        required=True
+    )
 
     publication_date = forms.DateTimeField(
         label=_("Publication date (optional)"),
         help_text=_("Leave this field empty to publish harvest as soon as possible"),
-        required=False,
+        required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -482,18 +507,18 @@ class HarvestForm(forms.ModelForm[Harvest]):
         status = self.cleaned_data['status']
 
         if start.date() != end.date() and status not in [
-            Harvest.Status.ORPHAN,
-            Harvest.Status.ADOPTED,
-            Harvest.Status.CANCELLED,
+                Harvest.Status.ORPHAN,
+                Harvest.Status.ADOPTED,
+                Harvest.Status.CANCELLED,
         ]:
             raise forms.ValidationError(
-                _(
-                    'Harvests cannot be scheduled over multiple days: start and end dates must match.'
-                )  # noqa: E501
+                _('Harvests cannot be scheduled over multiple days: start and end dates must match.')  # noqa: E501
             )
 
         if end <= start:
-            raise forms.ValidationError(_('End time must be after start time'))
+            raise forms.ValidationError(
+                _('End time must be after start time')
+            )
 
         return end
 
@@ -507,9 +532,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 invalid_trees.append(f"{tree.name_fr} ({tree.name_en})")
         if invalid_trees:
             raise forms.ValidationError(
-                _(
-                    'Selected tree(s) <{}> not registered on the selected property.'
-                ).format("; ".join(invalid_trees))
+                _('Selected tree(s) <{}> not registered on the selected property.')
+                .format("; ".join(invalid_trees))
             )
 
         return selected_trees
@@ -519,15 +543,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
         status = self.cleaned_data['status']
         about = self.cleaned_data['about']
         if status not in [
-            Harvest.Status.ORPHAN,
-            Harvest.Status.ADOPTED,
-            Harvest.Status.PENDING,
-            Harvest.Status.CANCELLED,
+                Harvest.Status.ORPHAN,
+                Harvest.Status.ADOPTED,
+                Harvest.Status.PENDING,
+                Harvest.Status.CANCELLED
         ] and (not about or is_quill_html_empty(json.loads(about).get('html'))):
             raise forms.ValidationError(
-                _(
-                    'Please fill in the public announcement to be published on the calendar.'
-                )
+                _('Please fill in the public announcement to be published on the calendar.')
             )
 
         return about
@@ -542,17 +564,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
             )
             if unresolved_requests.exists():
                 raise forms.ValidationError(
-                    _(
-                        "This harvest cannot be left orphan, please resolve requests first."
-                    )
+                    _("This harvest cannot be left orphan, please resolve requests first.")
                 )
             if data['pick_leader'] is not None:
                 data['status'] = Harvest.Status.ADOPTED
 
         if data['pick_leader'] is None and data['status'] not in [
-            Harvest.Status.ORPHAN,
-            Harvest.Status.PENDING,
-            Harvest.Status.CANCELLED,
+                Harvest.Status.ORPHAN,
+                Harvest.Status.PENDING,
+                Harvest.Status.CANCELLED,
         ]:
             raise forms.ValidationError(
                 _("You must choose a pick leader or change harvest status")
@@ -564,10 +584,14 @@ class HarvestForm(forms.ModelForm[Harvest]):
 class HarvestYieldForm(forms.ModelForm[HarvestYield]):
     class Meta:
         model = HarvestYield
-        fields = '__all__'
+        fields = ('__all__')
         widgets = {
-            'recipient': autocomplete.ModelSelect2('actor-autocomplete'),
-            'tree': autocomplete.ModelSelect2('tree-autocomplete'),
+            'recipient': autocomplete.ModelSelect2(
+                'actor-autocomplete'
+            ),
+            'tree': autocomplete.ModelSelect2(
+                'tree-autocomplete'
+            ),
         }
 
 
