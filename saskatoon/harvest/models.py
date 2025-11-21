@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
+from typing import Optional, Type
 from enum import Enum
 from typeguard import typechecked
 
@@ -760,7 +760,7 @@ class RequestForParticipation(models.Model):
     )
 
     @staticmethod
-    def get_status_enum() -> 'RequestForParticipation.Status':
+    def get_status_enum() -> 'Type[RequestForParticipation.Status]':
         return RequestForParticipation.Status
 
     def __init__(self, *args, **kwargs):

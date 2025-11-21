@@ -485,12 +485,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """
         if instance is not None and hasattr(instance, 'equipment_reserved'):
             equipment = instance.equipment_reserved.values()
-            self.initial['equipment_point'] = (
-                equipment[0][  # type: ignore
-                    "owner_id"
-                ]
-                if equipment.count() > 0
-                else None
+            self.initial['equipment_point'] = (  # type: ignore  # not sure how to tell mypy it's okay
+                equipment[0]["owner_id"] if equipment.count() > 0 else None
             )
 
     def clean_end_date(self: Self) -> datetime:

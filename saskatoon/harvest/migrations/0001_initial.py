@@ -255,7 +255,7 @@ class Migration(migrations.Migration):
                     'pending_recurring',
                     models.BooleanField(default=False, verbose_name='Recurring property signup'),
                 ),
-                ('geom', djgeojson.fields.PointField(blank=True, null=True)),
+                ('geom', djgeojson.fields.PointField(blank=True, null=True)),  # type: ignore  # not sure why it's not taking it's own class, probably a problem with how mypy guesses the djgeojson stubs
                 (
                     'trees_location',
                     models.CharField(
