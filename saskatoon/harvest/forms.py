@@ -36,16 +36,16 @@ class RFPForm(forms.ModelForm[RFP]):
     class Meta:
         model = RFP
         fields = [
-            "first_name",
-            "last_name",
-            "email",
-            "phone",
-            "number_of_pickers",
-            "comment",
+            'first_name',
+            'last_name',
+            'email',
+            'phone',
+            'number_of_pickers',
+            'comment',
         ]
 
         labels = {
-            "number_of_pickers": _("How many people are you?"),
+            'number_of_pickers': _("How many people are you?"),
         }
 
     first_name = forms.CharField(label=_("First name"))
@@ -55,12 +55,12 @@ class RFPForm(forms.ModelForm[RFP]):
     comment = forms.CharField(label=_("Comments"), required=False, widget=forms.widgets.Textarea())
 
     def __init__(self, *args, **kwargs):
-        if "harvest" in kwargs:
-            self.harvest = kwargs.pop("harvest")
+        if 'harvest' in kwargs:
+            self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
 
     def clean_email(self):
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data['email']
 
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
@@ -107,10 +107,10 @@ class RFPManageForm(forms.ModelForm[RFP]):
 
     class Meta:
         model = RFP
-        fields = ["status", "notes", "send_email", "email_body"]
+        fields = ['status', 'notes', 'send_email', 'email_body']
         widgets = {
-            "status": forms.RadioSelect(),
-            "notes": forms.widgets.Textarea(),
+            'status': forms.RadioSelect(),
+            'notes': forms.widgets.Textarea(),
         }
 
     send_email = forms.BooleanField(
@@ -126,24 +126,24 @@ class RFPManageForm(forms.ModelForm[RFP]):
     )
 
     def __init__(self, *args, **kwargs):
-        status = kwargs.pop("status")
-        emailType = kwargs.pop("emailType")
+        status = kwargs.pop('status')
+        emailType = kwargs.pop('emailType')
         super().__init__(*args, **kwargs)
 
         if status in RFP.get_status_enum().choices():
-            self.fields["status"].widget = forms.widgets.HiddenInput()
-            self.initial["status"] = status
+            self.fields['status'].widget = forms.widgets.HiddenInput()
+            self.initial['status'] = status
 
         if emailType is not None:
-            self.fields["send_email"].widget = forms.widgets.CheckboxInput()
-            self.fields["email_body"].widget = forms.widgets.Textarea()
+            self.fields['send_email'].widget = forms.widgets.CheckboxInput()
+            self.fields['email_body'].widget = forms.widgets.Textarea()
             harvest = self.instance.harvest
             self.email = Email(recipient=self.instance.person, type=emailType, harvest=harvest)
-            self.initial["send_email"] = True
-            self.initial["email_body"] = self.email.get_default_message(self.email.harvest_data)
+            self.initial['send_email'] = True
+            self.initial['email_body'] = self.email.get_default_message(self.email.harvest_data)
 
     def clean(self):
-        status = self.cleaned_data.get("status")
+        status = self.cleaned_data.get('status')
         if (
             status == RFP.Status.ACCEPTED
             and status != self.instance.status
@@ -157,8 +157,8 @@ class RFPManageForm(forms.ModelForm[RFP]):
             )
 
     def save(self):
-        if self.cleaned_data.get("send_email"):
-            email_body = self.cleaned_data.get("email_body")
+        if self.cleaned_data.get('send_email'):
+            email_body = self.cleaned_data.get('email_body')
             self.email.send(email_body)
 
         return super().save()
@@ -167,12 +167,12 @@ class RFPManageForm(forms.ModelForm[RFP]):
 class CommentForm(forms.ModelForm[Comment]):
     class Meta:
         model = Comment
-        fields = ["content"]
+        fields = ['content']
 
     content = forms.CharField(
-        label=_("Pickleader notes"),
+        label=_('Pickleader notes'),
         required=False,
-        widget=forms.widgets.Textarea(attrs={"placeholder": _("Your comment here")}),
+        widget=forms.widgets.Textarea(attrs={'placeholder': _("Your comment here")}),
     )
 
 
@@ -182,29 +182,29 @@ class PropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         exclude = [
-            "longitude",
-            "latitude",
-            "geom",
-            "pending_contact_first_name",
-            "pending_contact_family_name",
-            "pending_contact_phone",
-            "pending_contact_email",
-            "pending_recurring",
-            "pending_newsletter",
-            "changed_by",
+            'longitude',
+            'latitude',
+            'geom',
+            'pending_contact_first_name',
+            'pending_contact_family_name',
+            'pending_contact_phone',
+            'pending_contact_email',
+            'pending_recurring',
+            'pending_newsletter',
+            'changed_by',
         ]
         widgets = {
-            "owner": autocomplete.ModelSelect2("owner-autocomplete"),
-            "trees": autocomplete.ModelSelect2Multiple("tree-autocomplete"),
-            "additional_info": forms.Textarea(),
-            "avg_nb_required_pickers": forms.NumberInput(),
+            'owner': autocomplete.ModelSelect2("owner-autocomplete"),
+            'trees': autocomplete.ModelSelect2Multiple("tree-autocomplete"),
+            'additional_info': forms.Textarea(),
+            'avg_nb_required_pickers': forms.NumberInput(),
         }
 
     approximative_maturity_date = forms.DateField(
         required=False,
     )
 
-    field_order = ["pending", "is_active", "authorized", "owner"]
+    field_order = ['pending', 'is_active', 'authorized', 'owner']
 
 
 class PropertyCreateForm(PropertyForm):
@@ -225,9 +225,9 @@ class PropertyCreateForm(PropertyForm):
 
     def clean(self):
         data = super().clean()
-        if not data["owner"]:
-            if data["owner_email"] and data["owner_first_name"]:
-                validate_email(data["owner_email"])
+        if not data['owner']:
+            if data['owner_email'] and data['owner_first_name']:
+                validate_email(data['owner_email'])
             else:
                 raise forms.ValidationError(
                     _(
@@ -239,16 +239,16 @@ class PropertyCreateForm(PropertyForm):
 
     def save(self):
         instance = super().save()
-        if not self.cleaned_data["owner"]:
+        if not self.cleaned_data['owner']:
             person = Person.objects.create(
-                first_name=self.cleaned_data["owner_first_name"],
-                family_name=self.cleaned_data["owner_last_name"],
-                phone=self.cleaned_data["owner_phone"],
+                first_name=self.cleaned_data['owner_first_name'],
+                family_name=self.cleaned_data['owner_last_name'],
+                phone=self.cleaned_data['owner_phone'],
             )
             auth_user = AuthUser.objects.create(
-                email=self.cleaned_data["owner_email"], person=person
+                email=self.cleaned_data['owner_email'], person=person
             )
-            auth_user.set_roles(["owner"])
+            auth_user.set_roles(['owner'])
 
             instance.owner = person
             instance.save()
@@ -260,40 +260,40 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         fields = (
-            "pending_contact_first_name",
-            "pending_contact_family_name",
-            "pending_contact_phone",
-            "pending_contact_email",
-            "pending_recurring",
-            "authorized",
-            "trees",
-            "number_of_trees",
-            "approximative_maturity_date",
-            "trees_location",
-            "trees_accessibility",
+            'pending_contact_first_name',
+            'pending_contact_family_name',
+            'pending_contact_phone',
+            'pending_contact_email',
+            'pending_recurring',
+            'authorized',
+            'trees',
+            'number_of_trees',
+            'approximative_maturity_date',
+            'trees_location',
+            'trees_accessibility',
             # 'public_access',
-            "neighbor_access",
-            "compost_bin",
-            "ladder_available",
-            "ladder_available_for_outside_picks",
-            "harvest_every_year",
-            "avg_nb_required_pickers",
-            "fruits_height",
-            "street_number",
-            "street",
-            "complement",
-            "postal_code",
-            "neighborhood",
-            "city",
-            "state",
-            "country",
-            "additional_info",
-            "pending_newsletter",
+            'neighbor_access',
+            'compost_bin',
+            'ladder_available',
+            'ladder_available_for_outside_picks',
+            'harvest_every_year',
+            'avg_nb_required_pickers',
+            'fruits_height',
+            'street_number',
+            'street',
+            'complement',
+            'postal_code',
+            'neighborhood',
+            'city',
+            'state',
+            'country',
+            'additional_info',
+            'pending_newsletter',
         )
 
         widgets = {
-            "trees": autocomplete.ModelSelect2Multiple("tree-autocomplete"),
-            "avg_nb_required_pickers": forms.NumberInput(),
+            'trees': autocomplete.ModelSelect2Multiple("tree-autocomplete"),
+            'avg_nb_required_pickers': forms.NumberInput(),
         }
 
     neighbor_access = forms.BooleanField(
@@ -400,11 +400,11 @@ the type is unknown or not in the list, etc.)"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["avg_nb_required_pickers"].widget.attrs["min"] = 1
-        self.fields["number_of_trees"].widget.attrs["min"] = 1
-        self.fields["fruits_height"].widget.attrs["min"] = 1
-        self.fields["street_number"].widget.attrs["min"] = 0.0
-        self.fields["complement"].widget.attrs["min"] = 0.0
+        self.fields['avg_nb_required_pickers'].widget.attrs['min'] = 1
+        self.fields['number_of_trees'].widget.attrs['min'] = 1
+        self.fields['fruits_height'].widget.attrs['min'] = 1
+        self.fields['street_number'].widget.attrs['min'] = 0.0
+        self.fields['complement'].widget.attrs['min'] = 0.0
 
     def clean(self):
         cleaned_data = super().clean()
@@ -415,7 +415,7 @@ the type is unknown or not in the list, etc.)"
         except ValueError as invalid_postal_code:
             raise forms.ValidationError(str(invalid_postal_code))
 
-        cleaned_data["postal_code"] = postal_code
+        cleaned_data['postal_code'] = postal_code
         return cleaned_data
 
 
@@ -424,26 +424,26 @@ class HarvestForm(forms.ModelForm[Harvest]):
     class Meta:
         model = Harvest
         fields = (
-            "status",
-            "property",
-            "trees",
-            "owner_present",
-            "owner_help",
-            "owner_fruit",
-            "pick_leader",
-            "start_date",
-            "end_date",
-            "publication_date",
-            "nb_required_pickers",
-            "about",
+            'status',
+            'property',
+            'trees',
+            'owner_present',
+            'owner_help',
+            'owner_fruit',
+            'pick_leader',
+            'start_date',
+            'end_date',
+            'publication_date',
+            'nb_required_pickers',
+            'about',
         )
         widgets = {
-            "property": autocomplete.ModelSelect2("property-autocomplete"),
-            "trees": autocomplete.ModelSelect2Multiple(
-                url="tree-autocomplete", forward=["property"]
+            'property': autocomplete.ModelSelect2("property-autocomplete"),
+            'trees': autocomplete.ModelSelect2Multiple(
+                url="tree-autocomplete", forward=['property']
             ),
-            "pick_leader": autocomplete.ModelSelect2("pickleader-autocomplete"),
-            "nb_required_pickers": forms.NumberInput(),
+            'pick_leader': autocomplete.ModelSelect2("pickleader-autocomplete"),
+            'nb_required_pickers': forms.NumberInput(),
         }
 
     id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
@@ -473,27 +473,27 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         instance = kwargs.get('instance', None)
         super().__init__(*args, **kwargs)
-        """ I think since it's a custom field mypy cant detect
-            that the assignment is valid, but I'd love to fix it
-            We need the harvest id so equipment point
-            autocomplete will work correctly
-        """
+
+        # I think since it's a custom field mypy cant detect
+        # that the assignment is valid, but I'd love to fix it
+        # We need the harvest id so equipment point
+        # autocomplete will work correctly
         if instance is not None and hasattr(instance, 'id'):
             self.initial['id'] = instance.id  # type: ignore
-        """ Assumes that a harvest can only reserve one equipment
-            point at a time so all reserved equipment belongs to the same owner.
-        """
+
+        # Assumes that a harvest can only reserve one equipment
+        # point at a time so all reserved equipment belongs to the same owner.
         if instance is not None and hasattr(instance, 'equipment_reserved'):
             equipment = instance.equipment_reserved.values()
             self.initial['equipment_point'] = (  # type: ignore  # not sure how to tell mypy it's okay
-                equipment[0]["owner_id"] if equipment.count() > 0 else None
+                equipment[0]['owner_id'] if equipment.count() > 0 else None
             )
 
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
-        start = self.cleaned_data["start_date"]
-        end = self.cleaned_data["end_date"]
-        status = self.cleaned_data["status"]
+        start = self.cleaned_data['start_date']
+        end = self.cleaned_data['end_date']
+        status = self.cleaned_data['status']
 
         if start.date() != end.date() and status not in [
             Harvest.Status.ORPHAN,
@@ -514,8 +514,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
     def clean_trees(self: Self) -> QuerySet[TreeType]:
         """Make sure selected trees are registered on property"""
-        property = self.cleaned_data["property"]
-        selected_trees = self.cleaned_data["trees"]
+        property = self.cleaned_data['property']
+        selected_trees = self.cleaned_data['trees']
         invalid_trees = []
         for tree in selected_trees:
             if tree not in property.trees.all():
@@ -531,8 +531,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
     def clean_about(self: Self):
         """Make sure announcement is filled before publishing"""
-        status = self.cleaned_data["status"]
-        about = self.cleaned_data["about"]
+        status = self.cleaned_data['status']
+        about = self.cleaned_data['about']
         if status not in [
             Harvest.Status.ORPHAN,
             Harvest.Status.ADOPTED,
@@ -547,11 +547,11 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
     def clean_equipment_point(self: Self) -> Optional[Organization]:
         """Clear equipment point if no longer available or if harvest is not scheduled or ready"""
-        harvest_id = self.cleaned_data["id"]
-        status = self.cleaned_data["status"]
-        equipment_point = self.cleaned_data["equipment_point"]
-        start = self.cleaned_data["start_date"]
-        end = self.cleaned_data["end_date"]
+        harvest_id = self.cleaned_data['id']
+        status = self.cleaned_data['status']
+        equipment_point = self.cleaned_data['equipment_point']
+        start = self.cleaned_data['start_date']
+        end = self.cleaned_data['end_date']
 
         if equipment_point is None:
             return equipment_point
@@ -586,7 +586,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         if data is None:
             raise forms.ValidationError(_("The form data was empty, please try again"))
 
-        if data["status"] == Harvest.Status.ORPHAN:
+        if data['status'] == Harvest.Status.ORPHAN:
             unresolved_requests = self.instance.requests.filter(
                 status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
             )
@@ -594,10 +594,10 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 raise forms.ValidationError(
                     _("This harvest cannot be left orphan, please resolve requests first.")
                 )
-            if data["pick_leader"] is not None:
-                data["status"] = Harvest.Status.ADOPTED
+            if data['pick_leader'] is not None:
+                data['status'] = Harvest.Status.ADOPTED
 
-        if data["pick_leader"] is None and data["status"] not in [
+        if data['pick_leader'] is None and data['status'] not in [
             Harvest.Status.ORPHAN,
             Harvest.Status.PENDING,
             Harvest.Status.CANCELLED,
@@ -609,14 +609,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
         return data
 
     def save(self: Self, commit: bool = False) -> Harvest:
-        instance = super(HarvestForm, self).save(commit=commit)
         """
         Convert list of autocomplete equipment points into all equipment
         owned by said equipment points. i.e. Reserving an equipment point
         will reserve all its equipment for the duration of the harvest.
         """
-        equipment_point = self.cleaned_data["equipment_point"]
-        logger.warning(equipment_point)
+        instance = super(HarvestForm, self).save(commit=commit)
+        equipment_point = self.cleaned_data['equipment_point']
 
         if equipment_point is not None:
             instance.equipment_reserved.set(Equipment.objects.filter(owner=equipment_point))
@@ -632,8 +631,8 @@ class HarvestYieldForm(forms.ModelForm[HarvestYield]):
         model = HarvestYield
         fields = "__all__"
         widgets = {
-            "recipient": autocomplete.ModelSelect2("actor-autocomplete"),
-            "tree": autocomplete.ModelSelect2("tree-autocomplete"),
+            'recipient': autocomplete.ModelSelect2("actor-autocomplete"),
+            'tree': autocomplete.ModelSelect2("tree-autocomplete"),
         }
 
 
@@ -642,9 +641,9 @@ class EquipmentForm(forms.ModelForm[Equipment]):
 
     class Meta:
         model = Equipment
-        fields = ["owner", "type", "description", "count"]
+        fields = ['owner', 'type', 'description', 'count']
         widgets = {
-            "owner": autocomplete.ModelSelect2(
+            'owner': autocomplete.ModelSelect2(
                 "equipmentpoint-autocomplete",
             ),
         }
