@@ -5,6 +5,9 @@ from django.utils import timezone
 from typing import Optional, Any
 from functools import reduce
 from typeguard import typechecked
+from django.core.exceptions import ValidationError
+import math
+from typing import Union, SupportsFloat, SupportsIndex
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
@@ -55,3 +58,9 @@ def rgetattr(obj, attr: str, *args) -> Optional[Any]:
         return getattr(obj, attr, *args)
 
     return reduce(_getattr, [obj] + attr.split('.'))
+
+
+@typechecked
+def validate_is_not_nan(n: Union[SupportsFloat, SupportsIndex]) -> None:
+    if math.isnan(n):
+        raise ValidationError("This field does not accept nan")

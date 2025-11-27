@@ -13,8 +13,15 @@ from phone_field import PhoneField
 from typing import Optional, Type
 from enum import Enum
 from typeguard import typechecked
+from sys import float_info
 
-from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, rgetattr
+from sitebase.utils import (
+    local_datetime,
+    to_datetime,
+    is_quill_html_empty,
+    rgetattr,
+    validate_is_not_nan,
+)
 
 
 class TreeType(models.Model):
@@ -327,9 +334,19 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         on_delete=models.CASCADE,
     )
 
-    longitude = models.FloatField(verbose_name=_("Longitude"), null=True, blank=True)
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
+    )
 
-    latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
+    )
 
     additional_info = models.CharField(
         verbose_name=_("Additional information"),
@@ -693,11 +710,27 @@ class Harvest(models.Model):
 
 
 @receiver(pre_save, sender=Harvest)
-def harvest_changed_by(sender, instance, **kwargs):
+def harvest_changed_by(sender, instance, **kwargs) -> None:
     request = CrequestMiddleware.get_request()
     if not request:
         return
     instance.changed_by = None if request.user.is_anonymous else request.user
+
+
+@receiver(pre_save, sender=Harvest)
+def harvest_reservation_validation(sender, instance, **kwargs) -> None:
+    if instance.id is None:
+        return
+
+    if instance.equipment_reserved.values().count() == 0:
+        return
+
+    status = instance.status
+    if status in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]:
+        return
+
+    # If we've gotten to this point, then the Harvest should lose all registered reservations
+    instance.equipment_reserved.set([])
 
 
 class RequestForParticipation(models.Model):
@@ -799,7 +832,12 @@ class HarvestYield(models.Model):
     )
 
     total_in_lb = models.FloatField(
-        verbose_name=_("Weight (lb)"), validators=[MinValueValidator(0.0)]
+        verbose_name=_("Weight (lb)"),
+        validators=[
+            MinValueValidator(0.0),
+            MaxValueValidator(float_info.max),
+            validate_is_not_nan,
+        ],
     )
 
     recipient = models.ForeignKey(

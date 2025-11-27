@@ -63,7 +63,6 @@ setup(
             'selenium',
             'tox',
             'hypothesis',
-            'hypothesis[django]',
             'ruff',
         ]
     },
