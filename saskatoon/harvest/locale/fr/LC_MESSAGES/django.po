@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-11-27 21:41+0000\n"
+"POT-Creation-Date: 2025-11-27 22:37+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -131,7 +131,7 @@ msgstr "Récoltée en"
 msgid "Type"
 msgstr "Type"
 
-#: harvest/filters.py:170 harvest/forms.py:466 harvest/forms.py:652
+#: harvest/filters.py:170 harvest/forms.py:466 harvest/forms.py:651
 msgid "Equipment Point"
 msgstr "Point d'équipement"
 
