@@ -3,23 +3,21 @@
 
 {% get_current_language as LANG %}
 
-<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-    <div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
-                <div class="row" style="margin-bottom: 15px">
-                    <div class="col-xs-6">
-                        <div class="basic-tb-hd">
-                            <h2>{% trans "Equipment Point" %}</h2>
-                        </div>
+<div class="notika-chat-list notika-shadow mg-t-30 tb-res-ds-n dk-res-ds">
+            <div class="row" style="margin-bottom: 15px">
+                <div style="padding-left: 1em;">
+                    <div class="basic-tb-hd">
+                        <h2>{% trans "Equipment Point" %}</h2>
                     </div>
                 </div>
-        <div class="card-box">
-             {% if equipment_point.civil_name.value %}
-                  {{ equipment_point.civil_name.value }}
-                  </br>
-                      {{ equipment_point.short_address.value }}
-             {% else %}
-                  {% trans "No equipment point has been reserved" %}
-             {% endif %}
-        </div>
+            </div>
+    <div class="card-box">
+         {% if equipment_point is not None %}
+              {{ equipment_point.civil_name }}
+              </br>
+                  {{ equipment_point.short_address }}
+         {% else %}
+              {% trans "No equipment point has been reserved" %}
+         {% endif %}
     </div>
 </div>

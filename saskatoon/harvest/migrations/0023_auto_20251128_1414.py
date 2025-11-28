@@ -6,7 +6,6 @@ import sitebase.utils
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0022_auto_20250714_1550'),
     ]
@@ -15,16 +14,41 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='harvestyield',
             name='total_in_lb',
-            field=models.FloatField(validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(1.7976931348623157e+308), sitebase.utils.validate_is_not_nan], verbose_name='Weight (lb)'),
+            field=models.FloatField(
+                validators=[
+                    django.core.validators.MinValueValidator(0.0),
+                    django.core.validators.MaxValueValidator(1.7976931348623157e308),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Weight (lb)',
+            ),
         ),
         migrations.AlterField(
             model_name='property',
             name='latitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-90), django.core.validators.MaxValueValidator(90), sitebase.utils.validate_is_not_nan], verbose_name='Latitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-90),
+                    django.core.validators.MaxValueValidator(90),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Latitude',
+            ),
         ),
         migrations.AlterField(
             model_name='property',
             name='longitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180), sitebase.utils.validate_is_not_nan], verbose_name='Longitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-180),
+                    django.core.validators.MaxValueValidator(180),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Longitude',
+            ),
         ),
     ]

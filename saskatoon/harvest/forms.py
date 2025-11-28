@@ -622,7 +622,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         else:
             instance.equipment_reserved.set(Equipment.objects.none())
 
-        instance.save
+        instance.save()
         return instance
 
 

@@ -6,7 +6,6 @@ import sitebase.utils
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0018_alter_authuser_options'),
     ]
@@ -15,21 +14,57 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='latitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-90), django.core.validators.MaxValueValidator(90), sitebase.utils.validate_is_not_nan], verbose_name='Latitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-90),
+                    django.core.validators.MaxValueValidator(90),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Latitude',
+            ),
         ),
         migrations.AlterField(
             model_name='organization',
             name='longitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180), sitebase.utils.validate_is_not_nan], verbose_name='Longitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-180),
+                    django.core.validators.MaxValueValidator(180),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Longitude',
+            ),
         ),
         migrations.AlterField(
             model_name='person',
             name='latitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-90), django.core.validators.MaxValueValidator(90), sitebase.utils.validate_is_not_nan], verbose_name='Latitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-90),
+                    django.core.validators.MaxValueValidator(90),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Latitude',
+            ),
         ),
         migrations.AlterField(
             model_name='person',
             name='longitude',
-            field=models.FloatField(blank=True, null=True, validators=[django.core.validators.MinValueValidator(-180), django.core.validators.MaxValueValidator(180), sitebase.utils.validate_is_not_nan], verbose_name='Longitude'),
+            field=models.FloatField(
+                blank=True,
+                null=True,
+                validators=[
+                    django.core.validators.MinValueValidator(-180),
+                    django.core.validators.MaxValueValidator(180),
+                    sitebase.utils.validate_is_not_nan,
+                ],
+                verbose_name='Longitude',
+            ),
         ),
     ]

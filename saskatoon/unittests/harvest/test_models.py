@@ -77,7 +77,7 @@ class TestHarvest(TestCase):
         organization=member_st.organization,
     )
     def test_harvest_get_equipment_point(self, harvest, equipment, organization):
-        """Test that the equipment point can be derived from the reserved equipment """
+        """Test that the equipment point can be derived from the reserved equipment"""
         equipment.owner = organization
         equipment.save()
         harvest.equipment_reserved.set([equipment])
