@@ -14,6 +14,7 @@ from typing import Optional, Type
 from enum import Enum
 from typeguard import typechecked
 from sys import float_info
+from logging import getLogger
 
 from sitebase.utils import (
     local_datetime,
@@ -22,6 +23,8 @@ from sitebase.utils import (
     rgetattr,
     validate_is_not_nan,
 )
+
+logger = getLogger("saskatoon")
 
 
 class TreeType(models.Model):
@@ -707,6 +710,17 @@ class Harvest(models.Model):
             ]
 
         return self.status in valid_statuses
+
+    def get_equipment_point(self):
+        """Turn the list of reserved equipment into an equipment point.
+        This assumes that all reserved equipment belongs to the same point.
+        """
+        equipment = self.equipment_reserved.first()
+
+        if equipment is None:
+            return None
+
+        return equipment.get_equipment_point()
 
 
 @receiver(pre_save, sender=Harvest)

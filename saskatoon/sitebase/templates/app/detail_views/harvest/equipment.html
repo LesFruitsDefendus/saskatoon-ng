@@ -13,18 +13,13 @@
                     </div>
                 </div>
         <div class="card-box">
-             {% if equipment_point is not None%}
+             {% if equipment_point.civil_name.value %}
                   {{ equipment_point.civil_name.value }}
                   </br>
-                      {% if LANG == "en" %}
-                          {{ equipment_point.inventory.value.en }}
-                      {% elif LANG == "fr" %}
-                          {{ equipment_point.inventory.value.fr }}
-                      {% endif %}
+                      {{ equipment_point.short_address.value }}
              {% else %}
                   {% trans "No equipment point has been reserved" %}
              {% endif %}
-
         </div>
     </div>
 </div>

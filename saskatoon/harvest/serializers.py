@@ -1,5 +1,8 @@
 from rest_framework import serializers
+from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
+from logging import getLogger
+from typing import Mapping, Any, Optional
 
 from member.models import Actor, Organization
 from member.serializers import (
@@ -26,6 +29,8 @@ from harvest.models import (
     TreeType,
 )
 from harvest.utils import similar_properties
+
+logger = getLogger("saskatoon")
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
@@ -354,16 +359,12 @@ class HarvestDetailSerializer(HarvestSerializer):
     def get_status_choices(self, _obj):
         return Harvest.get_status_choices()
 
-    def get_equipment_point(self, obj):
-        equipment = obj.equipment_reserved.values()
+    def get_equipment_point(
+        self, obj: Harvest
+    ) -> Optional[ReturnDict[Mapping[str, Any], OrganizationSerializer]]:
+        point = obj.get_equipment_point()
 
-        if equipment.count() == 0:
+        if point is None:
             return None
 
-        owner_id = equipment[0]["owner_id"]
-        owner = Organization.objects.filter(pk=owner_id)
-
-        if owner.count() == 1:
-            return OrganizationSerializer(owner.first(), many=False, read_only=True).data
-
-        return None
+        return OrganizationSerializer(point, many=False, read_only=True).data
