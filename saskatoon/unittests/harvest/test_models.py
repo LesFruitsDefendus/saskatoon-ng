@@ -1,6 +1,7 @@
 from hypothesis import given, strategies as st, settings
 from hypothesis.extra.django import TestCase, from_model
 
+from member.models import Organization
 from harvest.models import (
     RequestForParticipation,
     Comment,
@@ -12,6 +13,7 @@ from harvest.models import (
     TreeType,
 )
 import unittests.harvest.strategies as harvest_st
+import unittests.member.strategies as member_st
 
 settings.register_profile("fast", max_examples=50)
 
@@ -68,6 +70,26 @@ class TestHarvest(TestCase):
             assert count == 1
         else:
             assert count == 0
+
+    @given(
+        harvest=harvest_st.harvest,
+        equipment=harvest_st.equipment,
+        organization=member_st.organization,
+    )
+    def test_harvest_get_equipment_point(self, harvest, equipment, organization):
+        """Test that status changes revalidate harvest reservations"""
+        equipment.owner = organization
+        equipment.save()
+        harvest.equipment_reserved.set([equipment])
+
+        # we dont want the reservation to be erased if it's not valid
+        harvest.status = Harvest.Status.SCHEDULED
+        harvest.save()
+
+        point = harvest.get_equipment_point()
+
+        assert point.actor_id == organization.actor_id
+        assert isinstance(organization, Organization)
 
 
 class TestComment(TestCase):
