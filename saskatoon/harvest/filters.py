@@ -1,12 +1,16 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
+from typeguard import typechecked
+from django.db.models import QuerySet
+
 from harvest.models import Harvest, TreeType, Property, Equipment, EquipmentType
 from member.autocomplete import AuthUserAutocomplete
 from member.models import AuthUser, Neighborhood, Organization
 
 
+@typechecked
 class HarvestFilter(filters.FilterSet):
     "Harvest filter"
 
@@ -82,6 +86,7 @@ class HarvestFilter(filters.FilterSet):
         return queryset
 
 
+@typechecked
 class PropertyFilter(filters.FilterSet):
     "Property filter"
 
@@ -136,12 +141,12 @@ class PropertyFilter(filters.FilterSet):
         method='season_filter',
     )
 
-    def authorized_filter(self, queryset, name, choice):
+    def authorized_filter(self, queryset, name, choice) -> QuerySet[Property]:
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
 
-    def season_filter(self, queryset, name, year):
+    def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:
             return queryset
 
@@ -149,6 +154,7 @@ class PropertyFilter(filters.FilterSet):
         return queryset.filter(harvests__in=harvests)
 
 
+@typechecked
 class EquipmentFilter(filters.FilterSet):
     "Equipment filter"
 
@@ -171,5 +177,5 @@ class EquipmentFilter(filters.FilterSet):
         method='equipment_point_filter',
     )
 
-    def equipment_point_filter(self, queryset, name, value):
+    def equipment_point_filter(self, queryset, name, value) -> QuerySet[Equipment]:
         return queryset.filter(owner__organization=value)
