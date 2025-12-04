@@ -617,6 +617,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
         instance = super(HarvestForm, self).save(commit=commit)
         equipment_point = self.cleaned_data['equipment_point']
 
+        # we need the harvest to have an id before we assign many to many relations
+        instance.save()
+
         if equipment_point is not None:
             instance.equipment_reserved.set(Equipment.objects.filter(owner=equipment_point))
         else:
