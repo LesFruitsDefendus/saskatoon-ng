@@ -74,11 +74,13 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
-    def date_filter(self, queryset, name, choice):
+    def date_filter(
+        self, queryset: QuerySet[Harvest], name: str, choice: str
+    ) -> QuerySet[Harvest]:
         if choice == 'next':
-            return queryset.filter(start_date__gte=datetime.today())
+            return queryset.filter(start_date__gte=datetime.now(timezone.utc))
         elif choice == 'past':
-            return queryset.filter(start_date__lt=datetime.today())
+            return queryset.filter(start_date__lt=datetime.now(timezone.utc))
         elif choice == 'id':
             return queryset.order_by('-id')
         elif choice == 'old':
