@@ -320,3 +320,5 @@ LOGGING = {
 }
 
 EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')
+
+DEFAULT_RESERVATION_BUFFER = 1

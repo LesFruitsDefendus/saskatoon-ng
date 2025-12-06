@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-05 18:40+0000\n"
+"POT-Creation-Date: 2025-12-06 14:16+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -139,6 +139,7 @@ msgstr "Date"
 
 #: sitebase/templates/app/base/footer.html:8
 #: sitebase/templates/app/detail_views/harvest/about.html:55
+#: sitebase/templates/app/detail_views/harvest/equipment.html:20
 #: sitebase/templates/app/detail_views/organization/contact.html:5
 #: sitebase/templates/app/detail_views/property/contact.html:42
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
@@ -278,6 +279,7 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/calendar/scheduled-modal.html:25
 #: sitebase/templates/app/calendar/succeeded-modal.html:25
 #: sitebase/templates/app/detail_views/harvest/about.html:24
+#: sitebase/templates/app/detail_views/harvest/equipment.html:31
 #: sitebase/templates/app/detail_views/harvest/status.html:28
 #: sitebase/templates/app/forms/participation_create_form.html:42
 msgid "to"
@@ -632,7 +634,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:20
+#: sitebase/templates/app/detail_views/harvest/equipment.html:34
 msgid "No equipment point has been reserved"
 msgstr ""
 

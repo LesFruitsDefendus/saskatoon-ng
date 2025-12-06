@@ -3,7 +3,10 @@ from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
 from logging import getLogger
 from typing import Mapping, Any, Optional
+from django.conf import settings
+from datetime import timedelta
 
+from sitebase.utils import local_datetime
 from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
@@ -352,6 +355,8 @@ class HarvestDetailSerializer(HarvestSerializer):
     about = serializers.SerializerMethodField()
     status_choices = serializers.SerializerMethodField()
     equipment_point = serializers.SerializerMethodField()
+    reservation_start = serializers.SerializerMethodField()
+    reservation_end = serializers.SerializerMethodField()
 
     def get_about(self, obj):
         return obj.about.html
@@ -368,3 +373,23 @@ class HarvestDetailSerializer(HarvestSerializer):
             return None
 
         return OrganizationSerializer(point, many=False, read_only=True).data
+
+    def get_reservation_start(self, obj: Harvest) -> Optional[str]:
+        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+
+        if (start := obj.start_date) is not None and (
+            local_start := local_datetime(start - buffer)
+        ) is not None:
+            return local_start.strftime("%I:%M %p")
+
+        return None
+
+    def get_reservation_end(self, obj: Harvest) -> Optional[str]:
+        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+
+        if (end := obj.end_date) is not None and (
+            local_end := local_datetime(end + buffer)
+        ) is not None:
+            return local_end.strftime("%I:%M %p")
+
+        return None
