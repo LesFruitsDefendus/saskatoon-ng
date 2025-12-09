@@ -76,15 +76,15 @@ class RFPForm(forms.ModelForm[RFP]):
         instance.harvest = self.harvest
 
         # check if a user with the same email is already registered
-        email = self.cleaned_data["email"]
+        email = self.cleaned_data['email']
         if AuthUser.objects.filter(email=email).exists():
             auth_user = AuthUser.objects.get(email=email)
             instance.person = auth_user.person
         else:
             instance.person = Person.objects.create(
-                first_name=self.cleaned_data["first_name"],
-                family_name=self.cleaned_data["last_name"],
-                phone=self.cleaned_data["phone"],
+                first_name=self.cleaned_data['first_name'],
+                family_name=self.cleaned_data['last_name'],
+                phone=self.cleaned_data['phone'],
             )
             auth_user = AuthUser.objects.create(email=email, person=instance.person)
 
@@ -408,7 +408,7 @@ the type is unknown or not in the list, etc.)"
 
     def clean(self):
         cleaned_data = super().clean()
-        postal_code = cleaned_data["postal_code"].replace(" ", "")
+        postal_code = cleaned_data['postal_code'].replace(" ", "")
 
         try:
             postal_code = parse_postal_code(postal_code)
