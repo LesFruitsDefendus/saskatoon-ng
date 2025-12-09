@@ -297,7 +297,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         }
 
     neighbor_access = forms.BooleanField(
-        label=_('Volunteers have permission to go on the neighbours' property to access fruits'),
+        label=_('Volunteers have permission to go on the neighbours property to access fruits'),
         required=False,
     )
 
@@ -327,7 +327,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
     pending_recurring = forms.ChoiceField(
         label=_('Have you provided us any information about your property before?'),
-        choices=[(True, _(''Yes')), (False, _('No'))],
+        choices=[(True, _('Yes')), (False, _('No'))],
         widget=forms.RadioSelect,
     )
 
@@ -390,7 +390,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
     additional_info = forms.CharField(
         help_text=_(
-            'Any additional information that we should be aware of
+            'Any additional information that we should be aware of '
             '(e.g. details about how often tree produces fruit, description of fruit if '
             'the type is unknown or not in the list, etc.)'
         ),
@@ -480,7 +480,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
             self.initial['id'] = instance.id  # type: ignore  # I think since
         # it's a custom field mypy cant detect that the assignment
         # is valid, but I'd love to fix it
-
 
         # Assumes that a harvest can only reserve one equipment
         # point at a time so all reserved equipment belongs to the same owner.
