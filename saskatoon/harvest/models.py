@@ -755,18 +755,12 @@ def harvest_reservation_validation(sender, instance, **kwargs) -> None:
         return
 
     if instance.equipment_reserved.values().count() == 0:
-        return
-
-    status = instance.status
-    if status in [
-        Harvest.Status.SUCCEEDED,
-        Harvest.Status.READY,
-        Harvest.Status.SCHEDULED,
-    ]:
-        return
-
-    # If we've gotten to this point, then the Harvest should lose all registered reservations
-    instance.equipment_reserved.set([])
+    if ( 
+        instance.id is not None and
+        instance.equipment_reserved.values().count() > 0 and
+        instance.status not in  [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
+        ):
+        instance.equipment_reserved.set([])
 
 
 class RequestForParticipation(models.Model):
