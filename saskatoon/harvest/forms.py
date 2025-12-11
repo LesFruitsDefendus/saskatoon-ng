@@ -463,7 +463,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
     equipment_point = forms.ModelChoiceField(
         queryset=Organization.objects.all(),
         widget=autocomplete.ModelSelect2(
-            url='equipmentpoint-autocomplete', forward=['id', 'start_date', 'end_date']
+            url='equipmentpoint-autocomplete',
+            forward=['id', 'start_date', 'end_date'],
         ),
         label=_('Equipment Point'),
         required=False,

@@ -57,7 +57,10 @@ class TreeType(models.Model):
     maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
 
     image = models.ImageField(
-        upload_to='fruits_images', verbose_name=_("Fruit image"), blank=True, null=True
+        upload_to='fruits_images',
+        verbose_name=_("Fruit image"),
+        blank=True,
+        null=True,
     )
 
     def get_name(self, lang='fr'):
@@ -268,7 +271,9 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     )
 
     number_of_trees = models.PositiveIntegerField(
-        verbose_name=_("Total number of trees/vines on this property"), blank=True, null=True
+        verbose_name=_("Total number of trees/vines on this property"),
+        blank=True,
+        null=True,
     )
 
     approximative_maturity_date = models.DateField(
@@ -341,14 +346,22 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         verbose_name=_("Longitude"),
         null=True,
         blank=True,
-        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
+        validators=[
+            MinValueValidator(-180),
+            MaxValueValidator(180),
+            validate_is_not_nan,
+        ],
     )
 
     latitude = models.FloatField(
         verbose_name=_("Latitude"),
         null=True,
         blank=True,
-        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
+        validators=[
+            MinValueValidator(-90),
+            MaxValueValidator(90),
+            validate_is_not_nan,
+        ],
     )
 
     additional_info = models.CharField(
@@ -407,7 +420,10 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def owner_name(self):
         if self.owner:
             return self.owner.__str__()
-        return "(%s %s)" % (self.pending_contact_first_name, self.pending_contact_family_name)
+        return "(%s %s)" % (
+            self.pending_contact_first_name,
+            self.pending_contact_family_name,
+        )
 
     @property
     def email_recipient(self):
@@ -740,7 +756,11 @@ def harvest_reservation_validation(sender, instance, **kwargs) -> None:
         return
 
     status = instance.status
-    if status in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]:
+    if status in [
+        Harvest.Status.SUCCEEDED,
+        Harvest.Status.READY,
+        Harvest.Status.SCHEDULED,
+    ]:
         return
 
     # If we've gotten to this point, then the Harvest should lose all registered reservations
@@ -861,7 +881,11 @@ class HarvestYield(models.Model):
     )
 
     def __str__(self):
-        return "%.2f lbs of %s to %s" % (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
+        return "%.2f lbs of %s to %s" % (
+            self.total_in_lb,
+            self.tree.fruit_name_en,
+            self.recipient,
+        )
 
 
 class Comment(models.Model):
