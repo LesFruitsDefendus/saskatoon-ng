@@ -321,4 +321,5 @@ LOGGING = {
 
 EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')
 
+# Equipment Point reservation buffer in hours
 DEFAULT_RESERVATION_BUFFER = 1

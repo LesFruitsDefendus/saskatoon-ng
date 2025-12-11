@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional, Type
+from typing import Optional
 from enum import Enum
 from typeguard import typechecked
 from sys import float_info
@@ -21,10 +21,11 @@ from sitebase.utils import (
     to_datetime,
     is_quill_html_empty,
     rgetattr,
-    validate_is_not_nan,
 )
 
-logger = getLogger("saskatoon")
+from sitebase.validators import validate_is_not_nan
+
+logger = getLogger('saskatoon')
 
 
 class TreeType(models.Model):
@@ -615,12 +616,13 @@ class Harvest(models.Model):
 
     def __str__(self) -> str:
         start = self.get_local_start()
+
         if start is not None:
             return _("Harvest on {} for {}").format(
                 start.strftime("%d/%m/%Y %H:%M"), self.property
             )
-        else:
-            return _("Harvest for {}").format(self.property)
+
+        return _("Harvest for {}").format(self.property)
 
     @staticmethod
     def get_status_choices():
@@ -825,10 +827,6 @@ class RequestForParticipation(models.Model):
     showed_up = models.BooleanField(
         verbose_name=_("Picker(s) showed up"), default=None, null=True, blank=True
     )
-
-    @staticmethod
-    def get_status_enum() -> 'Type[RequestForParticipation.Status]':
-        return RequestForParticipation.Status
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

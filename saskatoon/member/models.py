@@ -17,7 +17,7 @@ from phone_field import PhoneField
 from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
 
-from sitebase.utils import validate_is_not_nan
+from sitebase.validators import validate_is_not_nan
 from harvest.models import (
     RequestForParticipation as RFP,
     Harvest,

@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 validators=[
                     django.core.validators.MinValueValidator(0.0),
                     django.core.validators.MaxValueValidator(1.7976931348623157e308),
-                    sitebase.utils.validate_is_not_nan,
+                    sitebase.validators.validate_is_not_nan,
                 ],
                 verbose_name='Weight (lb)',
             ),
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 validators=[
                     django.core.validators.MinValueValidator(-90),
                     django.core.validators.MaxValueValidator(90),
-                    sitebase.utils.validate_is_not_nan,
+                    sitebase.validators.validate_is_not_nan,
                 ],
                 verbose_name='Latitude',
             ),
@@ -46,7 +46,7 @@ class Migration(migrations.Migration):
                 validators=[
                     django.core.validators.MinValueValidator(-180),
                     django.core.validators.MaxValueValidator(180),
-                    sitebase.utils.validate_is_not_nan,
+                    sitebase.validators.validate_is_not_nan,
                 ],
                 verbose_name='Longitude',
             ),

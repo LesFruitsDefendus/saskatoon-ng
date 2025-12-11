@@ -289,7 +289,7 @@ class HarvestListSerializer(HarvestSerializer):
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_enum()])
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.Status])
 
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
@@ -347,6 +347,7 @@ class HarvestDetailSerializer(HarvestSerializer):
             'date_created',
             'changed_by',
             'end_date',
+            'equipment_reserved',
         ]
 
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
