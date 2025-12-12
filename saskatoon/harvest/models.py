@@ -751,15 +751,12 @@ def harvest_changed_by(sender, instance, **kwargs) -> None:
 
 @receiver(pre_save, sender=Harvest)
 def harvest_reservation_validation(sender, instance, **kwargs) -> None:
-    if instance.id is None:
-        return
-
-    if instance.equipment_reserved.values().count() == 0:
-    if ( 
-        instance.id is not None and
-        instance.equipment_reserved.values().count() > 0 and
-        instance.status not in  [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
-        ):
+    if (
+        instance.id is not None
+        and instance.equipment_reserved.values().count() > 0
+        and instance.status
+        not in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
+    ):
         instance.equipment_reserved.set([])
 
 
