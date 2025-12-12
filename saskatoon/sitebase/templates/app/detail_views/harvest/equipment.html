@@ -13,9 +13,22 @@
             </div>
     <div class="card-box">
          {% if equipment_point is not None %}
-              {{ equipment_point.civil_name }}
-              </br>
-                  {{ equipment_point.short_address }}
+              <address><a href="{% url 'organization-detail' equipment_point.actor_id %}">{{ equipment_point.civil_name }}</a></br>
+              {{ equipment_point.short_address }}</address>
+              <p>{% trans "Reserved on" %} {{ start_date }} </br>{% trans "From" %}  <b>{{ reservation_start }}</b> {% trans "to" %} <b>{{ reservation_end }}</b></p>
+              <p>
+                  {% trans "Contact" %} {{ equipment_point.contact_person.name }}
+                  {% if equipment_point.contact_person.phone is not None %}
+                      </br>
+                      {{ equipment_point.contact_person.phone }}
+                  {% endif %}
+                  {% if equipment_point.contact_person.email is not None %}
+                      </br>
+                      <a href="mailto:{{ equipment_point.contact_person.email }}">{{ equipment_point.contact_person.email }}</a>
+                  {% endif %}
+              </p>
+              <p>{{ equipment_point.equipment_description }}</p>
+
          {% else %}
               {% trans "No equipment point has been reserved" %}
          {% endif %}

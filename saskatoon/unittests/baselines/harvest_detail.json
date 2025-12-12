@@ -330,8 +330,7 @@
         ]
     ],
     "equipment_point": null,
-    "nb_required_pickers": 3,
-    "equipment_reserved": [
-        1
-    ]
+    "reservation_start": "03:00 PM",
+    "reservation_end": "08:00 PM",
+    "nb_required_pickers": 3
 }

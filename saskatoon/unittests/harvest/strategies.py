@@ -25,7 +25,10 @@ property = from_model(
     changed_by=st.just(None),
 )
 equipment = from_model(
-    Equipment, owner=st.just(None), property=st.just(None), type=from_model(EquipmentType)
+    Equipment,
+    owner=st.just(None),
+    property=st.just(None),
+    type=from_model(EquipmentType),
 )
 
 # For some reason, datetime(1, 1, 1, 0, 0) always causes an overflow when removing the tz data
@@ -44,7 +47,10 @@ harvest = st.datetimes(min_value=datetime(1950, 1, 1, 0, 0), timezones=st.timezo
     )
 )
 harvest_yield = from_model(
-    HarvestYield, harvest=harvest, tree=from_model(TreeType), recipient=member_st.actor
+    HarvestYield,
+    harvest=harvest,
+    tree=from_model(TreeType),
+    recipient=member_st.actor,
 )
 comment = from_model(Comment, author=member_st.auth_user, harvest=harvest)
 

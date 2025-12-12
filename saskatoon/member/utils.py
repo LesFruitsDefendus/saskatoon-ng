@@ -5,6 +5,7 @@ from datetime import timedelta, datetime
 from secrets import choice
 from typeguard import typechecked
 from typing import Optional
+from django.conf import settings
 
 from member.models import AuthUser, Organization
 from harvest.models import Equipment, Harvest
@@ -54,7 +55,7 @@ def available_equipment_points(
     start: datetime,
     end: datetime,
     harvest: Optional[Harvest],
-    buffer: timedelta = timedelta(hours=1),
+    buffer: timedelta = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER),
 ) -> QuerySet[Organization]:
     """List all available equipment points for a given datetime range"""
 

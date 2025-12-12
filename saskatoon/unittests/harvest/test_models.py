@@ -63,7 +63,11 @@ class TestHarvest(TestCase):
         harvest.status = status
         harvest.save()
 
-        valid_status = [Harvest.Status.SCHEDULED, Harvest.Status.READY, Harvest.Status.SUCCEEDED]
+        valid_status = [
+            Harvest.Status.SCHEDULED,
+            Harvest.Status.READY,
+            Harvest.Status.SUCCEEDED,
+        ]
         count = harvest.equipment_reserved.values().count()
 
         if harvest.status in valid_status and status in valid_status:

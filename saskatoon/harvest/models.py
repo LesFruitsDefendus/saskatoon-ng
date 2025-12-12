@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional, Type
+from typing import Optional
 from enum import Enum
 from typeguard import typechecked
 from sys import float_info
@@ -21,10 +21,11 @@ from sitebase.utils import (
     to_datetime,
     is_quill_html_empty,
     rgetattr,
-    validate_is_not_nan,
 )
 
-logger = getLogger("saskatoon")
+from sitebase.validators import validate_is_not_nan
+
+logger = getLogger('saskatoon')
 
 
 class TreeType(models.Model):
@@ -57,7 +58,10 @@ class TreeType(models.Model):
     maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
 
     image = models.ImageField(
-        upload_to='fruits_images', verbose_name=_("Fruit image"), blank=True, null=True
+        upload_to='fruits_images',
+        verbose_name=_("Fruit image"),
+        blank=True,
+        null=True,
     )
 
     def get_name(self, lang='fr'):
@@ -268,7 +272,9 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     )
 
     number_of_trees = models.PositiveIntegerField(
-        verbose_name=_("Total number of trees/vines on this property"), blank=True, null=True
+        verbose_name=_("Total number of trees/vines on this property"),
+        blank=True,
+        null=True,
     )
 
     approximative_maturity_date = models.DateField(
@@ -341,14 +347,22 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         verbose_name=_("Longitude"),
         null=True,
         blank=True,
-        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
+        validators=[
+            MinValueValidator(-180),
+            MaxValueValidator(180),
+            validate_is_not_nan,
+        ],
     )
 
     latitude = models.FloatField(
         verbose_name=_("Latitude"),
         null=True,
         blank=True,
-        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
+        validators=[
+            MinValueValidator(-90),
+            MaxValueValidator(90),
+            validate_is_not_nan,
+        ],
     )
 
     additional_info = models.CharField(
@@ -407,7 +421,10 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
     def owner_name(self):
         if self.owner:
             return self.owner.__str__()
-        return "(%s %s)" % (self.pending_contact_first_name, self.pending_contact_family_name)
+        return "(%s %s)" % (
+            self.pending_contact_first_name,
+            self.pending_contact_family_name,
+        )
 
     @property
     def email_recipient(self):
@@ -599,12 +616,13 @@ class Harvest(models.Model):
 
     def __str__(self) -> str:
         start = self.get_local_start()
+
         if start is not None:
             return _("Harvest on {} for {}").format(
                 start.strftime("%d/%m/%Y %H:%M"), self.property
             )
-        else:
-            return _("Harvest for {}").format(self.property)
+
+        return _("Harvest for {}").format(self.property)
 
     @staticmethod
     def get_status_choices():
@@ -733,18 +751,13 @@ def harvest_changed_by(sender, instance, **kwargs) -> None:
 
 @receiver(pre_save, sender=Harvest)
 def harvest_reservation_validation(sender, instance, **kwargs) -> None:
-    if instance.id is None:
-        return
-
-    if instance.equipment_reserved.values().count() == 0:
-        return
-
-    status = instance.status
-    if status in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]:
-        return
-
-    # If we've gotten to this point, then the Harvest should lose all registered reservations
-    instance.equipment_reserved.set([])
+    if (
+        instance.id is not None
+        and instance.equipment_reserved.values().count() > 0
+        and instance.status
+        not in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
+    ):
+        instance.equipment_reserved.set([])
 
 
 class RequestForParticipation(models.Model):
@@ -806,10 +819,6 @@ class RequestForParticipation(models.Model):
         verbose_name=_("Picker(s) showed up"), default=None, null=True, blank=True
     )
 
-    @staticmethod
-    def get_status_enum() -> 'Type[RequestForParticipation.Status]':
-        return RequestForParticipation.Status
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__last_status = self.status
@@ -861,7 +870,11 @@ class HarvestYield(models.Model):
     )
 
     def __str__(self):
-        return "%.2f lbs of %s to %s" % (self.total_in_lb, self.tree.fruit_name_en, self.recipient)
+        return "%.2f lbs of %s to %s" % (
+            self.total_in_lb,
+            self.tree.fruit_name_en,
+            self.recipient,
+        )
 
 
 class Comment(models.Model):
