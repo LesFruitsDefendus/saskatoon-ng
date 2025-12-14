@@ -43,6 +43,27 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
     return local_datetime(datetime.combine(date, datetime.min.time()))
 
 
+def parse_datetime(
+        datetime_str: str,
+        datetime_format: str = "%Y-%m-%d %H:%M"
+) -> Optional[datetime]:
+    """
+    Parse a datetime string into a datetime object using the current timezone.
+
+    Args:
+        datetime_str (str): The datetime string to parse.
+        datetime_format (str): The format to use for parsing (defaults to "%Y-%m-%d %H:%M")
+
+    Returns:
+        Optional[datetime]: A timezone-aware datetime object if parsing succeeds, otherwise None.
+    """
+    tzinfo = timezone.get_current_timezone()
+    try:
+        return datetime.strptime(datetime_str, datetime_format).replace(tzinfo=tzinfo)
+    except ValueError:
+        return None
+
+
 def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
 

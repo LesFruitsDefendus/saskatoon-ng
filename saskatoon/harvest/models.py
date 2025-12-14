@@ -673,12 +673,11 @@ class Harvest(models.Model):
         return self.get_volunteers_count(RequestForParticipation.Status.PENDING) > 0
 
     def get_days_before_harvest(self) -> Optional[int]:
-        start_date = self.start_date
-        if start_date is not None:
-            diff = datetime.now() - start_date
-            return diff.days
+        if self.start_date is None:
+            return None
 
-        return None
+        diff = datetime.now() - self.start_date
+        return diff.days
 
     def get_neighborhood(self) -> str:
         name: Optional[str] = rgetattr(self, 'property.neighborhood.name', None)
