@@ -473,9 +473,6 @@ class HarvestForm(forms.ModelForm[Harvest]):
             self.yields = kwargs.pop('yields')
         super().__init__(*args, **kwargs)
 
-        # Harvest ID passed to EquipmentPointAutocomplete
-        self.initial['id'] = -1  # type: ignore
-
         instance = kwargs.get('instance', None)
         if instance is not None:
             if hasattr(instance, 'id'):
