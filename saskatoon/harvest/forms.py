@@ -149,10 +149,12 @@ class RFPManageForm(forms.ModelForm[RFP]):
             and status != self.instance.status
             and self.instance.harvest.has_enough_pickers()
         ):
-            raise forms.ValidationError(_(
-                "Enough pickers have already been accepted for this harvest. "
-                "To accept more, increase the number of required pickers first."
-            ))
+            raise forms.ValidationError(
+                _(
+                    "Enough pickers have already been accepted for this harvest. "
+                    "To accept more, increase the number of required pickers first."
+                )
+            )
 
     def save(self):
         if self.cleaned_data.get('send_email'):
@@ -227,10 +229,12 @@ class PropertyCreateForm(PropertyForm):
             if data['owner_email'] and data['owner_first_name']:
                 validate_email(data['owner_email'])
             else:
-                raise forms.ValidationError(_(
-                    "You must either select an Owner or create "
-                    "a new one and provide their personal information"
-                ))
+                raise forms.ValidationError(
+                    _(
+                        "You must either select an Owner or create "
+                        "a new one and provide their personal information"
+                    )
+                )
         return data
 
     def save(self):
@@ -495,10 +499,12 @@ class HarvestForm(forms.ModelForm[Harvest]):
             Harvest.Status.ADOPTED,
             Harvest.Status.CANCELLED,
         ]:
-            raise forms.ValidationError(_(
-                "Harvests cannot be scheduled over multiple days: "
-                "start and end dates must match."
-            ))
+            raise forms.ValidationError(
+                _(
+                    "Harvests cannot be scheduled over multiple days: "
+                    "start and end dates must match."
+                )
+            )
 
         if end <= start:
             raise forms.ValidationError(_("End time must be after start time"))
@@ -514,9 +520,11 @@ class HarvestForm(forms.ModelForm[Harvest]):
             if tree not in property.trees.all():
                 invalid_trees.append(f"{tree.name_fr} ({tree.name_en})")
         if invalid_trees:
-            raise forms.ValidationError(_(
-                "Selected tree(s) <{}> not registered on the selected property."
-            ).format("; ".join(invalid_trees)))
+            raise forms.ValidationError(
+                _("Selected tree(s) <{}> not registered on the selected property.").format(
+                    "; ".join(invalid_trees)
+                )
+            )
 
         return selected_trees
 
@@ -530,9 +538,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
             Harvest.Status.PENDING,
             Harvest.Status.CANCELLED,
         ] and (not about or is_quill_html_empty(json.loads(about).get('html'))):
-            raise forms.ValidationError(_(
-                "Please fill in the public announcement to be published on the calendar."
-            ))
+            raise forms.ValidationError(
+                _("Please fill in the public announcement to be published on the calendar.")
+            )
 
         return about
 
@@ -547,9 +555,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
             Harvest.Status.READY,
             Harvest.Status.SUCCEEDED,
         ]:
-            raise forms.ValidationError(_(
-                "Harvest must be confirmed before an equipment point can be booked"
-            ))
+            raise forms.ValidationError(
+                _("Harvest must be confirmed before an equipment point can be booked")
+            )
 
         harvest_id = self.cleaned_data['id']
         try:
@@ -561,9 +569,11 @@ class HarvestForm(forms.ModelForm[Harvest]):
         end = self.cleaned_data['end_date']
         available_points = available_equipment_points(start, end, harvest)
         if available_points.filter(pk=equipment_point.pk).count() != 1:
-            raise forms.ValidationError(_(
-                "The {} equipment point is no longer available."
-            ).format(equipment_point.civil_name))
+            raise forms.ValidationError(
+                _("The {} equipment point is no longer available.").format(
+                    equipment_point.civil_name
+                )
+            )
 
         return equipment_point
 
@@ -576,9 +586,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
             )
             if unresolved_requests.exists():
-                raise forms.ValidationError(_(
-                    "This harvest cannot be left orphan, please resolve requests first."
-                ))
+                raise forms.ValidationError(
+                    _("This harvest cannot be left orphan, please resolve requests first.")
+                )
             if data['pick_leader'] is not None:
                 data['status'] = Harvest.Status.ADOPTED
 
@@ -587,9 +597,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
             Harvest.Status.PENDING,
             Harvest.Status.CANCELLED,
         ]:
-            raise forms.ValidationError(_(
-                "You must choose a pick leader or change harvest status"
-            ))
+            raise forms.ValidationError(
+                _("You must choose a pick leader or change harvest status")
+            )
 
         return data
 
@@ -604,7 +614,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         equipment_point = self.cleaned_data['equipment_point']
         equipment = (
-            Equipment.objects.none() if equipment_point is None
+            Equipment.objects.none()
+            if equipment_point is None
             else Equipment.objects.filter(owner=equipment_point)
         )
         instance.equipment_reserved.set(equipment)

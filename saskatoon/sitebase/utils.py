@@ -44,8 +44,7 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 
 def parse_datetime(
-        datetime_str: str,
-        datetime_format: str = "%Y-%m-%d %H:%M"
+    datetime_str: str, datetime_format: str = "%Y-%m-%d %H:%M"
 ) -> Optional[datetime]:
     """
     Parse a datetime string into a datetime object using the current timezone.

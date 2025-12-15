@@ -146,8 +146,10 @@ class EquipmentPointAutocomplete(Autocomplete):
             return qs
 
         harvest_id = self.forwarded.get('id', None)
+        has_id = harvest_id is not None and harvest_id != ""
+
         try:
-            harvest = Harvest.objects.get(pk=harvest_id)
+            harvest = Harvest.objects.get(pk=harvest_id) if has_id else None
         except Harvest.DoesNotExist:
             harvest = None
 
