@@ -72,16 +72,13 @@ export async function getFeatureCollection(
 
   if (data.type == "FeatureCollection") return data;
 
-  // const featureArray = !data[0] ? [data] : data;
-
-  const properties = data;
-
   return {
     type: "FeatureCollection",
-    features: properties.map((property) => ({
+    features: data.results.map((property) => ({
       type: "Feature",
       id: property.id,
-      geometry: simulatePoints ? randomGeometry() : property.geom,
+      geometry: property.geom,
+      // geometry: simulatePoints ? randomGeometry() : property.geom,
       properties: property,
     })),
   };
