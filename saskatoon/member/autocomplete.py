@@ -145,11 +145,11 @@ class EquipmentPointAutocomplete(Autocomplete):
         if start is None or end is None or start > end:
             return qs
 
-        harvest_id = self.forwarded.get('id', "")
-
         try:
+            harvest_id = int(self.forwarded.get('id', ""))
+
             harvest = Harvest.objects.get(pk=harvest_id) if harvest_id != "" else None
-        except Harvest.DoesNotExist:
+        except (Harvest.DoesNotExist, ValueError):
             harvest = None
 
         qs = available_equipment_points(start, end, harvest)
