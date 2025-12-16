@@ -446,7 +446,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         }
 
     # Instance ID, forwarded to EquipmentPointAutocomplete
-    id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+    id = forms.CharField(widget=forms.HiddenInput(), required=False)
 
     start_date = forms.DateTimeField(label=_('Start date/time'), required=True)
 
