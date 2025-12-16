@@ -142,7 +142,7 @@ class EquipmentPointAutocomplete(Autocomplete):
 
         start = parse_datetime(start_str)
         end = parse_datetime(end_str)
-        if start is None or end is None:
+        if start is None or end is None or start > end:
             return qs
 
         harvest_id = self.forwarded.get('id', "")
