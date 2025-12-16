@@ -2,7 +2,7 @@ import re
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional, Any
+from typing import Optional, cast, TypeVar
 from functools import reduce
 from typeguard import typechecked
 
@@ -67,11 +67,16 @@ def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
 
 
+T = TypeVar('T')
+
+
 @typechecked
-def rgetattr(obj, attr: str, *args) -> Optional[Any]:
+def rgetattr(obj, attr: str, cast_type: type[T], *args) -> Optional[T]:
     """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
 
-    def _getattr(obj, attr: str) -> Optional[Any]:
+    def _getattr(obj, attr: str):
         return getattr(obj, attr, *args)
 
-    return reduce(_getattr, [obj] + attr.split('.'))
+    val = reduce(_getattr, [obj] + attr.split('.'))
+
+    return cast(T, val)

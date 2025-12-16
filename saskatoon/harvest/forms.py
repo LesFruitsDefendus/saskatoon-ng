@@ -25,7 +25,7 @@ from member.models import AuthUser, Person, Organization
 from member.utils import available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
-from sitebase.utils import is_quill_html_empty
+from sitebase.utils import is_quill_html_empty, rgetattr
 
 logger = getLogger('saskatoon')
 
@@ -473,17 +473,15 @@ class HarvestForm(forms.ModelForm[Harvest]):
             self.yields = kwargs.pop('yields')
         super().__init__(*args, **kwargs)
 
-        instance = kwargs.get('instance', None)
-        if instance is not None:
-            if hasattr(instance, 'id'):
-                self.initial['id'] = instance.id  # type: ignore
+        # we need the id for autocompletion
+        self.initial['id'] = rgetattr(kwargs, 'instance.id', int, None)  # type: ignore
+        equipment = rgetattr(kwargs, 'instance.equipment_reserved', QuerySet[Equipment], None)
 
-            # Assumes that a harvest can only reserve one equipment
-            # point at a time so all reserved equipment belongs to the same owner.
-            equipment = instance.equipment_reserved.values()
-            self.initial['equipment_point'] = (  # type: ignore
-                equipment[0]['owner_id'] if equipment.count() > 0 else None
-            )
+        self.initial['equipment_point'] = (  # type: ignore
+            equipment.values()[0]['owner_id']
+            if equipment is not None and equipment.count() > 0
+            else None
+        )
 
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""

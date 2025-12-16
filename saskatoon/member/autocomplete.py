@@ -135,9 +135,9 @@ class EquipmentPointAutocomplete(Autocomplete):
 
         qs = Organization.objects.filter(is_equipment_point=True)
 
-        start_str = self.forwarded.get('start_date', None)
-        end_str = self.forwarded.get('end_date', None)
-        if start_str is None or end_str is None:
+        start_str = self.forwarded.get('start_date', "")
+        end_str = self.forwarded.get('end_date', "")
+        if start_str == "" or end_str == "":
             return qs
 
         start = parse_datetime(start_str)
@@ -145,11 +145,10 @@ class EquipmentPointAutocomplete(Autocomplete):
         if start is None or end is None:
             return qs
 
-        harvest_id = self.forwarded.get('id', None)
-        has_id = harvest_id is not None and harvest_id != ""
+        harvest_id = self.forwarded.get('id', "")
 
         try:
-            harvest = Harvest.objects.get(pk=harvest_id) if has_id else None
+            harvest = Harvest.objects.get(pk=harvest_id) if harvest_id != "" else None
         except Harvest.DoesNotExist:
             harvest = None
 

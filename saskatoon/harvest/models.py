@@ -680,7 +680,7 @@ class Harvest(models.Model):
         return diff.days
 
     def get_neighborhood(self) -> str:
-        name: Optional[str] = rgetattr(self, 'property.neighborhood.name', None)
+        name = rgetattr(self, 'property.neighborhood.name', str, None)
 
         if name is None:
             return ""
@@ -692,7 +692,7 @@ class Harvest(models.Model):
 
     def get_public_title(self) -> str:
         title = ", ".join(self.get_fruits())
-        neighborhood_name: Optional[str] = rgetattr(self, 'property.neighborhood.name', "")
+        neighborhood_name = rgetattr(self, 'property.neighborhood.name', str, "")
         if neighborhood_name != "Other":
             title += f" @ {neighborhood_name}"
         return title
