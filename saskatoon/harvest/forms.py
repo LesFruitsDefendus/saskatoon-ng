@@ -554,15 +554,21 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 _("Harvest must be confirmed before an equipment point can be booked")
             )
 
-        harvest_id = self.cleaned_data['id']
         try:
+            harvest_id = self.cleaned_data['id']
             harvest = Harvest.objects.get(pk=harvest_id)
-        except Harvest.DoesNotExist:
+        except (Harvest.DoesNotExist, ValueError):
             harvest = None
 
-        start = self.cleaned_data['start_date']
-        end = self.cleaned_data['end_date']
-        available_points = available_equipment_points(start, end, harvest)
+        start = self.cleaned_data.get('start_date', None)
+        end = self.cleaned_data.get('end_date', None)
+
+        available_points = (
+            available_equipment_points(start, end, harvest)
+            if start is not None and end is not None
+            else Organization.objects.none()
+        )
+
         if available_points.filter(pk=equipment_point.pk).count() != 1:
             raise forms.ValidationError(
                 _("The {} equipment point is no longer available.").format(

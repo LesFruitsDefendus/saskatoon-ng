@@ -147,8 +147,8 @@ class EquipmentPointAutocomplete(Autocomplete):
 
         try:
             harvest_id = int(self.forwarded.get('id', ""))
+            harvest = Harvest.objects.get(pk=harvest_id)
 
-            harvest = Harvest.objects.get(pk=harvest_id) if harvest_id != "" else None
         except (Harvest.DoesNotExist, ValueError):
             harvest = None
 
