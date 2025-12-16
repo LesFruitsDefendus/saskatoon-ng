@@ -20,7 +20,7 @@ collectstatic:
 
 staticcheck:
 	@tox -e mypy
-	@tox -e flake8
+	@tox -e ruff
 	@tox -e pytype
 
 unittests:

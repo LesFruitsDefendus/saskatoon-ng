@@ -25,7 +25,7 @@ from member.models import AuthUser, Person, Organization
 from member.utils import available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
-from sitebase.utils import is_quill_html_empty
+from sitebase.utils import is_quill_html_empty, rgetattr
 
 logger = getLogger('saskatoon')
 
@@ -45,7 +45,7 @@ class RFPForm(forms.ModelForm[RFP]):
         ]
 
         labels = {
-            'number_of_pickers': _('How many people are you?'),
+            'number_of_pickers': _("How many people are you?"),
         }
 
     first_name = forms.CharField(label=_("First name"))
@@ -151,8 +151,8 @@ class RFPManageForm(forms.ModelForm[RFP]):
         ):
             raise forms.ValidationError(
                 _(
-                    "Enough pickers have already been accepted for this harvest. \
-                To accept more, increase the number of required pickers first."
+                    "Enough pickers have already been accepted for this harvest. "
+                    "To accept more, increase the number of required pickers first."
                 )
             )
 
@@ -231,8 +231,8 @@ class PropertyCreateForm(PropertyForm):
             else:
                 raise forms.ValidationError(
                     _(
-                        "You must either select an Owner \
-                    or create a new one and provide their personal information"
+                        "You must either select an Owner or create "
+                        "a new one and provide their personal information"
                     )
                 )
         return data
@@ -297,45 +297,44 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         }
 
     neighbor_access = forms.BooleanField(
-        label=_('Volunteers have permission to go on the neighbours property to access fruits'),
+        label=_("Volunteers have permission to go on the neighbours property to access fruits"),
         required=False,
     )
 
     compost_bin = forms.BooleanField(
-        label=_('I have a compost bin where you can leave rotten fruit'),
+        label=_("I have a compost bin where you can leave rotten fruit"),
         required=False,
     )
 
     ladder_available = forms.BooleanField(
-        label=_('I have a ladder that can be used during the harvest'),
+        label=_("I have a ladder that can be used during the harvest"),
         required=False,
     )
 
     ladder_available_for_outside_picks = forms.BooleanField(
-        label=_('I would lend my ladder for another harvest nearby'),
+        label=_("I would lend my ladder for another harvest nearby"),
         required=False,
     )
 
     harvest_every_year = forms.BooleanField(
         label=_(
-            'My tree(s)/vine(s) produce fruit every year '
-            '(if not, please include info about frequency in '
-            'additional comments at the bottom)'
+            "My tree(s)/vine(s) produce fruit every year (if not, please "
+            "include info about frequency in additional comments at the bottom)"
         ),
         required=False,
     )
 
     pending_recurring = forms.ChoiceField(
-        label=_('Have you provided us any information about your property before?'),
+        label=_("Have you provided us any information about your property before?"),
         choices=[(True, _('Yes')), (False, _('No'))],
         widget=forms.RadioSelect,
     )
 
     authorized = forms.ChoiceField(
-        label=_('Do you give us permission to harvest your tree(s) and/or vine(s) this season?'),
+        label=_("Do you give us permission to harvest your tree(s) and/or vine(s) this season?"),
         choices=[
-            (True, _('Yes')),
-            (False, _('Not this year, but maybe in future seasons')),
+            (True, _("Yes")),
+            (False, _("Not this year, but maybe in future seasons")),
         ],
         widget=forms.RadioSelect(),
         required=True,
@@ -346,53 +345,53 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     )
 
     trees_location = forms.CharField(
-        label=_('Location of tree(s) or vine(s)'),
-        help_text=_('Location on the property (e.g. Front yard, back yard, etc.)'),
+        label=_("Location of tree(s) or vine(s)"),
+        help_text=_("Location on the property (e.g. Front yard, back yard, etc.)"),
         required=False,
     )
 
     trees_accessibility = forms.CharField(
         label=_('Access to tree(s) or vine(s)'),
         help_text=_(
-            'Any info on how to access the tree(s) or vine(s)'
-            '(e.g. locked gate in back, publicly accessible from sidewalk, etc.)'
+            "Any info on how to access the tree(s) or vine(s)"
+            "(e.g. locked gate in back, publicly accessible from sidewalk, etc.)"
         ),
         required=False,
     )
 
     avg_nb_required_pickers = forms.DecimalField(
-        label=_('Number of pickers'),
-        help_text=_('Approximate number of pickers needed for a two-hour harvesting period.'),
+        label=_("Number of pickers"),
+        help_text=_("Approximate number of pickers needed for a two-hour harvesting period."),
         required=False,
     )
 
-    fruits_height = forms.DecimalField(label=_('Height of lowest fruits (meters)'), required=False)
+    fruits_height = forms.DecimalField(label=_("Height of lowest fruits (meters)"), required=False)
 
-    street_number = forms.DecimalField(label=_('Address number'), required=True)
+    street_number = forms.DecimalField(label=_("Address number"), required=True)
 
     number_of_trees = forms.DecimalField(
-        label=_('Total number of trees/vines on this property'), required=True
+        label=_("Total number of trees/vines on this property"), required=True
     )
 
-    street = forms.CharField(label=_('Street name'), required=True)
+    street = forms.CharField(label=_("Street name"), required=True)
 
-    complement = forms.DecimalField(label=_('Apartment # (if applicable)'), required=False)
+    complement = forms.DecimalField(label=_("Apartment # (if applicable)"), required=False)
 
     postal_code = forms.CharField(required=True)
 
     pending_newsletter = forms.BooleanField(
         label=_(
-            'I would like to receive emails from '
-            'Les Fruits Defendus such as newsletters and updates'
+            "I would like to receive emails from "
+            "Les Fruits Defendus such as newsletters and updates"
         ),
         required=False,
     )
 
     additional_info = forms.CharField(
         help_text=_(
-            'Any additional information that we should be aware of '
-            '(e.g. details about how often tree produces fruit, description of fruit if '
-            'the type is unknown or not in the list, etc.)'
+            "Any additional information that we should be aware of "
+            "(e.g. details about how often tree produces fruit, "
+            "fruit description if not already in the list, etc.)"
         ),
         widget=forms.widgets.Textarea(),
         required=False,
@@ -446,8 +445,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
             'nb_required_pickers': forms.NumberInput(),
         }
 
-    # We need the harvest id so equipment point
-    # autocomplete will work correctly
+    # Instance ID, forwarded to EquipmentPointAutocomplete
     id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
 
     start_date = forms.DateTimeField(label=_('Start date/time'), required=True)
@@ -455,8 +453,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
     end_date = forms.DateTimeField(label=_('End date/time'), required=True)
 
     publication_date = forms.DateTimeField(
-        label=_('Publication date (optional)'),
-        help_text=_('Leave this field empty to publish harvest as soon as possible'),
+        label=_("Publication date (optional)"),
+        help_text=_("Leave this field empty to publish harvest as soon as possible"),
         required=False,
     )
 
@@ -466,29 +464,24 @@ class HarvestForm(forms.ModelForm[Harvest]):
             url='equipmentpoint-autocomplete',
             forward=['id', 'start_date', 'end_date'],
         ),
-        label=_('Equipment Point'),
+        label=_("Equipment Point"),
         required=False,
     )
 
     def __init__(self, *args, **kwargs) -> None:
         if "yields" in kwargs:
             self.yields = kwargs.pop('yields')
-
-        instance = kwargs.get('instance', None)
         super().__init__(*args, **kwargs)
 
-        if instance is not None and hasattr(instance, 'id'):
-            self.initial['id'] = instance.id  # type: ignore  # I think since
-        # it's a custom field mypy cant detect that the assignment
-        # is valid, but I'd love to fix it
+        # we need the id for autocompletion
+        self.initial['id'] = rgetattr(kwargs, 'instance.id', int, None)  # type: ignore
+        equipment = rgetattr(kwargs, 'instance.equipment_reserved', QuerySet[Equipment], None)
 
-        # Assumes that a harvest can only reserve one equipment
-        # point at a time so all reserved equipment belongs to the same owner.
-        if instance is not None and hasattr(instance, 'equipment_reserved'):
-            equipment = instance.equipment_reserved.values()
-            self.initial['equipment_point'] = (  # type: ignore  # not sure how to tell mypy it's okay
-                equipment[0]['owner_id'] if equipment.count() > 0 else None
-            )
+        self.initial['equipment_point'] = (  # type: ignore
+            equipment.values()[0]['owner_id']
+            if equipment is not None and equipment.count() > 0
+            else None
+        )
 
     def clean_end_date(self: Self) -> datetime:
         """Derive end date from start date"""
@@ -503,13 +496,13 @@ class HarvestForm(forms.ModelForm[Harvest]):
         ]:
             raise forms.ValidationError(
                 _(
-                    'Harvests cannot be scheduled over multiple days: '
-                    'start and end dates must match.'
-                )  # noqa: E501
+                    "Harvests cannot be scheduled over multiple days: "
+                    "start and end dates must match."
+                )
             )
 
         if end <= start:
-            raise forms.ValidationError(_('End time must be after start time'))
+            raise forms.ValidationError(_("End time must be after start time"))
 
         return end
 
@@ -523,7 +516,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
                 invalid_trees.append(f"{tree.name_fr} ({tree.name_en})")
         if invalid_trees:
             raise forms.ValidationError(
-                _('Selected tree(s) <{}> not registered on the selected property.').format(
+                _("Selected tree(s) <{}> not registered on the selected property.").format(
                     "; ".join(invalid_trees)
                 )
             )
@@ -547,45 +540,41 @@ class HarvestForm(forms.ModelForm[Harvest]):
         return about
 
     def clean_equipment_point(self: Self) -> Optional[Organization]:
-        """Clear equipment point if no longer available or if harvest is not scheduled or ready"""
-        harvest_id = self.cleaned_data['id']
-        status = self.cleaned_data['status']
+        """Clear equipment point if no longer available or harvest status is incompatible"""
         equipment_point = self.cleaned_data['equipment_point']
-        start = self.cleaned_data['start_date']
-        end = self.cleaned_data['end_date']
-
         if equipment_point is None:
-            return equipment_point
+            return None
 
-        if status not in [
+        if self.cleaned_data['status'] not in [
             Harvest.Status.SCHEDULED,
             Harvest.Status.READY,
             Harvest.Status.SUCCEEDED,
         ]:
             raise forms.ValidationError(
-                _(
-                    "You cannot reserve an equipment point if"
-                    " the harvest is not yet scheduled or ready."
-                )
+                _("Harvest must be confirmed before an equipment point can be booked")
             )
 
-        harvest = Harvest.objects.get(pk=harvest_id) if harvest_id is not None else None
+        harvest_id = self.cleaned_data['id']
+        try:
+            harvest = Harvest.objects.get(pk=harvest_id)
+        except Harvest.DoesNotExist:
+            harvest = None
 
+        start = self.cleaned_data['start_date']
+        end = self.cleaned_data['end_date']
         available_points = available_equipment_points(start, end, harvest)
-
         if available_points.filter(pk=equipment_point.pk).count() != 1:
             raise forms.ValidationError(
-                _("The " + equipment_point.civil_name + " equipment point is no longer available.")
+                _("The {} equipment point is no longer available.").format(
+                    equipment_point.civil_name
+                )
             )
 
         return equipment_point
 
     def clean(self: Self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
-        data = super().clean()
-
-        if data is None:
-            raise forms.ValidationError(_("The form data was empty, please try again"))
+        data = super().clean() or {}
 
         if data['status'] == Harvest.Status.ORPHAN:
             unresolved_requests = self.instance.requests.filter(
@@ -615,18 +604,18 @@ class HarvestForm(forms.ModelForm[Harvest]):
         owned by said equipment points. i.e. Reserving an equipment point
         will reserve all its equipment for the duration of the harvest.
         """
-        instance = super(HarvestForm, self).save(commit=commit)
+        # Instance must have an id before we can assign ManyToMany relationships
+        instance = super().save(commit=True)
+
         equipment_point = self.cleaned_data['equipment_point']
-
-        # we need the harvest to have an id before we assign many to many relations
+        equipment = (
+            Equipment.objects.none()
+            if equipment_point is None
+            else Equipment.objects.filter(owner=equipment_point)
+        )
+        instance.equipment_reserved.set(equipment)
         instance.save()
 
-        if equipment_point is not None:
-            instance.equipment_reserved.set(Equipment.objects.filter(owner=equipment_point))
-        else:
-            instance.equipment_reserved.set(Equipment.objects.none())
-
-        instance.save()
         return instance
 
 

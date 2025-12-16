@@ -2,7 +2,7 @@ import re
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional, Any
+from typing import Optional, cast, TypeVar
 from functools import reduce
 from typeguard import typechecked
 
@@ -43,15 +43,40 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
     return local_datetime(datetime.combine(date, datetime.min.time()))
 
 
+def parse_datetime(
+    datetime_str: str, datetime_format: str = "%Y-%m-%d %H:%M"
+) -> Optional[datetime]:
+    """
+    Parse a datetime string into a datetime object using the current timezone.
+
+    Args:
+        datetime_str (str): The datetime string to parse.
+        datetime_format (str): The format to use for parsing (defaults to "%Y-%m-%d %H:%M")
+
+    Returns:
+        Optional[datetime]: A timezone-aware datetime object if parsing succeeds, otherwise None.
+    """
+    tzinfo = timezone.get_current_timezone()
+    try:
+        return datetime.strptime(datetime_str, datetime_format).replace(tzinfo=tzinfo)
+    except ValueError:
+        return None
+
+
 def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
 
 
+T = TypeVar('T')
+
+
 @typechecked
-def rgetattr(obj, attr: str, *args) -> Optional[Any]:
+def rgetattr(obj, attr: str, cast_type: type[T], *args) -> Optional[T]:
     """See https://stackoverflow.com/questions/31174295/getattr-and-setattr-on-nested-objects"""
 
-    def _getattr(obj, attr: str) -> Optional[Any]:
+    def _getattr(obj, attr: str):
         return getattr(obj, attr, *args)
 
-    return reduce(_getattr, [obj] + attr.split('.'))
+    val = reduce(_getattr, [obj] + attr.split('.'))
+
+    return cast(T, val)

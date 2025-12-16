@@ -2,13 +2,12 @@ from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
 from logging import getLogger
-from datetime import datetime
-from django.utils import timezone
 
 from harvest.models import Harvest
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
 from member.utils import available_equipment_points
 from saskatoon.autocomplete import Autocomplete
+from sitebase.utils import parse_datetime
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
 
@@ -131,24 +130,29 @@ class EquipmentPointAutocomplete(Autocomplete):
     """Organizations that are Equipment Points"""
 
     def get_queryset(self) -> QuerySet[Organization]:
-        qs = Organization.objects.none()
-
         if not self.is_authenticated():
+            return Organization.objects.none()
+
+        qs = Organization.objects.filter(is_equipment_point=True)
+
+        start_str = self.forwarded.get('start_date', "")
+        end_str = self.forwarded.get('end_date', "")
+        if start_str == "" or end_str == "":
             return qs
 
-        harvest_id = self.forwarded.get('id', None)
-        format_str = '%Y-%m-%d %H:%M'
-        current_time_zone = timezone.get_current_timezone()
+        start = parse_datetime(start_str)
+        end = parse_datetime(end_str)
+        if start is None or end is None:
+            return qs
 
-        start_str = self.forwarded.get('start_date', None)
-        end_str = self.forwarded.get('end_date', None)
+        harvest_id = self.forwarded.get('id', "")
 
-        if start_str and end_str:
-            start = datetime.strptime(start_str, format_str).replace(tzinfo=current_time_zone)
-            end = datetime.strptime(end_str, format_str).replace(tzinfo=current_time_zone)
-            harvest = Harvest.objects.get(pk=harvest_id) if harvest_id is not None else None
+        try:
+            harvest = Harvest.objects.get(pk=harvest_id) if harvest_id != "" else None
+        except Harvest.DoesNotExist:
+            harvest = None
 
-            qs = available_equipment_points(start, end, harvest)
+        qs = available_equipment_points(start, end, harvest)
 
         return qs.distinct()
 
