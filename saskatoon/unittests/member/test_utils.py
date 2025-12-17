@@ -3,6 +3,8 @@ import deal
 from datetime import timedelta, datetime, timezone
 import hypothesis.strategies as st
 
+from django.conf import settings
+from sitebase.utils import parse_naive_datetime
 from member.utils import available_equipment_points
 from harvest.models import Harvest, Equipment, EquipmentType
 from member.models import Organization, Country, State, City, Neighborhood
@@ -230,6 +232,31 @@ def test_available_equipment_points_buffer_before(db, harvest, equipment) -> Non
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=2)
     points = available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
+
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
+def test_available_equipment_points_buffer_with_parse_naive_datetime(
+    db, harvest, equipment
+) -> None:
+    """
+    Regression test for when dates are passed through the autocompletete,
+    we where getting dates with a -5:18 timezone instead of -5
+    """
+
+    harvest.equipment_reserved.set([equipment])
+    delta = timedelta(hours=1)
+
+    end_str = harvest.end_date.replace(tzinfo=None).strftime(settings.AUTOCOMPLETE_DATETIME_FORMAT)
+    end = parse_naive_datetime(end_str, settings.AUTOCOMPLETE_DATETIME_FORMAT)
+    assert end is not None
+
+    points = available_equipment_points(end + delta, end + delta + delta, None)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
