@@ -252,8 +252,8 @@ def test_available_equipment_points_buffer_with_parse_naive_datetime(
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=1)
 
-    end_str = harvest.end_date.replace(tzinfo=None).strftime(settings.AUTOCOMPLETE_DATETIME_FORMAT)
-    end = parse_naive_datetime(end_str, settings.AUTOCOMPLETE_DATETIME_FORMAT)
+    end_str = harvest.end_date.replace(tzinfo=None).strftime(settings.DATETIME_INPUT_FORMATS[0])
+    end = parse_naive_datetime(end_str, settings.DATETIME_INPUT_FORMATS[0])
     assert end is not None
 
     points = available_equipment_points(end + delta, end + delta + delta, None)
