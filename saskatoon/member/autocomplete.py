@@ -137,8 +137,8 @@ class EquipmentPointAutocomplete(Autocomplete):
 
         start_str = self.forwarded.get('start_date', "")
         end_str = self.forwarded.get('end_date', "")
-        if start_str == "" or end_str == "":
-            return no_points
+        if start_str == "" and end_str == "":
+            return Organization.objects.all()
 
         start = parse_naive_datetime(start_str)
         end = parse_naive_datetime(end_str)
