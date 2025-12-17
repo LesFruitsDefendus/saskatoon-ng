@@ -2,6 +2,7 @@ from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
 from logging import getLogger
+from django.conf import settings
 
 from harvest.models import Harvest
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
@@ -130,20 +131,23 @@ class EquipmentPointAutocomplete(Autocomplete):
     """Organizations that are Equipment Points"""
 
     def get_queryset(self) -> QuerySet[Organization]:
-        no_points = Organization.objects.none()
+        none = Organization.objects.none()
 
         if not self.is_authenticated():
-            return no_points
+            return none
 
         start_str = self.forwarded.get('start_date', "")
         end_str = self.forwarded.get('end_date', "")
         if start_str == "" and end_str == "":
-            return Organization.objects.all()
+            return Organization.objects.filter(is_equipment_point=True)
 
-        start = parse_naive_datetime(start_str)
-        end = parse_naive_datetime(end_str)
+        if start_str == "" or end_str == "":
+            return none
+
+        start = parse_naive_datetime(start_str, settings.AUTOCOMPLETE_DATETIME_FORMAT)
+        end = parse_naive_datetime(end_str, settings.AUTOCOMPLETE_DATETIME_FORMAT)
         if start is None or end is None or start > end:
-            return no_points
+            return none
 
         try:
             harvest_id = int(self.forwarded.get('id', ""))

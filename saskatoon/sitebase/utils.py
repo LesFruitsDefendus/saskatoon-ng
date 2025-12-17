@@ -6,6 +6,7 @@ from typing import Optional, cast, TypeVar
 from functools import reduce
 from typeguard import typechecked
 from logging import getLogger
+from django.conf import settings
 
 
 logger = getLogger("saskatoon")
@@ -48,7 +49,7 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 @typechecked
 def parse_naive_datetime(
-    datetime_str: str, datetime_format: str = "%Y-%m-%d+%H:%M"
+    datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
 ) -> Optional[datetime]:
     """
     Parse a naive datetime string into a datetime object using the current timezone.
