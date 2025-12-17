@@ -7,7 +7,6 @@ from functools import reduce
 from typeguard import typechecked
 from logging import getLogger
 
-from django.conf import settings
 
 logger = getLogger("saskatoon")
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
@@ -48,18 +47,11 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 
 @typechecked
-def parse_datetime(
-    datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
+def parse_naive_datetime(
+    datetime_str: str, datetime_format: str = "%Y-%m-%d+%H:%M"
 ) -> Optional[datetime]:
     """
-    Parse a datetime string into a datetime object using the current timezone.
-
-    Args:
-        datetime_str (str): The datetime string to parse.
-        datetime_format (str): The format to use for parsing (defaults to settings.DATETIME_INPUT_FORMATS[0])
-
-    Returns:
-        Optional[datetime]: A timezone-aware datetime object if parsing succeeds, otherwise None.
+    Parse a naive datetime string into a datetime object using the current timezone.
     """
     tzinfo = timezone.get_current_timezone()
 
