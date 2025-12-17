@@ -9,6 +9,7 @@ from django.db.models import QuerySet
 from logging import getLogger
 from postalcodes_ca import parse_postal_code
 from typing import Any, Optional
+from types import SimpleNamespace
 from typing_extensions import Self
 
 from harvest.models import (
@@ -25,7 +26,7 @@ from member.models import AuthUser, Person, Organization
 from member.utils import available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
-from sitebase.utils import is_quill_html_empty, rgetattr
+from sitebase.utils import is_quill_html_empty
 
 logger = getLogger('saskatoon')
 
@@ -473,14 +474,14 @@ class HarvestForm(forms.ModelForm[Harvest]):
             self.yields = kwargs.pop('yields')
         super().__init__(*args, **kwargs)
 
+        instance = kwargs.get('instance', SimpleNamespace())
+
         # we need the id for autocompletion
-        self.initial['id'] = rgetattr(kwargs, 'instance.id', int, None)  # type: ignore
-        equipment = rgetattr(kwargs, 'instance.equipment_reserved', QuerySet[Equipment], None)
+        self.initial['id'] = getattr(instance, 'id', None)  # type: ignore
+        equipment = getattr(instance, 'equipment_reserved', Equipment.objects.none())
 
         self.initial['equipment_point'] = (  # type: ignore
-            equipment.values()[0]['owner_id']
-            if equipment is not None and equipment.count() > 0
-            else None
+            equipment.values()[0]['owner_id'] if equipment.count() > 0 else None
         )
 
     def clean_end_date(self: Self) -> datetime:
