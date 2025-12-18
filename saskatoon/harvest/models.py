@@ -15,12 +15,12 @@ from enum import Enum
 from typeguard import typechecked
 from sys import float_info
 from logging import getLogger
+from types import SimpleNamespace
 
 from sitebase.utils import (
     local_datetime,
     to_datetime,
     is_quill_html_empty,
-    rgetattr,
 )
 
 from sitebase.validators import validate_is_not_nan
@@ -680,19 +680,16 @@ class Harvest(models.Model):
         return diff.days
 
     def get_neighborhood(self) -> str:
-        name = rgetattr(self, 'property.neighborhood.name', str, None)
-
-        if name is None:
-            return ""
-        else:
-            return name
+        property = getattr(self, 'property', SimpleNamespace)
+        neighborhood = getattr(property, 'neighborhood', SimpleNamespace)
+        return getattr(neighborhood, 'name', "")
 
     def get_fruits(self):
         return [t.fruit for t in self.trees.all()]
 
     def get_public_title(self) -> str:
         title = ", ".join(self.get_fruits())
-        neighborhood_name = rgetattr(self, 'property.neighborhood.name', str, "")
+        neighborhood_name = self.get_neighborhood()
         if neighborhood_name != "Other":
             title += f" @ {neighborhood_name}"
         return title

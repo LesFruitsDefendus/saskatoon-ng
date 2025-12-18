@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-18 14:45+0000\n"
+"POT-Creation-Date: 2025-12-18 17:09+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -119,7 +119,7 @@ msgstr "Autorisée"
 msgid "Unauthorized"
 msgstr "Non autorisée"
 
-#: harvest/filters.py:122 harvest/models.py:852
+#: harvest/filters.py:122 harvest/models.py:849
 msgid "Tree"
 msgstr "Arbre"
 
@@ -297,7 +297,7 @@ msgstr ""
 "(par exemple: porte verrouillée à l'arrière, accès libre depuis la rue, "
 "etc...)"
 
-#: harvest/forms.py:364 harvest/models.py:802
+#: harvest/forms.py:364 harvest/models.py:799
 msgid "Number of pickers"
 msgstr "Nombre de cueilleurs (cueilleuses)"
 
@@ -491,7 +491,7 @@ msgstr ""
 "La cueillette dans cette propriété a été autorisée pour cette saison par le "
 "propriétaire"
 
-#: harvest/models.py:170 harvest/models.py:770
+#: harvest/models.py:170 harvest/models.py:767
 msgid "Pending"
 msgstr "En attente"
 
@@ -697,7 +697,7 @@ msgstr "Partagé"
 msgid "Can be used in harvests outside of property"
 msgstr "Peut être utilisé pour d'autres cueillettes à proximité"
 
-#: harvest/models.py:529 harvest/models.py:888
+#: harvest/models.py:529 harvest/models.py:885
 msgid "harvest"
 msgstr "récolte"
 
@@ -729,7 +729,7 @@ msgstr "Prête"
 msgid "Succeeded"
 msgstr "Réussie"
 
-#: harvest/models.py:540 harvest/models.py:773
+#: harvest/models.py:540 harvest/models.py:770
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -793,99 +793,99 @@ msgstr "Récolte le {} pour {}"
 msgid "Harvest for {}"
 msgstr "Récolte pour {}"
 
-#: harvest/models.py:766
+#: harvest/models.py:763
 msgid "request for participation"
 msgstr "demande de participation"
 
-#: harvest/models.py:767
+#: harvest/models.py:764
 msgid "requests for participation"
 msgstr "demandes de participation"
 
-#: harvest/models.py:771
+#: harvest/models.py:768
 msgid "Accepted"
 msgstr "Accepté"
 
-#: harvest/models.py:772
+#: harvest/models.py:769
 msgid "Declined"
 msgstr "Refusée"
 
-#: harvest/models.py:774
+#: harvest/models.py:771
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: harvest/models.py:777
+#: harvest/models.py:774
 msgid "Accept request"
 msgstr "Accepter cette demande"
 
-#: harvest/models.py:778
+#: harvest/models.py:775
 msgid "Decline request"
 msgstr "Refuser cette demande"
 
-#: harvest/models.py:782 harvest/models.py:845
+#: harvest/models.py:779 harvest/models.py:842
 msgid "Harvest"
 msgstr "Récolte"
 
-#: harvest/models.py:789
+#: harvest/models.py:786
 msgid "Requester"
 msgstr "Demandeur"
 
-#: harvest/models.py:797
+#: harvest/models.py:794
 msgid "Request status"
 msgstr "État de la demande"
 
-#: harvest/models.py:807
+#: harvest/models.py:804
 msgid "Comment from participant"
 msgstr "Commentaire du/de la bénévole"
 
-#: harvest/models.py:809
+#: harvest/models.py:806
 msgid "PickLeader notes"
 msgstr "Notes du chef de cueille"
 
-#: harvest/models.py:811 harvest/models.py:902
+#: harvest/models.py:808 harvest/models.py:899
 msgid "Created on"
 msgstr "Créé le"
 
-#: harvest/models.py:814
+#: harvest/models.py:811
 msgid "Status updated on"
 msgstr "Statut mis à jour le"
 
-#: harvest/models.py:818
+#: harvest/models.py:815
 msgid "Picker(s) showed up"
 msgstr "Cueilleurs (cueilleuses) présent(e)s"
 
-#: harvest/models.py:840
+#: harvest/models.py:837
 msgid "harvest yield"
 msgstr "rendement de cueillette"
 
-#: harvest/models.py:841
+#: harvest/models.py:838
 msgid "harvest yields"
 msgstr "rendements de cueillettes"
 
-#: harvest/models.py:857
+#: harvest/models.py:854
 msgid "Weight (lb)"
 msgstr "Poids (en livres)"
 
-#: harvest/models.py:867
+#: harvest/models.py:864
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: harvest/models.py:883
+#: harvest/models.py:880
 msgid "comment"
 msgstr "commentaire"
 
-#: harvest/models.py:884
+#: harvest/models.py:881
 msgid "comments"
 msgstr "commentaires"
 
-#: harvest/models.py:895
+#: harvest/models.py:892
 msgid "Author"
 msgstr "Auteur"
 
-#: harvest/models.py:900
+#: harvest/models.py:897
 msgid "Content"
 msgstr "Contenu"
 
-#: harvest/models.py:905
+#: harvest/models.py:902
 msgid "Updated on"
 msgstr "Mis à jour le"
 
