@@ -359,6 +359,10 @@ class HarvestDetailSerializer(HarvestSerializer):
     reservation_start = serializers.SerializerMethodField()
     reservation_end = serializers.SerializerMethodField()
 
+    def __init__(self, *args, **kwargs):
+        super(HarvestDetailSerializer, self).__init__(*args, **kwargs)
+        self.unserialized_equipment_point = self.instance.get_equipment_point()
+
     def get_about(self, obj):
         return obj.about.html
 
@@ -368,29 +372,33 @@ class HarvestDetailSerializer(HarvestSerializer):
     def get_equipment_point(
         self, obj: Harvest
     ) -> Optional[ReturnDict[Mapping[str, Any], OrganizationSerializer]]:
-        point = obj.get_equipment_point()
-
-        if point is None:
+        if self.unserialized_equipment_point is None:
             return None
 
-        return OrganizationSerializer(point, many=False, read_only=True).data
+        return OrganizationSerializer(
+            self.unserialized_equipment_point, many=False, read_only=True
+        ).data
 
     def get_reservation_start(self, obj: Harvest) -> Optional[str]:
         buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
 
-        if (start := obj.start_date) is not None and (
-            local_start := local_datetime(start - buffer)
-        ) is not None:
-            return local_start.strftime("%I:%M %p")
+        if self.unserialized_equipment_point is None:
+            return None
 
-        return None
+        if (start := obj.start_date) is None or (
+            local_start := local_datetime(start - buffer)
+        ) is None:
+            return None
+
+        return local_start.strftime("%I:%M %p")
 
     def get_reservation_end(self, obj: Harvest) -> Optional[str]:
         buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
 
-        if (end := obj.end_date) is not None and (
-            local_end := local_datetime(end + buffer)
-        ) is not None:
-            return local_end.strftime("%I:%M %p")
+        if self.unserialized_equipment_point is None:
+            return None
 
-        return None
+        if (end := obj.end_date) is None or (local_end := local_datetime(end + buffer)) is None:
+            return None
+
+        return local_end.strftime("%I:%M %p")

@@ -14,18 +14,10 @@ from typing import Optional
 from enum import Enum
 from typeguard import typechecked
 from sys import float_info
-from logging import getLogger
 from types import SimpleNamespace
 
-from sitebase.utils import (
-    local_datetime,
-    to_datetime,
-    is_quill_html_empty,
-)
-
+from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
 from sitebase.validators import validate_is_not_nan
-
-logger = getLogger('saskatoon')
 
 
 class TreeType(models.Model):

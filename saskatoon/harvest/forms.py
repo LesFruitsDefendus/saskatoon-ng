@@ -6,7 +6,6 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 from django.db.models import QuerySet
-from logging import getLogger
 from postalcodes_ca import parse_postal_code
 from typing import Any, Optional
 from types import SimpleNamespace
@@ -27,8 +26,6 @@ from member.utils import available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
-
-logger = getLogger('saskatoon')
 
 
 class RFPForm(forms.ModelForm[RFP]):
@@ -478,10 +475,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         # we need the id for autocompletion
         self.initial['id'] = getattr(instance, 'id', None)  # type: ignore
-        equipment = getattr(instance, 'equipment_reserved', Equipment.objects.none())
-
         self.initial['equipment_point'] = (  # type: ignore
-            equipment.values()[0]['owner_id'] if equipment.count() > 0 else None
+            instance.get_equipment_point() if isinstance(instance, Harvest) else None
         )
 
     def clean_end_date(self: Self) -> datetime:
