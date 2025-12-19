@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
-from logging import getLogger
 from typing import Mapping, Any, Optional
 from django.conf import settings
 from datetime import timedelta
@@ -32,8 +31,6 @@ from harvest.models import (
     TreeType,
 )
 from harvest.utils import similar_properties
-
-logger = getLogger("saskatoon")
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):

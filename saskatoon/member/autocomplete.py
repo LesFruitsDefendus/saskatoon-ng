@@ -1,7 +1,6 @@
 from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
-from logging import getLogger
 
 from harvest.models import Harvest
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
@@ -10,8 +9,6 @@ from saskatoon.autocomplete import Autocomplete
 from sitebase.utils import parse_naive_datetime
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
-
-logger = getLogger("saskatoon")
 
 
 @typechecked
@@ -139,7 +136,6 @@ class EquipmentPointAutocomplete(Autocomplete):
         end_str = self.forwarded.get('end_date', "")
 
         if start_str == "" and end_str == "":
-            logger.warning("no start and end")
             return Organization.objects.filter(is_equipment_point=True)
 
         if start_str == "" or end_str == "":
