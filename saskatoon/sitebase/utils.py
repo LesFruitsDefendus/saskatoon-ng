@@ -1,10 +1,14 @@
 import re
-
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
+from typeguard import typechecked
+from logging import getLogger
+from django.conf import settings
 
+
+logger = getLogger("saskatoon")
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
 
@@ -40,6 +44,26 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
     if date is None:
         return None
     return local_datetime(datetime.combine(date, datetime.min.time()))
+
+
+@typechecked
+def parse_naive_datetime(
+    datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
+) -> Optional[datetime]:
+    """
+    Parse a naive datetime string into a datetime object using the current timezone.
+    """
+    tzinfo = timezone.get_current_timezone()
+
+    # For some arcane reason, passing tzinfo to datetime.replace gives us -5:18, if we pass it
+    # to datetime.now first then use it's timezone with replace, we get -5:00 as expected.
+    now = datetime.now(tz=tzinfo)
+
+    try:
+        return datetime.strptime(datetime_str, datetime_format).replace(tzinfo=now.tzinfo)
+    except ValueError:
+        logger.warning("Could not parse datetime string: %s", datetime_str)
+        return None
 
 
 def is_quill_html_empty(html: str) -> bool:

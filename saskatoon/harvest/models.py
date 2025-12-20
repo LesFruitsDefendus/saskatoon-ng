@@ -12,8 +12,12 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typing import Optional
 from enum import Enum
+from typeguard import typechecked
+from sys import float_info
+from types import SimpleNamespace
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
+from sitebase.validators import validate_is_not_nan
 
 
 class TreeType(models.Model):
@@ -46,7 +50,10 @@ class TreeType(models.Model):
     maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
 
     image = models.ImageField(
-        upload_to='fruits_images', verbose_name=_("Fruit image"), blank=True, null=True
+        upload_to='fruits_images',
+        verbose_name=_("Fruit image"),
+        blank=True,
+        null=True,
     )
 
     def get_name(self, lang='fr'):
@@ -328,9 +335,27 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         on_delete=models.CASCADE,
     )
 
-    longitude = models.FloatField(verbose_name=_("Longitude"), null=True, blank=True)
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(-180),
+            MaxValueValidator(180),
+            validate_is_not_nan,
+        ],
+    )
 
-    latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True,
+        validators=[
+            MinValueValidator(-90),
+            MaxValueValidator(90),
+            validate_is_not_nan,
+        ],
+    )
 
     additional_info = models.CharField(
         verbose_name=_("Additional information"),
@@ -488,6 +513,7 @@ class Equipment(models.Model):
         super().save(*args, **kwargs)
 
 
+@typechecked
 class Harvest(models.Model):
     """Harvest model"""
 
@@ -580,12 +606,14 @@ class Harvest(models.Model):
 
     date_created = models.DateTimeField(verbose_name=_("Creation date"), auto_now_add=True)
 
-    def __str__(self):
+    def __str__(self) -> str:
         start = self.get_local_start()
+
         if start is not None:
             return _("Harvest on {} for {}").format(
                 start.strftime("%d/%m/%Y %H:%M"), self.property
             )
+
         return _("Harvest for {}").format(self.property)
 
     @staticmethod
@@ -593,13 +621,13 @@ class Harvest(models.Model):
         """Pending status is no longer used"""
         return [s for s in Harvest.Status.choices if s[0] != Harvest.Status.PENDING]
 
-    def get_total_distribution(self) -> Optional[int]:
+    def get_total_distribution(self) -> Optional[float]:
         return self.yields.aggregate(models.Sum("total_in_lb")).get("total_in_lb__sum")
 
-    def get_local_start(self):
+    def get_local_start(self) -> Optional[datetime]:
         return local_datetime(self.start_date)
 
-    def get_local_end(self):
+    def get_local_end(self) -> Optional[datetime]:
         return local_datetime(self.end_date)
 
     def get_date_range(self) -> str:
@@ -616,7 +644,7 @@ class Harvest(models.Model):
     def has_public_announcement(self) -> bool:
         return self.about is not None and not is_quill_html_empty(self.about.html)
 
-    def get_local_publish_date(self):
+    def get_local_publish_date(self) -> Optional[datetime]:
         return local_datetime(self.publication_date)
 
     def get_volunteers_count(self, status: Optional['RequestForParticipation.Status']) -> int:
@@ -636,39 +664,46 @@ class Harvest(models.Model):
     def has_pending_requests(self) -> bool:
         return self.get_volunteers_count(RequestForParticipation.Status.PENDING) > 0
 
-    def get_days_before_harvest(self):
+    def get_days_before_harvest(self) -> Optional[int]:
+        if self.start_date is None:
+            return None
+
         diff = datetime.now() - self.start_date
         return diff.days
 
-    def get_neighborhood(self):
-        return self.property.neighborhood.name
+    def get_neighborhood(self) -> str:
+        property = getattr(self, 'property', SimpleNamespace)
+        neighborhood = getattr(property, 'neighborhood', SimpleNamespace)
+        return getattr(neighborhood, 'name', "")
 
     def get_fruits(self):
         return [t.fruit for t in self.trees.all()]
 
-    def get_public_title(self):
+    def get_public_title(self) -> str:
         title = ", ".join(self.get_fruits())
-        if self.property.neighborhood.name != "Other":
-            title += f" @ {self.property.neighborhood.name}"
+        neighborhood_name = self.get_neighborhood()
+        if neighborhood_name != "Other":
+            title += f" @ {neighborhood_name}"
         return title
 
-    def is_urgent(self):
-        if not self.start_date:
+    def is_urgent(self) -> bool:
+        days = self.get_days_before_harvest()
+
+        if days is None:
             return False
 
-        days = self.get_days_before_harvest()
         return (self.status is Harvest.Status.ORPHAN and days < 14) or (
             self.status is Harvest.Status.SCHEDULED and days < 3
         )
 
-    def is_publishable(self):
+    def is_publishable(self) -> bool:
         if self.status not in self.PUBLISHABLE_STATUSES:
             return False
         if not self.publication_date:
             return True
         return tz.now() > self.publication_date
 
-    def is_open_to_requests(self, public: bool = True):
+    def is_open_to_requests(self, public: bool = True) -> bool:
         if self.end_date is not None and tz.now() > self.end_date:
             return False
 
@@ -682,13 +717,35 @@ class Harvest(models.Model):
 
         return self.status in valid_statuses
 
+    def get_equipment_point(self):
+        """Turn the list of reserved equipment into an equipment point.
+        This assumes that all reserved equipment belongs to the same point.
+        """
+        equipment = self.equipment_reserved.first()
+
+        if equipment is None:
+            return None
+
+        return equipment.get_equipment_point()
+
 
 @receiver(pre_save, sender=Harvest)
-def harvest_changed_by(sender, instance, **kwargs):
+def harvest_changed_by(sender, instance, **kwargs) -> None:
     request = CrequestMiddleware.get_request()
     if not request:
         return
     instance.changed_by = None if request.user.is_anonymous else request.user
+
+
+@receiver(pre_save, sender=Harvest)
+def harvest_reservation_validation(sender, instance, **kwargs) -> None:
+    if (
+        instance.id is not None
+        and instance.equipment_reserved.values().count() > 0
+        and instance.status
+        not in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
+    ):
+        instance.equipment_reserved.set([])
 
 
 class RequestForParticipation(models.Model):
@@ -750,10 +807,6 @@ class RequestForParticipation(models.Model):
         verbose_name=_("Picker(s) showed up"), default=None, null=True, blank=True
     )
 
-    @staticmethod
-    def get_status_choices():
-        return [s[0] for s in RequestForParticipation.Status.choices]
-
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__last_status = self.status
@@ -790,7 +843,12 @@ class HarvestYield(models.Model):
     )
 
     total_in_lb = models.FloatField(
-        verbose_name=_("Weight (lb)"), validators=[MinValueValidator(0.0)]
+        verbose_name=_("Weight (lb)"),
+        validators=[
+            MinValueValidator(0.0),
+            MaxValueValidator(float_info.max),
+            validate_is_not_nan,
+        ],
     )
 
     recipient = models.ForeignKey(

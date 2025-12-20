@@ -29,7 +29,6 @@ def test_serializers(django_db_setup_with_fixtures, client_core_user, endpoint, 
     baseline_path = BASELINES_PATH.joinpath(baseline_filename)
     with open(baseline_path, 'r', encoding='utf-8') as baseline_file:
         assert response_json == json.load(baseline_file)
-
     ''' Generate new baseline files
     with open(baseline_path, 'w', encoding='utf-8') as baseline_file:
         json.dump(response_json, baseline_file, ensure_ascii=False, indent=4)

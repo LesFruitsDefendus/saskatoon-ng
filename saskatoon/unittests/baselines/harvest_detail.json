@@ -329,5 +329,8 @@
             "Cancelled"
         ]
     ],
+    "equipment_point": null,
+    "reservation_start": null,
+    "reservation_end": null,
     "nb_required_pickers": 3
 }
