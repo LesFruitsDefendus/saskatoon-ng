@@ -198,18 +198,15 @@ class EquipmentPointFilter(filters.FilterSet):
         method='status_filter',
     )
 
-    status = filters.ChoiceFilter(
-        label=_("Status"),
-        choices=[
-            ('1', _('Is Reserved')),
-            ('2', _('Is Available')),
-        ],
+    start = filters.DateTimeFilter(
+        label=_("From"),
         method='status_filter',
     )
 
-    start = filters.DateTimeFilter(label=_("From"), method='status_filter', default="yyyy-mm-dd")
-
-    end = filters.DateTimeFilter(label=_("To"), method='status_filter', default="yyyy-mm-dd")
+    end = filters.DateTimeFilter(
+        label=_("To"),
+        method='status_filter',
+    )
 
     def status_filter(self, queryset, name, value):
         start = parse_naive_datetime(self.data.get('start', ""), "%Y-%m-%d") or datetime.now(
