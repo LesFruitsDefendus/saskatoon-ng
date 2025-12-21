@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-21 15:58+0000\n"
+"POT-Creation-Date: 2025-12-21 21:28+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,54 +39,76 @@ msgstr "Nouvel organisme"
 msgid "New Person"
 msgstr "Nouvelle personne"
 
-#: member/filters.py:21
+#: member/filters.py:26
 msgid "Role(s)"
 msgstr "Rôle(s)"
 
-#: member/filters.py:29 member/filters.py:132 member/filters.py:164
+#: member/filters.py:34 member/filters.py:137 member/filters.py:170
 #: member/models.py:247 member/models.py:461
 msgid "Borough"
 msgstr "Voisinage"
 
-#: member/filters.py:35
+#: member/filters.py:40
 msgid "Language"
 msgstr "Langue"
 
-#: member/filters.py:39
+#: member/filters.py:44
 msgid "Active in"
 msgstr ""
 
-#: member/filters.py:47
+#: member/filters.py:52
 msgid "Sort by"
 msgstr ""
 
-#: member/filters.py:49
+#: member/filters.py:54
 msgid "Most harvests led"
 msgstr ""
 
-#: member/filters.py:50
+#: member/filters.py:55
 msgid "Most participations"
 msgstr ""
 
-#: member/filters.py:123
+#: member/filters.py:128
 msgid "Type"
 msgstr "Type"
 
-#: member/filters.py:125
+#: member/filters.py:130
 msgid "Beneficiaries"
 msgstr "Bénéficiaires"
 
-#: member/filters.py:126
+#: member/filters.py:131
 msgid "Equipment Points"
 msgstr "Points d'équipements"
 
-#: member/filters.py:158
+#: member/filters.py:164
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
 
-#: member/filters.py:170
+#: member/filters.py:176
 msgid "Equipment Type"
 msgstr "Type d'équipement"
+
+#: member/filters.py:193 member/filters.py:202
+#, fuzzy
+#| msgid "State"
+msgid "Status"
+msgstr "Province"
+
+#: member/filters.py:195 member/filters.py:204
+msgid "Is Reserved"
+msgstr ""
+
+#: member/filters.py:196 member/filters.py:205
+msgid "Is Available"
+msgstr ""
+
+#: member/filters.py:210
+msgid "From"
+msgstr ""
+
+#: member/filters.py:212
+msgid "To"
+msgstr ""
 
 #: member/forms.py:21 member/forms.py:71 member/forms.py:158
 msgid "Email"

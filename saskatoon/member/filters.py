@@ -5,6 +5,11 @@ from django.db.models import Count
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
+from typeguard import typechecked
+from datetime import datetime, timezone, timedelta
+
+from sitebase.utils import parse_naive_datetime
+from member.utils import available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
 from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
@@ -142,6 +147,7 @@ class OrganizationFilter(filters.FilterSet):
         return queryset
 
 
+@typechecked
 class EquipmentPointFilter(filters.FilterSet):
     """Equipment Point filter"""
 
@@ -182,3 +188,44 @@ class EquipmentPointFilter(filters.FilterSet):
             equipments = Equipment.objects.filter(type=value)
             return queryset.filter(equipment__in=equipments).distinct()
         return queryset
+
+    status = filters.ChoiceFilter(
+        label=_("Status"),
+        choices=[
+            ('1', _('Is Reserved')),
+            ('2', _('Is Available')),
+        ],
+        method='status_filter',
+    )
+
+    status = filters.ChoiceFilter(
+        label=_("Status"),
+        choices=[
+            ('1', _('Is Reserved')),
+            ('2', _('Is Available')),
+        ],
+        method='status_filter',
+    )
+
+    start = filters.DateTimeFilter(label=_("From"), method='status_filter', default="yyyy-mm-dd")
+
+    end = filters.DateTimeFilter(label=_("To"), method='status_filter', default="yyyy-mm-dd")
+
+    def status_filter(self, queryset, name, value):
+        start = parse_naive_datetime(self.data.get('start', ""), "%Y-%m-%d") or datetime.now(
+            timezone.utc
+        )
+        end = (
+            parse_naive_datetime(self.data.get('end', ""), "%Y-%m-%d")
+            or timedelta(days=365) + start
+        )
+        status = self.data.get('status', None)
+
+        if status == '1' and start < end:
+            available = available_equipment_points(start, end, None).values('actor_id')
+            return queryset.exclude(pk__in=available).filter(is_equipment_point=True)
+
+        if status == '2' and start < end:
+            return available_equipment_points(start, end, None)
+
+        return queryset.filter(is_equipment_point=True)

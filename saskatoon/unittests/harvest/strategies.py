@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from hypothesis import strategies as st
 from hypothesis.extra.django import from_model
 
@@ -31,6 +31,7 @@ equipment = from_model(
     type=from_model(EquipmentType),
 )
 
+delta = timedelta(hours=1)
 # For some reason, datetime(1, 1, 1, 0, 0) always causes an overflow when removing the tz data
 harvest = st.datetimes(min_value=datetime(1950, 1, 1, 0, 0), timezones=st.timezones()).flatmap(
     lambda d: from_model(
@@ -38,7 +39,7 @@ harvest = st.datetimes(min_value=datetime(1950, 1, 1, 0, 0), timezones=st.timezo
         property=st.just(None),
         pick_leader=st.just(None),
         changed_by=st.just(None),
-        start_date=st.just(d),
+        start_date=st.just(d - delta),
         end_date=st.datetimes(
             timezones=st.just(d.tzinfo),
             min_value=d.replace(tzinfo=None),

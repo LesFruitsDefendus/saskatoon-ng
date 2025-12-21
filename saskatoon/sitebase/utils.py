@@ -62,7 +62,6 @@ def parse_naive_datetime(
     try:
         return datetime.strptime(datetime_str, datetime_format).replace(tzinfo=now.tzinfo)
     except ValueError:
-        logger.warning("Could not parse datetime string: %s", datetime_str)
         return None
 
 
