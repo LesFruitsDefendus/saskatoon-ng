@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-21 21:39+0000\n"
+"POT-Creation-Date: 2025-12-21 21:45+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -89,26 +89,24 @@ msgid "Equipment Type"
 msgstr "Type d'équipement"
 
 #: member/filters.py:193
-#, fuzzy
-#| msgid "State"
 msgid "Status"
-msgstr "Province"
+msgstr "Statut"
 
 #: member/filters.py:195
 msgid "Is Reserved"
-msgstr ""
+msgstr "Réservé"
 
 #: member/filters.py:196
 msgid "Is Available"
-msgstr ""
+msgstr "Disponible"
 
 #: member/filters.py:202
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: member/filters.py:207
 msgid "To"
-msgstr ""
+msgstr "À"
 
 #: member/forms.py:21 member/forms.py:71 member/forms.py:158
 msgid "Email"
