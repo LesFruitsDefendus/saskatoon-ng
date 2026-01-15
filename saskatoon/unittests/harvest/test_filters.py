@@ -24,7 +24,9 @@ def test_date_filter_next(db, choice) -> None:
 
     next_harvest = Harvest.objects.create(start_date=now + delta, end_date=now + delta + delta)
 
-    past_harvest = Harvest.objects.create(start_date=now - delta - delta, end_date=now - delta)
+    past_harvest = Harvest.objects.create(
+        start_date=now - delta - timedelta(days=1), end_date=now - timedelta(days=1)
+    )
 
     query = Harvest.objects.all()
     query = filter.date_filter(query, "test date filter", choice)

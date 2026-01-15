@@ -1,9 +1,10 @@
-from datetime import datetime, timezone
+from datetime import datetime
 from dal import autocomplete
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from typeguard import typechecked
 from django.db.models import QuerySet
+from django.utils import timezone
 
 from harvest.models import Harvest, TreeType, Property, Equipment, EquipmentType
 from member.autocomplete import AuthUserAutocomplete
@@ -77,10 +78,12 @@ class HarvestFilter(filters.FilterSet):
     def date_filter(
         self, queryset: QuerySet[Harvest], name: str, choice: str
     ) -> QuerySet[Harvest]:
+        today = datetime.today().replace(tzinfo=timezone.get_current_timezone())
+
         if choice == 'next':
-            return queryset.filter(start_date__gte=datetime.now(timezone.utc))
+            return queryset.filter(start_date__gte=today)
         elif choice == 'past':
-            return queryset.filter(start_date__lt=datetime.now(timezone.utc))
+            return queryset.filter(start_date__lt=today)
         elif choice == 'id':
             return queryset.order_by('-id')
         elif choice == 'old':

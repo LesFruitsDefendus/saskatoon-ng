@@ -230,14 +230,11 @@ class EquipmentPointFilter(filters.FilterSet):
         self, queryset: QuerySet[Organization], name: str, value: str
     ) -> QuerySet[Organization]:
         if value == '1' and self.start < self.end:
-            print('case 1')
             available = available_equipment_points(self.start, self.end, None)
             return queryset.exclude(pk__in=available).filter(is_equipment_point=True)
 
         if value == '2' and self.start < self.end:
-            print('case 2')
             available = available_equipment_points(self.start, self.end, None)
             return queryset.filter(pk__in=available).filter(is_equipment_point=True)
 
-        print('case 3')
         return queryset.filter(is_equipment_point=True)
