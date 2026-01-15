@@ -7,8 +7,8 @@ from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from typeguard import typechecked
 from datetime import datetime, timezone, timedelta
+from django.db.models import QuerySet
 
-from sitebase.utils import parse_naive_datetime
 from member.utils import available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
 from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
@@ -178,12 +178,16 @@ class EquipmentPointFilter(filters.FilterSet):
         method='equipment_type_filter',
     )
 
-    def beneficiary_filter(self, queryset, name, value):
+    def beneficiary_filter(
+        self, queryset: QuerySet[Organization], name: str, value: bool
+    ) -> QuerySet[Organization]:
         if value:
             return queryset.filter(is_beneficiary=True)
         return queryset
 
-    def equipment_type_filter(self, queryset, name, value):
+    def equipment_type_filter(
+        self, queryset: QuerySet[Organization], name: str, value: EquipmentType
+    ) -> QuerySet[Organization]:
         if value:
             equipments = Equipment.objects.filter(type=value)
             return queryset.filter(equipment__in=equipments).distinct()
@@ -192,37 +196,48 @@ class EquipmentPointFilter(filters.FilterSet):
     status = filters.ChoiceFilter(
         label=_("Status"),
         choices=[
-            ('1', _('Is Reserved')),
-            ('2', _('Is Available')),
+            ('1', _('Reserved')),
+            ('2', _('Available')),
         ],
         method='status_filter',
     )
 
-    start = filters.DateTimeFilter(
-        label=_("From"),
-        method='status_filter',
+    start_date = filters.DateTimeFilter(
+        label=_("From"), method='start_date_filter', widget=forms.DateTimeInput()
     )
 
-    end = filters.DateTimeFilter(
-        label=_("To"),
-        method='status_filter',
+    start: datetime = datetime.now(timezone.utc)
+
+    def start_date_filter(
+        self, queryset: QuerySet[Organization], name: str, value: datetime
+    ) -> QuerySet[Organization]:
+        self.start = value or self.start
+        return queryset
+
+    end_date = filters.DateTimeFilter(
+        label=_("To"), method='end_date_filter', widget=forms.DateTimeInput()
     )
 
-    def status_filter(self, queryset, name, value):
-        start = parse_naive_datetime(self.data.get('start', ""), "%Y-%m-%d") or datetime.now(
-            timezone.utc
-        )
-        end = (
-            parse_naive_datetime(self.data.get('end', ""), "%Y-%m-%d")
-            or timedelta(days=365) + start
-        )
-        status = self.data.get('status', None)
+    end: datetime = timedelta(days=365) + datetime.now(timezone.utc)
 
-        if status == '1' and start < end:
-            available = available_equipment_points(start, end, None).values('actor_id')
+    def end_date_filter(
+        self, queryset: QuerySet[Organization], name: str, value: datetime
+    ) -> QuerySet[Organization]:
+        self.end = value or self.end
+        return queryset
+
+    def status_filter(
+        self, queryset: QuerySet[Organization], name: str, value: str
+    ) -> QuerySet[Organization]:
+        if value == '1' and self.start < self.end:
+            print('case 1')
+            available = available_equipment_points(self.start, self.end, None)
             return queryset.exclude(pk__in=available).filter(is_equipment_point=True)
 
-        if status == '2' and start < end:
-            return available_equipment_points(start, end, None)
+        if value == '2' and self.start < self.end:
+            print('case 2')
+            available = available_equipment_points(self.start, self.end, None)
+            return queryset.filter(pk__in=available).filter(is_equipment_point=True)
 
+        print('case 3')
         return queryset.filter(is_equipment_point=True)
