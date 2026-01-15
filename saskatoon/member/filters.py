@@ -193,15 +193,6 @@ class EquipmentPointFilter(filters.FilterSet):
             return queryset.filter(equipment__in=equipments).distinct()
         return queryset
 
-    status = filters.ChoiceFilter(
-        label=_("Status"),
-        choices=[
-            ('1', _('Reserved')),
-            ('2', _('Available')),
-        ],
-        method='status_filter',
-    )
-
     start_date = filters.DateTimeFilter(
         label=_("From"), method='start_date_filter', widget=forms.DateTimeInput()
     )
@@ -225,6 +216,15 @@ class EquipmentPointFilter(filters.FilterSet):
     ) -> QuerySet[Organization]:
         self.end = value or self.end
         return queryset
+
+    status = filters.ChoiceFilter(
+        label=_("Status"),
+        choices=[
+            ('1', _('Reserved')),
+            ('2', _('Available')),
+        ],
+        method='status_filter',
+    )
 
     def status_filter(
         self, queryset: QuerySet[Organization], name: str, value: str

@@ -22,9 +22,15 @@ def test_community_filter_can_be_created() -> None:
     assert isinstance(filter, CommunityFilter)
 
 
+# TODO: Add community filter tests
+
+
 def test_organization_filter_can_be_created() -> None:
     filter = OrganizationFilter()
     assert isinstance(filter, OrganizationFilter)
+
+
+# TODO: Add organization filter tests
 
 
 def test_equipment_point_filter_can_be_created() -> None:
