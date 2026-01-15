@@ -217,6 +217,8 @@ class EquipmentPointFilter(filters.FilterSet):
         self.end = value or self.end
         return queryset
 
+    # Status filter needs to be defined after start date / end date for everything
+    # to work correctly
     status = filters.ChoiceFilter(
         label=_("Status"),
         choices=[
