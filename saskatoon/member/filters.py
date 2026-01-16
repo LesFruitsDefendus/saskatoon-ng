@@ -178,6 +178,28 @@ class EquipmentPointFilter(filters.FilterSet):
         method='equipment_type_filter',
     )
 
+    status = filters.ChoiceFilter(
+        label=_("Status"),
+        choices=[
+            ('1', _('Reserved')),
+            ('2', _('Available')),
+        ],
+        method='status_filter',
+    )
+
+    start_date = filters.DateTimeFilter(
+        label=_("From"), method='start_date_filter', widget=forms.DateTimeInput()
+    )
+
+    end_date = filters.DateTimeFilter(
+        label=_("To"), method='end_date_filter', widget=forms.DateTimeInput()
+    )
+
+    # Filter functions offer parsed values, so we store them for the final filter
+    start_val: datetime = datetime.now(timezone.utc)
+    end_val: datetime = timedelta(days=365) + datetime.now(timezone.utc)
+    status_val: str = ''
+
     def beneficiary_filter(
         self, queryset: QuerySet[Organization], name: str, value: bool
     ) -> QuerySet[Organization]:
@@ -193,50 +215,36 @@ class EquipmentPointFilter(filters.FilterSet):
             return queryset.filter(equipment__in=equipments).distinct()
         return queryset
 
-    start_date = filters.DateTimeFilter(
-        label=_("From"), method='start_date_filter', widget=forms.DateTimeInput()
-    )
-
-    start: datetime = datetime.now(timezone.utc)
-
     def start_date_filter(
         self, queryset: QuerySet[Organization], name: str, value: datetime
     ) -> QuerySet[Organization]:
-        self.start = value or self.start
+        self.start_val = value or self.start_val
         return queryset
-
-    end_date = filters.DateTimeFilter(
-        label=_("To"), method='end_date_filter', widget=forms.DateTimeInput()
-    )
-
-    end: datetime = timedelta(days=365) + datetime.now(timezone.utc)
 
     def end_date_filter(
         self, queryset: QuerySet[Organization], name: str, value: datetime
     ) -> QuerySet[Organization]:
-        self.end = value or self.end
+        self.end_val = value or self.end_val
         return queryset
-
-    # Status filter needs to be defined after start date / end date for everything
-    # to work correctly
-    status = filters.ChoiceFilter(
-        label=_("Status"),
-        choices=[
-            ('1', _('Reserved')),
-            ('2', _('Available')),
-        ],
-        method='status_filter',
-    )
 
     def status_filter(
         self, queryset: QuerySet[Organization], name: str, value: str
     ) -> QuerySet[Organization]:
-        if value == '1' and self.start < self.end:
-            available = available_equipment_points(self.start, self.end, None)
-            return queryset.exclude(pk__in=available).filter(is_equipment_point=True)
+        self.status_val = value or self.status
+        return queryset
 
-        if value == '2' and self.start < self.end:
-            available = available_equipment_points(self.start, self.end, None)
-            return queryset.filter(pk__in=available).filter(is_equipment_point=True)
+    def filter_queryset(self, queryset):
+        sup = super()
 
-        return queryset.filter(is_equipment_point=True)
+        # It's harder to setup a proper valid class in a testing context
+        filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
+
+        if self.status_val == '1' and self.start_val < self.end_val:
+            available = available_equipment_points(self.start_val, self.end_val, None)
+            return filtered.exclude(pk__in=available)
+
+        if self.status_val == '2' and self.start_val < self.end_val:
+            available = available_equipment_points(self.start_val, self.end_val, None)
+            return filtered.filter(pk__in=available)
+
+        return filtered

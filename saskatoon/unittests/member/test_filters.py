@@ -91,7 +91,7 @@ def test_start_date_filter() -> None:
     date = datetime.now(timezone.utc)
     query = filter.start_date_filter(Organization.objects.all(), "test start date filter", date)
 
-    assert filter.start == date
+    assert filter.start_val == date
     assert query.count() == Organization.objects.all().count()
 
 
@@ -101,13 +101,23 @@ def test_end_date_filter() -> None:
     date = datetime.now(timezone.utc)
     query = filter.end_date_filter(Organization.objects.all(), "test end date filter", date)
 
-    assert filter.end == date
+    assert filter.end_val == date
     assert query.count() == Organization.objects.all().count()
 
 
 @pytest.mark.django_db
-def test_status_filter_reserved(location) -> None:
+def test_status_filter() -> None:
     filter = EquipmentPointFilter()
+    query = filter.status_filter(Organization.objects.all(), "test status filter", '1')
+
+    assert filter.status_val == '1'
+    assert query.count() == Organization.objects.all().count()
+
+
+@pytest.mark.django_db
+def test_filter_queryset_reserved(location) -> None:
+    filter = EquipmentPointFilter()
+    filter.status_val = '1'
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
     equipment_type2 = EquipmentType.objects.create(name_fr="test type 2")
@@ -124,11 +134,10 @@ def test_status_filter_reserved(location) -> None:
     Equipment.objects.create(type=equipment_type2, owner=org2)
 
     harvest = Harvest.objects.create(
-        start_date=filter.start, end_date=filter.end, status=Harvest.Status.SCHEDULED
+        start_date=filter.start_val, end_date=filter.end_val, status=Harvest.Status.SCHEDULED
     )
     harvest.equipment_reserved.set([equipment_1])
-
-    query = filter.status_filter(Organization.objects.all(), "test reservation status filter", '1')
+    query = filter.filter_queryset(Organization.objects.all())
     assert query.count() == 1
 
     first = query.first()
@@ -137,8 +146,9 @@ def test_status_filter_reserved(location) -> None:
 
 
 @pytest.mark.django_db
-def test_status_filter_available(location) -> None:
+def test_filter_queryset_available(location) -> None:
     filter = EquipmentPointFilter()
+    filter.status_val = '2'
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
     equipment_type2 = EquipmentType.objects.create(name_fr="test type 2")
@@ -155,11 +165,11 @@ def test_status_filter_available(location) -> None:
     Equipment.objects.create(type=equipment_type2, owner=org2)
 
     harvest = Harvest.objects.create(
-        start_date=filter.start, end_date=filter.end, status=Harvest.Status.SCHEDULED
+        start_date=filter.start_val, end_date=filter.end_val, status=Harvest.Status.SCHEDULED
     )
     harvest.equipment_reserved.set([equipment_1])
 
-    query = filter.status_filter(Organization.objects.all(), "test reservation status filter", '2')
+    query = filter.filter_queryset(Organization.objects.all())
     assert query.count() == 1
 
     first = query.first()
