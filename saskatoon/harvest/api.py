@@ -5,6 +5,7 @@ from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
 from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from typing import Dict
 from harvest.filters import (
@@ -80,6 +81,18 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
                 },
             }
         )
+
+    @action(methods=['post'], detail=True, permission_classes=[IsPickLeaderOrCoreOrAdmin])
+    def cancel_reservation(self, request, id=None):
+        response = super(HarvestViewset, self)
+        harvest = Harvest.objects.get(id=id) if id is not None else None
+        if harvest:
+            harvest.equipment_reserved.set([])
+
+        if renderer_format_needs_json_response(request):
+            return Response(response.data)
+
+        return response
 
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
