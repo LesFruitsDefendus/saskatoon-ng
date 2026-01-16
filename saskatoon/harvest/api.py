@@ -3,6 +3,7 @@ from django.contrib import messages
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter
 from rest_framework.decorators import action
@@ -83,16 +84,11 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
         )
 
     @action(methods=['post'], detail=True, permission_classes=[IsPickLeaderOrCoreOrAdmin])
-    def cancel_reservation(self, request, id=None):
-        response = super(HarvestViewset, self)
-        harvest = Harvest.objects.get(id=id) if id is not None else None
-        if harvest:
-            harvest.equipment_reserved.set([])
+    def cancel_reservation(self, request, pk=None):
+        harvest = self.get_object()
+        harvest.equipment_reserved.set([])
 
-        if renderer_format_needs_json_response(request):
-            return Response(response.data)
-
-        return response
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):

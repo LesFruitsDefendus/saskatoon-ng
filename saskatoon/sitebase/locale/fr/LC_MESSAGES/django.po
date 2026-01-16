@@ -644,7 +644,27 @@ msgstr "Demandé le"
 msgid "From"
 msgstr ""
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:33
+#: sitebase/templates/app/detail_views/harvest/equipment.html:36
+#, fuzzy
+#| msgid "Upcoming Reservations"
+msgid "Cancel Reservation"
+msgstr "Réservations à venir"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:42
+#, fuzzy
+#| msgid "Are you sure you want to delete this entry?"
+msgid "Are you sure you want to cancel the reservation for"
+msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour "
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:47
+msgid "Yes"
+msgstr "Oui"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:54
+msgid "No"
+msgstr "Non"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:59
 msgid "No equipment point has been reserved"
 msgstr "Aucun point d'équipment n'a été reservé"
 

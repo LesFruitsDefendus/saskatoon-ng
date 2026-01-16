@@ -36,21 +36,24 @@
                 {% trans "Cancel Reservation" %}
               </button>
               <dialog closedby="any" id="cancel-reservation-dialog">
-                  <p>
-                    {% trans "Are you sure you want to cancel the reservation for" %} {{ equipment_point.civil_name }} ?
-                  </p>
-                  <form method="post" action="cancel_reservation/">
-                    <button class="btn btn-danger" type="submit">
+                  <form method="post" action="cancel_reservation/" id="cancel-reservation-form">
+                    {% csrf_token %}
+                    <p>
+                      {% trans "Are you sure you want to cancel the reservation for" %} {{ equipment_point.civil_name }} ?
+                    </p>
+                  </form>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-danger" type="submit" form="cancel-reservation-form">
                       {%trans "Yes" %}
                     </button>
-                  </form>
-                  <button
-                    class="btn btn-primary"
-                    commandFor="cancel-reservation-dialog"
-                    command="close"
-                  >
-                    {%trans "No" %}
-                  </button>
+                    <button
+                      class="btn btn-primary"
+                      commandFor="cancel-reservation-dialog"
+                      command="close"
+                    >
+                      {%trans "No" %}
+                    </button>
+                  </div>
               </dialog>
          {% else %}
               {% trans "No equipment point has been reserved" %}
