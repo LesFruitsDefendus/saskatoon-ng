@@ -7,6 +7,7 @@ from django.contrib.auth.models import (
     BaseUserManager,
 )
 from django.db import models
+from django.db.models import Q, QuerySet
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
@@ -16,6 +17,7 @@ from operator import attrgetter
 from phone_field import PhoneField
 from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
+from typeguard import typechecked
 
 from sitebase.validators import validate_is_not_nan
 from harvest.models import (
@@ -388,6 +390,7 @@ class Person(Actor):
         return self.get_requests_as_volunteer(RFP.Status.DECLINED).count()
 
 
+@typechecked
 class Organization(Actor):
     """Organization model"""
 
@@ -548,6 +551,9 @@ is currenlty made available'
         if self.contact_person is not None:
             return self.contact_person.language
         return Person.Language.FR
+
+    def get_harvests(self) -> QuerySet[Harvest]:
+        return Harvest.objects.all().filter(Q(equipment_reserved__owner=self.actor_id))
 
 
 class Neighborhood(models.Model):

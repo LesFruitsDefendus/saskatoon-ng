@@ -3,7 +3,7 @@ from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
 from typing import Mapping, Any, Optional
 from django.conf import settings
-from datetime import timedelta
+from datetime import timedelta, timezone, datetime
 
 from sitebase.utils import local_datetime
 from member.models import Actor, Organization
@@ -316,12 +316,14 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'equipment_description',
             'equipment',
             'inventory',
+            'upcoming_harvests',
         ]
 
     contact_person = ContactPersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()
+    upcoming_harvests = serializers.SerializerMethodField()
 
     def get_inventory(self, org):
         return dict(
@@ -330,6 +332,24 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
                 for lang in ['fr', 'en']
             ]
         )
+
+    def get_upcoming_harvests(self, org):
+        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+        reservations = (
+            org.get_harvests()
+            .filter(start_date__gte=datetime.now(timezone.utc))
+            .order_by('start_date')
+        )
+
+        return [
+            dict(
+                id=h.id,
+                short_address=h.property.short_address,
+                start_date=local_datetime(h.start_date - buffer),
+                end_date=local_datetime(h.end_date + buffer),
+            )
+            for h in reservations
+        ]
 
 
 @typechecked

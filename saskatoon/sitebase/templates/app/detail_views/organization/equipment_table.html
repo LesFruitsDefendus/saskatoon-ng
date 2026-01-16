@@ -7,7 +7,7 @@
         <div class="data-table-list">
           <div class="table-responsive">
             <div>
-              <h4> {% trans Equipment %} </h4>
+              <h4>{% trans "Equipment" %}</h4>
               {% if perms.harvest.add_equipment %}
               <a href="{% url 'equipment-create' %}?aid={{ actor_id }}">
                 <button title="New Equipment" class="btn btn-primary notika-btn-primary waves-effect">

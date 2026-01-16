@@ -255,7 +255,8 @@
             "inventory": {
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
-            }
+            },
+            "upcoming_harvests": []
         },
         {
             "actor_id": 2,
@@ -285,7 +286,8 @@
             "inventory": {
                 "fr": "",
                 "en": ""
-            }
+            },
+            "upcoming_harvests": []
         }
     ],
     "comments": [

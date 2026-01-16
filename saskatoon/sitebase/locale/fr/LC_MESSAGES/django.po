@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-21 21:45+0000\n"
+"POT-Creation-Date: 2026-01-16 09:21+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -468,6 +468,7 @@ msgstr "Informations de la propriété"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:49
 #: sitebase/templates/app/detail_views/organization/address.html:5
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:17
 #: sitebase/templates/app/detail_views/property/about.html:10
 #: sitebase/templates/app/forms/property_create_form.html:48
 msgid "Address"
@@ -692,6 +693,12 @@ msgstr "Rôle"
 msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
+#: sitebase/templates/app/detail_views/organization/equipment_table.html:10
+#: sitebase/templates/app/list_views/organization/organizations.html:15
+#: sitebase/templates/app/participation_list.html:18
+msgid "Equipment"
+msgstr "Équipement"
+
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:15
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
@@ -720,6 +727,18 @@ msgstr "Déscription"
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:10
+msgid "Upcoming Reservations"
+msgstr "Réservations à venir"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:18
+msgid "Start"
+msgstr "Début"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:19
+msgid "End"
+msgstr "Fin"
 
 #: sitebase/templates/app/detail_views/property/about.html:7
 msgid "About this property"
@@ -1049,11 +1068,6 @@ msgstr "Cet organisme accepte les dons de fruits"
 #: sitebase/templates/app/list_views/organization/organizations.html:12
 msgid "Organization"
 msgstr "Organisation"
-
-#: sitebase/templates/app/list_views/organization/organizations.html:15
-#: sitebase/templates/app/participation_list.html:18
-msgid "Equipment"
-msgstr "Équipement"
 
 #: sitebase/templates/app/list_views/pagination.html:61
 msgid "Show"

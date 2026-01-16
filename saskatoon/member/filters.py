@@ -8,6 +8,7 @@ from django_filters import rest_framework as filters
 from typeguard import typechecked
 from datetime import datetime, timezone, timedelta
 from django.db.models import QuerySet
+from typing import Union
 
 from member.utils import available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
@@ -198,7 +199,7 @@ class EquipmentPointFilter(filters.FilterSet):
     # Filter functions offer parsed values, so we store them for the final filter
     start_val: datetime = datetime.now(timezone.utc)
     end_val: datetime = timedelta(days=365) + datetime.now(timezone.utc)
-    status_val: str = ''
+    status_val: Union[str, filters.ChoiceFilter] = ''
 
     def beneficiary_filter(
         self, queryset: QuerySet[Organization], name: str, value: bool

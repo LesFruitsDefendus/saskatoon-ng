@@ -23,7 +23,7 @@ def harvest(db, request) -> Harvest:
 def second_harvest(db, request) -> Harvest:
     tzinfo = timezone(timedelta(hours=-5))
     now = datetime.now(tzinfo)
-    delta = delta = timedelta(hours=2)
+    delta = timedelta(hours=2)
 
     return Harvest.objects.create(status=request.param, start_date=now, end_date=now + delta)
 
