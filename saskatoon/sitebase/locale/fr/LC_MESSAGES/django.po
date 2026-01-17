@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 12:55+0000\n"
+"POT-Creation-Date: 2026-01-24 11:28-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -642,19 +642,15 @@ msgstr "Demandé le"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:18
 msgid "From"
-msgstr ""
+msgstr "De"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:36
-#, fuzzy
-#| msgid "Upcoming Reservations"
 msgid "Cancel Reservation"
-msgstr "Réservations à venir"
+msgstr "Annuler la réservation"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:42
-#, fuzzy
-#| msgid "Are you sure you want to delete this entry?"
 msgid "Are you sure you want to cancel the reservation for"
-msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour "
+msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:47
 msgid "Yes"
