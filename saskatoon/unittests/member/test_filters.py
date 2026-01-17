@@ -2,19 +2,12 @@ import pytest
 from datetime import datetime, timezone
 
 from harvest.models import Harvest, Equipment, EquipmentType
-from member.models import Organization, Country, State, City, Neighborhood
-
+from member.models import Organization
 from member.filters import CommunityFilter, OrganizationFilter, EquipmentPointFilter
 
-
-@pytest.fixture
-def location(db):
-    return {
-        "neighborhood": Neighborhood.objects.create(name="Test Hood"),
-        "city": City.objects.create(name="Test City"),
-        "state": State.objects.create(name="Test State"),
-        "country": Country.objects.create(name="Test Country"),
-    }
+# ruff tries to erase it because the weird way pytest applies
+# fixtures is not recognised.
+from unittests.member.fixtures import location  # noqa: F401
 
 
 def test_community_filter_can_be_created() -> None:
@@ -39,7 +32,7 @@ def test_equipment_point_filter_can_be_created() -> None:
 
 
 @pytest.mark.django_db
-def test_beneficiary_filter(location) -> None:
+def test_beneficiary_filter(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
 
     org1 = Organization.objects.create(
@@ -58,7 +51,7 @@ def test_beneficiary_filter(location) -> None:
 
 
 @pytest.mark.django_db
-def test_equipment_type_filter(location) -> None:
+def test_equipment_type_filter(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
@@ -115,7 +108,7 @@ def test_status_filter() -> None:
 
 
 @pytest.mark.django_db
-def test_filter_queryset_reserved(location) -> None:
+def test_filter_queryset_reserved(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
     filter.status_val = '1'
 
@@ -146,7 +139,7 @@ def test_filter_queryset_reserved(location) -> None:
 
 
 @pytest.mark.django_db
-def test_filter_queryset_available(location) -> None:
+def test_filter_queryset_available(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
     filter.status_val = '2'
 

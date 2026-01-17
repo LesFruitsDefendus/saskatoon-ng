@@ -3,7 +3,7 @@ from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
 from typing import Mapping, Any, Optional
 from django.conf import settings
-from datetime import timedelta, timezone, datetime
+from datetime import timedelta
 
 from sitebase.utils import local_datetime
 from member.models import Actor, Organization
@@ -236,6 +236,25 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
         fields = ['actor_id', 'civil_name']
 
 
+class ReservationHarvestSerializer(serializers.ModelSerializer[Harvest]):
+    class Meta:
+        model = Harvest
+        fields = ['id', 'pick_leader', 'start_date', 'start_time', 'end_time']
+
+    pick_leader = PickLeaderSerializer(many=False, read_only=True)
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
+    start_time = serializers.SerializerMethodField()
+    end_time = serializers.SerializerMethodField()
+
+    buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+
+    def get_start_time(self, harvest):
+        return local_datetime(harvest.start_date - self.buffer).strftime("%-I:%M %p")
+
+    def get_end_time(self, harvest):
+        return local_datetime(harvest.end_date + self.buffer).strftime("%-I:%M %p")
+
+
 class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
     class Meta:
         model = EquipmentType
@@ -316,14 +335,14 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'equipment_description',
             'equipment',
             'inventory',
-            'upcoming_harvests',
+            'upcoming_reservations',
         ]
 
     contact_person = ContactPersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()
-    upcoming_harvests = serializers.SerializerMethodField()
+    upcoming_reservations = ReservationHarvestSerializer(many=True, read_only=True)
 
     def get_inventory(self, org):
         return dict(
@@ -332,24 +351,6 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
                 for lang in ['fr', 'en']
             ]
         )
-
-    def get_upcoming_harvests(self, org):
-        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
-        reservations = (
-            org.get_harvests()
-            .filter(start_date__gte=datetime.now(timezone.utc))
-            .order_by('start_date')
-        )
-
-        return [
-            dict(
-                id=h.id,
-                short_address=h.property.short_address,
-                start_date=local_datetime(h.start_date - buffer),
-                end_date=local_datetime(h.end_date + buffer),
-            )
-            for h in reservations
-        ]
 
 
 @typechecked

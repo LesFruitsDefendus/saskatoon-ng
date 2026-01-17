@@ -2,15 +2,18 @@
 {% load static %}
 <tr>
   <td>
-      <a href="{% url 'harvest-detail' item.id %}">{{ item.id }}</a>
+      <a href="{% url 'harvest-detail' harvest.id %}">{{ harvest.id }}</a>
   </td>
   <td>
-    {{ item.short_address }}
+    {{ harvest.pick_leader.name }}
   </td>
   <td>
-    {{ item.start_date }}
+    {{ harvest.start_date }}
   </td>
   <td>
-    {{ item.end_date }}
+    {{ harvest.start_time }}
+  </td>
+  <td>
+    {{ harvest.end_time }}
   </td>
 </tr>

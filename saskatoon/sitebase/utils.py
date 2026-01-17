@@ -47,6 +47,13 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 
 @typechecked
+def local_today() -> datetime:
+    """Return the start of day datetime for a localized datetime.now()"""
+    today = datetime.now(timezone.get_current_timezone())
+    return today.replace(hour=0, minute=0, second=0, microsecond=0)
+
+
+@typechecked
 def parse_naive_datetime(
     datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
 ) -> Optional[datetime]:

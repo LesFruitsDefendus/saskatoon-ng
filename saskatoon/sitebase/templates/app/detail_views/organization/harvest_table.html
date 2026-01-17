@@ -14,13 +14,14 @@
               <thead>
                 <tr>
                   <th style="width: 10%">#</th>
-                  <th style="width: 30%">{% trans "Address" %}</th>
+                  <th style="width: 20%">{% trans "PickLeader" %}</th>
+                  <th style="width: 20%">{% trans "Date" %}</th>
                   <th style="width: 20%">{% trans "Start" %}</th>
                   <th style="width: 50%">{% trans "End" %}</th>
                 </tr>
               </thead>
               <tbody>
-                {% for item in upcoming_harvests %}
+                {% for harvest in upcoming_reservations %}
                     {% include 'app/detail_views/organization/harvest_row.html' %}
                 {% endfor %}
               </tbody>

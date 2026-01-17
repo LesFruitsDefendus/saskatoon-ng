@@ -1,3 +1,4 @@
+import pytest
 from hypothesis import given, settings
 from hypothesis.extra.django import TestCase, from_model
 from datetime import timedelta, datetime, timezone
@@ -17,6 +18,10 @@ from member.models import (
 from harvest.models import Harvest, EquipmentType, Equipment
 
 import unittests.member.strategies as member_st
+
+# ruff tries to erase it because the weird way pytest applies
+# fixtures is not recognised.
+from unittests.member.fixtures import location  # noqa: F401
 
 settings.register_profile("fast", max_examples=50)
 
@@ -73,39 +78,6 @@ class TestOrganization(TestCase):
     def test_can_be_created(self, organization):
         assert isinstance(organization, Organization)
 
-    def test_get_reservations(self):
-        location = {
-            "neighborhood": Neighborhood.objects.create(name="Test Hood"),
-            "city": City.objects.create(name="Test City"),
-            "state": State.objects.create(name="Test State"),
-            "country": Country.objects.create(name="Test Country"),
-        }
-
-        org = Organization.objects.create(
-            is_equipment_point=True, civil_name=" Test Equipment Point", **location
-        )
-
-        equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
-
-        equipment = Equipment.objects.create(
-            type=equip_type,
-            owner=org,
-            shared=True,
-        )
-
-        tzinfo = timezone(timedelta(hours=-5))
-        now = datetime.now(tzinfo)
-        delta = timedelta(hours=2)
-
-        harvest = Harvest.objects.create(start_date=now, end_date=now + delta)
-        harvest.equipment_reserved.set([equipment])
-
-        reservations = org.get_harvests()
-        assert reservations.count() == 1
-        first = reservations.first()
-        assert first is not None
-        assert first.id == harvest.id
-
 
 class TestAuthUser(TestCase):
     @given(user=member_st.auth_user)
@@ -114,3 +86,63 @@ class TestAuthUser(TestCase):
 
 
 settings.load_profile("default")
+
+
+@pytest.mark.django_db
+def test_organization_get_harvests(location):  # noqa: F811
+    org = Organization.objects.create(
+        is_equipment_point=True, civil_name=" Test Equipment Point", **location
+    )
+
+    equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
+
+    equipment = Equipment.objects.create(
+        type=equip_type,
+        owner=org,
+        shared=True,
+    )
+
+    tzinfo = timezone(timedelta(hours=-5))
+    now = datetime.now(tzinfo)
+    delta = timedelta(hours=2)
+
+    harvest = Harvest.objects.create(start_date=now, end_date=now + delta)
+    harvest.equipment_reserved.set([equipment])
+
+    reservations = org.get_harvests()
+    assert reservations.count() == 1
+    first = reservations.first()
+    assert first is not None
+    assert first.id == harvest.id
+
+
+@pytest.mark.django_db
+def test_organization_get_upcoming_reservations(location):  # noqa: F811
+    org = Organization.objects.create(
+        is_equipment_point=True, civil_name=" Test Equipment Point", **location
+    )
+
+    equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
+
+    equipment = Equipment.objects.create(
+        type=equip_type,
+        owner=org,
+        shared=True,
+    )
+
+    tzinfo = timezone(timedelta(hours=-5))
+    now = datetime.now(tzinfo)
+    delta = timedelta(hours=2)
+
+    harvest = Harvest.objects.create(start_date=now, end_date=now + delta)
+    harvest.equipment_reserved.set([equipment])
+
+    yesterday = now - timedelta(days=1)
+    harvest2 = Harvest.objects.create(start_date=yesterday, end_date=yesterday + delta)
+    harvest2.equipment_reserved.set([equipment])
+
+    reservations = org.upcoming_reservations
+    assert reservations.count() == 1
+    first = reservations.first()
+    assert first is not None
+    assert first.id == harvest.id

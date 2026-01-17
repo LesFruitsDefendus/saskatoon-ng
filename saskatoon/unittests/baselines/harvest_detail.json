@@ -256,7 +256,7 @@
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_harvests": []
+            "upcoming_reservations": []
         },
         {
             "actor_id": 2,
@@ -287,7 +287,7 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_harvests": []
+            "upcoming_reservations": []
         }
     ],
     "comments": [

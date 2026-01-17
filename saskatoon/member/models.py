@@ -17,9 +17,9 @@ from operator import attrgetter
 from phone_field import PhoneField
 from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
-from typeguard import typechecked
 
 from sitebase.validators import validate_is_not_nan
+from sitebase.utils import local_today
 from harvest.models import (
     RequestForParticipation as RFP,
     Harvest,
@@ -390,7 +390,6 @@ class Person(Actor):
         return self.get_requests_as_volunteer(RFP.Status.DECLINED).count()
 
 
-@typechecked
 class Organization(Actor):
     """Organization model"""
 
@@ -554,6 +553,10 @@ is currenlty made available'
 
     def get_harvests(self) -> QuerySet[Harvest]:
         return Harvest.objects.all().filter(Q(equipment_reserved__owner=self.actor_id))
+
+    @property
+    def upcoming_reservations(self) -> QuerySet[Harvest]:
+        return self.get_harvests().filter(start_date__gte=local_today()).order_by('start_date')
 
 
 class Neighborhood(models.Model):

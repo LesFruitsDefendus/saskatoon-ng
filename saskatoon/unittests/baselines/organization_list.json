@@ -75,7 +75,7 @@
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_harvests": []
+            "upcoming_reservations": []
         },
         {
             "actor_id": 8,
@@ -106,7 +106,7 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_harvests": []
+            "upcoming_reservations": []
         },
         {
             "actor_id": 7,
@@ -190,12 +190,17 @@
                 "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
                 "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
             },
-            "upcoming_harvests": [
+            "upcoming_reservations": [
                 {
                     "id": 5,
-                    "short_address": "123 av. Mont-Royal, apt. 4",
-                    "start_date": "3000-08-01T07:00:00-05:00",
-                    "end_date": "3000-08-01T12:00:00-05:00"
+                    "pick_leader": {
+                        "id": 4,
+                        "name": "Core Member",
+                        "email": "core@member.com"
+                    },
+                    "start_date": "3000-08-01",
+                    "start_time": "7:00 AM",
+                    "end_time": "12:00 PM"
                 }
             ]
         },
@@ -228,7 +233,7 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_harvests": []
+            "upcoming_reservations": []
         }
     ]
 }
