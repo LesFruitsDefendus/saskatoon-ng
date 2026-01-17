@@ -188,13 +188,9 @@ class EquipmentPointFilter(filters.FilterSet):
         method='status_filter',
     )
 
-    start_date = filters.DateTimeFilter(
-        label=_("From"), method='start_date_filter', widget=forms.DateTimeInput()
-    )
+    start_date = filters.DateTimeFilter(label=_("From"), method='start_date_filter')
 
-    end_date = filters.DateTimeFilter(
-        label=_("To"), method='end_date_filter', widget=forms.DateTimeInput()
-    )
+    end_date = filters.DateTimeFilter(label=_("To"), method='end_date_filter')
 
     # Filter functions offer parsed values, so we store them for the final filter
     start_val: datetime = datetime.now(timezone.utc)
@@ -219,25 +215,30 @@ class EquipmentPointFilter(filters.FilterSet):
     def start_date_filter(
         self, queryset: QuerySet[Organization], name: str, value: datetime
     ) -> QuerySet[Organization]:
-        self.start_val = value or self.start_val
+        if value:
+            self.start_val = value
         return queryset
 
     def end_date_filter(
         self, queryset: QuerySet[Organization], name: str, value: datetime
     ) -> QuerySet[Organization]:
-        self.end_val = value or self.end_val
+        if value:
+            self.end_val = value
         return queryset
 
     def status_filter(
         self, queryset: QuerySet[Organization], name: str, value: str
     ) -> QuerySet[Organization]:
-        self.status_val = value or self.status
+        if value:
+            self.status_val = value
         return queryset
 
     def filter_queryset(self, queryset):
         sup = super()
 
-        # It's harder to setup a proper valid class in a testing context
+        # When doing simple tests with pytest, the form itself isnt valid, so we cant call the super.
+        # Unless we find a way to have a valid form when instantiating the filter in pytest, we
+        # need this check
         filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
 
         if self.status_val == '1' and self.start_val < self.end_val:
