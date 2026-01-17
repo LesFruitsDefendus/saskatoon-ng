@@ -249,10 +249,20 @@ class ReservationHarvestSerializer(serializers.ModelSerializer[Harvest]):
     buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
 
     def get_start_time(self, harvest):
-        return local_datetime(harvest.start_date - self.buffer).strftime("%-I:%M %p")
+        start = local_datetime(harvest.start_date - self.buffer)
+
+        if start:
+            return start.strftime("%-I:%M %p")
+
+        return None
 
     def get_end_time(self, harvest):
-        return local_datetime(harvest.end_date + self.buffer).strftime("%-I:%M %p")
+        end = local_datetime(harvest.end_date + self.buffer)
+
+        if end:
+            return end.strftime("%-I:%M %p")
+
+        return None
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
