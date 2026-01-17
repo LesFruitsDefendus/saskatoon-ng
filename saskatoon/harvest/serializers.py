@@ -292,32 +292,6 @@ class HarvestListPropertySerializer(PropertySerializer):
     # mypy says it should be a NeighborhoodSerializer
 
 
-class HarvestListSerializer(HarvestSerializer):
-    class Meta:
-        model = Harvest
-        fields = [
-            'id',
-            'start_date',
-            'start_time',
-            'end_time',
-            'date_range',
-            'status',
-            'status_display',
-            'pick_leader',
-            'trees',
-            'property',
-            'volunteers',
-        ]
-
-    status_display = serializers.ReadOnlyField(source='get_status_display')
-    property = HarvestListPropertySerializer(many=False, read_only=True)
-    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
-    volunteers = serializers.SerializerMethodField()
-
-    def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.Status])
-
-
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
         model = Equipment
@@ -361,6 +335,41 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
                 for lang in ['fr', 'en']
             ]
         )
+
+
+class HarvestListSerializer(HarvestSerializer):
+    class Meta:
+        model = Harvest
+        fields = [
+            'id',
+            'start_date',
+            'start_time',
+            'end_time',
+            'date_range',
+            'status',
+            'status_display',
+            'pick_leader',
+            'trees',
+            'property',
+            'volunteers',
+            'equipment_point',
+        ]
+
+    status_display = serializers.ReadOnlyField(source='get_status_display')
+    property = HarvestListPropertySerializer(many=False, read_only=True)
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    volunteers = serializers.SerializerMethodField()
+    equipment_point = serializers.SerializerMethodField()
+
+    def get_volunteers(self, harvest):
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.Status])
+
+    def get_equipment_point(self, obj: Harvest):
+        point = obj.get_equipment_point()
+        if point is None:
+            return None
+
+        return OrganizationSerializer(point, many=False, read_only=True).data
 
 
 @typechecked

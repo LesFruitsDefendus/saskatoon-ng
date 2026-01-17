@@ -61,10 +61,8 @@
         {% endfor %}
     </td>
     <td>
-        {% if harvest.property.ladder_available %}
-            <i class="fa fa-check text-success"></i>
-        {% else %}
-            <i class="fa fa-times text-danger"></i>
+        {% if harvest.equipment_point.civil_name %}
+            <a href="{% url 'organization-detail' harvest.equipment_point.actor_id %}">{{ harvest.equipment_point.civil_name }}</a>
         {% endif %}
     </td>
     <td>

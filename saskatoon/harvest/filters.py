@@ -1,4 +1,5 @@
 from dal import autocomplete
+from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from typeguard import typechecked
@@ -22,7 +23,7 @@ class HarvestFilter(filters.FilterSet):
             'status',
             'pick_leader',
             'trees',
-            'ladder',
+            'has_equipment_point',
             'neighborhood',
         ]
 
@@ -61,10 +62,11 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
-    ladder = filters.BooleanFilter(
-        field_name='property__ladder_available',
-        label=_("Ladder available"),
+    has_equipment_point = filters.BooleanFilter(
+        method='has_equipment_point_filter',
+        label=_("Has Equipment Point"),
         help_text="",
+        widget=forms.CheckboxInput,
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -72,6 +74,13 @@ class HarvestFilter(filters.FilterSet):
         label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
+    )
+
+    equipment_point = filters.ModelChoiceFilter(
+        method='equipment_point_filter',
+        label=_("Equipment Point"),
+        queryset=Organization.objects.all().filter(is_equipment_point=True),
+        widget=autocomplete.ModelSelect2('equipmentpoint-autocomplete'),
     )
 
     def date_filter(
@@ -86,6 +95,12 @@ class HarvestFilter(filters.FilterSet):
         elif choice == 'old':
             return queryset.order_by('start_date')
         return queryset
+
+    def has_equipment_point_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
+        return queryset.exclude(equipment_reserved=None)
+
+    def equipment_point_filter(self, queryset: QuerySet[Harvest], name: str, value: Organization):
+        return queryset.filter(equipment_reserved__owner=value).distinct()
 
 
 @typechecked

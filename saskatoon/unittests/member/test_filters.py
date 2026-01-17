@@ -46,7 +46,6 @@ def test_beneficiary_filter(location) -> None:  # noqa: F811
 
     first = query.first()
     assert first is not None
-
     assert first.actor_id == org1.actor_id
 
 

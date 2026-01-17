@@ -3,9 +3,13 @@ from datetime import timedelta, datetime, timezone
 from zoneinfo import ZoneInfo
 
 from harvest.models import Harvest, Equipment, EquipmentType, Property
-from member.models import Organization, Country, State, City, Neighborhood
+from member.models import Organization
 
 from harvest.filters import HarvestFilter, PropertyFilter, EquipmentFilter
+
+# ruff tries to erase it because the weird way pytest applies
+# fixtures is not recognised.
+from unittests.member.fixtures import location  # noqa: F401
 
 
 def test_harvest_filter_can_be_created() -> None:
@@ -48,6 +52,73 @@ def test_date_filter_next(db, choice) -> None:
         assert first.id == past_harvest.id
 
 
+@pytest.mark.django_db
+def test_harvest_filter_equipment_point_filter(db, location) -> None:  # noqa: F811
+    filter = HarvestFilter()
+
+    equipment_type = EquipmentType.objects.create(name_fr="test type")
+    org1 = Organization.objects.create(
+        is_equipment_point=True, civil_name="Test Equipment Point 1", **location
+    )
+
+    org2 = Organization.objects.create(
+        is_equipment_point=True, civil_name="Test Equipment Point 2", **location
+    )
+
+    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)
+    equipment_2 = Equipment.objects.create(type=equipment_type, owner=org2)
+    now = datetime.now(timezone.utc)
+
+    harvest = Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+    harvest.equipment_reserved.set([equipment_1])
+
+    harvest2 = Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+    harvest2.equipment_reserved.set([equipment_2])
+
+    query = filter.equipment_point_filter(
+        Harvest.objects.all(), "test equipment point filter", org1
+    )
+    assert query.count() == 1
+
+    first = query.first()
+    assert first is not None
+    assert first.id == harvest.id
+
+
+@pytest.mark.django_db
+def test_harvest_filter_has_equipment_point_filter(db, location) -> None:  # noqa: F811
+    filter = HarvestFilter()
+
+    equipment_type = EquipmentType.objects.create(name_fr="test type")
+    org = Organization.objects.create(
+        is_equipment_point=True, civil_name="Test Equipment Point", **location
+    )
+
+    equipment = Equipment.objects.create(type=equipment_type, owner=org)
+    now = datetime.now(timezone.utc)
+
+    harvest = Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+    harvest.equipment_reserved.set([equipment])
+
+    Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+
+    query = filter.has_equipment_point_filter(
+        Harvest.objects.all(), "test equipment point filter", True
+    )
+    assert query.count() == 1
+    first = query.first()
+    assert first is not None
+    assert first.id == harvest.id
+
+
 def test_property_filter_can_be_created() -> None:
     filter = PropertyFilter()
     assert isinstance(filter, PropertyFilter)
@@ -55,15 +126,8 @@ def test_property_filter_can_be_created() -> None:
 
 @pytest.mark.parametrize("choice", ['0', '1', '2'])
 @pytest.mark.django_db
-def test_authorized_filter(db, choice) -> None:
+def test_authorized_filter(db, choice, location) -> None:  # noqa: F811
     filter = PropertyFilter()
-
-    location = {
-        "neighborhood": Neighborhood.objects.create(name="Test Hood"),
-        "city": City.objects.create(name="Test City"),
-        "state": State.objects.create(name="Test State"),
-        "country": Country.objects.create(name="Test Country"),
-    }
 
     # access to properties must be reauthorized every year
     yet_to_be_authorized = Property.objects.create(authorized=None, **location)
@@ -84,19 +148,12 @@ def test_authorized_filter(db, choice) -> None:
 
 
 @pytest.mark.django_db
-def test_season_filter() -> None:
+def test_season_filter(location) -> None:  # noqa: F811
     # This test fails if choice is the first of january on any year, no idea why
     # It seems to work when I filter through the ui, so I'll ignore for now
     choice = datetime(2025, 1, 2, 0, 0, tzinfo=ZoneInfo(key='UTC'))
 
     filter = PropertyFilter()
-
-    location = {
-        "neighborhood": Neighborhood.objects.create(name="Test Hood"),
-        "city": City.objects.create(name="Test City"),
-        "state": State.objects.create(name="Test State"),
-        "country": Country.objects.create(name="Test Country"),
-    }
 
     # Each property has it's harvest
     this_season_property = Property.objects.create(**location)
@@ -130,16 +187,10 @@ def test_equipment_filter_can_be_created() -> None:
 
 
 @pytest.mark.django_db
-def test_equipment_point_filter() -> None:
+def test_equipment_point_filter(location) -> None:  # noqa: F811
     filter = EquipmentFilter()
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
-    location = {
-        "neighborhood": Neighborhood.objects.create(name="Test Hood"),
-        "city": City.objects.create(name="Test City"),
-        "state": State.objects.create(name="Test State"),
-        "country": Country.objects.create(name="Test Country"),
-    }
 
     org1 = Organization.objects.create(
         is_equipment_point=True, civil_name=" Test Equipment Point", **location
