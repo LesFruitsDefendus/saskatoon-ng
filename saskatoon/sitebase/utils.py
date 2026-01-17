@@ -4,11 +4,9 @@ from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
 from typeguard import typechecked
-from logging import getLogger
 from django.conf import settings
 
 
-logger = getLogger("saskatoon")
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
 
