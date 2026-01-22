@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 20:39+0000\n"
+"POT-Creation-Date: 2026-01-22 15:11+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -259,7 +259,11 @@ msgstr "Points d'Equipement"
 msgid "Community"
 msgstr "Communauté"
 
-#: sitebase/templates/app/base/menu-tabs.html:25
+#: sitebase/templates/app/base/menu-tabs.html:24
+msgid "Map"
+msgstr ""
+
+#: sitebase/templates/app/base/menu-tabs.html:28
 msgid "Statistics"
 msgstr "Statistiques"
 
