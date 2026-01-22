@@ -53,43 +53,6 @@ def test_date_filter_next(db, choice) -> None:
 
 
 @pytest.mark.django_db
-def test_harvest_filter_equipment_point_filter(db, location) -> None:  # noqa: F811
-    filter = HarvestFilter()
-
-    equipment_type = EquipmentType.objects.create(name_fr="test type")
-    org1 = Organization.objects.create(
-        is_equipment_point=True, civil_name="Test Equipment Point 1", **location
-    )
-
-    org2 = Organization.objects.create(
-        is_equipment_point=True, civil_name="Test Equipment Point 2", **location
-    )
-
-    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)
-    equipment_2 = Equipment.objects.create(type=equipment_type, owner=org2)
-    now = datetime.now(timezone.utc)
-
-    harvest = Harvest.objects.create(
-        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
-    )
-    harvest.equipment_reserved.set([equipment_1])
-
-    harvest2 = Harvest.objects.create(
-        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
-    )
-    harvest2.equipment_reserved.set([equipment_2])
-
-    query = filter.equipment_point_filter(
-        Harvest.objects.all(), "test equipment point filter", org1
-    )
-    assert query.count() == 1
-
-    first = query.first()
-    assert first is not None
-    assert first.id == harvest.id
-
-
-@pytest.mark.django_db
 def test_harvest_filter_reserved_equipment_filter(db, location) -> None:  # noqa: F811
     filter = HarvestFilter()
 

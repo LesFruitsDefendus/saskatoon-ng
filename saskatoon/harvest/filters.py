@@ -77,7 +77,8 @@ class HarvestFilter(filters.FilterSet):
     )
 
     equipment_point = filters.ModelChoiceFilter(
-        method='equipment_point_filter',
+        field_name='equipment_reserved__owner',
+        distinct=True,
         label=_("Equipment Point"),
         queryset=Organization.objects.all().filter(is_equipment_point=True),
         widget=autocomplete.ModelSelect2('equipmentpoint-autocomplete'),
@@ -98,9 +99,6 @@ class HarvestFilter(filters.FilterSet):
 
     def reserved_equipment_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
         return queryset.exclude(equipment_reserved=None)
-
-    def equipment_point_filter(self, queryset: QuerySet[Harvest], name: str, value: Organization):
-        return queryset.filter(equipment_reserved__owner=value).distinct()
 
 
 @typechecked
