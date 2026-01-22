@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('member', '0018_alter_authuser_options'),
         ('harvest', '0022_auto_20250714_1550'),
@@ -15,6 +14,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='property',
             name='owner',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='member.actor', verbose_name='Owner'),
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to='member.actor',
+                verbose_name='Owner',
+            ),
         ),
     ]

@@ -4,11 +4,9 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('harvest', '0023_alter_property_owner'),
         ('harvest', '0023_auto_20251128_1414'),
     ]
 
-    operations = [
-    ]
+    operations = []

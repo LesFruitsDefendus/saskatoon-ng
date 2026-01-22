@@ -567,6 +567,7 @@ class MapView(LoginRequiredMixin, TemplateView):
 # WARNING: for development purposes only, remove before final merge
 def testProperty(request):
     import json
+
     with open("db/property.json", "r") as read_file:
         data = json.load(read_file)
         return JsonResponse(data, safe=False)

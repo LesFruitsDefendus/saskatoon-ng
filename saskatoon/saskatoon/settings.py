@@ -324,7 +324,7 @@ EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')
 
 LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 11,
-    'DEFAULT_CENTER': (45.53, -73.6 ), # Greater Montreal Area
+    'DEFAULT_CENTER': (45.53, -73.6),  # Greater Montreal Area
 }
 
 # Equipment Point reservation buffer in hours
