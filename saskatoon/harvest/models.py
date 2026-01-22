@@ -211,7 +211,7 @@ and needs to be validated by an administrator"
         on_delete=models.CASCADE,
     )
 
-    trees = models.ManyToManyField(
+    trees: models.ManyToManyField[TreeType, TreeType] = models.ManyToManyField(
         'TreeType',
         verbose_name=_("Fruit tree/vine type(s)"),
         help_text=_(
