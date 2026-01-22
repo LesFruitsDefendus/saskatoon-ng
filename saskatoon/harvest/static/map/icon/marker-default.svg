@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" baseProfile="full" version="1.1" style="fill: none;" width="400px" height="400px">
+  <!-- <path style="stroke-width: 15px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(106, 106, 106); fill: none;" d=""/> -->
+  <!-- <path style="stroke-width: 15px; stroke-linecap: round; stroke-linejoin: round; stroke: rgb(74, 74, 74); fill: none;" d=""/> -->
+  <path class="map_markerIcon" style="stroke-width: 8px; stroke-linecap: round; stroke-linejoin: round; stroke: #111111; fill: #C1E0FF;" d="M120,150 A45,45 0 0,1 165,105 A30,30 0 0,1 195,135 A30,90 0 0,1 165,225 A45,75 0 0,1 120,150 "/>
+  </svg>
