@@ -260,7 +260,11 @@ msgstr "Points d'Equipement"
 msgid "Community"
 msgstr "Communauté"
 
-#: sitebase/templates/app/base/menu-tabs.html:25
+#: sitebase/templates/app/base/menu-tabs.html:24
+msgid "Map"
+msgstr ""
+
+#: sitebase/templates/app/base/menu-tabs.html:28
 msgid "Statistics"
 msgstr "Statistiques"
 
