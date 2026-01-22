@@ -491,7 +491,7 @@ def harvest_status_change(request, id):
             _("Please fill in the public anouncement field so the harvest can be published."),
         )
 
-    elif request_status == Harvest.Status.SCHEDULED and harvest.get_date_range() is not None:
+    elif request_status == Harvest.Status.SCHEDULED and harvest.get_date_range() != "":
         messages.error(request, _("Please set a date before marking the harvest as scheduled."))
 
     elif request_status == Harvest.Status.READY and harvest.has_pending_requests():

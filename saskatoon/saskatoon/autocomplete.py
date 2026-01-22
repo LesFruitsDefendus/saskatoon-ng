@@ -8,6 +8,6 @@ class Autocomplete(autocomplete.Select2QuerySetView):
     Request is not always present in unit tests so we need to check for it"""
 
     def is_authenticated(self) -> bool:
-        has_request = hasattr(autocomplete, 'request')
+        has_request = hasattr(self, 'request')
 
         return has_request and self.request.user.is_authenticated

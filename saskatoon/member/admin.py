@@ -8,7 +8,6 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.safestring import mark_safe
-from logging import getLogger
 from typing import Optional
 
 from member.admin_filters import (
@@ -42,8 +41,6 @@ from member.models import (
 from member.utils import reset_password
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 from sitebase.models import Email, EmailType
-
-logger = getLogger('saskatoon')
 
 
 # see https://github.com/typeddjango/django-stubs/issues/2878

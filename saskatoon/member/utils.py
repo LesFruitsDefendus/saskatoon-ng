@@ -8,6 +8,7 @@ from typing import Optional
 
 from member.models import AuthUser, Organization
 from harvest.models import Equipment, Harvest
+from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
 logger = getLogger('saskatoon')
 
@@ -54,7 +55,7 @@ def available_equipment_points(
     start: datetime,
     end: datetime,
     harvest: Optional[Harvest],
-    buffer: timedelta = timedelta(hours=1),
+    buffer: timedelta = timedelta(hours=DEFAULT_RESERVATION_BUFFER),
 ) -> QuerySet[Organization]:
     """List all available equipment points for a given datetime range"""
 

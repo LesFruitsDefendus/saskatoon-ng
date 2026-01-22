@@ -15,7 +15,9 @@ from itertools import chain
 from operator import attrgetter
 from phone_field import PhoneField
 from typing import Optional
+from django.core.validators import MaxValueValidator, MinValueValidator
 
+from sitebase.validators import validate_is_not_nan
 from harvest.models import (
     RequestForParticipation as RFP,
     Harvest,
@@ -276,9 +278,19 @@ class Person(Actor):
         verbose_name=_('Newsletter subscription'), default=False
     )
 
-    longitude = models.FloatField(verbose_name=_("Longitude"), null=True, blank=True)
+    longitude = models.FloatField(
+        verbose_name=_("Longitude"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
+    )
 
-    latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
+    )
 
     comments = models.TextField(verbose_name=_("Comments"), blank=True)
 
@@ -479,9 +491,15 @@ is currenlty made available'
         verbose_name=_("Longitude"),
         null=True,
         blank=True,
+        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
     )
 
-    latitude = models.FloatField(verbose_name=_("Latitude"), null=True, blank=True)
+    latitude = models.FloatField(
+        verbose_name=_("Latitude"),
+        null=True,
+        blank=True,
+        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
+    )
 
     @property
     def short_address(self):

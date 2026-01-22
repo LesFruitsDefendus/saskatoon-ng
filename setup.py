@@ -53,6 +53,7 @@ setup(
         "djangorestframework-stubs[compatible-mypy]",
         "types-setuptools",
         "typeguard==3.0.2",
+        "types-django-filter",
     ],
     extras_require={
         'test': [
@@ -62,7 +63,6 @@ setup(
             'selenium',
             'tox',
             'hypothesis',
-            'hypothesis[django]',
             'ruff',
         ]
     },

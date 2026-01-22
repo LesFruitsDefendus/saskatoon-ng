@@ -2,9 +2,11 @@ from django.contrib.auth.models import Group, AbstractBaseUser
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
 
+from harvest.models import Harvest
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
 from member.utils import available_equipment_points
 from saskatoon.autocomplete import Autocomplete
+from sitebase.utils import parse_naive_datetime
 
 # WARNING: Don't forget to filter out the results depending on the user's role!
 
@@ -125,18 +127,32 @@ class EquipmentPointAutocomplete(Autocomplete):
     """Organizations that are Equipment Points"""
 
     def get_queryset(self) -> QuerySet[Organization]:
-        qs = Organization.objects.none()
+        none = Organization.objects.none()
 
         if not self.is_authenticated():
-            return qs
+            return none
 
-        start = self.forwarded.get('start_date', None)
-        end = self.forwarded.get('end_date', None)
+        start_str = self.forwarded.get('start_date', "")
+        end_str = self.forwarded.get('end_date', "")
 
-        if start and end:
-            qs = available_equipment_points(start, end, None)
+        if start_str == "" and end_str == "":
+            return Organization.objects.filter(is_equipment_point=True)
 
-        return qs.distinct()
+        if start_str == "" or end_str == "":
+            return none
+
+        start = parse_naive_datetime(start_str)
+        end = parse_naive_datetime(end_str)
+        if start is None or end is None or start > end:
+            return none
+
+        try:
+            harvest_id = int(self.forwarded.get('id', ""))
+            harvest = Harvest.objects.get(pk=harvest_id)
+        except (Harvest.DoesNotExist, ValueError):
+            harvest = None
+
+        return available_equipment_points(start, end, harvest).distinct()
 
 
 @typechecked

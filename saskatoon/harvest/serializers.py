@@ -1,4 +1,11 @@
 from rest_framework import serializers
+from rest_framework.utils.serializer_helpers import ReturnDict
+from typeguard import typechecked
+from typing import Mapping, Any, Optional
+from django.conf import settings
+from datetime import timedelta
+
+from sitebase.utils import local_datetime
 from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
@@ -235,39 +242,23 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
         fields = ['actor_id', 'civil_name']
 
 
+class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
+    class Meta:
+        model = EquipmentType
+        fields = ['name', 'name_fr', 'name_en']
+
+    name = serializers.SerializerMethodField()
+
+    def get_name(self, type):
+        return type.name_fr
+
+
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
         fields = ['id', 'title', 'address', 'owner', 'neighborhood']  # type: ignore
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
-
-
-class HarvestDetailSerializer(HarvestSerializer):
-    class Meta:
-        model = Harvest
-        exclude = [
-            'owner_present',
-            'owner_help',
-            'owner_fruit',
-            'publication_date',
-            'equipment_reserved',
-            'date_created',
-            'changed_by',
-            'end_date',
-        ]
-
-    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
-    property = HarvestDetailPropertySerializer(many=False, read_only=True)
-    comments = CommentSerializer(many=True, read_only=True)
-    about = serializers.SerializerMethodField()
-    status_choices = serializers.SerializerMethodField()
-
-    def get_about(self, obj):
-        return obj.about.html
-
-    def get_status_choices(self, _obj):
-        return Harvest.get_status_choices()
 
 
 class HarvestListPropertySerializer(PropertySerializer):
@@ -301,18 +292,7 @@ class HarvestListSerializer(HarvestSerializer):
     volunteers = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
-        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.get_status_choices()])
-
-
-class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
-    class Meta:
-        model = EquipmentType
-        fields = ['name', 'name_fr', 'name_en']
-
-    name = serializers.SerializerMethodField()
-
-    def get_name(self, type):
-        return type.name_fr
+        return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.Status])
 
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
@@ -356,3 +336,72 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
                 for lang in ['fr', 'en']
             ]
         )
+
+
+@typechecked
+class HarvestDetailSerializer(HarvestSerializer):
+    class Meta:
+        model = Harvest
+        exclude = [
+            'owner_present',
+            'owner_help',
+            'owner_fruit',
+            'publication_date',
+            'date_created',
+            'changed_by',
+            'end_date',
+            'equipment_reserved',
+        ]
+
+    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
+    property = HarvestDetailPropertySerializer(many=False, read_only=True)
+    comments = CommentSerializer(many=True, read_only=True)
+    about = serializers.SerializerMethodField()
+    status_choices = serializers.SerializerMethodField()
+    equipment_point = serializers.SerializerMethodField()
+    reservation_start = serializers.SerializerMethodField()
+    reservation_end = serializers.SerializerMethodField()
+
+    def __init__(self, *args, **kwargs):
+        super(HarvestDetailSerializer, self).__init__(*args, **kwargs)
+        self.unserialized_equipment_point = self.instance.get_equipment_point()
+
+    def get_about(self, obj):
+        return obj.about.html
+
+    def get_status_choices(self, _obj):
+        return Harvest.get_status_choices()
+
+    def get_equipment_point(
+        self, obj: Harvest
+    ) -> Optional[ReturnDict[Mapping[str, Any], OrganizationSerializer]]:
+        if self.unserialized_equipment_point is None:
+            return None
+
+        return OrganizationSerializer(
+            self.unserialized_equipment_point, many=False, read_only=True
+        ).data
+
+    def get_reservation_start(self, obj: Harvest) -> Optional[str]:
+        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+
+        if self.unserialized_equipment_point is None:
+            return None
+
+        if (start := obj.start_date) is None or (
+            local_start := local_datetime(start - buffer)
+        ) is None:
+            return None
+
+        return local_start.strftime("%I:%M %p")
+
+    def get_reservation_end(self, obj: Harvest) -> Optional[str]:
+        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
+
+        if self.unserialized_equipment_point is None:
+            return None
+
+        if (end := obj.end_date) is None or (local_end := local_datetime(end + buffer)) is None:
+            return None
+
+        return local_end.strftime("%I:%M %p")
