@@ -23,7 +23,7 @@ class HarvestFilter(filters.FilterSet):
             'status',
             'pick_leader',
             'trees',
-            'has_equipment_point',
+            'reserved_equipment',
             'neighborhood',
         ]
 
@@ -62,9 +62,9 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
-    has_equipment_point = filters.BooleanFilter(
-        method='has_equipment_point_filter',
-        label=_("Has Equipment Point"),
+    reserved_equipment = filters.BooleanFilter(
+        method='reserved_equipment_filter',
+        label=_("Reserved equipment"),
         help_text="",
         widget=forms.CheckboxInput,
     )
@@ -96,7 +96,7 @@ class HarvestFilter(filters.FilterSet):
             return queryset.order_by('start_date')
         return queryset
 
-    def has_equipment_point_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
+    def reserved_equipment_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
         return queryset.exclude(equipment_reserved=None)
 
     def equipment_point_filter(self, queryset: QuerySet[Harvest], name: str, value: Organization):

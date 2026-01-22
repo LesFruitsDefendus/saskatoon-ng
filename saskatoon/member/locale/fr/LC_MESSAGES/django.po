@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-17 14:03+0000\n"
+"POT-Creation-Date: 2026-01-22 12:55+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -39,72 +39,72 @@ msgstr "Nouvel organisme"
 msgid "New Person"
 msgstr "Nouvelle personne"
 
-#: member/filters.py:27
+#: member/filters.py:26
 msgid "Role(s)"
 msgstr "Rôle(s)"
 
-#: member/filters.py:35 member/filters.py:138 member/filters.py:171
+#: member/filters.py:34 member/filters.py:137 member/filters.py:170
 #: member/models.py:249 member/models.py:463
 msgid "Borough"
 msgstr "Voisinage"
 
-#: member/filters.py:41
+#: member/filters.py:40
 msgid "Language"
 msgstr "Langue"
 
-#: member/filters.py:45
+#: member/filters.py:44
 msgid "Active in"
 msgstr ""
 
-#: member/filters.py:53
+#: member/filters.py:52
 msgid "Sort by"
 msgstr ""
 
-#: member/filters.py:55
+#: member/filters.py:54
 msgid "Most harvests led"
 msgstr ""
 
-#: member/filters.py:56
+#: member/filters.py:55
 msgid "Most participations"
 msgstr ""
 
-#: member/filters.py:129
+#: member/filters.py:128
 msgid "Type"
 msgstr "Type"
 
-#: member/filters.py:131
+#: member/filters.py:130
 msgid "Beneficiaries"
 msgstr "Bénéficiaires"
 
-#: member/filters.py:132
+#: member/filters.py:131
 msgid "Equipment Points"
 msgstr "Points d'équipements"
 
-#: member/filters.py:165
+#: member/filters.py:164
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
 
-#: member/filters.py:177
+#: member/filters.py:176
 msgid "Equipment Type"
 msgstr "Type d'équipement"
 
-#: member/filters.py:183
+#: member/filters.py:182
 msgid "Status"
 msgstr "Statut"
+
+#: member/filters.py:184
+msgid "Available"
+msgstr "Disponible"
 
 #: member/filters.py:185
 msgid "Reserved"
 msgstr "Réservé"
 
-#: member/filters.py:186
-msgid "Available"
-msgstr "Disponible"
-
-#: member/filters.py:191
+#: member/filters.py:190
 msgid "From"
 msgstr "De"
 
-#: member/filters.py:193
+#: member/filters.py:191
 msgid "To"
 msgstr "À"
 

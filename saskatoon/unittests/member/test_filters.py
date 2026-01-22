@@ -100,16 +100,16 @@ def test_end_date_filter() -> None:
 @pytest.mark.django_db
 def test_status_filter() -> None:
     filter = EquipmentPointFilter()
-    query = filter.status_filter(Organization.objects.all(), "test status filter", '1')
+    query = filter.status_filter(Organization.objects.all(), "test status filter", 'reserved')
 
-    assert filter.status_val == '1'
+    assert filter.status_val == 'reserved'
     assert query.count() == Organization.objects.all().count()
 
 
 @pytest.mark.django_db
 def test_filter_queryset_reserved(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
-    filter.status_val = '1'
+    filter.status_val = 'reserved'
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
     equipment_type2 = EquipmentType.objects.create(name_fr="test type 2")
@@ -140,7 +140,7 @@ def test_filter_queryset_reserved(location) -> None:  # noqa: F811
 @pytest.mark.django_db
 def test_filter_queryset_available(location) -> None:  # noqa: F811
     filter = EquipmentPointFilter()
-    filter.status_val = '2'
+    filter.status_val = 'available'
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
     equipment_type2 = EquipmentType.objects.create(name_fr="test type 2")

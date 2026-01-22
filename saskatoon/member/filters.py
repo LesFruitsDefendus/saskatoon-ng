@@ -8,7 +8,6 @@ from django_filters import rest_framework as filters
 from typeguard import typechecked
 from datetime import datetime, timezone, timedelta
 from django.db.models import QuerySet
-from typing import Union
 
 from member.utils import available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
@@ -182,20 +181,19 @@ class EquipmentPointFilter(filters.FilterSet):
     status = filters.ChoiceFilter(
         label=_("Status"),
         choices=[
-            ('1', _('Reserved')),
-            ('2', _('Available')),
+            ('available', _('Available')),
+            ('reserved', _('Reserved')),
         ],
         method='status_filter',
     )
 
     start_date = filters.DateTimeFilter(label=_("From"), method='start_date_filter')
-
     end_date = filters.DateTimeFilter(label=_("To"), method='end_date_filter')
 
     # Filter functions offer parsed values, so we store them for the final filter
     start_val: datetime = datetime.now(timezone.utc)
     end_val: datetime = timedelta(days=365) + datetime.now(timezone.utc)
-    status_val: Union[str, filters.ChoiceFilter] = ''
+    status_val: str = ''
 
     def beneficiary_filter(
         self, queryset: QuerySet[Organization], name: str, value: bool
@@ -241,11 +239,11 @@ class EquipmentPointFilter(filters.FilterSet):
         # need this check
         filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
 
-        if self.status_val == '1' and self.start_val < self.end_val:
+        if self.status_val == 'reserved' and self.start_val < self.end_val:
             available = available_equipment_points(self.start_val, self.end_val, None)
             return filtered.exclude(pk__in=available)
 
-        if self.status_val == '2' and self.start_val < self.end_val:
+        if self.status_val == 'available' and self.start_val < self.end_val:
             available = available_equipment_points(self.start_val, self.end_val, None)
             return filtered.filter(pk__in=available)
 

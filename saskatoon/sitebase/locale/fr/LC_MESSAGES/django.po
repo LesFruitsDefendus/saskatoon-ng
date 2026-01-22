@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-17 16:46+0000\n"
+"POT-Creation-Date: 2026-01-22 12:55+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,7 +133,7 @@ msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
 #: sitebase/models.py:224
-#: sitebase/templates/app/detail_views/organization/harvest_table.html:18
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
 msgstr "Date"
@@ -731,15 +731,15 @@ msgstr "Bénéficiaire"
 msgid "Upcoming Reservations"
 msgstr "Réservations à venir"
 
-#: sitebase/templates/app/detail_views/organization/harvest_table.html:17
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:23
 msgid "PickLeader"
 msgstr "Chef(fe) de cueillette"
 
-#: sitebase/templates/app/detail_views/organization/harvest_table.html:19
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:25
 msgid "Start"
 msgstr "Début"
 
-#: sitebase/templates/app/detail_views/organization/harvest_table.html:20
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:26
 msgid "End"
 msgstr "Fin"
 

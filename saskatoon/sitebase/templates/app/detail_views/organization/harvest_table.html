@@ -8,8 +8,14 @@
           <div class="table-responsive">
             <div>
               <h4> {% trans "Upcoming Reservations" %} </h4>
+
+            <a class="btn btn-primary notika-btn-primary waves-effect" href="/harvest?date=past&has_equipment_point=on&equipment_point={{ actor_id }}">
+              See past reservations
+            </a>
+
             </div>
             <br>
+
             <table class="table table-striped" id="data-table-basic">
               <thead>
                 <tr>

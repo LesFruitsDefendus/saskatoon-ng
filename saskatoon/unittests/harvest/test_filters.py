@@ -90,7 +90,7 @@ def test_harvest_filter_equipment_point_filter(db, location) -> None:  # noqa: F
 
 
 @pytest.mark.django_db
-def test_harvest_filter_has_equipment_point_filter(db, location) -> None:  # noqa: F811
+def test_harvest_filter_reserved_equipment_filter(db, location) -> None:  # noqa: F811
     filter = HarvestFilter()
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
@@ -110,8 +110,8 @@ def test_harvest_filter_has_equipment_point_filter(db, location) -> None:  # noq
         start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
     )
 
-    query = filter.has_equipment_point_filter(
-        Harvest.objects.all(), "test equipment point filter", True
+    query = filter.reserved_equipment_filter(
+        Harvest.objects.all(), "test reserved equipment filter", True
     )
     assert query.count() == 1
     first = query.first()
