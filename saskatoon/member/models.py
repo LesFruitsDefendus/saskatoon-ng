@@ -329,7 +329,7 @@ class Person(Actor):
         return Organization.objects.filter(contact_person=self)
 
     def get_harvests_as_owner(self, status: Optional[Harvest.Status] = None):
-        harvests = Harvest.objects.filter(property__in=self.properties.all()).annotate(
+        harvests = Harvest.objects.filter(property__owner=self.actor_id).annotate(
             role=models.Value('owner')
         )
         if status is not None:

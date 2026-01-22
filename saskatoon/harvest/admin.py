@@ -2,8 +2,8 @@ from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
-from django.utils.html import mark_safe
-from leaflet.admin import LeafletGeoAdminMixin
+from django.utils.safestring import mark_safe
+from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 from member.models import AuthUser
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,
@@ -140,7 +140,7 @@ class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
 
 
 @admin.register(Property)
-class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin):
+class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
