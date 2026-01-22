@@ -327,5 +327,5 @@ DEFAULT_RESERVATION_BUFFER = 1
 
 LEAFLET_CONFIG = {
     'DEFAULT_ZOOM': 11,
-    'DEFAULT_CENTER': (45.53, -73.6 ), # Greater Montreal Area
+    'DEFAULT_CENTER': (45.53, -73.6),  # Greater Montreal Area
 }
