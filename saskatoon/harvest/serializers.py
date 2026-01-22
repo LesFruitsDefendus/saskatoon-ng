@@ -248,12 +248,12 @@ class ReservationHarvestSerializer(serializers.ModelSerializer[Harvest]):
     buffer = timedelta(hours=DEFAULT_RESERVATION_BUFFER)
 
     def get_start_time(self, harvest):
-        return buffer_reservation_time(harvest.start_date)
+        return buffer_reservation_time(
+            harvest.start_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER)
+        )
 
     def get_end_time(self, harvest):
-        return buffer_reservation_time(
-            harvest.end_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER)
-        )
+        return buffer_reservation_time(harvest.end_date)
 
 
 class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
@@ -411,10 +411,12 @@ class HarvestDetailSerializer(HarvestSerializer):
         if self.unserialized_equipment_point is None:
             return None
 
-        return buffer_reservation_time(obj.start_date)
+        return buffer_reservation_time(
+            obj.start_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER)
+        )
 
     def get_reservation_end(self, obj: Harvest) -> Optional[str]:
         if self.unserialized_equipment_point is None:
             return None
 
-        return buffer_reservation_time(obj.end_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER))
+        return buffer_reservation_time(obj.end_date)
