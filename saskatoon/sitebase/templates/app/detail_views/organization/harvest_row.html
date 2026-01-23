@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+<tr>
+  <td>
+      <a href="{% url 'harvest-detail' harvest.id %}">{{ harvest.id }}</a>
+  </td>
+  <td>
+    {{ harvest.pick_leader.name }}
+  </td>
+  <td>
+    {{ harvest.start_date }}
+  </td>
+  <td>
+    {{ harvest.start_time }}
+  </td>
+  <td>
+    {{ harvest.end_time }}
+  </td>
+</tr>

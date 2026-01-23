@@ -1,5 +1,5 @@
 {
-    "count": 5,
+    "count": 2,
     "next": null,
     "previous": null,
     "pages_count": 1,
@@ -41,117 +41,102 @@
                 "declined": 0,
                 "cancelled": 0,
                 "obsolete": 0
-            }
-        },
-        {
-            "id": 4,
-            "start_date": "Sun. Aug. 1, 2021",
-            "start_time": "9:00 AM",
-            "end_time": "12:00 PM",
-            "date_range": "",
-            "status": "scheduled",
-            "status_display": "Scheduled",
-            "pick_leader": {
-                "id": 4,
-                "name": "Core Member",
-                "email": "core@member.com"
             },
-            "trees": [
-                {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
-                }
-            ],
-            "property": {
-                "id": 3,
-                "title": "Nice Owner at 123 av. Mont-Royal",
-                "ladder_available": true,
-                "neighborhood": "Plateau-Mont-Royal"
-            },
-            "volunteers": {
-                "pending": 0,
-                "accepted": 0,
-                "declined": 0,
-                "cancelled": 0,
-                "obsolete": 0
-            }
-        },
-        {
-            "id": 2,
-            "start_date": "Sat. Jul. 24, 2021",
-            "start_time": "3:00 PM",
-            "end_time": "6:00 PM",
-            "date_range": "",
-            "status": "ready",
-            "status_display": "Ready",
-            "pick_leader": {
-                "id": 2,
-                "name": "Pick Leader",
-                "email": "pick@leader.com"
-            },
-            "trees": [
-                {
-                    "id": 9,
-                    "name_en": "Walnut tree",
-                    "name_fr": "Noyer",
-                    "fruit_name_en": "Walnuts",
-                    "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
-                }
-            ],
-            "property": {
-                "id": 3,
-                "title": "Nice Owner at 123 av. Mont-Royal",
-                "ladder_available": true,
-                "neighborhood": "Plateau-Mont-Royal"
-            },
-            "volunteers": {
-                "pending": 0,
-                "accepted": 2,
-                "declined": 0,
-                "cancelled": 0,
-                "obsolete": 0
-            }
-        },
-        {
-            "id": 3,
-            "start_date": "Thu. Jul. 22, 2021",
-            "start_time": "5:00 PM",
-            "end_time": "6:00 PM",
-            "date_range": "",
-            "status": "cancelled",
-            "status_display": "Cancelled",
-            "pick_leader": {
-                "id": 4,
-                "name": "Core Member",
-                "email": "core@member.com"
-            },
-            "trees": [
-                {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
-                }
-            ],
-            "property": {
-                "id": 3,
-                "title": "Nice Owner at 123 av. Mont-Royal",
-                "ladder_available": true,
-                "neighborhood": "Plateau-Mont-Royal"
-            },
-            "volunteers": {
-                "pending": 0,
-                "accepted": 0,
-                "declined": 0,
-                "cancelled": 0,
-                "obsolete": 0
+            "equipment_point": {
+                "actor_id": 7,
+                "civil_name": "L'Orgue Bien Équipée",
+                "contact_person": {
+                    "actor_id": 6,
+                    "roles": [
+                        "Contact Person"
+                    ],
+                    "name": "Contact Person",
+                    "email": "contact@person.com",
+                    "phone": null
+                },
+                "phone": "123-456-1234",
+                "short_address": "45 av. de la Fourchette",
+                "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "description": "This organization shares its equipment but can't accept fruit donations.",
+                "is_beneficiary": false,
+                "beneficiary_description": "",
+                "is_equipment_point": true,
+                "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
+                "equipment": [
+                    {
+                        "id": 2,
+                        "property": null,
+                        "type": {
+                            "name": "Échelle",
+                            "name_fr": "Échelle",
+                            "name_en": "Ladder"
+                        },
+                        "description": "Step ladder",
+                        "count": 2,
+                        "shared": true,
+                        "owner": 7
+                    },
+                    {
+                        "id": 3,
+                        "property": null,
+                        "type": {
+                            "name": "Échelle",
+                            "name_fr": "Échelle",
+                            "name_en": "Ladder"
+                        },
+                        "description": "20ft extension ladder",
+                        "count": 1,
+                        "shared": true,
+                        "owner": 7
+                    },
+                    {
+                        "id": 4,
+                        "property": null,
+                        "type": {
+                            "name": "Cueille-fruits",
+                            "name_fr": "Cueille-fruits",
+                            "name_en": "Fruit picker"
+                        },
+                        "description": "10ft",
+                        "count": 4,
+                        "shared": true,
+                        "owner": 7
+                    },
+                    {
+                        "id": 5,
+                        "property": null,
+                        "type": {
+                            "name": "Trousse de premiers soins",
+                            "name_fr": "Trousse de premiers soins",
+                            "name_en": "First Aid Kit"
+                        },
+                        "description": "",
+                        "count": 1,
+                        "shared": true,
+                        "owner": 7
+                    }
+                ],
+                "inventory": {
+                    "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                    "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+                },
+                "upcoming_reservations": [
+                    {
+                        "id": 5,
+                        "pick_leader": {
+                            "id": 4,
+                            "name": "Core Member",
+                            "email": "core@member.com"
+                        },
+                        "start_date": "3000-08-01",
+                        "start_time": "07:00 AM",
+                        "end_time": "12:00 PM"
+                    }
+                ]
             }
         },
         {
@@ -197,7 +182,8 @@
                 "declined": 1,
                 "cancelled": 1,
                 "obsolete": 1
-            }
+            },
+            "equipment_point": null
         }
     ]
 }

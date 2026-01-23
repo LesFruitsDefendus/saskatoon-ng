@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-12-19 20:39+0000\n"
+"POT-Creation-Date: 2026-01-22 12:55+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -133,6 +133,7 @@ msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
 #: sitebase/models.py:224
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
 msgstr "Date"
@@ -631,12 +632,11 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:10
 #: sitebase/templates/app/detail_views/organization/features.html:19
+#: sitebase/templates/app/list_views/harvest/view.html:15
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:18
-#, fuzzy
-#| msgid "Requested on"
 msgid "Reserved on"
 msgstr "Demandé le"
 
@@ -692,6 +692,12 @@ msgstr "Rôle"
 msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
+#: sitebase/templates/app/detail_views/organization/equipment_table.html:10
+#: sitebase/templates/app/list_views/organization/organizations.html:15
+#: sitebase/templates/app/participation_list.html:18
+msgid "Equipment"
+msgstr "Équipement"
+
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:15
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
@@ -720,6 +726,22 @@ msgstr "Déscription"
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:10
+msgid "Upcoming Reservations"
+msgstr "Réservations à venir"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:23
+msgid "PickLeader"
+msgstr "Chef(fe) de cueillette"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:25
+msgid "Start"
+msgstr "Début"
+
+#: sitebase/templates/app/detail_views/organization/harvest_table.html:26
+msgid "End"
+msgstr "Fin"
 
 #: sitebase/templates/app/detail_views/property/about.html:7
 msgid "About this property"
@@ -1029,11 +1051,6 @@ msgstr "Réinitialiser"
 msgid "Date/Time"
 msgstr "Date/Heure"
 
-#: sitebase/templates/app/list_views/harvest/view.html:15
-#: sitebase/templates/app/list_views/property/view.html:14
-msgid "Ladder"
-msgstr "Échelle"
-
 #: sitebase/templates/app/list_views/harvest/view.html:16
 msgid "Pick Leader"
 msgstr "Chef(fe) de cueillette"
@@ -1049,11 +1066,6 @@ msgstr "Cet organisme accepte les dons de fruits"
 #: sitebase/templates/app/list_views/organization/organizations.html:12
 msgid "Organization"
 msgstr "Organisation"
-
-#: sitebase/templates/app/list_views/organization/organizations.html:15
-#: sitebase/templates/app/participation_list.html:18
-msgid "Equipment"
-msgstr "Équipement"
 
 #: sitebase/templates/app/list_views/pagination.html:61
 msgid "Show"
@@ -1082,6 +1094,10 @@ msgstr "non autorisée"
 #: sitebase/templates/app/list_views/property/status.html:19
 msgid "inactive"
 msgstr "inactive"
+
+#: sitebase/templates/app/list_views/property/view.html:14
+msgid "Ladder"
+msgstr "Échelle"
 
 #: sitebase/templates/app/list_views/property/view.html:15
 msgid "Picks"

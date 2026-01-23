@@ -47,6 +47,10 @@ class TestEquipment(TestCase):
         assert isinstance(equipment, Equipment)
 
 
+# for some reason, harvest takes a very long time to generate
+settings.register_profile("fast", max_examples=5)
+
+
 class TestHarvest(TestCase):
     @given(harvest=harvest_st.harvest)
     def test_can_be_created(self, harvest):

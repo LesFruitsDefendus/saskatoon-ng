@@ -5,6 +5,11 @@ from django.db.models import Count
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
+from typeguard import typechecked
+from datetime import datetime, timezone, timedelta
+from django.db.models import QuerySet
+
+from member.utils import available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
 from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
@@ -142,6 +147,7 @@ class OrganizationFilter(filters.FilterSet):
         return queryset
 
 
+@typechecked
 class EquipmentPointFilter(filters.FilterSet):
     """Equipment Point filter"""
 
@@ -172,13 +178,73 @@ class EquipmentPointFilter(filters.FilterSet):
         method='equipment_type_filter',
     )
 
-    def beneficiary_filter(self, queryset, name, value):
+    status = filters.ChoiceFilter(
+        label=_("Status"),
+        choices=[
+            ('available', _('Available')),
+            ('reserved', _('Reserved')),
+        ],
+        method='status_filter',
+    )
+
+    start_date = filters.DateTimeFilter(label=_("From"), method='start_date_filter')
+    end_date = filters.DateTimeFilter(label=_("To"), method='end_date_filter')
+
+    # Filter functions offer parsed values, so we store them for the final filter
+    start_val: datetime = datetime.now(timezone.utc)
+    end_val: datetime = timedelta(days=365) + datetime.now(timezone.utc)
+    status_val: str = ''
+
+    def beneficiary_filter(
+        self, queryset: QuerySet[Organization], name: str, value: bool
+    ) -> QuerySet[Organization]:
         if value:
             return queryset.filter(is_beneficiary=True)
         return queryset
 
-    def equipment_type_filter(self, queryset, name, value):
+    def equipment_type_filter(
+        self, queryset: QuerySet[Organization], name: str, value: EquipmentType
+    ) -> QuerySet[Organization]:
         if value:
             equipments = Equipment.objects.filter(type=value)
             return queryset.filter(equipment__in=equipments).distinct()
         return queryset
+
+    def start_date_filter(
+        self, queryset: QuerySet[Organization], name: str, value: datetime
+    ) -> QuerySet[Organization]:
+        if value:
+            self.start_val = value
+        return queryset
+
+    def end_date_filter(
+        self, queryset: QuerySet[Organization], name: str, value: datetime
+    ) -> QuerySet[Organization]:
+        if value:
+            self.end_val = value
+        return queryset
+
+    def status_filter(
+        self, queryset: QuerySet[Organization], name: str, value: str
+    ) -> QuerySet[Organization]:
+        if value:
+            self.status_val = value
+        return queryset
+
+    def filter_queryset(self, queryset):
+        sup = super()
+
+        # When doing simple tests with pytest, the form itself isnt valid, so we cant call the super.
+        # Unless we find a way to have a valid form when instantiating the filter in pytest, we
+        # need this check
+        filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
+
+        if self.status_val == 'reserved' and self.start_val < self.end_val:
+            available = available_equipment_points(self.start_val, self.end_val, None)
+            return filtered.exclude(pk__in=available)
+
+        if self.status_val == 'available' and self.start_val < self.end_val:
+            available = available_equipment_points(self.start_val, self.end_val, None)
+            return filtered.filter(pk__in=available)
+
+        return filtered

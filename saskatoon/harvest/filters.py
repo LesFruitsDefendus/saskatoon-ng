@@ -1,12 +1,17 @@
-from datetime import datetime
 from dal import autocomplete
+from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
+from typeguard import typechecked
+from django.db.models import QuerySet
+
 from harvest.models import Harvest, TreeType, Property, Equipment, EquipmentType
 from member.autocomplete import AuthUserAutocomplete
 from member.models import AuthUser, Neighborhood, Organization
+from sitebase.utils import local_today
 
 
+@typechecked
 class HarvestFilter(filters.FilterSet):
     "Harvest filter"
 
@@ -18,7 +23,7 @@ class HarvestFilter(filters.FilterSet):
             'status',
             'pick_leader',
             'trees',
-            'ladder',
+            'reserved_equipment',
             'neighborhood',
         ]
 
@@ -57,10 +62,11 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
-    ladder = filters.BooleanFilter(
-        field_name='property__ladder_available',
-        label=_("Ladder available"),
+    reserved_equipment = filters.BooleanFilter(
+        method='reserved_equipment_filter',
+        label=_("Reserved equipment"),
         help_text="",
+        widget=forms.CheckboxInput,
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -70,18 +76,32 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
-    def date_filter(self, queryset, name, choice):
+    equipment_point = filters.ModelChoiceFilter(
+        field_name='equipment_reserved__owner',
+        distinct=True,
+        label=_("Equipment Point"),
+        queryset=Organization.objects.all().filter(is_equipment_point=True),
+        widget=autocomplete.ModelSelect2('equipmentpoint-autocomplete'),
+    )
+
+    def date_filter(
+        self, queryset: QuerySet[Harvest], name: str, choice: str
+    ) -> QuerySet[Harvest]:
         if choice == 'next':
-            return queryset.filter(start_date__gte=datetime.today())
+            return queryset.filter(start_date__gte=local_today())
         elif choice == 'past':
-            return queryset.filter(start_date__lt=datetime.today())
+            return queryset.filter(start_date__lt=local_today())
         elif choice == 'id':
             return queryset.order_by('-id')
         elif choice == 'old':
             return queryset.order_by('start_date')
         return queryset
 
+    def reserved_equipment_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
+        return queryset.exclude(equipment_reserved=None)
 
+
+@typechecked
 class PropertyFilter(filters.FilterSet):
     "Property filter"
 
@@ -136,12 +156,12 @@ class PropertyFilter(filters.FilterSet):
         method='season_filter',
     )
 
-    def authorized_filter(self, queryset, name, choice):
+    def authorized_filter(self, queryset, name, choice) -> QuerySet[Property]:
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
 
-    def season_filter(self, queryset, name, year):
+    def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:
             return queryset
 
@@ -149,6 +169,7 @@ class PropertyFilter(filters.FilterSet):
         return queryset.filter(harvests__in=harvests)
 
 
+@typechecked
 class EquipmentFilter(filters.FilterSet):
     "Equipment filter"
 
@@ -171,5 +192,5 @@ class EquipmentFilter(filters.FilterSet):
         method='equipment_point_filter',
     )
 
-    def equipment_point_filter(self, queryset, name, value):
+    def equipment_point_filter(self, queryset, name, value) -> QuerySet[Equipment]:
         return queryset.filter(owner__organization=value)

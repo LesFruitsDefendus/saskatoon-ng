@@ -1,7 +1,12 @@
 from django.db.models import Q, Sum
 from logging import getLogger
+from typing import Optional
+from datetime import datetime, timedelta
+from typeguard import typechecked
 
 from harvest.models import Property
+from sitebase.utils import local_datetime
+from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
 logger = getLogger('saskatoon')
 
@@ -47,3 +52,14 @@ def similar_properties(pending_property: Property):
     except Exception as _e:
         logger.warning("Could not find similar properties to <%s> (%s: %s)", p, type(_e), str(_e))
         return Property.objects.none()
+
+
+@typechecked
+def buffer_reservation_time(
+    time: Optional[datetime],
+    buffer: timedelta = timedelta(hours=DEFAULT_RESERVATION_BUFFER),
+) -> Optional[str]:
+    if (raw_time := time) is None or (local_time := local_datetime(raw_time + buffer)) is None:
+        return None
+
+    return local_time.strftime("%I:%M %p")

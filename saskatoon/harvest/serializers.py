@@ -2,10 +2,8 @@ from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
 from typing import Mapping, Any, Optional
-from django.conf import settings
 from datetime import timedelta
 
-from sitebase.utils import local_datetime
 from member.models import Actor, Organization
 from member.serializers import (
     NeighborhoodSerializer,
@@ -30,7 +28,8 @@ from harvest.models import (
     RequestForParticipation as RFP,
     TreeType,
 )
-from harvest.utils import similar_properties
+from harvest.utils import similar_properties, buffer_reservation_time
+from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
@@ -236,6 +235,27 @@ class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
         fields = ['actor_id', 'civil_name']
 
 
+class ReservationHarvestSerializer(serializers.ModelSerializer[Harvest]):
+    class Meta:
+        model = Harvest
+        fields = ['id', 'pick_leader', 'start_date', 'start_time', 'end_time']
+
+    pick_leader = PickLeaderSerializer(many=False, read_only=True)
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
+    start_time = serializers.SerializerMethodField()
+    end_time = serializers.SerializerMethodField()
+
+    buffer = timedelta(hours=DEFAULT_RESERVATION_BUFFER)
+
+    def get_start_time(self, harvest):
+        return buffer_reservation_time(
+            harvest.start_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER)
+        )
+
+    def get_end_time(self, harvest):
+        return buffer_reservation_time(harvest.end_date)
+
+
 class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
     class Meta:
         model = EquipmentType
@@ -278,15 +298,24 @@ class HarvestListSerializer(HarvestSerializer):
             'trees',
             'property',
             'volunteers',
+            'equipment_point',
         ]
 
     status_display = serializers.ReadOnlyField(source='get_status_display')
     property = HarvestListPropertySerializer(many=False, read_only=True)
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     volunteers = serializers.SerializerMethodField()
+    equipment_point = serializers.SerializerMethodField()
 
     def get_volunteers(self, harvest):
         return dict([(s, harvest.get_volunteers_count(s)) for s in RFP.Status])
+
+    def get_equipment_point(self, obj: Harvest):
+        point = obj.get_equipment_point()
+        if point is None:
+            return None
+
+        return OrganizationSerializer(point, many=False, read_only=True).data
 
 
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
@@ -316,12 +345,14 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'equipment_description',
             'equipment',
             'inventory',
+            'upcoming_reservations',
         ]
 
     contact_person = ContactPersonSerializer(many=False, read_only=True)
     neighborhood = NeighborhoodSerializer(many=False, read_only=True)
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()
+    upcoming_reservations = ReservationHarvestSerializer(many=True, read_only=True)
 
     def get_inventory(self, org):
         return dict(
@@ -377,25 +408,15 @@ class HarvestDetailSerializer(HarvestSerializer):
         ).data
 
     def get_reservation_start(self, obj: Harvest) -> Optional[str]:
-        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
-
         if self.unserialized_equipment_point is None:
             return None
 
-        if (start := obj.start_date) is None or (
-            local_start := local_datetime(start - buffer)
-        ) is None:
-            return None
-
-        return local_start.strftime("%I:%M %p")
+        return buffer_reservation_time(
+            obj.start_date, timedelta(hours=-DEFAULT_RESERVATION_BUFFER)
+        )
 
     def get_reservation_end(self, obj: Harvest) -> Optional[str]:
-        buffer = timedelta(hours=settings.DEFAULT_RESERVATION_BUFFER)
-
         if self.unserialized_equipment_point is None:
             return None
 
-        if (end := obj.end_date) is None or (local_end := local_datetime(end + buffer)) is None:
-            return None
-
-        return local_end.strftime("%I:%M %p")
+        return buffer_reservation_time(obj.end_date)

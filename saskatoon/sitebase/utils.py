@@ -4,11 +4,9 @@ from django.urls import reverse
 from django.utils import timezone
 from typing import Optional
 from typeguard import typechecked
-from logging import getLogger
 from django.conf import settings
 
 
-logger = getLogger("saskatoon")
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
 
@@ -47,6 +45,13 @@ def to_datetime(date: Optional[date]) -> Optional[datetime]:
 
 
 @typechecked
+def local_today() -> datetime:
+    """Return the start of day datetime for a localized datetime.now()"""
+    today = datetime.now(timezone.get_current_timezone())
+    return today.replace(hour=0, minute=0, second=0, microsecond=0)
+
+
+@typechecked
 def parse_naive_datetime(
     datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
 ) -> Optional[datetime]:
@@ -62,7 +67,6 @@ def parse_naive_datetime(
     try:
         return datetime.strptime(datetime_str, datetime_format).replace(tzinfo=now.tzinfo)
     except ValueError:
-        logger.warning("Could not parse datetime string: %s", datetime_str)
         return None
 
 
