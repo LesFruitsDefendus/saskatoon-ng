@@ -1008,8 +1008,8 @@ msgid "Request For Participation"
 msgstr "Demande de participation"
 
 #: harvest/views.py:358
-msgid "Comment added!"
-msgstr "Commentaire ajouté!"
+msgid "New comment added!"
+msgstr "Nouveau commentaire ajouté!"
 
 #: harvest/views.py:373
 msgid "Add new comment"

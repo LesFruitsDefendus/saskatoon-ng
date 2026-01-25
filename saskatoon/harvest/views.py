@@ -355,7 +355,7 @@ class CommentCreateView(
     model = Comment
     form_class = CommentForm
     template_name = 'app/forms/model_form.html'
-    success_message = _("Comment added!")
+    success_message = _("New comment added!")
 
     def get_form_kwargs(self, *args, **kwargs):
         """Retrieve harvest object and comment author"""
