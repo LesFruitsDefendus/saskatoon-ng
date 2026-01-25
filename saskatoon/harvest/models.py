@@ -622,6 +622,8 @@ class Harvest(models.Model):
         return [s for s in Harvest.Status.choices if s[0] != Harvest.Status.PENDING]
 
     def get_total_distribution(self) -> Optional[float]:
+        if not self.yields.exists():
+            return 0
         return self.yields.aggregate(models.Sum("total_in_lb")).get("total_in_lb__sum")
 
     def get_local_start(self) -> Optional[datetime]:

@@ -37,7 +37,7 @@
                     {% if status == "succeeded" %}
                         <div class="website-traffic-ctn">
                             <p>{% trans "Total harvested:" %}</p>
-                            <h2><span class="counter">{{ total_distribution }}</span> lbs</h2>
+                            <h2><span{% if total_distribution > 0 %} class="counter"{% endif %}>{{total_distribution}}</span> lbs</h2>
                         </div>
                     {% else %}
                         <div class="website-traffic-ctn">
