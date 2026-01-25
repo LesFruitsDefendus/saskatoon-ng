@@ -1,11 +1,184 @@
 {
-    "count": 2,
+    "count": 7,
     "next": null,
     "previous": null,
     "pages_count": 1,
     "current_page_number": 1,
     "items_per_page": 10,
     "results": [
+        {
+            "id": 12,
+            "title": "(Pending Owner) at 123 avenue du Mont Royal",
+            "neighborhood": "Plateau-Mont-Royal",
+            "trees": [
+                {
+                    "id": 6,
+                    "name_en": "Raspberry bush",
+                    "name_fr": "Framboisier",
+                    "fruit_name_en": "Raspberries",
+                    "fruit_name_fr": "Framboises",
+                    "fruit_icon": null
+                }
+            ],
+            "ladder_available": false,
+            "last_succeeded_harvest_date": null,
+            "is_active": true,
+            "authorized": true,
+            "pending": true,
+            "harvests": []
+        },
+        {
+            "id": 11,
+            "title": "Michelle Delepeche at 67 rue de l'Oseille",
+            "neighborhood": "Plateau-Mont-Royal",
+            "trees": [
+                {
+                    "id": 10,
+                    "name_en": "Peach tree",
+                    "name_fr": "Pêcher",
+                    "fruit_name_en": "Peaches",
+                    "fruit_name_fr": "Pêches",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "ladder_available": false,
+            "last_succeeded_harvest_date": "2025-08-06T19:00:00Z",
+            "is_active": true,
+            "authorized": true,
+            "pending": false,
+            "harvests": [
+                {
+                    "id": 6,
+                    "status": "orphan",
+                    "status_display": "Orphan",
+                    "start_date": "2026-05-01",
+                    "start_time": "12:00 AM",
+                    "end_date": "2026-10-01",
+                    "pick_leader": null,
+                    "trees": [
+                        {
+                            "id": 10,
+                            "name_en": "Peach tree",
+                            "name_fr": "Pêcher",
+                            "fruit_name_en": "Peaches",
+                            "fruit_name_fr": "Pêches",
+                            "fruit_icon": "🍑",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
+                },
+                {
+                    "id": 7,
+                    "status": "succeeded",
+                    "status_display": "Succeeded",
+                    "start_date": "2025-08-06",
+                    "start_time": "3:00 PM",
+                    "end_date": "2025-08-06",
+                    "pick_leader": "Core Member",
+                    "trees": [
+                        {
+                            "id": 10,
+                            "name_en": "Peach tree",
+                            "name_fr": "Pêcher",
+                            "fruit_name_en": "Peaches",
+                            "fruit_name_fr": "Pêches",
+                            "fruit_icon": "🍑",
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": null
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 10,
+            "title": "Deprecated Org. at 2 ruelle Oubliée",
+            "neighborhood": "Lachine",
+            "trees": [
+                {
+                    "id": 1,
+                    "name_en": "Apricot tree",
+                    "name_fr": "Abricotier",
+                    "fruit_name_en": "Apricots",
+                    "fruit_name_fr": "Abricots",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "ladder_available": false,
+            "last_succeeded_harvest_date": null,
+            "is_active": false,
+            "authorized": true,
+            "pending": false,
+            "harvests": []
+        },
+        {
+            "id": 6,
+            "title": "Plum Mendès at 5670 Veranda st.",
+            "neighborhood": "Villeray",
+            "trees": [
+                {
+                    "id": 18,
+                    "name_en": "Purple plum tree",
+                    "name_fr": "Prunier mauve",
+                    "fruit_name_en": "Purple plums",
+                    "fruit_name_fr": "Prunes mauves",
+                    "fruit_icon": null
+                }
+            ],
+            "ladder_available": false,
+            "last_succeeded_harvest_date": null,
+            "is_active": true,
+            "authorized": true,
+            "pending": false,
+            "harvests": [
+                {
+                    "id": 5,
+                    "status": "scheduled",
+                    "status_display": "Scheduled",
+                    "start_date": "2026-10-01",
+                    "start_time": "8:00 AM",
+                    "end_date": "2026-10-01",
+                    "pick_leader": "Core Member",
+                    "trees": [
+                        {
+                            "id": 18,
+                            "name_en": "Purple plum tree",
+                            "name_fr": "Prunier mauve",
+                            "fruit_name_en": "Purple plums",
+                            "fruit_name_fr": "Prunes mauves",
+                            "fruit_icon": null,
+                            "maturity_start": "2025-05-01",
+                            "maturity_end": "2025-10-01",
+                            "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "title": "Kate Bush at 57 rue des érablières",
+            "neighborhood": "Notre-Dame-de-Grâce",
+            "trees": [
+                {
+                    "id": 25,
+                    "name_en": "Aronia bush",
+                    "name_fr": "Aronie",
+                    "fruit_name_en": "Chokeberries",
+                    "fruit_name_fr": "Aronia",
+                    "fruit_icon": null
+                }
+            ],
+            "ladder_available": false,
+            "last_succeeded_harvest_date": null,
+            "is_active": true,
+            "authorized": false,
+            "pending": false,
+            "harvests": []
+        },
         {
             "id": 4,
             "title": "(Nouveau Proprio) at 555 rue de Villeray",
@@ -58,49 +231,27 @@
                 }
             ],
             "ladder_available": true,
-            "last_succeeded_harvest_date": "2021-07-19T20:00:00Z",
+            "last_succeeded_harvest_date": "2026-01-19T21:00:00Z",
             "is_active": true,
             "authorized": true,
             "pending": false,
             "harvests": [
                 {
-                    "id": 5,
-                    "status": "scheduled",
-                    "status_display": "Scheduled",
-                    "start_date": "3000-08-01",
-                    "start_time": "8:00 AM",
-                    "end_date": "3000-08-01",
-                    "pick_leader": "Core Member",
-                    "trees": [
-                        {
-                            "id": 1,
-                            "name_en": "Apricot tree",
-                            "name_fr": "Abricotier",
-                            "fruit_name_en": "Apricots",
-                            "fruit_name_fr": "Abricots",
-                            "fruit_icon": "🍑",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
-                    ]
-                },
-                {
                     "id": 4,
                     "status": "scheduled",
                     "status_display": "Scheduled",
-                    "start_date": "2021-08-01",
+                    "start_date": "2026-08-01",
                     "start_time": "9:00 AM",
-                    "end_date": "2021-08-01",
+                    "end_date": "2026-08-01",
                     "pick_leader": "Core Member",
                     "trees": [
                         {
-                            "id": 1,
-                            "name_en": "Apricot tree",
-                            "name_fr": "Abricotier",
-                            "fruit_name_en": "Apricots",
-                            "fruit_name_fr": "Abricots",
-                            "fruit_icon": "🍑",
+                            "id": 9,
+                            "name_en": "Walnut tree",
+                            "name_fr": "Noyer",
+                            "fruit_name_en": "Walnuts",
+                            "fruit_name_fr": "Noix de Grenoble",
+                            "fruit_icon": "🥜",
                             "maturity_start": "2025-05-01",
                             "maturity_end": "2025-10-01",
                             "image": null
@@ -111,9 +262,9 @@
                     "id": 2,
                     "status": "ready",
                     "status_display": "Ready",
-                    "start_date": "2021-07-24",
+                    "start_date": "2026-07-24",
                     "start_time": "3:00 PM",
-                    "end_date": "2021-07-24",
+                    "end_date": "2026-07-24",
                     "pick_leader": "Pick Leader",
                     "trees": [
                         {
@@ -133,21 +284,21 @@
                     "id": 3,
                     "status": "cancelled",
                     "status_display": "Cancelled",
-                    "start_date": "2021-07-22",
+                    "start_date": "2026-01-22",
                     "start_time": "5:00 PM",
-                    "end_date": "2021-07-22",
+                    "end_date": "2026-01-22",
                     "pick_leader": "Core Member",
                     "trees": [
                         {
-                            "id": 1,
-                            "name_en": "Apricot tree",
-                            "name_fr": "Abricotier",
-                            "fruit_name_en": "Apricots",
-                            "fruit_name_fr": "Abricots",
-                            "fruit_icon": "🍑",
+                            "id": 14,
+                            "name_en": "Green apple tree",
+                            "name_fr": "Pommier vert",
+                            "fruit_name_en": "Green apples",
+                            "fruit_name_fr": "Pommes vertes",
+                            "fruit_icon": "🍏",
                             "maturity_start": "2025-05-01",
                             "maturity_end": "2025-10-01",
-                            "image": null
+                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
                         }
                     ]
                 },
@@ -155,9 +306,9 @@
                     "id": 1,
                     "status": "succeeded",
                     "status_display": "Succeeded",
-                    "start_date": "2021-07-19",
+                    "start_date": "2026-01-19",
                     "start_time": "4:00 PM",
-                    "end_date": "2021-07-19",
+                    "end_date": "2026-01-19",
                     "pick_leader": "Pick Leader",
                     "trees": [
                         {

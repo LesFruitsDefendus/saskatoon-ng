@@ -75,7 +75,41 @@
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_reservations": []
+            "upcoming_reservations": [
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                },
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                },
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                }
+            ]
         },
         {
             "actor_id": 7,
@@ -167,7 +201,40 @@
                         "name": "Core Member",
                         "email": "core@member.com"
                     },
-                    "start_date": "3000-08-01",
+                    "start_date": "2026-10-01",
+                    "start_time": "07:00 AM",
+                    "end_time": "12:00 PM"
+                },
+                {
+                    "id": 5,
+                    "pick_leader": {
+                        "id": 4,
+                        "name": "Core Member",
+                        "email": "core@member.com"
+                    },
+                    "start_date": "2026-10-01",
+                    "start_time": "07:00 AM",
+                    "end_time": "12:00 PM"
+                },
+                {
+                    "id": 5,
+                    "pick_leader": {
+                        "id": 4,
+                        "name": "Core Member",
+                        "email": "core@member.com"
+                    },
+                    "start_date": "2026-10-01",
+                    "start_time": "07:00 AM",
+                    "end_time": "12:00 PM"
+                },
+                {
+                    "id": 5,
+                    "pick_leader": {
+                        "id": 4,
+                        "name": "Core Member",
+                        "email": "core@member.com"
+                    },
+                    "start_date": "2026-10-01",
                     "start_time": "07:00 AM",
                     "end_time": "12:00 PM"
                 }

@@ -19,123 +19,12 @@
     "title": "Nice Owner at 123 av. Mont-Royal",
     "harvests": [
         {
-            "id": 5,
-            "status": "scheduled",
-            "status_display": "Scheduled",
-            "start_date": "3000-08-01",
-            "start_time": "8:00 AM",
-            "end_date": "3000-08-01",
-            "pick_leader": {
-                "actor_id": 5,
-                "roles": [
-                    "Core Member"
-                ],
-                "name": "Core Member",
-                "email": "core@member.com",
-                "phone": "(514) 123-4321",
-                "neighborhood": {
-                    "id": 11,
-                    "name": "Mile End"
-                },
-                "comments": "",
-                "harvests": [
-                    {
-                        "id": 5,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "scheduled",
-                        "status_display": "Scheduled",
-                        "start_date": "3000-08-01",
-                        "role": "pickleader"
-                    },
-                    {
-                        "id": 4,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "scheduled",
-                        "status_display": "Scheduled",
-                        "start_date": "2021-08-01",
-                        "role": "pickleader"
-                    },
-                    {
-                        "id": 3,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "cancelled",
-                        "status_display": "Cancelled",
-                        "start_date": "2021-07-22",
-                        "role": "pickleader"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded",
-                        "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
-                        "role": "volunteer",
-                        "rfp_status": "declined"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded",
-                        "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
-                        "role": "volunteer",
-                        "rfp_status": "declined"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded",
-                        "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
-                        "role": "volunteer",
-                        "rfp_status": "cancelled"
-                    },
-                    {
-                        "id": 1,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "succeeded",
-                        "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
-                        "role": "volunteer",
-                        "rfp_status": "cancelled"
-                    }
-                ],
-                "organizations_as_contact": [
-                    {
-                        "pk": 9,
-                        "civil_name": "Le Vestibule Vert"
-                    }
-                ],
-                "properties": []
-            },
-            "trees": [
-                {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑",
-                    "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
-                }
-            ]
-        },
-        {
             "id": 4,
             "status": "scheduled",
             "status_display": "Scheduled",
-            "start_date": "2021-08-01",
+            "start_date": "2026-08-01",
             "start_time": "9:00 AM",
-            "end_date": "2021-08-01",
+            "end_date": "2026-08-01",
             "pick_leader": {
                 "actor_id": 5,
                 "roles": [
@@ -153,10 +42,10 @@
                     {
                         "id": 5,
                         "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "property": "Plum Mendès at 5670 Veranda st.",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "3000-08-01",
+                        "start_date": "2026-10-01",
                         "role": "pickleader"
                     },
                     {
@@ -165,7 +54,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2021-08-01",
+                        "start_date": "2026-08-01",
                         "role": "pickleader"
                     },
                     {
@@ -174,7 +63,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "cancelled",
                         "status_display": "Cancelled",
-                        "start_date": "2021-07-22",
+                        "start_date": "2026-01-22",
                         "role": "pickleader"
                     },
                     {
@@ -183,7 +72,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -193,7 +82,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -203,7 +92,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
                     },
@@ -213,9 +102,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [
@@ -228,12 +126,12 @@
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑",
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
                     "maturity_start": "2025-05-01",
                     "maturity_end": "2025-10-01",
                     "image": null
@@ -244,9 +142,9 @@
             "id": 2,
             "status": "ready",
             "status_display": "Ready",
-            "start_date": "2021-07-24",
+            "start_date": "2026-07-24",
             "start_time": "3:00 PM",
-            "end_date": "2021-07-24",
+            "end_date": "2026-07-24",
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
@@ -267,7 +165,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "ready",
                         "status_display": "Ready",
-                        "start_date": "2021-07-24",
+                        "start_date": "2026-07-24",
                         "role": "pickleader"
                     },
                     {
@@ -276,8 +174,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "pickleader"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
                     }
                 ],
                 "organizations_as_contact": [],
@@ -301,9 +209,9 @@
             "id": 3,
             "status": "cancelled",
             "status_display": "Cancelled",
-            "start_date": "2021-07-22",
+            "start_date": "2026-01-22",
             "start_time": "5:00 PM",
-            "end_date": "2021-07-22",
+            "end_date": "2026-01-22",
             "pick_leader": {
                 "actor_id": 5,
                 "roles": [
@@ -321,10 +229,10 @@
                     {
                         "id": 5,
                         "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "property": "Plum Mendès at 5670 Veranda st.",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "3000-08-01",
+                        "start_date": "2026-10-01",
                         "role": "pickleader"
                     },
                     {
@@ -333,7 +241,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2021-08-01",
+                        "start_date": "2026-08-01",
                         "role": "pickleader"
                     },
                     {
@@ -342,7 +250,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "cancelled",
                         "status_display": "Cancelled",
-                        "start_date": "2021-07-22",
+                        "start_date": "2026-01-22",
                         "role": "pickleader"
                     },
                     {
@@ -351,7 +259,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -361,7 +269,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -371,7 +279,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
                     },
@@ -381,9 +289,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [
@@ -396,15 +313,15 @@
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑",
+                    "id": 14,
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏",
                     "maturity_start": "2025-05-01",
                     "maturity_end": "2025-10-01",
-                    "image": null
+                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
                 }
             ]
         },
@@ -412,9 +329,9 @@
             "id": 1,
             "status": "succeeded",
             "status_display": "Succeeded",
-            "start_date": "2021-07-19",
+            "start_date": "2026-01-19",
             "start_time": "4:00 PM",
-            "end_date": "2021-07-19",
+            "end_date": "2026-01-19",
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
@@ -435,7 +352,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "ready",
                         "status_display": "Ready",
-                        "start_date": "2021-07-24",
+                        "start_date": "2026-07-24",
                         "role": "pickleader"
                     },
                     {
@@ -444,8 +361,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "pickleader"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
                     }
                 ],
                 "organizations_as_contact": [],
@@ -477,7 +404,7 @@
             ]
         }
     ],
-    "last_succeeded_harvest_date": "2021-07-19T20:00:00Z",
+    "last_succeeded_harvest_date": "2026-01-19T21:00:00Z",
     "address": "123 av. Mont-Royal, apt. 4",
     "trees": [
         {
@@ -521,7 +448,7 @@
         "is_organization": false
     },
     "similar_properties": [],
-    "needs_orphan": true,
+    "needs_orphan": false,
     "is_active": true,
     "authorized": true,
     "pending": false,
