@@ -24,7 +24,7 @@ class PropertyAutocomplete(autocomplete.Select2QuerySetView):
         if not self.request.user.is_authenticated:
             return Property.objects.none()
 
-        qs = Property.objects.filter(pending=False)
+        qs = Property.objects.filter(pending=False, authorized=True)
 
         if self.q:
             q0 = Q(street_number__icontains=self.q)
