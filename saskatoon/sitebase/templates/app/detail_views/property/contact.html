@@ -50,9 +50,9 @@
             <td>{% trans "Phone" %}</td>
             <td class="text-right">
                 <h5>
-                {% if owner %}
+                {% if owner and owner.phone %}
                     {{ owner.phone }}
-                {% else %}
+                {% elif pending_contact_phone %}
                     {{ pending_contact_phone }}
                 {% endif %}
                 </h5>
