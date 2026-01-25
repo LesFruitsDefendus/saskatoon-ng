@@ -20,13 +20,10 @@ from harvest.admin_forms import (
     HarvestImageInline,
     RFPPersonInline,
 )
-from harvest.forms import RFPForm
 from harvest.models import (
-    Comment,
     Equipment,
     EquipmentType,
     Harvest,
-    HarvestYield,
     Property,
     PropertyImage,
     RequestForParticipation as RFP,
@@ -130,7 +127,6 @@ class RequestForParticipationAdmin(admin.ModelAdmin[RFP]):
         RFPSeasonAdminFilter,
         'status',
     )
-    form = RFPForm
 
 
 @admin.register(Equipment)
@@ -311,6 +307,3 @@ class TreeTypeAdmin(admin.ModelAdmin[TreeType]):
 
 
 admin.site.register(EquipmentType)
-admin.site.register(HarvestYield)
-admin.site.register(Comment)
-admin.site.register(PropertyImage)
