@@ -3,8 +3,10 @@ from django.contrib import messages
 from django_filters.rest_framework import DjangoFilterBackend
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from rest_framework import generics, status, viewsets
 from rest_framework.filters import SearchFilter
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from typing import Dict
 from harvest.filters import (
@@ -80,6 +82,13 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
                 },
             }
         )
+
+    @action(methods=['post'], detail=True, permission_classes=[IsPickLeaderOrCoreOrAdmin])
+    def cancel_reservation(self, request, pk=None):
+        harvest = self.get_object()
+        harvest.equipment_reserved.set([])
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):

@@ -28,7 +28,33 @@
                   {% endif %}
               </p>
               <p>{{ equipment_point.equipment_description }}</p>
-
+              <button
+                class="btn btn-danger notika-btn-danger"
+                commandFor="cancel-reservation-dialog"
+                command="show-modal"
+              >
+                {% trans "Cancel Reservation" %}
+              </button>
+              <dialog closedby="any" id="cancel-reservation-dialog">
+                  <form method="post" action="cancel_reservation/" id="cancel-reservation-form">
+                    {% csrf_token %}
+                    <p>
+                      {% trans "Are you sure you want to cancel the reservation for" %} {{ equipment_point.civil_name }} ?
+                    </p>
+                  </form>
+                  <div class="btn-group" role="group">
+                    <button class="btn btn-danger notika-btn-danger" type="submit" form="cancel-reservation-form">
+                      {%trans "Yes" %}
+                    </button>
+                    <button
+                      class="btn btn-primary notika-btn-primary"
+                      commandFor="cancel-reservation-dialog"
+                      command="close"
+                    >
+                      {%trans "No" %}
+                    </button>
+                  </div>
+              </dialog>
          {% else %}
               {% trans "No equipment point has been reserved" %}
          {% endif %}

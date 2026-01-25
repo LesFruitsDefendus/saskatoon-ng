@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 12:55+0000\n"
+"POT-Creation-Date: 2026-01-24 11:28-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -642,9 +642,25 @@ msgstr "Demandé le"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:18
 msgid "From"
-msgstr ""
+msgstr "De"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:33
+#: sitebase/templates/app/detail_views/harvest/equipment.html:36
+msgid "Cancel Reservation"
+msgstr "Annuler la réservation"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:42
+msgid "Are you sure you want to cancel the reservation for"
+msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:47
+msgid "Yes"
+msgstr "Oui"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:54
+msgid "No"
+msgstr "Non"
+
+#: sitebase/templates/app/detail_views/harvest/equipment.html:59
 msgid "No equipment point has been reserved"
 msgstr "Aucun point d'équipment n'a été reservé"
 

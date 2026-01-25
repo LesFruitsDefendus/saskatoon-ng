@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-22 14:16+0000\n"
+"POT-Creation-Date: 2026-01-24 11:28-0500\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,27 +31,27 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: harvest/api.py:79
+#: harvest/api.py:81
 msgid "New Harvest"
 msgstr "Nouvelle Cueillette"
 
-#: harvest/api.py:123
+#: harvest/api.py:132
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
-#: harvest/api.py:133
+#: harvest/api.py:142
 msgid "Property successfully authorized!"
 msgstr "Création de propriété réussie!"
 
-#: harvest/api.py:135 harvest/views.py:284
+#: harvest/api.py:144 harvest/views.py:284
 msgid "Something went wrong"
 msgstr "Une erreur est survenue"
 
-#: harvest/api.py:170
+#: harvest/api.py:179
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:219
+#: harvest/api.py:228
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
