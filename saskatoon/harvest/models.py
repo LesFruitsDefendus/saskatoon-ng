@@ -423,7 +423,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         if self.owner and self.owner.is_person:
             return self.owner.person
         elif self.owner and self.owner.is_organization:
-            return self.owner.contact_person
+            return self.owner.organization.contact_person
         return None
 
     @property

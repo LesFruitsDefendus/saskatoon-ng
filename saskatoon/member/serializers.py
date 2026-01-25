@@ -139,8 +139,8 @@ class PersonOwnerSerializer(serializers.ModelSerializer[Person]):
 
     comments = serializers.SerializerMethodField()
 
-    def get_comments(self, obj):
-        return obj.person.comments
+    def get_comments(self, person):
+        return person.comments
 
 
 class OrganizationOwnerSerializer(serializers.ModelSerializer[Organization]):
@@ -155,12 +155,13 @@ class OrganizationOwnerSerializer(serializers.ModelSerializer[Organization]):
             'city',
             'state',
             'country',
+            'comments',
         ]
 
     comments = serializers.SerializerMethodField()
 
-    def get_comments(self, obj):
-        return obj.person.comments
+    def get_comments(self, org):
+        return org.contact_person.comments
 
 
 class PickerSerializer(serializers.ModelSerializer[Person]):
