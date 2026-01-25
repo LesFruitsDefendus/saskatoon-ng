@@ -38,5 +38,35 @@
     "total_in_lb": 2.0,
     "recipient": 1
   }
+},
+{
+  "model": "harvest.harvestyield",
+  "pk": 5,
+  "fields": {
+    "harvest": 7,
+    "tree": 10,
+    "total_in_lb": 3.0,
+    "recipient": 5
+  }
+},
+{
+  "model": "harvest.harvestyield",
+  "pk": 6,
+  "fields": {
+    "harvest": 7,
+    "tree": 10,
+    "total_in_lb": 6.0,
+    "recipient": 3
+  }
+},
+{
+  "model": "harvest.harvestyield",
+  "pk": 7,
+  "fields": {
+    "harvest": 7,
+    "tree": 10,
+    "total_in_lb": 3.0,
+    "recipient": 13
+  }
 }
 ]

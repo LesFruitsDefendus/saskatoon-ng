@@ -98,5 +98,85 @@
     ],
     "user_permissions": []
   }
+},
+{
+  "model": "member.authuser",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$5Q49AEg1qHuIf9Ijtk23YY$41k91lHX/m8fEVopi22ZFrixcUBTtYI56GpyjkKH79Q=",
+    "last_login": "2026-01-24T15:27:24.183Z",
+    "is_superuser": true,
+    "person": 10,
+    "has_temporary_password": false,
+    "agreed_terms": true,
+    "email": "admin@admin.com",
+    "date_joined": "2026-01-24T15:26:49.393Z",
+    "is_active": true,
+    "is_staff": true,
+    "groups": [
+      6
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 8,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 11,
+    "has_temporary_password": false,
+    "agreed_terms": false,
+    "email": "kate@bush.com",
+    "date_joined": "2026-01-25T20:37:52.244Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 9,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 12,
+    "has_temporary_password": false,
+    "agreed_terms": false,
+    "email": "plum.mendes@pulp.ca",
+    "date_joined": "2026-01-25T20:47:21.478Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 10,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "person": 13,
+    "has_temporary_password": false,
+    "agreed_terms": false,
+    "email": "michelle@delpe.ch",
+    "date_joined": "2026-01-25T21:34:50.629Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [
+      2
+    ],
+    "user_permissions": []
+  }
 }
 ]

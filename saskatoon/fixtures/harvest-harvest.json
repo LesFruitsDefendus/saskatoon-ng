@@ -9,20 +9,18 @@
     "owner_help": true,
     "owner_fruit": true,
     "pick_leader": 2,
-    "start_date": "2021-07-19T20:00:00Z",
-    "end_date": "2021-07-19T23:00:00Z",
-    "publication_date": "2021-07-19T18:39:01.963Z",
+    "start_date": "2026-01-19T21:00:00Z",
+    "end_date": "2026-01-20T00:00:00Z",
+    "publication_date": "2026-01-05T19:00:00Z",
     "nb_required_pickers": 3,
-    "about": "{\"delta\": \"\", \"html\": \"<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>\"}",
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon\\\\n\\\"}]}\",\"html\":\"<p>Un tas de belles pommes et de noix de Grenoble au coin Mont-Royal et Buillon</p>\"}",
     "changed_by": null,
-    "date_created": "2021-05-26T21:42:50.701Z",
+    "date_created": "2025-12-30T21:42:50.701Z",
     "trees": [
       14,
       9
     ],
-    "equipment_reserved": [
-      1
-    ]
+    "equipment_reserved": []
   }
 },
 {
@@ -35,17 +33,21 @@
     "owner_help": true,
     "owner_fruit": true,
     "pick_leader": 2,
-    "start_date": "2021-07-24T19:00:00Z",
-    "end_date": "2021-07-24T22:00:00Z",
-    "publication_date": "2021-07-19T19:45:09.693Z",
+    "start_date": "2026-07-24T19:00:00Z",
+    "end_date": "2026-07-24T22:00:00Z",
+    "publication_date": "2026-07-03T19:00:00Z",
     "nb_required_pickers": 2,
-    "about": "{\"delta\": \"\", \"html\": \"<p>This harvest is open for participation</p>\"}",
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"This harvest is open for participation\\\\n\\\"}]}\",\"html\":\"<p>This harvest is open for participation</p>\"}",
     "changed_by": null,
-    "date_created": "2021-07-02T18:15:05.419Z",
+    "date_created": "2026-07-01T18:15:05.419Z",
     "trees": [
       9
     ],
-    "equipment_reserved": []
+    "equipment_reserved": [
+      6,
+      7,
+      8
+    ]
   }
 },
 {
@@ -58,15 +60,15 @@
     "owner_help": false,
     "owner_fruit": false,
     "pick_leader": 4,
-    "start_date": "2021-07-22T21:00:00Z",
-    "end_date": "2021-07-22T22:00:00Z",
+    "start_date": "2026-01-22T22:00:00Z",
+    "end_date": "2026-01-22T23:00:00Z",
     "publication_date": null,
     "nb_required_pickers": 3,
-    "about": "{\"delta\": \"\", \"html\": \"<p>Unfortunately the owner had to cancel this harvest harvest.</p>\"}",
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Unfortunately the owner had to cancel this harvest harvest.\\\\n\\\"}]}\",\"html\":\"<p>Unfortunately the owner had to cancel this harvest harvest.</p>\"}",
     "changed_by": null,
-    "date_created": "2021-07-19T18:21:51.921Z",
+    "date_created": "2026-07-19T18:21:51.921Z",
     "trees": [
-      1
+      14
     ],
     "equipment_reserved": []
   }
@@ -81,15 +83,15 @@
     "owner_help": true,
     "owner_fruit": false,
     "pick_leader": 4,
-    "start_date": "2021-08-01T13:00:00Z",
-    "end_date": "2021-08-01T16:00:00Z",
-    "publication_date": "2021-07-19T18:23:32.853Z",
+    "start_date": "2026-08-01T13:00:00Z",
+    "end_date": "2026-08-01T16:00:00Z",
+    "publication_date": null,
     "nb_required_pickers": 4,
-    "about": "{\"delta\": \"\", \"html\": \"<p>We are looking for participants for this pick!</p>\"}",
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"We are looking for participants for this pick!\\\\n\\\"}]}\",\"html\":\"<p>We are looking for participants for this pick!</p>\"}",
     "changed_by": null,
-    "date_created": "2021-07-19T18:23:32.854Z",
+    "date_created": "2026-06-22T18:23:32.854Z",
     "trees": [
-      1
+      9
     ],
     "equipment_reserved": []
   }
@@ -99,23 +101,76 @@
   "pk": 5,
   "fields": {
     "status": "scheduled",
-    "property": 3,
+    "property": 6,
     "owner_present": true,
     "owner_help": true,
     "owner_fruit": false,
     "pick_leader": 4,
-    "start_date": "3000-08-01T13:00:00Z",
-    "end_date": "3000-08-01T16:00:00Z",
-    "publication_date": "2021-07-19T18:23:32.853Z",
+    "start_date": "2026-10-01T12:00:00Z",
+    "end_date": "2026-10-01T15:00:00Z",
+    "publication_date": "2026-09-01T16:00:00Z",
     "nb_required_pickers": 4,
-    "about": "{\"delta\": \"\", \"html\": \"<p>Used for testing equipment reservation conflicts</p>\"}",
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Used for testing equipment reservation conflicts\\\\n\\\"}]}\",\"html\":\"<p>Used for testing equipment reservation conflicts</p>\"}",
     "changed_by": null,
-    "date_created": "2021-07-19T18:23:32.854Z",
+    "date_created": "2026-06-22T18:19:22.458Z",
     "trees": [
-      1
+      18
     ],
     "equipment_reserved": [
-      2
+      2,
+      3,
+      4,
+      5
+    ]
+  }
+},
+{
+  "model": "harvest.harvest",
+  "pk": 6,
+  "fields": {
+    "status": "orphan",
+    "property": 11,
+    "owner_present": false,
+    "owner_help": false,
+    "owner_fruit": false,
+    "pick_leader": null,
+    "start_date": "2026-05-01T04:00:00Z",
+    "end_date": "2026-10-01T04:00:00Z",
+    "publication_date": null,
+    "nb_required_pickers": 3,
+    "about": "{\"delta\":\"\",\"html\":\"\"}",
+    "changed_by": null,
+    "date_created": "2026-01-25T21:35:24.579Z",
+    "trees": [
+      10
+    ],
+    "equipment_reserved": []
+  }
+},
+{
+  "model": "harvest.harvest",
+  "pk": 7,
+  "fields": {
+    "status": "succeeded",
+    "property": 11,
+    "owner_present": false,
+    "owner_help": false,
+    "owner_fruit": false,
+    "pick_leader": 4,
+    "start_date": "2025-08-06T19:00:00Z",
+    "end_date": "2025-08-06T21:00:00Z",
+    "publication_date": "2025-07-22T19:00:00Z",
+    "nb_required_pickers": 3,
+    "about": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Des pêches en veux tu en voilà!\\\\n\\\"}]}\",\"html\":\"<p>Des pêches en veux tu en voilà!</p>\"}",
+    "changed_by": null,
+    "date_created": "2025-07-22T18:32:13.735Z",
+    "trees": [
+      10
+    ],
+    "equipment_reserved": [
+      6,
+      7,
+      8
     ]
   }
 }

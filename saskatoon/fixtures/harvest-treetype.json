@@ -430,7 +430,7 @@
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
-    "image": null
+    "image": ""
   }
 },
 {
@@ -444,7 +444,7 @@
     "fruit_icon": null,
     "maturity_start": "2025-05-01",
     "maturity_end": "2025-10-01",
-    "image": null
+    "image": ""
   }
 }
 ]

@@ -6,8 +6,41 @@
     "harvest": 1,
     "author": 2,
     "content": "Everything went smoothly. Owner was very helpful.",
-    "date_created": "2021-05-31T13:35:30.088Z",
-    "date_updated": null
+    "date_created": "2026-01-25T20:28:02.032Z",
+    "date_updated": "2026-01-25T20:30:56.085Z"
+  }
+},
+{
+  "model": "harvest.comment",
+  "pk": 2,
+  "fields": {
+    "harvest": 4,
+    "author": 4,
+    "content": "This is a note left by a Core member to a Pick leader",
+    "date_created": "2026-01-24T16:23:13.921Z",
+    "date_updated": "2026-01-25T20:17:45.757Z"
+  }
+},
+{
+  "model": "harvest.comment",
+  "pk": 3,
+  "fields": {
+    "harvest": 3,
+    "author": 2,
+    "content": "Fruits were frozen :(",
+    "date_created": "2026-01-25T18:48:46.512Z",
+    "date_updated": "2026-01-25T20:17:39.268Z"
+  }
+},
+{
+  "model": "harvest.comment",
+  "pk": 4,
+  "fields": {
+    "harvest": 3,
+    "author": 7,
+    "content": "Makes sense!",
+    "date_created": "2026-01-25T18:49:59.439Z",
+    "date_updated": "2026-01-25T20:17:32.773Z"
   }
 }
 ]

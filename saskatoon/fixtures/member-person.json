@@ -113,5 +113,97 @@
     "comments": "",
     "onboarding": null
   }
+},
+{
+  "model": "member.person",
+  "pk": 10,
+  "fields": {
+    "language": "fr",
+    "first_name": "Admin",
+    "family_name": "Istrator",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": null,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "",
+    "onboarding": null
+  }
+},
+{
+  "model": "member.person",
+  "pk": 11,
+  "fields": {
+    "language": "fr",
+    "first_name": "Kate",
+    "family_name": "Bush",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": 12,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "Is she famous?",
+    "onboarding": null
+  }
+},
+{
+  "model": "member.person",
+  "pk": 12,
+  "fields": {
+    "language": "en",
+    "first_name": "Plum",
+    "family_name": "Mendès",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": 31,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "",
+    "onboarding": null
+  }
+},
+{
+  "model": "member.person",
+  "pk": 13,
+  "fields": {
+    "language": "fr",
+    "first_name": "Michelle",
+    "family_name": "Delepeche",
+    "phone": "(438) 123-1234",
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": null,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "",
+    "onboarding": null
+  }
 }
 ]

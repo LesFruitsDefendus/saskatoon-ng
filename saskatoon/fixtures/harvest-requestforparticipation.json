@@ -9,8 +9,8 @@
     "number_of_pickers": 1,
     "comment": "I live in the neighborhood and could bring a small step ladder.",
     "notes": "",
-    "date_created": "2021-05-31T13:38:14.221Z",
-    "date_status_updated": "2021-06-01T19:24:10.262Z",
+    "date_created": "2026-01-10T13:46:01Z",
+    "date_status_updated": "2026-01-11T19:24:10.262Z",
     "showed_up": false
   }
 },
@@ -24,7 +24,7 @@
     "number_of_pickers": 1,
     "comment": "I'm interested but will need to confirm.",
     "notes": "Can no longer participate",
-    "date_created": "2021-06-01T11:22:11.121Z",
+    "date_created": "2026-01-16T08:22:06Z",
     "date_status_updated": null,
     "showed_up": null
   }
@@ -39,8 +39,8 @@
     "number_of_pickers": 2,
     "comment": "Nous serons deux!",
     "notes": "There will be two of them",
-    "date_created": "2021-07-19T19:44:53.537Z",
-    "date_status_updated": "2021-07-19T20:10:40.567Z",
+    "date_created": "2026-01-20T16:10:06Z",
+    "date_status_updated": "2026-01-20T21:04:01Z",
     "showed_up": true
   }
 },
@@ -54,8 +54,38 @@
     "number_of_pickers": 1,
     "comment": "I'm still interested if you need more pickers.",
     "notes": "Declined because we have enough pickers.",
-    "date_created": "2021-06-05T14:00:03.191Z",
-    "date_status_updated": "2021-06-05T16:20:01.003Z",
+    "date_created": "2026-01-19T14:00:03.191Z",
+    "date_status_updated": "2026-01-19T16:20:01.003Z",
+    "showed_up": null
+  }
+},
+{
+  "model": "harvest.requestforparticipation",
+  "pk": 5,
+  "fields": {
+    "harvest": 7,
+    "person": 4,
+    "status": "accepted",
+    "number_of_pickers": 1,
+    "comment": "I love peaches",
+    "notes": "sweet!",
+    "date_created": "2026-07-23T22:52:51.221Z",
+    "date_status_updated": "2026-07-25T21:52:51Z",
+    "showed_up": null
+  }
+},
+{
+  "model": "harvest.requestforparticipation",
+  "pk": 6,
+  "fields": {
+    "harvest": 7,
+    "person": 3,
+    "status": "accepted",
+    "number_of_pickers": 2,
+    "comment": "Bringing a friend",
+    "notes": "",
+    "date_created": "2026-07-25T22:53:56.131Z",
+    "date_status_updated": "2026-07-25T23:00:03Z",
     "showed_up": null
   }
 }
