@@ -23,8 +23,8 @@ class HarvestFilter(filters.FilterSet):
             'status',
             'pick_leader',
             'trees',
-            'reserved_equipment',
             'neighborhood',
+            'reserved_equipment',
         ]
 
     season = filters.ChoiceFilter(
@@ -62,18 +62,18 @@ class HarvestFilter(filters.FilterSet):
         widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
-    reserved_equipment = filters.BooleanFilter(
-        method='reserved_equipment_filter',
-        label=_("Reserved equipment"),
-        help_text="",
-        widget=forms.CheckboxInput,
-    )
-
     neighborhood = filters.ModelChoiceFilter(
         field_name='property__neighborhood',
         label=_("Borough"),
         queryset=Neighborhood.objects.all(),
         widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
+    )
+
+    reserved_equipment = filters.BooleanFilter(
+        method='reserved_equipment_filter',
+        label=_("Reserved equipment"),
+        help_text="",
+        widget=forms.CheckboxInput,
     )
 
     equipment_point = filters.ModelChoiceFilter(
@@ -98,7 +98,10 @@ class HarvestFilter(filters.FilterSet):
         return queryset
 
     def reserved_equipment_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
-        return queryset.exclude(equipment_reserved=None)
+        if value:
+            return queryset.exclude(equipment_reserved=None)
+
+        return queryset
 
 
 @typechecked

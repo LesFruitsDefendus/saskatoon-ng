@@ -53,7 +53,7 @@ def test_date_filter_next(db, choice) -> None:
 
 
 @pytest.mark.django_db
-def test_harvest_filter_reserved_equipment_filter(db, location) -> None:  # noqa: F811
+def test_harvest_filter_reserved_equipment_filter_true(db, location) -> None:  # noqa: F811
     filter = HarvestFilter()
 
     equipment_type = EquipmentType.objects.create(name_fr="test type")
@@ -80,6 +80,33 @@ def test_harvest_filter_reserved_equipment_filter(db, location) -> None:  # noqa
     first = query.first()
     assert first is not None
     assert first.id == harvest.id
+
+
+@pytest.mark.django_db
+def test_harvest_filter_reserved_equipment_filter_false(db, location) -> None:  # noqa: F811
+    filter = HarvestFilter()
+
+    equipment_type = EquipmentType.objects.create(name_fr="test type")
+    org = Organization.objects.create(
+        is_equipment_point=True, civil_name="Test Equipment Point", **location
+    )
+
+    equipment = Equipment.objects.create(type=equipment_type, owner=org)
+    now = datetime.now(timezone.utc)
+
+    harvest = Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+    harvest.equipment_reserved.set([equipment])
+
+    harvest2 = Harvest.objects.create(
+        start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
+    )
+
+    query = filter.reserved_equipment_filter(
+        Harvest.objects.all(), "test reserved equipment filter", False
+    )
+    assert query.count() == 2
 
 
 def test_property_filter_can_be_created() -> None:
