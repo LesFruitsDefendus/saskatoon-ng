@@ -99,7 +99,7 @@ def test_harvest_filter_reserved_equipment_filter_false(db, location) -> None:  
     )
     harvest.equipment_reserved.set([equipment])
 
-    harvest2 = Harvest.objects.create(
+    Harvest.objects.create(
         start_date=now, end_date=now + timedelta(hours=1), status=Harvest.Status.SCHEDULED
     )
 
