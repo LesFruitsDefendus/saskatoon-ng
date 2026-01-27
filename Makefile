@@ -18,7 +18,7 @@ translations:
 collectstatic:
 	@python3 saskatoon/manage.py collectstatic
 
-staticcheck:
+staticchecks:
 	@tox -e mypy
 	@tox -e ruff
 	@tox -e pytype
