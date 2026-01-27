@@ -1,11 +1,199 @@
 {
-    "count": 5,
+    "count": 9,
     "next": null,
     "previous": null,
     "pages_count": 1,
     "current_page_number": 1,
     "items_per_page": 10,
     "results": [
+        {
+            "id": 10,
+            "person": {
+                "actor_id": 13,
+                "roles": [
+                    "Property Owner"
+                ],
+                "name": "Michelle Delepeche",
+                "email": "michelle@delpe.ch",
+                "phone": "(438) 123-1234",
+                "neighborhood": null,
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 6,
+                        "pick_leader": null,
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "orphan",
+                        "status_display": "Orphan",
+                        "start_date": "2026-05-01",
+                        "role": "owner"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "owner"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": [
+                    {
+                        "id": 11,
+                        "short_address": "67 rue de l'Oseille"
+                    }
+                ]
+            },
+            "roles": [
+                "Property Owner"
+            ],
+            "role_codes": [
+                "owner"
+            ],
+            "date_joined": "2026-01-25",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "michelle@delpe.ch",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 9,
+            "person": {
+                "actor_id": 12,
+                "roles": [
+                    "Property Owner"
+                ],
+                "name": "Plum Mendès",
+                "email": "plum.mendes@pulp.ca",
+                "phone": null,
+                "neighborhood": {
+                    "id": 31,
+                    "name": "Villeray"
+                },
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Plum Mendès at 5670 Veranda st.",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2026-10-01",
+                        "role": "owner"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": [
+                    {
+                        "id": 6,
+                        "short_address": "5670 Veranda st."
+                    }
+                ]
+            },
+            "roles": [
+                "Property Owner"
+            ],
+            "role_codes": [
+                "owner"
+            ],
+            "date_joined": "2026-01-25",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "plum.mendes@pulp.ca",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 8,
+            "person": {
+                "actor_id": 11,
+                "roles": [
+                    "Property Owner"
+                ],
+                "name": "Kate Bush",
+                "email": "kate@bush.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 12,
+                    "name": "Montréal-Nord"
+                },
+                "comments": "Is she famous?",
+                "harvests": [],
+                "organizations_as_contact": [],
+                "properties": [
+                    {
+                        "id": 5,
+                        "short_address": "57 rue des érablières, B"
+                    }
+                ]
+            },
+            "roles": [
+                "Property Owner"
+            ],
+            "role_codes": [
+                "owner"
+            ],
+            "date_joined": "2026-01-25",
+            "password": "",
+            "last_login": null,
+            "is_superuser": false,
+            "has_temporary_password": false,
+            "agreed_terms": false,
+            "email": "kate@bush.com",
+            "is_active": true,
+            "is_staff": false,
+            "groups": [
+                2
+            ],
+            "user_permissions": []
+        },
+        {
+            "id": 7,
+            "person": {
+                "actor_id": 10,
+                "roles": [],
+                "name": "Admin Istrator",
+                "email": "admin@admin.com",
+                "phone": null,
+                "neighborhood": null,
+                "comments": "",
+                "harvests": [],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "roles": [],
+            "role_codes": [],
+            "date_joined": "2026-01-24",
+            "password": "pbkdf2_sha256$260000$5Q49AEg1qHuIf9Ijtk23YY$41k91lHX/m8fEVopi22ZFrixcUBTtYI56GpyjkKH79Q=",
+            "last_login": "2026-01-24T10:27:24.183000-05:00",
+            "is_superuser": true,
+            "has_temporary_password": false,
+            "agreed_terms": true,
+            "email": "admin@admin.com",
+            "is_active": true,
+            "is_staff": true,
+            "groups": [
+                6
+            ],
+            "user_permissions": []
+        },
         {
             "id": 6,
             "person": {
@@ -68,21 +256,12 @@
                 "comments": "Passer par l'arrière ruelle",
                 "harvests": [
                     {
-                        "id": 5,
-                        "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "scheduled",
-                        "status_display": "Scheduled",
-                        "start_date": "3000-08-01",
-                        "role": "owner"
-                    },
-                    {
                         "id": 4,
                         "pick_leader": "Core Member",
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2021-08-01",
+                        "start_date": "2026-08-01",
                         "role": "owner"
                     },
                     {
@@ -91,7 +270,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "ready",
                         "status_display": "Ready",
-                        "start_date": "2021-07-24",
+                        "start_date": "2026-07-24",
                         "role": "owner"
                     },
                     {
@@ -100,7 +279,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "cancelled",
                         "status_display": "Cancelled",
-                        "start_date": "2021-07-22",
+                        "start_date": "2026-01-22",
                         "role": "owner"
                     },
                     {
@@ -109,7 +288,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "owner"
                     }
                 ],
@@ -165,10 +344,10 @@
                     {
                         "id": 5,
                         "pick_leader": "Core Member",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "property": "Plum Mendès at 5670 Veranda st.",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "3000-08-01",
+                        "start_date": "2026-10-01",
                         "role": "pickleader"
                     },
                     {
@@ -177,7 +356,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2021-08-01",
+                        "start_date": "2026-08-01",
                         "role": "pickleader"
                     },
                     {
@@ -186,7 +365,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "cancelled",
                         "status_display": "Cancelled",
-                        "start_date": "2021-07-22",
+                        "start_date": "2026-01-22",
                         "role": "pickleader"
                     },
                     {
@@ -195,7 +374,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -205,7 +384,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "declined"
                     },
@@ -215,7 +394,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
                     },
@@ -225,9 +404,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "volunteer",
                         "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "pickleader"
                     }
                 ],
                 "organizations_as_contact": [
@@ -270,7 +458,18 @@
                 "phone": "(438) 666-1234",
                 "neighborhood": null,
                 "comments": "",
-                "harvests": [],
+                "harvests": [
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
+                    }
+                ],
                 "organizations_as_contact": [],
                 "properties": []
             },
@@ -316,7 +515,7 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "ready",
                         "status_display": "Ready",
-                        "start_date": "2021-07-24",
+                        "start_date": "2026-07-24",
                         "role": "pickleader"
                     },
                     {
@@ -325,8 +524,18 @@
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "succeeded",
                         "status_display": "Succeeded",
-                        "start_date": "2021-07-19",
+                        "start_date": "2026-01-19",
                         "role": "pickleader"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
                     }
                 ],
                 "organizations_as_contact": [],

@@ -1,7 +1,7 @@
 from django.contrib import admin
 from dal import autocomplete
 from django import forms
-from harvest.forms import RFPForm, HarvestYieldForm
+from harvest.forms import HarvestYieldForm
 
 from harvest.models import (
     Equipment,
@@ -13,21 +13,18 @@ from harvest.models import (
 
 class RFPPersonInline(admin.TabularInline[RFP, RFP]):
     model = RFP
-    form = RFPForm
-    verbose_name = "Cueilleurs pour cette récolte"
-    verbose_name_plural = "Cueilleurs pour cette récolte"
-    exclude = ['date_created', 'confirmation_date']
-    extra = 3
+    extra = 1
 
 
 class HarvestYieldInline(admin.TabularInline[HarvestYield, HarvestYield]):
     model = HarvestYield
     form = HarvestYieldForm
+    extra = 1
 
 
 class HarvestImageInline(admin.TabularInline[HarvestImage, HarvestImage]):
     model = HarvestImage
-    extra = 3
+    extra = 1
 
 
 class EquipmentAdminForm(forms.ModelForm[Equipment]):

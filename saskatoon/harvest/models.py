@@ -423,7 +423,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         if self.owner and self.owner.is_person:
             return self.owner.person
         elif self.owner and self.owner.is_organization:
-            return self.owner.contact_person
+            return self.owner.organization.contact_person
         return None
 
     @property
@@ -622,6 +622,8 @@ class Harvest(models.Model):
         return [s for s in Harvest.Status.choices if s[0] != Harvest.Status.PENDING]
 
     def get_total_distribution(self) -> Optional[float]:
+        if not self.yields.exists():
+            return 0
         return self.yields.aggregate(models.Sum("total_in_lb")).get("total_in_lb__sum")
 
     def get_local_start(self) -> Optional[datetime]:

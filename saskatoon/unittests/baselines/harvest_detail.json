@@ -4,7 +4,7 @@
     "volunteers_count": 0,
     "is_open_to_requests": false,
     "is_open_to_public_requests": false,
-    "start_date": "Mon. Jul. 19, 2021",
+    "start_date": "Mon. Jan. 19, 2026",
     "start_time": "4:00 PM",
     "end_time": "7:00 PM",
     "date_range": "",
@@ -58,12 +58,12 @@
                 "name": "Volunteer Picker",
                 "email": "volunteer@picker.com",
                 "phone": "(438) 666-1234",
-                "accept_count": 0,
+                "accept_count": 1,
                 "reject_count": 0
             },
-            "date_created": "2021-05-31",
-            "time_created": "09:09 AM",
-            "date_status_updated": "2021-06-01",
+            "date_created": "2026-01-10",
+            "time_created": "08:08 AM",
+            "date_status_updated": "2026-01-11",
             "status": "obsolete",
             "number_of_pickers": 1,
             "comment": "I live in the neighborhood and could bring a small step ladder.",
@@ -80,8 +80,8 @@
                 "accept_count": 0,
                 "reject_count": 1
             },
-            "date_created": "2021-06-01",
-            "time_created": "07:07 AM",
+            "date_created": "2026-01-16",
+            "time_created": "03:03 AM",
             "date_status_updated": null,
             "status": "cancelled",
             "number_of_pickers": 1,
@@ -99,9 +99,9 @@
                 "accept_count": 0,
                 "reject_count": 1
             },
-            "date_created": "2021-06-05",
-            "time_created": "10:10 AM",
-            "date_status_updated": "2021-06-05",
+            "date_created": "2026-01-19",
+            "time_created": "09:09 AM",
+            "date_status_updated": "2026-01-19",
             "status": "declined",
             "number_of_pickers": 1,
             "comment": "I'm still interested if you need more pickers.",
@@ -256,7 +256,41 @@
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_reservations": []
+            "upcoming_reservations": [
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                },
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                },
+                {
+                    "id": 2,
+                    "pick_leader": {
+                        "id": 2,
+                        "name": "Pick Leader",
+                        "email": "pick@leader.com"
+                    },
+                    "start_date": "2026-07-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
+                }
+            ]
         },
         {
             "actor_id": 2,
@@ -298,8 +332,8 @@
                 "name": "Pick Leader",
                 "email": "pick@leader.com"
             },
-            "date_created": "Mon May 31 09:35:30 2021",
-            "date_updated": null,
+            "date_created": "Sun Jan 25 15:28:02 2026",
+            "date_updated": "Sun Jan 25 15:30:56 2026",
             "content": "Everything went smoothly. Owner was very helpful.",
             "harvest": 1
         }

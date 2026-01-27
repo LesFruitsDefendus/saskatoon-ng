@@ -1,5 +1,5 @@
 {
-    "count": 5,
+    "count": 7,
     "next": null,
     "previous": null,
     "pages_count": 1,
@@ -8,7 +8,7 @@
     "results": [
         {
             "id": 5,
-            "start_date": "Fri. Aug. 1, 3000",
+            "start_date": "Thu. Oct. 1, 2026",
             "start_time": "8:00 AM",
             "end_time": "11:00 AM",
             "date_range": "",
@@ -21,19 +21,19 @@
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
+                    "id": 18,
+                    "name_en": "Purple plum tree",
+                    "name_fr": "Prunier mauve",
+                    "fruit_name_en": "Purple plums",
+                    "fruit_name_fr": "Prunes mauves",
+                    "fruit_icon": null
                 }
             ],
             "property": {
-                "id": 3,
-                "title": "Nice Owner at 123 av. Mont-Royal",
-                "ladder_available": true,
-                "neighborhood": "Plateau-Mont-Royal"
+                "id": 6,
+                "title": "Plum Mendès at 5670 Veranda st.",
+                "ladder_available": false,
+                "neighborhood": "Villeray"
             },
             "volunteers": {
                 "pending": 0,
@@ -132,7 +132,40 @@
                             "name": "Core Member",
                             "email": "core@member.com"
                         },
-                        "start_date": "3000-08-01",
+                        "start_date": "2026-10-01",
+                        "start_time": "07:00 AM",
+                        "end_time": "12:00 PM"
+                    },
+                    {
+                        "id": 5,
+                        "pick_leader": {
+                            "id": 4,
+                            "name": "Core Member",
+                            "email": "core@member.com"
+                        },
+                        "start_date": "2026-10-01",
+                        "start_time": "07:00 AM",
+                        "end_time": "12:00 PM"
+                    },
+                    {
+                        "id": 5,
+                        "pick_leader": {
+                            "id": 4,
+                            "name": "Core Member",
+                            "email": "core@member.com"
+                        },
+                        "start_date": "2026-10-01",
+                        "start_time": "07:00 AM",
+                        "end_time": "12:00 PM"
+                    },
+                    {
+                        "id": 5,
+                        "pick_leader": {
+                            "id": 4,
+                            "name": "Core Member",
+                            "email": "core@member.com"
+                        },
+                        "start_date": "2026-10-01",
                         "start_time": "07:00 AM",
                         "end_time": "12:00 PM"
                     }
@@ -141,7 +174,7 @@
         },
         {
             "id": 4,
-            "start_date": "Sun. Aug. 1, 2021",
+            "start_date": "Sat. Aug. 1, 2026",
             "start_time": "9:00 AM",
             "end_time": "12:00 PM",
             "date_range": "",
@@ -154,12 +187,12 @@
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
                 }
             ],
             "property": {
@@ -179,7 +212,7 @@
         },
         {
             "id": 2,
-            "start_date": "Sat. Jul. 24, 2021",
+            "start_date": "Fri. Jul. 24, 2026",
             "start_time": "3:00 PM",
             "end_time": "6:00 PM",
             "date_range": "",
@@ -213,11 +246,149 @@
                 "cancelled": 0,
                 "obsolete": 0
             },
+            "equipment_point": {
+                "actor_id": 9,
+                "civil_name": "Le Vestibule Vert",
+                "contact_person": {
+                    "actor_id": 5,
+                    "roles": [
+                        "Core Member"
+                    ],
+                    "name": "Core Member",
+                    "email": "core@member.com",
+                    "phone": "(514) 123-4321"
+                },
+                "phone": "(555) 444-3333",
+                "short_address": "6 Ontario, Est",
+                "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                "neighborhood": {
+                    "id": 10,
+                    "name": "Mercier-Hochelaga-Maisonneuve"
+                },
+                "description": "This organization both accepts fruit donations and has some equipment.",
+                "is_beneficiary": true,
+                "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+                "is_equipment_point": true,
+                "equipment_description": "You must register online at www.equipment.ca",
+                "equipment": [
+                    {
+                        "id": 6,
+                        "property": null,
+                        "type": {
+                            "name": "Ciseaux",
+                            "name_fr": "Ciseaux",
+                            "name_en": "Cisors"
+                        },
+                        "description": "",
+                        "count": 4,
+                        "shared": true,
+                        "owner": 9
+                    },
+                    {
+                        "id": 7,
+                        "property": null,
+                        "type": {
+                            "name": "Cueille-fruits",
+                            "name_fr": "Cueille-fruits",
+                            "name_en": "Fruit picker"
+                        },
+                        "description": "10ft",
+                        "count": 2,
+                        "shared": true,
+                        "owner": 9
+                    },
+                    {
+                        "id": 8,
+                        "property": null,
+                        "type": {
+                            "name": "Cueille-fruits",
+                            "name_fr": "Cueille-fruits",
+                            "name_en": "Fruit picker"
+                        },
+                        "description": "13ft",
+                        "count": 1,
+                        "shared": true,
+                        "owner": 9
+                    }
+                ],
+                "inventory": {
+                    "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                    "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                },
+                "upcoming_reservations": [
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    },
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    },
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    }
+                ]
+            }
+        },
+        {
+            "id": 6,
+            "start_date": "Fri. May. 1, 2026",
+            "start_time": "12:00 AM",
+            "end_time": "12:00 AM",
+            "date_range": "May. 1 - Oct. 1, 2026",
+            "status": "orphan",
+            "status_display": "Orphan",
+            "pick_leader": null,
+            "trees": [
+                {
+                    "id": 10,
+                    "name_en": "Peach tree",
+                    "name_fr": "Pêcher",
+                    "fruit_name_en": "Peaches",
+                    "fruit_name_fr": "Pêches",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "property": {
+                "id": 11,
+                "title": "Michelle Delepeche at 67 rue de l'Oseille",
+                "ladder_available": false,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            },
             "equipment_point": null
         },
         {
             "id": 3,
-            "start_date": "Thu. Jul. 22, 2021",
+            "start_date": "Thu. Jan. 22, 2026",
             "start_time": "5:00 PM",
             "end_time": "6:00 PM",
             "date_range": "",
@@ -230,12 +401,12 @@
             },
             "trees": [
                 {
-                    "id": 1,
-                    "name_en": "Apricot tree",
-                    "name_fr": "Abricotier",
-                    "fruit_name_en": "Apricots",
-                    "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
+                    "id": 14,
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏"
                 }
             ],
             "property": {
@@ -255,7 +426,7 @@
         },
         {
             "id": 1,
-            "start_date": "Mon. Jul. 19, 2021",
+            "start_date": "Mon. Jan. 19, 2026",
             "start_time": "4:00 PM",
             "end_time": "7:00 PM",
             "date_range": "",
@@ -298,6 +469,148 @@
                 "obsolete": 1
             },
             "equipment_point": null
+        },
+        {
+            "id": 7,
+            "start_date": "Wed. Aug. 6, 2025",
+            "start_time": "3:00 PM",
+            "end_time": "5:00 PM",
+            "date_range": "",
+            "status": "succeeded",
+            "status_display": "Succeeded",
+            "pick_leader": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "trees": [
+                {
+                    "id": 10,
+                    "name_en": "Peach tree",
+                    "name_fr": "Pêcher",
+                    "fruit_name_en": "Peaches",
+                    "fruit_name_fr": "Pêches",
+                    "fruit_icon": "🍑"
+                }
+            ],
+            "property": {
+                "id": 11,
+                "title": "Michelle Delepeche at 67 rue de l'Oseille",
+                "ladder_available": false,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 0,
+                "accepted": 3,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            },
+            "equipment_point": {
+                "actor_id": 9,
+                "civil_name": "Le Vestibule Vert",
+                "contact_person": {
+                    "actor_id": 5,
+                    "roles": [
+                        "Core Member"
+                    ],
+                    "name": "Core Member",
+                    "email": "core@member.com",
+                    "phone": "(514) 123-4321"
+                },
+                "phone": "(555) 444-3333",
+                "short_address": "6 Ontario, Est",
+                "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                "neighborhood": {
+                    "id": 10,
+                    "name": "Mercier-Hochelaga-Maisonneuve"
+                },
+                "description": "This organization both accepts fruit donations and has some equipment.",
+                "is_beneficiary": true,
+                "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+                "is_equipment_point": true,
+                "equipment_description": "You must register online at www.equipment.ca",
+                "equipment": [
+                    {
+                        "id": 6,
+                        "property": null,
+                        "type": {
+                            "name": "Ciseaux",
+                            "name_fr": "Ciseaux",
+                            "name_en": "Cisors"
+                        },
+                        "description": "",
+                        "count": 4,
+                        "shared": true,
+                        "owner": 9
+                    },
+                    {
+                        "id": 7,
+                        "property": null,
+                        "type": {
+                            "name": "Cueille-fruits",
+                            "name_fr": "Cueille-fruits",
+                            "name_en": "Fruit picker"
+                        },
+                        "description": "10ft",
+                        "count": 2,
+                        "shared": true,
+                        "owner": 9
+                    },
+                    {
+                        "id": 8,
+                        "property": null,
+                        "type": {
+                            "name": "Cueille-fruits",
+                            "name_fr": "Cueille-fruits",
+                            "name_en": "Fruit picker"
+                        },
+                        "description": "13ft",
+                        "count": 1,
+                        "shared": true,
+                        "owner": 9
+                    }
+                ],
+                "inventory": {
+                    "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                    "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                },
+                "upcoming_reservations": [
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    },
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    },
+                    {
+                        "id": 2,
+                        "pick_leader": {
+                            "id": 2,
+                            "name": "Pick Leader",
+                            "email": "pick@leader.com"
+                        },
+                        "start_date": "2026-07-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
+                    }
+                ]
+            }
         }
     ]
 }

@@ -443,8 +443,9 @@ class HarvestForm(forms.ModelForm[Harvest]):
             'nb_required_pickers': forms.NumberInput(),
         }
 
-    # Instance ID, forwarded to EquipmentPointAutocomplete
     id = forms.IntegerField(widget=forms.HiddenInput(), required=False)
+
+    status = forms.ChoiceField(choices=Harvest.get_status_choices())
 
     start_date = forms.DateTimeField(label=_('Start date/time'), required=True)
 
