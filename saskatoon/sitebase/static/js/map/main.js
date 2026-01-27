@@ -6,7 +6,11 @@ class LeafletMap extends HTMLElement {
     initMap(shadow) {
         const mapRoot = document.createElement('div');
         mapRoot.id = 'map-root';
-        mapRoot.style = 'height: 84vh; width: 60vw;';
+        const style = this.getAttributeNode('style');
+        if (style) {
+            console.log(style)
+            mapRoot.style = style.value;
+        }
         shadow.appendChild(mapRoot);
         const layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -14,13 +18,14 @@ class LeafletMap extends HTMLElement {
         const map = L.map(mapRoot, {
             minZoom: 9,
         }).addLayer(layer).setView([45.5088, -73.5617], 11);
+
         const children = this.children;
 
         this.icon = L.icon({
             iconUrl: "/static/js/map/icon/marker-default.svg",
-            iconSize: [80, 80],
-            iconAnchor: [30, 20],
-            popupAnchor: [0, -10],
+            iconSize: [30, 30],
+            iconAnchor: [20, 10],
+            popupAnchor: [-5, -10],
         });
 
         this.map = map;
@@ -29,7 +34,6 @@ class LeafletMap extends HTMLElement {
                 this.processMarker(children[i]);
             }
         }
-
     }
 
     processMarker(node) {
