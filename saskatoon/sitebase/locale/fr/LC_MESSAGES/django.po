@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 14:06+0000\n"
+"POT-Creation-Date: 2026-01-27 09:32+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,141 +18,109 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
-#: sitebase/models.py:39
+#: sitebase/models.py:38
 msgid "Page Content"
 msgstr "Contenu de la page"
 
-#: sitebase/models.py:44
+#: sitebase/models.py:43
 msgid "Volunteer Home"
 msgstr "Page d'accueil des bénévoles"
 
-#: sitebase/models.py:45
+#: sitebase/models.py:44
 msgid "Pickleader Home"
 msgstr "Page d'accueil des chef.fe de cueillette"
 
-#: sitebase/models.py:46
+#: sitebase/models.py:45
 msgid "Terms & Conditions"
 msgstr "Termes & Conditions"
 
-#: sitebase/models.py:47
+#: sitebase/models.py:46
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
-#: sitebase/models.py:48
-msgid "FAQ"
-msgstr "FAQ"
-
-#: sitebase/models.py:51
+#: sitebase/models.py:49
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:106
-msgid "FAQ Item"
-msgstr "FAQ (item)"
-
-#: sitebase/models.py:107
-msgid "FAQ Items"
-msgstr "FAQ (items)"
-
-#: sitebase/models.py:143
-msgid "FAQ List"
-msgstr "FAQ (liste)"
-
-#: sitebase/models.py:144
-msgid "FAQ Lists"
-msgstr "FAQ (listes)"
-
-#: sitebase/models.py:148
-msgid "Ref. Name"
-msgstr "Nom de réf."
-
-#: sitebase/models.py:165
-msgid "Items"
-msgstr "Items"
-
-#: sitebase/models.py:167
-msgid "Enabled"
-msgstr "Activée"
-
-#: sitebase/models.py:174
+#: sitebase/models.py:101
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:177
+#: sitebase/models.py:104
 msgid "Pickleader Registration Invite"
 msgstr ""
 
-#: sitebase/models.py:178
+#: sitebase/models.py:105
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:179
+#: sitebase/models.py:106
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:180
+#: sitebase/models.py:107
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:183
+#: sitebase/models.py:110
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:184
+#: sitebase/models.py:111
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:187
+#: sitebase/models.py:114
 msgid "Unselected pickers"
 msgstr ""
 
-#: sitebase/models.py:188
+#: sitebase/models.py:115
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:189
+#: sitebase/models.py:116
 msgid "Rejected picker"
 msgstr ""
 
-#: sitebase/models.py:196
+#: sitebase/models.py:123
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:201 sitebase/models.py:273
+#: sitebase/models.py:128 sitebase/models.py:200
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:211
+#: sitebase/models.py:138
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:226
+#: sitebase/models.py:153
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:230
+#: sitebase/models.py:157
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:262
+#: sitebase/models.py:189
 #: sitebase/templates/app/detail_views/harvest/about.html:68
 #: sitebase/templates/app/detail_views/organization/contact.html:46
 #: sitebase/templates/app/detail_views/property/contact.html:63
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:263
+#: sitebase/models.py:190
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:268
+#: sitebase/models.py:195
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:27
 #: sitebase/templates/app/stats.html:249
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:280
+#: sitebase/models.py:207
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
@@ -160,11 +128,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:286
+#: sitebase/models.py:213
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:297
+#: sitebase/models.py:224
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
@@ -178,7 +146,7 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:17
-#: sitebase/templates/app/list_views/organization/organizations.html:13
+#: sitebase/templates/app/list_views/organization/organizations.html:27
 msgid "Contact"
 msgstr "Contact"
 
@@ -191,7 +159,6 @@ msgid "Social Media"
 msgstr ""
 
 #: sitebase/templates/app/base/footer.html:82
-#: sitebase/templates/app/base/header.html:19
 #: sitebase/templates/app/detail_views/organization/about.html:5
 msgid "About"
 msgstr "À propos"
@@ -209,51 +176,51 @@ msgstr ""
 "cueilleur.euse.s bénévoles afin d'aider à réduire le gaspillage de "
 "nourriture."
 
-#: sitebase/templates/app/base/header.html:37
+#: sitebase/templates/app/base/header.html:31
 msgid "Privacy policy"
 msgstr "Politique de confidentialité"
 
-#: sitebase/templates/app/base/header.html:40
+#: sitebase/templates/app/base/header.html:34
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: sitebase/templates/app/base/header.html:52
+#: sitebase/templates/app/base/header.html:46
 msgid "Admin"
 msgstr "Administration"
 
-#: sitebase/templates/app/base/header.html:58
+#: sitebase/templates/app/base/header.html:52
 msgid "Admin panel"
 msgstr "Panneau d'administration"
 
-#: sitebase/templates/app/base/header.html:63
+#: sitebase/templates/app/base/header.html:57
 msgid "Add new user"
 msgstr "Ajouter un utilisateur.trice"
 
-#: sitebase/templates/app/base/header.html:68
+#: sitebase/templates/app/base/header.html:62
 msgid "Translations"
 msgstr "Traductions"
 
-#: sitebase/templates/app/base/header.html:73
+#: sitebase/templates/app/base/header.html:67
 msgid "Emails content"
 msgstr "Contenu des courriels"
 
-#: sitebase/templates/app/base/header.html:78
+#: sitebase/templates/app/base/header.html:72
 msgid "Homepage content"
 msgstr "Contenu de la page d'accueil"
 
-#: sitebase/templates/app/base/header.html:83
+#: sitebase/templates/app/base/header.html:77
 msgid "Equipment points"
 msgstr "Points d'Equipement"
 
-#: sitebase/templates/app/base/header.html:88
+#: sitebase/templates/app/base/header.html:82
 msgid "Fruit maturity dates"
 msgstr "Dates de maturité des fruits"
 
-#: sitebase/templates/app/base/header.html:100
+#: sitebase/templates/app/base/header.html:94
 msgid "login"
 msgstr "Connexion"
 
-#: sitebase/templates/app/base/header.html:111
+#: sitebase/templates/app/base/header.html:105
 #: sitebase/templates/app/detail_views/harvest/about.html:76
 #: sitebase/templates/app/detail_views/organization/contact.html:57
 #: sitebase/templates/app/detail_views/property/contact.html:78
@@ -484,15 +451,15 @@ msgstr "réussie"
 msgid "Total harvested"
 msgstr "Total récolté"
 
-#: sitebase/templates/app/calendar/view.html:17
+#: sitebase/templates/app/calendar/view.html:84
 msgid "Harvest calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/calendar/view.html:21
+#: sitebase/templates/app/calendar/view.html:88
 msgid "LEGEND"
 msgstr "LÉGENDE"
 
-#: sitebase/templates/app/calendar/view.html:25
+#: sitebase/templates/app/calendar/view.html:92
 msgid "INSTRUCTIONS"
 msgstr "INSTRUCTIONS"
 
@@ -729,7 +696,7 @@ msgstr "Manquant"
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
-#: sitebase/templates/app/detail_views/organization/breadcomb.html:33
+#: sitebase/templates/app/detail_views/organization/breadcomb.html:29
 msgid "Edit Organization"
 msgstr "Modifier l'Organisation"
 
@@ -746,7 +713,7 @@ msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:15
+#: sitebase/templates/app/list_views/organization/organizations.html:29
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -775,7 +742,7 @@ msgid "Description"
 msgstr "Déscription"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/organizations.html:14
+#: sitebase/templates/app/list_views/organization/organizations.html:28
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -977,30 +944,30 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
 #: sitebase/templates/app/list_views/harvest/view.html:13
-#: sitebase/templates/app/list_views/organization/organizations.html:16
+#: sitebase/templates/app/list_views/organization/organizations.html:30
 #: sitebase/templates/app/list_views/property/view.html:11
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
 msgstr "Arrondissement"
 
-#: sitebase/templates/app/errors/400.html:8
+#: sitebase/templates/app/errors/400.html:9
 msgid "400 Bad Request"
 msgstr "400 Requête Invalide"
 
-#: sitebase/templates/app/errors/403.html:8
+#: sitebase/templates/app/errors/403.html:9
 msgid "403 Permission Denied"
 msgstr ""
 
-#: sitebase/templates/app/errors/403_csrf.html:8
+#: sitebase/templates/app/errors/403_csrf.html:9
 msgid "403 Forbidden. CSRF Verification Failed. Request aborted."
 msgstr ""
 
-#: sitebase/templates/app/errors/404.html:8
+#: sitebase/templates/app/errors/404.html:9
 msgid "404 Page not found"
 msgstr ""
 
-#: sitebase/templates/app/errors/500.html:8
+#: sitebase/templates/app/errors/500.html:9
 msgid "500 Server Error"
 msgstr ""
 
@@ -1008,13 +975,9 @@ msgstr ""
 msgid "Go Back"
 msgstr "Retour"
 
-#: sitebase/templates/app/faq.html:17
-msgid "Frequently Asked Questions"
-msgstr "Foire Aux Questions"
-
-#: sitebase/templates/app/forms/base.html:19
+#: sitebase/templates/app/forms/base.html:15
 msgid "Could not save form: some fields are invalid."
-msgstr "Certains champs comportent des erreurs."
+msgstr ""
 
 #: sitebase/templates/app/forms/model_form.html:30
 #: sitebase/templates/app/forms/organization_create_form.html:48
@@ -1055,7 +1018,7 @@ msgstr "Ajouter une nouvelle propriété"
 msgid "Go to calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/list_views/base.html:29
+#: sitebase/templates/app/list_views/base.html:24
 msgid "Search"
 msgstr "Rechercher"
 
@@ -1120,7 +1083,7 @@ msgstr "Bénévoles"
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:12
+#: sitebase/templates/app/list_views/organization/organizations.html:26
 msgid "Organization"
 msgstr "Organisation"
 

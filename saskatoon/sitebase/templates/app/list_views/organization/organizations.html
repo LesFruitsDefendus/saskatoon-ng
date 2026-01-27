@@ -4,7 +4,7 @@
 
 {% block map %}
     <script type="module">import "{% static 'js/map/main.js' %}"</script>
-    <leaflet-map style="height: 60vh; width: 40vw;">
+    <leaflet-map style="height: 60vh; width: 60vw;">
         {% for org in data %}
              <leaflet-marker lat="{{ org.latitude }}" long="{{ org.longitude }}">
                 <h3>{{ org.civil_name }}</h3>
