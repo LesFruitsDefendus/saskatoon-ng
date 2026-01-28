@@ -1,16 +1,14 @@
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import ordinal
 from django.http import HttpResponseRedirect
-from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from django.views.generic import CreateView, UpdateView
-from django.views.generic import TemplateView
 from django_stubs_ext import StrOrPromise
 
 from logging import getLogger
@@ -553,21 +551,3 @@ def property_create_orphans(request, id):
         messages.warning(request, _("Property already has registered harvests for this season"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
-
-
-class MapView(LoginRequiredMixin, TemplateView):
-    template_name = 'map/view.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['properties'] = Property.objects.all()
-        return context
-
-
-# WARNING: for development purposes only, remove before final merge
-def testProperty(request):
-    import json
-
-    with open("db/property.json", "r") as read_file:
-        data = json.load(read_file)
-        return JsonResponse(data, safe=False)

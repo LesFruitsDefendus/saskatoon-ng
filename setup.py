@@ -24,7 +24,6 @@ setup(
         "cryptography>=3.3.2",
         "Django>=3.0.14,<4.0.0",
         "django-geojson==4.0.0",
-        "django-leaflet==0.26.0",
         "django-rest-knox==4.1.0",
         "djangorestframework>=3.11.0,<=3.15.1",
         "django-autocomplete-light>=3.8.2",

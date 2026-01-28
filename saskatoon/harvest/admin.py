@@ -3,7 +3,6 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 from member.models import AuthUser
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,
@@ -140,7 +139,7 @@ class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
 
 
 @admin.register(Property)
-class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
+class PropertyAdmin(admin.ModelAdmin[Property]):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
@@ -178,11 +177,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
         'owner__person__family_name',
         'owner__person__auth_user__email',
     )
-    exclude = [
-        'longitude',
-        'latitude',
-        # 'geom'
-    ]
+    exclude = ['longitude', 'latitude', 'geom']
 
     @admin.display(description="Owner type")
     def owner_type(self, _property):
