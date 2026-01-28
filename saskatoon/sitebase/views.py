@@ -59,11 +59,14 @@ class FAQView(TemplateView):
 
         context['content'] = PageContent.get(type=PageContent.Type.FAQ, lang=lang)
 
-        faq = FAQList.objects.filter(is_active=True).first()
-        if faq is not None:
-            context['items'] = [
-                dict([(key, getattr(item, f"{key}_{lang}")) for key in ['question', 'answer']])
-                for item in faq.items.all()
+        faqs = FAQList.objects.filter(is_active=True)
+        if faqs.exists():
+            context['FAQs'] = [
+                {
+                    'title': getattr(faq, f"title_{lang}"),
+                    'items': [item.dict(lang) for item in faq.items.all()]
+                }
+                for faq in faqs
             ]
 
         return context
