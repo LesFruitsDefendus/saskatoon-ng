@@ -101,7 +101,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     owner_type = serializers.SerializerMethodField()
     similar_properties = serializers.SerializerMethodField()
     needs_orphan = serializers.ReadOnlyField()
-    geom = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -150,7 +149,6 @@ class PropertyListSerializer(PropertySerializer):
             'authorized',
             'pending',
             'harvests',
-            'geom',
         ]
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
