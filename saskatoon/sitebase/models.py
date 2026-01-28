@@ -129,6 +129,12 @@ class FAQItem(models.Model):
         blank=False,
     )
 
+    def dict(self, lang: str) -> dict[str, str]:
+        return dict([
+            (key, getattr(self, f"{key}_{lang}"))
+            for key in ['question', 'answer']
+        ])
+
     def __str__(self):
         return "{}[{}]".format(self.question_en, self.id)
 
@@ -142,7 +148,7 @@ class FAQList(models.Model):
         ordering = ['is_active', 'name']
 
     name = models.CharField(
-        verbose_name=_("Name"),
+        verbose_name=_("Ref. Name"),
         max_length=100,
         blank=False,
     )
