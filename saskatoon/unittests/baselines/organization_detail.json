@@ -27,5 +27,7 @@
         "fr": "",
         "en": ""
     },
-    "upcoming_reservations": []
+    "upcoming_reservations": [],
+    "longitude": null,
+    "latitude": null
 }

@@ -109,7 +109,9 @@
                     "start_time": "02:00 PM",
                     "end_time": "07:00 PM"
                 }
-            ]
+            ],
+            "longitude": -73.6,
+            "latitude": 45.5
         },
         {
             "actor_id": 8,
@@ -140,7 +142,9 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_reservations": []
+            "upcoming_reservations": [],
+            "longitude": null,
+            "latitude": null
         },
         {
             "actor_id": 7,
@@ -269,7 +273,9 @@
                     "start_time": "07:00 AM",
                     "end_time": "12:00 PM"
                 }
-            ]
+            ],
+            "longitude": -73.5617,
+            "latitude": 45.5088
         },
         {
             "actor_id": 2,
@@ -300,7 +306,9 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_reservations": []
+            "upcoming_reservations": [],
+            "longitude": null,
+            "latitude": null
         }
     ]
 }
