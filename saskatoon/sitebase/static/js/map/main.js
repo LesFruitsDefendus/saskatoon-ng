@@ -57,7 +57,6 @@ class LeafletMarker extends HTMLElement {
         const long = parseFloat(this.getAttributeNode('long').value);
         const lat = parseFloat(this.getAttributeNode('lat').value);
         const icon = this.getAttributeNode('icon');
-        const iconHover = this.getAttributeNode('icon-hover');
 
         if (!long || !lat || isNaN(long) || isNaN(lat)) {
             throw new Error("Marker needs lat and long")
@@ -71,7 +70,7 @@ class LeafletMarker extends HTMLElement {
         });
 
         this.iconHover = L.icon({
-            iconUrl: iconHover ? iconHover.value : '/static/js/map/icon/marker-hover.svg',
+            iconUrl: icon ? icon.value : '/static/js/map/icon/marker-default.svg',
             iconSize: [36, 36],
             iconAnchor: [23, 13],
             popupAnchor: [-5, -10],
