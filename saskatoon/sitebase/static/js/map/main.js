@@ -6,10 +6,7 @@ class LeafletMap extends HTMLElement {
     initMap(shadow) {
         const mapRoot = document.createElement('div');
         mapRoot.id = 'map-root';
-        const style = this.getAttributeNode('style');
-        if (style) {
-            mapRoot.style = style.value;
-        }
+        mapRoot.style.cssText = this.getSize();
         shadow.appendChild(mapRoot);
         const layer = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -31,14 +28,22 @@ class LeafletMap extends HTMLElement {
         this.initMap(shadow)
     }
 
-    getLeafletStyleNode = () => {
+    getLeafletStyleNode() {
         let css = document.createElement('link');
-        css.href = './leaflet.css';
+        css.href = '/static/js/map/leaflet.css';
         css.rel = 'stylesheet';
 
         return css;
     }
 
+    getSize() {
+        const styles = window.getComputedStyle(this);
+
+        const height = `height: ${styles.getPropertyValue('height')};`;
+        const width = `width: ${styles.getPropertyValue('width')};`;
+
+        return `${height}${width}`;
+    }
 }
 
 class LeafletMarker extends HTMLElement {
