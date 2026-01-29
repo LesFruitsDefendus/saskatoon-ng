@@ -43,7 +43,7 @@ class LeafletMap extends HTMLElement {
         const divIconStyle = document.createElement('style');
         divIconStyle.innerHTML = '.saskatoon-div-icon { text-align: center; line-height: 20px; }';
 
-        shadow.append(leafletcss, fontAwesome, divIconStyle);
+        shadow.append(leaflet, fontAwesome, divIconStyle);
         this.initMap(shadow)
     }
 
@@ -97,8 +97,8 @@ class LeafletMarker extends HTMLElement {
     constructor() {
         super();
 
-        const long = parseFloat(this.getNodeValue('long', ''));
-        const lat = parseFloat(this.getNodeValue('lat', ''));
+        const long = parseFloat(this.getAttributeValue('long', ''));
+        const lat = parseFloat(this.getAttributeValue('lat', ''));
         if (isNaN(long) || isNaN(lat)) {
             throw new Error("Marker needs lat and long")
         }
