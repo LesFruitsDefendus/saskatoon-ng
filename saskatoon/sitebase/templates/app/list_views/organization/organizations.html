@@ -10,7 +10,11 @@
              <leaflet-marker
                  lat="{{ org.latitude }}"
                  long="{{ org.longitude }}"
-                 icon="{{ filter.form.status.value | reservation }}"
+                 popup-anchor="10 -5"
+                 class="fa-solid fa-toolbox fa-xl"
+                 style="color: {{ filter.form.status.value | reservation }};"
+                 class-on-hover="fa-solid fa-toolbox fa-2x"
+                 icon-anchor-on-hover="5 2"
              >
                 <h3><a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a></h3>
                 <p>{{ org.description }}</p>

@@ -8,7 +8,7 @@ def reservation(status: str) -> str:
     return {
         t[0]: t[1]
         for t in [
-            ('reserved', "/static/js/map/icon/marker-reserved.svg"),
-            ('available', "/static/js/map/icon/marker-available.svg"),
+            ('reserved', '#c01c28'),
+            ('available', '#26a269'),
         ]
-    }.get(status, "/static/js/map/icon/marker-default.svg")
+    }.get(status, '#000000')
