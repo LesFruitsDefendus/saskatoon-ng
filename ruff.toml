@@ -1,5 +1,4 @@
 line-length = 99
 
 [format]
-# Prefer single quotes over double quotes.
 quote-style = "preserve"

@@ -3,6 +3,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block script %}
+<script src="{%static 'js/datetime-picker.js' %}"></script>
+{% endblock script %}
+
 {% block content %}
 
 {{ form.media }}

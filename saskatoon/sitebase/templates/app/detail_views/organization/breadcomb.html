@@ -9,7 +9,11 @@
                         <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                             <div class="breadcomb-wp">
                                 <div class="breadcomb-icon">
-                                    <i class="fa fa-gift"></i>
+                                    {% if is_equipment_point %}
+                                        <i class="fa fa-scissors"></i>
+                                    {% else %}
+                                        <i class="fa fa-gift"></i>
+                                    {% endif %}
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>

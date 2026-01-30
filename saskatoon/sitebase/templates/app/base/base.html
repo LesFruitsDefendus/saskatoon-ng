@@ -2,7 +2,13 @@
 {% load i18n %}
 {% load static %}
 {% block body %}
-{% include 'app/base/header.html' %}
+    <!-- Javascript (2/3) -->
+    {% block script %}
+        <!-- per-template scripts -->
+    {% endblock script %}
+
+    <!-- Header -->
+    {% include 'app/base/header.html' %}
 
     <!-- Menu -->
     {% block menu %}
@@ -36,6 +42,6 @@
         {% endblock footer %}
     </footer>
 
-    <!-- Javascript (2/2) -->
+    <!-- Javascript (3/3) -->
     {% include 'app/base/scripts.html' %}
 {% endblock body %}
