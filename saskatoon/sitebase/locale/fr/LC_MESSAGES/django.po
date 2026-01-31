@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-01-26 20:03-0500\n"
+"POT-Creation-Date: 2026-01-30 21:01-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -447,15 +447,15 @@ msgstr "réussie"
 msgid "Total harvested"
 msgstr "Total récolté"
 
-#: sitebase/templates/app/calendar/view.html:84
+#: sitebase/templates/app/calendar/view.html:17
 msgid "Harvest calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/calendar/view.html:88
+#: sitebase/templates/app/calendar/view.html:21
 msgid "LEGEND"
 msgstr "LÉGENDE"
 
-#: sitebase/templates/app/calendar/view.html:92
+#: sitebase/templates/app/calendar/view.html:25
 msgid "INSTRUCTIONS"
 msgstr "INSTRUCTIONS"
 
@@ -692,7 +692,7 @@ msgstr "Manquant"
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
-#: sitebase/templates/app/detail_views/organization/breadcomb.html:29
+#: sitebase/templates/app/detail_views/organization/breadcomb.html:33
 msgid "Edit Organization"
 msgstr "Modifier l'Organisation"
 
@@ -947,23 +947,23 @@ msgstr "Propriété"
 msgid "Borough"
 msgstr "Arrondissement"
 
-#: sitebase/templates/app/errors/400.html:9
+#: sitebase/templates/app/errors/400.html:8
 msgid "400 Bad Request"
 msgstr "400 Requête Invalide"
 
-#: sitebase/templates/app/errors/403.html:9
+#: sitebase/templates/app/errors/403.html:8
 msgid "403 Permission Denied"
 msgstr ""
 
-#: sitebase/templates/app/errors/403_csrf.html:9
+#: sitebase/templates/app/errors/403_csrf.html:8
 msgid "403 Forbidden. CSRF Verification Failed. Request aborted."
 msgstr ""
 
-#: sitebase/templates/app/errors/404.html:9
+#: sitebase/templates/app/errors/404.html:8
 msgid "404 Page not found"
 msgstr ""
 
-#: sitebase/templates/app/errors/500.html:9
+#: sitebase/templates/app/errors/500.html:8
 msgid "500 Server Error"
 msgstr ""
 
@@ -971,7 +971,7 @@ msgstr ""
 msgid "Go Back"
 msgstr "Retour"
 
-#: sitebase/templates/app/forms/base.html:15
+#: sitebase/templates/app/forms/base.html:19
 msgid "Could not save form: some fields are invalid."
 msgstr ""
 
@@ -1014,7 +1014,7 @@ msgstr "Ajouter une nouvelle propriété"
 msgid "Go to calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/list_views/base.html:24
+#: sitebase/templates/app/list_views/base.html:29
 msgid "Search"
 msgstr "Rechercher"
 
