@@ -47,8 +47,8 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null
+    "longitude": -73.5617,
+    "latitude": 45.5088
   }
 },
 {
@@ -99,8 +99,8 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null
+    "longitude": -73.6,
+    "latitude": 45.5
   }
 }
 ]

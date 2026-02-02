@@ -2,6 +2,10 @@
 {% load i18n %}
 {% load static %}
 
+{% block map %}
+    {% include 'app/list_views/organization/map.html' %}
+{% endblock map %}
+
 {% block table %}
 
     {% include 'app/list_views/organization/modal.html' %}
@@ -23,3 +27,4 @@
     </tbody>
 
 {% endblock table %}
+
