@@ -1,6 +1,6 @@
 from django.contrib import admin, messages
 from harvest.models import Comment, RequestForParticipation
-from sitebase.models import Email, EmailContent, EmailType, PageContent
+from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
 
@@ -14,6 +14,31 @@ class ContentAdmin(admin.ModelAdmin[PageContent]):
         'title_fr',
         'id',
     )
+
+
+@admin.register(FAQItem)
+class FAQuestionAdmin(admin.ModelAdmin[FAQItem]):
+    model = FAQItem
+    list_display = (
+        'question_en',
+        'question_fr',
+        'id',
+    )
+
+
+@admin.register(FAQList)
+class FAQAdmin(admin.ModelAdmin[FAQList]):
+    model = FAQList
+    list_display = (
+        'name',
+        'get_num_items',
+        'is_active',
+        'id',
+    )
+
+    @admin.display(description="Num. Items")
+    def get_num_items(self, faq):
+        return len(faq.items.all())
 
 
 @admin.register(EmailContent)
