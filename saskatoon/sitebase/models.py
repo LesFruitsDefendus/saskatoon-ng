@@ -23,7 +23,7 @@ from sitebase.serializers import (
     EmailRecipientSerializer,
 )
 from saskatoon.settings import (
-    SEND_MAIL_FAIL_SILENTLY,
+    EMAIL_HOST,
     DEFAULT_FROM_EMAIL,
     DEFAULT_REPLY_TO_EMAIL,
 )
@@ -296,18 +296,12 @@ class Email(models.Model):
         return success
 
     def record_success(self, body: str) -> bool:
-        log = "Successfully sent email {email} to {mailto}".format(
-            email=self.__str__(), mailto=self.recipient.email
-        )
+        log = f"Successfully sent email {self}."
         logger.info(log)
         return self.record_sent(True, body, log)
 
     def record_failure(self, body: str, error_msg: str) -> bool:
-        log = "Could not send email {email} to {mailto}. {msg}.".format(
-            email=self.__str__(),
-            mailto=self.recipient.email,
-            msg=error_msg,
-        )
+        log = f"Could not send email {self}. {error_msg}."
         logger.error(log)
         return self.record_sent(False, body, log)
 
@@ -321,6 +315,9 @@ class Email(models.Model):
         if message is None:
             message = self.get_default_message(data)
 
+        if not EMAIL_HOST:
+            return self.record_failure(message, "SMTP server not configured")
+
         m = EmailMessage(
             subject=self.get_subject(data),
             body=message,
@@ -332,7 +329,7 @@ class Email(models.Model):
         )
 
         try:
-            if m.send(SEND_MAIL_FAIL_SILENTLY) == 1:
+            if m.send() == 1:
                 return self.record_success(message)
         except Exception as e:
             return self.record_failure(message, f"{type(e)}: {str(e)}")
