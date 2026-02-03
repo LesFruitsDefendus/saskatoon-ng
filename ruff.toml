@@ -1,5 +1,7 @@
+# See https://docs.astral.sh/ruff/settings/ for available settings
+
 line-length = 99
 
 [format]
-# Prefer single quotes over double quotes.
+# Leave all quotes unchanged
 quote-style = "preserve"

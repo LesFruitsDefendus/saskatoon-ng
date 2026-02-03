@@ -87,9 +87,12 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0 0 10px;
   font-weight:700;
 }
-a {transition: all 0.3s ease 0s;text-decoration:none;}
+a {
+  transition: all 0.3s ease 0s;text-decoration:none;
+  color:#440bd4;
+}
 a:hover {
-  color: #440bd4;
+  color:#2da4f0;
   text-decoration: none;
 }
 a:active, a:hover, a:focus {
@@ -148,11 +151,11 @@ body {}
 }
 @font-face {
   font-family: 'notika-icon';
-  src:  url('fonts/notika-icon.eot?qzfrsz');
-  src:  url('fonts/notika-icon.eot?qzfrsz#iefix') format('embedded-opentype'),
-    url('fonts/notika-icon.ttf?qzfrsz') format('truetype'),
-    url('fonts/notika-icon.woff?qzfrsz') format('woff'),
-    url('fonts/notika-icon.svg?qzfrsz#notika-icon') format('svg');
+  src:  url('vendor/notika/fonts/notika-icon.eot?qzfrsz');
+  src:  url('venfor/notika/fonts/notika-icon.eot?qzfrsz#iefix') format('embedded-opentype'),
+    url('vendor/notika/fonts/notika-icon.ttf?qzfrsz') format('truetype'),
+    url('vendor/notika/fonts/notika-icon.woff?qzfrsz') format('woff'),
+    url('vendor/notika/fonts/notika-icon.svg?qzfrsz#notika-icon') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -1459,6 +1462,7 @@ ul.tab-ctn-list li:last-child{
 .alert-mg-b-0{
 	margin-bottom:0px;
 }
+
 /*----------------------------------------*/
 /*  20.  color CSS
 /*----------------------------------------*/
@@ -4713,6 +4717,9 @@ body.box-layout {
 	font-size:20px;
 	color:#333;
 }
+.breadcomb-ctn h1{
+    padding-top:10px;
+}
 .breadcomb-ctn p{
 	font-size:14px;
 	color:#333;
@@ -4724,6 +4731,7 @@ body.box-layout {
 }
 .breadcomb-report .btn{
 	background: #440bd4;
+    border-color: #440bd4;
     color: #e7e0f9;
     box-shadow: none;
     border-radius: 3px;
@@ -4731,6 +4739,7 @@ body.box-layout {
 }
 .breadcomb-report .btn:focus, .breadcomb-report .btn:active, .breadcomb-report .btn:hover{
 	background: #440bd4;
+    border-color: #440bd4;
     box-shadow: none;
     outline: none;
 }

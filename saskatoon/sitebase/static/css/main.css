@@ -25,12 +25,14 @@ html {
  */
 
 ::-moz-selection {
-    background: #440bd4;
+    background: #ff2079;
+    color: #fff;
     text-shadow: none;
 }
 
 ::selection {
-    background: #440bd4;
+    background: #ff2079;
+    color: #fff;
     text-shadow: none;
 }
 
@@ -90,26 +92,6 @@ textarea {
     color: #000;
     padding: 0.2em 0;
 }
-
-/* ==========================================================================
-   Author's custom styles
-   ========================================================================== */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* ==========================================================================
    Helper classes

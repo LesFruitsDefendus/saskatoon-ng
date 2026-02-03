@@ -3,6 +3,11 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block script %}
+<script src="{%static 'js/datetime-picker.js' %}"></script>
+<script src="{%static 'js/search-input.js' %}"></script>
+{% endblock script %}
+
 {% block content %}
 
 <div class="container-fluid">
@@ -62,32 +67,5 @@
         </div>
     </div>
 </div>
-
-
-
-<script>
-    $(document).ready(function () {
-        const url = new URL(window.location);
-        const searchInput = $('#search-input');
-
-        const currentVal = url.searchParams.get("search");
-        if(currentVal) {
-            searchInput.val(currentVal);
-        }
-
-        function search() {
-            url.searchParams.set("search", searchInput.val());
-            window.location = url;
-        }
-
-        searchInput.keydown(function (e) {
-            if (e.keyCode == 13) {
-                search();
-            }
-        });
-
-        $('#search-button').click(search);
-    });
-</script>
 
 {% endblock content %}
