@@ -2,29 +2,42 @@
 {% load i18n %}
 {% load static %}
 
-{% block map %}
-    {% include 'app/list_views/organization/map.html' %}
-{% endblock map %}
+{% block data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <details name="tab-table-map">
+      <summary role="tab" class="btn btn-primary notika-btn-primary">{% trans 'Map' %}</summary>
+      <section role="tabpanel">
+        {% include 'app/list_views/organization/map.html' %}
+       </section>
+     </details>
+    <details open name="tab-table-map">
+      <summary role="tab" class="btn btn-primary notika-btn-primary">{% trans 'Table' %}</summary>
+      <section role="tabpanel">
+        <div class="table-responsive">
+          <div class="dataTables_wrapper">
+            <table class="table table-striped datatable-minimal">
+              {% include 'app/list_views/organization/modal.html' %}
 
-{% block table %}
-
-    {% include 'app/list_views/organization/modal.html' %}
-
-    <thead>
-        <tr>
-            <th class="col-xs-1">#</th>
-            <th class="col-xs-2">{% trans "Organization" %}</th>
-            <th class="col-xs-1">{% trans "Contact" %}</th>
-            <th class="col-xs-1">{% trans "Beneficiary" %}</th>
-            <th class="col-xs-1">{% trans "Equipment" %}</th>
-            <th class="col-xs-2">{% trans "Borough" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for org in data %}
-            {% include 'app/list_views/organization/data_row.html' %}
-        {% endfor %}
-    </tbody>
-
-{% endblock table %}
-
+              <thead>
+                <tr>
+                  <th class="col-xs-1">#</th>
+                  <th class="col-xs-2">{% trans "Organization" %}</th>
+                  <th class="col-xs-1">{% trans "Contact" %}</th>
+                  <th class="col-xs-1">{% trans "Beneficiary" %}</th>
+                  <th class="col-xs-1">{% trans "Equipment" %}</th>
+                  <th class="col-xs-2">{% trans "Borough" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for org in data %}
+                  {% include 'app/list_views/organization/data_row.html' %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </details>
+  </tab-list>
+{% endblock data %}

@@ -41,6 +41,13 @@ class LeafletMap extends HTMLElement {
 		this.addEventListener("markerCreated", (event) => {
 			event.detail.addTo(this.map);
 		});
+
+		// Make sure the map resizes correctly on css changes
+		const resizeObserver = new ResizeObserver(() => {
+			this.map.invalidateSize();
+		});
+
+		resizeObserver.observe(mapRoot);
 	}
 
 	connectedCallback() {
