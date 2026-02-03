@@ -49,17 +49,8 @@
                             </div>
                         </div>
                     </div>
-                    {% block map %}
-                    {% endblock map %}
-                    <div class="table-responsive">
-                        <div class="dataTables_wrapper">
-                            <table class="table table-striped datatable-minimal">
-                                {% block table %}
-                                {% endblock table %}
-                            </table>
-                        </div>
-                    </div>
-
+                    {% block data %}
+                    {% endblock data %}
                     {% if pages_count > 1 %}
                         {% include 'app/list_views/pagination.html' %}
                     {% endif %}

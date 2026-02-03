@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-02 16:39+0000\n"
+"POT-Creation-Date: 2026-02-03 15:10+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr "Bénéficiaire"
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
-#: sitebase/templates/app/list_views/harvest/view.html:9
+#: sitebase/templates/app/list_views/harvest/view.html:11
 msgid "Harvest"
 msgstr "Récolte"
 
@@ -145,9 +145,9 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/contact.html:42
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
-#: sitebase/templates/app/list_views/equipment/view.html:17
+#: sitebase/templates/app/list_views/equipment/view.html:18
 #: sitebase/templates/app/list_views/organization/map.html:31
-#: sitebase/templates/app/list_views/organization/organizations.html:17
+#: sitebase/templates/app/list_views/organization/organizations.html:26
 msgid "Contact"
 msgstr "Contact"
 
@@ -238,14 +238,14 @@ msgstr "Calendrier"
 
 #: sitebase/templates/app/base/menu-tabs.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:14
-#: sitebase/templates/app/list_views/community/view.html:12
+#: sitebase/templates/app/list_views/community/view.html:14
 #: sitebase/templates/app/stats.html:68 sitebase/templates/app/stats.html:135
 #: sitebase/templates/app/stats.html:171 sitebase/templates/app/stats.html:210
 msgid "Harvests"
 msgstr "Récoltes"
 
 #: sitebase/templates/app/base/menu-tabs.html:12
-#: sitebase/templates/app/list_views/community/view.html:13
+#: sitebase/templates/app/list_views/community/view.html:15
 msgid "Properties"
 msgstr "Propriétés"
 
@@ -296,8 +296,8 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/harvest_table.html:50
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
-#: sitebase/templates/app/list_views/harvest/view.html:11
-#: sitebase/templates/app/list_views/property/view.html:12
+#: sitebase/templates/app/list_views/harvest/view.html:13
+#: sitebase/templates/app/list_views/property/view.html:14
 msgid "Status"
 msgstr "Statut"
 
@@ -486,7 +486,7 @@ msgstr "Téléphone"
 #: sitebase/templates/app/detail_views/organization/contact.html:66
 #: sitebase/templates/app/detail_views/property/contact.html:90
 #: sitebase/templates/app/forms/participation_manage_form.html:33
-#: sitebase/templates/app/list_views/community/view.html:15
+#: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -593,7 +593,7 @@ msgstr "Sauvegarder"
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:14
-#: sitebase/templates/app/list_views/equipment/view.html:15
+#: sitebase/templates/app/list_views/equipment/view.html:16
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -633,7 +633,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:10
 #: sitebase/templates/app/detail_views/organization/features.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:15
+#: sitebase/templates/app/list_views/harvest/view.html:17
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
@@ -710,7 +710,7 @@ msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:19
+#: sitebase/templates/app/list_views/organization/organizations.html:28
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -721,25 +721,25 @@ msgstr "Nouvel Équipement"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:25
 #: sitebase/templates/app/list_views/equipment/data_table.html:11
-#: sitebase/templates/app/list_views/equipment/view.html:12
+#: sitebase/templates/app/list_views/equipment/view.html:13
 msgid "Equipment Type"
 msgstr "Type d'Équipement"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:26
 #: sitebase/templates/app/list_views/equipment/data_table.html:12
-#: sitebase/templates/app/list_views/equipment/view.html:13
+#: sitebase/templates/app/list_views/equipment/view.html:14
 msgid "Count"
 msgstr ""
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:27
 #: sitebase/templates/app/list_views/equipment/data_table.html:13
-#: sitebase/templates/app/list_views/equipment/view.html:14
+#: sitebase/templates/app/list_views/equipment/view.html:15
 #: sitebase/templates/app/participation_list.html:19
 msgid "Description"
 msgstr "Déscription"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/organizations.html:18
+#: sitebase/templates/app/list_views/organization/organizations.html:27
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -915,8 +915,8 @@ msgid "New Harvest"
 msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
-#: sitebase/templates/app/list_views/harvest/view.html:14
-#: sitebase/templates/app/list_views/property/view.html:13
+#: sitebase/templates/app/list_views/harvest/view.html:16
+#: sitebase/templates/app/list_views/property/view.html:15
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
@@ -930,19 +930,19 @@ msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:12
-#: sitebase/templates/app/list_views/property/view.html:10
+#: sitebase/templates/app/list_views/harvest/view.html:14
+#: sitebase/templates/app/list_views/property/view.html:12
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
 msgstr "Propriété"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:15
-#: sitebase/templates/app/list_views/community/view.html:14
+#: sitebase/templates/app/list_views/community/view.html:16
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
-#: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/harvest/view.html:13
-#: sitebase/templates/app/list_views/organization/organizations.html:20
-#: sitebase/templates/app/list_views/property/view.html:11
+#: sitebase/templates/app/list_views/equipment/view.html:19
+#: sitebase/templates/app/list_views/harvest/view.html:15
+#: sitebase/templates/app/list_views/organization/organizations.html:29
+#: sitebase/templates/app/list_views/property/view.html:13
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
@@ -1030,15 +1030,15 @@ msgstr ""
 "Êtes-vous certain(e) de vouloir ré-initialiser le mot-de-passe de cet "
 "utilisateur(trice)?"
 
-#: sitebase/templates/app/list_views/community/view.html:9
+#: sitebase/templates/app/list_views/community/view.html:11
 msgid "Person"
 msgstr "Personne"
 
-#: sitebase/templates/app/list_views/community/view.html:10
+#: sitebase/templates/app/list_views/community/view.html:12
 msgid "Roles"
 msgstr "Rôles"
 
-#: sitebase/templates/app/list_views/community/view.html:11
+#: sitebase/templates/app/list_views/community/view.html:13
 msgid "Date joined"
 msgstr "Date d'inscription"
 
@@ -1047,7 +1047,7 @@ msgid "info"
 msgstr "info"
 
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
-#: sitebase/templates/app/list_views/equipment/view.html:16
+#: sitebase/templates/app/list_views/equipment/view.html:17
 #: sitebase/templates/app/participation_list.html:22
 msgid "Shared"
 msgstr "Partagé"
@@ -1064,15 +1064,15 @@ msgstr "Filtrer"
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: sitebase/templates/app/list_views/harvest/view.html:10
+#: sitebase/templates/app/list_views/harvest/view.html:12
 msgid "Date/Time"
 msgstr "Date/Heure"
 
-#: sitebase/templates/app/list_views/harvest/view.html:16
+#: sitebase/templates/app/list_views/harvest/view.html:18
 msgid "Pick Leader"
 msgstr "Chef(fe) de cueillette"
 
-#: sitebase/templates/app/list_views/harvest/view.html:17
+#: sitebase/templates/app/list_views/harvest/view.html:19
 msgid "Volunteers"
 msgstr "Bénévoles"
 
@@ -1080,7 +1080,15 @@ msgstr "Bénévoles"
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:16
+#: sitebase/templates/app/list_views/organization/organizations.html:9
+msgid "Map"
+msgstr "Carte"
+
+#: sitebase/templates/app/list_views/organization/organizations.html:15
+msgid "Table"
+msgstr "Tableau"
+
+#: sitebase/templates/app/list_views/organization/organizations.html:25
 msgid "Organization"
 msgstr "Organisation"
 
@@ -1112,15 +1120,15 @@ msgstr "non autorisée"
 msgid "inactive"
 msgstr "inactive"
 
-#: sitebase/templates/app/list_views/property/view.html:14
+#: sitebase/templates/app/list_views/property/view.html:16
 msgid "Ladder"
 msgstr "Échelle"
 
-#: sitebase/templates/app/list_views/property/view.html:15
+#: sitebase/templates/app/list_views/property/view.html:17
 msgid "Picks"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/list_views/property/view.html:16
+#: sitebase/templates/app/list_views/property/view.html:18
 msgid "Last pick"
 msgstr "Dernière récolte"
 

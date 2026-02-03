@@ -1,0 +1,53 @@
+tab-list {
+  /* Create a grid with one column per tab */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(200px, 1fr));
+  grid-template-rows: auto 1fr;
+  column-gap: 0.5rem;
+
+  /* Make each column cover the entire grid */
+  > details {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+    grid-column: 1 / -1;
+    grid-row: 1 / span 2;
+
+    &::details-content {
+      grid-row: 2; /* position in the second row */
+      grid-column: 1 / -1; /* cover all three columns */
+      padding: 1rem;
+    }
+
+    /* Make the summaries be side by side instead of one over the other */
+    > summary {
+      grid-row: 1;
+      display: grid !important;
+      padding: 1rem;
+      cursor: pointer;
+      z-index: 1;
+      margin-top: 1rem;
+
+      &:hover {
+        font-weight: bold;
+      }
+    }
+
+    &[open] {
+      > summary {
+        font-weight: bold;
+        /* doenst stop toggling with the keyboard, but that's fine */
+        pointer-events: none;
+      }
+
+      &::details-content {
+        z-index: 1;
+      }
+    }
+
+    /* Second item in second column */
+    &:nth-of-type(2) > summary {
+      grid-column: 2 / span 1;
+    }
+  }
+}
