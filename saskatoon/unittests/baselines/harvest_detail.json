@@ -291,8 +291,8 @@
                     "end_time": "07:00 PM"
                 }
             ],
-            "longitude": -73.6,
-            "latitude": 45.5
+            "latitude": 45.511693,
+            "longitude": -73.566792
         },
         {
             "actor_id": 2,
@@ -324,8 +324,8 @@
                 "en": ""
             },
             "upcoming_reservations": [],
-            "longitude": null,
-            "latitude": null
+            "latitude": 45.516465,
+            "longitude": -73.575174
         }
     ],
     "comments": [
