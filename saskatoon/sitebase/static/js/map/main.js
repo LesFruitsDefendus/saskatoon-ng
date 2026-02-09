@@ -157,7 +157,7 @@ class LeafletIcon extends HTMLElement {
 
 		this.icon = L.divIcon({
 			html: this,
-			className: "saskatoon-div-icon",
+			className: "saskatoon-map-div-icon",
 			popupAnchor,
 			iconAnchor,
 		});
