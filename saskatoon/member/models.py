@@ -14,6 +14,7 @@ from operator import attrgetter
 from phone_field import PhoneField
 from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
+from djgeojson.fields import PointField
 
 from sitebase.validators import validate_is_not_nan
 from sitebase.utils import local_today
@@ -486,19 +487,7 @@ is currenlty made available'
         on_delete=models.CASCADE,
     )
 
-    longitude = models.FloatField(
-        verbose_name=_("Longitude"),
-        null=True,
-        blank=True,
-        validators=[MinValueValidator(-180), MaxValueValidator(180), validate_is_not_nan],
-    )
-
-    latitude = models.FloatField(
-        verbose_name=_("Latitude"),
-        null=True,
-        blank=True,
-        validators=[MinValueValidator(-90), MaxValueValidator(90), validate_is_not_nan],
-    )
+    geom = PointField(null=True, blank=True)
 
     @property
     def short_address(self):
@@ -554,6 +543,14 @@ is currenlty made available'
     @property
     def upcoming_reservations(self) -> QuerySet[Harvest]:
         return self.get_harvests().filter(start_date__gte=local_today()).order_by('start_date')
+
+    @property
+    def latitude(self):
+        return self.geom['coordinates'][1]
+
+    @property
+    def longitude(self):
+        return self.geom['coordinates'][0]
 
 
 class Neighborhood(models.Model):

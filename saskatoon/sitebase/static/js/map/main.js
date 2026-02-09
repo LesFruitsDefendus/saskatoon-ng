@@ -11,7 +11,6 @@ class LeafletMap extends HTMLElement {
 	initMap(shadow) {
 		// leaflet requires a root element to bind to
 		const mapRoot = document.createElement("div");
-		mapRoot.id = "map-root";
 
 		// if no size is set, then the map wont appear
 		const styles = window.getComputedStyle(this);
@@ -89,9 +88,7 @@ class LeafletMarker extends HTMLElement {
 		}
 
 		this.marker = L.marker([latitude, longitude]);
-	}
 
-	connectedCallback() {
 		// listen for popup changes
 		this.addEventListener("popup-created", (event) => {
 			this.popup = event.target;
@@ -123,7 +120,9 @@ class LeafletMarker extends HTMLElement {
 				this.marker.setIcon(this.iconHover);
 			});
 		});
+	}
 
+	connectedCallback() {
 		// notify leaflet-map that the marker is ready
 		const markerCreated = new CustomEvent("markerCreated", {
 			bubbles: true,
@@ -174,7 +173,6 @@ class LeafletIcon extends HTMLElement {
 			bubbles: true,
 			detail: this.icon,
 		});
-
 		this.dispatchEvent(iconCreated);
 	}
 }

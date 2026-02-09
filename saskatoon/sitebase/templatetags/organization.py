@@ -1,4 +1,5 @@
 from django import template
+from logging import getLogger
 
 register = template.Library()
 
@@ -27,6 +28,9 @@ def org_filter(org, size):
         return '<i class="fa-scissors fa-solid fa-{size}"></i>'.format(size=size)
 
     return '<i class="fa-location-pin fa-solid fa-{size}"></i>'.format(size=size)
+
+
+logger = getLogger('saskatoon')
 
 
 @register.filter
