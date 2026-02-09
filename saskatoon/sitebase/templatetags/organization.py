@@ -17,7 +17,7 @@ def reservation(status: str) -> str:
 
 def org_filter(org, size):
     if org['is_beneficiary'] and org['is_equipment_point']:
-        return '<span class="fa-stack fa-{size}"><i class="fa-gift fa-solid"></i><i class="fa-scissors fa-solid"></i></span>'.format(
+        return '<span class="fa-stack fa-{size}"><i class="fa-gift fa-solid"></i><i class="fa-scissors fa-solid saskatoon-map-second-icon"></i></span>'.format(
             size=size
         )
 
@@ -35,9 +35,9 @@ logger = getLogger('saskatoon')
 
 @register.filter
 def org_icon(org) -> str:
-    return org_filter(org, 'xl')
+    return org_filter(org, 'lg')
 
 
 @register.filter
 def org_icon_hover(org) -> str:
-    return org_filter(org, '2xl')
+    return org_filter(org, 'xl')

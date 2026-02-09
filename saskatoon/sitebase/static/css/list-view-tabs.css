@@ -15,7 +15,7 @@ tab-list {
 
     &::details-content {
       grid-row: 2; /* position in the second row */
-      grid-column: 1 / -1; /* cover all three columns */
+      grid-column: 1 / -1; /* cover both columns */
       padding: 1rem;
     }
 
@@ -38,6 +38,11 @@ tab-list {
         font-weight: bold;
         /* doenst stop toggling with the keyboard, but that's fine */
         pointer-events: none;
+        color: black !important;
+        background-color: rgb(212, 199, 249) !important;
+        border-bottom: none !important;
+        box-shadow: none !important;
+
       }
 
       &::details-content {

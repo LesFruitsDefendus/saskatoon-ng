@@ -2,7 +2,11 @@ leaflet-marker {
   display: none;
 }
 
-.saskatoon-div-icon {
+.saskatoon-map-div-icon {
   text-align: center;
   line-height: 20px;
+}
+
+.saskatoon-map-second-icon {
+    margin-left: -2px;
 }
