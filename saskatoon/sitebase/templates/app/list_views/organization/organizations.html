@@ -6,13 +6,13 @@
   <tab-list role="tablist">
     <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
     <details name="tab-table-map">
-      <summary role="tab" class="btn btn-primary notika-btn-primary">{% trans 'Map' %}</summary>
-      <section role="tabpanel">
+      <summary role="tab">{% trans 'Map' %}</summary>
+      <section role="tabpanel" style="padding-top: 1em;">
         {% include 'app/list_views/organization/map.html' %}
        </section>
      </details>
     <details open name="tab-table-map">
-      <summary role="tab" class="btn btn-primary notika-btn-primary">{% trans 'Table' %}</summary>
+      <summary role="tab">{% trans 'Table' %}</summary>
       <section role="tabpanel">
         <div class="table-responsive">
           <div class="dataTables_wrapper">

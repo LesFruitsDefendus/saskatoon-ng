@@ -4,6 +4,7 @@ tab-list {
   grid-template-columns: repeat(2, minmax(200px, 1fr));
   grid-template-rows: auto 1fr;
   column-gap: 0.5rem;
+  margin-top: 1em;
 
   /* Make each column cover the entire grid */
   > details {
@@ -12,6 +13,8 @@ tab-list {
     grid-template-rows: subgrid;
     grid-column: 1 / -1;
     grid-row: 1 / span 2;
+    background-color: white;
+    gap: 0;
 
     &::details-content {
       grid-row: 2; /* position in the second row */
@@ -26,10 +29,12 @@ tab-list {
       padding: 1rem;
       cursor: pointer;
       z-index: 1;
-      margin-top: 1rem;
+      background-color: rgb(212, 199, 249);
+      color: black;
 
       &:hover {
-        font-weight: bold;
+        color: white;
+        background-color: rgb(68, 11, 212);
       }
     }
 
@@ -38,10 +43,8 @@ tab-list {
         font-weight: bold;
         /* doenst stop toggling with the keyboard, but that's fine */
         pointer-events: none;
-        color: black !important;
-        background-color: rgb(212, 199, 249) !important;
-        border-bottom: none !important;
-        box-shadow: none !important;
+        color: black;
+        background-color: white;
 
       }
 

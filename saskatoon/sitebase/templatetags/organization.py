@@ -1,5 +1,4 @@
 from django import template
-from logging import getLogger
 
 register = template.Library()
 
@@ -12,7 +11,7 @@ def reservation(status: str) -> str:
             ('reserved', '#c01c28'),
             ('available', '#007AFF'),
         ]
-    }.get(status, '#000000')
+    }.get(status, '#541493')
 
 
 def org_filter(org, size):
@@ -28,9 +27,6 @@ def org_filter(org, size):
         return '<i class="fa-scissors fa-solid fa-{size}"></i>'.format(size=size)
 
     return '<i class="fa-location-pin fa-solid fa-{size}"></i>'.format(size=size)
-
-
-logger = getLogger('saskatoon')
 
 
 @register.filter
