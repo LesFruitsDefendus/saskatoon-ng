@@ -91,7 +91,8 @@ class LeafletMarker extends HTMLElement {
 
 		// listen for popup changes
 		this.addEventListener("popup-created", (event) => {
-			this.popup = event.target;
+			this.popup = L.popup({ content: event.target, className: "saskatoon-map-popup"});
+
 			this.marker.bindPopup(this.popup);
 		});
 
