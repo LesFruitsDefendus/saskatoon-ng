@@ -1,38 +1,50 @@
-.faq-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.faq-item {
-    border-radius: 2px;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-    position: relative;
-    background:#d4c7f9;
-    padding: 1em;
-    padding-bottom: 1px;
-}
-
-.faq-question-row {
+.faq {
     display: flex;
+    flex-flow: column;
     align-items: center;
-    gap: 1em;
-    cursor: pointer;
-    color: #440bd4;
-}
 
-.faq-question {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #222;
-}
+    div > section {
+        flex-direction: column;
+    }
 
-.faq-answer {
-    color: #333;
-    font-size: 1em;
-    overflow: hidden;
-    transition: max-height 0.3s ease-out;
-    max-height: 0;
-    margin: 0.5em;
-    margin-left: 25px;
+    div > section > ul {
+        details {
+            border-radius: 2px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            background: #d4c7f9;
+            padding: 1em;
+            padding-bottom: 1px;
+            margin-bottom: 1em;
+
+            &:open summary > span:before {
+                content: "\f068";
+                font-family: "FontAwesome";
+                color: blue;
+                font-weight: normal;
+                padding-right: 0.5em;
+            }
+
+            summary {
+                padding-bottom: 0.5em;
+
+                span {
+                    font-weight: bold;
+                    font-size: 1.1em;
+
+                    &:before {
+                        content: "\2b";
+                        font-weight: bold;
+                        color: blue;
+                        font-family: "FontAwesome";
+                        padding-right: 0.5em;
+                    }
+                }
+            }
+
+            section {
+                margin: 0.5em;
+                margin-left: 25px;
+            }
+        }
+    }
 }

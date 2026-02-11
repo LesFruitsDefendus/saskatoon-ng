@@ -130,10 +130,7 @@ class FAQItem(models.Model):
     )
 
     def dict(self, lang: str) -> dict[str, str]:
-        return dict([
-            (key, getattr(self, f"{key}_{lang}"))
-            for key in ['question', 'answer']
-        ])
+        return dict([(key, getattr(self, f"{key}_{lang}")) for key in ['question', 'answer']])
 
     def __str__(self):
         return "{}[{}]".format(self.question_en, self.id)

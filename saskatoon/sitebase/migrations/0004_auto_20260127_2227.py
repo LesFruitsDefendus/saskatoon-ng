@@ -5,7 +5,6 @@ import sortedm2m.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('sitebase', '0003_auto_20250525_1152'),
     ]
@@ -14,7 +13,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='FAQItem',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('question_en', models.CharField(max_length=255, verbose_name='Question (en)')),
                 ('question_fr', models.CharField(max_length=255, verbose_name='Question (fr)')),
                 ('answer_en', models.TextField(verbose_name='Answer (en)')),
@@ -29,17 +33,41 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='pagecontent',
             name='type',
-            field=models.CharField(blank=True, choices=[('volunteer_home', 'Volunteer Home'), ('pickleader_home', 'Pickleader Home'), ('terms_conditions', 'Terms & Conditions'), ('privacy_policy', 'Privacy Policy'), ('faq', 'FAQ')], default=None, max_length=20, null=True, unique=True, verbose_name='Page type'),
+            field=models.CharField(
+                blank=True,
+                choices=[
+                    ('volunteer_home', 'Volunteer Home'),
+                    ('pickleader_home', 'Pickleader Home'),
+                    ('terms_conditions', 'Terms & Conditions'),
+                    ('privacy_policy', 'Privacy Policy'),
+                    ('faq', 'FAQ'),
+                ],
+                default=None,
+                max_length=20,
+                null=True,
+                unique=True,
+                verbose_name='Page type',
+            ),
         ),
         migrations.CreateModel(
             name='FAQList',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.AutoField(
+                        auto_created=True, primary_key=True, serialize=False, verbose_name='ID'
+                    ),
+                ),
                 ('name', models.CharField(max_length=100, verbose_name='Ref. Name')),
                 ('title_en', models.CharField(max_length=255, verbose_name='Title (en)')),
                 ('title_fr', models.CharField(max_length=255, verbose_name='Titre (fr)')),
                 ('is_active', models.BooleanField(default=True, verbose_name='Enabled')),
-                ('items', sortedm2m.fields.SortedManyToManyField(blank=True, help_text=None, to='sitebase.FAQItem', verbose_name='Items')),
+                (
+                    'items',
+                    sortedm2m.fields.SortedManyToManyField(
+                        blank=True, help_text=None, to='sitebase.FAQItem', verbose_name='Items'
+                    ),
+                ),
             ],
             options={
                 'verbose_name': 'FAQ List',

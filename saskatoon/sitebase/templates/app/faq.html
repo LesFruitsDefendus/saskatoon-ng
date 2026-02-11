@@ -6,47 +6,37 @@
 <link rel="stylesheet" href="{% static 'css/faq-list.css' %}">
 {% endblock style %}
 
-{% block script %}
-<script src="{% static 'js/faq-list.js' %}"></script>
-{% endblock script %}
-
 {% block content %}
-    <div style="display: flex; flex-flow: column; align-items: center;">
+    <div class="faq">
         <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-            <div class="wb-traffic-inner mg-b-15">
+            <header class="wb-traffic-inner mg-b-15">
                 <div class="breadcomb-icon">
                     <i class="notika-icon notika-search"></i>
                 </div>
                 <div class="breadcomb-ctn">
                     <h1>{% trans "Frequently Asked Questions" %}</h1>
                 </div>
-            </div>
+            </header>
 
             {% for faq in FAQs %}
-                <div class="wb-traffic-inner mg-b-15"
-                     style="display: flex;
-                            flex-direction: column;
-                            gap: 1em">
+                <section class="wb-traffic-inner mg-b-15">
                     <h4>{{faq.title | safe}}</h4>
-                    <ul class="faq-list">
+                    <ul>
                         {% for item in faq.items %}
                         <li>
-                            <div class="faq-item">
-                                <div class="faq-question-row">
-                                    <i class="fa fa-plus"></i>
-                                    <span class="faq-question">{{item.question | safe}}</span>
-                                </div>
-                                <div class="faq-answer">
+                            <details>
+                                <summary>
+                                    <span>{{item.question | safe}}</span>
+                                </summary>
+                                <section>
                                     {{item.answer | safe}}
-                                </div>
-                            </div>
+                                </section>
+                            </details>
                         </li>
-                        <br>
                         {% endfor %}
                     </ul>
-                </div>
+                </section>
             {% endfor %}
-
         </div>
     </div>
 {% endblock content %}

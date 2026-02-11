@@ -64,7 +64,7 @@ class FAQView(TemplateView):
             context['FAQs'] = [
                 {
                     'title': getattr(faq, f"title_{lang}"),
-                    'items': [item.dict(lang) for item in faq.items.all()]
+                    'items': [item.dict(lang) for item in faq.items.all()],
                 }
                 for faq in faqs
             ]
