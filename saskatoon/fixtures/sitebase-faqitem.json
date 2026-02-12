@@ -184,7 +184,7 @@
   "pk": 19,
   "fields": {
     "question_en": "Do you offer tree care?",
-    "question_fr": ". Offrez-vous des services d'entretien des arbres ?",
+    "question_fr": "Offrez-vous des services d'entretien des arbres ?",
     "answer_en": "No, but here are some guides <a target=\"_blank\" href=\"https://www.treesaregood.org/treeowner/pruningyourtrees\">on pruning trees.</a>",
     "answer_fr": "Non, mais voici des <a target=\"_blank\"  href=\"https://www.treesaregood.org/treeowner/french\">ressources sur l'élagage des arbres.</a>"
   }
