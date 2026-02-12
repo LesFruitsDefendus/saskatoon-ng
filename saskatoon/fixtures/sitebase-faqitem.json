@@ -5,8 +5,8 @@
   "fields": {
     "question_en": "How can I join a pick?",
     "question_fr": "Comment puis-je me joindre à une cueillette ?",
-    "answer_en": "Head over to our Harvest Calendar to check out upcoming picks and sign up for one that interests you. Please note that signing up for a harvest does not automatically reserve you a place on the pick. Spots are limited and fill up fast so only those that receive a confirmation email from the harvest’s Pick leader will be asked to participate in the harvest. Our Calendar",
-    "answer_fr": "Rendez-vous sur notre Calendrier des récoltes pour voir les prochaines cueillettes et inscrivez-vous à celle qui vous intéresse. Veuillez noter que le fait de vous inscrire pour une récolte ne vous réserve pas automatiquement une place. Les places sont limitées et se remplissent rapidement, seuls ceux qui reçoivent un courriel de confirmation du responsable de la cueillette de la récolte seront invités à participer à la récolte. Notre calendrier"
+    "answer_en": "Head over to our Harvest Calendar to check out upcoming picks and sign up for one that interests you. Please note that signing up for a harvest does not automatically reserve you a place on the pick. Spots are limited and fill up fast so only those that receive a confirmation email from the harvest’s Pick leader will be asked to participate in the harvest. <a target=\"_blank\"  href=\"/calendar\">Our Calendar</a>",
+    "answer_fr": "Rendez-vous sur notre Calendrier des récoltes pour voir les prochaines cueillettes et inscrivez-vous à celle qui vous intéresse. Veuillez noter que le fait de vous inscrire pour une récolte ne vous réserve pas automatiquement une place. Les places sont limitées et se remplissent rapidement, seuls ceux qui reçoivent un courriel de confirmation du responsable de la cueillette de la récolte seront invités à participer à la récolte. <a target=\"_blank\"  href=\"/calendar\">Notre calendrier</a>"
   }
 },
 {
@@ -45,8 +45,8 @@
   "fields": {
     "question_en": "I try to sign up for picks, but they fill up too fast. What can I do?",
     "question_fr": "J'essaie de m'inscrire à des cueillettes, mais elles se remplissent trop vite. Qu'est-ce que je peux faire ?",
-    "answer_en": "Unfortunately, there are limited spots available for each pick and they tend to fill up fast! Last minute picks are also posted on Facebook so we suggest liking our page in order to learn about new opportunities. Insider tip: the surest way to secure a spot on a pick is to become a Pick Leader! Email us at <a href='mailto:info@lesfruitsdefendus.org'>info@lesfruitsdefendus.org</a> to learn more.",
-    "answer_fr": "Malheureusement, il y a peu de places disponibles pour chaque cueillette et elles ont tendance à se remplir rapidement ! Les cueillettes de dernière minute sont également affichés sur Facebook, alors nous vous suggérons d'aimer notre page afin d'en apprendre davantage sur les nouvelles occasions. Conseil de spécialiste : la façon la plus sûre d'obtenir une place lors d'une cueillette est de devenir un/une chef.fe de cueillette ! Envoyez-nous un courriel à <a href='mailto:info@lesfruitsdefendus.org'>info@lesfruitsdefendus.org</a> pour en savoir plus."
+    "answer_en": "Unfortunately, there are limited spots available for each pick and they tend to fill up fast! Last minute picks are also posted on Facebook so we suggest liking our page in order to learn about new opportunities. Insider tip: the surest way to secure a spot on a pick is to become a Pick Leader! Email us at <a href=\"mailto:info@lesfruitsdefendus.org\">info@lesfruitsdefendus.org</a> to learn more.",
+    "answer_fr": "Malheureusement, il y a peu de places disponibles pour chaque cueillette et elles ont tendance à se remplir rapidement ! Les cueillettes de dernière minute sont également affichés sur Facebook, alors nous vous suggérons d'aimer notre page afin d'en apprendre davantage sur les nouvelles occasions. Conseil de spécialiste : la façon la plus sûre d'obtenir une place lors d'une cueillette est de devenir un/une chef.fe de cueillette ! Envoyez-nous un courriel à <a href=\"mailto:info@lesfruitsdefendus.org\">info@lesfruitsdefendus.org</a> pour en savoir plus."
   }
 },
 {
@@ -105,8 +105,8 @@
   "fields": {
     "question_en": "How do I sign up my fruit tree to Les Fruit Défendus?",
     "question_fr": "Comment puis-je inscrire mon arbre fruitier aux Fruit defendus ?",
-    "answer_en": "Thank you for wanting to share your fruit with our volunteers and local community organizations! To register your tree, <a target=\"_blank\" href=\"https://saskatoon.lesfruitsdefendus.org/harvest/properties/create_pending\">fill out this form</a>. Please note that registering your tree does not guarantee that it will be harvested. We rely on volunteers to pick fruit and their availability during the season determines the number of trees that are harvested.",
-    "answer_fr": "Merci de vouloir partager vos fruits avec nos bénévoles et les organismes communautaires locaux ! Pour enregistrer votre arbre, <a target=\"_blank\" href=\"https://saskatoon.lesfruitsdefendus.org/harvest/properties/create_pending\">remplissez ce formulaire</a>. Veuillez noter que l'enregistrement de votre arbre ne garantit pas qu'il sera récolté. Nous comptons sur les bénévoles pour cueillir les fruits et leur disponibilité pendant la saison détermine le nombre d'arbres récoltés."
+    "answer_en": "Thank you for wanting to share your fruit with our volunteers and local community organizations! To register your tree, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">fill out this form</a>. Please note that registering your tree does not guarantee that it will be harvested. We rely on volunteers to pick fruit and their availability during the season determines the number of trees that are harvested.",
+    "answer_fr": "Merci de vouloir partager vos fruits avec nos bénévoles et les organismes communautaires locaux ! Pour enregistrer votre arbre, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">remplissez ce formulaire</a>. Veuillez noter que l'enregistrement de votre arbre ne garantit pas qu'il sera récolté. Nous comptons sur les bénévoles pour cueillir les fruits et leur disponibilité pendant la saison détermine le nombre d'arbres récoltés."
   }
 },
 {
@@ -115,8 +115,8 @@
   "fields": {
     "question_en": "Do you accept all trees, from anywhere in the city?",
     "question_fr": "Acceptez-vous tous les arbres, de n'importe où dans la ville ?",
-    "answer_en": "We accept all fruit-bearing trees (and bushes and vines, too!) throughout the city of Montreal. It is important to note that for the safety of our volunteers, our ladders limit how far our pickers can reach. If most of your fruit grows higher than this, we may not be very helpful in harvesting your fruit. If you’re unsure whether the fruit is reachable, <a target=\"_blank\" href=\"https://saskatoon.lesfruitsdefendus.org/harvest/properties/create_pending\">fill out this form</a>, send us pictures to assess the tree accessibility, we will check it out.",
-    "answer_fr": "Nous acceptons tous les arbres fruitiers (ainsi que les buissons et les vignes !) de la ville de Montréal. Il est important de noter que pour la sécurité de nos bénévoles, nos échelles limitent la portée de nos cueilleurs. Si la plupart de vos fruits poussent trop haut, il se peut que nous ne soyons pas très utiles pour la récolte de vos fruits. Si vous n'êtes pas sûr que le fruit soit accessible, <a target=\"_blank\" href=\"https://saskatoon.lesfruitsdefendus.org/harvest/properties/create_pending\">remplissez ce formulaire</a> et envoyez-nous des photos pour évaluer l'accessibilité de l'arbre, nous le vérifierons."
+    "answer_en": "We accept all fruit-bearing trees (and bushes and vines, too!) throughout the city of Montreal. It is important to note that for the safety of our volunteers, our ladders limit how far our pickers can reach. If most of your fruit grows higher than this, we may not be very helpful in harvesting your fruit. If you’re unsure whether the fruit is reachable, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">fill out this form</a>, send us pictures to assess the tree accessibility, we will check it out.",
+    "answer_fr": "Nous acceptons tous les arbres fruitiers (ainsi que les buissons et les vignes !) de la ville de Montréal. Il est important de noter que pour la sécurité de nos bénévoles, nos échelles limitent la portée de nos cueilleurs. Si la plupart de vos fruits poussent trop haut, il se peut que nous ne soyons pas très utiles pour la récolte de vos fruits. Si vous n'êtes pas sûr que le fruit soit accessible, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">remplissez ce formulaire</a> et envoyez-nous des photos pour évaluer l'accessibilité de l'arbre, nous le vérifierons."
   }
 },
 {
@@ -185,8 +185,8 @@
   "fields": {
     "question_en": "Do you offer tree care?",
     "question_fr": ". Offrez-vous des services d'entretien des arbres ?",
-    "answer_en": "No, but here’s a guide on pruning trees.",
-    "answer_fr": "Non, mais voici un guide sur l'élagage des arbres."
+    "answer_en": "No, but here are some guides <a target=\"_blank\" href=\"https://www.treesaregood.org/treeowner/pruningyourtrees\">on pruning trees.</a>",
+    "answer_fr": "Non, mais voici des <a target=\"_blank\"  href=\"https://www.treesaregood.org/treeowner/french\">ressources sur l'élagage des arbres.</a>"
   }
 },
 {
