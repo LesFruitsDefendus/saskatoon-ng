@@ -44,6 +44,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         """Beneficiairies list view"""
 
         self.template_name = 'app/list_views/organization/organizations.html'
+        self.queryset = Organization.objects.filter(is_beneficiary=True).order_by('-actor_id')
         response = super().list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return response
@@ -64,6 +65,46 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
                 },
             }
         )
+
+
+class OrganizationMapView(LoginRequiredMixin, generics.ListAPIView[Organization]):
+    """List view for organizations that are equipment points."""
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.filter(is_beneficiary=True).order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
+    filterset_class = OrganizationFilter
+    template_name = 'app/list_views/organization/map.html'
+    pagination_class = None
+    search_fields = [
+        'actor_id',
+        'civil_name',
+        'contact_person__first_name',
+        'contact_person__family_name',
+        'contact_person__auth_user__email',
+    ]
+
+    def list(self, request, *args, **kwargs):
+        """Beneficiary map view."""
+
+        response = super().list(request, *args, **kwargs)
+
+        if renderer_format_needs_json_response(request):
+            return response
+
+        context = {
+            'data': response.data,
+            'filter': get_filter_context(self, 'equipment-point'),
+        }
+
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy('organization-create'),
+                'title': _("New Organization"),
+            }
+
+        return Response(context)
 
 
 class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
@@ -87,11 +128,58 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
         """Equipment Points list view."""
 
         response = super().list(request, *args, **kwargs)
+
         if renderer_format_needs_json_response(request):
             return response
 
         context = {
             'data': response.data["results"],
+            'filter': get_filter_context(self, 'equipment-point'),
+        }
+
+        # NOTE: Creation of a new Equipment Point is currently only
+        # supported in the admin panel due to the Equipment inline form
+        # not having yet been implemented. The `New Organization` button
+        # is restricted to Core or Admin members and simply links to the
+        # Admin creation form. Change the `url` once Equipment Point
+        # creation can be done with a conventional view.
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy('admin:member_organization_add'),
+                'title': _("New Organization"),
+            }
+
+        return Response(context)
+
+
+class EquipmentPointMapView(LoginRequiredMixin, generics.ListAPIView[Organization]):
+    """List view for organizations that are equipment points."""
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
+    filterset_class = EquipmentPointFilter
+    template_name = 'app/list_views/organization/map.html'
+    pagination_class = None
+    search_fields = [
+        'actor_id',
+        'civil_name',
+        'contact_person__first_name',
+        'contact_person__family_name',
+        'contact_person__auth_user__email',
+    ]
+
+    def list(self, request, *args, **kwargs):
+        """Equipment Points map view."""
+
+        response = super().list(request, *args, **kwargs)
+
+        if renderer_format_needs_json_response(request):
+            return response
+
+        context = {
+            'data': response.data,
             'filter': get_filter_context(self, 'equipment-point'),
         }
 

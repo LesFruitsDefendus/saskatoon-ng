@@ -14,6 +14,17 @@ urlpatterns = [
         api.EquipmentPointListView.as_view(),
         name='equipment-point-list',
     ),
+    # MAP VIEWS
+    path(
+        'organization/map',
+        api.OrganizationMapView.as_view(),
+        name='organization-map',
+    ),
+    path(
+        'equipment-point/map',
+        api.EquipmentPointMapView.as_view(),
+        name='equipment-point-map',
+    ),
     # CREATE VIEWS
     path('person/create/', views.PersonCreateView.as_view(), name='person-create'),
     path(
