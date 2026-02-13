@@ -3,6 +3,10 @@
     flex-flow: column;
     align-items: center;
 
+    h4 {
+        margin-bottom: 1em;
+    }
+
     div > section {
         flex-direction: column;
     }
@@ -13,37 +17,44 @@
             box-shadow: 0 1px 4px rgba(0,0,0,0.2);
             background: #d4c7f9;
             padding: 1em;
-            padding-bottom: 1px;
+            padding-bottom: 0.3em;
             margin-bottom: 1em;
 
+            /* - */
             &:open summary > span:before {
                 content: "\f068";
+                vertical-align: middle;
                 font-family: "FontAwesome";
-                color: blue;
-                font-weight: normal;
-                padding-right: 0.5em;
+                font-size: 12px;
+                font-weight: bold;
+                color: #440bd4;
+                padding-right: 1em;
             }
 
             summary {
                 padding-bottom: 0.5em;
 
                 span {
+                    cursor: pointer;
                     font-weight: bold;
                     font-size: 1.1em;
 
+                    /* + */
                     &:before {
                         content: "\2b";
-                        font-weight: bold;
-                        color: blue;
+                        vertical-align: text-top;
                         font-family: "FontAwesome";
-                        padding-right: 0.5em;
+                        font-size: 12px;
+                        font-weight: bold;
+                        color: #440bd4;
+                        padding-right: 1em;
                     }
                 }
             }
 
             section {
-                margin: 0.5em;
-                margin-left: 25px;
+                margin-bottom: 0.5em;
+                margin-left: 1.55em;
             }
         }
     }
