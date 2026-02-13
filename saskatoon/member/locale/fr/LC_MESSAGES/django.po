@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-09 08:33+0000\n"
+"POT-Creation-Date: 2026-02-13 18:38+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,11 +31,11 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: member/api.py:63 member/api.py:107
+#: member/api.py:64 member/api.py:104 member/api.py:149 member/api.py:195
 msgid "New Organization"
 msgstr "Nouvel organisme"
 
-#: member/api.py:144
+#: member/api.py:232
 msgid "New Person"
 msgstr "Nouvelle personne"
 

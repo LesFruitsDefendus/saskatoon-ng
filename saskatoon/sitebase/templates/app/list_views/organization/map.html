@@ -1,48 +1,67 @@
+{% extends 'app/list_views/base.html' %}
 {% load i18n %}
 {% load static %}
 {% load organization %}
 
-<script type="module">import "{% static 'js/map/main.js' %}"</script>
-<leaflet-map style="height: 60vh;">
-    {% for org in data %}
-         <leaflet-marker
-             latitude="{{ org.latitude }}"
-             longitude="{{ org.longitude }}"
-         >
-            <leaflet-icon style="color: {{ filter.form.status.value | reservation }};">
-              {{ org | org_icon | safe }}
-            </leaflet-icon>
-            <leaflet-icon
-              style="color: {{ filter.form.status.value | reservation }};"
-              class="leaflet-hover-icon"
-              popup-anchor="10 -5"
-              icon-anchor="1 1"
-            >
-              {{  org | org_icon_hover | safe }}
-            </leaflet-icon>
-            <leaflet-popup>
-              <h3>
-                <a href="{% url 'organization-detail' org.actor_id %}">
-                  {{ org.civil_name }}
-                </a>
-              </h3>
-              <p>{{ org.description }}</p>
-              <p>{{ org.short_address }}</p>
-              <p>{% trans "Contact" %} {{ org.contact_person.name }}</p>
-              <address>
-                <p>
-                  {% if org.contact_person.phone is not None %}
-                    {{ org.contact_person.phone }}
-                    </br>
-                 {% endif %}
-                  {% if org.contact_person.email is not None %}
-                    <a href="mailto:{{ org.contact_person.email }}">
-                      {{ org.contact_person.email }}
-                    </a>
-                  {% endif %}
-                </p>
-            </address>
-          </leaflet-popup>
-        </leaflet-marker>
-    {% endfor %}
-</leaflet-map>
+{% block data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <script defer src="/static/js/list-view-tabs.js"></script>
+      <nav>
+        <span role="tab" id="map-tab">{% trans 'Map' %}</span>
+        <a role="tab"href="." rel="keep-params">{% trans 'Table' %}</a>
+      </nav>
+      <section
+        role="tabpanel"
+        style="padding-top: 1em;"
+        aria-labelledby="map-tab"
+      >
+        <script type="module">import "{% static 'js/map/main.js' %}"</script>
+        <leaflet-map style="height: 60vh;">
+            {% for org in data %}
+                 <leaflet-marker
+                     latitude="{{ org.latitude }}"
+                     longitude="{{ org.longitude }}"
+                 >
+                    <leaflet-icon
+                      style="color: {{ filter.form.status.value | reservation }};"
+                    >
+                      {{ org | org_icon | safe }}
+                    </leaflet-icon>
+                    <leaflet-icon
+                      style="color: {{ filter.form.status.value | reservation }};"
+                      class="leaflet-hover-icon"
+                      popup-anchor="10 -5"
+                      icon-anchor="1 1"
+                    >
+                      {{  org | org_icon_hover | safe }}
+                    </leaflet-icon>
+                    <leaflet-popup>
+                      <h3>
+                        <a href="{% url 'organization-detail' org.actor_id %}">
+                          {{ org.civil_name }}
+                        </a>
+                      </h3>
+                      <p>{{ org.description }}</p>
+                      <p>{{ org.short_address }}</p>
+                      <p>{% trans "Contact" %} {{ org.contact_person.name }}</p>
+                      <address>
+                        <p>
+                          {% if org.contact_person.phone is not None %}
+                            {{ org.contact_person.phone }}
+                            </br>
+                         {% endif %}
+                          {% if org.contact_person.email is not None %}
+                            <a href="mailto:{{ org.contact_person.email }}">
+                              {{ org.contact_person.email }}
+                            </a>
+                          {% endif %}
+                        </p>
+                    </address>
+                  </leaflet-popup>
+                </leaflet-marker>
+            {% endfor %}
+        </leaflet-map>
+    </section>
+  </tab-list>
+{% endblock data %}
