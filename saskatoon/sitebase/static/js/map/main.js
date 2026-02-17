@@ -6,9 +6,40 @@ function getAttributeValue(el, attr, defaultVal) {
 }
 
 class LeafletMap extends HTMLElement {
-	map = null;
+	constructor() {
+		super();
+		this.map = null;
+		this.markerBuffer = [];
+		this.markerCluster = null;
 
-	initMap(shadow) {
+		const shadow = this.attachShadow({ mode: "open" });
+
+		// styles are sandboxed in web components
+		const leaflet = this.makeLinkNode("/static/js/map/leaflet.css");
+		const leafletClusterLink = this.makeLinkNode(
+			"/static/js/vendor/leaflet.markercluster-1.4.1/MarkerCluster.css",
+		);
+		const leafletClusterDefault = this.makeLinkNode(
+			"/static/js/vendor/leaflet.markercluster-1.4.1/MarkerCluster.Default.css",
+		);
+		const fontAwesome = this.makeLinkNode(
+			"/static/css/fontawesome/font-awesome.min.css",
+		);
+		const style = this.makeLinkNode("/static/js/map/style.css");
+
+		const leafletCluster = this.makeScriptNode(
+			"/static/js/vendor/leaflet.markercluster-1.4.1/leaflet.markercluster.js",
+		);
+
+		shadow.append(
+			leaflet,
+			fontAwesome,
+			style,
+			leafletCluster,
+			leafletClusterDefault,
+			leafletClusterLink,
+		);
+
 		// leaflet requires a root element to bind to
 		const mapRoot = document.createElement("div");
 
@@ -31,36 +62,45 @@ class LeafletMap extends HTMLElement {
 
 		// Hardcode location of montreal for now, zooming out should stop if it can contain
 		// the whole island
-		this.map = L.map(mapRoot, {
+		const map = L.map(mapRoot, {
 			minZoom: 9,
 		})
 			.addLayer(layer)
 			.setView([45.5088, -73.5617], 13);
 
+		let markerCluster = null;
+		let markerBuffer = [];
+		leafletCluster.addEventListener("load", () => {
+			markerCluster = L.markerClusterGroup();
+			markerCluster.addLayers(markerBuffer);
+			map.addLayer(markerCluster);
+
+			// clear memory
+			markerBuffer = [];
+		});
+
 		this.addEventListener("markerCreated", (event) => {
-			event.detail.addTo(this.map);
+			if (markerCluster === null) {
+				markerBuffer.push(event.detail);
+			} else {
+				markerCluster.addLayer(event.detail);
+			}
 		});
 
 		// Make sure the map resizes correctly on css changes
 		const resizeObserver = new ResizeObserver(() => {
-			this.map.invalidateSize();
+			map.invalidateSize();
 		});
 
 		resizeObserver.observe(mapRoot);
 	}
 
-	connectedCallback() {
-		const shadow = this.attachShadow({ mode: "open" });
+	makeScriptNode(src) {
+		const js = document.createElement("script");
+		js.src = src;
+		js.defer = true;
 
-		// styles are sandboxed in web components
-		const leaflet = this.makeLinkNode("/static/js/map/leaflet.css");
-		const fontAwesome = this.makeLinkNode(
-			"/static/css/fontawesome/font-awesome.min.css",
-		);
-		const style = this.makeLinkNode("/static/js/map/style.css");
-
-		shadow.append(leaflet, fontAwesome, style);
-		this.initMap(shadow);
+		return js;
 	}
 
 	makeLinkNode(href) {
@@ -77,6 +117,7 @@ class LeafletMarker extends HTMLElement {
 	icon = null;
 	iconHover = null;
 	popup = null;
+	tooltip = null;
 
 	constructor() {
 		super();
@@ -91,9 +132,26 @@ class LeafletMarker extends HTMLElement {
 
 		// listen for popup changes
 		this.addEventListener("popup-created", (event) => {
-			this.popup = L.popup({ content: event.target, className: "saskatoon-map-popup"});
+			this.popup = L.popup({
+				content: event.target,
+				className: "saskatoon-map-popup",
+			});
 
 			this.marker.bindPopup(this.popup);
+		});
+
+		// listen for tooltip changes
+		this.addEventListener("tooltip-created", (event) => {
+			this.tooltip = event.detail;
+
+			this.marker.bindTooltip(this.tooltip);
+
+			// The tooltip can still open when the popup is open
+			this.marker.addEventListener("tooltipopen", (_) => {
+				if (this.marker.isPopupOpen()) {
+					this.tooltip.close();
+				}
+			});
 		});
 
 		// listen for icon changes and setup mouse events
@@ -189,7 +247,26 @@ class LeafletPopup extends HTMLElement {
 	}
 }
 
+// notify leaflet-marker that the tooltip is ready
+class LeafletTooltip extends HTMLElement {
+	connectedCallback() {
+		const direction = getAttributeValue(this, "direction", "auto");
+		const tooltip = L.tooltip({
+			content: this,
+			direction: direction,
+		});
+
+		const tooltipCreated = new CustomEvent("tooltip-created", {
+			bubbles: true,
+			detail: tooltip,
+		});
+
+		this.dispatchEvent(tooltipCreated);
+	}
+}
+
 customElements.define("leaflet-map", LeafletMap);
 customElements.define("leaflet-marker", LeafletMarker);
 customElements.define("leaflet-icon", LeafletIcon);
 customElements.define("leaflet-popup", LeafletPopup);
+customElements.define("leaflet-tooltip", LeafletTooltip);
