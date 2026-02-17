@@ -8,38 +8,38 @@ tab-list {
 	nav {
 		display: flex;
 	}
-}
 
-[role="tab"] {
-	display: inline-block;
-	padding: 1em;
-	width: 50%;
-	text-align: center;
+	[role="tab"] {
+		display: inline-block;
+		padding: 1em;
+		width: 50%;
+		text-align: center;
 
-	&:first-child {
-		margin-left: -1em;
-		border-top-left-radius: 2px;
+		&:first-child {
+			margin-left: -1em;
+			border-top-left-radius: 2px;
+		}
+
+		&:last-child {
+			margin-left: auto;
+			margin-right: -1em;
+			border-top-right-radius: 2px;
+		}
 	}
 
-	&:last-child {
-		margin-left: auto;
-		margin-right: -1em;
-		border-top-right-radius: 2px;
+	a[role="tab"] {
+		background-color: rgb(212, 199, 249);
+		color: black;
+
+		&:hover {
+			color: white;
+			background-color: rgb(68, 11, 212);
+		}
 	}
-}
 
-a[role="tab"] {
-	background-color: rgb(212, 199, 249);
-	color: black;
-
-	&:hover {
-		color: white;
-		background-color: rgb(68, 11, 212);
+	span[role="tab"] {
+		font-weight: bold;
+		color: black;
+		background-color: white;
 	}
-}
-
-span[role="tab"] {
-	font-weight: bold;
-	color: black;
-	background-color: white;
 }

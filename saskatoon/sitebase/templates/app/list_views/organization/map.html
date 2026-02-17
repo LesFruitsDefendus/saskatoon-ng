@@ -23,6 +23,7 @@
                      latitude="{{ org.latitude }}"
                      longitude="{{ org.longitude }}"
                  >
+                    <leaflet-tooltip direction="top">{{ org.civil_name }}</leaflet-tooltip>
                     <leaflet-icon
                       style="color: {{ filter.form.status.value | reservation }};"
                     >

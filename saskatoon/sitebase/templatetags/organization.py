@@ -11,7 +11,7 @@ def reservation(status: Optional[str]) -> str:
     default = '#541493'
 
     if status is None:
-      return default
+        return default
 
     return {
         t[0]: t[1]
