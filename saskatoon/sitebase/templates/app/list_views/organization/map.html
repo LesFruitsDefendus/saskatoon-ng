@@ -44,32 +44,10 @@
                         </a>
                       </h3>
                       <p>{{ org.description }}</p>
-                      <ul class="fa-ul">
-                      	<li>
-                      	  <span class="fa-li">
-                             {% if org.is_beneficiary %}
-                                 <i class="fa fa-check saskatoon-map-success"></i>
-                             </span>
-                                 <a href="">{% trans 'Accepts fruit donations' %} <i class="fa fa-external-link"></i></a>
-                             {% else %}
-                                 <i class="fa fa-times text-danger"></i>
-                             </span>
-                                 {% trans 'Does not accept fruit donations' %}
-                             {% endif %}
-                           </li>
-                      	<li>
-                      	  <span class="fa-li">
-                             {% if org.is_equipment_point %}
-                                 <i class="fa fa-check saskatoon-map-success"></i>
-                             </span>
-                                 <a href="">{% trans 'See equipment list' %}<i class="fa fa-external-link"></i></a>
-                             {% else %}
-                                 <i class="fa fa-times text-danger"></i>
-                             </span>
-                                 {% trans 'Is not an equipment point' %}
-                             {% endif %}
-                           </li>
-                      </ul>
+                      <div class="btn-group" role="group" aria-label="{% trans 'Extra details' %}">
+                      	    {% include 'app/list_views/organization/beneficiary_modal.html' %}
+                               {% include 'app/list_views/organization/equipment_modal.html' %}
+                       </div>
                       <h4 class="mb-0">{% trans "Contact" %}</h4>
                       <address>
                           {{ org.contact_person.name }}
