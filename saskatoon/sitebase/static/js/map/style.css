@@ -1,3 +1,7 @@
+#leaflet-container {
+	min-height: 400px;
+}
+
 leaflet-marker {
 	display: none;
 }
@@ -9,4 +13,12 @@ leaflet-marker {
 
 .saskatoon-map-second-icon {
 	margin-left: -2px;
+}
+
+.saskatoon-map-success {
+	color: #007AFF;
+}
+
+.saskatoon-map-danger {
+	color: #c01c28;
 }
