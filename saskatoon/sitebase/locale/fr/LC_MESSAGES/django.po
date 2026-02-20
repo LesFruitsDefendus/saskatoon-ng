@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-17 07:44+0000\n"
+"POT-Creation-Date: 2026-02-20 09:49+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,8 +146,8 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:48
-#: sitebase/templates/app/list_views/organization/organizations.html:25
+#: sitebase/templates/app/list_views/organization/map.html:73
+#: sitebase/templates/app/list_views/organization/organizations.html:24
 msgid "Contact"
 msgstr "Contact"
 
@@ -710,7 +710,7 @@ msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:27
+#: sitebase/templates/app/list_views/organization/organizations.html:26
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -739,7 +739,7 @@ msgid "Description"
 msgstr "Déscription"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/organizations.html:26
+#: sitebase/templates/app/list_views/organization/organizations.html:25
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -941,7 +941,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:15
-#: sitebase/templates/app/list_views/organization/organizations.html:28
+#: sitebase/templates/app/list_views/organization/organizations.html:27
 #: sitebase/templates/app/list_views/property/view.html:13
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
@@ -1076,8 +1076,14 @@ msgstr "Chef(fe) de cueillette"
 msgid "Volunteers"
 msgstr "Bénévoles"
 
-#: sitebase/templates/app/list_views/organization/data_row.html:65
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:8
 msgid "This organization accepts fruit donations"
+msgstr "Cet organisme accepte les dons de fruits"
+
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:8
+#, fuzzy
+#| msgid "This organization accepts fruit donations"
+msgid "This organization is an equipment point"
 msgstr "Cet organisme accepte les dons de fruits"
 
 #: sitebase/templates/app/list_views/organization/map.html:11
@@ -1090,7 +1096,31 @@ msgstr "Carte"
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:24
+#: sitebase/templates/app/list_views/organization/map.html:53
+#, fuzzy
+#| msgid "This organization accepts fruit donations"
+msgid "Accepts fruit donations"
+msgstr "Cet organisme accepte les dons de fruits"
+
+#: sitebase/templates/app/list_views/organization/map.html:57
+#, fuzzy
+#| msgid "This organization accepts fruit donations"
+msgid "Does not accept fruit donations"
+msgstr "Cet organisme accepte les dons de fruits"
+
+#: sitebase/templates/app/list_views/organization/map.html:65
+#, fuzzy
+#| msgid "Equipment Point"
+msgid "See equipment list"
+msgstr "Point d'Équipement"
+
+#: sitebase/templates/app/list_views/organization/map.html:69
+#, fuzzy
+#| msgid "Equipment points"
+msgid "Is not an equipment point"
+msgstr "Points d'Equipement"
+
+#: sitebase/templates/app/list_views/organization/organizations.html:23
 msgid "Organization"
 msgstr "Organisation"
 

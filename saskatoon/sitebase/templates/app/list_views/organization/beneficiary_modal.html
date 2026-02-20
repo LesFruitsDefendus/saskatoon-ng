@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load static %}
+
+{% if org.is_beneficiary %}
+    {% if org.beneficiary_description %}
+        <dialog closedby="any" id="{{org.actor_id}}-beneficiary-dialog">
+            <h2>{{org.civil_name}}</br></h2>
+            <p>{% trans 'This organization accepts fruit donations' %}</p>
+            <blockquote>{{org.beneficiary_description}}</blockquote>
+        </dialog>
+        <button
+            commandFor="{{org.actor_id}}-beneficiary-dialog"
+            command="show-modal"
+            class="btn"
+        >
+            <i class="fa fa-check" style="color: #007AFF;"></i>
+            Beneficiary
+        </button>
+    {% endif %}
+{% else %}
+    <i class="fa fa-times text-danger"></i>
+{% endif %}

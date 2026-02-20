@@ -40,14 +40,42 @@
                     <leaflet-popup>
                       <h3>
                         <a href="{% url 'organization-detail' org.actor_id %}">
-                          {{ org.civil_name }}
+                          {{ org.civil_name }} <i class="fa fa-external-link"></i>
                         </a>
                       </h3>
                       <p>{{ org.description }}</p>
-                      <p>{{ org.short_address }}</p>
-                      <p>{% trans "Contact" %} {{ org.contact_person.name }}</p>
+                      <ul class="fa-ul">
+                      	<li>
+                      	  <span class="fa-li">
+                             {% if org.is_beneficiary %}
+                                 <i class="fa fa-check saskatoon-map-success"></i>
+                             </span>
+                                 <a href="">{% trans 'Accepts fruit donations' %} <i class="fa fa-external-link"></i></a>
+                             {% else %}
+                                 <i class="fa fa-times text-danger"></i>
+                             </span>
+                                 {% trans 'Does not accept fruit donations' %}
+                             {% endif %}
+                           </li>
+                      	<li>
+                      	  <span class="fa-li">
+                             {% if org.is_equipment_point %}
+                                 <i class="fa fa-check saskatoon-map-success"></i>
+                             </span>
+                                 <a href="">{% trans 'See equipment list' %}<i class="fa fa-external-link"></i></a>
+                             {% else %}
+                                 <i class="fa fa-times text-danger"></i>
+                             </span>
+                                 {% trans 'Is not an equipment point' %}
+                             {% endif %}
+                           </li>
+                      </ul>
+                      <h4 class="mb-0">{% trans "Contact" %}</h4>
                       <address>
-                        <p>
+                          {{ org.contact_person.name }}
+                          </br>
+                          {{ org.short_address }}
+                          </br>
                           {% if org.contact_person.phone is not None %}
                             {{ org.contact_person.phone }}
                             </br>
@@ -57,7 +85,6 @@
                               {{ org.contact_person.email }}
                             </a>
                           {% endif %}
-                        </p>
                     </address>
                   </leaflet-popup>
                 </leaflet-marker>
