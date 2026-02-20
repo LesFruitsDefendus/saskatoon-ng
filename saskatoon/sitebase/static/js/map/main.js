@@ -30,6 +30,7 @@ class LeafletMap extends HTMLElement {
 		const leafletCluster = this.makeScriptNode(
 			"/static/js/vendor/leaflet.markercluster-1.4.1/leaflet.markercluster.js",
 		);
+		const bootstrap = this.makeLinkNode("/static/css/bootstrap.min.css");
 
 		shadow.append(
 			leaflet,
@@ -38,10 +39,12 @@ class LeafletMap extends HTMLElement {
 			leafletCluster,
 			leafletClusterDefault,
 			leafletClusterLink,
+			bootstrap
 		);
 
 		// leaflet requires a root element to bind to
 		const mapRoot = document.createElement("div");
+		mapRoot.id = 'leaflet-container';
 
 		// if no size is set, then the map wont appear
 		const styles = window.getComputedStyle(this);
