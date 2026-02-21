@@ -1,8 +1,11 @@
 {% extends 'app/base/document.html' %}
 {% load i18n %}
 {% load static %}
+{% load utils %}
 {% block body %}
-{% include 'app/base/header.html' %}
+
+{% if not request|is_iframe %}
+    {% include 'app/base/header.html' %}
 
     <!-- Menu -->
     {% block menu %}
@@ -23,18 +26,20 @@
     </div>
     {% endif %}
     {% endblock message %}
+{% endif %}
 
     <div class="main-content">
         {% block content %}
             <!-- content -->
         {% endblock content %}
     </div>
-
+{% if not request|is_iframe %}
     <footer>
         {% block footer %}
         {% include 'app/base/footer.html' %}
         {% endblock footer %}
     </footer>
+{% endif %}
 
     <!-- Javascript (2/2) -->
     {% include 'app/base/scripts.html' %}

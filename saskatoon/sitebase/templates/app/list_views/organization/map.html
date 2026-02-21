@@ -22,6 +22,7 @@
                  <leaflet-marker
                      latitude="{{ org.latitude }}"
                      longitude="{{ org.longitude }}"
+                     style="display: none;"
                  >
                     <leaflet-tooltip direction="top">{{ org.civil_name }}</leaflet-tooltip>
                     <leaflet-icon
@@ -38,33 +39,8 @@
                       {{  org | org_icon_hover | safe }}
                     </leaflet-icon>
                     <leaflet-popup>
-                      <h3>
-                        <a href="{% url 'organization-detail' org.actor_id %}">
-                          {{ org.civil_name }} <i class="fa fa-external-link"></i>
-                        </a>
-                      </h3>
-                      <p>{{ org.description }}</p>
-                      <div class="btn-group" role="group" aria-label="{% trans 'Extra details' %}">
-                      	    {% include 'app/list_views/organization/beneficiary_modal.html' %}
-                               {% include 'app/list_views/organization/equipment_modal.html' %}
-                       </div>
-                      <h4 class="mb-0">{% trans "Contact" %}</h4>
-                      <address>
-                          {{ org.contact_person.name }}
-                          </br>
-                          {{ org.short_address }}
-                          </br>
-                          {% if org.contact_person.phone is not None %}
-                            {{ org.contact_person.phone }}
-                            </br>
-                         {% endif %}
-                          {% if org.contact_person.email is not None %}
-                            <a href="mailto:{{ org.contact_person.email }}">
-                              {{ org.contact_person.email }}
-                            </a>
-                          {% endif %}
-                    </address>
-                  </leaflet-popup>
+                        <iframe style='height: 40vh; width: 40vw; border: 0;' loading="lazy" src="{% url 'organization-detail' org.actor_id %}"></iframe>
+                    </leaflet-popup>
                 </leaflet-marker>
             {% endfor %}
         </leaflet-map>
