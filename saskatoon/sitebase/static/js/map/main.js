@@ -39,12 +39,12 @@ class LeafletMap extends HTMLElement {
 			leafletCluster,
 			leafletClusterDefault,
 			leafletClusterLink,
-			bootstrap
+			bootstrap,
 		);
 
 		// leaflet requires a root element to bind to
 		const mapRoot = document.createElement("div");
-		mapRoot.id = 'leaflet-container';
+		mapRoot.id = "leaflet-container";
 
 		// if no size is set, then the map wont appear
 		const styles = window.getComputedStyle(this);
@@ -140,7 +140,7 @@ class LeafletMarker extends HTMLElement {
 				className: "saskatoon-map-popup",
 			});
 
-			this.marker.bindPopup(this.popup);
+			this.marker.bindPopup(this.popup, { maxWidth: "auto" });
 		});
 
 		// listen for tooltip changes
