@@ -37,22 +37,7 @@ Please follow each part of this documentation in order to run your own instance 
     source ~/.zshrc
     ```
 
-2. Redis server
-
-    `django-redis` is currently used as a caching backend with default configuration (see `CACHES` variable in `saskatoon/settings.py`). A Redis server must be run in the background (even when loading sample data from the fixtures).
-
-    For Debian and derivatives:
-    ```
-    $ sudo apt install redis-server
-    $ sudo systemctl status redis-server
-    ```
-    Note the Redis service will start automatically when the installation finishes (if using systemd)
-
-    For macOS:
-
-    Follow the instructions in [Redis docs](https://redis.io/docs/getting-started/installation/install-redis-on-mac-os/).
-
-3. Pillow
+2. Pillow
 
     In normal scenario, you don't need this step, and `pip` should take care of the installation of the `Pillow` package. If you have issues with it, installing the following dependencies should help:
 
@@ -60,12 +45,12 @@ Please follow each part of this documentation in order to run your own instance 
     ```
     sudo apt install libtiff5-dev libjpeg-dev libopenjp2-7-dev zlib1g-dev \
     libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python3-tk \
-    libharfbuzz-dev libfribidi-dev libxcb1-dev libcharls2 redis-server
+    libharfbuzz-dev libfribidi-dev libxcb1-dev libcharls2
     ```
 
     For MacOS:
     ```
-    brew install libtiff libjpeg webp little-cms2 zlib redis
+    brew install libtiff libjpeg webp little-cms2 zlib
     echo 'export PKG_CONFIG_PATH="$PKG_CONFIG_PATH:/usr/local/Cellar/zlib/1.2.11/lib/pkgconfig"' >> ~/.zshrc
     source ~/.zshrc
     ```
@@ -184,8 +169,6 @@ See [Django doc: managing static files](https://docs.djangoproject.com/en/3.2/ho
 
 ## Launch the Saskatoon server on localhost
 
-_Note: A Redis server must be run in the background._
-
 You can use Django embedded server for development purpose:
 ```
 (venv)$ python3 saskatoon/manage.py runserver 8000
@@ -197,8 +180,6 @@ To access the admin panel, visit [localhost:8000/admin](http://127.0.0.1:8000/ad
 ## Loading sample data (fixtures)
 
 This is optional, but you can load some sample data (e.g. some personnel and harvest records) to play with Saskatoon.
-
-_Note: A Redis server must be run in the background. `EMAIL_HOST` in the `.env` file need be configured properly or specified as empty string._
 
 To load all sample data from the fixtures:
 ```

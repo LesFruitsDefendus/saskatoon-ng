@@ -4,7 +4,6 @@ FROM python:3.9-slim-bullseye
 RUN apt-get update && apt-get install -y \
     default-libmysqlclient-dev \
     default-mysql-client \
-    redis-server \
     libtiff5-dev \
     libjpeg-dev \
     libopenjp2-7-dev \
@@ -31,4 +30,4 @@ WORKDIR /app
 EXPOSE 8000
 
 # Command to run the development server
-CMD ["bash", "./docker-entrypoint.sh"] 
+CMD ["bash", "./docker-entrypoint.sh"]

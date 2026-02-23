@@ -1,10 +1,9 @@
 from crequest.middleware import CrequestMiddleware
 from datetime import datetime
-from django.core.cache import cache
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
-from django.db.models.signals import post_save, pre_save
+from django.db.models.signals import pre_save
 from django.dispatch import receiver
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
@@ -932,21 +931,3 @@ class HarvestImage(models.Model):
 
     def __str__(self):
         return self.harvest.__str__()
-
-
-# CACHE #
-
-
-@receiver(post_save, sender=Property)
-def clear_cache_property(sender, instance, **kwargs):
-    cache.delete_pattern("*property*")
-
-
-@receiver(post_save, sender=Harvest)
-def clear_cache_harvest(sender, instance, **kwargs):
-    cache.delete_pattern("*harvest*")
-
-
-@receiver(post_save, sender=Equipment)
-def clear_cache_equipment(sender, instance, **kwargs):
-    cache.delete_pattern("*equipment*")

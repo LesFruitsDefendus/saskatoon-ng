@@ -40,7 +40,6 @@ setup(
         "pytz==2020.1",
         "six==1.15.0",
         "sqlparse==0.3.1",
-        "django-redis",
         "django-dotenv",
         "django-crispy-forms",
         "django-rosetta==0.9.8",

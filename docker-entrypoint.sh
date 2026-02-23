@@ -17,10 +17,6 @@ pip install --no-cache-dir '.[test]'
 if [ "$SASKATOON_DB_HOST" = "localhost" ] || [ "$SASKATOON_DB_HOST" = "127.0.0.1" ]; then
     export SASKATOON_DB_HOST="local"
 fi
-# same for redis host
-if [ "$SASKATOON_REDIS_HOST" = "localhost" ] || [ "$SASKATOON_REDIS_HOST" = "127.0.0.1" ]; then
-    export SASKATOON_REDIS_HOST="local"
-fi
 
 echo "Waiting for database to be ready..."
 while ! mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_PASSWORD" -e "SELECT 1" &> /dev/null; do
@@ -39,7 +35,7 @@ if [ "$SASKATOON_DB_HOST" = "db" ]; then
     mysql -h "$SASKATOON_DB_HOST" -u root -proot -e "GRANT ALL PRIVILEGES ON *.* TO '$SASKATOON_DB_USER'@'%' WITH GRANT OPTION; FLUSH PRIVILEGES;"
 fi
 
-# Set DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD in .env file to automatically create a superuser  
+# Set DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD in .env file to automatically create a superuser
 if [ -n "$DJANGO_SUPERUSER_EMAIL" ] && [ -n "$DJANGO_SUPERUSER_PASSWORD" ]; then
     {
         # Uses DJANGO_SUPERUSER_EMAIL and DJANGO_SUPERUSER_PASSWORD from .env file
