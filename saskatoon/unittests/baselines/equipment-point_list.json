@@ -86,28 +86,6 @@
                     "start_date": "2026-07-24",
                     "start_time": "02:00 PM",
                     "end_time": "07:00 PM"
-                },
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-07-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
-                },
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-07-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
                 }
             ],
             "latitude": 45.511693,
@@ -196,39 +174,6 @@
                 "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
             },
             "upcoming_reservations": [
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
                 {
                     "id": 5,
                     "pick_leader": {

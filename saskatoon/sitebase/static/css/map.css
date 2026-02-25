@@ -1,4 +1,10 @@
 leaflet-popup {
+	min-width: 35vw;
+
+	p {
+		font-size: 14px;
+	}
+
 	> section:has(button) {
 		display: grid;
 		grid-template-columns: 50% 50%;
