@@ -6,10 +6,12 @@
 {% block data %}
   <tab-list role="tablist">
     <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <link rel="stylesheet" href="/static/css/dialog.css"></link>
+    <link rel="stylesheet" href="/static/css/map.css"></link>
     <script defer src="/static/js/list-view-tabs.js"></script>
       <nav>
-        <span role="tab" id="map-tab">{% trans 'Map' %}</span>
         <a role="tab"href="." rel="keep-params">{% trans 'Table' %}</a>
+        <span role="tab" id="map-tab">{% trans 'Map' %}</span>
       </nav>
       <section
         role="tabpanel"
@@ -22,33 +24,37 @@
                  <leaflet-marker
                      latitude="{{ org.latitude }}"
                      longitude="{{ org.longitude }}"
+                     style="display: none;"
                  >
                     <leaflet-tooltip direction="top">{{ org.civil_name }}</leaflet-tooltip>
                     <leaflet-icon
                       style="color: {{ filter.form.status.value | reservation }};"
+                      icon-anchor="10 -5"
                     >
                       {{ org | org_icon | safe }}
                     </leaflet-icon>
                     <leaflet-icon
                       style="color: {{ filter.form.status.value | reservation }};"
                       class="leaflet-hover-icon"
-                      popup-anchor="10 -5"
-                      icon-anchor="1 1"
+                      icon-anchor="10 -5"
+                      popup-anchor="0 0"
                     >
                       {{  org | org_icon_hover | safe }}
                     </leaflet-icon>
                     <leaflet-popup>
                       <h3>
                         <a href="{% url 'organization-detail' org.actor_id %}">
-                          {{ org.civil_name }} <i class="fa fa-external-link"></i>
+                          {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
                         </a>
                       </h3>
-                      <p>{{ org.description }}</p>
-                      <div class="btn-group" role="group" aria-label="{% trans 'Extra details' %}">
+                      <p class="text-justify">{{ org.description }}</p>
+                      <section role="group" aria-label="{% trans 'Extra details' %}">
                       	    {% include 'app/list_views/organization/beneficiary_modal.html' %}
                                {% include 'app/list_views/organization/equipment_modal.html' %}
-                       </div>
-                      <h4 class="mb-0">{% trans "Contact" %}</h4>
+                      </section>
+                       <section>
+                      <h4>{% trans "Contact" %}</h4>
+
                       <address>
                           {{ org.contact_person.name }}
                           </br>
@@ -64,6 +70,7 @@
                             </a>
                           {% endif %}
                     </address>
+                    </section>
                   </leaflet-popup>
                 </leaflet-marker>
             {% endfor %}

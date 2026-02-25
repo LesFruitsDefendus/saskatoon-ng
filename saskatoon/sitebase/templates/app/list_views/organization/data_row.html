@@ -17,7 +17,9 @@
     </td>
     <td>
         <span>
-            {% include 'app/list_views/organization/civil_name_modal.html' %}
+            <b>
+              <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a>
+            </b>
             {% if perms.member.change_actor %}
                 &nbsp;
                 <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
@@ -25,19 +27,30 @@
                 </a></small>
             {% endif %}
         </span>
+        <br> <i class="fa fa-phone text-muted"></i>&nbsp; {{ org.phone }}
+        {% if org.short_address %}
+            <br> <i class="fa fa-envelope-o text-muted"></i> {{ org.short_address }}
+        {% endif %}
     </td>
 
     <td>
-        <span>
-            {% include 'app/list_views/organization/contact_modal.html' %}
+        <b>{{ org.contact_person.name }}</b>
         {% if org.contact_person and perms.member.change_person %}
             &nbsp;
             <small><a href="{% url 'person-update' org.contact_person.actor_id %}" title="edit">
                 <i class="fa fa-pencil"></i>
             </a></small>
         {% endif %}
-        </span>
-
+        {% if org.contact_person.phone %}
+            <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
+            {{ org.contact_person.phone }}
+        {% endif %}
+        <br>
+        {% if org.contact_person.email %}
+        <a href="mailto:{{org.contact_person.email}}">
+            {{ org.contact_person.email }}
+        </a>
+        {% endif %}
     </td>
 
     <td>

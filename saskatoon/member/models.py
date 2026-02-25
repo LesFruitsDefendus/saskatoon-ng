@@ -542,7 +542,12 @@ is currenlty made available'
 
     @property
     def upcoming_reservations(self) -> QuerySet[Harvest]:
-        return self.get_harvests().filter(start_date__gte=local_today()).order_by('start_date')
+        return (
+            self.get_harvests()
+            .filter(start_date__gte=local_today())
+            .order_by('start_date')
+            .distinct()
+        )
 
     @property
     def latitude(self):

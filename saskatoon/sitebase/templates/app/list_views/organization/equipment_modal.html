@@ -4,21 +4,26 @@
 {% if org.is_equipment_point %}
     {% if org.equipment_description %}
         <dialog closedby="any" id="{{org.actor_id}}-equipment-point-dialog">
-            <h2>{{org.civil_name}}</br></h2>
-            <p>{% trans 'This organization is an equipment point' %}</p>
-            <blockquote>{{org.equipment_description}}</blockquote>
+            <header class="modal-header">
+                <button type="button" class="close" aria-label="Close" commandFor="{{org.actor_id}}-equipment-point-dialog" command="close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">{{org.civil_name}}</h3>
+            </header>
+            <section class="modal-body">
+                <p>{% trans 'This organization is an equipment point' %}</p>
+                <blockquote>{{org.equipment_description}}</blockquote>
             {% with actor_id=org.actor_id %}
                 {% with equipment=org.equipment %}
                     {% include 'app/detail_views/organization/equipment_table.html' %}
                 {% endwith %}
             {% endwith %}
+            </section>
         </dialog>
         <button
             commandFor="{{org.actor_id}}-equipment-point-dialog"
             command="show-modal"
             class="btn btn-outline-primary"
         >
-            <i class="fa fa-check" style="color: #007AFF;"></i>
+            <i class="fa fa-check" style="color: #440bd4;"></i>
             Equipment Point
         </button>
     {% endif %}

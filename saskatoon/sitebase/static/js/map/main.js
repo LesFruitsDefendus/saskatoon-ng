@@ -12,8 +12,6 @@ class LeafletMap extends HTMLElement {
 		this.markerBuffer = [];
 		this.markerCluster = null;
 
-		const shadow = this.attachShadow({ mode: "open" });
-
 		// styles are sandboxed in web components
 		const leaflet = this.makeLinkNode("/static/js/map/leaflet.css");
 		const leafletClusterLink = this.makeLinkNode(
@@ -22,29 +20,22 @@ class LeafletMap extends HTMLElement {
 		const leafletClusterDefault = this.makeLinkNode(
 			"/static/js/vendor/leaflet.markercluster-1.4.1/MarkerCluster.Default.css",
 		);
-		const fontAwesome = this.makeLinkNode(
-			"/static/css/fontawesome/font-awesome.min.css",
-		);
 		const style = this.makeLinkNode("/static/js/map/style.css");
 
 		const leafletCluster = this.makeScriptNode(
 			"/static/js/vendor/leaflet.markercluster-1.4.1/leaflet.markercluster.js",
 		);
-		const bootstrap = this.makeLinkNode("/static/css/bootstrap.min.css");
-
-		shadow.append(
+		this.append(
 			leaflet,
-			fontAwesome,
 			style,
 			leafletCluster,
 			leafletClusterDefault,
 			leafletClusterLink,
-			bootstrap
 		);
 
 		// leaflet requires a root element to bind to
 		const mapRoot = document.createElement("div");
-		mapRoot.id = 'leaflet-container';
+		mapRoot.id = "leaflet-container";
 
 		// if no size is set, then the map wont appear
 		const styles = window.getComputedStyle(this);
@@ -52,7 +43,7 @@ class LeafletMap extends HTMLElement {
 		const width = `width: ${styles.getPropertyValue("width")};`;
 		mapRoot.style.cssText = `${height}${width}`;
 
-		shadow.appendChild(mapRoot);
+		this.appendChild(mapRoot);
 
 		// leaflet requires attribution for all layers
 		const layer = L.tileLayer(

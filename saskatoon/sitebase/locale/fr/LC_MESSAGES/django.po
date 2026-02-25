@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-20 09:49+0000\n"
+"POT-Creation-Date: 2026-02-25 12:03+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,8 +146,8 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:73
-#: sitebase/templates/app/list_views/organization/organizations.html:24
+#: sitebase/templates/app/list_views/organization/map.html:55
+#: sitebase/templates/app/list_views/organization/organizations.html:26
 msgid "Contact"
 msgstr "Contact"
 
@@ -448,15 +448,15 @@ msgstr "réussie"
 msgid "Total harvested"
 msgstr "Total récolté"
 
-#: sitebase/templates/app/calendar/view.html:84
+#: sitebase/templates/app/calendar/view.html:17
 msgid "Harvest calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/calendar/view.html:88
+#: sitebase/templates/app/calendar/view.html:21
 msgid "LEGEND"
 msgstr "LÉGENDE"
 
-#: sitebase/templates/app/calendar/view.html:92
+#: sitebase/templates/app/calendar/view.html:25
 msgid "INSTRUCTIONS"
 msgstr "INSTRUCTIONS"
 
@@ -693,7 +693,7 @@ msgstr "Manquant"
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
-#: sitebase/templates/app/detail_views/organization/breadcomb.html:29
+#: sitebase/templates/app/detail_views/organization/breadcomb.html:33
 msgid "Edit Organization"
 msgstr "Modifier l'Organisation"
 
@@ -710,7 +710,7 @@ msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:26
+#: sitebase/templates/app/list_views/organization/organizations.html:28
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -720,10 +720,8 @@ msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:25
-#: sitebase/templates/app/list_views/equipment/data_table.html:11
-#: sitebase/templates/app/list_views/equipment/view.html:13
-msgid "Equipment Type"
-msgstr "Type d'Équipement"
+msgid "Type"
+msgstr ""
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:26
 #: sitebase/templates/app/list_views/equipment/data_table.html:12
@@ -739,7 +737,9 @@ msgid "Description"
 msgstr "Déscription"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/organizations.html:25
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:22
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:28
+#: sitebase/templates/app/list_views/organization/organizations.html:27
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -941,30 +941,30 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:15
-#: sitebase/templates/app/list_views/organization/organizations.html:27
+#: sitebase/templates/app/list_views/organization/organizations.html:29
 #: sitebase/templates/app/list_views/property/view.html:13
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
 msgstr "Arrondissement"
 
-#: sitebase/templates/app/errors/400.html:9
+#: sitebase/templates/app/errors/400.html:8
 msgid "400 Bad Request"
 msgstr "400 Requête Invalide"
 
-#: sitebase/templates/app/errors/403.html:9
+#: sitebase/templates/app/errors/403.html:8
 msgid "403 Permission Denied"
 msgstr ""
 
-#: sitebase/templates/app/errors/403_csrf.html:9
+#: sitebase/templates/app/errors/403_csrf.html:8
 msgid "403 Forbidden. CSRF Verification Failed. Request aborted."
 msgstr ""
 
-#: sitebase/templates/app/errors/404.html:9
+#: sitebase/templates/app/errors/404.html:8
 msgid "404 Page not found"
 msgstr ""
 
-#: sitebase/templates/app/errors/500.html:9
+#: sitebase/templates/app/errors/500.html:8
 msgid "500 Server Error"
 msgstr ""
 
@@ -972,7 +972,7 @@ msgstr ""
 msgid "Go Back"
 msgstr "Retour"
 
-#: sitebase/templates/app/forms/base.html:15
+#: sitebase/templates/app/forms/base.html:19
 msgid "Could not save form: some fields are invalid."
 msgstr ""
 
@@ -1015,7 +1015,7 @@ msgstr "Ajouter une nouvelle propriété"
 msgid "Go to calendar"
 msgstr "Calendrier des récoltes"
 
-#: sitebase/templates/app/list_views/base.html:24
+#: sitebase/templates/app/list_views/base.html:29
 msgid "Search"
 msgstr "Rechercher"
 
@@ -1045,6 +1045,11 @@ msgstr "Date d'inscription"
 #: sitebase/templates/app/list_views/equipment/data_row.html:70
 msgid "info"
 msgstr "info"
+
+#: sitebase/templates/app/list_views/equipment/data_table.html:11
+#: sitebase/templates/app/list_views/equipment/view.html:13
+msgid "Equipment Type"
+msgstr "Type d'Équipement"
 
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:17
@@ -1076,51 +1081,39 @@ msgstr "Chef(fe) de cueillette"
 msgid "Volunteers"
 msgstr "Bénévoles"
 
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:8
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:12
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
 
-#: sitebase/templates/app/list_views/organization/equipment_modal.html:8
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:12
 #, fuzzy
 #| msgid "This organization accepts fruit donations"
 msgid "This organization is an equipment point"
 msgstr "Cet organisme accepte les dons de fruits"
 
-#: sitebase/templates/app/list_views/organization/map.html:11
-#: sitebase/templates/app/list_views/organization/organizations.html:10
-msgid "Map"
-msgstr "Carte"
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:33
+#, fuzzy
+#| msgid "New Equipment"
+msgid "No Equipment"
+msgstr "Nouvel Équipement"
 
-#: sitebase/templates/app/list_views/organization/map.html:12
+#: sitebase/templates/app/list_views/organization/map.html:13
 #: sitebase/templates/app/list_views/organization/organizations.html:11
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/map.html:53
-#, fuzzy
-#| msgid "This organization accepts fruit donations"
-msgid "Accepts fruit donations"
-msgstr "Cet organisme accepte les dons de fruits"
+#: sitebase/templates/app/list_views/organization/map.html:14
+#: sitebase/templates/app/list_views/organization/organizations.html:12
+msgid "Map"
+msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:57
+#: sitebase/templates/app/list_views/organization/map.html:50
 #, fuzzy
-#| msgid "This organization accepts fruit donations"
-msgid "Does not accept fruit donations"
-msgstr "Cet organisme accepte les dons de fruits"
+#| msgid "Harvest details"
+msgid "Extra details"
+msgstr "Détails de la récolte"
 
-#: sitebase/templates/app/list_views/organization/map.html:65
-#, fuzzy
-#| msgid "Equipment Point"
-msgid "See equipment list"
-msgstr "Point d'Équipement"
-
-#: sitebase/templates/app/list_views/organization/map.html:69
-#, fuzzy
-#| msgid "Equipment points"
-msgid "Is not an equipment point"
-msgstr "Points d'Equipement"
-
-#: sitebase/templates/app/list_views/organization/organizations.html:23
+#: sitebase/templates/app/list_views/organization/organizations.html:25
 msgid "Organization"
 msgstr "Organisation"
 
@@ -1245,6 +1238,26 @@ msgstr "Connexion"
 #: sitebase/templates/registration/login.html:65
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
+
+#, fuzzy
+#~| msgid "This organization accepts fruit donations"
+#~ msgid "Accepts fruit donations"
+#~ msgstr "Cet organisme accepte les dons de fruits"
+
+#, fuzzy
+#~| msgid "This organization accepts fruit donations"
+#~ msgid "Does not accept fruit donations"
+#~ msgstr "Cet organisme accepte les dons de fruits"
+
+#, fuzzy
+#~| msgid "Equipment Point"
+#~ msgid "See equipment list"
+#~ msgstr "Point d'Équipement"
+
+#, fuzzy
+#~| msgid "Equipment points"
+#~ msgid "Is not an equipment point"
+#~ msgstr "Points d'Equipement"
 
 #~ msgid "Adresss"
 #~ msgstr "Adresse"
