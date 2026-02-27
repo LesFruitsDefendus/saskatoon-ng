@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-25 12:03+0000\n"
+"POT-Creation-Date: 2026-02-27 14:30+0000\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgid "Role(s)"
 msgstr "Rôle(s)"
 
 #: member/filters.py:34 member/filters.py:137 member/filters.py:170
-#: member/models.py:250 member/models.py:464
+#: member/models.py:247 member/models.py:461
 msgid "Borough"
 msgstr "Voisinage"
 
@@ -152,7 +152,7 @@ msgstr "Ce champ est requis"
 msgid "Last Name"
 msgstr "Nom"
 
-#: member/forms.py:161 member/models.py:232 member/models.py:435
+#: member/forms.py:161 member/models.py:229 member/models.py:432
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -165,143 +165,143 @@ msgstr ""
 "créer une nouvelle personne contact en fournissant ses informations "
 "personnelles"
 
-#: member/models.py:35
+#: member/models.py:32
 msgid "Users must have an email address"
 msgstr "Les usagers doivent avoir une adresse courriel"
 
-#: member/models.py:58
+#: member/models.py:55
 msgid "user"
 msgstr ""
 
-#: member/models.py:59
+#: member/models.py:56
 msgid "users"
 msgstr ""
 
-#: member/models.py:63
+#: member/models.py:60
 msgid "Core Member"
 msgstr "Membre du noyau"
 
-#: member/models.py:64
+#: member/models.py:61
 msgid "Pick Leader"
 msgstr "Chef (Cheffe) de cueillette"
 
-#: member/models.py:65
+#: member/models.py:62
 msgid "Volunteer Picker"
 msgstr "Cueilleur (cueilleuse) Volontaire"
 
-#: member/models.py:66
+#: member/models.py:63
 msgid "Property Owner"
 msgstr "Propriétaire"
 
-#: member/models.py:67
+#: member/models.py:64
 msgid "Contact Person"
 msgstr "Personne Contact"
 
-#: member/models.py:81
+#: member/models.py:78
 msgid "email address"
 msgstr "adresse courriel"
 
-#: member/models.py:146 member/models.py:147
+#: member/models.py:143 member/models.py:144
 msgid "user onboarding"
 msgstr "intégration des usagers"
 
-#: member/models.py:150
+#: member/models.py:147
 msgid "Reference name"
 msgstr "Nom de référence"
 
-#: member/models.py:157
+#: member/models.py:154
 msgid "All invites sent"
 msgstr "Toutes les invitations ont été envoyées"
 
-#: member/models.py:175
+#: member/models.py:172
 msgid "actor"
 msgstr "acteur"
 
-#: member/models.py:176
+#: member/models.py:173
 msgid "actors"
 msgstr "acteurs"
 
-#: member/models.py:211
+#: member/models.py:208
 msgid "person"
 msgstr "personne"
 
-#: member/models.py:212
+#: member/models.py:209
 msgid "persons"
 msgstr "personnes"
 
-#: member/models.py:220
+#: member/models.py:217
 msgid "Preferred Language"
 msgstr "Langue de contact préférée"
 
-#: member/models.py:226
+#: member/models.py:223
 msgid "First name"
 msgstr "Prénom"
 
-#: member/models.py:229
+#: member/models.py:226
 msgid "Family name"
 msgstr "Nom"
 
-#: member/models.py:235
+#: member/models.py:232
 msgid "Number"
 msgstr "Numéro civique"
 
-#: member/models.py:238 member/models.py:452
+#: member/models.py:235 member/models.py:449
 msgid "Street"
 msgstr "Rue"
 
-#: member/models.py:241 member/models.py:455
+#: member/models.py:238 member/models.py:452
 msgid "Complement"
 msgstr "Complément"
 
-#: member/models.py:245 member/models.py:459
+#: member/models.py:242 member/models.py:456
 msgid "Postal code"
 msgstr "Code postal"
 
-#: member/models.py:258 member/models.py:471
+#: member/models.py:255 member/models.py:468
 msgid "City"
 msgstr "Ville"
 
-#: member/models.py:266 member/models.py:479
+#: member/models.py:263 member/models.py:476
 msgid "State"
 msgstr "Province"
 
-#: member/models.py:274 member/models.py:487
+#: member/models.py:271 member/models.py:484
 msgid "Country"
 msgstr "Pays"
 
-#: member/models.py:281
+#: member/models.py:278
 msgid "Newsletter subscription"
 msgstr "Souscription au bulletin d'information"
 
-#: member/models.py:285
+#: member/models.py:282
 msgid "Longitude"
 msgstr "Longitude"
 
-#: member/models.py:292
+#: member/models.py:289
 msgid "Latitude"
 msgstr "Latitude"
 
-#: member/models.py:298
+#: member/models.py:295
 msgid "Comments"
 msgstr "Commentaires"
 
-#: member/models.py:304
+#: member/models.py:301
 msgid "Onboarding group"
 msgstr "Groupe d'intégration"
 
-#: member/models.py:398
+#: member/models.py:395
 msgid "organization"
 msgstr "Organisme"
 
-#: member/models.py:399
+#: member/models.py:396
 msgid "organizations"
 msgstr "Organismes"
 
-#: member/models.py:403
+#: member/models.py:400
 msgid "Is Beneficiary"
 msgstr "Est Bénéficiaire"
 
-#: member/models.py:405
+#: member/models.py:402
 msgid ""
 "Only check this box if the Organization is currently accepting fruit "
 "donations"
@@ -309,11 +309,11 @@ msgstr ""
 "Cochez cette case seulement si l'organisme accepte des dons de fruits en ce "
 "moment"
 
-#: member/models.py:411
+#: member/models.py:408
 msgid "Is Equipment Point"
 msgstr "Est un point d'équipement"
 
-#: member/models.py:413
+#: member/models.py:410
 msgid ""
 "Only check this box if the equipment registered at this Organization is "
 "currenlty made available"
@@ -321,68 +321,68 @@ msgstr ""
 "Cochez cette boîte uniquement si l'équipement enregistré à cette "
 "organisation est disponible"
 
-#: member/models.py:420
+#: member/models.py:417
 msgid "Redmine contact"
 msgstr "Contact Redmine"
 
-#: member/models.py:423 member/models.py:572 member/models.py:585
-#: member/models.py:598 member/models.py:611
+#: member/models.py:420 member/models.py:569 member/models.py:582
+#: member/models.py:595 member/models.py:608
 msgid "Name"
 msgstr "Nom"
 
-#: member/models.py:425
+#: member/models.py:422
 msgid "Short description"
 msgstr "Courte description"
 
-#: member/models.py:428
+#: member/models.py:425
 msgid "Beneficiary description"
 msgstr "Description du bénéficiaire"
 
-#: member/models.py:432
+#: member/models.py:429
 msgid "Equipment point description"
 msgstr "Description du point d'équipement"
 
-#: member/models.py:440
+#: member/models.py:437
 msgid "Contact person"
 msgstr "Personne contact"
 
-#: member/models.py:445
+#: member/models.py:442
 msgid "Contact person role"
 msgstr "Responsabilités de la personne contact"
 
-#: member/models.py:449
+#: member/models.py:446
 msgid "Street number"
 msgstr "Numéro civique"
 
-#: member/models.py:568
+#: member/models.py:565
 msgid "borough"
 msgstr "Arrondissement"
 
-#: member/models.py:569
+#: member/models.py:566
 msgid "boroughs"
 msgstr "Arrondissement"
 
-#: member/models.py:582
+#: member/models.py:579
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:583
+#: member/models.py:580
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:595
+#: member/models.py:592
 msgid "state"
 msgstr "province"
 
-#: member/models.py:596
+#: member/models.py:593
 msgid "states"
 msgstr "provinces"
 
-#: member/models.py:608
+#: member/models.py:605
 msgid "country"
 msgstr "pays"
 
-#: member/models.py:609
+#: member/models.py:606
 msgid "countries"
 msgstr "pays"
 
