@@ -1,24 +1,37 @@
 #!/bin/bash
 
 # This script checks if translation files are up to date.
-# Note 1 insertion(+), 1 deletion(-) is expected on each file (creation datetime).
+# Note at least 1 insertion(+), 1 deletion(-) is expected on each file (creation datetime).
 
-DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+# Returns 0 if diff contains only non-meaningful changes (comments, timestamps),
+# returns 1 if diff contains actual translation changes.
+has_meaningful_changes() {
+    local diffs="$1"
+    local lines meaningful
+    lines=$(echo "$diffs" | grep -E '^\+|^-' | grep -v '^---' | grep -v '^+++')
+    meaningful=$(echo "$lines" | grep -v '^[-+]\s*#:' | grep -v 'POT-Creation-Date:' || true)
+    [ -n "$meaningful" ]
+}
 
-# Update translation files
-cd $DIR/../saskatoon
-django-admin makemessages --locale fr --domain django
+# Only run the main logic when executed directly, not when sourced
+if [ "${BASH_SOURCE[0]}" = "$0" ]; then
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-ret=0
-for app in harvest member sitebase
-do
-    filename="$app/locale/fr/LC_MESSAGES/django.po"
-    diffs=$(git diff --shortstat $filename | sed -E 's/.* ([0-9]+) insertion.* ([0-9]+) deletion.*/\1,\2/')
-    if [ "$diffs" != "1,1" ]; then
-        more=$(git diff $filename)
-        echo "$filename is not up to date: $more"
-        ret=1
-    fi
-done
+    # Update translation files
+    cd "$DIR/../saskatoon"
+    django-admin makemessages --locale fr --domain django
 
-exit $ret
+    ret=0
+    for app in harvest member sitebase
+    do
+        filename="$app/locale/fr/LC_MESSAGES/django.po"
+        diffs=$(git diff --unified=0 "$filename")
+        if has_meaningful_changes "$diffs"; then
+            echo "$filename is not up to date:"
+            echo "$diffs"
+            ret=1
+        fi
+    done
+
+    exit $ret
+fi

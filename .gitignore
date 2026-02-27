@@ -4,9 +4,6 @@ apidocs
 # .db files
 *.db
 
-# redis files
-*.rdb
-
 # DS Store files
 .DS_Store
 

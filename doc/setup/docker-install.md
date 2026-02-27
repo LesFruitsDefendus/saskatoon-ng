@@ -20,9 +20,8 @@ The Docker setup includes:
 
 - Python 3.9 environment
 - MySQL database
-- Redis server
 - All required system dependencies
-- Performs a DB migration 
+- Performs a DB migration
 
 ## Other notes
 

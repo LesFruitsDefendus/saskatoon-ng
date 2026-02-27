@@ -213,6 +213,8 @@ VOLUNTEER_WAIVER_PDF_PATH = os.path.join(MEDIA_ROOT, "guides/volunteer_waiver.pd
 EMAIL_BACKEND = os.getenv('SASKATOON_EMAIL_BACKEND')
 EMAIL_USE_TLS = os.getenv('SASKATOON_EMAIL_USE_TLS')
 EMAIL_HOST = os.getenv('SASKATOON_EMAIL_HOST')
+if not EMAIL_HOST:
+    EMAIL_HOST = ""
 EMAIL_PORT = os.getenv('SASKATOON_EMAIL_PORT')
 EMAIL_HOST_USER = os.getenv('SASKATOON_EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.getenv('SASKATOON_EMAIL_HOST_PASSWORD')
@@ -243,20 +245,6 @@ REST_FRAMEWORK = {
         'rest_framework.renderers.JSONRenderer',
     ),
     'DEFAULT_PAGINATION_CLASS': 'saskatoon.pagination.BasicPageNumberPagination',
-}
-
-# Redis configuration - use Docker service name when in Docker, localhost for local dev
-REDIS_HOST = os.getenv('SASKATOON_REDIS_HOST', '127.0.0.1')
-REDIS_PORT = os.getenv('SASKATOON_REDIS_PORT', '6379')
-
-CACHES = {
-    'default': {
-        'BACKEND': "django_redis.cache.RedisCache",
-        'LOCATION': f"redis://{REDIS_HOST}:{REDIS_PORT}/1",
-        'OPTIONS': {
-            'CLIENT_CLASS': "django_redis.client.DefaultClient",
-        },
-    }
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

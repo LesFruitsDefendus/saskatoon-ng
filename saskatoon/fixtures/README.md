@@ -2,7 +2,6 @@
 
 Using fixtures is a quick way to load hard-coded data to Django models (see more in [Django docs](https://docs.djangoproject.com/en/dev/howto/initial-data/)). Saskatoon provides a set of fixtures as sample data for development and testing.
 
-_NOTE: A Redis server must be run in the background while loading fixtures._
 
 ## Initialise the database with all fixtures
 
@@ -12,13 +11,13 @@ To initialise the database:
 1. Audit/modify the individual `.json` files located in `saskatoon/fixtures`
 2. Run `(venv)$ saskatoon/fixtures/init`
 
-> ### Note 
-> If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured. 
-> 
+> ### Note
+> If you get `ConnectionRefusedError: [Errno 111] Connection refused` error on `send_mail()` function it means your local mail server is not properly configured.
+>
 > One way to ignore this issue is to keep the `EMAIL_HOST=` variable empty in your `.env` file. (see `saskatoon/harvest/signals.py` for more details)
 
 ## Common actions
-Here are some common ways to use the `loaddata` and `dumpdata` scripts. 
+Here are some common ways to use the `loaddata` and `dumpdata` scripts.
 
 >  ### Warning
 >  Each time you run `loaddata`, the data will be read from the fixture and re-loaded into the database. Note this means that if you change one of the rows created by a fixture and then run `loaddata` again, you’ll wipe out any changes you’ve made.
