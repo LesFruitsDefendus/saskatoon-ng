@@ -1,0 +1,25 @@
+{% load i18n %}
+{% load static %}
+
+        <dialog closedby="any" id="{{org.actor_id}}-contact-dialog">
+            <h2>
+                    {{ org.contact_person.name }}
+            </h2>
+        {% if org.contact_person.phone %}
+            <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
+            {{ org.contact_person.phone }}
+        {% endif %}
+        <br>
+        {% if org.contact_person.email %}
+        <a href="mailto:{{org.contact_person.email}}">
+            {{ org.contact_person.email }}
+        </a>
+        {% endif %}
+        </dialog>
+        <button
+            commandFor="{{org.actor_id}}-contact-dialog"
+            command="show-modal"
+            class="btn btn-light"
+        >
+            {{ org.contact_person.name }}
+        </button>

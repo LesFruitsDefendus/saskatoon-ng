@@ -2,24 +2,40 @@
 {% load i18n %}
 {% load static %}
 
-{% block table %}
-
-    {% include 'app/list_views/organization/modal.html' %}
-
-    <thead>
-        <tr>
-            <th class="col-xs-1">#</th>
-            <th class="col-xs-2">{% trans "Organization" %}</th>
-            <th class="col-xs-1">{% trans "Contact" %}</th>
-            <th class="col-xs-1">{% trans "Beneficiary" %}</th>
-            <th class="col-xs-1">{% trans "Equipment" %}</th>
-            <th class="col-xs-2">{% trans "Borough" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for org in data %}
-            {% include 'app/list_views/organization/data_row.html' %}
-        {% endfor %}
-    </tbody>
-
-{% endblock table %}
+{% block data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <script defer  src="/static/js/list-view-tabs.js"></script>
+    <link href="/static/css/dialog.css" rel="stylesheet"></link>
+    <nav>
+      <span role="tab" id="table-tab">{% trans 'Table' %}</span>
+      <a role="tab" href="./map" rel="keep-params">{% trans 'Map' %}</a>
+    </nav>
+        <section
+          role="tabpanel"
+          class="table-responsive"
+          aria-labelledby="table-tab"
+        >
+          <div class="dataTables_wrapper">
+            <table class="table table-striped datatable-minimal">
+              {% include 'app/list_views/organization/modal.html' %}
+              <thead>
+                <tr>
+                  <th class="col-xs-1">#</th>
+                  <th class="col-xs-2">{% trans "Organization" %}</th>
+                  <th class="col-xs-1">{% trans "Contact" %}</th>
+                  <th class="col-xs-1">{% trans "Beneficiary" %}</th>
+                  <th class="col-xs-1">{% trans "Equipment" %}</th>
+                  <th class="col-xs-2">{% trans "Borough" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for org in data %}
+                  {% include 'app/list_views/organization/data_row.html' %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+  </tab-list>
+{% endblock data %}

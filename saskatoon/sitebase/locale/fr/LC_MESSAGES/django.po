@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-11 14:06+0000\n"
+"POT-Creation-Date: 2026-02-27 14:49+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -48,31 +48,33 @@ msgstr "Type de page"
 
 #: sitebase/models.py:106
 msgid "FAQ Item"
-msgstr "FAQ (item)"
+msgstr "Item de FAQ"
 
 #: sitebase/models.py:107
 msgid "FAQ Items"
-msgstr "FAQ (items)"
+msgstr "Items de FAQ"
 
 #: sitebase/models.py:143
 msgid "FAQ List"
-msgstr "FAQ (liste)"
+msgstr "Liste FAQ"
 
 #: sitebase/models.py:144
 msgid "FAQ Lists"
-msgstr "FAQ (listes)"
+msgstr "Listes FAQ"
 
 #: sitebase/models.py:148
 msgid "Ref. Name"
-msgstr "Nom de réf."
+msgstr "Ref. Nom"
 
 #: sitebase/models.py:165
 msgid "Items"
 msgstr "Items"
 
 #: sitebase/models.py:167
+#, fuzzy
+#| msgid "Table"
 msgid "Enabled"
-msgstr "Activée"
+msgstr "Activé"
 
 #: sitebase/models.py:174
 msgid "Closing (common)"
@@ -80,7 +82,7 @@ msgstr "Signature (commune)"
 
 #: sitebase/models.py:177
 msgid "Pickleader Registration Invite"
-msgstr ""
+msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
 #: sitebase/models.py:178
 msgid "Password Reset"
@@ -104,7 +106,7 @@ msgstr "Authorization saisonnière de la propriété"
 
 #: sitebase/models.py:187
 msgid "Unselected pickers"
-msgstr ""
+msgstr "Cueilleur.euse non sélectionné.es"
 
 #: sitebase/models.py:188
 msgid "Selected picker"
@@ -156,7 +158,7 @@ msgstr "Bénéficiaire"
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
-#: sitebase/templates/app/list_views/harvest/view.html:9
+#: sitebase/templates/app/list_views/harvest/view.html:11
 msgid "Harvest"
 msgstr "Récolte"
 
@@ -177,8 +179,9 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/contact.html:42
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
-#: sitebase/templates/app/list_views/equipment/view.html:17
-#: sitebase/templates/app/list_views/organization/organizations.html:13
+#: sitebase/templates/app/list_views/equipment/view.html:18
+#: sitebase/templates/app/list_views/organization/map.html:56
+#: sitebase/templates/app/list_views/organization/organizations.html:26
 msgid "Contact"
 msgstr "Contact"
 
@@ -188,7 +191,7 @@ msgstr "inscription au bulletin d'information"
 
 #: sitebase/templates/app/base/footer.html:45
 msgid "Social Media"
-msgstr ""
+msgstr "Médias Sociaux"
 
 #: sitebase/templates/app/base/footer.html:82
 #: sitebase/templates/app/base/header.html:19
@@ -270,14 +273,14 @@ msgstr "Calendrier"
 
 #: sitebase/templates/app/base/menu-tabs.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:14
-#: sitebase/templates/app/list_views/community/view.html:12
+#: sitebase/templates/app/list_views/community/view.html:14
 #: sitebase/templates/app/stats.html:68 sitebase/templates/app/stats.html:135
 #: sitebase/templates/app/stats.html:171 sitebase/templates/app/stats.html:210
 msgid "Harvests"
 msgstr "Récoltes"
 
 #: sitebase/templates/app/base/menu-tabs.html:12
-#: sitebase/templates/app/list_views/community/view.html:13
+#: sitebase/templates/app/list_views/community/view.html:15
 msgid "Properties"
 msgstr "Propriétés"
 
@@ -328,8 +331,8 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/harvest_table.html:50
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
-#: sitebase/templates/app/list_views/harvest/view.html:11
-#: sitebase/templates/app/list_views/property/view.html:12
+#: sitebase/templates/app/list_views/harvest/view.html:13
+#: sitebase/templates/app/list_views/property/view.html:14
 msgid "Status"
 msgstr "Statut"
 
@@ -386,14 +389,14 @@ msgstr ""
 #: sitebase/templates/app/calendar/instructions.html:8
 msgid "Wait for a confirmation from the pick-leader (by email or phone)"
 msgstr ""
-"Attendre une confirmation du/ de la Chef(fe) de cueillette (par courriel ou "
+"Attendre une confirmation du/ de la Chef.fe de cueillette (par courriel ou "
 "téléphone)"
 
 #: sitebase/templates/app/calendar/instructions.html:9
 msgid "If you have been accepted for a harvest, please show up!"
 msgstr ""
 "Si vous avez été accepté pour une récolte, n'oubliez pas d'y aller car "
-"l'équipe de cueilleurs(euses) compte sur vous"
+"l'équipe de cueilleur.euses compte sur vous"
 
 #: sitebase/templates/app/calendar/legend.html:6
 msgid "Full"
@@ -401,7 +404,7 @@ msgstr "Équipe complète"
 
 #: sitebase/templates/app/calendar/legend.html:7
 msgid "enough pickers have been registered"
-msgstr "suffisamment de cueilleurs(euses) se sont proposé(e)s"
+msgstr "suffisamment de cueilleur.euses se sont proposé(e)s"
 
 #: sitebase/templates/app/calendar/legend.html:10
 msgid "Open"
@@ -450,7 +453,7 @@ msgstr "cette récolte n'accepte plus les demandes de participation"
 #: sitebase/templates/app/calendar/ready-modal.html:32
 #: sitebase/templates/app/calendar/scheduled-modal.html:32
 msgid "Pickers required"
-msgstr "Cueilleur(euse)s recherché(e)s"
+msgstr "Cueilleur.euse recherché(e)s"
 
 #: sitebase/templates/app/calendar/ready-modal.html:40
 msgid "Ready"
@@ -518,7 +521,7 @@ msgstr "Téléphone"
 #: sitebase/templates/app/detail_views/organization/contact.html:66
 #: sitebase/templates/app/detail_views/property/contact.html:90
 #: sitebase/templates/app/forms/participation_manage_form.html:33
-#: sitebase/templates/app/list_views/community/view.html:15
+#: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
 msgstr "Commentaires"
 
@@ -625,7 +628,7 @@ msgstr "Sauvegarder"
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:14
-#: sitebase/templates/app/list_views/equipment/view.html:15
+#: sitebase/templates/app/list_views/equipment/view.html:16
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -665,7 +668,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:10
 #: sitebase/templates/app/detail_views/organization/features.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:15
+#: sitebase/templates/app/list_views/harvest/view.html:17
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
@@ -742,7 +745,7 @@ msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:15
+#: sitebase/templates/app/list_views/organization/organizations.html:28
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -752,26 +755,26 @@ msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:25
-#: sitebase/templates/app/list_views/equipment/data_table.html:11
-#: sitebase/templates/app/list_views/equipment/view.html:12
-msgid "Equipment Type"
-msgstr "Type d'Équipement"
+msgid "Type"
+msgstr "Type"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:26
 #: sitebase/templates/app/list_views/equipment/data_table.html:12
-#: sitebase/templates/app/list_views/equipment/view.html:13
+#: sitebase/templates/app/list_views/equipment/view.html:14
 msgid "Count"
-msgstr ""
+msgstr "Quantité"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:27
 #: sitebase/templates/app/list_views/equipment/data_table.html:13
-#: sitebase/templates/app/list_views/equipment/view.html:14
+#: sitebase/templates/app/list_views/equipment/view.html:15
 #: sitebase/templates/app/participation_list.html:19
 msgid "Description"
-msgstr "Déscription"
+msgstr "Description"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/organizations.html:14
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:22
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:28
+#: sitebase/templates/app/list_views/organization/organizations.html:27
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -782,7 +785,7 @@ msgstr "Réservations à venir"
 
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:23
 msgid "PickLeader"
-msgstr "Chef(fe) de cueillette"
+msgstr "Chef.fe de cueillette"
 
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:25
 msgid "Start"
@@ -891,11 +894,11 @@ msgstr "Ne produit pas de fruits chaque année"
 
 #: sitebase/templates/app/detail_views/property/features.html:89
 msgid "picker(s) needed"
-msgstr "cueilleur(euse)s requis(es)"
+msgstr "cueilleur.euses requis..es"
 
 #: sitebase/templates/app/detail_views/property/features.html:94
 msgid "Number of pickers not specified"
-msgstr "Nombre de cueilleur(euse)s non spécifié"
+msgstr "Nombre de cueilleur.euses non spécifié"
 
 #: sitebase/templates/app/detail_views/property/features.html:101
 msgid "Ladder available"
@@ -940,21 +943,21 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette récolte?"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:28
 msgid "Create Orphan(s)"
-msgstr ""
+msgstr "Créer orphelin(s)"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:37
 msgid "New Harvest"
 msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
-#: sitebase/templates/app/list_views/harvest/view.html:14
-#: sitebase/templates/app/list_views/property/view.html:13
+#: sitebase/templates/app/list_views/harvest/view.html:16
+#: sitebase/templates/app/list_views/property/view.html:15
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:49
 msgid "Pickleader"
-msgstr "Chef(fe) de cueillette"
+msgstr "Chef.fe de cueillette"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:9
 msgid "Similar properties"
@@ -962,19 +965,19 @@ msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:12
-#: sitebase/templates/app/list_views/property/view.html:10
+#: sitebase/templates/app/list_views/harvest/view.html:14
+#: sitebase/templates/app/list_views/property/view.html:12
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
 msgstr "Propriété"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:15
-#: sitebase/templates/app/list_views/community/view.html:14
+#: sitebase/templates/app/list_views/community/view.html:16
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
-#: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/harvest/view.html:13
-#: sitebase/templates/app/list_views/organization/organizations.html:16
-#: sitebase/templates/app/list_views/property/view.html:11
+#: sitebase/templates/app/list_views/equipment/view.html:19
+#: sitebase/templates/app/list_views/harvest/view.html:15
+#: sitebase/templates/app/list_views/organization/organizations.html:29
+#: sitebase/templates/app/list_views/property/view.html:13
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
@@ -986,19 +989,19 @@ msgstr "400 Requête Invalide"
 
 #: sitebase/templates/app/errors/403.html:8
 msgid "403 Permission Denied"
-msgstr ""
+msgstr "403 Accès refusé"
 
 #: sitebase/templates/app/errors/403_csrf.html:8
 msgid "403 Forbidden. CSRF Verification Failed. Request aborted."
-msgstr ""
+msgstr "403, Accès refusé. Vérification CSRF échoué. Requête avorté."
 
 #: sitebase/templates/app/errors/404.html:8
 msgid "404 Page not found"
-msgstr ""
+msgstr "404, impossible de trouver la page"
 
 #: sitebase/templates/app/errors/500.html:8
 msgid "500 Server Error"
-msgstr ""
+msgstr "500 Erreur du serveur"
 
 #: sitebase/templates/app/errors/error.html:11
 msgid "Go Back"
@@ -1006,11 +1009,11 @@ msgstr "Retour"
 
 #: sitebase/templates/app/faq.html:17
 msgid "Frequently Asked Questions"
-msgstr "Foire Aux Questions"
+msgstr "Questions Fréquement Posées"
 
 #: sitebase/templates/app/forms/base.html:19
 msgid "Could not save form: some fields are invalid."
-msgstr "Certains champs comportent des erreurs."
+msgstr "Impossible de sauver le formulaire: Certains champs sont invalides."
 
 #: sitebase/templates/app/forms/model_form.html:30
 #: sitebase/templates/app/forms/organization_create_form.html:48
@@ -1037,7 +1040,7 @@ msgstr "Participant.e"
 
 #: sitebase/templates/app/forms/participation_manage_form.html:29
 msgid "Number of pickers"
-msgstr "Nombre de cueilleur(euse)s"
+msgstr "Nombre de cueilleur.euses"
 
 #: sitebase/templates/app/forms/property_create_form.html:16
 msgid "Trees"
@@ -1066,15 +1069,15 @@ msgstr ""
 "Êtes-vous certain(e) de vouloir ré-initialiser le mot-de-passe de cet "
 "utilisateur(trice)?"
 
-#: sitebase/templates/app/list_views/community/view.html:9
+#: sitebase/templates/app/list_views/community/view.html:11
 msgid "Person"
 msgstr "Personne"
 
-#: sitebase/templates/app/list_views/community/view.html:10
+#: sitebase/templates/app/list_views/community/view.html:12
 msgid "Roles"
 msgstr "Rôles"
 
-#: sitebase/templates/app/list_views/community/view.html:11
+#: sitebase/templates/app/list_views/community/view.html:13
 msgid "Date joined"
 msgstr "Date d'inscription"
 
@@ -1082,8 +1085,13 @@ msgstr "Date d'inscription"
 msgid "info"
 msgstr "info"
 
+#: sitebase/templates/app/list_views/equipment/data_table.html:11
+#: sitebase/templates/app/list_views/equipment/view.html:13
+msgid "Equipment Type"
+msgstr "Type d'Équipement"
+
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
-#: sitebase/templates/app/list_views/equipment/view.html:16
+#: sitebase/templates/app/list_views/equipment/view.html:17
 #: sitebase/templates/app/participation_list.html:22
 msgid "Shared"
 msgstr "Partagé"
@@ -1100,23 +1108,47 @@ msgstr "Filtrer"
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: sitebase/templates/app/list_views/harvest/view.html:10
+#: sitebase/templates/app/list_views/harvest/view.html:12
 msgid "Date/Time"
 msgstr "Date/Heure"
 
-#: sitebase/templates/app/list_views/harvest/view.html:16
+#: sitebase/templates/app/list_views/harvest/view.html:18
 msgid "Pick Leader"
-msgstr "Chef(fe) de cueillette"
+msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/list_views/harvest/view.html:17
+#: sitebase/templates/app/list_views/harvest/view.html:19
 msgid "Volunteers"
 msgstr "Bénévoles"
 
-#: sitebase/templates/app/list_views/organization/data_row.html:65
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:12
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
 
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:12
+msgid "This organization is an equipment point"
+msgstr "Cet organisme accepte les dons de fruits"
+
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:33
+msgid "No Equipment"
+msgstr "Pas d'Équipement"
+
+#: sitebase/templates/app/list_views/organization/map.html:13
+#: sitebase/templates/app/list_views/organization/organizations.html:11
+msgid "Table"
+msgstr "Tableau"
+
+#: sitebase/templates/app/list_views/organization/map.html:14
 #: sitebase/templates/app/list_views/organization/organizations.html:12
+msgid "Map"
+msgstr "Carte"
+
+#: sitebase/templates/app/list_views/organization/map.html:51
+#, fuzzy
+#| msgid "Harvest details"
+msgid "Extra details"
+msgstr "Détails de la récolte"
+
+#: sitebase/templates/app/list_views/organization/organizations.html:25
 msgid "Organization"
 msgstr "Organisation"
 
@@ -1148,15 +1180,15 @@ msgstr "non autorisée"
 msgid "inactive"
 msgstr "inactive"
 
-#: sitebase/templates/app/list_views/property/view.html:14
+#: sitebase/templates/app/list_views/property/view.html:16
 msgid "Ladder"
 msgstr "Échelle"
 
-#: sitebase/templates/app/list_views/property/view.html:15
+#: sitebase/templates/app/list_views/property/view.html:17
 msgid "Picks"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/list_views/property/view.html:16
+#: sitebase/templates/app/list_views/property/view.html:18
 msgid "Last pick"
 msgstr "Dernière récolte"
 
@@ -1211,7 +1243,7 @@ msgstr "Cueilleur.euse"
 
 #: sitebase/templates/app/stats.html:246
 msgid "Leader"
-msgstr "Chef(fe) de cueillette"
+msgstr "Chef.fe de cueillette"
 
 #: sitebase/templates/app/stats.html:247
 msgid "Request"
@@ -1241,6 +1273,26 @@ msgstr "Connexion"
 #: sitebase/templates/registration/login.html:65
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
+
+#, fuzzy
+#~| msgid "This organization accepts fruit donations"
+#~ msgid "Accepts fruit donations"
+#~ msgstr "Cet organisme accepte les dons de fruits"
+
+#, fuzzy
+#~| msgid "This organization accepts fruit donations"
+#~ msgid "Does not accept fruit donations"
+#~ msgstr "Cet organisme accepte les dons de fruits"
+
+#, fuzzy
+#~| msgid "Equipment Point"
+#~ msgid "See equipment list"
+#~ msgstr "Point d'Équipement"
+
+#, fuzzy
+#~| msgid "Equipment points"
+#~ msgid "Is not an equipment point"
+#~ msgstr "Points d'Equipement"
 
 #~ msgid "Adresss"
 #~ msgstr "Adresse"
@@ -1282,10 +1334,10 @@ msgstr "Mot de passe oublié"
 #~ msgstr "Accepté le"
 
 #~ msgid "Msg from picker"
-#~ msgstr "Message du/ de la cueilleur(euse)"
+#~ msgstr "Message du/ de la cueilleur.euse"
 
 #~ msgid "Msg from pick leader"
-#~ msgstr "Message du/ de la Chef(fe) de cueillette"
+#~ msgstr "Message du/ de la Chef.fe de cueillette"
 
 #~ msgid "Manage"
 #~ msgstr "Gérer"
@@ -1301,7 +1353,7 @@ msgstr "Mot de passe oublié"
 
 #, fuzzy
 #~ msgid "2022 Pick-leader resources"
-#~ msgstr "Ressources pour Chef(fe) de cueillette"
+#~ msgstr "Ressources pour Chef.fe de cueillette"
 
 #~ msgid "Pre-pick Guide"
 #~ msgstr "Guide de Pré-Cueillette"
@@ -1320,7 +1372,7 @@ msgstr "Mot de passe oublié"
 
 #~ msgid "Please follow these steps to volunteer as a fruit picker"
 #~ msgstr ""
-#~ "Merci de suivre ces étapes pour vous proposer comme cueilleur(euse) "
+#~ "Merci de suivre ces étapes pour vous proposer comme cueilleur.euse "
 #~ "volontaire"
 
 #~ msgid ""

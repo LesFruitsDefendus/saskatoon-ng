@@ -1,0 +1,21 @@
+{% load i18n %}
+{% load static %}
+
+        <dialog closedby="any" id="{{org.actor_id}}-civil-name-dialog">
+            <h2>
+                <a href="{% url 'organization-detail' org.actor_id %}">
+                    {{ org.civil_name }}
+                </a>
+            </h2>
+        <br> <i class="fa fa-phone text-muted"></i>&nbsp; {{ org.phone }}
+        {% if org.short_address %}
+            <br> <i class="fa fa-envelope-o text-muted"></i> {{ org.short_address }}
+        {% endif %}
+        </dialog>
+        <button
+            commandFor="{{org.actor_id}}-civil-name-dialog"
+            command="show-modal"
+            class="btn"
+        >
+            {{ org.civil_name }}
+        </button>

@@ -31,6 +31,7 @@ setup(
         "django-debug-toolbar>=6.0,<7",
         "django-extensions>=4.0,<5",
         "django-geojson>=4.0.0,<5",
+        "django-leaflet==0.26.0",
         "mysqlclient>=1.4.6",
         "Pillow>=11.0,<12",
         "pycparser>=2.20,<3",

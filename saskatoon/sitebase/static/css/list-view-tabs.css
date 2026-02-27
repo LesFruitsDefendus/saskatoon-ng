@@ -1,0 +1,39 @@
+tab-list {
+	padding: 0em 1em 1em 1em;
+	margin-top: 1em;
+	background-color: white;
+	display: block;
+	border-radius: 5px;
+
+	nav {
+		display: flex;
+		margin: 0 -1em 0 -1em;
+		background-color: #e7e0f9;
+		gap: 0.5em;
+	}
+
+	[role="tab"] {
+		display: inline-block;
+		padding: 1em;
+		width: 50%;
+		text-align: center;
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
+	}
+
+	a[role="tab"] {
+		background-color: rgb(212, 199, 249);
+		color: black;
+
+		&:hover {
+			color: white;
+			background-color: rgb(68, 11, 212);
+		}
+	}
+
+	span[role="tab"] {
+		font-weight: bold;
+		color: black;
+		background-color: white;
+	}
+}

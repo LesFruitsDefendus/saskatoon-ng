@@ -88,20 +88,20 @@ class HarvestFilter(filters.FilterSet):
         self, queryset: QuerySet[Harvest], name: str, choice: str
     ) -> QuerySet[Harvest]:
         if choice == 'next':
-            return queryset.filter(start_date__gte=local_today())
+            return queryset.filter(start_date__gte=local_today()).distinct()
         elif choice == 'past':
-            return queryset.filter(start_date__lt=local_today())
+            return queryset.filter(start_date__lt=local_today()).distinct()
         elif choice == 'id':
-            return queryset.order_by('-id')
+            return queryset.order_by('-id').distinct()
         elif choice == 'old':
-            return queryset.order_by('start_date')
-        return queryset
+            return queryset.order_by('start_date').distinct()
+        return queryset.distinct()
 
     def reserved_equipment_filter(self, queryset: QuerySet[Harvest], name: str, value: bool):
         if value:
-            return queryset.exclude(equipment_reserved=None)
+            return queryset.exclude(equipment_reserved=None).distinct()
 
-        return queryset
+        return queryset.distinct()
 
 
 @typechecked
@@ -162,14 +162,14 @@ class PropertyFilter(filters.FilterSet):
     def authorized_filter(self, queryset, name, choice) -> QuerySet[Property]:
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
-        return queryset.filter(authorized=bool(int(choice)))
+        return queryset.filter(authorized=bool(int(choice))).distinct()
 
     def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:
             return queryset
 
         harvests = Harvest.objects.filter(start_date__year=year)
-        return queryset.filter(harvests__in=harvests)
+        return queryset.filter(harvests__in=harvests).distinct()
 
 
 @typechecked
@@ -196,4 +196,4 @@ class EquipmentFilter(filters.FilterSet):
     )
 
     def equipment_point_filter(self, queryset, name, value) -> QuerySet[Equipment]:
-        return queryset.filter(owner__organization=value)
+        return queryset.filter(owner__organization=value).distinct()

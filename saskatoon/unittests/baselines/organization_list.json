@@ -1,5 +1,5 @@
 {
-    "count": 4,
+    "count": 2,
     "next": null,
     "previous": null,
     "pages_count": 1,
@@ -86,190 +86,10 @@
                     "start_date": "2026-07-24",
                     "start_time": "02:00 PM",
                     "end_time": "07:00 PM"
-                },
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-07-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
-                },
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-07-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
-                }
-            ]
-        },
-        {
-            "actor_id": 8,
-            "civil_name": "Deprecated Org.",
-            "contact_person": {
-                "actor_id": 6,
-                "roles": [
-                    "Contact Person"
-                ],
-                "name": "Contact Person",
-                "email": "contact@person.com",
-                "phone": null
-            },
-            "phone": "(539) 134-6979",
-            "short_address": "1A rue des orphèvres",
-            "address": "1A rue des orphèvres. Montreal Quebec, H1B3Z3",
-            "neighborhood": {
-                "id": 17,
-                "name": "Petite-Patrie"
-            },
-            "description": "This organization has no equipment and no longer accepts donations",
-            "is_beneficiary": false,
-            "beneficiary_description": "",
-            "is_equipment_point": false,
-            "equipment_description": "",
-            "equipment": [],
-            "inventory": {
-                "fr": "",
-                "en": ""
-            },
-            "upcoming_reservations": []
-        },
-        {
-            "actor_id": 7,
-            "civil_name": "L'Orgue Bien Équipée",
-            "contact_person": {
-                "actor_id": 6,
-                "roles": [
-                    "Contact Person"
-                ],
-                "name": "Contact Person",
-                "email": "contact@person.com",
-                "phone": null
-            },
-            "phone": "123-456-1234",
-            "short_address": "45 av. de la Fourchette",
-            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
-            "neighborhood": {
-                "id": 11,
-                "name": "Mile End"
-            },
-            "description": "This organization shares its equipment but can't accept fruit donations.",
-            "is_beneficiary": false,
-            "beneficiary_description": "",
-            "is_equipment_point": true,
-            "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
-            "equipment": [
-                {
-                    "id": 2,
-                    "property": null,
-                    "type": {
-                        "name": "Échelle",
-                        "name_fr": "Échelle",
-                        "name_en": "Ladder"
-                    },
-                    "description": "Step ladder",
-                    "count": 2,
-                    "shared": true,
-                    "owner": 7
-                },
-                {
-                    "id": 3,
-                    "property": null,
-                    "type": {
-                        "name": "Échelle",
-                        "name_fr": "Échelle",
-                        "name_en": "Ladder"
-                    },
-                    "description": "20ft extension ladder",
-                    "count": 1,
-                    "shared": true,
-                    "owner": 7
-                },
-                {
-                    "id": 4,
-                    "property": null,
-                    "type": {
-                        "name": "Cueille-fruits",
-                        "name_fr": "Cueille-fruits",
-                        "name_en": "Fruit picker"
-                    },
-                    "description": "10ft",
-                    "count": 4,
-                    "shared": true,
-                    "owner": 7
-                },
-                {
-                    "id": 5,
-                    "property": null,
-                    "type": {
-                        "name": "Trousse de premiers soins",
-                        "name_fr": "Trousse de premiers soins",
-                        "name_en": "First Aid Kit"
-                    },
-                    "description": "",
-                    "count": 1,
-                    "shared": true,
-                    "owner": 7
                 }
             ],
-            "inventory": {
-                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
-                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
-            },
-            "upcoming_reservations": [
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                },
-                {
-                    "id": 5,
-                    "pick_leader": {
-                        "id": 4,
-                        "name": "Core Member",
-                        "email": "core@member.com"
-                    },
-                    "start_date": "2026-10-01",
-                    "start_time": "07:00 AM",
-                    "end_time": "12:00 PM"
-                }
-            ]
+            "latitude": 45.511693,
+            "longitude": -73.566792
         },
         {
             "actor_id": 2,
@@ -300,7 +120,9 @@
                 "fr": "",
                 "en": ""
             },
-            "upcoming_reservations": []
+            "upcoming_reservations": [],
+            "latitude": 45.516465,
+            "longitude": -73.575174
         }
     ]
 }

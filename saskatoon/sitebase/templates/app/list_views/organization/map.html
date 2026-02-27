@@ -1,0 +1,80 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load organization %}
+
+{% block data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <link rel="stylesheet" href="/static/css/dialog.css"></link>
+    <link rel="stylesheet" href="/static/css/map.css"></link>
+    <script defer src="/static/js/list-view-tabs.js"></script>
+      <nav>
+        <a role="tab"href="." rel="keep-params">{% trans 'Table' %}</a>
+        <span role="tab" id="map-tab">{% trans 'Map' %}</span>
+      </nav>
+      <section
+        role="tabpanel"
+        style="padding-top: 1em;"
+        aria-labelledby="map-tab"
+      >
+        <script type="module">import "{% static 'js/map/main.js' %}"</script>
+        <leaflet-map style="height: 60vh;">
+            {% for org in data %}
+                 <leaflet-marker
+                     latitude="{{ org.latitude }}"
+                     longitude="{{ org.longitude }}"
+                     style="display: none;"
+                 >
+                    <leaflet-tooltip direction="top">{{ org.civil_name }}</leaflet-tooltip>
+                    <leaflet-icon
+                      style="color: {{ filter.form.status.value | reservation }};"
+                      icon-anchor="10 -5"
+                    >
+                      {{ org | org_icon | safe }}
+                    </leaflet-icon>
+                    <leaflet-icon
+                      style="color: {{ filter.form.status.value | reservation }};"
+                      class="leaflet-hover-icon"
+                      icon-anchor="10 -5"
+                      popup-anchor="0 0"
+                    >
+                      {{  org | org_icon_hover | safe }}
+                    </leaflet-icon>
+                    <leaflet-popup>
+                      <h3>
+                        <a href="{% url 'organization-detail' org.actor_id %}">
+                          {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
+                        </a>
+                      </h3>
+                      <p class="text-justify">{{ org.description }}</p>
+                      <section role="group" aria-label="{% trans 'Extra details' %}">
+                      	    {% include 'app/list_views/organization/beneficiary_modal.html' %}
+                               {% include 'app/list_views/organization/equipment_modal.html' %}
+                      </section>
+                       <section>
+                      <h4>{% trans "Contact" %}</h4>
+
+                      <address>
+                          {{ org.contact_person.name }}
+                          </br>
+                          {{ org.short_address }}
+                          </br>
+                          {% if org.contact_person.phone is not None %}
+                            {{ org.contact_person.phone }}
+                            </br>
+                         {% endif %}
+                          {% if org.contact_person.email is not None %}
+                            <a href="mailto:{{ org.contact_person.email }}">
+                              {{ org.contact_person.email }}
+                            </a>
+                          {% endif %}
+                    </address>
+                    </section>
+                  </leaflet-popup>
+                </leaflet-marker>
+            {% endfor %}
+        </leaflet-map>
+    </section>
+  </tab-list>
+{% endblock data %}

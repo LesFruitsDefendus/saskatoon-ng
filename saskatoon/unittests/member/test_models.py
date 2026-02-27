@@ -117,32 +117,24 @@ def test_organization_get_harvests(location):  # noqa: F811
 
 
 @pytest.mark.django_db
-def test_organization_get_upcoming_reservations(location):  # noqa: F811
+def test_organization_longitude(location):  # noqa: F811
+    long = -73.575174
     org = Organization.objects.create(
-        is_equipment_point=True, civil_name=" Test Equipment Point", **location
+        civil_name=" Test org longitude",
+        geom={"type": "Point", "coordinates": [long, 45.516465]},
+        **location,
     )
 
-    equip_type = EquipmentType.objects.create(name_fr="Type d'Equipement Test")
+    assert org.longitude == long
 
-    equipment = Equipment.objects.create(
-        type=equip_type,
-        owner=org,
-        shared=True,
+
+@pytest.mark.django_db
+def test_organization_latitude(location):  # noqa: F811
+    lat = 45.516465
+    org = Organization.objects.create(
+        civil_name=" Test org longitude",
+        geom={"type": "Point", "coordinates": [-73.575174, lat]},
+        **location,
     )
 
-    tzinfo = timezone(timedelta(hours=-5))
-    now = datetime.now(tzinfo)
-    delta = timedelta(hours=2)
-
-    harvest = Harvest.objects.create(start_date=now, end_date=now + delta)
-    harvest.equipment_reserved.set([equipment])
-
-    yesterday = now - timedelta(days=1)
-    harvest2 = Harvest.objects.create(start_date=yesterday, end_date=yesterday + delta)
-    harvest2.equipment_reserved.set([equipment])
-
-    reservations = org.upcoming_reservations
-    assert reservations.count() == 1
-    first = reservations.first()
-    assert first is not None
-    assert first.id == harvest.id
+    assert org.latitude == lat

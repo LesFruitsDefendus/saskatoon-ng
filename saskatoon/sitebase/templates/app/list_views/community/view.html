@@ -2,25 +2,28 @@
 {% load i18n %}
 {% load static %}
 
-{% block table %}
+{% block data %}
+  <div class="table-responsive">
+    <div class="dataTables_wrapper">
+      <table class="table table-striped datatable-minimal">
+        <thead>
+            <tr>
+                <th class="col-xs-2">{% trans "Person" %}</th>
+                <th class="col-xs-1">{% trans "Roles" %}</th>
+                <th class="col-xs-1">{% trans "Date joined" %}</th>
+                <th class="col-xs-3">{% trans "Harvests" %}</th>
+                <th class="col-xs-2">{% trans "Properties" %}</th>
+                <th class="col-xs-1">{% trans "Borough" %}</th>
+                <th class="col-xs-2">{% trans "Comments" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in data %}
+                {% include 'app/list_views/community/data_row.html' %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
-    <thead>
-        <tr>
-            <th class="col-xs-2">{% trans "Person" %}</th>
-            <th class="col-xs-1">{% trans "Roles" %}</th>
-            <th class="col-xs-1">{% trans "Date joined" %}</th>
-            <th class="col-xs-3">{% trans "Harvests" %}</th>
-            <th class="col-xs-2">{% trans "Properties" %}</th>
-            <th class="col-xs-1">{% trans "Borough" %}</th>
-            <th class="col-xs-2">{% trans "Comments" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in data %}
-
-            {% include 'app/list_views/community/data_row.html' %}
-
-        {% endfor %}
-    </tbody>
-
-{% endblock table %}
+{% endblock data %}

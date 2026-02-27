@@ -3,8 +3,7 @@
 <tr>
   <td>{{ item.id }}
     {% if perms.harvest.change_equipment %}
-    <a href="{% url 'equipment-update' item.id %}">
-      &nbsp; <i class="fa fa-pencil"></i></a>
+    <a href="{% url 'equipment-update' item.id %}"><i class="fa fa-pencil"></i></a>
     {% endif %}
   </td>
   <td>

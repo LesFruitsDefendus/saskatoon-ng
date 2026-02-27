@@ -20,9 +20,6 @@
             <b>
               <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a>
             </b>
-            {% if org.is_beneficiary %}
-                <i class="fa fa-gift"></i>
-            {% endif %}
             {% if perms.member.change_actor %}
                 &nbsp;
                 <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
@@ -57,44 +54,10 @@
     </td>
 
     <td>
-        {% if org.is_beneficiary %}
-            <i class="fa fa-check text-success"></i>
-            {% if org.beneficiary_description %}
-                &nbsp; <a data-toggle="modal"
-                       title="fruit donation"
-                       data-info="{% trans 'This organization accepts fruit donations' %}"
-                       data-title="{{org.civil_name}}"
-                       data-description="{{org.beneficiary_description}}"
-                       href="#organization-modal">
-                <i class="fa fa-external-link"></i>
-                </a>
-            {% endif %}
-        {% else %}
-            <i class="fa fa-times text-danger"></i>
-        {% endif %}
+        {% include 'app/list_views/organization/beneficiary_modal.html' %}
     </td>
     <td>
-        {% if org.is_equipment_point %}
-            <i class="fa fa-check text-success"></i>
-            {% if org.equipment_description %}
-                &nbsp; <a data-toggle="modal"
-                       title="equipment"
-                    {% if LANG == "fr" %}
-                       data-info="Équipment disponible à cette organisation:"
-                       data-inventory="{{org.inventory.fr}}"
-                    {% else %}
-                       data-info="This organization has the following equipment:"
-                       data-inventory="{{org.inventory.en}}"
-                    {% endif %}
-                       data-title="{{org.civil_name}}"
-                       data-description="{{org.equipment_description}}"
-                       href="#organization-modal">
-                <i class="fa fa-external-link"></i>
-                </a>
-            {% endif %}
-        {% else %}
-            <i class="fa fa-times text-danger"></i>
-    {% endif %}
+        {% include 'app/list_views/organization/equipment_modal.html' %}
     </td>
 
     <td>{{ org.neighborhood.name }}</td>

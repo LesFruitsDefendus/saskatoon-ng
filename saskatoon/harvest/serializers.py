@@ -346,6 +346,8 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'equipment',
             'inventory',
             'upcoming_reservations',
+            'latitude',
+            'longitude',
         ]
 
     contact_person = ContactPersonSerializer(many=False, read_only=True)

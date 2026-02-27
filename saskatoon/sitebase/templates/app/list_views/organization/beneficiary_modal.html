@@ -1,0 +1,30 @@
+{% load i18n %}
+{% load static %}
+
+{% if org.is_beneficiary %}
+    {% if org.beneficiary_description %}
+        <dialog closedby="any" id="{{org.actor_id}}-beneficiary-dialog">
+          <header class="modal-header">
+               <button type="button" class="close" aria-label="Close" commandFor="{{org.actor_id}}-beneficiary-dialog" command="close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title"">{{org.civil_name}}</h3>
+          </header>
+          <section class="modal-body">
+            <p>{% trans 'This organization accepts fruit donations' %}</p>
+            <blockquote>{{org.beneficiary_description}}</blockquote>
+          </section>
+        </dialog>
+        <button
+            commandFor="{{org.actor_id}}-beneficiary-dialog"
+            command="show-modal"
+            class="btn btn-outline-primary"
+        >
+            <i class="fa fa-check" style="color: #440bd4;"></i>
+            {% trans 'Beneficiary' %}
+        </button>
+    {% endif %}
+{% else %}
+    <button class="btn" disabled>
+    <i class="fa fa-times text-danger"></i>
+    {% trans 'Beneficiary' %}
+    </button>
+{% endif %}

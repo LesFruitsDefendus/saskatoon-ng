@@ -3,7 +3,6 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-
 from member.models import AuthUser
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,

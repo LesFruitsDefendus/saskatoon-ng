@@ -1,0 +1,37 @@
+leaflet-popup {
+	min-width: 35vw;
+
+	p {
+		font-size: 14px;
+	}
+
+	> section:has(button) {
+		display: grid;
+		grid-template-columns: 50% 50%;
+
+		button {
+			&:first-of-type {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+
+			&:last-of-type {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		}
+	}
+
+	> section {
+		margin-top: 1em;
+	}
+
+	a {
+		text-decoration: none;
+		color: #440bd4 !important;
+
+		&:hover {
+			color: #2da4f0 !important;
+		}
+	}
+}
