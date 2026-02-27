@@ -7,6 +7,9 @@ tab-list {
 
 	nav {
 		display: flex;
+		margin: 0 -1em 0 -1em;
+		background-color: #e7e0f9;
+		gap: 0.5em;
 	}
 
 	[role="tab"] {
@@ -14,17 +17,8 @@ tab-list {
 		padding: 1em;
 		width: 50%;
 		text-align: center;
-
-		&:first-child {
-			margin-left: -1em;
-			border-top-left-radius: 5px;
-		}
-
-		&:last-child {
-			margin-left: auto;
-			margin-right: -1em;
-			border-top-right-radius: 5px;
-		}
+		border-top-right-radius: 5px;
+		border-top-left-radius: 5px;
 	}
 
 	a[role="tab"] {
