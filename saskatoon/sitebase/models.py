@@ -6,6 +6,7 @@ from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 from django.db.models.signals import post_save, pre_save
 from logging import getLogger
+from sortedm2m.fields import SortedManyToManyField
 from typing import Dict, Any
 
 from member.models import Person
@@ -44,6 +45,7 @@ class PageContent(models.Model):
         PICKLEADER_HOME = 'pickleader_home', _("Pickleader Home")
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
+        FAQ = 'faq', _("FAQ")
 
     type = models.CharField(
         verbose_name=_("Page type"),
@@ -95,6 +97,77 @@ class PageContent(models.Model):
     def get(type, lang):
         obj, _ = PageContent.objects.get_or_create(type=type)
         return obj.content(lang)
+
+
+class FAQItem(models.Model):
+    """Question / Answer"""
+
+    class Meta:
+        verbose_name = _("FAQ Item")
+        verbose_name_plural = _("FAQ Items")
+        ordering = ['id']
+
+    question_en = models.CharField(
+        verbose_name="Question (en)",
+        max_length=255,
+        blank=False,
+    )
+
+    question_fr = models.CharField(
+        verbose_name="Question (fr)",
+        max_length=255,
+        blank=False,
+    )
+
+    answer_en = models.TextField(
+        verbose_name="Answer (en)",
+        blank=False,
+    )
+
+    answer_fr = models.TextField(
+        verbose_name="Réponse (fr)",
+        blank=False,
+    )
+
+    def dict(self, lang: str) -> dict[str, str]:
+        return dict([(key, getattr(self, f"{key}_{lang}")) for key in ['question', 'answer']])
+
+    def __str__(self):
+        return "{}[{}]".format(self.question_en, self.id)
+
+
+class FAQList(models.Model):
+    """Frequently Asked Questions"""
+
+    class Meta:
+        verbose_name = _("FAQ List")
+        verbose_name_plural = _("FAQ Lists")
+        ordering = ['is_active', 'name']
+
+    name = models.CharField(
+        verbose_name=_("Ref. Name"),
+        max_length=100,
+        blank=False,
+    )
+
+    title_en = models.CharField(
+        verbose_name="Title (en)",
+        max_length=255,
+        blank=False,
+    )
+
+    title_fr = models.CharField(
+        verbose_name="Titre (fr)",
+        max_length=255,
+        blank=False,
+    )
+
+    items = SortedManyToManyField(FAQItem, verbose_name=_("Items"), sorted=True, blank=True)
+
+    is_active = models.BooleanField(verbose_name=_("Enabled"), default=True, null=False)
+
+    def __str__(self):
+        return "{}[{}]".format(self.name, self.id)
 
 
 class EmailType(models.TextChoices):

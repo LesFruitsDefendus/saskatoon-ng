@@ -1,0 +1,46 @@
+[
+{
+  "model": "sitebase.faqlist",
+  "pk": 1,
+  "fields": {
+    "name": "1. pickers",
+    "title_en": "Volunteer pickers",
+    "title_fr": "Cueilleur.euse.s bénévoles",
+    "is_active": true,
+    "items": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  }
+},
+{
+  "model": "sitebase.faqlist",
+  "pk": 2,
+  "fields": {
+    "name": "2. owners",
+    "title_en": "Tree owners",
+    "title_fr": "Propriétaires d'arbres",
+    "is_active": true,
+    "items": [
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20
+    ]
+  }
+}
+]

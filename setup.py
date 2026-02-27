@@ -38,6 +38,7 @@ setup(
         "django-dotenv>=1.4.2,<2",
         "django-crispy-forms>=2.0,<3",
         "django-rosetta>=0.9.8,<1",
+        "django-sortedm2m>=3.1.1",
         "django-phone-field>=1.8.1,<2",
         "postalcodes-ca>=0.0.9,<1",
         "django-quill-editor>=0.1.40,<1",

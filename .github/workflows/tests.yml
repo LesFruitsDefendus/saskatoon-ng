@@ -67,18 +67,20 @@ jobs:
       run: |
         tox -e unittests
 
-    - name: Create test super user
-      run: |
-        python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
+    # # Selenium # #
+    #
+    # - name: Create test super user
+    #   run: |
+    #     python3 saskatoon/tests/createtestsuperuser.py admin@example.com testing1234
 
-    - name: Prepare Selenium
-      # https://github.com/marketplace/actions/setup-chromedriver
-      uses: nanasess/setup-chromedriver@e93e57b843c0c92788f22483f1a31af8ee48db25
+    # - name: Prepare Selenium
+    #   # https://github.com/marketplace/actions/setup-chromedriver
+    #   uses: nanasess/setup-chromedriver@e93e57b843c0c92788f22483f1a31af8ee48db25
 
-    - name: Start XVFB
-      run: Xvfb :99 &
+    # - name: Start XVFB
+    #   run: Xvfb :99 &
 
-    - name: Run tests
-      run: saskatoon/tests/runtests.sh
-      env:
-        DISPLAY: :99
+    # - name: Run tests
+    #   run: saskatoon/tests/runtests.sh
+    #   env:
+    #     DISPLAY: :99

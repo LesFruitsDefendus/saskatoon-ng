@@ -1,0 +1,42 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/faq-list.css' %}">
+{% endblock style %}
+
+{% block content %}
+    <div class="faq">
+        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
+            <header class="wb-traffic-inner mg-b-15">
+                <div class="breadcomb-icon">
+                    <i class="notika-icon notika-search"></i>
+                </div>
+                <div class="breadcomb-ctn">
+                    <h1>{% trans "Frequently Asked Questions" %}</h1>
+                </div>
+            </header>
+
+            {% for faq in FAQs %}
+                <section class="wb-traffic-inner mg-b-15">
+                    <h4>{{faq.title | safe}}</h4>
+                    <ul>
+                        {% for item in faq.items %}
+                        <li>
+                            <details>
+                                <summary>
+                                    <span>{{item.question | safe}}</span>
+                                </summary>
+                                <section>
+                                    {{item.answer | safe}}
+                                </section>
+                            </details>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock content %}

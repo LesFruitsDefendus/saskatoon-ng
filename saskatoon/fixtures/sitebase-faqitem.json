@@ -1,0 +1,202 @@
+[
+{
+  "model": "sitebase.faqitem",
+  "pk": 1,
+  "fields": {
+    "question_en": "How can I join a pick?",
+    "question_fr": "Comment puis-je me joindre à une cueillette ?",
+    "answer_en": "Head over to our Harvest Calendar to check out upcoming picks and sign up for one that interests you. Please note that signing up for a harvest does not automatically reserve you a place on the pick. Spots are limited and fill up fast so only those that receive a confirmation email from the harvest’s Pick leader will be asked to participate in the harvest. <a target=\"_blank\"  href=\"/calendar\">Our Calendar</a>",
+    "answer_fr": "Rendez-vous sur notre Calendrier des récoltes pour voir les prochaines cueillettes et inscrivez-vous à celle qui vous intéresse. Veuillez noter que le fait de vous inscrire pour une récolte ne vous réserve pas automatiquement une place. Les places sont limitées et se remplissent rapidement, seuls ceux qui reçoivent un courriel de confirmation du responsable de la cueillette de la récolte seront invités à participer à la récolte. <a target=\"_blank\"  href=\"/calendar\">Notre calendrier</a>"
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 2,
+  "fields": {
+    "question_en": "Do I need any training?",
+    "question_fr": "Ai-je besoin de formation ?",
+    "answer_en": "No training is required to join us on a pick, but we do ask that you follow some basic guidelines that the pick leader will provide.",
+    "answer_fr": "Aucune formation n'est requise pour nous rejoindre une cueillette, nous vous demandons de suivre quelques directives de base que le/la chef.fe.s de cueillette vous fournira."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 3,
+  "fields": {
+    "question_en": "How old must I be to join a pick?",
+    "question_fr": "Quel âge dois-je avoir pour me joindre à une cueillette ?",
+    "answer_en": "Volunteer pickers of all ages can join a harvest. However, for children aged 15 and younger, a responsible adult must be present to ensure that basic guidelines provided by the Pick Leader, are followed.",
+    "answer_fr": "Les cueilleu.se.rs bénévoles de tous âges peuvent rejoindre une cueillette. Cependant, pour les enfants âgés de 15 ans et moins, un adulte responsable doit être présent pour s'assurer que les directives de base fournies par le/la chef.fe de cueillette sont respectées."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 4,
+  "fields": {
+    "question_en": "Do I need to bring anything to the pick?",
+    "question_fr": "Dois-je apporter quelque chose lors de la cueillette ?",
+    "answer_en": "A Pick leader will contact you prior to the harvest to let you know if anything special is needed, but as a general rule, bring water, wear closed toe shoes and dress in comfortable clothing. Sun protection (e.g. a hat and/or sunscreen), some snacks and insect repellent are good to bring with you as well!",
+    "answer_fr": "Un/Une chef.fe de cueillette vous contactera pour vous faire savoir si quelque chose de spécial est nécessaire, mais en règle générale, apportez de l'eau, portez des chaussures à bout fermé et habillez-vous de façon confortable. Une protection solaire (p. ex. un chapeau et/ou un crème solaire), des collations et un insectifuge sont aussi bons à apporter avec vous !"
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 5,
+  "fields": {
+    "question_en": "I try to sign up for picks, but they fill up too fast. What can I do?",
+    "question_fr": "J'essaie de m'inscrire à des cueillettes, mais elles se remplissent trop vite. Qu'est-ce que je peux faire ?",
+    "answer_en": "Unfortunately, there are limited spots available for each pick and they tend to fill up fast! Last minute picks are also posted on Facebook so we suggest liking our page in order to learn about new opportunities. Insider tip: the surest way to secure a spot on a pick is to become a Pick Leader! Email us at <a href=\"mailto:info@lesfruitsdefendus.org\">info@lesfruitsdefendus.org</a> to learn more.",
+    "answer_fr": "Malheureusement, il y a peu de places disponibles pour chaque cueillette et elles ont tendance à se remplir rapidement ! Les cueillettes de dernière minute sont également affichés sur Facebook, alors nous vous suggérons d'aimer notre page afin d'en apprendre davantage sur les nouvelles occasions. Conseil de spécialiste : la façon la plus sûre d'obtenir une place lors d'une cueillette est de devenir un/une chef.fe de cueillette ! Envoyez-nous un courriel à <a href=\"mailto:info@lesfruitsdefendus.org\">info@lesfruitsdefendus.org</a> pour en savoir plus."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 6,
+  "fields": {
+    "question_en": "How long is a pick?",
+    "question_fr": "Combien de temps dure une récolte ?",
+    "answer_en": "Harvests typically last two hours. However, the pick-leader will spend additional time before and after the pick doing additional activities, like transporting equipment to and from the harvest and bringing fruit to the beneficiary organization.",
+    "answer_fr": "Les récoltes durent généralement deux heures. Cependant, le/la chef.fe de cueillette consacrera plus de temps avant et après la cueillette à d'autres activités, comme le transport de l'équipement à destination et en provenance de l'arbre et l'acheminement des fruits à l'organisation bénéficiaire."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 7,
+  "fields": {
+    "question_en": "What is a pick-leader?",
+    "question_fr": "Qu'est-ce qu'un/une chef.fe de cueillette ?",
+    "answer_en": "Pick-leaders make harvests happen! They organize and oversee picks, transport equipment to and from harvests, bring fruit to beneficiary organizations and log the day’s bounty in our system. If you’re someone who is not afraid to take charge, enjoys meeting new people and LOVES fruit, email us!",
+    "answer_fr": "Les chef.fe.s de cueillette font en sorte que les récoltes aient lieu ! Ils organisent et supervisent les cueillettes, transportent le matériel à destination et en provenance des arbres, apportent les fruits aux organisations bénéficiaires et enregistrent la quantité de fruits récoltés dans notre système. Si vous êtes quelqu'un qui n'a pas peur de prendre les choses en main, qui aime rencontrer de nouvelles personnes et qui aime les fruits, envoyez-nous un courriel !"
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 8,
+  "fields": {
+    "question_en": "How do I become a pick-leader?",
+    "question_fr": "Comment puis-je devenir un/une chef.fe de cueillette ?",
+    "answer_en": "To join our amazing community of pick-leaders, you must first attend a 2-hour training session, which are typically offered in June, July or August. Email us to learn more!",
+    "answer_fr": "Pour vous joindre à notre incroyable communauté de chefs de cueillette, vous devez d'abord assister à une session de formation de 2 heures, qui est généralement offerte en juin, juillet ou août. Envoyez-nous un courriel pour en savoir plus !"
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 9,
+  "fields": {
+    "question_en": "Looking for answers to more detailed questions?",
+    "question_fr": "Vous avez des question plus précises ?",
+    "answer_en": "Here is a link to our harvest guide. Don't hesitate to contact us directly.",
+    "answer_fr": "Voici un lien vers notre guide de récolte. N'hésitez pas à nous contacter directement."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 10,
+  "fields": {
+    "question_en": "I'm current pick-leader and I have issue accessing to Saskatoon.",
+    "question_fr": "Je suis un/une chef.fe de cueillette et j'ai des difficultés à accéder à Saskatoon.",
+    "answer_en": "Contact us directly.",
+    "answer_fr": "Contactez-nous directement."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 11,
+  "fields": {
+    "question_en": "How do I sign up my fruit tree to Les Fruit Défendus?",
+    "question_fr": "Comment puis-je inscrire mon arbre fruitier aux Fruit defendus ?",
+    "answer_en": "Thank you for wanting to share your fruit with our volunteers and local community organizations! To register your tree, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">fill out this form</a>. Please note that registering your tree does not guarantee that it will be harvested. We rely on volunteers to pick fruit and their availability during the season determines the number of trees that are harvested.",
+    "answer_fr": "Merci de vouloir partager vos fruits avec nos bénévoles et les organismes communautaires locaux ! Pour enregistrer votre arbre, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">remplissez ce formulaire</a>. Veuillez noter que l'enregistrement de votre arbre ne garantit pas qu'il sera récolté. Nous comptons sur les bénévoles pour cueillir les fruits et leur disponibilité pendant la saison détermine le nombre d'arbres récoltés."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 12,
+  "fields": {
+    "question_en": "Do you accept all trees, from anywhere in the city?",
+    "question_fr": "Acceptez-vous tous les arbres, de n'importe où dans la ville ?",
+    "answer_en": "We accept all fruit-bearing trees (and bushes and vines, too!) throughout the city of Montreal. It is important to note that for the safety of our volunteers, our ladders limit how far our pickers can reach. If most of your fruit grows higher than this, we may not be very helpful in harvesting your fruit. If you’re unsure whether the fruit is reachable, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">fill out this form</a>, send us pictures to assess the tree accessibility, we will check it out.",
+    "answer_fr": "Nous acceptons tous les arbres fruitiers (ainsi que les buissons et les vignes !) de la ville de Montréal. Il est important de noter que pour la sécurité de nos bénévoles, nos échelles limitent la portée de nos cueilleurs. Si la plupart de vos fruits poussent trop haut, il se peut que nous ne soyons pas très utiles pour la récolte de vos fruits. Si vous n'êtes pas sûr que le fruit soit accessible, <a target=\"_blank\" href=\"/harvest/properties/create_pending\">remplissez ce formulaire</a> et envoyez-nous des photos pour évaluer l'accessibilité de l'arbre, nous le vérifierons."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 13,
+  "fields": {
+    "question_en": "I signed up my tree and the fruit is ready to be picked, but no one has contacted me.",
+    "question_fr": "J'ai inscrit mon arbre et les fruits sont prêts à être cueillis, mais personne ne m'a contacté",
+    "answer_en": "As a volunteer-based organization, our ability to harvest fruit depends entirely on the availability of our volunteer Pick leaders. Unfortunately, this means that we might not be able to pick all the trees on our registry.",
+    "answer_fr": "En tant qu'organisme bénévole, notre capacité à récolter des fruits dépend entièrement de la disponibilité de nos chefs de cueillette bénévoles. Malheureusement, cela signifie que nous risquons de ne pas être en mesure de cueillir tous les arbres de notre registre."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 14,
+  "fields": {
+    "question_en": "Do I need to be home for the pick?",
+    "question_fr": "Dois-je être à la maison pour la cueillette ?",
+    "answer_en": "You do not need to be present for the pick unless you are needed to access the property.",
+    "answer_fr": "Vous n'avez pas besoin d'être présent pour la cueillette à moins que vous ne deviez être présent pour accéder à la propriété."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 15,
+  "fields": {
+    "question_en": "How long is a pick?",
+    "question_fr": "Combien de temps dure une cueillette ?",
+    "answer_en": "A pick typically lasts two hours.",
+    "answer_fr": "Une cueillette dure généralement deux heures."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 16,
+  "fields": {
+    "question_en": "Do I need to provide any equipment?",
+    "question_fr": "Dois-je fournir de l'équipement ?",
+    "answer_en": "Having a ladder or garden scissors available for our pickers to use is extremely helpful, but not necessary to participate with Les Fruits Défendus.",
+    "answer_fr": "Avoir une échelle ou des ciseaux de jardin à la disposition de nos cueilleurs est extrêmement utile, mais pas nécessaire pour participer avec Les Fruits Défendus."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 17,
+  "fields": {
+    "question_en": "Why is there still fruit on my tree after it was picked?",
+    "question_fr": "Pourquoi y a-t-il encore des fruits sur mon arbre après sa cueillette ?",
+    "answer_en": "For the safety of our volunteers, our ladders limit how high our pickers can reach. Fruit that grows above this point will be left on your tree, unless there is an alternative way to reach the fruit, such as an accessible roof.",
+    "answer_fr": "Pour la sécurité de nos bénévoles, nos échelles limitent la hauteur que nos cueilleurs peuvent atteindre. Les fruits qui poussent trop haut seront laissés sur votre arbre, à moins qu'il n'y ait un autre moyen d'atteindre le fruit, par exemple un toit accessible."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 18,
+  "fields": {
+    "question_en": "What if a volunteer gets injured during a pick? Am I responsible?",
+    "question_fr": "Que se passe-t-il si un bénévole se blesse lors d'une cueillette ? Suis-je responsable ?",
+    "answer_en": "You are not responsible for a volunteer’s injury. Any injuries are Les Fruits Défendus' responsibility.",
+    "answer_fr": "Vous n'êtes pas responsable de la blessure d'un bénévole. Les Fruits Dénfendus sont responsables de toute blessure."
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 19,
+  "fields": {
+    "question_en": "Do you offer tree care?",
+    "question_fr": "Offrez-vous des services d'entretien des arbres ?",
+    "answer_en": "No, but here are some guides <a target=\"_blank\" href=\"https://www.treesaregood.org/treeowner/pruningyourtrees\">on pruning trees.</a>",
+    "answer_fr": "Non, mais voici des <a target=\"_blank\"  href=\"https://www.treesaregood.org/treeowner/french\">ressources sur l'élagage des arbres.</a>"
+  }
+},
+{
+  "model": "sitebase.faqitem",
+  "pk": 20,
+  "fields": {
+    "question_en": "Make a donation",
+    "question_fr": "Faire un don",
+    "answer_en": "You can donate online. Thanks :)",
+    "answer_fr": "Vous pouvez faire un don en ligne Merci :)"
+  }
+}
+]
