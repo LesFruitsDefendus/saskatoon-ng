@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
     libxcb1-dev \
     libcharls2 \
     gettext \
-    libgdal-dev \
+    libgdal36 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
