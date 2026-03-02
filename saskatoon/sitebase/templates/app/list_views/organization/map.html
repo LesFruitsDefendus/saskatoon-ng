@@ -42,34 +42,34 @@
                       {{  org | org_icon_hover | safe }}
                     </leaflet-icon>
                     <leaflet-popup>
-                      <h3>
+                      <h4>
                         <a href="{% url 'organization-detail' org.actor_id %}">
                           {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
                         </a>
-                      </h3>
+                      </h4>
                       <p class="text-justify">{{ org.description }}</p>
                       <section role="group" aria-label="{% trans 'Extra details' %}">
                       	    {% include 'app/list_views/organization/beneficiary_modal.html' %}
                                {% include 'app/list_views/organization/equipment_modal.html' %}
                       </section>
                        <section>
-                      <h4>{% trans "Contact" %}</h4>
+                          <h5>{% trans "Contact" %}</h5>
 
-                      <address>
-                          {{ org.contact_person.name }}
-                          </br>
-                          {{ org.short_address }}
-                          </br>
-                          {% if org.contact_person.phone is not None %}
-                            {{ org.contact_person.phone }}
-                            </br>
-                         {% endif %}
-                          {% if org.contact_person.email is not None %}
-                            <a href="mailto:{{ org.contact_person.email }}">
-                              {{ org.contact_person.email }}
-                            </a>
-                          {% endif %}
-                    </address>
+                          <address>
+                              {{ org.contact_person.name }}
+                              </br>
+                              {{ org.short_address }}
+                              </br>
+                              {% if org.contact_person.phone is not None %}
+                                {{ org.contact_person.phone }}
+                                </br>
+                             {% endif %}
+                              {% if org.contact_person.email is not None %}
+                                <a href="mailto:{{ org.contact_person.email }}">
+                                  {{ org.contact_person.email }}
+                                </a>
+                              {% endif %}
+                        </address>
                     </section>
                   </leaflet-popup>
                 </leaflet-marker>
