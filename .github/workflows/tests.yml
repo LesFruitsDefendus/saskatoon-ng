@@ -47,6 +47,11 @@ jobs:
         sudo apt install gettext
         bash scripts/check_translations.sh || (echo "Translations files are not up to date. Please run 'make translations'"; exit 1)
 
+    - name: Install GDAL
+      run: |
+        apt-get update
+        apt-get install libgdal-dev
+
     - name: Check migrations
       run: |
         bash scripts/check_migrations.sh || (echo "Migration files are not up to date. Please run 'make migrations'"; exit 1)

@@ -33,6 +33,11 @@ jobs:
       run: |
         saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
 
+    - name: Install GDAL
+      run: |
+        apt-get update
+        apt-get install libgdal-dev
+
     - name: Run mypy
       run: |
         tox -e mypy
