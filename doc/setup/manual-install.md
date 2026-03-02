@@ -57,6 +57,11 @@ Please follow each part of this documentation in order to run your own instance 
 
     Refer to [Pillow installation instruction](https://pillow.readthedocs.io/en/latest/installation.html#building-on-linux) for more documentation.
 
+3. GDAL
+
+    You need to make sure that the GDAL library is installed. On debian,
+    this can be done with `sudo apt install libgdal-dev`
+
 ## Installation
 
 1. Set up a Python virtual environment:
