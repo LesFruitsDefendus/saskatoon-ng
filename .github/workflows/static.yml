@@ -35,8 +35,7 @@ jobs:
 
     - name: Install GDAL
       run: |
-        apt-get update
-        apt-get install libgdal-dev
+        sudo apt install libgdal-dev
 
     - name: Run mypy
       run: |
