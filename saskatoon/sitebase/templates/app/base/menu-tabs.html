@@ -11,10 +11,10 @@
 <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
     <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
 </li>
-<li class="{% if request.resolver_match.url_name == 'organization-list' %}active{% endif %}">
+<li class="{% if request.resolver_match.url_name == 'organization-list' or request.resolver_match.url_name == 'organization-map' %}active{% endif %}">
     <a href="{% url 'organization-list' %}?type=1"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>
 </li>
-<li class="{% if request.resolver_match.url_name == 'equipment-point-list' %}active{% endif %}">
+<li class="{% if request.resolver_match.url_name == 'equipment-point-list' or request.resolver_match.url_name == 'equipment-point-map' %}active{% endif %}">
     <a href="{% url 'equipment-point-list' %}"><i class="fa fa-scissors"></i> {% translate "Equipment Points" %}</a>
 </li>
 <li class="{% if request.resolver_match.url_name == 'community-list' %}active{% endif %}">
