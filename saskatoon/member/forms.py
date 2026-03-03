@@ -126,7 +126,7 @@ class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
 class OrganizationForm(forms.ModelForm[Organization]):
     class Meta:
         model = Organization
-        exclude = ['redmine_contact_id', 'longitude', 'latitude']
+        exclude = ['redmine_contact_id', 'geom']
         labels = {
             'is_beneficiary': _("Beneficiary organization"),
             'is_equipment_point': _("Equipment point"),
