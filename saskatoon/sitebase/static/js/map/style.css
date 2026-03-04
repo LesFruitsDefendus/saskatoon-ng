@@ -1,5 +1,10 @@
-#leaflet-container {
+.leaflet-container {
 	min-height: 400px;
+
+	a.leaflet-popup-close-button {
+		top: 12px;
+		right: 16px;
+	}
 }
 
 leaflet-marker {
