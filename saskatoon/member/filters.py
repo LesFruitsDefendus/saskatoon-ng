@@ -143,7 +143,7 @@ class OrganizationFilter(filters.FilterSet):
         if value == '1':
             return queryset.filter(is_beneficiary=True)
         if value == '2':
-            return queryset.filter(is_equipment_point=True)
+            return queryset.filter(is_beneficiary=True).filter(is_equipment_point=True)
         return queryset
 
 

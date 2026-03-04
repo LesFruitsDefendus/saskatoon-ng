@@ -44,7 +44,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         """Beneficiairies list view"""
 
         self.template_name = 'app/list_views/organization/organizations.html'
-        self.queryset = Organization.objects.filter(is_beneficiary=True).order_by('-actor_id')
+        self.queryset = Organization.objects.all().order_by('-actor_id')
         response = super().list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return response
