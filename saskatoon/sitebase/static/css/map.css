@@ -1,6 +1,4 @@
 leaflet-popup {
-	min-width: 35vw;
-
 	p {
 		font-size: 14px;
 	}
@@ -21,6 +19,18 @@ leaflet-popup {
 
 		&:hover {
 			color: #2da4f0 !important;
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.leaflet-popup-content {
+		max-width: 70vw;
+	}
+
+	leaflet-popup {
+		> section:has(button) {
+			grid-template-columns: 100%;
 		}
 	}
 }

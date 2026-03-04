@@ -4,28 +4,27 @@
 
 <tr>
     <td>
+        {{ org.actor_id }}&nbsp;
         {% if perms.member.delete_actor %}
             <small>
                 <a href="{% url 'admin:member_actor_delete' org.actor_id %}"
-                   onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
+                   onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');"
+                   title="{% trans 'Delete' %} {{ org.civil_name }}">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
-            &nbsp;
             </small>
-        {% endif %}
-        {{ org.actor_id }}
+        {% endif %}            {% if perms.member.change_actor %}
+                <small><a href="{% url 'organization-update' org.actor_id %}" title="{% trans 'Edit' %} {{ org.civil_name }}">
+                    <i class="fa fa-pencil"></i>
+                </a></small>
+            {% endif %}
+
     </td>
     <td>
         <span>
             <b>
               <a href="{% url 'organization-detail' org.actor_id %}">{{ org.civil_name }}</a>
             </b>
-            {% if perms.member.change_actor %}
-                &nbsp;
-                <small><a href="{% url 'organization-update' org.actor_id %}" title="edit">
-                    <i class="fa fa-pencil"></i>
-                </a></small>
-            {% endif %}
         </span>
         <br> <i class="fa fa-phone text-muted"></i>&nbsp; {{ org.phone }}
         {% if org.short_address %}
@@ -37,7 +36,7 @@
         <b>{{ org.contact_person.name }}</b>
         {% if org.contact_person and perms.member.change_person %}
             &nbsp;
-            <small><a href="{% url 'person-update' org.contact_person.actor_id %}" title="edit">
+            <small><a href="{% url 'person-update' org.contact_person.actor_id %}" title="{% trans 'Edit' %} {{ org.contact_person.name }}">
                 <i class="fa fa-pencil"></i>
             </a></small>
         {% endif %}

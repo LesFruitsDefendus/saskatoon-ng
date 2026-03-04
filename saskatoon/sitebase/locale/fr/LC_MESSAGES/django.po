@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-27 14:49+0000\n"
+"POT-Creation-Date: 2026-03-04 11:45+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,8 +71,6 @@ msgid "Items"
 msgstr "Items"
 
 #: sitebase/models.py:167
-#, fuzzy
-#| msgid "Table"
 msgid "Enabled"
 msgstr "Activé"
 
@@ -659,6 +657,7 @@ msgid "Weight"
 msgstr "Poids"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:30
+#: sitebase/templates/app/list_views/organization/data_row.html:12
 msgid "Delete"
 msgstr "Effacer"
 
@@ -744,6 +743,10 @@ msgstr "Rôle"
 msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
+#: sitebase/templates/app/detail_views/organization/equipment_row.html:6
+msgid "Modify Equipment"
+msgstr "Modifier l'Équipement"
+
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
 #: sitebase/templates/app/list_views/organization/organizations.html:28
 #: sitebase/templates/app/participation_list.html:18
@@ -772,8 +775,9 @@ msgid "Description"
 msgstr "Description"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:22
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:28
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:31
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:36
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:42
 #: sitebase/templates/app/list_views/organization/organizations.html:27
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
@@ -1059,7 +1063,7 @@ msgid "Search"
 msgstr "Rechercher"
 
 #: sitebase/templates/app/list_views/community/data_row.html:17
-#: sitebase/templates/app/list_views/organization/data_row.html:10
+#: sitebase/templates/app/list_views/organization/data_row.html:11
 msgid "Are you really sure you want to delete this actor?"
 msgstr "Êtes-vous certain(e) de vouloir effacer ce contact?"
 
@@ -1120,9 +1124,22 @@ msgstr "Chef.fe de cueillette"
 msgid "Volunteers"
 msgstr "Bénévoles"
 
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:12
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:6
+msgid "Beneficiary details dialog"
+msgstr "Dialogue de détails de Bénéficiaire"
+
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:21
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
+
+#: sitebase/templates/app/list_views/organization/data_row.html:17
+#: sitebase/templates/app/list_views/organization/data_row.html:39
+msgid "Edit"
+msgstr "Éditer"
+
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:6
+msgid "Equipment point details dialog"
+msgstr "Dialogue de détails de point d'équipement"
 
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:12
 msgid "This organization is an equipment point"
@@ -1143,10 +1160,8 @@ msgid "Map"
 msgstr "Carte"
 
 #: sitebase/templates/app/list_views/organization/map.html:51
-#, fuzzy
-#| msgid "Harvest details"
 msgid "Extra details"
-msgstr "Détails de la récolte"
+msgstr "Plus de détails"
 
 #: sitebase/templates/app/list_views/organization/organizations.html:25
 msgid "Organization"

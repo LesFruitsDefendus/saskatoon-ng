@@ -3,10 +3,19 @@
 
 {% if org.is_beneficiary %}
     {% if org.beneficiary_description %}
-        <dialog closedby="any" id="{{org.actor_id}}-beneficiary-dialog">
+        <dialog closedby="any" id="{{org.actor_id}}-beneficiary-dialog" aria-label="{% trans 'Beneficiary details dialog' %}">
           <header class="modal-header">
-               <button type="button" class="close" aria-label="Close" commandFor="{{org.actor_id}}-beneficiary-dialog" command="close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title"">{{org.civil_name}}</h3>
+             <button
+               type="button"
+               class="close"
+               aria-label="Close"
+               autofocus
+               commandFor="{{org.actor_id}}-beneficiary-dialog"
+               command="close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 class="modal-title"">{{org.civil_name}}</h3>
           </header>
           <section class="modal-body">
             <p>{% trans 'This organization accepts fruit donations' %}</p>
@@ -14,13 +23,18 @@
           </section>
         </dialog>
         <button
-            commandFor="{{org.actor_id}}-beneficiary-dialog"
-            command="show-modal"
-            class="btn btn-outline-primary"
+          commandFor="{{org.actor_id}}-beneficiary-dialog"
+          command="show-modal"
+          class="btn btn-outline-primary"
         >
-            <i class="fa fa-check" style="color: #440bd4;"></i>
-            {% trans 'Beneficiary' %}
+          <i class="fa fa-check" style="color: #440bd4;"></i>
+          {% trans 'Beneficiary' %}
         </button>
+    {% else %}
+      <span class="no-dialog-btn">
+        <i class="fa fa-check" style="color: #440bd4;"></i>
+        {% trans 'Beneficiary' %}
+      </span>
     {% endif %}
 {% else %}
   <span class="no-dialog-btn">
