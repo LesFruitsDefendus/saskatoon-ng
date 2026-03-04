@@ -158,7 +158,7 @@ class EquipmentPointMapView(OrganizationMapView):
     """List view for organizations that are equipment points."""
 
     queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
-    filterset_class = EquipmentPointFilter
+    filterset_class = EquipmentPointFilter  # type: ignore  # expression has type "type[EquipmentPointFilter]", base class "OrganizationMapView" defined the type as "type[OrganizationFilter]"
     org_creation_url = 'admin:member_organization_add'
     filter_context_string = 'equipment-point'
 
