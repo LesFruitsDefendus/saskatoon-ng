@@ -551,11 +551,17 @@ is currenlty made available'
 
     @property
     def latitude(self):
-        return self.geom['coordinates'][1]
+        if self.geom is not None and self.geom['type'] == "Point":
+            return self.geom['coordinates'][1]
+
+        return None
 
     @property
     def longitude(self):
-        return self.geom['coordinates'][0]
+        if self.geom is not None and self.geom['type'] == "Point":
+            return self.geom['coordinates'][0]
+
+        return None
 
 
 class Neighborhood(models.Model):

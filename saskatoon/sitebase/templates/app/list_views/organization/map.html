@@ -21,6 +21,7 @@
         <script type="module">import "{% static 'js/map/main.js' %}"</script>
         <leaflet-map style="height: 60vh;">
             {% for org in data %}
+                {% if org.longitude is not None and org.latitude is not None %}
                  <leaflet-marker
                      latitude="{{ org.latitude }}"
                      longitude="{{ org.longitude }}"
@@ -73,6 +74,7 @@
                     </section>
                   </leaflet-popup>
                 </leaflet-marker>
+                {% endif %}
             {% endfor %}
         </leaflet-map>
     </section>

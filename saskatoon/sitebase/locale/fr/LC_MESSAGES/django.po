@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-04 11:45+0000\n"
+"POT-Creation-Date: 2026-03-14 09:36+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -178,7 +178,7 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:56
+#: sitebase/templates/app/list_views/organization/map.html:57
 #: sitebase/templates/app/list_views/organization/organizations.html:26
 msgid "Contact"
 msgstr "Contact"
@@ -1159,7 +1159,7 @@ msgstr "Tableau"
 msgid "Map"
 msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:51
+#: sitebase/templates/app/list_views/organization/map.html:52
 msgid "Extra details"
 msgstr "Plus de détails"
 
