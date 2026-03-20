@@ -54,3 +54,6 @@ if [[ -n "$unused" ]]; then
 else
     echo 'No unused fixtures.'
 fi
+
+# Apply Auth.Group permissions
+../manage.py apply_permissions
