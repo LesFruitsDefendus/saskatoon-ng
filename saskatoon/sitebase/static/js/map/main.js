@@ -50,7 +50,8 @@ class LeafletMap extends HTMLElement {
 			"https://tile.openstreetmap.org/{z}/{x}/{y}.png",
 			{
 				attribution:
-					'&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+					'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+				referrerPolicy: 'strict-origin-when-cross-origin'
 			},
 		);
 
