@@ -1,0 +1,37 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/about.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="breadcomb-area">
+    <div class="about container">
+        <div class="row">
+            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12">
+
+                <img class="mg-t-15" src="{{ MEDIA_URL }}/about.jpg" alt="Photo Credit: Lauren Kolyn" />
+                <h1>{{about.title}}</h1>
+
+                <div>
+                    {{about.body.html | safe}}
+                </div>
+                <br>
+
+                <h4>{{values.title}}</h4>
+                <div>
+                    {{values.body.html | safe}}
+                </div>
+                <br>
+
+                <h4>{{roles.title}}</h4>
+                <div class="roles">
+                    {{roles.body.html | safe}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
