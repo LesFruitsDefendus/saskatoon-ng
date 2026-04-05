@@ -1,0 +1,36 @@
+.about {
+    img, .breadcomb-list {
+        width: 75%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    h1 {
+        margin: 1em;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        text-transform: uppercase;
+        margin-top: 1em;
+    }
+
+    ul {
+        list-style-type: disc;
+        list-style-position: inside;
+    }
+
+    .roles li {
+        margin-top: 1em;
+        margin-bottom: 1em;
+    }
+
+    @media (max-width: 992px) {
+        max-width: 80vw;
+    }
+}
