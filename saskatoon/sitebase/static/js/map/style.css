@@ -29,5 +29,5 @@ leaflet-marker {
 
 .leaflet-popup-content {
 	max-height: 40vh;
-	overflow: scroll;
+	overflow: auto;
 }
