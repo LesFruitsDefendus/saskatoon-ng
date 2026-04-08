@@ -2,26 +2,30 @@
 {% load i18n %}
 {% load static %}
 
-{% block table %}
+{% block data %}
+  <div class="table-responsive">
+    <div class="dataTables_wrapper">
+      <table class="table table-striped datatable-minimal">
+        <thead>
+            <tr>
+                <th class="col-xs-1">#</th>
+                <th class="col-xs-3">{% trans "Property" %}</th>
+                <th class="col-xs-1">{% trans "Borough" %}</th>
+                <th class="col-xs-1">{% trans "Status" %}</th>
+                <th class="col-xs-1">{% trans "Tree(s)" %}</th>
+                <th class="col-xs-1">{% trans "Ladder" %}</th>
+                <th class="col-xs-1">{% trans "Picks" %}</th>
+                <th class="col-xs-1">{% trans "Last pick" %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for property in data %}
 
-    <thead>
-        <tr>
-            <th class="col-xs-1">#</th>
-            <th class="col-xs-3">{% trans "Property" %}</th>
-            <th class="col-xs-1">{% trans "Borough" %}</th>
-            <th class="col-xs-1">{% trans "Status" %}</th>
-            <th class="col-xs-1">{% trans "Tree(s)" %}</th>
-            <th class="col-xs-1">{% trans "Ladder" %}</th>
-            <th class="col-xs-1">{% trans "Picks" %}</th>
-            <th class="col-xs-1">{% trans "Last pick" %}</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for property in data %}
+                {% include 'app/list_views/property/data_row.html' %}
 
-            {% include 'app/list_views/property/data_row.html' %}
-
-        {% endfor %}
-    </tbody>
-
-{% endblock table %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+{% endblock data %}

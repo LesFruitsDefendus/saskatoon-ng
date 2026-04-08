@@ -44,6 +44,7 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         """Beneficiairies list view"""
 
         self.template_name = 'app/list_views/organization/organizations.html'
+        self.queryset = Organization.objects.all().order_by('-actor_id')
         response = super().list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return response
@@ -64,6 +65,48 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
                 },
             }
         )
+
+
+class OrganizationMapView(LoginRequiredMixin, generics.ListAPIView[Organization]):
+    """List view for organizations that are equipment points."""
+
+    permission_classes = [IsPickLeaderOrCoreOrAdmin]
+    queryset = Organization.objects.filter(is_beneficiary=True).order_by('-actor_id')
+    serializer_class = OrganizationSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
+    filterset_class = OrganizationFilter
+    template_name = 'app/list_views/organization/map.html'
+    pagination_class = None
+    search_fields = [
+        'actor_id',
+        'civil_name',
+        'contact_person__first_name',
+        'contact_person__family_name',
+        'contact_person__auth_user__email',
+    ]
+    org_creation_url = 'organization-create'
+    filter_context_string = 'organization'
+
+    def list(self, request, *args, **kwargs):
+        """Beneficiary map view."""
+
+        response = super().list(request, *args, **kwargs)
+
+        if renderer_format_needs_json_response(request):
+            return response
+
+        context = {
+            'data': response.data,
+            'filter': get_filter_context(self, self.filter_context_string),
+        }
+
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy(self.org_creation_url),
+                'title': _("New Organization"),
+            }
+
+        return Response(context)
 
 
 class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
@@ -87,6 +130,7 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
         """Equipment Points list view."""
 
         response = super().list(request, *args, **kwargs)
+
         if renderer_format_needs_json_response(request):
             return response
 
@@ -108,6 +152,15 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
             }
 
         return Response(context)
+
+
+class EquipmentPointMapView(OrganizationMapView):
+    """List view for organizations that are equipment points."""
+
+    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
+    filterset_class = EquipmentPointFilter  # type: ignore  # expression has type "type[EquipmentPointFilter]", base class "OrganizationMapView" defined the type as "type[OrganizationFilter]"
+    org_creation_url = 'admin:member_organization_add'
+    filter_context_string = 'equipment-point'
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):

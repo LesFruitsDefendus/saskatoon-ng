@@ -1,0 +1,36 @@
+leaflet-popup {
+	p {
+		font-size: 14px;
+	}
+
+	> section:has(button) {
+		display: grid;
+		grid-template-columns: 49% 49%;
+		gap: 2%;
+	}
+
+	> section {
+		margin-top: 1em;
+	}
+
+	a {
+		text-decoration: none;
+		color: #440bd4 !important;
+
+		&:hover {
+			color: #2da4f0 !important;
+		}
+	}
+}
+
+@media (max-width: 992px) {
+	.leaflet-popup-content {
+		max-width: 70vw;
+	}
+
+	leaflet-popup {
+		> section:has(button) {
+			grid-template-columns: 100%;
+		}
+	}
+}

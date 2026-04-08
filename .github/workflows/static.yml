@@ -13,6 +13,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Update apt sources
+      run: |
+        sudo apt update
+
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
@@ -32,6 +36,10 @@ jobs:
     - name: Create env file
       run: |
         saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
+
+    - name: Install GDAL
+      run: |
+        sudo apt install libgdal-dev
 
     - name: Run mypy
       run: |

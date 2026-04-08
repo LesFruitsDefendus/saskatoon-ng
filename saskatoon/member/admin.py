@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.safestring import mark_safe
 from typing import Optional
+from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 
 from member.admin_filters import (
     ActorTypeAdminFilter,
@@ -319,7 +320,7 @@ class ActorAdmin(admin.ModelAdmin[Actor]):
 
 
 @admin.register(Organization)
-class OrganizationAdmin(admin.ModelAdmin[Organization]):
+class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
     inlines = [OrganizationEquipmentInlineAdminForm]
     list_display = (
         '__str__',
@@ -353,6 +354,7 @@ class OrganizationAdmin(admin.ModelAdmin[Organization]):
                     'city',
                     'state',
                     'country',
+                    'geom',
                 )
             },
         ),
