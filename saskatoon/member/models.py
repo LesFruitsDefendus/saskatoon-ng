@@ -48,6 +48,14 @@ class AuthUserManager(BaseUserManager[AbstractBaseUser]):
         return user
 
 
+class Role(models.TextChoices):
+    CORE = "core", _("Core Member")
+    PICKLEADER = "pickleader", _("Pick Leader")
+    VOLUNTEER = "volunteer", _("Volunteer Picker")
+    OWNER = "owner", _("Property Owner")
+    CONTACT = "contact", _("Contact Person")
+
+
 class AuthUser(AbstractBaseUser, PermissionsMixin):
     """Base user model"""
 
@@ -56,15 +64,9 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = _("users")
         ordering = ["date_joined"]
 
-    GROUPS = (
-        ('core', _("Core Member")),
-        ('pickleader', _("Pick Leader")),
-        ('volunteer', _("Volunteer Picker")),
-        ('owner', _("Property Owner")),
-        ('contact', _("Contact Person")),
-    )
+    GROUPS = Role.choices
 
-    STAFF_GROUPS = ['core', 'pickleader']
+    STAFF_GROUPS = [Role.CORE, Role.PICKLEADER]
 
     person = models.OneToOneField(
         'Person', on_delete=models.CASCADE, null=True, related_name='auth_user'

@@ -15,6 +15,10 @@ migrations:
 translations:
 	@cd saskatoon && django-admin makemessages --locale fr --domain django
 
+permissions:
+	@python3 saskatoon/manage.py check_permissions
+	@python3 saskatoon/manage.py export_permissions
+
 collectstatic:
 	@python3 saskatoon/manage.py collectstatic
 
