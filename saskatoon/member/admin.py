@@ -378,6 +378,17 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
         ),
     )
 
+    settings_overrides = {
+        'TILES': [(
+            'OSM',
+            '//tile.openstreetmap.org/{z}/{x}/{y}.png',
+            {
+                'attribution': '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                'referrerPolicy': 'strict-origin-when-cross-origin',
+            }
+        )]
+    }
+
     @admin.display(description="Contact Person")
     def contact(self, org):
         if org.contact_person:
