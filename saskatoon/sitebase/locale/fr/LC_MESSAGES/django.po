@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-14 09:36+0000\n"
+"POT-Creation-Date: 2026-04-12 21:32-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,117 +42,129 @@ msgstr "Politique de confidentialité"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: sitebase/models.py:49
+msgid "About Us"
+msgstr "À propos de nous"
+
+#: sitebase/models.py:50
+msgid "About Values"
+msgstr "À propos Valeurs"
+
 #: sitebase/models.py:51
+msgid "About Roles"
+msgstr "À propos Roles"
+
+#: sitebase/models.py:54
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:106
+#: sitebase/models.py:109
 msgid "FAQ Item"
 msgstr "Item de FAQ"
 
-#: sitebase/models.py:107
+#: sitebase/models.py:110
 msgid "FAQ Items"
 msgstr "Items de FAQ"
 
-#: sitebase/models.py:143
+#: sitebase/models.py:146
 msgid "FAQ List"
 msgstr "Liste FAQ"
 
-#: sitebase/models.py:144
+#: sitebase/models.py:147
 msgid "FAQ Lists"
 msgstr "Listes FAQ"
 
-#: sitebase/models.py:148
+#: sitebase/models.py:151
 msgid "Ref. Name"
 msgstr "Ref. Nom"
 
-#: sitebase/models.py:165
+#: sitebase/models.py:168
 msgid "Items"
 msgstr "Items"
 
-#: sitebase/models.py:167
+#: sitebase/models.py:170
 msgid "Enabled"
 msgstr "Activé"
 
-#: sitebase/models.py:174
+#: sitebase/models.py:177
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:177
+#: sitebase/models.py:180
 msgid "Pickleader Registration Invite"
 msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
-#: sitebase/models.py:178
+#: sitebase/models.py:181
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:179
+#: sitebase/models.py:182
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:180
+#: sitebase/models.py:183
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:183
+#: sitebase/models.py:186
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:184
+#: sitebase/models.py:187
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:187
+#: sitebase/models.py:190
 msgid "Unselected pickers"
 msgstr "Cueilleur.euse non sélectionné.es"
 
-#: sitebase/models.py:188
+#: sitebase/models.py:191
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:189
+#: sitebase/models.py:192
 msgid "Rejected picker"
 msgstr ""
 
-#: sitebase/models.py:196
+#: sitebase/models.py:199
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:201 sitebase/models.py:273
+#: sitebase/models.py:204 sitebase/models.py:276
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:211
+#: sitebase/models.py:214
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:226
+#: sitebase/models.py:229
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:230
+#: sitebase/models.py:233
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:262
+#: sitebase/models.py:265
 #: sitebase/templates/app/detail_views/harvest/about.html:68
 #: sitebase/templates/app/detail_views/organization/contact.html:46
 #: sitebase/templates/app/detail_views/property/contact.html:63
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:263
+#: sitebase/models.py:266
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:268
+#: sitebase/models.py:271
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:27
 #: sitebase/templates/app/stats.html:249
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:280
+#: sitebase/models.py:283
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
@@ -160,11 +172,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:286
+#: sitebase/models.py:289
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:297
+#: sitebase/models.py:300
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
@@ -1011,7 +1023,7 @@ msgstr "500 Erreur du serveur"
 msgid "Go Back"
 msgstr "Retour"
 
-#: sitebase/templates/app/faq.html:17
+#: sitebase/templates/app/faq.html:20
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquement Posées"
 
