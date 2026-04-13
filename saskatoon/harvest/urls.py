@@ -12,6 +12,12 @@ router.register('equipment', api.EquipmentViewset, 'equipment')
 router.register('participation', api.RFPViewset, 'participation')
 
 urlpatterns = [
+    # MAP VIEWS
+    path(
+        'property/map',
+        api.PropertyMapView.as_view(),
+        name='property-map',
+    ),
     # CREATE VIEWS
     path(
         r'equipment/create/',

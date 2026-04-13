@@ -3,29 +3,44 @@
 {% load static %}
 
 {% block data %}
-  <div class="table-responsive">
-    <div class="dataTables_wrapper">
-      <table class="table table-striped datatable-minimal">
-        <thead>
-            <tr>
-                <th class="col-xs-1">#</th>
-                <th class="col-xs-3">{% trans "Property" %}</th>
-                <th class="col-xs-1">{% trans "Borough" %}</th>
-                <th class="col-xs-1">{% trans "Status" %}</th>
-                <th class="col-xs-1">{% trans "Tree(s)" %}</th>
-                <th class="col-xs-1">{% trans "Ladder" %}</th>
-                <th class="col-xs-1">{% trans "Picks" %}</th>
-                <th class="col-xs-1">{% trans "Last pick" %}</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for property in data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <script defer  src="/static/js/list-view-tabs.js"></script>
+    <link href="/static/css/dialog.css" rel="stylesheet"></link>
+    <nav>
+      <span role="tab" id="table-tab">{% trans 'Table' %}</span>
+      <a href="./map" rel="keep-params">{% trans 'Map' %}</a>
+    </nav>
+    <section
+      role="tabpanel"
+      class="table-responsive"
+      aria-labelledby="table-tab"
+    >
+      <div class="table-responsive">
+        <div class="dataTables_wrapper">
+          <table class="table table-striped datatable-minimal">
+            <thead>
+                <tr>
+                    <th class="col-xs-1">#</th>
+                    <th class="col-xs-3">{% trans "Property" %}</th>
+                    <th class="col-xs-1">{% trans "Borough" %}</th>
+                    <th class="col-xs-1">{% trans "Status" %}</th>
+                    <th class="col-xs-1">{% trans "Tree(s)" %}</th>
+                    <th class="col-xs-1">{% trans "Ladder" %}</th>
+                    <th class="col-xs-1">{% trans "Picks" %}</th>
+                    <th class="col-xs-1">{% trans "Last pick" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for property in data %}
 
-                {% include 'app/list_views/property/data_row.html' %}
+                    {% include 'app/list_views/property/data_row.html' %}
 
-            {% endfor %}
-        </tbody>
-      </table>
-    </div>
-  </div>
+                {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </tab-list>
 {% endblock data %}

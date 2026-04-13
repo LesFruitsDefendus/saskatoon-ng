@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-14 09:36+0000\n"
+"POT-Creation-Date: 2026-04-13 21:26+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -330,7 +330,7 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
 #: sitebase/templates/app/list_views/harvest/view.html:13
-#: sitebase/templates/app/list_views/property/view.html:14
+#: sitebase/templates/app/list_views/property/view.html:27
 msgid "Status"
 msgstr "Statut"
 
@@ -955,7 +955,7 @@ msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
 #: sitebase/templates/app/list_views/harvest/view.html:16
-#: sitebase/templates/app/list_views/property/view.html:15
+#: sitebase/templates/app/list_views/property/view.html:28
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
@@ -970,7 +970,7 @@ msgstr "Propriétés similaires"
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:14
-#: sitebase/templates/app/list_views/property/view.html:12
+#: sitebase/templates/app/list_views/property/view.html:25
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
 msgstr "Propriété"
@@ -981,7 +981,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:15
 #: sitebase/templates/app/list_views/organization/organizations.html:29
-#: sitebase/templates/app/list_views/property/view.html:13
+#: sitebase/templates/app/list_views/property/view.html:26
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
@@ -1151,11 +1151,15 @@ msgstr "Pas d'Équipement"
 
 #: sitebase/templates/app/list_views/organization/map.html:13
 #: sitebase/templates/app/list_views/organization/organizations.html:11
+#: sitebase/templates/app/list_views/property/map.html:13
+#: sitebase/templates/app/list_views/property/view.html:11
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:14
 #: sitebase/templates/app/list_views/organization/organizations.html:12
+#: sitebase/templates/app/list_views/property/map.html:14
+#: sitebase/templates/app/list_views/property/view.html:12
 msgid "Map"
 msgstr "Carte"
 
@@ -1195,15 +1199,15 @@ msgstr "non autorisée"
 msgid "inactive"
 msgstr "inactive"
 
-#: sitebase/templates/app/list_views/property/view.html:16
+#: sitebase/templates/app/list_views/property/view.html:29
 msgid "Ladder"
 msgstr "Échelle"
 
-#: sitebase/templates/app/list_views/property/view.html:17
+#: sitebase/templates/app/list_views/property/view.html:30
 msgid "Picks"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/list_views/property/view.html:18
+#: sitebase/templates/app/list_views/property/view.html:31
 msgid "Last pick"
 msgstr "Dernière récolte"
 

@@ -4,6 +4,16 @@
 	a.leaflet-popup-close-button {
 		top: 12px;
 	}
+
+
+.leaflet-popup-content {
+	max-height: 40vh;
+	overflow: auto;
+	padding-right: 0.5em;
+	width: 25vw !important;
+	min-width: 300px;
+}
+
 }
 
 leaflet-marker {
@@ -25,9 +35,4 @@ leaflet-marker {
 
 .saskatoon-map-danger {
 	color: #c01c28;
-}
-
-.leaflet-popup-content {
-	max-height: 40vh;
-	overflow: auto;
 }

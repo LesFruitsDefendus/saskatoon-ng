@@ -4,6 +4,9 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.safestring import mark_safe
 from member.models import AuthUser
+from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
+
+from saskatoon.settings import DEFAULT_LEAFLET_TILE
 from harvest.admin_filters import (
     HarvestSeasonAdminFilter,
     HarvestHasNoDateAdminFilter,
@@ -139,7 +142,7 @@ class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
 
 
 @admin.register(Property)
-class PropertyAdmin(admin.ModelAdmin[Property]):
+class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     model = Property
     inlines = [PropertyImageInline]
     list_display = (
@@ -177,7 +180,8 @@ class PropertyAdmin(admin.ModelAdmin[Property]):
         'owner__person__family_name',
         'owner__person__auth_user__email',
     )
-    exclude = ['longitude', 'latitude', 'geom']
+
+    settings_overrides = {'TILES': [DEFAULT_LEAFLET_TILE]}
 
     @admin.display(description="Owner type")
     def owner_type(self, _property):

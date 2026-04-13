@@ -34,6 +34,21 @@ class TestProperty(TestCase):
     def test_can_be_created(self, property):
         assert isinstance(property, Property)
 
+    @given(property=harvest_st.property, status=st.sampled_from(Property.Status))
+    def test_property_status(self, property, status):
+        """Test property status"""
+        if not property.is_active:
+            assert property.status == Property.Status.INACTIVE
+
+        if property.is_active and property.pending:
+            assert property.status == Property.Status.PENDING
+
+        if property.is_active and not property.pending and not property.authorized:
+            assert property.status == Property.Status.UNAUTHORIZED
+
+        if property.is_active and not property.pending and property.authorized:
+            assert property.status == Property.Status.AUTHORIZED
+
 
 class TestEquipmentType(TestCase):
     @given(equipment_type=from_model(EquipmentType))

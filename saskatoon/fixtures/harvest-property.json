@@ -35,8 +35,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": "Je peux aider pour la ceuillète",
     "changed_by": null,
     "trees": [
@@ -81,8 +79,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": null,
     "changed_by": null,
     "trees": [
@@ -127,8 +123,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": null,
     "changed_by": null,
     "trees": [
@@ -172,8 +166,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": null,
     "changed_by": null,
     "trees": [
@@ -217,8 +209,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": "Sadly no more apricots.",
     "changed_by": null,
     "trees": [
@@ -262,8 +252,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": "Dépêchez vous elle sont délicieuses!",
     "changed_by": null,
     "trees": [
@@ -307,8 +295,6 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "longitude": null,
-    "latitude": null,
     "additional_info": "We have already registered a walnut tree and green apple tree in the past",
     "changed_by": null,
     "trees": [

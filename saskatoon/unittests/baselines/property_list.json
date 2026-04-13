@@ -25,7 +25,9 @@
             "is_active": true,
             "authorized": true,
             "pending": true,
-            "harvests": []
+            "harvests": [],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 11,
@@ -91,7 +93,9 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 10,
@@ -112,7 +116,9 @@
             "is_active": false,
             "authorized": true,
             "pending": false,
-            "harvests": []
+            "harvests": [],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 6,
@@ -156,7 +162,9 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 5,
@@ -177,7 +185,9 @@
             "is_active": true,
             "authorized": false,
             "pending": false,
-            "harvests": []
+            "harvests": [],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 4,
@@ -206,7 +216,9 @@
             "is_active": true,
             "authorized": true,
             "pending": true,
-            "harvests": []
+            "harvests": [],
+            "longitude": null,
+            "latitude": null
         },
         {
             "id": 3,

@@ -180,8 +180,6 @@ class PropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         exclude = [
-            'longitude',
-            'latitude',
             'geom',
             'pending_contact_first_name',
             'pending_contact_family_name',

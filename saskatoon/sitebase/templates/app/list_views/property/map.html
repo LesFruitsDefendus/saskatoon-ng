@@ -1,0 +1,60 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load property %}
+
+{% block data %}
+  <tab-list role="tablist">
+    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
+    <link rel="stylesheet" href="/static/css/dialog.css"></link>
+    <link rel="stylesheet" href="/static/css/map.css"></link>
+    <script defer src="/static/js/list-view-tabs.js"></script>
+      <nav>
+        <a href="." rel="keep-params">{% trans 'Table' %}</a>
+        <span role="tab" id="map-tab">{% trans 'Map' %}</span>
+      </nav>
+      <section
+        role="tabpanel"
+        style="padding-top: 1em;"
+        aria-labelledby="map-tab"
+      >
+        <script type="module">import "{% static 'js/map/main.js' %}"</script>
+        <leaflet-map style="height: 60vh;">
+            {% for property in data %}
+                {% if property.longitude is not None and property.latitude is not None %}
+                 <leaflet-marker
+                     latitude="{{ property.latitude }}"
+                     longitude="{{ property.longitude }}"
+                     style="display: none;"
+                 >
+                    <leaflet-tooltip direction="top">{{ property.title }}</leaflet-tooltip>
+                    <leaflet-icon
+                      icon-anchor="10 -5"
+                      style="color: {{ property.status | property_status }};"
+                    >
+                      {{ property | property_icon | safe }}
+                    </leaflet-icon>
+                    <leaflet-icon
+                      class="leaflet-hover-icon"
+                      icon-anchor="10 -5"
+                      popup-anchor="0 0"
+                      style="color: {{ property.status | property_status }};"
+                    >
+                      {{  property | property_icon_hover | safe }}
+                    </leaflet-icon>
+                    <leaflet-popup>
+                      <h4>
+                        <a href="{% url 'property-detail' property.id %}">
+                          {{ property.title }} <i class="fa fa-external-link fa-xs"></i>
+                        </a>
+                      </h4>
+                      <p class="text-justify">{{ property.additional_info }}</p>
+                    </section>
+                  </leaflet-popup>
+                </leaflet-marker>
+                {% endif %}
+            {% endfor %}
+        </leaflet-map>
+    </section>
+  </tab-list>
+{% endblock data %}
