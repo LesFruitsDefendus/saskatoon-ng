@@ -80,7 +80,7 @@
     "subject_en": "Request for participation accepted",
     "subject_fr": "Demande de participation acceptée",
     "body_en": "Your request for participation to the following harvest as been accepted: {harvest_public}\r\n\r\nYour pick-leader {pickleader_name} will be contacting you soon to confirm the details.\r\n\r\nIf you have any concerns or questions, please contact them directly at: {pickleader_email}",
-    "body_fr": "Votre demande de participation pour la récolte suivante a été acceptée: {harvest_public}\r\n\r\nVotre chef.fe de cueuillette vous contactera prochainement pour confirmer les détails.\r\n\r\nSi vous avez des questions ou préoccupations, merci de bien vouloir contacter {pickleader_name} à {pickleader_email}"
+    "body_fr": "Votre demande de participation pour la récolte suivante a été acceptée: {harvest_public}\r\n\r\nVotre chef.fe de cueillette vous contactera prochainement pour confirmer les détails.\r\n\r\nSi vous avez des questions ou préoccupations, merci de bien vouloir contacter {pickleader_name} à {pickleader_email}"
   }
 },
 {
