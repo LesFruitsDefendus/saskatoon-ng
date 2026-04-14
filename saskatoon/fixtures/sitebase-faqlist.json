@@ -3,21 +3,18 @@
   "model": "sitebase.faqlist",
   "pk": 1,
   "fields": {
-    "name": "1. pickers",
-    "title_en": "Volunteer pickers",
-    "title_fr": "Cueilleur.euse.s bénévoles",
+    "name": "2. pickers",
+    "title_en": "Volunteer harvesters",
+    "title_fr": "Cueilleurs et ceuilleuses bénévoles",
     "is_active": true,
     "items": [
       1,
+      9,
       2,
       3,
       4,
-      5,
-      6,
-      7,
-      8,
-      9,
-      10
+      15,
+      5
     ]
   }
 },
@@ -25,21 +22,37 @@
   "model": "sitebase.faqlist",
   "pk": 2,
   "fields": {
-    "name": "2. owners",
+    "name": "1. owners",
     "title_en": "Tree owners",
     "title_fr": "Propriétaires d'arbres",
     "is_active": true,
     "items": [
       11,
       12,
-      13,
       14,
-      15,
+      13,
       16,
       17,
       18,
-      19,
-      20
+      19
+    ]
+  }
+},
+{
+  "model": "sitebase.faqlist",
+  "pk": 3,
+  "fields": {
+    "name": "3. public",
+    "title_en": "General questions",
+    "title_fr": "Questions générales",
+    "is_active": true,
+    "items": [
+      20,
+      21,
+      7,
+      8,
+      22,
+      23
     ]
   }
 }
