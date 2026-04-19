@@ -398,6 +398,7 @@ class Email(models.Model):
             subject=self.get_subject(data),
             body=message,
             from_email=DEFAULT_FROM_EMAIL,
+            # to=[lesfruitsdefendus@riseup.net]
             to=[self.recipient.email],
             cc=self.cc_list,
             bcc=self.bcc_list,

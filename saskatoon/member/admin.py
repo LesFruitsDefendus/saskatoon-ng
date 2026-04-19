@@ -445,16 +445,31 @@ class OnboardingAdmin(admin.ModelAdmin[Onboarding]):
         for o in queryset:
             o.all_sent = True
             o.log += "\n[{}]".format(tz.localtime(tz.now()).strftime("%B %d, %Y @ %-I:%M %p"))
-            for p in o.persons.filter(auth_user__password=''):
+
+            # for p in o.persons.filter(auth_user__password=''):
+
+            # DEBUG
+            for i in range(0, 10):
+                p = o.persons.first()
+
                 m = Email.objects.create(recipient=p, type=EmailType.REGISTRATION)
 
-                if m.send(data={'password': reset_password(p.auth_user)}) == 1:
+
+                # Set new password
+                new_password = reset_password(p.auth_user)
+
+                # Try sending registration email
+                # if m.send(data={'password': reset_password(p.auth_user)}) == 1:
+                if m.send(data={'password': new_password}) == 1:
+                    # Success
                     num_sent += 1
                     o.log += f"\n\t> OK {p.auth_user.email}"
                 else:
+                    # Could not send, deleting password
                     p.auth_user.password = ''
                     p.auth_user.has_temporary_password = False
                     p.auth_user.save()
+
                     o.all_sent = False
                     o.log += f"\n\t> FAIL {p.auth_user.email}"
                     messages.error(

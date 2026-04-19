@@ -9,7 +9,7 @@ logger = getLogger('saskatoon')
 
 def get_test_owner_person() -> Optional[Person]:
     try:
-        return Person.objects.get(first_name='TEST', family_name='OWNER')
+        return Person.objects.get(first_name='Nice', family_name='Owner')
     except Person.DoesNotExist:
         logger.warning("Could not find test owner")
         return None
