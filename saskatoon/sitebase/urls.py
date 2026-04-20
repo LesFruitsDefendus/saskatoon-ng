@@ -13,11 +13,6 @@ urlpatterns = [
         views.TermsConditionsView.as_view(),
         name="terms_conditions",
     ),
-    path(
-        "equipment_points/",
-        views.EquipmentPointsPDFView.as_view(),
-        name="equipment-points",
-    ),
     path("privacy_policy/", views.PrivacyPolicyView.as_view(), name="privacy_policy"),
     path(
         "volunteer_waiver/",

@@ -41,8 +41,10 @@ class PageContent(models.Model):
         ordering = ['type']
 
     class Type(models.TextChoices):
-        VOLUNTEER_HOME = 'volunteer_home', _("Volunteer Home")
-        PICKLEADER_HOME = 'pickleader_home', _("Pickleader Home")
+        HOME_COMMON = 'home', _("Home Common")
+        HOME_VOLUNTEER = 'home_volunteer', _("Home Volunteer")
+        HOME_PICKLEADER = 'home_pickleader', _("Home Pickleader")
+
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
         FAQ = 'faq', _("FAQ")

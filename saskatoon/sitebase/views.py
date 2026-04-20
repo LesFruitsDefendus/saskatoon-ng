@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic import View, TemplateView
 from harvest.models import Harvest
 from member.permissions import is_pickleader_or_core_or_admin
-from saskatoon.settings import EQUIPMENT_POINTS_PDF_PATH, VOLUNTEER_WAIVER_PDF_PATH
+from saskatoon.settings import VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import PageContent, FAQList
 
 
@@ -21,10 +21,10 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_type = PageContent.Type.VOLUNTEER_HOME
+        content_type = PageContent.Type.HOME_VOLUNTEER
 
         if self.request.user.is_authenticated:
-            content_type = PageContent.Type.PICKLEADER_HOME
+            content_type = PageContent.Type.HOME_PICKLEADER
 
         context['content'] = PageContent.get(type=content_type, lang=self.request.LANGUAGE_CODE)
 
@@ -136,10 +136,6 @@ class RestrictedPDFView(View):
                 return handler404(request, FileNotFoundError)
         else:
             return handler403(request, PermissionDenied)
-
-
-class EquipmentPointsPDFView(RestrictedPDFView):
-    PDF_PATH = EQUIPMENT_POINTS_PDF_PATH
 
 
 class VolunteerWaiverPDFView(RestrictedPDFView):
