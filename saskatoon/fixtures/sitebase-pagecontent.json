@@ -56,8 +56,8 @@
   "pk": 7,
   "fields": {
     "type": "faq",
-    "title_en": "",
-    "title_fr": "",
+    "title_en": "Frequently Asked Questions",
+    "title_fr": "Foire Aux Questions",
     "subtitle_en": "",
     "subtitle_fr": "",
     "body_en": "{\"delta\":\"\",\"html\":\"\"}",
