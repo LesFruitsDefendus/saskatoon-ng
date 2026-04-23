@@ -367,12 +367,17 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
             return self.street
 
     @property
-    def last_succeeded_harvest_date(self):
-        """Date of the last successful harvest for this property"""
-        last_harvest = (
-            self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
-        )
-        return last_harvest.start_date if last_harvest else None
+    def succeeded_harvests(self):
+        """Successful harvests for this property"""
+        return self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date')
+
+    @property
+    def next_harvests(self):
+        """Next harvests for this property"""
+        return self.harvests.exclude(
+            status__in=[Harvest.Status.SUCCEEDED, Harvest.Status.CANCELLED],
+            start_date__lte=datetime.now().astimezone(),
+        ).order_by('start_date')
 
     def get_owner_subclass(self):
         if self.owner:
@@ -459,6 +464,16 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
             return Property.Status.UNAUTHORIZED
 
         return Property.Status.AUTHORIZED
+
+    @property
+    def harvests_by_tree(self):
+        result = {}
+        for tree in self.trees.all():
+            result[tree] = {}
+            for status in Harvest.Status:
+                result[tree][status] = self.harvests.filter(trees__in=[tree], status=status)
+
+        return result
 
     def __str__(self):
         number = self.street_number if self.street_number else ""

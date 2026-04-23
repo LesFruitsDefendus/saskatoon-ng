@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 21:26+0000\n"
+"POT-Creation-Date: 2026-04-23 20:35+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -428,7 +428,7 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/legend.html:23
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
-#: sitebase/templates/app/list_views/property/data_row.html:52
+#: sitebase/templates/app/list_views/property/data_row.html:53
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -627,6 +627,7 @@ msgstr "Sauvegarder"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:14
 #: sitebase/templates/app/list_views/equipment/view.html:16
+#: sitebase/templates/app/list_views/property/map.html:108
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -815,24 +816,23 @@ msgstr "Accessibilité"
 msgid "Additional information"
 msgstr "Information additionnelle"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:26
-#: sitebase/templates/app/list_views/property/status.html:7
+#: sitebase/templates/app/detail_views/property/breadcomb.html:27
 msgid "PENDING"
 msgstr "EN ATTENTE"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:28
+#: sitebase/templates/app/detail_views/property/breadcomb.html:29
 msgid "Last succeeded harvest"
 msgstr "Dernière récolte réussie"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:32
+#: sitebase/templates/app/detail_views/property/breadcomb.html:33
 msgid "No succeeded harvest on this property so far"
 msgstr "Pas de récolte réussie pour l'instant"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:45
+#: sitebase/templates/app/detail_views/property/breadcomb.html:47
 msgid "Authorize"
 msgstr "Autoriser"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:52
+#: sitebase/templates/app/detail_views/property/breadcomb.html:54
 msgid "Edit Property"
 msgstr "Éditer la propriété"
 
@@ -1151,14 +1151,14 @@ msgstr "Pas d'Équipement"
 
 #: sitebase/templates/app/list_views/organization/map.html:13
 #: sitebase/templates/app/list_views/organization/organizations.html:11
-#: sitebase/templates/app/list_views/property/map.html:13
+#: sitebase/templates/app/list_views/property/map.html:15
 #: sitebase/templates/app/list_views/property/view.html:11
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:14
 #: sitebase/templates/app/list_views/organization/organizations.html:12
-#: sitebase/templates/app/list_views/property/map.html:14
+#: sitebase/templates/app/list_views/property/map.html:16
 #: sitebase/templates/app/list_views/property/view.html:12
 msgid "Map"
 msgstr "Carte"
@@ -1179,25 +1179,73 @@ msgstr "Afficher"
 msgid "entries"
 msgstr "entrées"
 
-#: sitebase/templates/app/list_views/property/status.html:9
-msgid "validated"
-msgstr "validée"
+#: sitebase/templates/app/list_views/property/map.html:64
+#, fuzzy
+#| msgid "Next harvest is on"
+msgid "Last harvest was on"
+msgstr "La prochaine récolte est le"
 
-#: sitebase/templates/app/list_views/property/status.html:12
-msgid "not yet authorized"
-msgstr "pas encore autorisée"
+#: sitebase/templates/app/list_views/property/map.html:74
+msgid "Next harvest is on"
+msgstr "La prochaine récolte est le"
 
-#: sitebase/templates/app/list_views/property/status.html:14
-msgid "authorized"
-msgstr "autorisée"
+#: sitebase/templates/app/list_views/property/map.html:138
+msgid "Legend"
+msgstr ""
 
-#: sitebase/templates/app/list_views/property/status.html:16
-msgid "unauthorized"
-msgstr "non autorisée"
+#: sitebase/templates/app/list_views/property/map.html:141
+#, fuzzy
+#| msgid "Last succeeded harvest"
+msgid "Succeeded Harvest"
+msgstr "Dernière récolte réussie"
 
-#: sitebase/templates/app/list_views/property/status.html:19
-msgid "inactive"
-msgstr "inactive"
+#: sitebase/templates/app/list_views/property/map.html:144
+#, fuzzy
+#| msgid "Scheduled"
+msgid "Scheduled Harvest"
+msgstr "Programmée"
+
+#: sitebase/templates/app/list_views/property/map.html:147
+#, fuzzy
+#| msgid "About this property"
+msgid "Authorised Property"
+msgstr "À propos de cette propriété"
+
+#: sitebase/templates/app/list_views/property/map.html:150
+#, fuzzy
+#| msgid "New Harvest"
+msgid "Ready Harvest"
+msgstr "Nouvelle récolte"
+
+#: sitebase/templates/app/list_views/property/map.html:153
+#, fuzzy
+#| msgid "Edit Harvest"
+msgid "Adopted Harvest"
+msgstr "Éditer la récolte"
+
+#: sitebase/templates/app/list_views/property/map.html:156
+#, fuzzy
+#| msgid "Edit Property"
+msgid "Pending Property"
+msgstr "Éditer la propriété"
+
+#: sitebase/templates/app/list_views/property/map.html:159
+#, fuzzy
+#| msgid "Cancelled"
+msgid "Cancelled Harvest"
+msgstr "Annulée"
+
+#: sitebase/templates/app/list_views/property/map.html:162
+#, fuzzy
+#| msgid "Harvest"
+msgid "Orphan Harvest"
+msgstr "Récolte"
+
+#: sitebase/templates/app/list_views/property/map.html:165
+#, fuzzy
+#| msgid "About this property"
+msgid "Unauthorised Property "
+msgstr "À propos de cette propriété"
 
 #: sitebase/templates/app/list_views/property/view.html:29
 msgid "Ladder"
@@ -1292,6 +1340,21 @@ msgstr "Connexion"
 #: sitebase/templates/registration/login.html:65
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
+
+#~ msgid "validated"
+#~ msgstr "validée"
+
+#~ msgid "not yet authorized"
+#~ msgstr "pas encore autorisée"
+
+#~ msgid "authorized"
+#~ msgstr "autorisée"
+
+#~ msgid "unauthorized"
+#~ msgstr "non autorisée"
+
+#~ msgid "inactive"
+#~ msgstr "inactive"
 
 #, fuzzy
 #~| msgid "This organization accepts fruit donations"

@@ -9,14 +9,40 @@ def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1]
         for t in [
-            (Harvest.Status.ORPHAN, "#666"),
-            (Harvest.Status.ADOPTED, "#440bd4"),  # btn-primary
-            (Harvest.Status.SCHEDULED, "#e8ad2b"),  # btn-warning
-            (Harvest.Status.READY, "#2da4f0"),  # btn-info
-            (Harvest.Status.SUCCEEDED, "#8bc34a"),  # btn-success
-            (Harvest.Status.CANCELLED, "#ff2079"),  # btn-danger
+            (Harvest.Status.ORPHAN, "#c01c28"),
+            (Harvest.Status.ADOPTED, "#000"),
+            (Harvest.Status.SCHEDULED, "#2da4f0"),
+            (Harvest.Status.READY, "#e8ad2b"),
+            (Harvest.Status.SUCCEEDED, "#440bd4"),
+            (Harvest.Status.CANCELLED, "#c01c28"),
         ]
-    }.get(harvest_status, "#d4c7f9")  # btn-default
+    }.get(harvest_status, "#666")  # btn-default
+
+
+@register.filter
+def harvest_icon(harvest_status: str) -> str:
+    return {
+        t[0].value: t[1]
+        for t in [
+            (
+                Harvest.Status.ORPHAN,
+                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+            ),
+            (
+                Harvest.Status.ADOPTED,
+                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+            ),
+            (
+                Harvest.Status.SCHEDULED,
+                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+            ),
+            (Harvest.Status.READY, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
+            (Harvest.Status.SUCCEEDED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
+            (Harvest.Status.CANCELLED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
+        ]
+    }.get(
+        harvest_status, '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>'
+    )  # btn-default
 
 
 @register.filter

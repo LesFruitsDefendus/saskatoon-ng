@@ -93,7 +93,8 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    last_succeeded_harvest_date = serializers.ReadOnlyField()
+    succeeded_harvests = PropertyHarvestSerializer(many=True, read_only=True)
+    next_harvests = PropertyHarvestSerializer(many=True, read_only=True)
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
@@ -104,6 +105,8 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     longitude = serializers.ReadOnlyField()
     latitude = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
+    owner_name = serializers.ReadOnlyField()
+    harvests_by_tree = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -147,15 +150,17 @@ class PropertyListSerializer(PropertySerializer):
             'neighborhood',
             'trees',
             'ladder_available',
-            'last_succeeded_harvest_date',
+            'succeeded_harvests',
             'is_active',
             'authorized',
             'pending',
             'harvests',
             'longitude',
             'latitude',
+            'status',
         ]
 
+    status = serializers.ReadOnlyField()
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)

@@ -169,7 +169,7 @@ class PropertyFilter(filters.FilterSet):
             return queryset
 
         harvests = Harvest.objects.filter(start_date__year=year)
-        return queryset.filter(harvests__in=harvests)
+        return queryset.filter(harvests__in=harvests).distinct()
 
 
 @typechecked

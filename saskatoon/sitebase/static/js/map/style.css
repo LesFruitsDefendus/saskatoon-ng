@@ -1,19 +1,20 @@
 .leaflet-container {
 	max-height: 100vh;
 
-	a.leaflet-popup-close-button {
-		top: 12px;
+	a {
+		&.leaflet-popup-close-button {
+			top: 12px;
+		}
 	}
 
 
-.leaflet-popup-content {
-	max-height: 40vh;
-	overflow: auto;
-	padding-right: 0.5em;
-	width: 25vw !important;
-	min-width: 300px;
-}
-
+	.leaflet-popup-content {
+		max-height: 40vh;
+		overflow: auto;
+		padding-right: 0.5em;
+		width: 25vw !important;
+		min-width: 300px;
+	}
 }
 
 leaflet-marker {

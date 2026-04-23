@@ -2,6 +2,8 @@
 {% load i18n %}
 {% load static %}
 {% load property %}
+{% load harvest_status %}
+
 
 {% block data %}
   <tab-list role="tablist">
@@ -19,6 +21,7 @@
         aria-labelledby="map-tab"
       >
         <script type="module">import "{% static 'js/map/main.js' %}"</script>
+        {% with request|selected_season as season %}
         <leaflet-map style="height: 60vh;">
             {% for property in data %}
                 {% if property.longitude is not None and property.latitude is not None %}
@@ -27,34 +30,144 @@
                      longitude="{{ property.longitude }}"
                      style="display: none;"
                  >
-                    <leaflet-tooltip direction="top">{{ property.title }}</leaflet-tooltip>
+                    <leaflet-tooltip direction="top">{{ property.address }}</leaflet-tooltip>
                     <leaflet-icon
                       icon-anchor="10 -5"
-                      style="color: {{ property.status | property_status }};"
+                      style="color: {{ property | property_icon_color:season }};"
                     >
-                      {{ property | property_icon | safe }}
+                      {{ property | property_icon:season | safe }}
                     </leaflet-icon>
                     <leaflet-icon
                       class="leaflet-hover-icon"
                       icon-anchor="10 -5"
                       popup-anchor="0 0"
-                      style="color: {{ property.status | property_status }};"
+                      style="color: {{ property | property_icon_color:season }};"
                     >
-                      {{  property | property_icon_hover | safe }}
+                      {{  property | property_icon_hover:season | safe }}
                     </leaflet-icon>
                     <leaflet-popup>
                       <h4>
                         <a href="{% url 'property-detail' property.id %}">
-                          {{ property.title }} <i class="fa fa-external-link fa-xs"></i>
+                          {{ property.address }} <i class="fa fa-external-link fa-xs"></i>
                         </a>
                       </h4>
-                      <p class="text-justify">{{ property.additional_info }}</p>
+                      <span
+                        class="badge"
+                        style="background-color: {{ property.status | property_status }};"
+                      >
+                        {{ property.status.label }}
+                      </span>
+                       <p>
+
+                      {% with property.succeeded_harvests|last as last_harvest %}
+                        {% if last_harvest %}
+                            {% trans 'Last harvest was on' %}
+                            <a href="{% url 'harvest-detail' last_harvest.id %}">
+                              {{ last_harvest.start_date }}
+                            </a>
+                        {% endif %}
+                      {% endwith %}
+                      </p>
+                      <p>
+                      {% with property.next_harvests|first as next_harvest %}
+                        {% if next_harvest %}
+                            {% trans 'Next harvest is on' %}
+                            <a
+                              href="{% url 'harvest-detail' next_harvest.id %}"
+                            >
+                              {{ next_harvest.start_date }}
+                            </a>
+                        {% endif %}
+                      {% endwith %}
+                      </p>
+                        {% for tree, status in property.harvests_by_tree.items %}
+                      <section>
+                          <h5>
+                            {% if LANG == "en" %}
+                              {{ tree.fruit_name_en }}
+                            {% else %}
+                              {{ tree.fruit_name_fr }}
+                            {% endif %}
+                          </h5>
+                          {% for status, harvests in status.items %}
+                          {% regroup harvests by start_date.year as season_harvests %}
+                          {% for grouper, list in season_harvests %}
+                            {% if grouper|stringformat:"d" == season %}
+                            <span
+                              class="badge"
+                              style="background-color: {{ status | color }};"
+                            >
+                              {{ status.label }}
+                            </span>
+                            {% endif %}
+                            {% endfor %}
+                          {% endfor %}
+                      </section>
+                        {% endfor %}
+                       <section>
+                          <h5>{% trans "Owner" %}</h5>
+                          <address>
+                              {{ property.owner_name }}
+                              </br>
+                               {{ property.address }}, {{ property.neighborhood.name }}
+                              </br>
+                              {% if property.owner.phone is not None %}
+                                {{ property.owner.phone }}
+                                </br>
+                             {% endif %}
+                              {% if property.owner.email is not None %}
+                                <a href="mailto:{{ property.owner.email }}">
+                                  {{ property.owner.email }}
+                                </a>
+                              {% endif %}
+                        </address>
                     </section>
+                    <a
+                      class="btn btn-primary notika-btn-primary waves-effect""
+                      href="{% url 'property-detail' property.id %}"
+                    >
+                        See details
+                      </a>
                   </leaflet-popup>
                 </leaflet-marker>
                 {% endif %}
             {% endfor %}
         </leaflet-map>
+
+        <section style="margin-top: 1em; margin-left: 1em; padding-bottom: 1em;">
+        <h3 class="panel-title">{% trans 'Legend' %}</h3>
+        <dl style="margin-top: 1em; display: grid; grid-template-columns: 25px 20% 25px 20% 25px 50%;">
+            <dt style="color: #440bd4;"><span class="glyphicon glyphicon-apple fa-lg"></span></dt>
+            <dd> {% trans 'Succeeded Harvest' %}</dd>
+
+            <dt style="color: #2da4f0;"><span class="glyphicon glyphicon-tree-deciduous fa-lg"></span></dt>
+            <dd> {% trans 'Scheduled Harvest' %}</dd>
+
+            <dt style="color: #440bd4;"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
+            <dd>{% trans 'Authorised Property' %} </dd>
+
+            <dt style="color: #e8ad2b;"><span class="glyphicon glyphicon-apple fa-lg"></span></dt>
+            <dd> {% trans 'Ready Harvest' %}</dd>
+
+            <dt style="color: #000;"><span class="glyphicon glyphicon-tree-deciduous fa-lg"></span></dt>
+            <dd> {% trans 'Adopted Harvest' %}</dd>
+
+            <dt style="color: #f0ad4e; float: left; clear: left;"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
+            <dd>{% trans 'Pending Property' %}</dd>
+
+            <dt style="color: #c01c28;"><span class="glyphicon glyphicon-apple fa-lg"></span></dt>
+            <dd> {% trans 'Cancelled Harvest' %}</dd>
+
+            <dt style="color: #c01c28;"><span class="glyphicon glyphicon-tree-deciduous fa-lg"></span></dt>
+            <dd>{% trans 'Orphan Harvest' %}</dd>
+
+            <dt style="color: #c01c28; float: left; clear: left;"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
+            <dd>{% trans 'Unauthorised Property ' %}</dd>
+
+        </dl>
+        </section>
+
+        {% endwith %}
     </section>
   </tab-list>
 {% endblock data %}

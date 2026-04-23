@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-13 21:26+0000\n"
+"POT-Creation-Date: 2026-04-23 20:35+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -124,7 +124,7 @@ msgstr "Autorisée"
 msgid "Unauthorized"
 msgstr "Non autorisée"
 
-#: harvest/filters.py:145 harvest/models.py:853
+#: harvest/filters.py:145 harvest/models.py:868
 msgid "Tree"
 msgstr "Arbre"
 
@@ -136,7 +136,7 @@ msgstr "Échelle disponible"
 msgid "Harvested in"
 msgstr "Récoltée en"
 
-#: harvest/filters.py:187 harvest/models.py:477
+#: harvest/filters.py:187 harvest/models.py:492
 msgid "Type"
 msgstr "Type"
 
@@ -302,7 +302,7 @@ msgstr ""
 "(par exemple: porte verrouillée à l'arrière, accès libre depuis la rue, "
 "etc...)"
 
-#: harvest/forms.py:359 harvest/models.py:803
+#: harvest/forms.py:359 harvest/models.py:818
 msgid "Number of pickers"
 msgstr "Nombre de cueilleurs (cueilleuses)"
 
@@ -478,11 +478,11 @@ msgstr "propriétés"
 msgid "Inactive"
 msgstr "Est active"
 
-#: harvest/models.py:139 harvest/models.py:167 harvest/models.py:771
+#: harvest/models.py:139 harvest/models.py:167 harvest/models.py:786
 msgid "Pending"
 msgstr "En attente"
 
-#: harvest/models.py:146 harvest/models.py:483
+#: harvest/models.py:146 harvest/models.py:498
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -672,223 +672,223 @@ msgstr "Renseignements complémentaires"
 msgid "Any additional information that we should be aware of"
 msgstr "Toute information que nous devrions connaître"
 
-#: harvest/models.py:465
+#: harvest/models.py:480
 msgid "at"
 msgstr "à"
 
-#: harvest/models.py:472 harvest/models.py:473
+#: harvest/models.py:487 harvest/models.py:488
 msgid "equipment"
 msgstr "équipement"
 
-#: harvest/models.py:492 harvest/models.py:559
+#: harvest/models.py:507 harvest/models.py:574
 msgid "Property"
 msgstr "Propriété"
 
-#: harvest/models.py:499
+#: harvest/models.py:514
 msgid "Description"
 msgstr "Description"
 
-#: harvest/models.py:501
+#: harvest/models.py:516
 msgid "Number available"
 msgstr "Nombre disponible"
 
-#: harvest/models.py:504
+#: harvest/models.py:519
 msgid "Shared"
 msgstr "Partagé"
 
-#: harvest/models.py:505
+#: harvest/models.py:520
 msgid "Can be used in harvests outside of property"
 msgstr "Peut être utilisé pour d'autres cueillettes à proximité"
 
-#: harvest/models.py:531 harvest/models.py:889
+#: harvest/models.py:546 harvest/models.py:904
 msgid "harvest"
 msgstr "récolte"
 
-#: harvest/models.py:532
+#: harvest/models.py:547
 msgid "harvests"
 msgstr "récoltes"
 
-#: harvest/models.py:536
+#: harvest/models.py:551
 msgid "Orphan"
 msgstr "Orpheline"
 
-#: harvest/models.py:537
+#: harvest/models.py:552
 msgid "Adopted"
 msgstr "Adoptée"
 
-#: harvest/models.py:538
+#: harvest/models.py:553
 msgid "To be confirmed"
 msgstr "À confirmer"
 
-#: harvest/models.py:539
+#: harvest/models.py:554
 msgid "Scheduled"
 msgstr "Date prévue"
 
-#: harvest/models.py:540
+#: harvest/models.py:555
 msgid "Ready"
 msgstr "Prête"
 
-#: harvest/models.py:541
+#: harvest/models.py:556
 msgid "Succeeded"
 msgstr "Réussie"
 
-#: harvest/models.py:542 harvest/models.py:774
+#: harvest/models.py:557 harvest/models.py:789
 msgid "Cancelled"
 msgstr "Annulée"
 
-#: harvest/models.py:551
+#: harvest/models.py:566
 msgid "Harvest status"
 msgstr "État de la récolte"
 
-#: harvest/models.py:565
+#: harvest/models.py:580
 msgid "Fruit trees"
 msgstr "Arbres fruitiers"
 
-#: harvest/models.py:568
+#: harvest/models.py:583
 msgid "Owner wants to be present"
 msgstr "Le/la propriétaire veut être présent(e)"
 
-#: harvest/models.py:570
+#: harvest/models.py:585
 msgid "Owner wants to participate"
 msgstr "Le/la propriétaire veut participer"
 
-#: harvest/models.py:573
+#: harvest/models.py:588
 msgid "Owner wants their share of fruits"
 msgstr "Le/la propriétaire veut sa part de la récolte"
 
-#: harvest/models.py:585
+#: harvest/models.py:600
 msgid "Start date"
 msgstr "Date de début"
 
-#: harvest/models.py:587
+#: harvest/models.py:602
 msgid "End date"
 msgstr "Date de fin"
 
-#: harvest/models.py:590
+#: harvest/models.py:605
 msgid "Publication date"
 msgstr "Date de publication"
 
-#: harvest/models.py:594
+#: harvest/models.py:609
 msgid "Reserve equipment"
 msgstr "Réserver l'Équipement"
 
-#: harvest/models.py:598
+#: harvest/models.py:613
 msgid "Number of required pickers"
 msgstr "Nombre de cueilleurs (cueilleuses) requis"
 
-#: harvest/models.py:602
+#: harvest/models.py:617
 msgid "Public announcement"
 msgstr "Annonce publique"
 
-#: harvest/models.py:604
+#: harvest/models.py:619
 msgid "Published on public facing calendar"
 msgstr "Publiée sur le calendrier publique"
 
-#: harvest/models.py:617
+#: harvest/models.py:632
 msgid "Creation date"
 msgstr "Date de création"
 
-#: harvest/models.py:623
+#: harvest/models.py:638
 msgid "Harvest on {} for {}"
 msgstr "Récolte le {} pour {}"
 
-#: harvest/models.py:627
+#: harvest/models.py:642
 msgid "Harvest for {}"
 msgstr "Récolte pour {}"
 
-#: harvest/models.py:767
+#: harvest/models.py:782
 msgid "request for participation"
 msgstr "demande de participation"
 
-#: harvest/models.py:768
+#: harvest/models.py:783
 msgid "requests for participation"
 msgstr "demandes de participation"
 
-#: harvest/models.py:772
+#: harvest/models.py:787
 msgid "Accepted"
 msgstr "Accepté"
 
-#: harvest/models.py:773
+#: harvest/models.py:788
 msgid "Declined"
 msgstr "Refusée"
 
-#: harvest/models.py:775
+#: harvest/models.py:790
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: harvest/models.py:778
+#: harvest/models.py:793
 msgid "Accept request"
 msgstr "Accepter cette demande"
 
-#: harvest/models.py:779
+#: harvest/models.py:794
 msgid "Decline request"
 msgstr "Refuser cette demande"
 
-#: harvest/models.py:783 harvest/models.py:846
+#: harvest/models.py:798 harvest/models.py:861
 msgid "Harvest"
 msgstr "Récolte"
 
-#: harvest/models.py:790
+#: harvest/models.py:805
 msgid "Requester"
 msgstr "Demandeur"
 
-#: harvest/models.py:798
+#: harvest/models.py:813
 msgid "Request status"
 msgstr "État de la demande"
 
-#: harvest/models.py:808
+#: harvest/models.py:823
 msgid "Comment from participant"
 msgstr "Commentaire du/de la bénévole"
 
-#: harvest/models.py:810
+#: harvest/models.py:825
 msgid "PickLeader notes"
 msgstr "Notes du chef de cueille"
 
-#: harvest/models.py:812 harvest/models.py:903
+#: harvest/models.py:827 harvest/models.py:918
 msgid "Created on"
 msgstr "Créé le"
 
-#: harvest/models.py:815
+#: harvest/models.py:830
 msgid "Status updated on"
 msgstr "Statut mis à jour le"
 
-#: harvest/models.py:819
+#: harvest/models.py:834
 msgid "Picker(s) showed up"
 msgstr "Cueilleurs (cueilleuses) présent(e)s"
 
-#: harvest/models.py:841
+#: harvest/models.py:856
 msgid "harvest yield"
 msgstr "rendement de cueillette"
 
-#: harvest/models.py:842
+#: harvest/models.py:857
 msgid "harvest yields"
 msgstr "rendements de cueillettes"
 
-#: harvest/models.py:858
+#: harvest/models.py:873
 msgid "Weight (lb)"
 msgstr "Poids (en livres)"
 
-#: harvest/models.py:868
+#: harvest/models.py:883
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: harvest/models.py:884
+#: harvest/models.py:899
 msgid "comment"
 msgstr "commentaire"
 
-#: harvest/models.py:885
+#: harvest/models.py:900
 msgid "comments"
 msgstr "commentaires"
 
-#: harvest/models.py:896
+#: harvest/models.py:911
 msgid "Author"
 msgstr "Auteur"
 
-#: harvest/models.py:901
+#: harvest/models.py:916
 msgid "Content"
 msgstr "Contenu"
 
-#: harvest/models.py:906
+#: harvest/models.py:921
 msgid "Updated on"
 msgstr "Mis à jour le"
 

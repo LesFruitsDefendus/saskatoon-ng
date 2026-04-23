@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load static %}
+{% load property %}
+{% load harvest_status %}
 
 {% get_current_language as LANG %}
 <tr>
@@ -22,7 +24,7 @@
         {{ property.neighborhood }}
     </td>
     <td>
-        {% include 'app/list_views/property/status.html' %}
+        <span class="badge" style="background-color: {{ property.status | property_status }};">{{ property.status.label }}</span>
     </td>
     <td>
         {% for tree in property.trees %}
@@ -32,41 +34,37 @@
                 {% else %}
                     {{tree.fruit_name_fr}}
                 {% endif %}
-                {{ tree.fruit_icon|default:"" }}
             </div>
         {% endfor %}
     </td>
     <td>
         {% if property.ladder_available %}
-            <i class="fa fa-check text-success"></i>
+            <i class="fa fa-check" style="color: #440bd4;"></i>
         {% else %}
-            <i class="fa fa-times text-danger"></i>
+            <i class="fa fa-times" style="color: #c01c28;"></i>
         {% endif %}
     </td>
     <td>
         <ul class="list-inline">
             {% for harvest in property.harvests %}
-            <li>
-                <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
+            <li style="padding-top: 0.5em;">
+                <a style="color: {{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
                     title="#{{ harvest.id }}: {{ harvest.start_date }} -
                                    {% if harvest.pick_leader %}{{ harvest.pick_leader }}{% else %}{% trans 'Orphan' %}{% endif %}"
                 >
-                {% if harvest.status == "succeeded" %}
-                    <i class="fa fa-shopping-basket fa-lg text-success"
-                {% elif harvest.status == "cancelled" %}
-                    <i class="fa fa-shopping-basket fa-lg text-muted"
-                {% elif harvest.status == "orphan" %}
-                    <i class="fa fa-shopping-basket fa-lg text-danger"
-                {% else %}
-                    <i class="fa fa-shopping-basket fa-lg text-warning"
-                {% endif %}
-                        style="padding-top:7px;"></i>
+               {{ harvest.status | harvest_icon | safe }}
                 </a>
             </li>
             {% endfor %}
         </ul>
     </td>
     <td>
-        <div class="text-nowrap">{{ property.last_succeeded_harvest_date|date:"Y-m-d g:i A" }}</div>
+        {% with property.succeeded_harvests|last as last_harvest %}
+            {% if last_harvest %}
+            <a href="{% url 'harvest-detail' last_harvest.id %}">
+                {{ last_harvest.start_date }}
+            </a>
+        {% endif %}
+        {% endwith %}
     </td>
 </tr>
