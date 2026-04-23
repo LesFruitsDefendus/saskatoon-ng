@@ -1,10 +1,10 @@
 SHELL := /bin/bash
 
-init:
-	@saskatoon/fixtures/init
-
 run:
 	@python3 saskatoon/manage.py runserver
+
+init:
+	@saskatoon/fixtures/init
 
 migrate:
 	@python3 saskatoon/manage.py migrate
