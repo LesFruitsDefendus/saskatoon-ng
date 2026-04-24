@@ -59,7 +59,7 @@ def property_icon_hover(property, year: str) -> str:
 @register.filter
 @typechecked
 def property_status(status: Optional[str]) -> str:
-    default = '#440bd4'
+    default = 'saskatoon-primary'
 
     if status is None:
         return default
@@ -67,10 +67,10 @@ def property_status(status: Optional[str]) -> str:
     return {
         t[0]: t[1]
         for t in [
-            (Property.Status.PENDING.value, '#f0ad4e'),
-            (Property.Status.UNAUTHORIZED.value, '#c01c28'),
-            (Property.Status.AUTHORIZED.value, '#440bd4'),
-            (Property.Status.INACTIVE.value, '#666'),
+            (Property.Status.PENDING.value, 'saskatoon-warning'),
+            (Property.Status.UNAUTHORIZED.value, 'saskatoon-danger'),
+            (Property.Status.AUTHORIZED.value, 'saskatoon-success'),
+            (Property.Status.INACTIVE.value, 'saskatoon-neutral'),
         ]
     }.get(status, default)
 
@@ -91,29 +91,29 @@ def property_icon_color(property, year: str) -> str:
     orphan_harvest = [h for h in harvests if h["status"] in [Harvest.Status.ORPHAN]]
 
     if len(orphan_harvest) > 0:
-        return "#c01c28"
+        return "saskatoon-danger"
 
     adopted_harvest = [h for h in harvests if h["status"] == Harvest.Status.ADOPTED]
 
     if len(adopted_harvest) > 0:
-        return "#000"
+        return "saskatoon-warning"
 
     scheduled_harvest = [h for h in harvests if h["status"] == Harvest.Status.SCHEDULED]
 
     if len(scheduled_harvest) > 0:
-        return "#2da4f0"
+        return "saskatoon-info"
 
     ready = [h for h in harvests if h["status"] == Harvest.Status.READY]
 
     if len(ready) > 0:
-        return "#e8ad2b"
+        return "saskatoon-neutral"
 
     cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 
     if len(cancelled_harvest) > 0:
-        return "#c01c28"
+        return "saskatoon-danger"
 
-    return "#440bd4"
+    return "saskatoon-success"
 
 
 @register.filter

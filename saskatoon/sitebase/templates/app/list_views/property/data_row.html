@@ -24,7 +24,7 @@
         {{ property.neighborhood }}
     </td>
     <td>
-        <span class="badge" style="background-color: {{ property.status | property_status }};">{{ property.status.label }}</span>
+        <span class="badge {{ property.status | property_status }}">{{ property.status.label }}</span>
     </td>
     <td>
         {% for tree in property.trees %}
@@ -38,17 +38,10 @@
         {% endfor %}
     </td>
     <td>
-        {% if property.ladder_available %}
-            <i class="fa fa-check" style="color: #440bd4;"></i>
-        {% else %}
-            <i class="fa fa-times" style="color: #c01c28;"></i>
-        {% endif %}
-    </td>
-    <td>
         <ul class="list-inline">
             {% for harvest in property.harvests %}
             <li style="padding-top: 0.5em;">
-                <a style="color: {{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
+                <a class="{{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
                     title="#{{ harvest.id }}: {{ harvest.start_date }} -
                                    {% if harvest.pick_leader %}{{ harvest.pick_leader }}{% else %}{% trans 'Orphan' %}{% endif %}"
                 >
@@ -65,6 +58,17 @@
                 {{ last_harvest.start_date }}
             </a>
         {% endif %}
+        {% endwith %}
+    </td>
+    <td>
+        {% with property.next_harvests|first as next_harvest %}
+            {% if next_harvest %}
+                <a
+                  href="{% url 'harvest-detail' next_harvest.id %}"
+                >
+                  {{ next_harvest.start_date }}
+                </a>
+            {% endif %}
         {% endwith %}
     </td>
 </tr>

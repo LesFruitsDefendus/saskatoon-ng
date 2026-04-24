@@ -9,14 +9,14 @@ def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1]
         for t in [
-            (Harvest.Status.ORPHAN, "#c01c28"),
-            (Harvest.Status.ADOPTED, "#000"),
-            (Harvest.Status.SCHEDULED, "#2da4f0"),
-            (Harvest.Status.READY, "#e8ad2b"),
-            (Harvest.Status.SUCCEEDED, "#440bd4"),
-            (Harvest.Status.CANCELLED, "#c01c28"),
+            (Harvest.Status.ORPHAN, "saskatoon-danger"),
+            (Harvest.Status.ADOPTED, "saskatoon-warning"),
+            (Harvest.Status.SCHEDULED, "saskatoon-info"),
+            (Harvest.Status.READY, "saskatoon-neutral"),
+            (Harvest.Status.SUCCEEDED, "saskatoon-success"),
+            (Harvest.Status.CANCELLED, "saskatoon-danger"),
         ]
-    }.get(harvest_status, "#666")  # btn-default
+    }.get(harvest_status, "saskatoon-success")
 
 
 @register.filter

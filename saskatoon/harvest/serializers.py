@@ -151,6 +151,7 @@ class PropertyListSerializer(PropertySerializer):
             'trees',
             'ladder_available',
             'succeeded_harvests',
+            'next_harvests',
             'is_active',
             'authorized',
             'pending',
@@ -165,6 +166,8 @@ class PropertyListSerializer(PropertySerializer):
     # mypy says it should be a NeighborhoodSerializer
     trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+    succeeded_harvests = PropertyHarvestSerializer(many=True, read_only=True)
+    next_harvests = PropertyHarvestSerializer(many=True, read_only=True)
 
 
 class PropertyEquipmentSerializer(PropertyListSerializer):

@@ -1,0 +1,68 @@
+
+:root {
+	--saskatoon-success: #440bd4;
+	--saskatoon-primary: var(--saskatoon-success);
+	--saskatoon-danger: #c01c28;
+	--saskatoon-warning: #e8ad2b;
+	--saskatoon-info: #2da4f0;
+	--saskatoon-neutral: #000;
+}
+
+.saskatoon-primary,
+.saskatoon-success {
+	color: var(--saskatoon-success);
+}
+
+.saskatoon-danger {
+	color: var(--saskatoon-danger);
+}
+
+.saskatoon-warning {
+	color: var(--saskatoon-warning);
+}
+
+.saskatoon-info {
+	color: var(--saskatoon-info);
+}
+
+.saskatoon-neutral {
+	color: var(--saskatoon-neutral);
+}
+
+.progress-bar.saskatoon-primary,
+.progress-bar.saskatoon-success,
+.btn.saskatoon-primary,
+.btn.saskatoon-success,
+.badge.saskatoon-primary,
+.badge.saskatoon-success {
+	color: white;
+	background-color: var(--saskatoon-success);
+}
+
+.progress-bar.saskatoon-danger,
+.btn.saskatoon-danger,
+.badge.saskatoon-danger {
+	color: white;
+	background-color: var(--saskatoon-danger);
+}
+
+.progress-bar.saskatoon-warning,
+.btn.saskatoon-warning,
+.badge.saskatoon-warning {
+	color: white;
+	background-color: var(--saskatoon-warning);
+}
+
+.progress-bar.saskatoon-info,
+.btn.saskatoon-info,
+.badge.saskatoon-info {
+	color: white;
+	background-color: var(--saskatoon-info);
+}
+
+.progress-bar.saskatoon-neutral,
+.btn.saskatoon-neutral,
+.badge.saskatoon-neutral {
+	color: white;
+	background-color: var(--saskatoon-neutral);
+}
