@@ -128,7 +128,7 @@ class RFPManageForm(forms.ModelForm[RFP]):
         emailType = kwargs.pop('emailType')
         super().__init__(*args, **kwargs)
 
-        if status in RFP.Status.choices():
+        if status in RFP.Status.choices:
             self.fields['status'].widget = forms.widgets.HiddenInput()
             self.initial['status'] = status
 
