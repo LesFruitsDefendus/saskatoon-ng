@@ -579,7 +579,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean() or {}
 
-        if data['status'] == Harvest.Status.ORPHAN:
+        if data['status'] == Harvest.Status.ORPHAN and self.instance.pk:
             unresolved_requests = self.instance.requests.filter(
                 status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
             )
