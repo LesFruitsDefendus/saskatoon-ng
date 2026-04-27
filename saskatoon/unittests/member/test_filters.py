@@ -122,13 +122,15 @@ def test_filter_queryset_reserved(location) -> None:  # noqa: F811
         is_equipment_point=True, civil_name=" Test Equipment Point 2", **location
     )
 
-    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)
-    Equipment.objects.create(type=equipment_type2, owner=org2)
-
+    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)  # reserved
     harvest = Harvest.objects.create(
         start_date=filter.start_val, end_date=filter.end_val, status=Harvest.Status.SCHEDULED
     )
     harvest.equipment_reserved.set([equipment_1])
+
+    # equipment_2 (available)
+    Equipment.objects.create(type=equipment_type2, owner=org2)
+
     query = filter.filter_queryset(Organization.objects.all())
     assert query.count() == 1
 
@@ -153,13 +155,14 @@ def test_filter_queryset_available(location) -> None:  # noqa: F811
         is_equipment_point=True, civil_name=" Test Equipment Point 2", **location
     )
 
-    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)
-    Equipment.objects.create(type=equipment_type2, owner=org2)
-
+    equipment_1 = Equipment.objects.create(type=equipment_type, owner=org1)  # reserved
     harvest = Harvest.objects.create(
         start_date=filter.start_val, end_date=filter.end_val, status=Harvest.Status.SCHEDULED
     )
     harvest.equipment_reserved.set([equipment_1])
+
+    # equipment_2 (available)
+    Equipment.objects.create(type=equipment_type2, owner=org2)
 
     query = filter.filter_queryset(Organization.objects.all())
     assert query.count() == 1

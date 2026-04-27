@@ -5,7 +5,7 @@ import hypothesis.strategies as st
 
 from django.conf import settings
 from sitebase.utils import parse_naive_datetime
-from member.utils import available_equipment_points
+from member.utils import get_available_equipment_points
 from harvest.models import Harvest, Equipment, EquipmentType
 from member.models import Organization, Country, State, City, Neighborhood
 
@@ -70,7 +70,7 @@ def test_available_equipment_points_fuzz() -> None:
     )
 
     cases = deal.cases(
-        func=available_equipment_points,
+        func=get_available_equipment_points,
         kwargs=dict(start=date_strat, end=date_strat, harvest=st.just(None)),
     )
 
@@ -88,7 +88,7 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(
+    points = get_available_equipment_points(
         harvest.start_date - timedelta(hours=5),
         harvest.end_date - timedelta(hours=1),
         None,
@@ -110,9 +110,31 @@ def test_available_equipment_points_start_during(db, harvest, equipment) -> None
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(
+    points = get_available_equipment_points(
         harvest.start_date + timedelta(hours=1),
         harvest.end_date + timedelta(hours=5),
+        None,
+    )
+
+    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+        assert points.count() == 0
+    else:
+        assert points.count() == 1
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
+def test_available_equipment_points_around(db, harvest, equipment) -> None:
+    """
+    If the requested equipement point conflicts with another harvest, booked by another
+    there should only be an available equipment point if conflicting
+    harvests are not scheduled or ready
+    """
+
+    harvest.equipment_reserved.set([equipment])
+    points = get_available_equipment_points(
+        harvest.start_date - timedelta(minutes=30),
+        harvest.end_date + timedelta(minutes=30),
         None,
     )
 
@@ -131,7 +153,7 @@ def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(harvest.start_date, harvest.end_date, None)
+    points = get_available_equipment_points(harvest.start_date, harvest.end_date)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
@@ -148,7 +170,7 @@ def test_available_equipment_points_no_conflict_with_self(db, harvest, equipment
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(harvest.start_date, harvest.end_date, harvest)
+    points = get_available_equipment_points(harvest.start_date, harvest.end_date, harvest)
 
     assert points.count() == 1
 
@@ -166,7 +188,7 @@ def test_available_equipment_points_conflict_when_checking_self(
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = available_equipment_points(
+    points = get_available_equipment_points(
         second_harvest.start_date, second_harvest.end_date, second_harvest
     )
 
@@ -183,7 +205,7 @@ def test_available_equipment_points_after(db, harvest, equipment) -> None:
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
-    points = available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
+    points = get_available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
 
     assert points.count() == 1
 
@@ -198,7 +220,7 @@ def test_available_equipment_points_before(db, harvest, equipment) -> None:
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=4)
-    points = available_equipment_points(harvest.start_date - delta, harvest.end_date - delta, None)
+    points = get_available_equipment_points(harvest.start_date - delta, harvest.end_date - delta, None)
 
     assert points.count() == 1
 
@@ -213,7 +235,7 @@ def test_available_equipment_points_buffer_after(db, harvest, equipment) -> None
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=2)
-    points = available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
+    points = get_available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
@@ -231,7 +253,7 @@ def test_available_equipment_points_buffer_before(db, harvest, equipment) -> Non
 
     harvest.equipment_reserved.set([equipment])
     delta = timedelta(hours=2)
-    points = available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
+    points = get_available_equipment_points(harvest.start_date + delta, harvest.end_date + delta, None)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0
@@ -256,7 +278,7 @@ def test_available_equipment_points_buffer_with_parse_naive_datetime(
     end = parse_naive_datetime(end_str, settings.DATETIME_INPUT_FORMATS[0])
     assert end is not None
 
-    points = available_equipment_points(end + delta, end + delta + delta, None)
+    points = get_available_equipment_points(end + delta, end + delta + delta, None)
 
     if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
         assert points.count() == 0

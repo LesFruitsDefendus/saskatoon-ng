@@ -22,7 +22,7 @@ from harvest.models import (
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
-from member.utils import available_equipment_points
+from member.utils import is_equipment_point_available
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -560,13 +560,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         start = self.cleaned_data.get('start_date', None)
         end = self.cleaned_data.get('end_date', None)
 
-        available_points = (
-            available_equipment_points(start, end, harvest)
-            if start is not None and end is not None
-            else Organization.objects.none()
-        )
-
-        if available_points.filter(pk=equipment_point.pk).count() != 1:
+        if not is_equipment_point_available(equipment_point, start, end, harvest):
             raise forms.ValidationError(
                 _("The {} equipment point is no longer available.").format(
                     equipment_point.civil_name
@@ -611,13 +605,16 @@ class HarvestForm(forms.ModelForm[Harvest]):
         instance = super().save(commit=True)
 
         equipment_point = self.cleaned_data['equipment_point']
-        equipment = (
-            Equipment.objects.none()
-            if equipment_point is None
-            else Equipment.objects.filter(owner=equipment_point)
-        )
-        instance.equipment_reserved.set(equipment)
-        instance.save()
+        if equipment_point is not None:
+            # To keep things simple, pick leaders must reserve entire equipment points.
+            # But in the interest of allowing a more granular system in the future,
+            # the harvest model still has a list of reserved equipment. This means that
+            # any equipment reservation for a harvest will make that entire equipment
+            # point reserved, even if part of it's equipment has not been added to the harvest
+            instance.equipment_reserved.set(
+                Equipment.objects.filter(owner=equipment_point)
+            )
+            instance.save()
 
         return instance
 
