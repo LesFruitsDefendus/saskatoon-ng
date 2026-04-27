@@ -12,6 +12,18 @@ dialog {
 	}
 }
 
+dialog.confirmation {
+	border: 2px solid #ff2079;
+    padding: 20px;
+	min-width: 35vw;
+
+    .btn-group .btn {
+        width: 100px;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+}
+
 .no-dialog-btn {
 	display: inline-block;
 	margin: 0;
