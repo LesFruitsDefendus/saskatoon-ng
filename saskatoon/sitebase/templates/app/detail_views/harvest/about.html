@@ -2,22 +2,17 @@
 {% load static %}
 
 {% get_current_language as LANG %}
-<div class="container">
-    <div class="row">
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <div class="sale-statistic-inner notika-shadow mg-tb-30">
-                <div class="curved-inner-pro">
-                    <div class="curved-ctn">
+<div class="property-and-announcements">
+                    <section>
                         <h2>{% trans "Public announcement" %}</h2>
-                        <hr><br>
-                        <h5>
+                        <h3>
                             {% if LANG == "en" %}
                                 {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
                             {% else %}
                                 {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
                             {% endif %}
                             @ {{ property.neighborhood }}
-                        </h5>
+                        </h3>
                         <br>
                         {% if status != "orphan" and status != "adopted" %}
                             <h4>{{start_date}}</h4>
@@ -25,14 +20,9 @@
                         {% endif %}
                         <br>
                         {{about | safe}}
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </section>
 
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            <div class="sale-statistic-inner notika-shadow mg-tb-30">
-                <div class="contact-hd search-hd-eg">
+                  <section>
                     <h2>{% translate 'Property information' %}
                     {% if perms.harvest.change_property %}
                         &nbsp;
@@ -42,60 +32,32 @@
                         </a>
                     {% endif %}
                     </h2>
-                </div>
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td>{% trans "Address" %}</td>
-                            <td class="text-right">
-                                <h4><a href="{% url 'property-detail' property.id %}">{{ property.address }}</a></h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans "Contact" %}</td>
-                            <td class="text-right">
-                                <h4>{{ property.owner.name }}</h4>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>{% trans "Phone" %}</td>
-                            <td class="text-right">
-                                <h4>{{ property.owner.phone }}</h4>
-                            </td>
-                        </tr>
 
+                    <address>
+                        <table>
                         <tr>
-                            <td>{% trans "Email" %}</td>
-                            <td class="text-right">
-                                <h4>{{ property.owner.email }}</h4>
-                            </td>
-                        </tr>
-
+                        <th>{% trans "Address" %}</th>&nbsp;
+                        <td><a href="{% url 'property-detail' property.id %}">{{ property.address }}</a></td>
+                        </tr><tr>
+                        <th>{% trans 'Owner' %}</th> <td>{{ property.owner.name }}</td>
+                        {% if property.owner.phone is not None %}
+                        </tr><tr>
+                          <th>{% trans "Phone" %}</th> <td>{{ property.owner.phone }}</td>
+                        {% endif %}
+                        {% if property.owner.email is not None %}
+                        </tr><tr>
+                          <th>{% trans "Email" %}</th> <td>{{ property.owner.email }}</td>
+                        {% endif %}
                         {% if property.owner.language %}
-                            <tr>
-                                <td>{% trans "Language" %}</td>
-                                <td class="text-right">
-                                    <h4>{{ property.owner.language }}</h4>
-                                </td>
-                            </tr>
+                        </tr><tr>
+                          <th>{% trans "Language" %}</th> <td>{{ property.owner.language }}</td>
                         {% endif %}
+                        </tr>
+                        </table>
+                      </address>
 
-                        {% if property.owner.comments %}
-                            <tr>
-                                <td>{% trans "Comments" %}</td>
-                                <td class="text-right">
-                                    <b>{{ property.owner.comments }}</b>
-                                </td>
-                            </tr>
-                        {% endif %}
-                       </tbody>
-                    </table>
-            </div>
-        </div>
-
-        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-            {% include 'app/detail_views/harvest/equipment.html' %}
-        </div>
-    </div>
-
+                     {% if property.owner.comments %}
+                       <p>{{ property.owner.comments }}</p>
+                     {% endif %}
+                   </section>
 </div>

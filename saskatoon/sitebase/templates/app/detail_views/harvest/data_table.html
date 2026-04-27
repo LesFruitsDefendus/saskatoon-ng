@@ -1,20 +1,10 @@
 {% load i18n %}
 {% load static %}
-<div class="data-table-area">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="data-table-list">
-                        <div class="row">
-                            <div class="col-xs-6">
-                                <div class="basic-tb-hd">
-                                    <h2>
-                                        {% trans "Pickers requests" %}
-                                    </h2>
-                                </div>
-                            </div>
-                                <div class="col-xs-6">
+<section class="picker-requests">
+  <header>
+    <h2>
+      {% trans "Pickers requests" %}
+    </h2>
                                     <a href="{% url 'rfp-create' id %}"
                                     {% if is_open_to_public_requests %}
                                         class="btn btn-success notika-btn-success waves-effect"
@@ -23,13 +13,13 @@
                                     {% else %}
                                        class="btn btn-default notika-btn-default disabled"
                                     {% endif %}
-                                        style="float: right">
+                                    >
                                         <i class="fa fa-plus"></i> {% trans "New request" %}
                                     </a>
-                                </div>
-                        </div>
+                                    </header>
                     <div class="table-responsive">
-                        <table id="data-table-basic" class="table compact">
+                        <table class="table compact">
+                          <thead>
                             <tr>
                                 <th>{% trans "Requester" %}</th>
                                 <th style="width: 10%">{% trans "Requested on" %}</th>
@@ -42,14 +32,12 @@
                                 <th>{% trans "Last updated" %}</th>
                                 <th>{% trans "Action" %}</th>
                             </tr>
+                          <thead>
+                          <tbody>
                             {% for r in requests %}
                                 {% include 'app/detail_views/harvest/data_row.html' %}
                             {% endfor %}
+                           </tbody>
                         </table>
                     </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
+</section>
