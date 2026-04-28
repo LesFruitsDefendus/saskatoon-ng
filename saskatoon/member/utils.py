@@ -67,9 +67,12 @@ def get_available_equipment_points(
     # If another harvest has already reserved the equipment available in the equipment
     # point and its datetime range overlaps, then the equipment point is unavailable.
     has_datetimes = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
-    start_between = Q(harvest__start_date__gte=start, harvest__start_date__lte=end)  # start <= si <= end
+    start_between = Q(
+        harvest__start_date__gte=start, harvest__start_date__lte=end
+    )  # start <= si <= end
     end_between = Q(harvest__end_date__gte=start, harvest__end_date__lte=end)  # start <= ei <= end
-    wrapping = Q(harvest__start_date__lte=start, harvest__end_date__gte=end)  # si <= start < end <= ei
+    wrapping = Q(harvest__start_date__lte=start, harvest__end_date__gte=end)
+
     booked_equipment = Equipment.objects.filter(
         has_datetimes & (start_between | end_between | wrapping)
     )
@@ -88,7 +91,7 @@ def is_equipment_point_available(
     org: Organization,
     start: Union[datetime, None],
     end: Union[datetime, None],
-    harvest: Optional[Harvest] = None
+    harvest: Optional[Harvest] = None,
 ) -> bool:
     """Check if an equipment point is available for a given time range"""
 

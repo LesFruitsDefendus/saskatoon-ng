@@ -22,7 +22,7 @@ from harvest.models import (
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
-from member.utils import is_equipment_point_available
+from member.utils import is_equipment_point_available, get_available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -611,9 +611,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
             # the harvest model still has a list of reserved equipment. This means that
             # any equipment reservation for a harvest will make that entire equipment
             # point reserved, even if part of it's equipment has not been added to the harvest
-            instance.equipment_reserved.set(
-                Equipment.objects.filter(owner=equipment_point)
-            )
+            instance.equipment_reserved.set(Equipment.objects.filter(owner=equipment_point))
             instance.save()
 
         return instance
