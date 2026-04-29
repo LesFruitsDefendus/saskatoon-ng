@@ -61,35 +61,23 @@ def get_available_equipment_points(
 
     # A buffer gives pick leaders a bit of leeway in picking up and returning
     # the equipment, since some harvest sites can be further away
-    start = start - buffer
-    end = end + buffer
+    requested_start = start - buffer
+    requested_end = end + buffer
 
     # If another harvest has already reserved the equipment available in the equipment
     # point and its datetime range overlaps, then the equipment point is unavailable.
-    has_datetimes = Q(harvest__status__in=Harvest.ALLOWED_TO_RESERVE)
-    start_between = Q(harvest__start_date__gte=start, harvest__start_date__lte=end)
-    end_between = Q(harvest__end_date__gte=start, harvest__end_date__lte=end)
-    surround = Q(harvest__start_date__lte=start, harvest__end_date__gte=end)
+    query = Q(status__in=Harvest.ALLOWED_TO_RESERVE)
 
-    booked_equipment = Equipment.objects.filter(
-        has_datetimes & (start_between | end_between | surround)
-    )
-
-    # Make sure harvest doesn't conflict with itself
+    # Dont include itself
     if harvest is not None:
-        has_datetimes = Q(status__in=Harvest.ALLOWED_TO_RESERVE)
-        start_between = Q(start_date__gte=start, start_date__lte=end)
-        end_between = Q(end_date__gte=start, end_date__lte=end)
-        surround = Q(start_date__lte=start, end_date__gte=end)
-        same_reservation = Q(equipment_reserved__pk__in=harvest.equipment_reserved.all())
-        different = ~Q(pk=harvest.pk)
+        query = query & ~Q(pk=harvest.pk)
 
-        harvests = Harvest.objects.filter(
-            different & has_datetimes & (start_between | end_between | surround) & same_reservation
-        )
+    start_between = Q(start_date__gte=requested_start, start_date__lte=requested_end)
+    end_between = Q(end_date__gte=requested_start, end_date__lte=requested_end)
+    surround = Q(start_date__lte=requested_start, end_date__gte=requested_end)
 
-        if harvests.count() == 0:
-            booked_equipment = booked_equipment.exclude(harvest__pk=harvest.pk)
+    conflicts = Harvest.objects.filter(query & (start_between | end_between | surround))
+    booked_equipment = Equipment.objects.filter(pk__in=conflicts.values('equipment_reserved'))
 
     return Organization.objects.filter(is_equipment_point=True).exclude(
         pk__in=booked_equipment.values('owner')
