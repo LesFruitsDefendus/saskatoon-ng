@@ -72,19 +72,20 @@ class Command(BaseCommand):
         output += "> then run `make permissions` to regenerate.\n\n"
 
         for app_label, models in ALL_PERMISSIONS.items():
-            table = Table(Headers(
-                [Cell("model", max(len(m) for m in models)),
-                 Cell("action", action_col_width)]
-                + [Cell(r, len(r)) for r in roles]
-            ))
+            table = Table(
+                Headers(
+                    [Cell("model", max(len(m) for m in models)), Cell("action", action_col_width)]
+                    + [Cell(r, len(r)) for r in roles]
+                )
+            )
 
             for model_name, model_actions in models.items():
                 for i, action in enumerate(actions):
                     granted_roles = model_actions.get(action, set())
                     display_name = model_name if i == 0 else ""
-                    table.add_row([display_name, action] + [
-                        "x" if r in granted_roles else "" for r in roles
-                    ])
+                    table.add_row(
+                        [display_name, action] + ["x" if r in granted_roles else "" for r in roles]
+                    )
 
             output += table.render(app_label) + "\n\n"
 

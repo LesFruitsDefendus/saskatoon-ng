@@ -6,6 +6,7 @@ from saskatoon.permissions import ALL_PERMISSIONS
 
 PermKey = tuple[str, str]  # (app_label, codename)
 
+
 class Command(BaseCommand):
     help = "Apply Auth.Group permissions as defined in each app's permissions.py file"
 
@@ -34,9 +35,11 @@ class Command(BaseCommand):
 
             found = {(p.content_type.app_label, p.codename) for p in permissions}
             for key in perm_keys - found:
-                self.stderr.write(self.style.WARNING(
-                    f"Permission '{key[0]}.{key[1]}' not found in database, skipping"
-                ))
+                self.stderr.write(
+                    self.style.WARNING(
+                        f"Permission '{key[0]}.{key[1]}' not found in database, skipping"
+                    )
+                )
 
             group.permissions.set(permissions)
 
