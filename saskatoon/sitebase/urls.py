@@ -7,7 +7,7 @@ urlpatterns = [
     re_path(r'^jsoncal', views.JsonCalendar.as_view(), name='calendarJSON'),
     re_path(r'^calendar/$', views.Calendar.as_view(), name='calendar'),
     path("faq/", views.FAQView.as_view(), name="faq"),
-    path("about/", views.Calendar.as_view(), name="about"),
+    path("about/", views.AboutView.as_view(), name="about"),
     path(
         "terms_conditions/",
         views.TermsConditionsView.as_view(),

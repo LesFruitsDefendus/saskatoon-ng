@@ -17,11 +17,12 @@ from member.admin_filters import (
     OrganizationHasNoContactAdminFilter,
     PersonHasNoUserAdminFilter,
     UserGroupAdminFilter,
-    UserHasPropertyAdminFilter,
     UserHasLedPicksAdminFilter,
+    UserHasPasswordAdminFilter,
+    UserHasPropertyAdminFilter,
+    UserHasSignedInAdminFilter,
     UserHasVolunteeredAdminFilter,
     UserIsContactAdminFilter,
-    UserIsOnboardingAdminFilter,
 )
 from member.admin_forms import (
     AuthUserChangeAdminForm,
@@ -94,10 +95,11 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
         UserHasLedPicksAdminFilter,
         UserHasVolunteeredAdminFilter,
         UserIsContactAdminFilter,
-        UserIsOnboardingAdminFilter,
         'is_staff',
         'is_superuser',
         'is_active',
+        UserHasPasswordAdminFilter,
+        UserHasSignedInAdminFilter,
         'agreed_terms',
     )
 

@@ -1,10 +1,11 @@
+from datetime import datetime, timedelta
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 from typing import Optional
 
 from harvest.models import Property, Harvest, RequestForParticipation
-from member.models import Organization, Person, Actor
+from member.models import Organization, Person, Actor, AuthUser
 
 
 class UserGroupAdminFilter(SimpleListFilter):
@@ -28,26 +29,91 @@ class UserGroupAdminFilter(SimpleListFilter):
         return queryset
 
 
-class UserIsOnboardingAdminFilter(SimpleListFilter):
-    """Checks if AuthUser is a volunteer with a password"""
+class UserHasPasswordAdminFilter(SimpleListFilter):
+    """Checks if AuthUser has a password"""
 
-    title = 'Onboarding PickLeader Filter'
-    parameter_name = 'pending'
-    default_value: Optional[Person] = None
+    title = 'Password Filter'
+    parameter_name = 'pwd'
+    default_value: Optional[AuthUser] = None
 
     def lookups(self, request, model_admin):
-        return [('1', 'volunteer w/ password')]
+        return [
+            ('0', 'has no password'),
+            ('1', 'has password'),
+            ('2', 'onboarding pickleader'),
+            ('3', 'active pickleader'),
+        ]
 
     def queryset(self, request, queryset):
         if not self.value():
             return queryset
 
-        group = Group.objects.get(name='volunteer')
-        return (
-            queryset.filter(groups__in=[group])
-            .exclude(password__exact='')
-            .filter(has_temporary_password=True)
-        )
+        if self.value() == '0':
+            return queryset.filter(password__exact='')
+
+        if self.value() == '1':
+            return queryset.exclude(password__exact='')
+
+        if self.value() == '2':
+            group = Group.objects.get(name='volunteer')
+            return (
+                queryset.exclude(password__exact='')
+                .filter(
+                    groups__in=[group],
+                    is_active=True,
+                    has_temporary_password=True
+                )
+            )
+
+        if self.value() == '3':
+            group = Group.objects.get(name='pickleader')
+            return (
+                queryset.exclude(password__exact='')
+                .filter(
+                    groups__in=[group],
+                    is_active=True,
+                    has_temporary_password=False
+                )
+            )
+
+
+class UserHasSignedInAdminFilter(SimpleListFilter):
+    """Checks if AuthUser has signed in recently"""
+
+    title = 'Login Filter'
+    parameter_name = 'login'
+    default_value: Optional[AuthUser] = None
+
+    CURRENT_SEASON = datetime.now().year - 1
+
+    def lookups(self, request, model_admin):
+        return [
+            ('current', 'has signed-in this season'),
+            ('last', 'has signed-in last season'),
+            ('not', 'has not signed-in in 2 years'),
+            ('never', 'has never signed-in'),
+        ]
+
+    def queryset(self, request, queryset):
+        if not self.value():
+            return queryset
+
+        if self.value() == 'current':
+            return queryset.filter(last_login__year__gte=self.CURRENT_SEASON)
+
+        if self.value() == 'last':
+            return queryset.filter(
+                last_login__year__gte=self.CURRENT_SEASON-1,
+                last_login__year__lt=self.CURRENT_SEASON,
+            )
+
+        if self.value() == 'not':
+            return queryset.filter(
+                last_login__lt=datetime.now()-timedelta(weeks=105)
+            )
+
+        if self.value() == 'never':
+            return queryset.filter(last_login__isnull=True)
 
 
 class UserHasPropertyAdminFilter(SimpleListFilter):
@@ -58,15 +124,29 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
     default_value: Optional[Property] = None
 
     def lookups(self, request, model_admin):
-        return [('1', 'has a property')]
+        return [
+            ('all', 'has property'),
+            ('active', 'has active property'),
+            ('inactive', 'has only inactive property'),
+        ]
 
     def queryset(self, request, queryset):
         if self.value():
             properties = Property.objects.select_related('owner').filter(owner__isnull=False)
-            owners = set([p.owner.actor_id for p in properties])
+            if self.value() == 'all':
+                owners = set([p.owner.actor_id for p in properties])
+            elif self.value() == 'active':
+                owners = set([p.owner.actor_id for p in properties.filter(is_active=True)])
+            elif self.value() == 'inactive':
+                # check for owners who only have inactive properties
+                owners = set([
+                    p.owner.actor_id for p in properties.filter(is_active=False)
+                    if not p.owner.properties.filter(is_active=True).exists()
+                ])
+
             persons = Person.objects.select_related('actor_id').filter(actor_id__in=owners)
-            users = queryset.select_related('person').filter(person__in=persons)
-            return users
+            return queryset.select_related('person').filter(person__in=persons)
+
         return queryset
 
 
@@ -75,7 +155,7 @@ class UserHasLedPicksAdminFilter(SimpleListFilter):
 
     title = 'Pick-Leader Filter'
     parameter_name = 'leader'
-    default_value: Optional[Person] = None
+    default_value: Optional[AuthUser] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'has led pick(s)')]
@@ -94,7 +174,7 @@ class UserHasVolunteeredAdminFilter(SimpleListFilter):
 
     title = 'Volunteer Filter'
     parameter_name = 'picker'
-    default_value: Optional[Person] = None
+    default_value: Optional[AuthUser] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'has volunteered')]
@@ -113,7 +193,7 @@ class UserIsContactAdminFilter(SimpleListFilter):
 
     title = 'Contact Filter'
     parameter_name = 'contact'
-    default_value: Optional[Person] = None
+    default_value: Optional[AuthUser] = None
 
     def lookups(self, request, model_admin):
         return [('1', 'is contact')]

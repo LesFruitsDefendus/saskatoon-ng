@@ -72,6 +72,22 @@ class FAQView(TemplateView):
         return context
 
 
+class AboutView(TemplateView):
+    """About Us page."""
+
+    template_name = 'app/about.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        lang = self.request.LANGUAGE_CODE
+
+        context['about'] = PageContent.get(type=PageContent.Type.ABOUT_US, lang=lang)
+        context['values'] = PageContent.get(type=PageContent.Type.ABOUT_VALUES, lang=lang)
+        context['roles'] = PageContent.get(type=PageContent.Type.ABOUT_ROLES, lang=lang)
+
+        return context
+
+
 class TermsConditionsView(LoginRequiredMixin, TemplateView):
     """
     Show terms and conditions with option to agree, updating AuthUser.

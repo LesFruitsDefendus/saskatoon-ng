@@ -128,7 +128,7 @@ class RFPManageForm(forms.ModelForm[RFP]):
         emailType = kwargs.pop('emailType')
         super().__init__(*args, **kwargs)
 
-        if status in RFP.Status.choices():
+        if status in RFP.Status.choices:
             self.fields['status'].widget = forms.widgets.HiddenInput()
             self.initial['status'] = status
 
@@ -577,7 +577,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean() or {}
 
-        if data['status'] == Harvest.Status.ORPHAN:
+        if data['status'] == Harvest.Status.ORPHAN and self.instance.pk:
             unresolved_requests = self.instance.requests.filter(
                 status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
             )

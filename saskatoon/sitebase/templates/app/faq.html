@@ -3,22 +3,25 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/faq-list.css' %}">
+<link rel="stylesheet" href="{% static 'css/faq.css' %}">
 {% endblock style %}
 
 {% block content %}
-    <div class="faq">
-        <div class="col-lg-6 col-md-8 col-sm-10 col-xs-12">
-            <header class="wb-traffic-inner mg-b-15">
-                <div class="breadcomb-icon">
-                    <i class="notika-icon notika-search"></i>
+<div class="breadcomb-area">
+    <div class="faq container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12 col-xs-12" >
+                <div class="breadcomb-list mg-t-15 mg-b-15">
+                    <div class="breadcomb-wp">
+                        <div class="breadcomb-icon">
+                            <i class="notika-icon notika-search"></i>
+                        </div>
+                        <div class="breadcomb-ctn">
+                            <h1>{% trans "Frequently Asked Questions" %}</h1>
+                        </div>
+                    </div>
                 </div>
-                <div class="breadcomb-ctn">
-                    <h1>{% trans "Frequently Asked Questions" %}</h1>
-                </div>
-            </header>
-
-            {% for faq in FAQs %}
+                {% for faq in FAQs %}
                 <section class="wb-traffic-inner mg-b-15">
                     <h4>{{faq.title | safe}}</h4>
                     <ul>
@@ -36,7 +39,9 @@
                         {% endfor %}
                     </ul>
                 </section>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
     </div>
+</div>
 {% endblock content %}

@@ -46,6 +46,9 @@ class PageContent(models.Model):
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
         FAQ = 'faq', _("FAQ")
+        ABOUT_US = 'about_us', _("About Us")
+        ABOUT_VALUES = 'about_values', _("About Values")
+        ABOUT_ROLES = 'about_roles', _("About Roles")
 
     type = models.CharField(
         verbose_name=_("Page type"),

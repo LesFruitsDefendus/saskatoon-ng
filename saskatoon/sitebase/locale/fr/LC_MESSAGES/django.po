@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:04+0000\n"
+"POT-Creation-Date: 2026-04-29 20:28+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,117 +42,129 @@ msgstr "Politique de confidentialité"
 msgid "FAQ"
 msgstr "FAQ"
 
+#: sitebase/models.py:49
+msgid "About Us"
+msgstr "À propos de nous"
+
+#: sitebase/models.py:50
+msgid "About Values"
+msgstr "À propos Valeurs"
+
 #: sitebase/models.py:51
+msgid "About Roles"
+msgstr "À propos Roles"
+
+#: sitebase/models.py:54
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:106
+#: sitebase/models.py:109
 msgid "FAQ Item"
 msgstr "Item de FAQ"
 
-#: sitebase/models.py:107
+#: sitebase/models.py:110
 msgid "FAQ Items"
 msgstr "Items de FAQ"
 
-#: sitebase/models.py:143
+#: sitebase/models.py:146
 msgid "FAQ List"
 msgstr "Liste FAQ"
 
-#: sitebase/models.py:144
+#: sitebase/models.py:147
 msgid "FAQ Lists"
 msgstr "Listes FAQ"
 
-#: sitebase/models.py:148
+#: sitebase/models.py:151
 msgid "Ref. Name"
 msgstr "Ref. Nom"
 
-#: sitebase/models.py:165
+#: sitebase/models.py:168
 msgid "Items"
 msgstr "Items"
 
-#: sitebase/models.py:167
+#: sitebase/models.py:170
 msgid "Enabled"
 msgstr "Activé"
 
-#: sitebase/models.py:174
+#: sitebase/models.py:177
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:177
+#: sitebase/models.py:180
 msgid "Pickleader Registration Invite"
 msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
-#: sitebase/models.py:178
+#: sitebase/models.py:181
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:179
+#: sitebase/models.py:182
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:180
+#: sitebase/models.py:183
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:183
+#: sitebase/models.py:186
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:184
+#: sitebase/models.py:187
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:187
+#: sitebase/models.py:190
 msgid "Unselected pickers"
 msgstr "Cueilleur.euse non sélectionné.es"
 
-#: sitebase/models.py:188
+#: sitebase/models.py:191
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:189
+#: sitebase/models.py:192
 msgid "Rejected picker"
 msgstr ""
 
-#: sitebase/models.py:196
+#: sitebase/models.py:199
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:201 sitebase/models.py:273
+#: sitebase/models.py:204 sitebase/models.py:276
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:211
+#: sitebase/models.py:214
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:226
+#: sitebase/models.py:229
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:230
+#: sitebase/models.py:233
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:262
+#: sitebase/models.py:265
 #: sitebase/templates/app/detail_views/harvest/about.html:68
 #: sitebase/templates/app/detail_views/organization/contact.html:46
 #: sitebase/templates/app/detail_views/property/contact.html:63
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:263
+#: sitebase/models.py:266
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:268
+#: sitebase/models.py:271
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:27
 #: sitebase/templates/app/stats.html:249
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:280
+#: sitebase/models.py:283
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
@@ -160,11 +172,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:286
+#: sitebase/models.py:289
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:297
+#: sitebase/models.py:300
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
@@ -178,8 +190,8 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:57
-#: sitebase/templates/app/list_views/organization/organizations.html:27
+#: sitebase/templates/app/list_views/organization/map.html:63
+#: sitebase/templates/app/list_views/organization/organizations.html:33
 msgid "Contact"
 msgstr "Contact"
 
@@ -750,10 +762,8 @@ msgid "Modify Equipment"
 msgstr "Modifier l'Équipement"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:10
-#: sitebase/templates/app/list_views/organization/organizations.html:29
-#: sitebase/templates/app/participation_list.html:18
-msgid "Equipment"
-msgstr "Équipement"
+msgid "Available Equipment"
+msgstr "Équipement Disponible"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:15
 msgid "New Equipment"
@@ -780,7 +790,7 @@ msgstr "Description"
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:31
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:36
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:42
-#: sitebase/templates/app/list_views/organization/organizations.html:28
+#: sitebase/templates/app/list_views/organization/organizations.html:34
 #: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
@@ -981,7 +991,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:19
-#: sitebase/templates/app/list_views/organization/organizations.html:30
+#: sitebase/templates/app/list_views/organization/organizations.html:36
 #: sitebase/templates/app/list_views/property/view.html:27
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
@@ -1012,7 +1022,7 @@ msgstr "500 Erreur du serveur"
 msgid "Go Back"
 msgstr "Retour"
 
-#: sitebase/templates/app/faq.html:17
+#: sitebase/templates/app/faq.html:20
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquement Posées"
 
@@ -1150,27 +1160,32 @@ msgstr "Cet organisme accepte les dons de fruits"
 msgid "No Equipment"
 msgstr "Pas d'Équipement"
 
-#: sitebase/templates/app/list_views/organization/map.html:14
-#: sitebase/templates/app/list_views/organization/organizations.html:12
+#: sitebase/templates/app/list_views/organization/map.html:20
+#: sitebase/templates/app/list_views/organization/organizations.html:18
 #: sitebase/templates/app/list_views/property/map.html:18
 #: sitebase/templates/app/list_views/property/view.html:12
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/map.html:15
-#: sitebase/templates/app/list_views/organization/organizations.html:13
+#: sitebase/templates/app/list_views/organization/map.html:21
+#: sitebase/templates/app/list_views/organization/organizations.html:19
 #: sitebase/templates/app/list_views/property/map.html:19
 #: sitebase/templates/app/list_views/property/view.html:13
 msgid "Map"
 msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:52
+#: sitebase/templates/app/list_views/organization/map.html:58
 msgid "Extra details"
 msgstr "Plus de détails"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:26
+#: sitebase/templates/app/list_views/organization/organizations.html:32
 msgid "Organization"
 msgstr "Organisation"
+
+#: sitebase/templates/app/list_views/organization/organizations.html:35
+#: sitebase/templates/app/participation_list.html:18
+msgid "Equipment"
+msgstr "Équipement"
 
 #: sitebase/templates/app/list_views/pagination.html:61
 msgid "Show"
@@ -1182,13 +1197,14 @@ msgstr "entrées"
 
 #: sitebase/templates/app/list_views/property/map.html:65
 #, fuzzy
-#| msgid "Next harvest is on"
 msgid "Last harvest was on"
-msgstr "La prochaine récolte est le"
+msgstr "Calendrier de récoltes"
 
 #: sitebase/templates/app/list_views/property/map.html:75
+#, fuzzy
+#| msgid "New Harvest Comment"
 msgid "Next harvest is on"
-msgstr "La prochaine récolte est le"
+msgstr "Nouveau commentaire de récolte"
 
 #: sitebase/templates/app/list_views/property/map.html:145
 #: sitebase/templates/app/list_views/property/view.html:47
@@ -1351,9 +1367,6 @@ msgstr "Connexion"
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
-#~ msgid "Ladder"
-#~ msgstr "Échelle"
-
 #~ msgid "validated"
 #~ msgstr "validée"
 
@@ -1368,6 +1381,9 @@ msgstr "Mot de passe oublié"
 
 #~ msgid "inactive"
 #~ msgstr "inactive"
+
+#~ msgid "Ladder"
+#~ msgstr "Échelle"
 
 #, fuzzy
 #~| msgid "This organization accepts fruit donations"
@@ -1516,10 +1532,6 @@ msgstr "Mot de passe oublié"
 #~ msgid "Sorry, this Harvest is not opened for requests"
 #~ msgstr ""
 #~ "Désolé, cette récolte n'est pas ouverte aux demandes de participation."
-
-#, fuzzy
-#~ msgid "harvest location"
-#~ msgstr "Calendrier de récoltes"
 
 #, fuzzy
 #~ msgid "participant "

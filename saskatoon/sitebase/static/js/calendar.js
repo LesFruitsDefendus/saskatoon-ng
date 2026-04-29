@@ -20,7 +20,7 @@ $(document).ready(function () {
 
             /* filling modal templates*/
             $('.harvest-id').attr('value', info.event.extendedProps.harvest_id);
-            $('.harvest-url').attr('href', "/harvest/" + info.event.extendedProps.harvest_id);
+            $('.harvest-url').attr('href', "/harvest/" + info.event.extendedProps.harvest_id + "/");
             $('.rfp-url').attr('href', info.event.url);
             $('.modal-title').html(info.event.title);
             $('.start-date').html(info.event.extendedProps.start_date);

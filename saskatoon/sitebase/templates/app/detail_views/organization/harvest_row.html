@@ -2,7 +2,9 @@
 {% load static %}
 <tr>
   <td>
-      <a href="{% url 'harvest-detail' harvest.id %}">{{ harvest.id }}</a>
+      <a href="{% url 'harvest-detail' harvest.id %}">
+          # {{ harvest.id }}&nbsp;
+      </a>
   </td>
   <td>
     {{ harvest.pick_leader.name }}

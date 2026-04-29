@@ -2884,6 +2884,10 @@ hr {
 /*----------------------------------------*/
 /*  35.  Form Element CSS
 /*----------------------------------------*/
+.vLargeTextField {
+	height: auto;
+}
+
 .nk-int-st input[type="text"], .nk-int-st textarea, .nk-int-st [type="number"], .nk-int-st [type="password"]{
 	box-shadow: none;
     border-top: 0px solid #ccc;
