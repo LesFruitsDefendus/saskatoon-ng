@@ -23,7 +23,7 @@ def property_filter(property, size: str, year: int):
     prepared_harvest = [
         h
         for h in harvests
-        if h["status"] in [Harvest.Status.ORPHAN, Harvest.Status.ADOPTED, Harvest.Status.SCHEDULED]
+        if h["status"] in [Harvest.Status.ORPHAN, Harvest.Status.ADOPTED]
     ]
 
     if len(prepared_harvest) > 0:
@@ -34,11 +34,18 @@ def property_filter(property, size: str, year: int):
     if len(cancelled) > 0:
         '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
 
-    success_or_ready = [
-        h for h in harvests if h["status"] in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]
+    ready = [
+        h for h in harvests if h["status"] in [Harvest.Status.READY]
     ]
 
-    if len(success_or_ready) > 0:
+    if len(ready) > 0:
+        return '<i class="fa fa-shopping-basket fa-{size}"></i>'.format(size=size)
+
+    success = [
+        h for h in harvests if h["status"] in [Harvest.Status.SUCCEEDED]
+    ]
+
+    if len(success) > 0:
         return '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
 
     return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
@@ -91,22 +98,22 @@ def property_icon_color(property, year: str) -> str:
     orphan_harvest = [h for h in harvests if h["status"] in [Harvest.Status.ORPHAN]]
 
     if len(orphan_harvest) > 0:
-        return "saskatoon-danger"
+        return "saskatoon-warning"
 
     adopted_harvest = [h for h in harvests if h["status"] == Harvest.Status.ADOPTED]
 
     if len(adopted_harvest) > 0:
-        return "saskatoon-warning"
+        return "saskatoon-info"
 
     scheduled_harvest = [h for h in harvests if h["status"] == Harvest.Status.SCHEDULED]
 
     if len(scheduled_harvest) > 0:
-        return "saskatoon-info"
+        return "saskatoon-warning"
 
     ready = [h for h in harvests if h["status"] == Harvest.Status.READY]
 
     if len(ready) > 0:
-        return "saskatoon-neutral"
+        return "saskatoon-info"
 
     cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:28+0000\n"
+"POT-Creation-Date: 2026-04-29 21:05+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1221,9 +1221,9 @@ msgstr "Dernière récolte réussie"
 #: sitebase/templates/app/list_views/property/map.html:151
 #: sitebase/templates/app/list_views/property/view.html:53
 #, fuzzy
-#| msgid "Scheduled"
-msgid "Scheduled Harvest"
-msgstr "Programmée"
+#| msgid "Cancelled"
+msgid "Cancelled Harvest"
+msgstr "Annulée"
 
 #: sitebase/templates/app/list_views/property/map.html:154
 #, fuzzy
@@ -1254,9 +1254,9 @@ msgstr "Éditer la propriété"
 #: sitebase/templates/app/list_views/property/map.html:166
 #: sitebase/templates/app/list_views/property/view.html:62
 #, fuzzy
-#| msgid "Cancelled"
-msgid "Cancelled Harvest"
-msgstr "Annulée"
+#| msgid "Scheduled"
+msgid "Scheduled Harvest"
+msgstr "Programmée"
 
 #: sitebase/templates/app/list_views/property/map.html:169
 #: sitebase/templates/app/list_views/property/view.html:65

@@ -9,10 +9,10 @@ def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1]
         for t in [
-            (Harvest.Status.ORPHAN, "saskatoon-danger"),
-            (Harvest.Status.ADOPTED, "saskatoon-warning"),
-            (Harvest.Status.SCHEDULED, "saskatoon-info"),
-            (Harvest.Status.READY, "saskatoon-neutral"),
+            (Harvest.Status.ORPHAN, "saskatoon-warning"),
+            (Harvest.Status.ADOPTED, "saskatoon-info"),
+            (Harvest.Status.SCHEDULED, "saskatoon-warning"),
+            (Harvest.Status.READY, "saskatoon-info"),
             (Harvest.Status.SUCCEEDED, "saskatoon-success"),
             (Harvest.Status.CANCELLED, "saskatoon-danger"),
         ]
@@ -34,9 +34,9 @@ def harvest_icon(harvest_status: str) -> str:
             ),
             (
                 Harvest.Status.SCHEDULED,
-                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+                '<span class="fa fa-shopping-basket fa-lg"></span>',
             ),
-            (Harvest.Status.READY, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
+            (Harvest.Status.READY, '<span class="fa fa-shopping-basket fa-lg"></span>'),
             (Harvest.Status.SUCCEEDED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
             (Harvest.Status.CANCELLED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
         ]
