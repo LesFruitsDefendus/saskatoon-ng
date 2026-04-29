@@ -66,20 +66,30 @@ def get_available_equipment_points(
 
     # If another harvest has already reserved the equipment available in the equipment
     # point and its datetime range overlaps, then the equipment point is unavailable.
-    has_datetimes = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
-    start_between = Q(
-        harvest__start_date__gte=start, harvest__start_date__lte=end
-    )  # start <= si <= end
-    end_between = Q(harvest__end_date__gte=start, harvest__end_date__lte=end)  # start <= ei <= end
-    wrapping = Q(harvest__start_date__lte=start, harvest__end_date__gte=end)
+    has_datetimes = Q(harvest__status__in=Harvest.ALLOWED_TO_RESERVE)
+    start_between = Q(harvest__start_date__gte=start, harvest__start_date__lte=end)
+    end_between = Q(harvest__end_date__gte=start, harvest__end_date__lte=end)
+    surround = Q(harvest__start_date__lte=start, harvest__end_date__gte=end)
 
     booked_equipment = Equipment.objects.filter(
-        has_datetimes & (start_between | end_between | wrapping)
+        has_datetimes & (start_between | end_between | surround)
     )
 
     # Make sure harvest doesn't conflict with itself
     if harvest is not None:
-        booked_equipment = booked_equipment.exclude(harvest__pk=harvest.pk)
+        has_datetimes = Q(status__in=Harvest.ALLOWED_TO_RESERVE)
+        start_between = Q(start_date__gte=start, start_date__lte=end)
+        end_between = Q(end_date__gte=start, end_date__lte=end)
+        surround = Q(start_date__lte=start, end_date__gte=end)
+        same_reservation = Q(equipment_reserved__pk__in=harvest.equipment_reserved.all())
+        different = ~Q(pk=harvest.pk)
+
+        harvests = Harvest.objects.filter(
+            different & has_datetimes & (start_between | end_between | surround) & same_reservation
+        )
+
+        if harvests.count() == 0:
+            booked_equipment = booked_equipment.exclude(harvest__pk=harvest.pk)
 
     return Organization.objects.filter(is_equipment_point=True).exclude(
         pk__in=booked_equipment.values('owner')

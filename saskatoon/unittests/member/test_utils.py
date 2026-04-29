@@ -56,7 +56,6 @@ def equipment(db) -> Equipment:
     return equipment
 
 
-"""
 @pytest.mark.django_db
 def test_available_equipment_points_fuzz() -> None:
     start_strat = st.datetimes(
@@ -73,7 +72,7 @@ def test_available_equipment_points_fuzz() -> None:
             max_value=datetime.max,
             allow_imaginary=True,
         ),
-     )
+    )
 
     cases = deal.cases(
         func=get_available_equipment_points,
@@ -82,7 +81,7 @@ def test_available_equipment_points_fuzz() -> None:
 
     for case in cases:
         case()
-"""
+
 
 # For all cases, we assume that harvests can only reserve an equipment point
 # if they are scheduled or ready and that all equipment point reservations for
@@ -104,7 +103,7 @@ def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
         None,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -125,7 +124,7 @@ def test_available_equipment_points_start_during(db, harvest, equipment) -> None
         None,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -150,7 +149,7 @@ def test_available_equipment_points_around(db, harvest, equipment) -> None:
     print(harvest.start_date)
     print(harvest.start_date + timedelta(hours=2))
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -167,7 +166,7 @@ def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
     harvest.equipment_reserved.set([equipment])
     points = get_available_equipment_points(harvest.start_date, harvest.end_date)
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -257,7 +256,7 @@ def test_available_equipment_points_buffer_after(db, harvest, equipment) -> None
         None,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -278,7 +277,7 @@ def test_available_equipment_points_buffer_before(db, harvest, equipment) -> Non
         None,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -302,7 +301,7 @@ def test_available_equipment_points_buffer_with_parse_naive_datetime(
 
     points = get_available_equipment_points(end.replace(hour=13), end.replace(hour=14), None)
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert points.count() == 0
     else:
         assert points.count() == 1
@@ -317,7 +316,7 @@ def test_available_equipment_points_date_change_after_reservation(
     """
     If two harvests reserve an equipment point at different times,
     the second one should not be able to change it's time
-    to the first one without abandonning it's reservation.
+    to the first one without abandoning it's reservation.
     """
 
     harvest.equipment_reserved.set([equipment])
@@ -330,7 +329,7 @@ def test_available_equipment_points_date_change_after_reservation(
         second_harvest,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert before_change_points.count() == 0
     else:
         assert before_change_points.count() == 1
@@ -346,7 +345,7 @@ def test_available_equipment_points_date_change_after_reservation(
         second_harvest,
     )
 
-    if harvest.status in [Harvest.Status.SCHEDULED, Harvest.Status.READY]:
+    if harvest.status in Harvest.ALLOWED_TO_RESERVE:
         assert after_change_points.count() == 0
     else:
         assert after_change_points.count() == 1

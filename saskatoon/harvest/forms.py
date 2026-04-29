@@ -22,7 +22,7 @@ from harvest.models import (
 )
 from member.forms import validate_email
 from member.models import AuthUser, Person, Organization
-from member.utils import is_equipment_point_available, get_available_equipment_points
+from member.utils import is_equipment_point_available
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
