@@ -81,8 +81,9 @@
                         {% endif %}
                       {% endwith %}
                       </p>
-                        {% for tree, status in property.harvests_by_tree.items %}
-                      <section>
+
+            {% for tree in property.trees %}
+            <section>
                           <h5>
                             {% if LANG == "en" %}
                               {{ tree.fruit_name_en }}
@@ -90,18 +91,26 @@
                               {{ tree.fruit_name_fr }}
                             {% endif %}
                           </h5>
-                          {% for status, harvests in status.items %}
-                          {% regroup harvests by start_date.year as season_harvests %}
-                          {% for grouper, list in season_harvests %}
-                            {% if grouper|stringformat:"d" == season %}
-                            <span class="badge {{ status | color }}">
-                              {{ status.label }}
-                            </span>
-                            {% endif %}
-                            {% endfor %}
-                          {% endfor %}
-                      </section>
-                        {% endfor %}
+        <ul class="list-inline">
+                         {% for harvest in property.harvests %}
+                            {% if tree in harvest.trees %}
+                           <li style="padding-top: 0.5em;">
+                             <a class="{{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
+                               title="#{{ harvest.id }}: {{ harvest.start_date }} -
+                               {% if harvest.pick_leader %}{{ harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
+                             >
+                               {{ harvest.status | harvest_icon | safe }}
+                             </a>
+                           </li>
+                           {% endif %}
+                {% endfor %}
+              </ul>
+
+             </section>
+            {% endfor %}
+
+
+
                        <section>
                           <h5>{% trans "Owner" %}</h5>
                           <address>

@@ -404,7 +404,275 @@
             ]
         }
     ],
-    "last_succeeded_harvest_date": "2026-01-19T21:00:00Z",
+    "succeeded_harvests": [
+        {
+            "id": 1,
+            "status": "succeeded",
+            "status_display": "Succeeded",
+            "start_date": "2026-01-19",
+            "start_time": "4:00 PM",
+            "end_date": "2026-01-19",
+            "pick_leader": {
+                "actor_id": 3,
+                "roles": [
+                    "Pick Leader"
+                ],
+                "name": "Pick Leader",
+                "email": "pick@leader.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 34,
+                    "name": "Autre"
+                },
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2026-07-24",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 14,
+                    "name_en": "Green apple tree",
+                    "name_fr": "Pommier vert",
+                    "fruit_name_en": "Green apples",
+                    "fruit_name_fr": "Pommes vertes",
+                    "fruit_icon": "🍏",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                },
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        }
+    ],
+    "next_harvests": [
+        {
+            "id": 2,
+            "status": "ready",
+            "status_display": "Ready",
+            "start_date": "2026-07-24",
+            "start_time": "3:00 PM",
+            "end_date": "2026-07-24",
+            "pick_leader": {
+                "actor_id": 3,
+                "roles": [
+                    "Pick Leader"
+                ],
+                "name": "Pick Leader",
+                "email": "pick@leader.com",
+                "phone": null,
+                "neighborhood": {
+                    "id": 34,
+                    "name": "Autre"
+                },
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2026-07-24",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "volunteer",
+                        "rfp_status": "accepted"
+                    }
+                ],
+                "organizations_as_contact": [],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "start_date": "2026-08-01",
+            "start_time": "9:00 AM",
+            "end_date": "2026-08-01",
+            "pick_leader": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321",
+                "neighborhood": {
+                    "id": 11,
+                    "name": "Mile End"
+                },
+                "comments": "",
+                "harvests": [
+                    {
+                        "id": 5,
+                        "pick_leader": "Core Member",
+                        "property": "Plum Mendès at 5670 Veranda st.",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2026-10-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 4,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "scheduled",
+                        "status_display": "Scheduled",
+                        "start_date": "2026-08-01",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 3,
+                        "pick_leader": "Core Member",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "cancelled",
+                        "status_display": "Cancelled",
+                        "start_date": "2026-01-22",
+                        "role": "pickleader"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "volunteer",
+                        "rfp_status": "declined"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 1,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2026-01-19",
+                        "role": "volunteer",
+                        "rfp_status": "cancelled"
+                    },
+                    {
+                        "id": 7,
+                        "pick_leader": "Core Member",
+                        "property": "Michelle Delepeche at 67 rue de l'Oseille",
+                        "status": "succeeded",
+                        "status_display": "Succeeded",
+                        "start_date": "2025-08-06",
+                        "role": "pickleader"
+                    }
+                ],
+                "organizations_as_contact": [
+                    {
+                        "pk": 9,
+                        "civil_name": "Le Vestibule Vert"
+                    }
+                ],
+                "properties": []
+            },
+            "trees": [
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
+                }
+            ]
+        }
+    ],
     "address": "123 av. Mont-Royal, apt. 4",
     "trees": [
         {
@@ -449,6 +717,10 @@
     },
     "similar_properties": [],
     "needs_orphan": false,
+    "longitude": -73.576813,
+    "latitude": 45.514527,
+    "status": "authorized",
+    "owner_name": "Nice Owner",
     "is_active": true,
     "authorized": true,
     "pending": false,
@@ -458,7 +730,13 @@
     "pending_contact_email": null,
     "pending_newsletter": false,
     "pending_recurring": false,
-    "geom": null,
+    "geom": {
+        "type": "Point",
+        "coordinates": [
+            -73.576813,
+            45.514527
+        ]
+    },
     "trees_location": "Backyard",
     "trees_accessibility": "Passer par l'arrière",
     "avg_nb_required_pickers": 2,

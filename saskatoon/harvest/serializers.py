@@ -106,7 +106,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     latitude = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
     owner_name = serializers.ReadOnlyField()
-    harvests_by_tree = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:

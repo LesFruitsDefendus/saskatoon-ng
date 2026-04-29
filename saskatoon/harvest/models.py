@@ -465,16 +465,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
         return Property.Status.AUTHORIZED
 
-    @property
-    def harvests_by_tree(self):
-        result = {}
-        for tree in self.trees.all():
-            result[tree] = {}
-            for status in Harvest.Status:
-                result[tree][status] = self.harvests.filter(trees__in=[tree], status=status)
-
-        return result
-
     def __str__(self):
         number = self.street_number if self.street_number else ""
         return "%s %s %s %s" % (self.owner_name, _("at"), number, self.street)
