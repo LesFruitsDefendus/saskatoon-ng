@@ -5,7 +5,7 @@ import hypothesis.strategies as st
 
 from django.conf import settings
 from sitebase.utils import parse_naive_datetime
-from member.utils import get_available_equipment_points
+from member.utils import is_equipment_point_available, get_available_equipment_points
 from harvest.models import Harvest, Equipment, EquipmentType
 from member.models import Organization, Country, State, City, Neighborhood
 
@@ -57,7 +57,7 @@ def equipment(db) -> Equipment:
 
 
 @pytest.mark.django_db
-def test_available_equipment_points_fuzz() -> None:
+def test_get_available_equipment_points_fuzz() -> None:
     start_strat = st.datetimes(
         min_value=datetime.min,
         max_value=datetime.max - timedelta(hours=1),
@@ -90,49 +90,51 @@ def test_available_equipment_points_fuzz() -> None:
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_end_during(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_end_during(db, harvest, equipment) -> None:
     """
     If the requested end time is during another reservation,
     there should be no available equipment points.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=7),
         end.replace(hour=14),
         None,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_start_during(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_start_during(db, harvest, equipment) -> None:
     """
     If the requested start time is during another reservation,
     there should no available equipment points.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=14),
         end.replace(hour=20),
         None,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_around(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_around(db, harvest, equipment) -> None:
     """
     If both the requested start and end time is during
     another reservation, there should be no available equipment
@@ -140,56 +142,56 @@ def test_available_equipment_points_around(db, harvest, equipment) -> None:
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=14),
         end.replace(hour=16),
         None,
     )
 
-    print(harvest.start_date)
-    print(harvest.start_date + timedelta(hours=2))
-
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_same_dates(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_same_dates(db, harvest, equipment) -> None:
     """
     If the requested times are at the same time as another reservation,
     there should be no available equipment points.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(harvest.start_date, harvest.end_date)
+    available = is_equipment_point_available(equipment.owner, harvest.start_date, harvest.end_date)
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_no_conflict_with_self(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_no_conflict_with_self(db, harvest, equipment) -> None:
     """
     If the harvest has already reserved an equipment point, that equipment point should still
     be listed as available for itself.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(harvest.start_date, harvest.end_date, harvest)
+    available = is_equipment_point_available(
+        equipment.owner, harvest.start_date, harvest.end_date, harvest
+    )
 
-    assert points.count() == 1
+    assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", [Harvest.Status.SCHEDULED], indirect=True)
 @pytest.mark.parametrize("second_harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_conflict_when_checking_self(
+def test_is_equipment_point_available_conflict_when_checking_self(
     db, harvest, second_harvest, equipment
 ) -> None:
     """
@@ -199,93 +201,97 @@ def test_available_equipment_points_conflict_when_checking_self(
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
-        second_harvest.start_date, second_harvest.end_date, second_harvest
+    available = is_equipment_point_available(
+        equipment.owner, second_harvest.start_date, second_harvest.end_date, second_harvest
     )
 
-    assert points.count() == 0
+    assert available is False
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_after(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_after(db, harvest, equipment) -> None:
     """
     There should be an available equipment point if all
     other reservations are in the past.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=20),
         end.replace(hour=22),
         None,
     )
 
-    assert points.count() == 1
+    assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_before(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_before(db, harvest, equipment) -> None:
     """
     There should be an available equipment point if the next
     reservation if further then the alloted buffer
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=8),
         end.replace(hour=10),
         None,
     )
 
-    assert points.count() == 1
+    assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_buffer_after(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_buffer_after(db, harvest, equipment) -> None:
     """
     There should be no available equipment points right after a reservation.
     """
 
     harvest.equipment_reserved.set([equipment])
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=18),
         end.replace(hour=20),
         None,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_buffer_before(db, harvest, equipment) -> None:
+def test_is_equipment_point_available_buffer_before(db, harvest, equipment) -> None:
     """
     There should be no available equipment points right before a reservation
     """
 
     harvest.equipment_reserved.set([equipment])
 
-    points = get_available_equipment_points(
+    available = is_equipment_point_available(
+        equipment.owner,
         start.replace(hour=8),
         end.replace(hour=12),
         None,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_buffer_with_parse_naive_datetime(
+def test_is_equipment_point_available_buffer_with_parse_naive_datetime(
     db, harvest, equipment
 ) -> None:
     """
@@ -299,18 +305,20 @@ def test_available_equipment_points_buffer_with_parse_naive_datetime(
     end = parse_naive_datetime(end_str, settings.DATETIME_INPUT_FORMATS[0])
     assert end is not None
 
-    points = get_available_equipment_points(end.replace(hour=13), end.replace(hour=14), None)
+    available = is_equipment_point_available(
+        equipment.owner, end.replace(hour=13), end.replace(hour=14), None
+    )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert points.count() == 0
+        assert available is False
     else:
-        assert points.count() == 1
+        assert available is True
 
 
 @pytest.mark.django_db
 @pytest.mark.parametrize("harvest", Harvest.Status, indirect=True)
 @pytest.mark.parametrize("second_harvest", Harvest.Status, indirect=True)
-def test_available_equipment_points_date_change_after_reservation(
+def test_is_equipment_point_available_date_change_after_reservation(
     db, harvest, second_harvest, equipment
 ) -> None:
     """
@@ -323,29 +331,31 @@ def test_available_equipment_points_date_change_after_reservation(
     second_harvest.start_date = start.replace(day=1)
     second_harvest.end_date = end.replace(day=1)
 
-    before_change_points = get_available_equipment_points(
+    available_before_change = is_equipment_point_available(
+        equipment.owner,
         start,
         end,
         second_harvest,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert before_change_points.count() == 0
+        assert available_before_change is False
     else:
-        assert before_change_points.count() == 1
+        assert available_before_change is True
 
     second_harvest.equipment_reserved.set([equipment])
 
     second_harvest.start_date = start.replace(day=2)
     second_harvest.end_date = end.replace(day=2)
 
-    after_change_points = get_available_equipment_points(
+    available_after_change = is_equipment_point_available(
+        equipment.owner,
         start,
         end,
         second_harvest,
     )
 
     if harvest.status in Harvest.ALLOWED_TO_RESERVE:
-        assert after_change_points.count() == 0
+        assert available_after_change is False
     else:
-        assert after_change_points.count() == 1
+        assert available_after_change is True
