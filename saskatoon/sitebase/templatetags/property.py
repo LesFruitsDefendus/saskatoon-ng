@@ -21,9 +21,7 @@ def property_filter(property, size: str, year: int):
 
     # Any upcoming harvests are more important then previously succeeded harvests
     prepared_harvest = [
-        h
-        for h in harvests
-        if h["status"] in [Harvest.Status.ORPHAN, Harvest.Status.ADOPTED]
+        h for h in harvests if h["status"] in [Harvest.Status.ORPHAN, Harvest.Status.ADOPTED]
     ]
 
     if len(prepared_harvest) > 0:
@@ -34,16 +32,12 @@ def property_filter(property, size: str, year: int):
     if len(cancelled) > 0:
         '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
 
-    ready = [
-        h for h in harvests if h["status"] in [Harvest.Status.READY]
-    ]
+    ready = [h for h in harvests if h["status"] in [Harvest.Status.READY]]
 
     if len(ready) > 0:
         return '<i class="fa fa-shopping-basket fa-{size}"></i>'.format(size=size)
 
-    success = [
-        h for h in harvests if h["status"] in [Harvest.Status.SUCCEEDED]
-    ]
+    success = [h for h in harvests if h["status"] in [Harvest.Status.SUCCEEDED]]
 
     if len(success) > 0:
         return '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)

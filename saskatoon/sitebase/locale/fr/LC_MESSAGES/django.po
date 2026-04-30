@@ -1196,80 +1196,59 @@ msgid "entries"
 msgstr "entrées"
 
 #: sitebase/templates/app/list_views/property/map.html:65
-#, fuzzy
 msgid "Last harvest was on"
-msgstr "Calendrier de récoltes"
+msgstr "La dernière récolte était le"
 
 #: sitebase/templates/app/list_views/property/map.html:75
-#, fuzzy
-#| msgid "New Harvest Comment"
 msgid "Next harvest is on"
-msgstr "Nouveau commentaire de récolte"
+msgstr "La prochaine récolte est le"
 
 #: sitebase/templates/app/list_views/property/map.html:145
 #: sitebase/templates/app/list_views/property/view.html:47
 msgid "Legend"
-msgstr ""
+msgstr "Légende"
 
 #: sitebase/templates/app/list_views/property/map.html:148
 #: sitebase/templates/app/list_views/property/view.html:50
-#, fuzzy
-#| msgid "Last succeeded harvest"
 msgid "Succeeded Harvest"
-msgstr "Dernière récolte réussie"
+msgstr "Récolte réussie"
 
 #: sitebase/templates/app/list_views/property/map.html:151
 #: sitebase/templates/app/list_views/property/view.html:53
-#, fuzzy
-#| msgid "Cancelled"
 msgid "Cancelled Harvest"
-msgstr "Annulée"
+msgstr "Récolte Annulée"
 
 #: sitebase/templates/app/list_views/property/map.html:154
-#, fuzzy
-#| msgid "About this property"
 msgid "Authorised Property"
-msgstr "À propos de cette propriété"
+msgstr "Propritété Authorisée"
 
 #: sitebase/templates/app/list_views/property/map.html:157
 #: sitebase/templates/app/list_views/property/view.html:56
-#, fuzzy
-#| msgid "New Harvest"
 msgid "Ready Harvest"
-msgstr "Nouvelle récolte"
+msgstr "Récolte Prête"
 
 #: sitebase/templates/app/list_views/property/map.html:160
 #: sitebase/templates/app/list_views/property/view.html:59
-#, fuzzy
-#| msgid "Edit Harvest"
 msgid "Adopted Harvest"
-msgstr "Éditer la récolte"
+msgstr "Récolte Adoptée"
 
 #: sitebase/templates/app/list_views/property/map.html:163
-#, fuzzy
-#| msgid "Edit Property"
 msgid "Pending Property"
-msgstr "Éditer la propriété"
+msgstr "Propriété en attente de validation"
 
 #: sitebase/templates/app/list_views/property/map.html:166
 #: sitebase/templates/app/list_views/property/view.html:62
-#, fuzzy
-#| msgid "Scheduled"
 msgid "Scheduled Harvest"
-msgstr "Programmée"
+msgstr "Récolte Programmée"
 
 #: sitebase/templates/app/list_views/property/map.html:169
 #: sitebase/templates/app/list_views/property/view.html:65
-#, fuzzy
-#| msgid "Harvest"
 msgid "Orphan Harvest"
-msgstr "Récolte"
+msgstr "Récolte Orpheline"
 
 #: sitebase/templates/app/list_views/property/map.html:172
-#, fuzzy
-#| msgid "About this property"
 msgid "Unauthorised Property "
-msgstr "À propos de cette propriété"
+msgstr "Propriété non authorisée"
 
 #: sitebase/templates/app/list_views/property/view.html:30
 msgid "Picks"
@@ -1280,10 +1259,8 @@ msgid "Last pick"
 msgstr "Dernière récolte"
 
 #: sitebase/templates/app/list_views/property/view.html:32
-#, fuzzy
-#| msgid "Last pick"
 msgid "Next pick"
-msgstr "Dernière récolte"
+msgstr "Prochaine récolte"
 
 #: sitebase/templates/app/property_thanks.html:10
 msgid "Back to Home"

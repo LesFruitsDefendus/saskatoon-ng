@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 20:04+0000\n"
+"POT-Creation-Date: 2026-04-30 12:50+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -91,7 +91,7 @@ msgstr "Chef.fe de cueillette"
 msgid "Tree type"
 msgstr "Type d'arbre"
 
-#: harvest/filters.py:67 harvest/filters.py:139 harvest/models.py:314
+#: harvest/filters.py:67 harvest/filters.py:138 harvest/models.py:314
 msgid "Borough"
 msgstr "Arrondissement"
 
@@ -99,44 +99,40 @@ msgstr "Arrondissement"
 msgid "Reserved equipment"
 msgstr "A réservé de l'équipement"
 
-#: harvest/filters.py:82 harvest/filters.py:194 harvest/forms.py:464
+#: harvest/filters.py:82 harvest/filters.py:187 harvest/forms.py:464
 #: harvest/forms.py:645
 msgid "Equipment Point"
 msgstr "Point d'équipement"
 
-#: harvest/filters.py:122
+#: harvest/filters.py:121
 msgid "Active"
 msgstr "Est active"
 
-#: harvest/filters.py:124
+#: harvest/filters.py:123
 msgid "Pending validation"
 msgstr "Validation en attente"
 
-#: harvest/filters.py:128
+#: harvest/filters.py:127
 msgid "Not yet authorized"
 msgstr "Pas encore autorisée"
 
-#: harvest/filters.py:129 harvest/filters.py:132 harvest/models.py:140
+#: harvest/filters.py:128 harvest/filters.py:131 harvest/models.py:140
 msgid "Authorized"
 msgstr "Autorisée"
 
-#: harvest/filters.py:130 harvest/models.py:138
+#: harvest/filters.py:129 harvest/models.py:138
 msgid "Unauthorized"
 msgstr "Non autorisée"
 
-#: harvest/filters.py:145 harvest/models.py:858
+#: harvest/filters.py:144 harvest/models.py:858
 msgid "Tree"
 msgstr "Arbre"
 
-#: harvest/filters.py:150
-msgid "Ladder available"
-msgstr "Échelle disponible"
-
-#: harvest/filters.py:155
+#: harvest/filters.py:148
 msgid "Harvested in"
 msgstr "Récoltée en"
 
-#: harvest/filters.py:187 harvest/models.py:482
+#: harvest/filters.py:180 harvest/models.py:482
 msgid "Type"
 msgstr "Type"
 
@@ -473,10 +469,8 @@ msgid "properties"
 msgstr "propriétés"
 
 #: harvest/models.py:137
-#, fuzzy
-#| msgid "Is active"
 msgid "Inactive"
-msgstr "Est active"
+msgstr "Est inactive"
 
 #: harvest/models.py:139 harvest/models.py:167 harvest/models.py:776
 msgid "Pending"
@@ -1122,6 +1116,9 @@ msgstr "{} cueillettes orphelines créées avec succès"
 #: harvest/views.py:551
 msgid "Property already has registered harvests for this season"
 msgstr "La propriété a déjà des cueillettes d'enregistré pour cette saison"
+
+#~ msgid "Ladder available"
+#~ msgstr "Échelle disponible"
 
 #~ msgid "Longitude"
 #~ msgstr "Longitude"
