@@ -5,15 +5,18 @@
 {% load harvest_status %}
 
 {% block style %}
-    <link rel="stylesheet" href="/static/css/list-view-tabs.css"></link>
-    <link rel="stylesheet" href="/static/css/dialog.css"></link>
-    <link rel="stylesheet" href="/static/css/map.css"></link>
-    <link rel="stylesheet" href="/static/css/colors.css"></link>
+    <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/map.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}"></link>
 {% endblock style %}
+
+{% block script %}
+    <script defer src="{% static 'js/list-view-tabs.js' %}"></script>
+{% endblock script %}
 
 {% block data %}
   <tab-list role="tablist">
-    <script defer src="/static/js/list-view-tabs.js"></script>
       <nav>
         <a href="." rel="keep-params">{% trans 'Table' %}</a>
         <span role="tab" id="map-tab">{% trans 'Map' %}</span>
