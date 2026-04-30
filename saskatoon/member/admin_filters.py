@@ -56,24 +56,14 @@ class UserHasPasswordAdminFilter(SimpleListFilter):
 
         if self.value() == '2':
             group = Group.objects.get(name='volunteer')
-            return (
-                queryset.exclude(password__exact='')
-                .filter(
-                    groups__in=[group],
-                    is_active=True,
-                    has_temporary_password=True
-                )
+            return queryset.exclude(password__exact='').filter(
+                groups__in=[group], is_active=True, has_temporary_password=True
             )
 
         if self.value() == '3':
             group = Group.objects.get(name='pickleader')
-            return (
-                queryset.exclude(password__exact='')
-                .filter(
-                    groups__in=[group],
-                    is_active=True,
-                    has_temporary_password=False
-                )
+            return queryset.exclude(password__exact='').filter(
+                groups__in=[group], is_active=True, has_temporary_password=False
             )
 
 
@@ -103,14 +93,12 @@ class UserHasSignedInAdminFilter(SimpleListFilter):
 
         if self.value() == 'last':
             return queryset.filter(
-                last_login__year__gte=self.CURRENT_SEASON-1,
+                last_login__year__gte=self.CURRENT_SEASON - 1,
                 last_login__year__lt=self.CURRENT_SEASON,
             )
 
         if self.value() == 'not':
-            return queryset.filter(
-                last_login__lt=datetime.now()-timedelta(weeks=105)
-            )
+            return queryset.filter(last_login__lt=datetime.now() - timedelta(weeks=105))
 
         if self.value() == 'never':
             return queryset.filter(last_login__isnull=True)
@@ -139,10 +127,13 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
                 owners = set([p.owner.actor_id for p in properties.filter(is_active=True)])
             elif self.value() == 'inactive':
                 # check for owners who only have inactive properties
-                owners = set([
-                    p.owner.actor_id for p in properties.filter(is_active=False)
-                    if not p.owner.properties.filter(is_active=True).exists()
-                ])
+                owners = set(
+                    [
+                        p.owner.actor_id
+                        for p in properties.filter(is_active=False)
+                        if not p.owner.properties.filter(is_active=True).exists()
+                    ]
+                )
 
             persons = Person.objects.select_related('actor_id').filter(actor_id__in=owners)
             return queryset.select_related('person').filter(person__in=persons)
