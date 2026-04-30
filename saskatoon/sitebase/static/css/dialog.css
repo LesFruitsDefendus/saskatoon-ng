@@ -14,7 +14,7 @@ dialog {
 
 dialog.confirmation {
 	border: 2px solid #ff2079;
-    padding: 20px;
+    	padding: 20px;
 	min-width: 35vw;
 
     .btn-group .btn {
