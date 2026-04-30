@@ -45,7 +45,7 @@
                     title="#{{ harvest.id }}: {{ harvest.start_date }} -
                                    {% if harvest.pick_leader %}{{ harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
                 >
-               {{ harvest.status | harvest_icon | safe }}
+                 {{ harvest.status | harvest_icon | safe }}
                 </a>
             </li>
             {% endfor %}
@@ -54,7 +54,10 @@
     <td>
         {% with property.succeeded_harvests|last as last_harvest %}
             {% if last_harvest %}
-            <a href="{% url 'harvest-detail' last_harvest.id %}">
+            <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' last_harvest.id %}"
+                    title="#{{ last_harvest.id }}: {{ last_harvest.start_date }} -
+                                   {% if last_harvest.pick_leader %}{{ last_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
+            >
                 {{ last_harvest.start_date }}
             </a>
         {% endif %}
@@ -63,8 +66,9 @@
     <td>
         {% with property.next_harvests|first as next_harvest %}
             {% if next_harvest %}
-                <a
-                  href="{% url 'harvest-detail' next_harvest.id %}"
+                <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' next_harvest.id %}"
+                    title="#{{ next_harvest.id }}: {{ next_harvest.start_date }} -
+                                   {% if next_harvest.pick_leader %}{{ next_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
                 >
                   {{ next_harvest.start_date }}
                 </a>

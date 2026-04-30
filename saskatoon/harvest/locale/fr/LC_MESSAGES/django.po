@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-30 12:50+0000\n"
+"POT-Creation-Date: 2026-04-30 19:26+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1109,11 +1109,11 @@ msgstr "La propriété n'a pas encore été validée pour cette saison!"
 msgid "Property is not authorized for this season!"
 msgstr "La propriété n'est pas autorisée pour cette saison!"
 
-#: harvest/views.py:549
+#: harvest/views.py:553
 msgid "Successfully created {} orphan harvests"
 msgstr "{} cueillettes orphelines créées avec succès"
 
-#: harvest/views.py:551
+#: harvest/views.py:555
 msgid "Property already has registered harvests for this season"
 msgstr "La propriété a déjà des cueillettes d'enregistré pour cette saison"
 

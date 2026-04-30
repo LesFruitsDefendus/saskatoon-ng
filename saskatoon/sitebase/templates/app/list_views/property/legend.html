@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load static %}
+{% load property %}
+{% load harvest_status %}
+
+<section style="margin-top: 1em; margin-left: 1em; padding-bottom: 1em;">
+  <h3 class="panel-title">{% trans 'Legend' %}</h3>
+  <dl style="margin-top: 1em; display: grid; grid-template-columns: 25px 20% 25px 20% 25px 50%;">
+      <dt class="{{'succeeded' | color}}">{{'succeeded' | harvest_icon | safe}}</dt>
+      <dd> {% trans 'Succeeded Harvest' %}</dd>
+
+      <dt class="{{'cancelled' | color}}">{{'cancelled' | harvest_icon | safe}}</dt>
+      <dd> {% trans 'Cancelled Harvest' %}</dd>
+
+      <dt class="{{ 'authorized' | property_status }}">{{'lg' | property_icon_shape | safe}}</dt>
+      <dd>{% trans 'Authorised Property' %} </dd>
+
+      <dt class="{{'ready' | color}}">{{'ready' | harvest_icon | safe}}</dt>
+      <dd> {% trans 'Ready Harvest' %}</dd>
+
+      <dt class="{{'adopted' | color}}">{{'adopted' | harvest_icon | safe}}</dt>
+      <dd> {% trans 'Adopted Harvest' %}</dd>
+
+      <dt class="{{ 'pending' | property_status }}">{{ 'lg' | property_icon_shape | safe }}</dt>
+      <dd>{% trans 'Pending Property' %}</dd>
+
+      <dt class="{{'scheduled' | color}}">{{'scheduled' | harvest_icon | safe}}</dt>
+      <dd> {% trans 'Scheduled Harvest' %}</dd>
+
+      <dt class="{{'orphan' | color}}">{{'orphan' | harvest_icon | safe}}</dt>
+      <dd>{% trans 'Orphan Harvest' %}</dd>
+
+      <dt class="{{ 'unauthorized' | property_status }}">{{ 'lg' | property_icon_shape | safe }}</dt>
+      <dd>{% trans 'Unauthorised Property ' %}</dd>
+  </dl>
+</section>

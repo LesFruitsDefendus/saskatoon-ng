@@ -66,9 +66,12 @@
                       {% with property.succeeded_harvests|last as last_harvest %}
                         {% if last_harvest %}
                             {% trans 'Last harvest was on' %}
-                            <a href="{% url 'harvest-detail' last_harvest.id %}">
+                           <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' last_harvest.id %}"
+                                  title="#{{ last_harvest.id }}: {{ last_harvest.start_date }} -
+                                                 {% if last_harvest.pick_leader %}{{ last_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
+                          >
                               {{ last_harvest.start_date }}
-                            </a>
+                          </a>
                         {% endif %}
                       {% endwith %}
                       </p>
@@ -76,8 +79,9 @@
                       {% with property.next_harvests|first as next_harvest %}
                         {% if next_harvest %}
                             {% trans 'Next harvest is on' %}
-                            <a
-                              href="{% url 'harvest-detail' next_harvest.id %}"
+                            <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' next_harvest.id %}"
+                                title="#{{ next_harvest.id }}: {{ next_harvest.start_date }} -
+                                               {% if next_harvest.pick_leader %}{{ next_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
                             >
                               {{ next_harvest.start_date }}
                             </a>
@@ -86,97 +90,60 @@
                       </p>
 
             {% for tree in property.trees %}
-            <section>
-                          <h5>
-                            {% if LANG == "en" %}
-                              {{ tree.fruit_name_en }}
-                            {% else %}
-                              {{ tree.fruit_name_fr }}
-                            {% endif %}
-                          </h5>
-        <ul class="list-inline">
-                         {% for harvest in property.harvests %}
-                            {% if tree in harvest.trees %}
-                           <li style="padding-top: 0.5em;">
-                             <a class="{{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-                               title="#{{ harvest.id }}: {{ harvest.start_date }} -
-                               {% if harvest.pick_leader %}{{ harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
-                             >
-                               {{ harvest.status | harvest_icon | safe }}
-                             </a>
-                           </li>
-                           {% endif %}
+              <section>
+                <h5>
+                  {% if LANG == "en" %}
+                    {{ tree.fruit_name_en }}
+                  {% else %}
+                    {{ tree.fruit_name_fr }}
+                  {% endif %}
+                </h5>
+                <ul class="list-inline">
+                     {% for harvest in property.harvests %}
+                        {% if tree in harvest.trees %}
+                       <li style="padding-top: 0.5em;">
+                         <a class="{{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
+                           title="#{{ harvest.id }}: {{ harvest.start_date }} -
+                           {% if harvest.pick_leader %}{{ harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
+                         >
+                           {{ harvest.status | harvest_icon | safe }}
+                         </a>
+                       </li>
+                       {% endif %}
                 {% endfor %}
               </ul>
-
-             </section>
+               </section>
             {% endfor %}
-
-
-
-                       <section>
-                          <h5>{% trans "Owner" %}</h5>
-                          <address>
-                              {{ property.owner_name }}
-                              </br>
-                               {{ property.address }}, {{ property.neighborhood.name }}
-                              </br>
-                              {% if property.owner.phone is not None %}
-                                {{ property.owner.phone }}
-                                </br>
-                             {% endif %}
-                              {% if property.owner.email is not None %}
-                                <a href="mailto:{{ property.owner.email }}">
-                                  {{ property.owner.email }}
-                                </a>
-                              {% endif %}
-                        </address>
-                    </section>
+           <section>
+              <h5>{% trans "Owner" %}</h5>
+              <address>
+                  {{ property.owner_name }}
+                  </br>
+                   {{ property.address }}, {{ property.neighborhood.name }}
+                  </br>
+                  {% if property.owner.phone is not None %}
+                    {{ property.owner.phone }}
+                    </br>
+                 {% endif %}
+                  {% if property.owner.email is not None %}
+                    <a href="mailto:{{ property.owner.email }}">
+                      {{ property.owner.email }}
+                    </a>
+                  {% endif %}
+            </address>
+        </section>
                     <a
                       class="btn btn-primary notika-btn-primary waves-effect""
                       href="{% url 'property-detail' property.id %}"
                     >
                         See details
-                      </a>
+                    </a>
                   </leaflet-popup>
                 </leaflet-marker>
                 {% endif %}
             {% endfor %}
         </leaflet-map>
-
-        <section style="margin-top: 1em; margin-left: 1em; padding-bottom: 1em;">
-        <h3 class="panel-title">{% trans 'Legend' %}</h3>
-        <dl style="margin-top: 1em; display: grid; grid-template-columns: 25px 20% 25px 20% 25px 50%;">
-            <dt class="saskatoon-success"><span class="glyphicon glyphicon-apple fa-lg"></span></dt>
-            <dd> {% trans 'Succeeded Harvest' %}</dd>
-
-            <dt class="saskatoon-danger"><span class="glyphicon glyphicon-apple fa-lg"></span></dt>
-            <dd> {% trans 'Cancelled Harvest' %}</dd>
-
-            <dt class="saskatoon-success"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
-            <dd>{% trans 'Authorised Property' %} </dd>
-
-            <dt class="saskatoon-info"><span class="fa fa-shopping-basket fa-lg"></span></dt>
-            <dd> {% trans 'Ready Harvest' %}</dd>
-
-            <dt class="saskatoon-info"><span class="glyphicon glyphicon-tree-deciduous fa-lg"></span></dt>
-            <dd> {% trans 'Adopted Harvest' %}</dd>
-
-            <dt class="saskatoon-warning"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
-            <dd>{% trans 'Pending Property' %}</dd>
-
-            <dt class="saskatoon-warning"><span class="fa fa-shopping-basket fa-lg"></span></dt>
-            <dd> {% trans 'Scheduled Harvest' %}</dd>
-
-            <dt class="saskatoon-warning"><span class="glyphicon glyphicon-tree-deciduous fa-lg"></span></dt>
-            <dd>{% trans 'Orphan Harvest' %}</dd>
-
-            <dt class="saskatoon-danger"><span class="glyphicon glyphicon-home fa-lg"></span></dt>
-            <dd>{% trans 'Unauthorised Property ' %}</dd>
-
-        </dl>
-        </section>
-
+        {% include 'app/list_views/property/legend.html' %}
         {% endwith %}
     </section>
   </tab-list>

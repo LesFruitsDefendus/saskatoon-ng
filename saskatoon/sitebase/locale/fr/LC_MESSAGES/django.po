@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-29 21:05+0000\n"
+"POT-Creation-Date: 2026-04-30 19:26+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -342,7 +342,7 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
 #: sitebase/templates/app/list_views/harvest/view.html:17
-#: sitebase/templates/app/list_views/property/view.html:28
+#: sitebase/templates/app/list_views/property/view.html:35
 msgid "Status"
 msgstr "Statut"
 
@@ -441,7 +441,11 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/list_views/property/data_row.html:46
-#: sitebase/templates/app/list_views/property/map.html:100
+#: sitebase/templates/app/list_views/property/data_row.html:59
+#: sitebase/templates/app/list_views/property/data_row.html:71
+#: sitebase/templates/app/list_views/property/map.html:71
+#: sitebase/templates/app/list_views/property/map.html:84
+#: sitebase/templates/app/list_views/property/map.html:107
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -640,7 +644,7 @@ msgstr "Sauvegarder"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:14
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:115
+#: sitebase/templates/app/list_views/property/map.html:118
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -966,7 +970,7 @@ msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
 #: sitebase/templates/app/list_views/harvest/view.html:20
-#: sitebase/templates/app/list_views/property/view.html:29
+#: sitebase/templates/app/list_views/property/view.html:36
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
@@ -981,7 +985,7 @@ msgstr "Propriétés similaires"
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:18
-#: sitebase/templates/app/list_views/property/view.html:26
+#: sitebase/templates/app/list_views/property/view.html:33
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
 msgstr "Propriété"
@@ -992,7 +996,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:19
 #: sitebase/templates/app/list_views/organization/organizations.html:36
-#: sitebase/templates/app/list_views/property/view.html:27
+#: sitebase/templates/app/list_views/property/view.html:34
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:170
 msgid "Borough"
@@ -1162,15 +1166,15 @@ msgstr "Pas d'Équipement"
 
 #: sitebase/templates/app/list_views/organization/map.html:20
 #: sitebase/templates/app/list_views/organization/organizations.html:18
-#: sitebase/templates/app/list_views/property/map.html:18
-#: sitebase/templates/app/list_views/property/view.html:12
+#: sitebase/templates/app/list_views/property/map.html:21
+#: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:19
-#: sitebase/templates/app/list_views/property/map.html:19
-#: sitebase/templates/app/list_views/property/view.html:13
+#: sitebase/templates/app/list_views/property/map.html:22
+#: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
 
@@ -1195,70 +1199,63 @@ msgstr "Afficher"
 msgid "entries"
 msgstr "entrées"
 
-#: sitebase/templates/app/list_views/property/map.html:65
-msgid "Last harvest was on"
-msgstr "La dernière récolte était le"
-
-#: sitebase/templates/app/list_views/property/map.html:75
-msgid "Next harvest is on"
-msgstr "La prochaine récolte est le"
-
-#: sitebase/templates/app/list_views/property/map.html:145
-#: sitebase/templates/app/list_views/property/view.html:47
+#: sitebase/templates/app/list_views/property/legend.html:7
 msgid "Legend"
 msgstr "Légende"
 
-#: sitebase/templates/app/list_views/property/map.html:148
-#: sitebase/templates/app/list_views/property/view.html:50
+#: sitebase/templates/app/list_views/property/legend.html:10
 msgid "Succeeded Harvest"
 msgstr "Récolte réussie"
 
-#: sitebase/templates/app/list_views/property/map.html:151
-#: sitebase/templates/app/list_views/property/view.html:53
+#: sitebase/templates/app/list_views/property/legend.html:13
 msgid "Cancelled Harvest"
 msgstr "Récolte Annulée"
 
-#: sitebase/templates/app/list_views/property/map.html:154
+#: sitebase/templates/app/list_views/property/legend.html:16
 msgid "Authorised Property"
 msgstr "Propritété Authorisée"
 
-#: sitebase/templates/app/list_views/property/map.html:157
-#: sitebase/templates/app/list_views/property/view.html:56
+#: sitebase/templates/app/list_views/property/legend.html:19
 msgid "Ready Harvest"
 msgstr "Récolte Prête"
 
-#: sitebase/templates/app/list_views/property/map.html:160
-#: sitebase/templates/app/list_views/property/view.html:59
+#: sitebase/templates/app/list_views/property/legend.html:22
 msgid "Adopted Harvest"
 msgstr "Récolte Adoptée"
 
-#: sitebase/templates/app/list_views/property/map.html:163
+#: sitebase/templates/app/list_views/property/legend.html:25
 msgid "Pending Property"
 msgstr "Propriété en attente de validation"
 
-#: sitebase/templates/app/list_views/property/map.html:166
-#: sitebase/templates/app/list_views/property/view.html:62
+#: sitebase/templates/app/list_views/property/legend.html:28
 msgid "Scheduled Harvest"
 msgstr "Récolte Programmée"
 
-#: sitebase/templates/app/list_views/property/map.html:169
-#: sitebase/templates/app/list_views/property/view.html:65
+#: sitebase/templates/app/list_views/property/legend.html:31
 msgid "Orphan Harvest"
 msgstr "Récolte Orpheline"
 
-#: sitebase/templates/app/list_views/property/map.html:172
+#: sitebase/templates/app/list_views/property/legend.html:34
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
-#: sitebase/templates/app/list_views/property/view.html:30
+#: sitebase/templates/app/list_views/property/map.html:68
+msgid "Last harvest was on"
+msgstr "La dernière récolte était le"
+
+#: sitebase/templates/app/list_views/property/map.html:81
+msgid "Next harvest is on"
+msgstr "La prochaine récolte est le"
+
+#: sitebase/templates/app/list_views/property/view.html:37
 msgid "Picks"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/list_views/property/view.html:31
+#: sitebase/templates/app/list_views/property/view.html:38
 msgid "Last pick"
 msgstr "Dernière récolte"
 
-#: sitebase/templates/app/list_views/property/view.html:32
+#: sitebase/templates/app/list_views/property/view.html:39
 msgid "Next pick"
 msgstr "Prochaine récolte"
 

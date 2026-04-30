@@ -4,6 +4,7 @@ from typeguard import typechecked
 from typing import Optional
 
 from harvest.models import Property, Harvest
+from sitebase.templatetags.harvest_status import color, harvest_filter
 
 register = template.Library()
 
@@ -12,12 +13,18 @@ def harvests_for_year(harvests, year: int):
     return [h for h in harvests if datetime.strptime(h["start_date"], "%Y-%m-%d").year == year]
 
 
+@register.filter
 @typechecked
-def property_filter(property, size: str, year: int):
+def property_icon_shape(size: str) -> str:
+    return '<i class="glyphicon glyphicon-home fa-{size}"></i>'.format(size=size)
+
+
+@typechecked
+def property_filter(property, size: str, year: int) -> str:
     harvests = harvests_for_year(property["harvests"], year)
 
     if len(harvests) == 0:
-        return '<i class="glyphicon glyphicon-home fa-{size}"></i>'.format(size=size)
+        return property_icon_shape(size)
 
     # Any upcoming harvests are more important then previously succeeded harvests
     prepared_harvest = [
@@ -25,22 +32,22 @@ def property_filter(property, size: str, year: int):
     ]
 
     if len(prepared_harvest) > 0:
-        return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
+        return harvest_filter(Harvest.Status.ORPHAN, size)
 
     cancelled = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 
     if len(cancelled) > 0:
-        '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
+        return harvest_filter(Harvest.Status.CANCELLED, size)
 
     ready = [h for h in harvests if h["status"] in [Harvest.Status.READY]]
 
     if len(ready) > 0:
-        return '<i class="fa fa-shopping-basket fa-{size}"></i>'.format(size=size)
+        return harvest_filter(Harvest.Status.READY, size)
 
     success = [h for h in harvests if h["status"] in [Harvest.Status.SUCCEEDED]]
 
     if len(success) > 0:
-        return '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
+        return harvest_filter(Harvest.Status.SUCCEEDED, size)
 
     return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
 
@@ -92,27 +99,27 @@ def property_icon_color(property, year: str) -> str:
     orphan_harvest = [h for h in harvests if h["status"] in [Harvest.Status.ORPHAN]]
 
     if len(orphan_harvest) > 0:
-        return "saskatoon-warning"
+        return color(Harvest.Status.ORPHAN)
 
     adopted_harvest = [h for h in harvests if h["status"] == Harvest.Status.ADOPTED]
 
     if len(adopted_harvest) > 0:
-        return "saskatoon-info"
+        return color(Harvest.Status.ADOPTED)
 
     scheduled_harvest = [h for h in harvests if h["status"] == Harvest.Status.SCHEDULED]
 
     if len(scheduled_harvest) > 0:
-        return "saskatoon-warning"
+        return color(Harvest.Status.SCHEDULED)
 
     ready = [h for h in harvests if h["status"] == Harvest.Status.READY]
 
     if len(ready) > 0:
-        return "saskatoon-info"
+        return color(Harvest.Status.READY)
 
     cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 
     if len(cancelled_harvest) > 0:
-        return "saskatoon-danger"
+        return color(Harvest.Status.CANCELLED)
 
     return "saskatoon-success"
 

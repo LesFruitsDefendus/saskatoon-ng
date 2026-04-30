@@ -1,10 +1,13 @@
 from django import template
+from typeguard import typechecked
+
 from harvest.models import Harvest
 
 register = template.Library()
 
 
 @register.filter
+@typechecked
 def color(harvest_status: str) -> str:
     return {
         t[0].value: t[1]
@@ -19,8 +22,8 @@ def color(harvest_status: str) -> str:
     }.get(harvest_status, "saskatoon-success")
 
 
-@register.filter
-def harvest_icon(harvest_status: str) -> str:
+@typechecked
+def harvest_filter(harvest_status: str, size: str) -> str:
     return {
         t[0].value: t[1]
         for t in [
@@ -46,6 +49,19 @@ def harvest_icon(harvest_status: str) -> str:
 
 
 @register.filter
+@typechecked
+def harvest_icon(harvest_status: str) -> str:
+    return harvest_filter(harvest_status, 'lg')
+
+
+@register.filter
+@typechecked
+def harvest_icon_hover(harvest_status: str) -> str:
+    return harvest_filter(harvest_status, 'xl')
+
+
+@register.filter
+@typechecked
 def progress(status: str) -> int:
     statuses = [
         Harvest.Status.ADOPTED,
@@ -64,5 +80,6 @@ def progress(status: str) -> int:
 
 
 @register.filter
+@typechecked
 def is_ready_or_succeeded(status: str) -> bool:
     return status in [s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]]
