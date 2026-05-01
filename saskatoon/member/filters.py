@@ -9,7 +9,7 @@ from typeguard import typechecked
 from datetime import datetime, timezone, timedelta
 from django.db.models import QuerySet
 
-from member.utils import available_equipment_points
+from member.utils import get_available_equipment_points
 from member.models import AuthUser, Organization, Person, Neighborhood
 from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
@@ -240,11 +240,11 @@ class EquipmentPointFilter(filters.FilterSet):
         filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
 
         if self.status_val == 'reserved' and self.start_val < self.end_val:
-            available = available_equipment_points(self.start_val, self.end_val, None)
+            available = get_available_equipment_points(self.start_val, self.end_val)
             return filtered.exclude(pk__in=available)
 
         if self.status_val == 'available' and self.start_val < self.end_val:
-            available = available_equipment_points(self.start_val, self.end_val, None)
+            available = get_available_equipment_points(self.start_val, self.end_val)
             return filtered.filter(pk__in=available)
 
         return filtered

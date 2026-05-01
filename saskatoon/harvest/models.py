@@ -534,6 +534,8 @@ class Harvest(models.Model):
 
     SEASON_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
+    CAN_RESERVE_EQUIPMENT = [Status.READY, Status.SCHEDULED, Status.SUCCEEDED]
+
     status = models.CharField(
         choices=Status.choices,
         max_length=20,

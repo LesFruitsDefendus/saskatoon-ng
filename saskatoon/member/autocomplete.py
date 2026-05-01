@@ -4,7 +4,7 @@ from typeguard import typechecked
 
 from harvest.models import Harvest
 from member.models import AuthUser, Organization, Person, Actor, Neighborhood
-from member.utils import available_equipment_points
+from member.utils import get_available_equipment_points
 from saskatoon.autocomplete import Autocomplete
 from sitebase.utils import parse_naive_datetime
 
@@ -152,7 +152,7 @@ class EquipmentPointAutocomplete(Autocomplete):
         except (Harvest.DoesNotExist, ValueError):
             harvest = None
 
-        return available_equipment_points(start, end, harvest).distinct()
+        return get_available_equipment_points(start, end, harvest)
 
 
 @typechecked
