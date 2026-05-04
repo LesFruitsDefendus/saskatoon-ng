@@ -2,15 +2,28 @@
 {% load i18n %}
 {% load static %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock style %}
+
 {% block content %}
 
 <div class="breadcomb-area">
-    {% if user.is_authenticated %}
-        {% include 'app/home/pickleader.html' %}
-    {% else %}
-        {% include 'app/home/anonymous.html' %}
-    {% endif %}
-</div>
+    <div class="home container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="breadcomb-list mg-b-15">
+                    <h1>{{content.title}}</h1>
+                </div>
+
+                {% if user.is_authenticated %}
+                    {% include 'app/home/pickleader.html' %}
+                {% else %}
+                    {% include 'app/home/anonymous.html' %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock content %}

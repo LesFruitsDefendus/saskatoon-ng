@@ -1,5 +1,16 @@
+{% load i18n %}
+{% load static %}
 
-    <h1>{{content.title}}</h1>
-    <h2>{{content.subtitle}}</h2>
+{% get_current_language as LANG %}
 
-    {{ content.body.html | safe }}
+<div class="container">
+    <div class="row">
+        <div class="diagram col-lg-8 col-md-8 col-sm-6 col-xs-6">
+            <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png"/>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6">
+            <h2>{{content.subtitle}}</h2>
+            {{ content.body.html | safe }}
+        </div>
+    </div>
+</div>
