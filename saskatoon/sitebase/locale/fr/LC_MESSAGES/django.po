@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-25 00:06-0400\n"
+"POT-Creation-Date: 2026-05-05 20:36+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -160,7 +160,7 @@ msgstr "Courriels"
 #: sitebase/models.py:271
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:27
-#: sitebase/templates/app/stats.html:249
+#: sitebase/templates/app/stats.html:246
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
@@ -188,10 +188,10 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/organization/contact.html:5
 #: sitebase/templates/app/detail_views/property/contact.html:42
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
-#: sitebase/templates/app/list_views/equipment/data_table.html:16
+#: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:57
-#: sitebase/templates/app/list_views/organization/organizations.html:26
+#: sitebase/templates/app/list_views/organization/map.html:63
+#: sitebase/templates/app/list_views/organization/organizations.html:32
 msgid "Contact"
 msgstr "Contact"
 
@@ -284,8 +284,8 @@ msgstr "Calendrier"
 #: sitebase/templates/app/base/menu-tabs.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:14
 #: sitebase/templates/app/list_views/community/view.html:14
-#: sitebase/templates/app/stats.html:68 sitebase/templates/app/stats.html:135
-#: sitebase/templates/app/stats.html:171 sitebase/templates/app/stats.html:210
+#: sitebase/templates/app/stats.html:68 sitebase/templates/app/stats.html:132
+#: sitebase/templates/app/stats.html:168 sitebase/templates/app/stats.html:207
 msgid "Harvests"
 msgstr "Récoltes"
 
@@ -556,7 +556,7 @@ msgid "Pending"
 msgstr "En attente"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:59
-#: sitebase/templates/app/stats.html:248
+#: sitebase/templates/app/stats.html:245
 msgid "Accepted"
 msgstr "Acceptée"
 
@@ -622,7 +622,7 @@ msgstr "Action"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:7
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:28
-#: sitebase/templates/app/stats.html:134
+#: sitebase/templates/app/stats.html:131
 msgid "Fruit"
 msgstr "Fruits"
 
@@ -634,21 +634,21 @@ msgid "Save"
 msgstr "Sauvegarder"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:5
-#: sitebase/templates/app/detail_views/property/contact.html:7
+#: sitebase/templates/app/detail_views/property/contact.html:8
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
 #: sitebase/templates/app/forms/property_create_form.html:33
-#: sitebase/templates/app/list_views/equipment/data_table.html:14
+#: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
 msgid "Owner"
 msgstr "Propriétaire"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:7
-#: sitebase/templates/app/stats.html:79
+#: sitebase/templates/app/stats.html:78
 msgid "Pickers"
 msgstr "Cueilleur.euse.s"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:11
-#: sitebase/templates/app/stats.html:92
+#: sitebase/templates/app/stats.html:90
 msgid "Organizations"
 msgstr "Organisations"
 
@@ -772,13 +772,13 @@ msgid "Type"
 msgstr "Type"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:26
-#: sitebase/templates/app/list_views/equipment/data_table.html:12
+#: sitebase/templates/app/list_views/equipment/data_table.html:13
 #: sitebase/templates/app/list_views/equipment/view.html:14
 msgid "Count"
 msgstr "Quantité"
 
 #: sitebase/templates/app/detail_views/organization/equipment_table.html:27
-#: sitebase/templates/app/list_views/equipment/data_table.html:13
+#: sitebase/templates/app/list_views/equipment/data_table.html:14
 #: sitebase/templates/app/list_views/equipment/view.html:15
 #: sitebase/templates/app/participation_list.html:19
 msgid "Description"
@@ -788,8 +788,8 @@ msgstr "Description"
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:31
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:36
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:42
-#: sitebase/templates/app/list_views/organization/organizations.html:27
-#: sitebase/templates/app/stats.html:90 sitebase/templates/app/stats.html:209
+#: sitebase/templates/app/list_views/organization/organizations.html:33
+#: sitebase/templates/app/stats.html:88 sitebase/templates/app/stats.html:206
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
 
@@ -846,11 +846,11 @@ msgstr "Autoriser"
 msgid "Edit Property"
 msgstr "Éditer la propriété"
 
-#: sitebase/templates/app/detail_views/property/contact.html:9
+#: sitebase/templates/app/detail_views/property/contact.html:10
 msgid "(Organization)"
 msgstr "(Organisation)"
 
-#: sitebase/templates/app/detail_views/property/contact.html:13
+#: sitebase/templates/app/detail_views/property/contact.html:14
 msgid "edit"
 msgstr "modifier"
 
@@ -882,71 +882,71 @@ msgstr "N'a jamais été inscrit(e) avant"
 msgid "Validated"
 msgstr "Vérifié(e)"
 
-#: sitebase/templates/app/detail_views/property/features.html:47
+#: sitebase/templates/app/detail_views/property/features.html:46
 msgid "Not yet authorized"
 msgstr "Pas autorisée pour l'instant"
 
-#: sitebase/templates/app/detail_views/property/features.html:53
+#: sitebase/templates/app/detail_views/property/features.html:52
 msgid "Authorized for the current season"
 msgstr "Autorisée pour la saison en cours"
 
-#: sitebase/templates/app/detail_views/property/features.html:59
+#: sitebase/templates/app/detail_views/property/features.html:58
 msgid "Not authorized for this season"
 msgstr "Non autorisée cette saison"
 
-#: sitebase/templates/app/detail_views/property/features.html:68
+#: sitebase/templates/app/detail_views/property/features.html:67
 msgid "This property is marked as inactive"
 msgstr "Cette propriété est marquée comme inactive"
 
-#: sitebase/templates/app/detail_views/property/features.html:76
+#: sitebase/templates/app/detail_views/property/features.html:75
 msgid "Produces fruits every year"
 msgstr "Produit des fruits annuellement"
 
-#: sitebase/templates/app/detail_views/property/features.html:81
+#: sitebase/templates/app/detail_views/property/features.html:80
 msgid "Does not produce fruits every year"
 msgstr "Ne produit pas de fruits chaque année"
 
-#: sitebase/templates/app/detail_views/property/features.html:89
+#: sitebase/templates/app/detail_views/property/features.html:88
 msgid "picker(s) needed"
 msgstr "cueilleur.euses requis..es"
 
-#: sitebase/templates/app/detail_views/property/features.html:94
+#: sitebase/templates/app/detail_views/property/features.html:93
 msgid "Number of pickers not specified"
 msgstr "Nombre de cueilleur.euses non spécifié"
 
-#: sitebase/templates/app/detail_views/property/features.html:101
+#: sitebase/templates/app/detail_views/property/features.html:100
 msgid "Ladder available"
 msgstr "Échelle disponible sur place"
 
-#: sitebase/templates/app/detail_views/property/features.html:106
+#: sitebase/templates/app/detail_views/property/features.html:105
 msgid "Ladder available for outside picks"
 msgstr "Échelle empruntable pour récolter ailleurs"
 
-#: sitebase/templates/app/detail_views/property/features.html:112
+#: sitebase/templates/app/detail_views/property/features.html:111
 msgid "No ladder available"
 msgstr "Pas d'échelle disponible"
 
-#: sitebase/templates/app/detail_views/property/features.html:119
+#: sitebase/templates/app/detail_views/property/features.html:118
 msgid "Publicly accessible"
 msgstr "Accès publique"
 
-#: sitebase/templates/app/detail_views/property/features.html:124
+#: sitebase/templates/app/detail_views/property/features.html:123
 msgid "Not publicly accessible"
 msgstr "Pas d'accès publique"
 
-#: sitebase/templates/app/detail_views/property/features.html:131
+#: sitebase/templates/app/detail_views/property/features.html:130
 msgid "Access to neighbors terrain"
 msgstr "Terrain voisin accessible"
 
-#: sitebase/templates/app/detail_views/property/features.html:136
+#: sitebase/templates/app/detail_views/property/features.html:135
 msgid "No permission to access neighbors terrain"
 msgstr "Pas de permission pour aller chez le voisin"
 
-#: sitebase/templates/app/detail_views/property/features.html:143
+#: sitebase/templates/app/detail_views/property/features.html:142
 msgid "Compost bin closeby"
 msgstr "Bac de compostage sur place"
 
-#: sitebase/templates/app/detail_views/property/features.html:148
+#: sitebase/templates/app/detail_views/property/features.html:147
 msgid "No compost bin closeby"
 msgstr "Pas de bac de compostage"
 
@@ -987,13 +987,13 @@ msgstr "Propriété"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:15
 #: sitebase/templates/app/list_views/community/view.html:16
-#: sitebase/templates/app/list_views/equipment/data_table.html:17
+#: sitebase/templates/app/list_views/equipment/data_table.html:18
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:15
-#: sitebase/templates/app/list_views/organization/organizations.html:29
+#: sitebase/templates/app/list_views/organization/organizations.html:35
 #: sitebase/templates/app/list_views/property/view.html:13
 #: sitebase/templates/app/participation_list.html:21
-#: sitebase/templates/app/stats.html:170
+#: sitebase/templates/app/stats.html:167
 msgid "Borough"
 msgstr "Arrondissement"
 
@@ -1044,7 +1044,7 @@ msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
 #: sitebase/templates/app/forms/participation_create_form.html:79
-#: sitebase/templates/app/forms/property_create_public.html:24
+#: sitebase/templates/app/forms/property_create_public.html:23
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1060,13 +1060,17 @@ msgstr "Nombre de cueilleur.euses"
 msgid "Trees"
 msgstr "Arbres"
 
-#: sitebase/templates/app/forms/property_create_public.html:17
+#: sitebase/templates/app/forms/property_create_public.html:16
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
 #: sitebase/templates/app/index.html:30
 msgid "Go to calendar"
 msgstr "Calendrier des récoltes"
+
+#: sitebase/templates/app/index.html:46
+msgid "A fruit défendus harvest"
+msgstr "Une cueillette de fruits défendus"
 
 #: sitebase/templates/app/list_views/base.html:29
 msgid "Search"
@@ -1099,12 +1103,12 @@ msgstr "Date d'inscription"
 msgid "info"
 msgstr "info"
 
-#: sitebase/templates/app/list_views/equipment/data_table.html:11
+#: sitebase/templates/app/list_views/equipment/data_table.html:12
 #: sitebase/templates/app/list_views/equipment/view.html:13
 msgid "Equipment Type"
 msgstr "Type d'Équipement"
 
-#: sitebase/templates/app/list_views/equipment/data_table.html:15
+#: sitebase/templates/app/list_views/equipment/data_table.html:16
 #: sitebase/templates/app/list_views/equipment/view.html:17
 #: sitebase/templates/app/participation_list.html:22
 msgid "Shared"
@@ -1159,25 +1163,25 @@ msgstr "Cet organisme accepte les dons de fruits"
 msgid "No Equipment"
 msgstr "Pas d'Équipement"
 
-#: sitebase/templates/app/list_views/organization/map.html:13
-#: sitebase/templates/app/list_views/organization/organizations.html:11
+#: sitebase/templates/app/list_views/organization/map.html:19
+#: sitebase/templates/app/list_views/organization/organizations.html:17
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/map.html:14
-#: sitebase/templates/app/list_views/organization/organizations.html:12
+#: sitebase/templates/app/list_views/organization/map.html:20
+#: sitebase/templates/app/list_views/organization/organizations.html:18
 msgid "Map"
 msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:52
+#: sitebase/templates/app/list_views/organization/map.html:58
 msgid "Extra details"
 msgstr "Plus de détails"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:25
+#: sitebase/templates/app/list_views/organization/organizations.html:31
 msgid "Organization"
 msgstr "Organisation"
 
-#: sitebase/templates/app/list_views/organization/organizations.html:28
+#: sitebase/templates/app/list_views/organization/organizations.html:34
 #: sitebase/templates/app/participation_list.html:18
 msgid "Equipment"
 msgstr "Équipement"
@@ -1238,44 +1242,44 @@ msgstr "Tout"
 msgid "All Seasons"
 msgstr "Toutes les saisons"
 
-#: sitebase/templates/app/stats.html:81
+#: sitebase/templates/app/stats.html:80
 msgid "Participated"
 msgstr "Ont participé"
 
-#: sitebase/templates/app/stats.html:101
+#: sitebase/templates/app/stats.html:98
 msgid "Total weight"
 msgstr "Poids total"
 
-#: sitebase/templates/app/stats.html:122
+#: sitebase/templates/app/stats.html:119
 msgid "Total per Fruit"
 msgstr "Total par Fruit"
 
-#: sitebase/templates/app/stats.html:136 sitebase/templates/app/stats.html:172
-#: sitebase/templates/app/stats.html:211 sitebase/templates/app/stats.html:250
+#: sitebase/templates/app/stats.html:133 sitebase/templates/app/stats.html:169
+#: sitebase/templates/app/stats.html:208 sitebase/templates/app/stats.html:247
 msgid "Weight (lbs)"
 msgstr "Poids (lbs)"
 
-#: sitebase/templates/app/stats.html:158
+#: sitebase/templates/app/stats.html:155
 msgid "Total per Borough"
 msgstr "Total par Arrondissement"
 
-#: sitebase/templates/app/stats.html:197
+#: sitebase/templates/app/stats.html:194
 msgid "Total per Beneficiary"
 msgstr "Total par Bénéficiaire"
 
-#: sitebase/templates/app/stats.html:233
+#: sitebase/templates/app/stats.html:230
 msgid "Total per Picker"
 msgstr "Total par Cueilleur.euse"
 
-#: sitebase/templates/app/stats.html:245
+#: sitebase/templates/app/stats.html:242
 msgid "Picker"
 msgstr "Cueilleur.euse"
 
-#: sitebase/templates/app/stats.html:246
+#: sitebase/templates/app/stats.html:243
 msgid "Leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/stats.html:247
+#: sitebase/templates/app/stats.html:244
 msgid "Request"
 msgstr "Requête"
 

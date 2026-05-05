@@ -61,6 +61,7 @@ setup(
             'tox',
             'hypothesis',
             'ruff',
+            'djlint',
         ]
     },
 )

@@ -16,12 +16,16 @@ HARVEST_END = datetime(2025, 3, 2, hour=18, tzinfo=TZINFO)
 
 @pytest.fixture
 def harvest(db, request) -> Harvest:
-    return Harvest.objects.create(status=request.param, start_date=HARVEST_START, end_date=HARVEST_END)
+    return Harvest.objects.create(
+        status=request.param, start_date=HARVEST_START, end_date=HARVEST_END
+    )
 
 
 @pytest.fixture
 def second_harvest(db, request) -> Harvest:
-    return Harvest.objects.create(status=request.param, start_date=HARVEST_START, end_date=HARVEST_END)
+    return Harvest.objects.create(
+        status=request.param, start_date=HARVEST_START, end_date=HARVEST_END
+    )
 
 
 @pytest.fixture
