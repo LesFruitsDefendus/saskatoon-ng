@@ -23,9 +23,11 @@ collectstatic:
 	@python3 saskatoon/manage.py collectstatic
 
 staticchecks:
+	@tox -e ruff_check
 	@tox -e mypy
-	@tox -e ruff
 	@tox -e pytype
+	@tox -e ruff_format
+	@tox -e djlint
 
 unittests:
 	@tox -e unittests
