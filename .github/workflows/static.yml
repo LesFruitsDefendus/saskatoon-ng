@@ -41,14 +41,22 @@ jobs:
       run: |
         sudo apt install libgdal-dev
 
+    - name: Run ruff check
+      run: |
+        tox -e ruff_check
+
     - name: Run mypy
       run: |
         tox -e mypy
 
-    - name: Run ruff
-      run: |
-        tox -e ruff
-
     - name: Run pytype
       run: |
         tox -e pytype
+
+    - name: Run ruff format
+      run: |
+        tox -e ruff_format
+
+    - name: Run djlint
+      run: |
+        tox -e djlint
