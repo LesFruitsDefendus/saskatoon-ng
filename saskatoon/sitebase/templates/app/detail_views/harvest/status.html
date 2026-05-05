@@ -3,53 +3,50 @@
 {% load tz %}
 {% load auth_users %}
 <div class="harvest-info">
-  <section>
-          <p>{% translate "Harvest status" %}</p>
-          {% if user|is_pickleader:id %}
-              {% include 'app/detail_views/harvest/status_choices.html' %}
-          {% else %}
-              <h2>{{ status_display }}</h2>
-          {% endif %}
-  </section>
-  <section>
-          {% if date_range %}
-              <p> {% translate "Expected maturity" %}</p>
-              <h2>{{date_range}}</h2>
-          {% else %}
-              <p>{{start_time}} {% trans "to" %} {{end_time}}</p>
-              <h2>{{start_date}} </h2>
-          {% endif %}
-  </section>
-
-  {% if status == "succeeded" %}
-      <section>
-          <p>{% trans "Total harvested:" %}</p>
-          <h2><span{% if total_distribution > 0 %} class="counter"{% endif %}>{{total_distribution}}</span> lbs</h2>
-      </section>
-  {% else %}
-      <section>
-          <p>{% trans "Pickers count" %}</p>
-          <h2><span>{{ volunteers_count }}</span>
-              / {{ nb_required_pickers }}</h2>
-      </section>
-  {% endif %}
-
-  <section>
-          <p>{% trans "Pick leader" %}</p>
-          {% if pick_leader is None %}
-                  <h2>{% trans "Missing" %}</h2>
-              {% if status == 'orphan' and user|is_pickleader and not user|is_pickleader:id %}
-              <a href="{% url 'harvest-adopt' id %}">
-                      <button
-                      title="Adopt"
-                      class="btn btn-success notika-btn-success"
-                      >
-                          {% trans "Adopt it!" %}
-                      </button>
-                  </a>
-              {% endif %}
-          {% else %}
-          <h2>{{ pick_leader.name }}</h2>
-          {% endif %}
+    <section>
+        <p>{% translate "Harvest status" %}</p>
+        {% if user|is_pickleader:id %}
+            {% include 'app/detail_views/harvest/status_choices.html' %}
+        {% else %}
+            <h2>{{ status_display }}</h2>
+        {% endif %}
+    </section>
+    <section>
+        {% if date_range %}
+            <p>{% translate "Expected maturity" %}</p>
+            <h2>{{ date_range }}</h2>
+        {% else %}
+            <p>{{ start_time }} {% trans "to" %} {{ end_time }}</p>
+            <h2>{{ start_date }}</h2>
+        {% endif %}
+    </section>
+    {% if status == "succeeded" %}
+        <section>
+            <p>{% trans "Total harvested:" %}</p>
+            <h2>
+                <span {% if total_distribution > 0 %}class="counter"{% endif %}>{{ total_distribution }}</span> lbs
+            </h2>
+        </section>
+    {% else %}
+        <section>
+            <p>{% trans "Pickers count" %}</p>
+            <h2>
+                <span>{{ volunteers_count }}</span>
+                / {{ nb_required_pickers }}
+            </h2>
+        </section>
+    {% endif %}
+    <section>
+        <p>{% trans "Pick leader" %}</p>
+        {% if pick_leader is None %}
+            <h2>{% trans "Missing" %}</h2>
+            {% if status == 'orphan' and user|is_pickleader and not user|is_pickleader:id %}
+                <a href="{% url 'harvest-adopt' id %}">
+                    <button title="Adopt" class="btn btn-success notika-btn-success">{% trans "Adopt it!" %}</button>
+                </a>
+            {% endif %}
+        {% else %}
+            <h2>{{ pick_leader.name }}</h2>
+        {% endif %}
     </section>
 </div>

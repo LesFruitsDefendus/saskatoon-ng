@@ -1,36 +1,41 @@
 {% load i18n %}
 {% load static %}
-
 <section>
-        <header>
-                    <h2>{% trans "Comments" %}</h2>
-                <a href="{% url 'comment-create' id %}"
-                   class="btn btn-primary notika-btn-primary waves-effect">
-                    <i class="fa fa-plus"></i>&nbsp; {% trans "New comment" %}
-                </a>
-        </header>
-        <div class="card-box">
-            <div class="chat-conversation">
-                <div class="widgets-chat-scrollbar">
-                    <ul class="conversation-list ">
-                        <table>
+    <header>
+        <h2>{% trans "Comments" %}</h2>
+        <a href="{% url 'comment-create' id %}"
+           class="btn btn-primary notika-btn-primary waves-effect">
+            <i class="fa fa-plus"></i>&nbsp; {% trans "New comment" %}
+        </a>
+    </header>
+    <div class="card-box">
+        <div class="chat-conversation">
+            <div class="widgets-chat-scrollbar">
+                <ul class="conversation-list ">
+                    <table>
                         {% for comment in comments %}
-                        <tr>
-                            <td><div style="margin-bottom: 1em;">
-                                <b>{{ comment.author.name }}</b><br>
-                                <small>{{ comment.author.email }}</small><br>
-                                <small>{{ comment.date_created }}</small>
-                            </div></td>
-                            <td><div class="conversation-text" style="margin-bottom: 1em;">
-                                <div class="ctext-wrap">
-                                    <p>{{ comment.content }}</p>
-                                </div>
-                            </div></td>
-                        </tr>
+                            <tr>
+                                <td>
+                                    <div style="margin-bottom: 1em;">
+                                        <b>{{ comment.author.name }}</b>
+                                        <br>
+                                        <small>{{ comment.author.email }}</small>
+                                        <br>
+                                        <small>{{ comment.date_created }}</small>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="conversation-text" style="margin-bottom: 1em;">
+                                        <div class="ctext-wrap">
+                                            <p>{{ comment.content }}</p>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
                         {% endfor %}
-                        </table>
-                    </ul>
-                </div>
+                    </table>
+                </ul>
             </div>
         </div>
+    </div>
 </section>

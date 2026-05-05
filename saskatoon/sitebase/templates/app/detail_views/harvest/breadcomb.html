@@ -1,19 +1,25 @@
 {% load i18n %}
 {% load static %}
 {% load auth_users %}
-
 {% get_current_language as LANG %}
 <header>
-                <h1><i class="fa fa-shopping-basket notika-text-primary"></i>#{{ id }}:
-                  {% for t in trees %}
-                    {% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }},
-                  {% endfor %}
-                  {{ property.address }},
-                  {{ property.neighborhood }}
-                </h1>
-                {% if user|is_core_or_admin or user|is_pickleader:id %}
-                  <a class="btn btn-primary notika-btn-primary" href="{% url 'harvest-update' id %}">
-                    <i class="fa fa-pencil"></i> {% trans "Edit Harvest" %}
-                  </a>
-                {% endif %}
+    <h1>
+        <i class="fa fa-shopping-basket notika-text-primary"></i>#{{ id }}:
+        {% for t in trees %}
+            {% if LANG == "en" %}
+                {{ t.name_en }}
+            {% else %}
+                {{ t.name_fr }}
+            {% endif %}
+            {{ t.fruit_icon|default:"" }},
+        {% endfor %}
+        {{ property.address }},
+        {{ property.neighborhood }}
+    </h1>
+    {% if user|is_core_or_admin or user|is_pickleader:id %}
+        <a class="btn btn-primary notika-btn-primary"
+           href="{% url 'harvest-update' id %}">
+            <i class="fa fa-pencil"></i> {% trans "Edit Harvest" %}
+        </a>
+    {% endif %}
 </header>

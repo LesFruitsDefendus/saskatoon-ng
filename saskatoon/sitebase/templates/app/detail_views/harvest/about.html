@@ -1,63 +1,68 @@
 {% load i18n %}
 {% load static %}
-
 {% get_current_language as LANG %}
 <div class="property-and-announcements">
-                    <section>
-                        <h2>{% trans "Public announcement" %}</h2>
-                        <h3>
-                            {% if LANG == "en" %}
-                                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
-                            {% else %}
-                                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon|default:"" }}, {% endfor %}
-                            {% endif %}
-                            @ {{ property.neighborhood }}
-                        </h3>
-                        <br>
-                        {% if status != "orphan" and status != "adopted" %}
-                            <h4>{{start_date}}</h4>
-                            <h5>{{start_time}} {% trans "to" %} {{end_time}}</h5>
-                        {% endif %}
-                        <br>
-                        {{about | safe}}
-                    </section>
-
-                  <section>
-                    <h2>{% translate 'Property information' %}
-                    {% if perms.harvest.change_property %}
-                        &nbsp;
-                        <a href="{% url 'property-update' property.id %}"
-                                title="edit">
-                            <i class="fa fa-pencil"></i>
-                        </a>
+    <section>
+        <h2>{% trans "Public announcement" %}</h2>
+        <h3>
+            {% if LANG == "en" %}
+                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon|default:"" }},{% endfor %}
+            {% else %}
+                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon|default:"" }},{% endfor %}
+            {% endif %}
+            @ {{ property.neighborhood }}
+        </h3>
+        <br>
+        {% if status != "orphan" and status != "adopted" %}
+            <h4>{{ start_date }}</h4>
+            <h5>{{ start_time }} {% trans "to" %} {{ end_time }}</h5>
+        {% endif %}
+        <br>
+        {{ about | safe }}
+    </section>
+    <section>
+        <h2>
+            {% translate 'Property information' %}
+            {% if perms.harvest.change_property %}
+                &nbsp;
+                <a href="{% url 'property-update' property.id %}" title="edit">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            {% endif %}
+        </h2>
+        <address>
+            <table>
+                <tr>
+                    <th>{% trans "Address" %}</th>
+                    &nbsp;
+                    <td>
+                        <a href="{% url 'property-detail' property.id %}">{{ property.address }}</a>
+                    </td>
+                </tr>
+                <tr>
+                    <th>{% trans 'Owner' %}</th>
+                    <td>{{ property.owner.name }}</td>
+                    {% if property.owner.phone is not None %}
+                    </tr>
+                    <tr>
+                        <th>{% trans "Phone" %}</th>
+                        <td>{{ property.owner.phone }}</td>
                     {% endif %}
-                    </h2>
-
-                    <address>
-                        <table>
-                        <tr>
-                        <th>{% trans "Address" %}</th>&nbsp;
-                        <td><a href="{% url 'property-detail' property.id %}">{{ property.address }}</a></td>
-                        </tr><tr>
-                        <th>{% trans 'Owner' %}</th> <td>{{ property.owner.name }}</td>
-                        {% if property.owner.phone is not None %}
-                        </tr><tr>
-                          <th>{% trans "Phone" %}</th> <td>{{ property.owner.phone }}</td>
-                        {% endif %}
-                        {% if property.owner.email is not None %}
-                        </tr><tr>
-                          <th>{% trans "Email" %}</th> <td>{{ property.owner.email }}</td>
-                        {% endif %}
-                        {% if property.owner.language %}
-                        </tr><tr>
-                          <th>{% trans "Language" %}</th> <td>{{ property.owner.language }}</td>
-                        {% endif %}
-                        </tr>
-                        </table>
-                      </address>
-
-                     {% if property.owner.comments %}
-                       <p>{{ property.owner.comments }}</p>
-                     {% endif %}
-                   </section>
+                    {% if property.owner.email is not None %}
+                    </tr>
+                    <tr>
+                        <th>{% trans "Email" %}</th>
+                        <td>{{ property.owner.email }}</td>
+                    {% endif %}
+                    {% if property.owner.language %}
+                    </tr>
+                    <tr>
+                        <th>{% trans "Language" %}</th>
+                        <td>{{ property.owner.language }}</td>
+                    {% endif %}
+                </tr>
+            </table>
+        </address>
+        {% if property.owner.comments %}<p>{{ property.owner.comments }}</p>{% endif %}
+    </section>
 </div>

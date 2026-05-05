@@ -1,43 +1,34 @@
 {% load i18n %}
 {% load static %}
 <section class="picker-requests">
-  <header>
-    <h2>
-      {% trans "Pickers requests" %}
-    </h2>
-                                    <a href="{% url 'rfp-create' id %}"
-                                    {% if is_open_to_public_requests %}
-                                        class="btn btn-success notika-btn-success waves-effect"
-                                    {% elif is_open_to_requests %}
-                                        class="btn btn-danger notika-btn-danger waves-effect"
-                                    {% else %}
-                                       class="btn btn-default notika-btn-default disabled"
-                                    {% endif %}
-                                    >
-                                        <i class="fa fa-plus"></i> {% trans "New request" %}
-                                    </a>
-                                    </header>
-                    <div class="table-responsive">
-                        <table class="table compact">
-                          <thead>
-                            <tr>
-                                <th>{% trans "Requester" %}</th>
-                                <th style="width: 10%">{% trans "Requested on" %}</th>
-                                <th style="width: 7%">{% trans "# Pickers" %}</th>
-                                <th style="width: 15%">{% trans "Requester comment" %}</th>
-                                <th style="width: 8%">{% trans "Experience" %}</th>
-                                <th style="width: 8%">{% trans "Rejections" %}</th>
-                                <th style="width: 9%">{% trans "Status" %}</th>
-                                <th style="width: 15%">{% trans "Pickleader note" %}</th>
-                                <th>{% trans "Last updated" %}</th>
-                                <th>{% trans "Action" %}</th>
-                            </tr>
-                          <thead>
-                          <tbody>
-                            {% for r in requests %}
-                                {% include 'app/detail_views/harvest/data_row.html' %}
-                            {% endfor %}
-                           </tbody>
-                        </table>
-                    </div>
+    <header>
+        <h2>{% trans "Pickers requests" %}</h2>
+        <a href="{% url 'rfp-create' id %}"
+           {% if is_open_to_public_requests %} class="btn btn-success notika-btn-success waves-effect" {% elif is_open_to_requests %} class="btn btn-danger notika-btn-danger waves-effect" {% else %} class="btn btn-default notika-btn-default disabled" {% endif %}>
+            <i class="fa fa-plus"></i> {% trans "New request" %}
+        </a>
+    </header>
+    <div class="table-responsive">
+        <table class="table compact">
+            <thead>
+                <tr>
+                    <th>{% trans "Requester" %}</th>
+                    <th style="width: 10%">{% trans "Requested on" %}</th>
+                    <th style="width: 7%">{% trans "# Pickers" %}</th>
+                    <th style="width: 15%">{% trans "Requester comment" %}</th>
+                    <th style="width: 8%">{% trans "Experience" %}</th>
+                    <th style="width: 8%">{% trans "Rejections" %}</th>
+                    <th style="width: 9%">{% trans "Status" %}</th>
+                    <th style="width: 15%">{% trans "Pickleader note" %}</th>
+                    <th>{% trans "Last updated" %}</th>
+                    <th>{% trans "Action" %}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for r in requests %}
+                    {% include 'app/detail_views/harvest/data_row.html' %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </section>
