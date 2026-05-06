@@ -686,7 +686,7 @@ class Harvest(models.Model):
         title = ", ".join(self.get_fruits())
         neighborhood_name = self.get_neighborhood()
         if neighborhood_name != "Other":
-            title += f" @ {neighborhood_name}"
+            title += f" — {neighborhood_name}"
         return title
 
     def is_urgent(self) -> bool:
