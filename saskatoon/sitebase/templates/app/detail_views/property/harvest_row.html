@@ -7,7 +7,7 @@
     <td>
         <a href='{% url "harvest-detail" harvest.id %}'>
             {% if harvest.pick_leader %}{% trans "Harvest" %}{% else %}{% trans "Orphan" %}{% endif %}
-            #{{ harvest.id }} &nbsp; <i class="fa fa-pencil"></i>
+            #{{ harvest.id }} &nbsp; <i class="fa fa-eye"></i>
         </a>
         {% if perms.harvest.delete_harvest %}
             &nbsp;

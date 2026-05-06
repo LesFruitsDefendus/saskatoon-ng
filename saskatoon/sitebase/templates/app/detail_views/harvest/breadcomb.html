@@ -2,24 +2,49 @@
 {% load static %}
 {% load auth_users %}
 {% get_current_language as LANG %}
-<header>
-    <h1>
-        <i class="fa fa-shopping-basket notika-text-primary"></i>#{{ id }}:
-        {% for t in trees %}
-            {% if LANG == "en" %}
-                {{ t.name_en }}
-            {% else %}
-                {{ t.name_fr }}
-            {% endif %}
-            {{ t.fruit_icon|default:"" }},
-        {% endfor %}
-        {{ property.address }},
-        {{ property.neighborhood }}
-    </h1>
-    {% if user|is_core_or_admin or user|is_pickleader:id %}
-        <a class="btn btn-primary notika-btn-primary"
-           href="{% url 'harvest-update' id %}">
-            <i class="fa fa-pencil"></i> {% trans "Edit Harvest" %}
-        </a>
-    {% endif %}
-</header>
+
+<div class="breadcomb-area">
+    <div class="breadcomb-list">
+        <div class="row">
+            <div class="col-xs-10">
+                <div class="breadcomb-wp">
+                    <div class="breadcomb-icon">
+                        <i class="fa fa-shopping-basket notika-text-primary"></i>
+                    </div>
+                    <div class="breadcomb-ctn">
+                        <h1>
+                            #{{ id }}
+                            &nbsp;
+                            {%for t in trees %}
+                                {% if LANG == "en" %}
+                                    {{ t.name_en }}
+                                {% else %}
+                                    {{ t.name_fr }}
+                                {% endif %}
+                                {% if not forloop.last %},{% endif %}
+                            {% endfor %}
+                            @
+                            {{ property.address }}
+                        </h1>
+                        <h4>
+                            {{ property.neighborhood }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="breadcomb-report">
+                    {% if user|is_core_or_admin or user|is_pickleader:id %}
+                        <a href="{% url 'harvest-update' id %}">
+                            <button title="Edit harvest" class="btn">
+                                <i class="fa fa-pencil"></i>&nbsp;
+                                {% trans "Edit Harvest" %}
+                            </button>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

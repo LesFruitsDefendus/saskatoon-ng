@@ -1,9 +1,12 @@
 {% load i18n %}
 {% load static %}
 <tr>
-  <td>{{ item.id }}
+  <td># {{ item.id }}
     {% if perms.harvest.change_equipment %}
-    <a href="{% url 'equipment-update' item.id %}" title="{% trans 'Modify Equipment' %} {{ item.id }}"><i class="fa fa-pencil"></i></a>
+        <a href="{% url 'equipment-update' item.id %}" title="{% trans 'Modify Equipment' %} {{ item.id }}">
+            &nbsp;
+            <small><i class="fa fa-pencil"></i></small>
+        </a>
     {% endif %}
   </td>
   <td>
@@ -17,7 +20,6 @@
     {{item.count}}
   </td>
   <td>
-    <span>{{ item.description }}
-    </span><br>
+    <span>{{ item.description }}</span><br>
   </td>
 </tr>

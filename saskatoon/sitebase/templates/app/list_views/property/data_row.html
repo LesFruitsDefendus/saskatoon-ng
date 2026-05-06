@@ -4,19 +4,28 @@
 {% get_current_language as LANG %}
 <tr>
     <td>
-        {{ property.id }}
+        <a href="{% url 'property-detail' property.id %}" title="{% trans 'View' %} {{ property.title }}">
+        # {{ property.id }}&nbsp;
+        <small><i class="fa fa-eye"></i></small>
+        </a>
         {% if perms.harvest.delete_property %}
-        &nbsp;
-        <small>
-            <a href="{% url 'admin:harvest_property_delete' property.id %}" onclick="return confirm('{% trans " Are you
-                really sure you want to delete this property?" %}');">
-                <i class="fa fa-trash text-danger"></i>
-            </a>
-        </small>
+            &nbsp;
+            <small>
+                <a href="{% url 'admin:harvest_property_delete' property.id %}" onclick="return confirm('{% trans " Are you really
+                    sure you want to delete this property?" %}');">
+                    <i class="fa fa-trash text-danger"></i>
+                </a>
+            </small>
         {% endif %}
     </td>
     <td>
-        <a href="{% url 'property-detail' property.id %}">{{ property.title }} &nbsp; <i class="fa fa-pencil"></i></a>
+        <b>{{ property.title }}</b>
+        {% if perms.harvest.change_property %}
+            &nbsp;
+            <a href="{% url 'property-update' property.id %}">
+                <small><i class="fa fa-pencil"></i></small>
+            </a>
+        {% endif %}
     </td>
     <td>
         {{ property.neighborhood }}
