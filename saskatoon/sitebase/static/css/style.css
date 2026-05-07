@@ -4701,17 +4701,15 @@ body.box-layout {
 	display:flex;
 }
 .breadcomb-icon i{
-	font-size: 20px;
+	font-size: 30px;
     color: #440bd4;
     padding: 15px;
+    margin-right: 10px;
     position: relative;
-    border-radius: 50%;
-    border-right: 1px solid #ccc;
-    border-top: 1px solid #ccc;
 	display:block;
 }
 .breadcomb-list{
-	padding:20px 20px;
+	padding: 20px;
 	background:#e7e0f9;
 }
 .breadcomb-ctn {
@@ -4722,8 +4720,13 @@ body.box-layout {
 	color:#333;
 }
 .breadcomb-ctn h1{
-    padding-top:10px;
+    padding-top: 0;
 }
+
+.breadcomb-ctn h4{
+	margin-bottom: 0;
+}
+
 .breadcomb-ctn p{
 	font-size:14px;
 	color:#333;

@@ -3,27 +3,11 @@
 }
 
 .main-content {
-	.container {
-		& > header {
-			margin-top: var(--saskatoon-gap);
-			padding: 20px;
-			margin-bottom: var(--saskatoon-gap);
-
-			i {
-				color: #440bd4;
-			}
-		}
-	}
-
 	header {
 		background-color: #e7e0f9;
 		display: grid;
 		grid-template-columns: auto;
 		gap: var(--saskatoon-gap);
-
-		h1 {
-			margin: 0;
-		}
 
 		a {
 			margin-top: auto;
@@ -80,14 +64,6 @@
 	td {
 		font-weight: bold;
 		text-align: right;
-	}
-}
-
-@media (min-width: 650px) {
-	.container {
-		& > header {
-			grid-template-columns: auto min-content;
-		}
 	}
 }
 

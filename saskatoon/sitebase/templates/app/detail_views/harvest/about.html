@@ -4,20 +4,25 @@
 <div class="property-and-announcements">
     <section>
         <h2>{% trans "Public announcement" %}</h2>
-        <h3>
-            {% if LANG == "en" %}
-                {% for tree in trees %}{{ tree.name_en }} {{ tree.fruit_icon|default:"" }},{% endfor %}
-            {% else %}
-                {% for tree in trees %}{{ tree.name_fr }} {{ tree.fruit_icon|default:"" }},{% endfor %}
-            {% endif %}
-            @ {{ property.neighborhood }}
-        </h3>
         <br>
+        <h4>
+            {% if LANG == "en" %}
+                {% for tree in trees %}
+                    {{ tree.name_en }}
+                    {% if not forloop.last %},{% endif %}
+                {% endfor %}
+            {% else %}
+                {% for tree in trees %}
+                    {{ tree.name_fr }}
+                    {% if not forloop.last %},{% endif %}
+                {% endfor %}
+            {% endif %}
+            — {{ property.neighborhood }}
+        </h4>
         {% if status != "orphan" and status != "adopted" %}
             <h4>{{ start_date }}</h4>
             <h5>{{ start_time }} {% trans "to" %} {{ end_time }}</h5>
         {% endif %}
-        <br>
         {{ about | safe }}
     </section>
     <section>

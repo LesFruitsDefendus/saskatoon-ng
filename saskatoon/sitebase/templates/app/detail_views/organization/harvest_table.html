@@ -6,13 +6,17 @@
       <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="data-table-list">
           <div class="table-responsive">
-            <div>
-              <h4> {% trans "Upcoming Reservations" %} </h4>
-
-            <a class="btn btn-primary notika-btn-primary waves-effect" href="{% url 'harvest-list' %}?date=past&has_equipment_point=on&equipment_point={{ actor_id }}">
-              See past reservations
-            </a>
-
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4> {% trans "Upcoming Reservations" %} </h4>
+                </div>
+                <div class="col-xs-6">
+                    <a href="{% url 'harvest-list' %}?date=past&has_equipment_point=on&equipment_point={{ actor_id }}" style="float: right">
+                        <button title="Past reservations" class="btn btn-primary notika-btn-primary waves-effect">
+                        <i class="fa fa-eye"></i> &nbsp; {% trans "Past reservations" %}
+                        </button>
+                    </a>
+                </div>
             </div>
             <br>
 
