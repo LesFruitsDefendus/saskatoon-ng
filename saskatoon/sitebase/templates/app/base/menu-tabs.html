@@ -9,7 +9,7 @@
     <a href="{% url 'harvest-list' %}?season={% now 'Y' %}"><i class="fa fa-shopping-basket"></i> {% translate "Harvests" %}</a>
 </li>
 <li class="{% if request.resolver_match.url_name == 'property-list' %}active{% endif %}">
-    <a href="{% url 'property-list' %}?is_active=true"><i class="glyphicon glyphicon-tree-deciduous"></i> {% translate "Properties" %}</a>
+    <a href="{% url 'property-list' %}?is_active=true"><i class="fa fa-house"></i> {% translate "Properties" %}</a>
 </li>
 <li class="{% if request.resolver_match.url_name == 'organization-list' or request.resolver_match.url_name == 'organization-map' %}active{% endif %}">
     <a href="{% url 'organization-list' %}?type=1"><i class="fa fa-gift"></i> {% translate "Beneficiaries" %}</a>

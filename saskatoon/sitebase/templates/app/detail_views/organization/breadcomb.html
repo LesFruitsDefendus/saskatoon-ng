@@ -1,41 +1,39 @@
 {% load i18n %}
 {% load static %}
+
 <div class="breadcomb-area">
-    <div class="container">
+    <div class="breadcomb-list">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="breadcomb-list">
-                    <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                            <div class="breadcomb-wp">
-                                <div class="breadcomb-icon">
-                                    {% if is_equipment_point %}
-                                        <i class="fa fa-scissors"></i>
-                                    {% else %}
-                                        <i class="fa fa-gift"></i>
-                                    {% endif %}
-                                </div>
-                                <div class="breadcomb-ctn">
-                                    <h1>
-                                        {{ civil_name }}
-                                    </h1>
-                                    <h2>
-                                        {{ neighborhood.name }}
-                                    </h2>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
-                            <div class="breadcomb-report">
-                                {% if perms.member.change_organization %}
-                                    <a href="{% url 'organization-update' actor_id %}">
-                                        <button title="Edit Organization" class="btn">
-                                            {% trans "Edit Organization" %}</button>
-                                    </a>
-                                {% endif %}
-                            </div>
-                        </div>
+            <div class="col-xs-10">
+                <div class="breadcomb-wp">
+                    <div class="breadcomb-icon">
+                        {% if is_equipment_point %}
+                            <i class="fa fa-scissors"></i>
+                        {% else %}
+                            <i class="fa fa-gift"></i>
+                        {% endif %}
                     </div>
+                    <div class="breadcomb-ctn">
+                        <h1>
+                            {{ civil_name }}
+                        </h1>
+                        <h4>
+                            {{ neighborhood.name }}
+                        </h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-2">
+                <div class="breadcomb-report">
+                    {% if perms.member.change_organization %}
+                        <a href="{% url 'organization-update' actor_id %}">
+                            <button title="Edit Organization" class="btn">
+                                <i class="fa fa-pencil"></i>&nbsp;
+                                {% trans "Edit Organization" %}
+                            </button>
+                        </a>
+                    {% endif %}
                 </div>
             </div>
         </div>

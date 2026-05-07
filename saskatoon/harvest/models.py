@@ -550,6 +550,8 @@ class Harvest(models.Model):
 
     SEASON_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
+    CAN_RESERVE_EQUIPMENT = [Status.READY, Status.SCHEDULED, Status.SUCCEEDED]
+
     status = models.CharField(
         choices=Status.choices,
         max_length=20,
@@ -700,7 +702,7 @@ class Harvest(models.Model):
         title = ", ".join(self.get_fruits())
         neighborhood_name = self.get_neighborhood()
         if neighborhood_name != "Other":
-            title += f" @ {neighborhood_name}"
+            title += f" — {neighborhood_name}"
         return title
 
     def is_urgent(self) -> bool:

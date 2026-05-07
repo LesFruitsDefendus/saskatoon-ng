@@ -3,8 +3,9 @@
 <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
 
     <div class="contact-hd search-hd-eg">
+      <h2>
         {% if owner %}
-            <h2>{% trans "Owner" %}
+            {% trans "Owner" %}
             {% if owner_type.is_organization %}
                 <small>{% trans "(Organization)" %}</small>
             {% elif owner_type.is_person and perms.member.change_person %}
@@ -13,18 +14,17 @@
                         <i class="fa fa-pencil"></i> {% trans "edit" %}
                 </a></small>
             {% endif %}
-            </h2>
         {% else %}
-            <h2>{% trans "Unregistered owner" %}
+            {% trans "Unregistered owner" %}
             {% if perms.member.add_person %}
                 &nbsp;
                 <small><a href="{% url 'person-create' %}?pid={{id}}">
                         <i class="fa fa-pencil"></i> {% translate 'register' %}
                 </a></small>
             {% endif %}
-            </h2>
         {% endif %}
-        </h2><hr>
+            </h2>
+        <hr>
     </div>
 
     <p class="lead">
@@ -93,6 +93,7 @@
             </td>
         </tr>
         {% endif %}
+        </tbody>
     </table>
 
 </div>

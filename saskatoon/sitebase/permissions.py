@@ -6,27 +6,27 @@ Permissions = dict[ModelName, dict[Action, set[Role]]]
 
 PERMISSIONS: Permissions = {
     "pagecontent": {
-        "add":    set(),
+        "add": set(),
         "change": set(),
         "delete": set(),
     },
     "faqitem": {
-        "add":    set(),
+        "add": set(),
         "change": set(),
         "delete": set(),
     },
     "faqlist": {
-        "add":    set(),
+        "add": set(),
         "change": set(),
         "delete": set(),
     },
     "emailcontent": {
-        "add":    set(),
+        "add": set(),
         "change": set(),
         "delete": set(),
     },
     "email": {
-        "add":    set(),
+        "add": set(),
         "change": set(),
         "delete": set(),
     },

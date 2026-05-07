@@ -4,7 +4,7 @@ from django.db.models import Q, QuerySet
 from datetime import timedelta, datetime
 from secrets import choice
 from typeguard import typechecked
-from typing import Optional
+from typing import Optional, Union
 
 from member.models import AuthUser, Organization
 from harvest.models import Equipment, Harvest
@@ -51,46 +51,49 @@ def _valid_date_contract(_) -> bool:
     message="start and end must be offset aware",
 )
 @typechecked
-def available_equipment_points(
+def get_available_equipment_points(
     start: datetime,
     end: datetime,
-    harvest: Optional[Harvest],
+    harvest: Optional[Harvest] = None,
     buffer: timedelta = timedelta(hours=DEFAULT_RESERVATION_BUFFER),
 ) -> QuerySet[Organization]:
     """List all available equipment points for a given datetime range"""
 
-    try:
-        # A buffer gives pick leaders a bit of leeway in picking up and returning
-        # the equipment, since some harvest sites can be further away
-        start = start - buffer
-        end = end + buffer
+    # A buffer gives pick leaders a bit of leeway in picking up and returning
+    # the equipment, since some harvest sites can be further away
+    requested_start = start - buffer
+    requested_end = end + buffer
 
-        # If a harvest has already reserved the equipment point and starts or ends during the
-        # requested date range, then the equipment point is unavailable
-        start_between = Q(harvest__start_date__gte=start) & Q(harvest__start_date__lte=end)
-        end_between = Q(harvest__end_date__gte=start) & Q(harvest__end_date__lte=end)
+    # If another harvest has already reserved the equipment available in the equipment
+    # point and its datetime range overlaps, then the equipment point is unavailable.
+    query = Q(status__in=Harvest.CAN_RESERVE_EQUIPMENT)
 
-        # We only want scheduled and ready harvests to impact availability
-        is_active = Q(harvest__status__in=[Harvest.Status.SCHEDULED, Harvest.Status.READY])
+    # Dont include itself
+    if harvest is not None:
+        query = query & ~Q(pk=harvest.pk)
 
-        not_conflicting = (start_between | end_between) & is_active
+    start_between = Q(start_date__gte=requested_start, start_date__lte=requested_end)
+    end_between = Q(end_date__gte=requested_start, end_date__lte=requested_end)
+    surround = Q(start_date__lte=requested_start, end_date__gte=requested_end)
 
-        # We need to exclude the present harvest from the results
-        # so it doesnt conflict with itself
-        id = getattr(harvest, "pk", None)
-        not_itself = ~Q(harvest__pk=id)
+    conflicts = Harvest.objects.filter(query & (start_between | end_between | surround))
+    booked_equipment = Equipment.objects.filter(pk__in=conflicts.values('equipment_reserved'))
 
-        # To keep things simple, pick leaders must reserve entire equipment points.
-        # But in the interest of allowing a more granular system in the future,
-        # the harvest model still has a list of reserved equipment. This means that
-        # any equipment reservation for a harvest will make that entire equipment
-        # point reserved, even if part of it's equipment has not been added to the harvest
-        conflicting_orgs = Equipment.objects.filter(not_itself & not_conflicting).values("owner")
+    return Organization.objects.filter(is_equipment_point=True).exclude(
+        pk__in=booked_equipment.values('owner')
+    )
 
-        return Organization.objects.filter(is_equipment_point=True).exclude(
-            pk__in=conflicting_orgs
-        )
 
-    except Exception as _e:
-        logger.warning(_e)
-        return Organization.objects.none()
+@typechecked
+def is_equipment_point_available(
+    org: Organization,
+    start: Union[datetime, None],
+    end: Union[datetime, None],
+    harvest: Optional[Harvest] = None,
+) -> bool:
+    """Check if an equipment point is available for a given time range"""
+
+    if not org.is_equipment_point or start is None or end is None:
+        return False
+
+    return get_available_equipment_points(start, end, harvest).filter(pk=org.pk).exists()
