@@ -12,15 +12,6 @@
         {% csrf_token %}
         <div class="modelForm">
             {{ form|crispy }}
-            <style>
-                .modelForm {
-                    .invalid-feedback {
-                        text-align: left;
-                        color: #ff2079;
-                        font-size: 1.1em;
-                    }
-                }
-            </style>
         </div>
         <button type="submit" class="btn btn-primary notika-btn-primary">
         {% if save is not None %}{{ save }}{% else %}{% translate 'Save' %}{% endif %}
