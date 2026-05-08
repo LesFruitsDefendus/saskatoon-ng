@@ -4,7 +4,7 @@
 
 .main-content {
     header {
-        background-color: #e7e0f9;
+        background-color: #e7e0f9aa;
         display: grid;
         grid-template-columns: auto;
         gap: var(--saskatoon-gap);
@@ -24,7 +24,7 @@
     }
 
     section {
-        background-color: #e7e0f9;
+        background-color: #e7e0f9aa;
         padding: 20px 20px;
 
         h2 {

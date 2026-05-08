@@ -1,11 +1,11 @@
 .about {
 
-    img,
-    .breadcomb-list {
+    img {
         width: 75%;
         display: block;
         margin-left: auto;
         margin-right: auto;
+        border-radius: 50px;
     }
 
     h1 {
@@ -25,7 +25,8 @@
 
     ul {
         list-style-type: disc;
-        list-style-position: inside;
+        list-style-position: outside;
+        margin-left: 1em;
     }
 
     .roles li {

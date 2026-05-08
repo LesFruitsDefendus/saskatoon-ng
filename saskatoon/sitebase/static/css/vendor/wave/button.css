@@ -27,7 +27,7 @@
 	font-size:14px;
 }
 .btn-default.notika-btn-default{
-	background-color: #d4c7f9;
+	background-color: #d4c7f9aa;
 }
 .btn-info.notika-btn-info, .btn-info.info-icon-notika{
 	background-color: #2da4f0;
@@ -37,7 +37,7 @@
 }
 .open > .dropdown-toggle.btn-primary:hover,
 .open > .dropdown-toggle.btn-primary:focus {
-	background-color: #d4c7f9;
+	background-color: #d4c7f9aa;
 }
 .btn-success.notika-btn-success, .btn-success.success-icon-notika{
 	background-color: #8bc34a;
@@ -105,10 +105,10 @@
 	font-size:14px;
 }
 .notika-btn-cyan, .btn-cyan.cyan-icon-notika{
-	background:#d4c7f9;
+	background:#d4c7f9aa;
 }
 .btn-cyan.cyan-icon-notika:hover{
-	background:#d4c7f9;
+	background:#d4c7f9aa;
 }
 .notika-btn-teal, .btn-teal.teal-icon-notika{
 	background:#009688;

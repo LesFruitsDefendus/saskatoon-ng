@@ -41,15 +41,26 @@ class PageContent(models.Model):
         ordering = ['type']
 
     class Type(models.TextChoices):
-        VOLUNTEER_HOME = 'volunteer_home', _("Volunteer Home")
-        PICKLEADER_HOME = 'pickleader_home', _("Pickleader Home")
-        TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
-        PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
-        FAQ = 'faq', _("FAQ")
+        # Main homepage
+        HOME_INTRO = 'home_intro', _("Home Introduction")
+        HOME_VOLUNTEER = 'home_volunteer', _("Home Volunteers")
+        HOME_OWNER = 'home_owner', _("Home Tree Owners")
+        HOME_BENEFICIARY = 'home_beneficiary', _("Home Beneficiaries")
+        HOME_PICKLEADER = 'home_pickleader', _("Home Pickleaders")
+
+        # About page
         ABOUT_US = 'about_us', _("About Us")
         ABOUT_VALUES = 'about_values', _("About Values")
         ABOUT_ROLES = 'about_roles', _("About Roles")
+
+        # Publicly accessible content
+        PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
+        FAQ = 'faq', _("FAQ")
         PROPERTY_THANKS = 'property_thanks', _("New Property Thanks")
+
+        # Authenticated users
+        HOME_USER = 'home_user', _("Home Authenticated User")
+        TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
 
     type = models.CharField(
         verbose_name=_("Page type"),

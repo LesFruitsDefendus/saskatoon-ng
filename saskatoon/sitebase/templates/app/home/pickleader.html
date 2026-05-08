@@ -1,0 +1,15 @@
+{% load i18n %}
+{% load static %}
+
+{% get_current_language as LANG %}
+
+<div class="user-guides">
+    <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png" alt="harvest lifecycle"/>
+    <h1>{{ content.title }}</h1>
+    <h4>{{ content.subtitle }}</h4>
+    {{ content.body.html | safe }}
+
+    <br>
+    <h1> ⚠️ EN CONSTRUCTION ⚠️ </h1>
+
+</div>
