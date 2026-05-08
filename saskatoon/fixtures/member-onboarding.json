@@ -1,0 +1,12 @@
+[
+{
+  "model": "member.onboarding",
+  "pk": 1,
+  "fields": {
+    "name": "First Pickleader Training",
+    "datetime": "2026-05-08T02:50:48.240Z",
+    "all_sent": false,
+    "log": "[May 07, 2026 @ 10:52 PM]\r\n\t> OK onboarding@user.com"
+  }
+}
+]

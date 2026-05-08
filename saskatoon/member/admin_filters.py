@@ -40,8 +40,9 @@ class UserHasPasswordAdminFilter(SimpleListFilter):
         return [
             ('0', 'has no password'),
             ('1', 'has password'),
-            ('2', 'onboarding pickleader'),
-            ('3', 'active pickleader'),
+            ('2', 'has temporary password'),
+            ('3', 'onboarding pickleader'),
+            ('4', 'active pickleader'),
         ]
 
     def queryset(self, request, queryset):
@@ -55,12 +56,15 @@ class UserHasPasswordAdminFilter(SimpleListFilter):
             return queryset.exclude(password__exact='')
 
         if self.value() == '2':
+            return queryset.exclude(password__exact='').filter(has_temporary_password=True)
+
+        if self.value() == '3':
             group = Group.objects.get(name='volunteer')
             return queryset.exclude(password__exact='').filter(
                 groups__in=[group], is_active=True, has_temporary_password=True
             )
 
-        if self.value() == '3':
+        if self.value() == '4':
             group = Group.objects.get(name='pickleader')
             return queryset.exclude(password__exact='').filter(
                 groups__in=[group], is_active=True, has_temporary_password=False

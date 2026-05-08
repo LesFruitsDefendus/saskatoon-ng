@@ -11,6 +11,7 @@ FIXTURE_SEQUENCE = [
     'member-neighborhood',
     'member-state',
     'member-country',
+    'member-onboarding',
     'member-actor',
     'member-person',
     'member-organization',

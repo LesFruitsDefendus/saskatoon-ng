@@ -88,5 +88,20 @@
     "date_status_updated": "2026-07-25T23:00:03Z",
     "showed_up": null
   }
+},
+{
+  "model": "harvest.requestforparticipation",
+  "pk": 8,
+  "fields": {
+    "harvest": 4,
+    "person": 13,
+    "status": "pending",
+    "number_of_pickers": 1,
+    "comment": "J'apporterai quelques pêches à déguster!",
+    "notes": null,
+    "date_created": "2026-05-08T11:59:30.663Z",
+    "date_status_updated": null,
+    "showed_up": null
+  }
 }
 ]
