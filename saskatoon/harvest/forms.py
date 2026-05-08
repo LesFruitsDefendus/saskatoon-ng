@@ -86,9 +86,8 @@ class RFPForm(forms.ModelForm[RFP]):
             )
             auth_user = AuthUser.objects.create(email=email, person=instance.person)
 
-            group, __ = Group.objects.get_or_create(name='volunteer')
-            auth_user.groups.add(group)
-
+        group, __ = Group.objects.get_or_create(name='volunteer')
+        auth_user.groups.add(group)
         instance.save()
 
         Email(

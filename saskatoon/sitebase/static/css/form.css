@@ -1,0 +1,8 @@
+.modelForm {
+    .invalid-feedback {
+        text-align: left;
+        color: #ff2079;
+        font-size: 1.1em;
+        margin-top: 5px;
+    }
+}
