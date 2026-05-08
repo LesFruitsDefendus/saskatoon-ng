@@ -148,11 +148,12 @@
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
-                    "Pick Leader"
+                    "Pick Leader",
+                    "Volunteer Picker"
                 ],
                 "name": "Pick Leader",
                 "email": "pick@leader.com",
-                "phone": null,
+                "phone": "(333) 333-3333",
                 "neighborhood": {
                     "id": 34,
                     "name": "Autre"
@@ -335,11 +336,12 @@
             "pick_leader": {
                 "actor_id": 3,
                 "roles": [
-                    "Pick Leader"
+                    "Pick Leader",
+                    "Volunteer Picker"
                 ],
                 "name": "Pick Leader",
                 "email": "pick@leader.com",
-                "phone": null,
+                "phone": "(333) 333-3333",
                 "neighborhood": {
                     "id": 34,
                     "name": "Autre"
