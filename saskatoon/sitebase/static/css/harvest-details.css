@@ -58,12 +58,11 @@
 	}
 
 	th {
-		font-weight: normal;
+		font-weight: bold;
 	}
 
 	td {
-		font-weight: bold;
-		text-align: right;
+		font-weight: normal;
 	}
 }
 

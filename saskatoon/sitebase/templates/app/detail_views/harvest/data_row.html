@@ -100,9 +100,9 @@
                 {% trans "Decline" %}
             </button>
         </a>
-        {% else %}
+        {% elif user|is_core_or_admin %}
         <a href="{% url 'participation-update' r.id %}">
-            <i class="fa fa-eye"></i>
+            {% trans "Edit" %}&nbsp;<i class="fa fa-pencil"></i>
         </a>
         {% endif %}
     </td>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-07 21:58-0400\n"
+"POT-Creation-Date: 2026-05-07 23:27-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -585,6 +585,12 @@ msgstr "Acceptée"
 msgid "Decline"
 msgstr "Décliner"
 
+#: sitebase/templates/app/detail_views/harvest/data_row.html:105
+#: sitebase/templates/app/list_views/organization/data_row.html:27
+#: sitebase/templates/app/list_views/organization/data_row.html:42
+msgid "Edit"
+msgstr "Modifier"
+
 #: sitebase/templates/app/detail_views/harvest/data_table.html:5
 msgid "Pickers requests"
 msgstr "Demandes de cueilleur.euse.s"
@@ -1153,11 +1159,6 @@ msgstr "Cet organisme accepte les dons de fruits"
 #: sitebase/templates/app/list_views/property/data_row.html:7
 msgid "View"
 msgstr "Voir"
-
-#: sitebase/templates/app/list_views/organization/data_row.html:27
-#: sitebase/templates/app/list_views/organization/data_row.html:42
-msgid "Edit"
-msgstr "Modifier"
 
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:6
 msgid "Equipment point details dialog"
