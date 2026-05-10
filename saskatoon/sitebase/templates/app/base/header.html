@@ -1,135 +1,16 @@
 {% load static %}
 {% load i18n %}
-{% load auth_users %}
-{% get_current_language as LANGUAGE_CODE %}
-{% get_available_languages as LANGUAGES %}
-{% get_language_info_list for LANGUAGES as languages %}
-<div class="header-top-area mg-b-15">
+<div class="header-top-area">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-xs-12">
+            <div class="col-md-5 col-xs-12">
                 <div class="logo-area">
                     {% include 'app/base/logo.html' %}
                 </div>
             </div>
-            <div class="col-md-8 col-xs-12">
+            <div class="col-md-7 col-xs-12">
                 <div class="header-top-menu">
-                    <ul class="nav navbar-nav notika-top-nav">
-                        <li>
-                            <a href="{% url 'about' %}" class="notika-icon-link">{% translate "About" %}</a>
-                            </li>
-                        <li>
-                            <a href="{% url 'faq' %}" class="notika-icon-link">FAQ</a>
-                        </li>
-                        {% if user.is_authenticated %}
-                            <li class="nav-item dropdown">
-                                <a href="#"
-                                   data-toggle="dropdown"
-                                   role="button"
-                                   aria-expanded="false"
-                                   class="nav-link dropdown-toggle notika-icon-link">
-                                        <i class="notika-icon notika-support"></i>
-                                        {{ user }}
-                                        <i class="fa fa-caret-down"></i>
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li>
-                                        <a href="{% url 'privacy_policy' %}">{% translate "Privacy policy" %}</a>
-                                    </li>
-                                    <li>
-                                        <a href={% url "logout" %}>{% translate "Logout" %}</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            {% if user.is_staff %}
-                                <li class="nav-item dropdown">
-                                    <a href="#"
-                                       data-toggle="dropdown"
-                                       role="button"
-                                       aria-expanded="false"
-                                       class="nav-link dropdown-toggle notika-icon-link"
-                                    >
-                                        <i class="notika-icon notika-app"></i> {% translate "Admin" %}
-                                        <i class="fa fa-caret-down"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        {% if user|is_core_or_admin %}
-                                            <li>
-                                                <a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.member.add_authuser %}
-                                        <li>
-                                            <a href="{% url 'person-create' %}">{% translate "Add new user" %}</a>
-                                        </li>
-                                        {% endif %}
-                                        {% if user|is_translator %}
-                                            <li>
-                                                <a href="{% url 'rosetta-old-home-redirect' %}">{% translate "Translations" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.sitebase.change_emailcontent %}
-                                            <li>
-                                                <a href="{% url 'admin:sitebase_emailcontent_changelist' %}">{% translate "Emails content" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.sitebase.change_pagecontent %}
-                                            <li>
-                                                <a href="{% url 'admin:sitebase_pagecontent_changelist' %}">{% translate "Homepage content" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.member.change_organization %}
-                                            <li>
-                                                <a href="{% url 'admin:member_organization_changelist' %}">{% translate "Equipment points" %}</a>
-                                            </li>
-                                        {% endif %}
-                                        {% if perms.harvest.change_treetype %}
-                                            <li>
-                                                <a href="{% url 'admin:harvest_treetype_changelist' %}">{% translate "Fruit maturity dates" %}</a>
-                                            </li>
-                                        {% endif %}
-                                    </ul>
-                                </li>
-                            {% endif %}
-                        {% else %}
-                            <li>
-                                <a href='{% url 'login' %}'
-                                   class="notika-icon-link"
-                                >
-                                    <i class="notika-icon notika-support"></i>
-                                    {% translate 'login' %}
-                                </a>
-                            </li>
-                        {% endif %}
-                        <li class="nav-item dropdown">
-                            <a href="#"
-                               data-toggle="dropdown"
-                               role="button"
-                               aria-expanded="false"
-                               class="nav-link dropdown-toggle notika-icon-link"
-                            >
-                                {% translate "Language" %}: <b>{{ LANGUAGE_CODE }}</b>
-                                <i class="fa fa-caret-down"></i>
-                                <form action="{% url 'set_language' %}"
-                                      method="post"
-                                      style="display: none"
-                                      id="change_language_form"
-                                >
-                                    {% csrf_token %}
-                                    <input type="hidden" value="" name="language" id="language" />
-                                </form>
-                            </a>
-                            <ul class="dropdown-menu">
-                                {% for language in languages %}
-                                    <li>
-                                        <a lang_code="{{ language.code }}" class="change_language" href="#">
-                                            {{ language.name_local|title }} ({{ language.code }})
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    </ul>
+                    {% include 'app/base/navbar.html' %}
                 </div>
             </div>
         </div>

@@ -273,8 +273,8 @@ msgid "Language"
 msgstr "Langue"
 
 #: sitebase/templates/app/base/logo.html:15
-msgid "Montreal's urban fruit harvesting collective"
-msgstr "Le collectif de glanage urbain montréalais"
+msgid "Urban fruit harvesting collective"
+msgstr "Collectif de glanage urbain"
 
 #: sitebase/templates/app/base/menu-tabs.html:6
 msgid "Calendar"
