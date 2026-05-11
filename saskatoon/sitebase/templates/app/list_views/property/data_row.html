@@ -6,15 +6,16 @@
 {% get_current_language as LANG %}
 <tr>
     <td>
-        <a href="{% url 'property-detail' property.id %}" title="{% trans 'View' %} {{ property.title }}">
-        # {{ property.id }}&nbsp;
-        <small><i class="fa fa-eye"></i></small>
+        <a href="{% url 'property-detail' property.id %}"
+           title="{% trans 'View' %} {{ property.title }}">
+            # {{ property.id }}&nbsp;
+            <small><i class="fa fa-eye"></i></small>
         </a>
         {% if perms.harvest.delete_property %}
             &nbsp;
             <small>
-                <a href="{% url 'admin:harvest_property_delete' property.id %}" onclick="return confirm('{% trans " Are you really
-                    sure you want to delete this property?" %}');">
+                <a href="{% url 'admin:harvest_property_delete' property.id %}"
+                   onclick="return confirm('{% trans " Are you really sure you want to delete this property?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             </small>
@@ -29,9 +30,7 @@
             </a>
         {% endif %}
     </td>
-    <td>
-        {{ property.neighborhood }}
-    </td>
+    <td>{{ property.neighborhood }}</td>
     <td>
         <span class="badge {{ property.status | property_status }}">{{ property.status.label }}</span>
     </td>
@@ -39,9 +38,9 @@
         {% for tree in property.trees %}
             <div class="text-nowrap">
                 {% if LANG == "en" %}
-                    {{tree.fruit_name_en}}
+                    {{ tree.fruit_name_en }}
                 {% else %}
-                    {{tree.fruit_name_fr}}
+                    {{ tree.fruit_name_fr }}
                 {% endif %}
             </div>
         {% endfor %}
@@ -49,29 +48,33 @@
     <td>
         <ul class="list-inline">
             {% for harvest in property.harvests %}
-            <li style="padding-top: 0.5em;">
-                <a class="{{ harvest.status | color }}" data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' harvest.id %}"
-                    title="#{{ harvest.id }}: {{ harvest.start_date }} -
-                                   {% if harvest.pick_leader %}{{ harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
-                >
-                 {{ harvest.status | harvest_icon | safe }}
-                </a>
-            </li>
+                <li style="padding-top: 0.5em;">
+                    <a class="{{ harvest.status | color }}"
+                       data-placement="top"
+                       data-toggle="tooltip"
+                       href="{% url 'harvest-detail' harvest.id %}"
+                       title="#{{ harvest.id }}: {{ harvest.start_date }} -
+                              {% if harvest.pick_leader %}
+                                  {{ harvest.pick_leader.name }}
+                              {% else %}
+                                  {% trans 'Orphan' %}
+                              {% endif %}">{{ harvest.status | harvest_icon | safe }}</a>
+                </li>
             {% endfor %}
         </ul>
     </td>
     <td>
-            {% if property.last_succeeded_harvest %}
-                            <a {{ property.last_succeeded_harvest|harvest_link_attributes|safe }}>
-                                {{ property.last_succeeded_harvest.start_date }}
-                            </a>
+        {% if property.last_succeeded_harvest %}
+            <a {{ property.last_succeeded_harvest|harvest_link_attributes|safe }}>
+                {{ property.last_succeeded_harvest.start_date }}
+            </a>
         {% endif %}
     </td>
     <td>
-            {% if property.next_harvest %}
-                            <a {{ property.next_harvest|harvest_link_attributes|safe }}>
-                                {{ property.next_harvest.start_date }}
-                            </a>
-            {% endif %}
+        {% if property.next_harvest %}
+            <a {{ property.next_harvest|harvest_link_attributes|safe }}>
+                {{ property.next_harvest.start_date }}
+            </a>
+        {% endif %}
     </td>
 </tr>

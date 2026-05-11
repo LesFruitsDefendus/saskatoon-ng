@@ -5,10 +5,10 @@
 {% load harvest_status %}
 
 {% block style %}
-    <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}"></link>
-    <link rel="stylesheet" href="{% static 'css/dialog.css' %}"></link>
-    <link rel="stylesheet" href="{% static 'css/map.css' %}"></link>
-    <link rel="stylesheet" href="{% static 'css/colors.css' %}"></link>
+    <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
+    <link rel="stylesheet" href="{% static 'css/map.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}">
 {% endblock style %}
 
 {% block script %}
@@ -51,11 +51,12 @@
                         </p>
                     {% endif %}
                     {% if property.next_harvest %}
-                       <p>
+                        <p>
                             {% trans 'Next harvest is on' %}
                             <a {{ property.next_harvest|harvest_link_attributes|safe }}>
                                 {{ property.next_harvest.start_date }}
                             </a>
+                        </p>
                     {% endif %}
 
                     {% for tree in property.trees %}
@@ -71,7 +72,8 @@
                                 {% for harvest in property.harvests %}
                                     {% if tree in harvest.trees %}
                                         <li style="padding-top: 0.5em;">
-                                            <a class="{{ harvest.status | color }}" {{ harvest|harvest_link_attributes|safe }}>
+                                            <a class="{{ harvest.status | color }}"
+                                               {{ harvest|harvest_link_attributes|safe }}>
                                                 {{ harvest.status | harvest_icon | safe }}
                                             </a>
                                         </li>
@@ -84,31 +86,31 @@
                         <h5>{% trans "Owner" %}</h5>
                         <address>
                             {{ property.owner_name }}
-                        <br>
-                        {{ property.address }}, {{ property.neighborhood.name }}
-                    <br>
-                    {% if property.owner.phone is not None %}
-                        {{ property.owner.phone }}
-                    <br>
+                            <br>
+                            {{ property.address }}, {{ property.neighborhood.name }}
+                            <br>
+                            {% if property.owner.phone is not None %}
+                                {{ property.owner.phone }}
+                                <br>
+                            {% endif %}
+                            {% if property.owner.email is not None %}
+                                <a href="mailto:{{ property.owner.email }}">{{ property.owner.email }}</a>
+                            {% endif %}
+                        </address>
+                    </section>
+                    <a
+                        class="btn btn-primary notika-btn-primary waves-effect""
+                        href="{% url 'property-detail' property.id %}"
+                        >
+                        See details
+                    </a>
+                    </leaflet-popup>
+                    </leaflet-marker>
                 {% endif %}
-                {% if property.owner.email is not None %}
-                    <a href="mailto:{{ property.owner.email }}">{{ property.owner.email }}</a>
-                {% endif %}
-            </address>
-        </section>
-        <a
-            class="btn btn-primary notika-btn-primary waves-effect""
-            href="{% url 'property-detail' property.id %}"
-            >
-            See details
-        </a>
-        </leaflet-popup>
-        </leaflet-marker>
-    {% endif %}
-{% endfor %}
-</leaflet-map>
-{% include 'app/list_views/property/legend.html' %}
-{% endwith %}
-</section>
-</tab-list>
+            {% endfor %}
+            </leaflet-map>
+            {% include 'app/list_views/property/legend.html' %}
+        {% endwith %}
+    </section>
+    </tab-list>
 {% endblock data %}
