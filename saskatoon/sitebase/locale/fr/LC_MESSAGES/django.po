@@ -223,7 +223,7 @@ msgstr ""
 
 #: sitebase/templates/app/base/logo.html:14
 msgid "Urban fruit harvesting collective"
-msgstr "Le collectif de glanage urbain montréalais"
+msgstr "Collectif de glanage urbain"
 
 #: sitebase/templates/app/base/menu-tabs.html:6
 msgid "Calendar"
