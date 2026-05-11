@@ -5,8 +5,8 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}"></link>
-    <link rel="stylesheet" href="{% static 'css/dialog.css' %}"></link>
-    <link rel="stylesheet" href="{% static 'css/colors.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/dialog.css' %}"></link>
+<link rel="stylesheet" href="{% static 'css/colors.css' %}"></link>
 {% endblock style %}
 
 {% block script %}
@@ -14,39 +14,36 @@
 {% endblock script %}
 
 {% block data %}
-  <tab-list role="tablist">
-    <nav>
-      <span role="tab" id="table-tab">{% trans 'Table' %}</span>
-      <a href="./map" rel="keep-params">{% trans 'Map' %}</a>
-    </nav>
-    <section
-      role="tabpanel"
-      class="table-responsive"
-      aria-labelledby="table-tab"
-    >        <div class="dataTables_wrapper">
-          <table class="table table-striped datatable-minimal">
-            <thead>
-                <tr>
-                    <th class="col-xs-1">#</th>
-                    <th class="col-xs-3">{% trans "Property" %}</th>
-                    <th class="col-xs-1">{% trans "Borough" %}</th>
-                    <th class="col-xs-1">{% trans "Status" %}</th>
-                    <th class="col-xs-1">{% trans "Tree(s)" %}</th>
-                    <th class="col-xs-1">{% trans "Picks" %}</th>
-                    <th class="col-xs-1">{% trans "Last pick" %}</th>
-                    <th class="col-xs-1">{% trans "Next pick" %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for property in data %}
+    <tab-list role="tablist">
+        <nav>
+            <span role="tab" id="table-tab">{% trans 'Table' %}</span>
+            <a href="./map" rel="keep-params">{% trans 'Map' %}</a>
+        </nav>
+        <section role="tabpanel" class="table-responsive" aria-labelledby="table-tab">
+            <div class="dataTables_wrapper">
+                <table class="table table-striped datatable-minimal">
+                    <thead>
+                        <tr>
+                            <th class="col-xs-1">#</th>
+                            <th class="col-xs-3">{% trans "Property" %}</th>
+                            <th class="col-xs-1">{% trans "Borough" %}</th>
+                            <th class="col-xs-1">{% trans "Status" %}</th>
+                            <th class="col-xs-1">{% trans "Tree(s)" %}</th>
+                            <th class="col-xs-1">{% trans "Picks" %}</th>
+                            <th class="col-xs-1">{% trans "Last pick" %}</th>
+                            <th class="col-xs-1">{% trans "Next pick" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for property in data %}
 
-                    {% include 'app/list_views/property/data_row.html' %}
+                            {% include 'app/list_views/property/data_row.html' %}
 
-                {% endfor %}
-            </tbody>
-          </table>
-        </div>
-      {% include 'app/list_views/property/legend.html' %}
-    </section>
-  </tab-list>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% include 'app/list_views/property/legend.html' %}
+        </section>
+    </tab-list>
 {% endblock data %}
