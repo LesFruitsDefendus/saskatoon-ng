@@ -22,6 +22,7 @@ setup(
         "cffi>=1.14.0,<2",
         "crispy-bootstrap4>=2022.1,<2024",
         "cryptography>=3.3.2,<45",
+        "cssbeautifier",
         "Django>=4.0.0,<5",
         "djangorestframework>=3.11.0,<4",
         "django-autocomplete-light>=3.8.2,<4",
