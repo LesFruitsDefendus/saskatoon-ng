@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-07 23:27-0400\n"
+"POT-Creation-Date: 2026-05-10 15:01-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,7 +203,7 @@ msgid "Social Media"
 msgstr "Médias Sociaux"
 
 #: sitebase/templates/app/base/footer.html:82
-#: sitebase/templates/app/base/header.html:19
+#: sitebase/templates/app/base/navbar.html:15
 #: sitebase/templates/app/detail_views/organization/about.html:5
 msgid "About"
 msgstr "À propos"
@@ -221,60 +221,9 @@ msgstr ""
 "cueilleur.euse.s bénévoles afin d'aider à réduire le gaspillage de "
 "nourriture."
 
-#: sitebase/templates/app/base/header.html:37
-msgid "Privacy policy"
-msgstr "Politique de confidentialité"
-
-#: sitebase/templates/app/base/header.html:40
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: sitebase/templates/app/base/header.html:52
-msgid "Admin"
-msgstr "Administration"
-
-#: sitebase/templates/app/base/header.html:58
-msgid "Admin panel"
-msgstr "Panneau d'administration"
-
-#: sitebase/templates/app/base/header.html:63
-msgid "Add new user"
-msgstr "Ajouter un utilisateur.trice"
-
-#: sitebase/templates/app/base/header.html:68
-msgid "Translations"
-msgstr "Traductions"
-
-#: sitebase/templates/app/base/header.html:73
-msgid "Emails content"
-msgstr "Contenu des courriels"
-
-#: sitebase/templates/app/base/header.html:78
-msgid "Homepage content"
-msgstr "Contenu de la page d'accueil"
-
-#: sitebase/templates/app/base/header.html:83
-msgid "Equipment points"
-msgstr "Points d'Equipement"
-
-#: sitebase/templates/app/base/header.html:88
-msgid "Fruit maturity dates"
-msgstr "Dates de maturité des fruits"
-
-#: sitebase/templates/app/base/header.html:100
-msgid "login"
-msgstr "Connexion"
-
-#: sitebase/templates/app/base/header.html:111
-#: sitebase/templates/app/detail_views/harvest/about.html:65
-#: sitebase/templates/app/detail_views/organization/contact.html:57
-#: sitebase/templates/app/detail_views/property/contact.html:78
-msgid "Language"
-msgstr "Langue"
-
-#: sitebase/templates/app/base/logo.html:15
-msgid "Montreal's urban fruit harvesting collective"
-msgstr "Le collectif de glanage urbain montréalais"
+#: sitebase/templates/app/base/logo.html:14
+msgid "Urban fruit harvesting collective"
+msgstr "Collectif de glanage urbain"
 
 #: sitebase/templates/app/base/menu-tabs.html:6
 msgid "Calendar"
@@ -309,6 +258,50 @@ msgstr "Communauté"
 msgid "Statistics"
 msgstr "Statistiques"
 
+#: sitebase/templates/app/base/navbar.html:33
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: sitebase/templates/app/base/navbar.html:36
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: sitebase/templates/app/base/navbar.html:48
+msgid "Admin"
+msgstr "Administration"
+
+#: sitebase/templates/app/base/navbar.html:54
+msgid "Admin panel"
+msgstr "Panneau d'administration"
+
+#: sitebase/templates/app/base/navbar.html:59
+msgid "Add new user"
+msgstr "Ajouter un utilisateur.trice"
+
+#: sitebase/templates/app/base/navbar.html:64
+msgid "Translations"
+msgstr "Traductions"
+
+#: sitebase/templates/app/base/navbar.html:69
+msgid "Emails content"
+msgstr "Contenu des courriels"
+
+#: sitebase/templates/app/base/navbar.html:74
+msgid "Homepage content"
+msgstr "Contenu de la page d'accueil"
+
+#: sitebase/templates/app/base/navbar.html:79
+msgid "Equipment points"
+msgstr "Points d'Equipement"
+
+#: sitebase/templates/app/base/navbar.html:84
+msgid "Fruit maturity dates"
+msgstr "Dates de maturité des fruits"
+
+#: sitebase/templates/app/base/navbar.html:96
+msgid "login"
+msgstr "Connexion"
+
 #: sitebase/templates/app/calendar/adopted-modal.html:12
 msgid "this harvest has been adopted"
 msgstr "cette récolte a été adoptée"
@@ -327,7 +320,7 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/detail_views/harvest/about.html:24
 #: sitebase/templates/app/detail_views/harvest/equipment.html:15
 #: sitebase/templates/app/detail_views/harvest/status.html:19
-#: sitebase/templates/app/forms/participation_create_form.html:42
+#: sitebase/templates/app/forms/participation_create_form.html:46
 msgid "to"
 msgstr "à"
 
@@ -536,6 +529,12 @@ msgstr "Propriétaire"
 msgid "Phone"
 msgstr "Téléphone"
 
+#: sitebase/templates/app/detail_views/harvest/about.html:65
+#: sitebase/templates/app/detail_views/organization/contact.html:57
+#: sitebase/templates/app/detail_views/property/contact.html:78
+msgid "Language"
+msgstr "Langue"
+
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:42
 msgid "Edit Harvest"
 msgstr "Éditer la récolte"
@@ -642,7 +641,7 @@ msgid "Fruit"
 msgstr "Fruits"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
-#: sitebase/templates/app/forms/model_form.html:26
+#: sitebase/templates/app/forms/model_form.html:17
 #: sitebase/templates/app/forms/organization_create_form.html:44
 #: sitebase/templates/app/forms/property_create_form.html:61
 msgid "Save"
@@ -1035,11 +1034,11 @@ msgstr "Retour"
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquement Posées"
 
-#: sitebase/templates/app/forms/base.html:19
+#: sitebase/templates/app/forms/base.html:23
 msgid "Could not save form: some fields are invalid."
 msgstr "Impossible de sauver le formulaire: Certains champs sont invalides."
 
-#: sitebase/templates/app/forms/model_form.html:30
+#: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:48
 #: sitebase/templates/app/forms/property_create_form.html:65
 msgid "Cancel"
@@ -1049,11 +1048,11 @@ msgstr "Annuler"
 msgid "Contact Person"
 msgstr "Personne resource"
 
-#: sitebase/templates/app/forms/participation_create_form.html:18
+#: sitebase/templates/app/forms/participation_create_form.html:22
 msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
-#: sitebase/templates/app/forms/participation_create_form.html:79
+#: sitebase/templates/app/forms/participation_create_form.html:85
 #: sitebase/templates/app/forms/property_create_public.html:23
 msgid "Send"
 msgstr "Envoyer"
@@ -1074,6 +1073,7 @@ msgstr "Arbres"
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
+#: sitebase/templates/app/home/anonymous.html:15
 #: sitebase/templates/app/index.html:30
 msgid "Go to calendar"
 msgstr "Calendrier des récoltes"

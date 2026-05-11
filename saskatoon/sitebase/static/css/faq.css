@@ -1,4 +1,8 @@
 .faq {
+    h1 {
+        margin-top: 0.5em;
+    }
+
     h4 {
         margin-bottom: 1em;
     }
