@@ -1,75 +1,75 @@
 :root {
-	--saskatoon-gap: 15px;
+    --saskatoon-gap: 15px;
 }
 
 .main-content {
-	header {
-		background-color: #e7e0f9;
-		display: grid;
-		grid-template-columns: auto;
-		gap: var(--saskatoon-gap);
+    header {
+        background-color: #e7e0f9;
+        display: grid;
+        grid-template-columns: auto;
+        gap: var(--saskatoon-gap);
 
-		a {
-			margin-top: auto;
-			margin-bottom: auto;
-		}
-	}
+        a {
+            margin-top: auto;
+            margin-bottom: auto;
+        }
+    }
 
-	section {
-		background-color: #e7e0f9;
-		padding: 20px 20px;
+    section {
+        background-color: #e7e0f9;
+        padding: 20px 20px;
 
-		h2 {
-			font-size: 20px;
-			color: #333;
-		}
+        h2 {
+            font-size: 20px;
+            color: #333;
+        }
 
-		p {
-			font-size: 14px;
-			color: #333;
-		}
-	}
+        p {
+            font-size: 14px;
+            color: #333;
+        }
+    }
 
-	.harvest-info,
-	.property-and-announcements,
-	.distribution-and-comments {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-		gap: var(--saskatoon-gap);
-		margin-bottom: var(--saskatoon-gap);
-	}
+    .harvest-info,
+    .property-and-announcements,
+    .distribution-and-comments {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: var(--saskatoon-gap);
+        margin-bottom: var(--saskatoon-gap);
+    }
 
-	.property-and-announcements {
-		grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-	}
+    .property-and-announcements {
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    }
 
-	.distribution-and-comments {
-		grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-	}
+    .distribution-and-comments {
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    }
 
-	.equipment-point,
-	.picker-requests {
-		margin-bottom: var(--saskatoon-gap);
-	}
+    .equipment-point,
+    .picker-requests {
+        margin-bottom: var(--saskatoon-gap);
+    }
 
-	table {
-		width: 100%;
-		overflow: auto;
-	}
+    table {
+        width: 100%;
+        overflow: auto;
+    }
 
-	th {
-		font-weight: bold;
-	}
+    th {
+        font-weight: bold;
+    }
 
-	td {
-		font-weight: normal;
-	}
+    td {
+        font-weight: normal;
+    }
 }
 
 @media (min-width: 400px) {
-	.main-content {
-		section > header {
-			grid-template-columns: auto min-content;
-		}
-	}
+    .main-content {
+        section > header {
+            grid-template-columns: auto min-content;
+        }
+    }
 }

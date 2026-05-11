@@ -60,3 +60,7 @@ jobs:
     - name: Run djlint
       run: |
         tox -e djlint
+
+    - name: Run css-beautify
+      run: |
+        tox -e css-beautify && git diff --exit-code

@@ -28,6 +28,7 @@ staticchecks:
 	@tox -e pytype
 	@tox -e ruff_format
 	@tox -e djlint
+	@tox -e css-beautify
 
 unittests:
 	@tox -e unittests
