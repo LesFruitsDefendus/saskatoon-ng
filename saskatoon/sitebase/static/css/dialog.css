@@ -1,21 +1,21 @@
 html:has(dialog[open]) {
-	overflow: hidden;
+    overflow: hidden;
 }
 
 dialog {
-	border: none;
-	border-radius: 10px;
-	min-width: 50vw;
+    border: none;
+    border-radius: 10px;
+    min-width: 50vw;
 
-	&::backdrop {
-		background: rgba(0, 0, 0, 0.25);
-	}
+    &::backdrop {
+        background: rgba(0, 0, 0, 0.25);
+    }
 }
 
 dialog.confirmation {
-	border: 2px solid #ff2079;
+    border: 2px solid #ff2079;
     padding: 20px;
-	min-width: 35vw;
+    min-width: 35vw;
 
     .btn-group .btn {
         width: 100px;
@@ -25,12 +25,12 @@ dialog.confirmation {
 }
 
 .no-dialog-btn {
-	display: inline-block;
-	margin: 0;
-	padding: 7px 13px;
-	font-weight: 400;
-	text-align: center;
-	vertical-align: middle;
-	font-size: 14px;
-	line-height: 1.42857143;
+    display: inline-block;
+    margin: 0;
+    padding: 7px 13px;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 1.42857143;
 }

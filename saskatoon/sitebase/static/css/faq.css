@@ -10,7 +10,7 @@
     div > section > ul {
         details {
             border-radius: 2px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
             background: #d4c7f9;
             padding: 1em;
             padding-bottom: 0.3em;
