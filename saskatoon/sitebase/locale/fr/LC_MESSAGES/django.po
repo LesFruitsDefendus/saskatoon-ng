@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-07 11:19+0000\n"
+"POT-Creation-Date: 2026-05-11 20:32+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -327,7 +327,7 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/detail_views/harvest/about.html:24
 #: sitebase/templates/app/detail_views/harvest/equipment.html:15
 #: sitebase/templates/app/detail_views/harvest/status.html:19
-#: sitebase/templates/app/forms/participation_create_form.html:42
+#: sitebase/templates/app/forms/participation_create_form.html:46
 msgid "to"
 msgstr "à"
 
@@ -341,7 +341,7 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
 #: sitebase/templates/app/list_views/harvest/view.html:17
-#: sitebase/templates/app/list_views/property/view.html:34
+#: sitebase/templates/app/list_views/property/view.html:33
 msgid "Status"
 msgstr "Statut"
 
@@ -440,11 +440,7 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/list_views/property/data_row.html:55
-#: sitebase/templates/app/list_views/property/data_row.html:68
-#: sitebase/templates/app/list_views/property/data_row.html:80
-#: sitebase/templates/app/list_views/property/map.html:71
-#: sitebase/templates/app/list_views/property/map.html:84
-#: sitebase/templates/app/list_views/property/map.html:107
+#: sitebase/templatetags/harvest_status.py:94
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -531,7 +527,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:118
+#: sitebase/templates/app/list_views/property/map.html:84
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -590,6 +586,12 @@ msgstr "Acceptée"
 msgid "Decline"
 msgstr "Décliner"
 
+#: sitebase/templates/app/detail_views/harvest/data_row.html:105
+#: sitebase/templates/app/list_views/organization/data_row.html:28
+#: sitebase/templates/app/list_views/organization/data_row.html:43
+msgid "Edit"
+msgstr "Éditer"
+
 #: sitebase/templates/app/detail_views/harvest/data_table.html:5
 msgid "Pickers requests"
 msgstr "Demandes de cueilleur.euse.s"
@@ -641,7 +643,7 @@ msgid "Fruit"
 msgstr "Fruits"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
-#: sitebase/templates/app/forms/model_form.html:26
+#: sitebase/templates/app/forms/model_form.html:17
 #: sitebase/templates/app/forms/organization_create_form.html:44
 #: sitebase/templates/app/forms/property_create_form.html:61
 msgid "Save"
@@ -838,23 +840,23 @@ msgstr "Accessibilité"
 msgid "Additional information"
 msgstr "Information additionnelle"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:27
+#: sitebase/templates/app/detail_views/property/breadcomb.html:26
 msgid "PENDING"
 msgstr "EN ATTENTE"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:29
+#: sitebase/templates/app/detail_views/property/breadcomb.html:28
 msgid "Last succeeded harvest"
 msgstr "Dernière récolte réussie"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:33
+#: sitebase/templates/app/detail_views/property/breadcomb.html:32
 msgid "No succeeded harvest on this property so far"
 msgstr "Pas de récolte réussie pour l'instant"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:47
+#: sitebase/templates/app/detail_views/property/breadcomb.html:45
 msgid "Authorize"
 msgstr "Autoriser"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:54
+#: sitebase/templates/app/detail_views/property/breadcomb.html:52
 msgid "Edit Property"
 msgstr "Éditer la propriété"
 
@@ -977,7 +979,7 @@ msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
 #: sitebase/templates/app/list_views/harvest/view.html:20
-#: sitebase/templates/app/list_views/property/view.html:35
+#: sitebase/templates/app/list_views/property/view.html:34
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
@@ -992,7 +994,7 @@ msgstr "Propriétés similaires"
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:18
-#: sitebase/templates/app/list_views/property/view.html:32
+#: sitebase/templates/app/list_views/property/view.html:31
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
 msgstr "Propriété"
@@ -1003,7 +1005,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/equipment/view.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:19
 #: sitebase/templates/app/list_views/organization/organizations.html:36
-#: sitebase/templates/app/list_views/property/view.html:33
+#: sitebase/templates/app/list_views/property/view.html:32
 #: sitebase/templates/app/participation_list.html:21
 #: sitebase/templates/app/stats.html:167
 msgid "Borough"
@@ -1037,11 +1039,11 @@ msgstr "Retour"
 msgid "Frequently Asked Questions"
 msgstr "Questions Fréquement Posées"
 
-#: sitebase/templates/app/forms/base.html:19
+#: sitebase/templates/app/forms/base.html:23
 msgid "Could not save form: some fields are invalid."
 msgstr "Impossible de sauver le formulaire: Certains champs sont invalides."
 
-#: sitebase/templates/app/forms/model_form.html:30
+#: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:48
 #: sitebase/templates/app/forms/property_create_form.html:65
 msgid "Cancel"
@@ -1051,11 +1053,11 @@ msgstr "Annuler"
 msgid "Contact Person"
 msgstr "Personne resource"
 
-#: sitebase/templates/app/forms/participation_create_form.html:18
+#: sitebase/templates/app/forms/participation_create_form.html:22
 msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
-#: sitebase/templates/app/forms/participation_create_form.html:79
+#: sitebase/templates/app/forms/participation_create_form.html:85
 #: sitebase/templates/app/forms/property_create_public.html:23
 msgid "Send"
 msgstr "Envoyer"
@@ -1163,11 +1165,6 @@ msgstr "Cet organisme accepte les dons de fruits"
 msgid "View"
 msgstr ""
 
-#: sitebase/templates/app/list_views/organization/data_row.html:28
-#: sitebase/templates/app/list_views/organization/data_row.html:43
-msgid "Edit"
-msgstr "Éditer"
-
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:6
 msgid "Equipment point details dialog"
 msgstr "Dialogue de détails de point d'équipement"
@@ -1183,14 +1180,14 @@ msgstr "Pas d'Équipement"
 #: sitebase/templates/app/list_views/organization/map.html:20
 #: sitebase/templates/app/list_views/organization/organizations.html:18
 #: sitebase/templates/app/list_views/property/map.html:21
-#: sitebase/templates/app/list_views/property/view.html:20
+#: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:19
 #: sitebase/templates/app/list_views/property/map.html:22
-#: sitebase/templates/app/list_views/property/view.html:21
+#: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
 
@@ -1255,23 +1252,23 @@ msgstr "Récolte Orpheline"
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
-#: sitebase/templates/app/list_views/property/map.html:68
+#: sitebase/templates/app/list_views/property/map.html:47
 msgid "Last harvest was on"
 msgstr "La dernière récolte était le"
 
-#: sitebase/templates/app/list_views/property/map.html:81
+#: sitebase/templates/app/list_views/property/map.html:55
 msgid "Next harvest is on"
 msgstr "La prochaine récolte est le"
 
-#: sitebase/templates/app/list_views/property/view.html:36
+#: sitebase/templates/app/list_views/property/view.html:35
 msgid "Picks"
 msgstr "Récoltes"
 
-#: sitebase/templates/app/list_views/property/view.html:37
+#: sitebase/templates/app/list_views/property/view.html:36
 msgid "Last pick"
 msgstr "Dernière récolte"
 
-#: sitebase/templates/app/list_views/property/view.html:38
+#: sitebase/templates/app/list_views/property/view.html:37
 msgid "Next pick"
 msgstr "Prochaine récolte"
 

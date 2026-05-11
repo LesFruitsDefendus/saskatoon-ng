@@ -1,1 +1,5 @@
 ignore="H021,H023,H006,H031,T002,T001"
+max_blank_lines=1
+indent=4
+format_attribute_template_tags=true
+max_line_length=90

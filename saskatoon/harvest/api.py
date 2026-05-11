@@ -147,7 +147,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
 
 
 class PropertyMapView(LoginRequiredMixin, generics.ListAPIView[Property]):
-    """List view for organizations that are equipment points."""
+    """Map associated with the Property list view"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')

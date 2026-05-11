@@ -208,8 +208,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Statically served PDF files
-EQUIPMENT_POINTS_PDF_PATH = os.path.join(MEDIA_ROOT, "guides/equipment_points.pdf")
-VOLUNTEER_WAIVER_PDF_PATH = os.path.join(MEDIA_ROOT, "guides/volunteer_waiver.pdf")
+VOLUNTEER_WAIVER_PDF_PATH = os.path.join(MEDIA_ROOT, "volunteer_waiver.pdf")
 
 # EMAIL SERVER
 EMAIL_BACKEND = os.getenv('SASKATOON_EMAIL_BACKEND')
@@ -313,6 +312,7 @@ EMAIL_LIST_OUTPUT = os.path.join(BASE_DIR, 'logs/emaillist.csv')
 # Equipment Point reservation buffer in hours
 DEFAULT_RESERVATION_BUFFER = 1
 
+# Map
 DEFAULT_LEAFLET_TILE = (
     'OSM',
     '//tile.openstreetmap.org/{z}/{x}/{y}.png',

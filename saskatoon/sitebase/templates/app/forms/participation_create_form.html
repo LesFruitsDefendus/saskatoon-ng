@@ -3,6 +3,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock style %}
+
 {% block content %}
 
 {% if error %}
@@ -30,7 +34,7 @@
                             <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                                 <div class="breadcomb-wp">
                                     <div class="breadcomb-icon">
-                                        <i class="notika-icon notika-windows"></i>
+                                        <i class="fa-regular fa-calendar"></i>
                                     </div>
                                     <div class="breadcomb-ctn">
                                         <h1>#{{ harvest.id }}:
@@ -74,7 +78,9 @@
                             <div class="form-group">
                                 <form method="post">
                                     {% csrf_token %}
-                                    {{ form|crispy }}
+                                    <div class="modelForm">
+                                        {{ form|crispy }}
+                                    </div>
                                     <button type="submit" class="btn btn-primary notika-btn-primary">
                                         {% trans 'Send' %}
                                     </button>

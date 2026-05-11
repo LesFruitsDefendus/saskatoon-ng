@@ -22,17 +22,15 @@
                                         {{ address }}
                                     {% endif %}
                                     </h1>
-                                    {% with succeeded_harvests|last as last_harvest %}
                                     {% if pending %}
                                         <h4>** {% translate 'PENDING' %} **</h4>
-                                    {% elif last_harvest %}
+                                    {% elif last_succeeded_harvest %}
                                         <p>{% trans "Last succeeded harvest"  %}
-                                            on {{ last_harvest.start_date }}
+                                            on {{ last_succeeded_harvest.start_date }}
                                         </p>
                                     {% else %}
                                         <p>{% translate 'No succeeded harvest on this property so far' %}</p>
                                     {% endif %}
-                                    {% endwith %}
                                 </div>
                             </div>
                         </div>
@@ -63,7 +61,6 @@
         </div>
     </div>
 </div>
-
 
 <script>
     function getToken() {

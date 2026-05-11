@@ -93,8 +93,8 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    succeeded_harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    next_harvests = PropertyHarvestSerializer(many=True, read_only=True)
+    last_succeeded_harvest = PropertyHarvestSerializer(many=False, read_only=True)
+    next_harvest = PropertyHarvestSerializer(many=False, read_only=True)
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
@@ -105,7 +105,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     longitude = serializers.ReadOnlyField()
     latitude = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
-    owner_name = serializers.ReadOnlyField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -149,8 +148,8 @@ class PropertyListSerializer(PropertySerializer):
             'neighborhood',
             'trees',
             'ladder_available',
-            'succeeded_harvests',
-            'next_harvests',
+            'last_succeeded_harvest',
+            'next_harvest',
             'is_active',
             'authorized',
             'pending',
@@ -160,13 +159,9 @@ class PropertyListSerializer(PropertySerializer):
             'status',
         ]
 
-    status = serializers.ReadOnlyField()
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
-    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
-    succeeded_harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    next_harvests = PropertyHarvestSerializer(many=True, read_only=True)
 
 
 class PropertyEquipmentSerializer(PropertyListSerializer):

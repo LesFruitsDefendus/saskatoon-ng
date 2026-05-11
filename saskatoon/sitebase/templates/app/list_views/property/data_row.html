@@ -61,27 +61,17 @@
         </ul>
     </td>
     <td>
-        {% with property.succeeded_harvests|last as last_harvest %}
-            {% if last_harvest %}
-            <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' last_harvest.id %}"
-                    title="#{{ last_harvest.id }}: {{ last_harvest.start_date }} -
-                                   {% if last_harvest.pick_leader %}{{ last_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
-            >
-                {{ last_harvest.start_date }}
-            </a>
+            {% if property.last_succeeded_harvest %}
+                            <a {{ property.last_succeeded_harvest|harvest_link_attributes|safe }}>
+                                {{ property.last_succeeded_harvest.start_date }}
+                            </a>
         {% endif %}
-        {% endwith %}
     </td>
     <td>
-        {% with property.next_harvests|first as next_harvest %}
-            {% if next_harvest %}
-                <a data-placement="top" data-toggle="tooltip" href="{% url 'harvest-detail' next_harvest.id %}"
-                    title="#{{ next_harvest.id }}: {{ next_harvest.start_date }} -
-                                   {% if next_harvest.pick_leader %}{{ next_harvest.pick_leader.name }}{% else %}{% trans 'Orphan' %}{% endif %}"
-                >
-                  {{ next_harvest.start_date }}
-                </a>
+            {% if property.next_harvest %}
+                            <a {{ property.next_harvest|harvest_link_attributes|safe }}>
+                                {{ property.next_harvest.start_date }}
+                            </a>
             {% endif %}
-        {% endwith %}
     </td>
 </tr>

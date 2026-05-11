@@ -1,4 +1,6 @@
 from django import template
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 from typeguard import typechecked
 
 from harvest.models import Harvest
@@ -83,3 +85,24 @@ def progress(status: str) -> int:
 @typechecked
 def is_ready_or_succeeded(status: str) -> bool:
     return status in [s.value for s in [Harvest.Status.READY, Harvest.Status.SUCCEEDED]]
+
+
+@register.filter
+@typechecked
+def harvest_link_attributes(harvest):
+    pick_leader = (
+        harvest['pick_leader']['name'] if harvest['pick_leader'] is not None else _("Orphan")
+    )
+    url = reverse('harvest-detail', args=[harvest['id']])
+
+    return (
+        'data-placement="top" data-toggle="tooltip" href="'
+        + url
+        + '" title="#'
+        + str(harvest['id'])
+        + ': '
+        + harvest['start_date']
+        + ' - '
+        + pick_leader
+        + '"'
+    )

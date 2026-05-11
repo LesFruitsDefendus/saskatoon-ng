@@ -1,8 +1,9 @@
 from django.contrib import admin, messages
-from harvest.models import Comment, RequestForParticipation
+
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
+from harvest.models import Comment, RequestForParticipation
 
 
 @admin.register(PageContent)
