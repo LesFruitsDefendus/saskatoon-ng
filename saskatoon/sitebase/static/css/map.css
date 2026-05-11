@@ -12,23 +12,16 @@ leaflet-popup {
     > section {
         margin-top: 1em;
     }
+}
 
-    a {
-        text-decoration: none;
-        color: #440bd4 !important;
+@media (max-width: 992px) {
+    .leaflet-popup-content {
+        max-width: 70vw;
+    }
 
-        &:hover {
-            color: #2da4f0 !important;
+    leaflet-popup {
+        > section:has(button) {
+            grid-template-columns: 100%;
         }
-
-        @media (max-width: 992px) {
-            .leaflet-popup-content {
-                max-width: 70vw;
-            }
-
-            leaflet-popup {
-                > section:has(button) {
-                    grid-template-columns: 100%;
-                }
-            }
-        }
+    }
+}
