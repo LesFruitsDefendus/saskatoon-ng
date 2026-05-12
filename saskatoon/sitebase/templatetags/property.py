@@ -9,6 +9,7 @@ from sitebase.templatetags.harvest_status import color, harvest_filter
 register = template.Library()
 
 
+@typechecked
 def harvests_for_year(harvests, year: int):
     return [h for h in harvests if datetime.strptime(h["start_date"], "%Y-%m-%d").year == year]
 
@@ -20,48 +21,43 @@ def property_icon_shape(size: str) -> str:
 
 
 @typechecked
-def property_filter(property, size: str, year: int) -> str:
-    harvests = harvests_for_year(property["harvests"], year)
+def show_property(harvests, status: Property.Status, year: int) -> bool:
+    return (
+        len(harvests) == 0 or status != Property.Status.AUTHORIZED and datetime.now().year == year
+    )
 
-    if len(harvests) == 0:
+
+@typechecked
+def property_filter(property, size: str, year: int) -> str:
+    harvests = harvests_for_year(property['harvests'], year)
+
+    if show_property(harvests, property['status'], year):
         return property_icon_shape(size)
 
-    # Any upcoming harvests are more important then previously succeeded harvests
-    prepared_harvest = [
-        h for h in harvests if h["status"] in [Harvest.Status.ORPHAN, Harvest.Status.ADOPTED]
-    ]
+    if property['next_harvest']:
+        return harvest_filter(property['next_harvest']['status'], size)
 
-    if len(prepared_harvest) > 0:
-        return harvest_filter(Harvest.Status.ORPHAN, size)
+    if property['last_succeeded_harvest']:
+        return harvest_filter(property['last_succeeded_harvest']['status'], size)
 
-    cancelled = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
+    cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 
-    if len(cancelled) > 0:
-        return harvest_filter(Harvest.Status.CANCELLED, size)
-
-    ready = [h for h in harvests if h["status"] in [Harvest.Status.READY]]
-
-    if len(ready) > 0:
-        return harvest_filter(Harvest.Status.READY, size)
-
-    success = [h for h in harvests if h["status"] in [Harvest.Status.SUCCEEDED]]
-
-    if len(success) > 0:
-        return harvest_filter(Harvest.Status.SUCCEEDED, size)
+    if len(cancelled_harvest) > 0:
+        return color(Harvest.Status.CANCELLED)
 
     return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
 
 
 @register.filter
 @typechecked
-def property_icon(property, year: str) -> str:
-    return property_filter(property, 'lg', int(year))
+def property_icon(property, year_str: str) -> str:
+    return property_filter(property, 'lg', int(year_str))
 
 
 @register.filter
 @typechecked
-def property_icon_hover(property, year: str) -> str:
-    return property_filter(property, 'xl', int(year))
+def property_icon_hover(property, year_str: str) -> str:
+    return property_filter(property, 'xl', int(year_str))
 
 
 @register.filter
@@ -85,36 +81,18 @@ def property_status(status: Optional[str]) -> str:
 
 @register.filter
 @typechecked
-def property_icon_color(property, year: str) -> str:
-    harvests = harvests_for_year(property["harvests"], int(year))
+def property_icon_color(property, year_str: str) -> str:
+    year = int(year_str)
+    harvests = harvests_for_year(property['harvests'], year)
 
-    if (
-        len(harvests) == 0
-        or property["status"] != Property.Status.AUTHORIZED
-        and datetime.now().year == int(year)
-    ):
-        return property_status(property["status"])
+    if show_property(harvests, property['status'], year):
+        return property_status(property['status'])
 
-    # Any upcoming harvests are more important then previously succeeded harvests
-    orphan_harvest = [h for h in harvests if h["status"] in [Harvest.Status.ORPHAN]]
+    if property['next_harvest']:
+        return color(property['next_harvest']['status'])
 
-    if len(orphan_harvest) > 0:
-        return color(Harvest.Status.ORPHAN)
-
-    adopted_harvest = [h for h in harvests if h["status"] == Harvest.Status.ADOPTED]
-
-    if len(adopted_harvest) > 0:
-        return color(Harvest.Status.ADOPTED)
-
-    scheduled_harvest = [h for h in harvests if h["status"] == Harvest.Status.SCHEDULED]
-
-    if len(scheduled_harvest) > 0:
-        return color(Harvest.Status.SCHEDULED)
-
-    ready = [h for h in harvests if h["status"] == Harvest.Status.READY]
-
-    if len(ready) > 0:
-        return color(Harvest.Status.READY)
+    if property['last_succeeded_harvest']:
+        return color(property['last_succeeded_harvest']['status'])
 
     cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
 

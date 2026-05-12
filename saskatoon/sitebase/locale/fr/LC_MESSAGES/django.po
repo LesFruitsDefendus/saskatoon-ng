@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-11 21:52+0000\n"
+"POT-Creation-Date: 2026-05-12 17:45+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -432,7 +432,6 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/legend.html:23
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
-#: sitebase/templates/app/list_views/property/data_row.html:60
 #: sitebase/templatetags/harvest_status.py:94
 msgid "Orphan"
 msgstr "Orpheline"
@@ -1217,39 +1216,39 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette récolte?"
 msgid "Legend"
 msgstr "Légende"
 
-#: sitebase/templates/app/list_views/property/legend.html:10
+#: sitebase/templates/app/list_views/property/legend.html:13
 msgid "Succeeded Harvest"
 msgstr "Récolte réussie"
 
-#: sitebase/templates/app/list_views/property/legend.html:13
+#: sitebase/templates/app/list_views/property/legend.html:18
 msgid "Cancelled Harvest"
 msgstr "Récolte Annulée"
 
-#: sitebase/templates/app/list_views/property/legend.html:16
+#: sitebase/templates/app/list_views/property/legend.html:25
 msgid "Authorised Property"
 msgstr "Propritété Authorisée"
 
-#: sitebase/templates/app/list_views/property/legend.html:19
+#: sitebase/templates/app/list_views/property/legend.html:30
 msgid "Ready Harvest"
 msgstr "Récolte Prête"
 
-#: sitebase/templates/app/list_views/property/legend.html:22
+#: sitebase/templates/app/list_views/property/legend.html:35
 msgid "Adopted Harvest"
 msgstr "Récolte Adoptée"
 
-#: sitebase/templates/app/list_views/property/legend.html:25
+#: sitebase/templates/app/list_views/property/legend.html:42
 msgid "Pending Property"
 msgstr "Propriété en attente de validation"
 
-#: sitebase/templates/app/list_views/property/legend.html:28
+#: sitebase/templates/app/list_views/property/legend.html:47
 msgid "Scheduled Harvest"
 msgstr "Récolte Programmée"
 
-#: sitebase/templates/app/list_views/property/legend.html:31
+#: sitebase/templates/app/list_views/property/legend.html:52
 msgid "Orphan Harvest"
 msgstr "Récolte Orpheline"
 
-#: sitebase/templates/app/list_views/property/legend.html:34
+#: sitebase/templates/app/list_views/property/legend.html:59
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 

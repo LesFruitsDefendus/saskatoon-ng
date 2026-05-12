@@ -50,15 +50,7 @@
             {% for harvest in property.harvests %}
                 <li style="padding-top: 0.5em;">
                     <a class="{{ harvest.status | color }}"
-                       data-placement="top"
-                       data-toggle="tooltip"
-                       href="{% url 'harvest-detail' harvest.id %}"
-                       title="#{{ harvest.id }}: {{ harvest.start_date }} -
-                              {% if harvest.pick_leader %}
-                                  {{ harvest.pick_leader.name }}
-                              {% else %}
-                                  {% trans 'Orphan' %}
-                              {% endif %}">{{ harvest.status | harvest_icon | safe }}</a>
+                       {{ harvest|harvest_link_attributes|safe }}>{{ harvest.status | harvest_icon | safe }}</a>
                 </li>
             {% endfor %}
         </ul>

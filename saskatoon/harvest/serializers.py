@@ -77,9 +77,17 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
 
     def get_pick_leader(self, harvest):
-        if harvest.pick_leader:
-            return PersonSerializer(harvest.pick_leader.person).data
-        return None
+        if harvest.pick_leader is None:
+            return None
+
+        data = PersonSerializer(harvest.pick_leader.person).data
+
+        return {
+            'actor_id': data['actor_id'],
+            'name': data['name'],
+            'phone': data['phone'],
+            'email': data['email'],
+        }
 
 
 class PropertySerializer(serializers.ModelSerializer[Property]):
