@@ -559,6 +559,6 @@ def property_create_orphans(request, id):
     if num_created > 0:
         messages.success(request, _("Successfully created {} orphan harvests").format(num_created))
     else:
-        messages.warning(request, _("Property already has registered harvests for this season"))
+        messages.warning(request, _("Harvests have already been created for this property"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
