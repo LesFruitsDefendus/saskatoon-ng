@@ -317,9 +317,9 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     )
 
     harvest_every_year = forms.BooleanField(
-        label=_(
-            "My tree(s)/vine(s) produce fruit every year (if not, please "
-            "include info about frequency in additional comments at the bottom)"
+        label=_("My tree(s)/vine(s) produce fruit every year"),
+        help_text=_(
+            "if not, please include info about frequency in additional comments at the bottom"
         ),
         required=False,
     )
