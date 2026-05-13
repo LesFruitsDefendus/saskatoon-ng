@@ -6,8 +6,17 @@
 
 <div>
     <div class="row">
-        <div class="col text-center">
-            <a href="{% url 'home' %}" class="btn btn-primary">{% trans 'Back to Home' %}</a>
+        <div class="col text-center mg-t-15">
+            <h2>{{thanks.title}}<h2>
+            <h4>{{thanks.subtitle}}</h4>
+            <br>
+            <p>{{thanks.body.html | safe}}</p>
+            <br>
+            <a href="{% url 'home' %}">
+                <button title="Home" class="btn btn-primary notika-btn-primary">
+                  {% trans 'Back to Home' %}
+                </button>
+            </a>
         </div>
     </div>
 </div>
