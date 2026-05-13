@@ -1,31 +1,34 @@
-from typeguard import typechecked
 import json
 from datetime import datetime
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
-from django.utils.translation import gettext_lazy as _
 from django.db.models import QuerySet
+from django.utils.translation import gettext_lazy as _
+from logging import getLogger
 from postalcodes_ca import parse_postal_code
-from typing import Any, Optional
 from types import SimpleNamespace
+from typeguard import typechecked
+from typing import Any, Optional
 from typing_extensions import Self
 
+from member.forms import validate_email
+from member.models import AuthUser, Organization, Person
+from member.utils import is_equipment_point_available
+from sitebase.models import Email, EmailType
+from sitebase.serializers import EmailRFPSerializer
+from sitebase.utils import is_quill_html_empty
 from harvest.models import (
     Comment,
     Equipment,
     Harvest,
     HarvestYield,
-    TreeType,
     Property,
     RequestForParticipation as RFP,
+    TreeType,
 )
-from member.forms import validate_email
-from member.models import AuthUser, Person, Organization
-from member.utils import is_equipment_point_available
-from sitebase.models import Email, EmailType
-from sitebase.serializers import EmailRFPSerializer
-from sitebase.utils import is_quill_html_empty
+
+logger = getLogger('saskatoon')
 
 
 class RFPForm(forms.ModelForm[RFP]):
@@ -322,7 +325,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     )
 
     pending_recurring = forms.ChoiceField(
-        label=_("Have you provided us any information about your property before?"),
+        label=_("Have you already registered your property in the past?"),
         choices=[(True, _('Yes')), (False, _('No'))],
         widget=forms.RadioSelect,
     )
@@ -404,15 +407,21 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
     def clean(self):
         cleaned_data = super().clean()
+        logger.info("Pending property form submitted by %s", cleaned_data['pending_contact_email'])
         postal_code = cleaned_data['postal_code'].replace(" ", "")
 
         try:
-            postal_code = parse_postal_code(postal_code)
+            cleaned_data['postal_code'] = parse_postal_code(postal_code)
         except ValueError as invalid_postal_code:
             raise forms.ValidationError(str(invalid_postal_code))
 
-        cleaned_data['postal_code'] = postal_code
         return cleaned_data
+
+    def save(self):
+        pending_property = super().save(True)
+        logger.info("Pending property successfully saved: %s", pending_property)
+
+        return pending_property
 
 
 @typechecked
