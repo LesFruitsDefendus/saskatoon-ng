@@ -2,6 +2,10 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block script %}
+<script src="{%static 'js/filter-form.js' %}"></script>
+{% endblock script %}
+
 {{ filter.form.media }}
 
 <div class="accordion-stn">
@@ -38,25 +42,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
- $(function() {
-     if($(window).width() > 768){
-         $('.collapse').collapse('show');
-     }
-
-     $('#filter-panel').resize(function(){
-         const width = $(this).width()
-         const paddingRight = 24; // px
-         console.log("RESIZING", width);
-         $('.select2-selection').each(function() {
-             $(this).width(width-paddingRight);
-         });
-     });
-
- });
-
-
-
-</script>

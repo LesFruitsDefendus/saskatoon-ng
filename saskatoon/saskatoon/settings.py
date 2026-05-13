@@ -44,7 +44,7 @@ if os.getenv('SASKATOON_DEBUG') is not None:
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#std:setting-ALLOWED_HOSTS
 
 SERVER_IP = os.getenv('SASKATOON_SERVER_IP', '')

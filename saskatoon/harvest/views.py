@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView
 from django_stubs_ext import StrOrPromise
 
 from logging import getLogger
@@ -33,7 +33,7 @@ from harvest.models import (
 )
 from member.models import Organization
 from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
-from sitebase.models import EmailType
+from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
 
 logger = getLogger('saskatoon')
@@ -114,16 +114,27 @@ class PropertyCreateView(
 class PropertyCreatePublicView(
     SuccessMessageMixin[PublicPropertyForm], CreateView[Property, PublicPropertyForm]
 ):
-    """Public View"""
+    """Public Pending Property Creation Form"""
 
     model = Property
     form_class = PublicPropertyForm
     template_name = 'app/forms/property_create_public.html'
     success_url = reverse_lazy('property-thanks')
-    success_message = _(
-        "Thank you for registering your property! \
-        A community member will be contacting you as soon as possible"
-    )
+    success_message = _("Property successfully registered!")
+
+
+class PropertyThanksView(TemplateView):
+    """Public View shown when successfully registering a new property"""
+
+    template_name = 'app/property_thanks.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['thanks'] = PageContent.get(
+            type=PageContent.Type.PROPERTY_THANKS, lang=self.request.LANGUAGE_CODE
+        )
+
+        return context
 
 
 class PropertyUpdateView(
@@ -548,6 +559,6 @@ def property_create_orphans(request, id):
     if num_created > 0:
         messages.success(request, _("Successfully created {} orphan harvests").format(num_created))
     else:
-        messages.warning(request, _("Property already has registered harvests for this season"))
+        messages.warning(request, _("Harvests have already been created for this property"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))

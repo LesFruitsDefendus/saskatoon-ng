@@ -3,15 +3,24 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+{% block script %}
+<script src="{%static 'js/datetime-picker.js' %}"></script>
+<script src="{%static 'js/public-form.js' %}"></script>
+{% endblock script %}
+
 {% block content %}
 
 {{ form.media }}
 
-<div class="form-example-area">
+<div class="form-example-area mg-t-15">
     <div class="container">
         <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="form-example-wrap">
+            <div class="col-lg-6 col-lg-offset-3
+                            col-md-8 col-md-offset-2
+                            col-sm-10 col-sm-offset-1
+                            col-xs-12"
+                >
+                    <div id="public-form-panel" class="form-example-wrap">
                         <div class="cmp-tb-hd">
                             <h2>{% translate 'Add a new property' %}</h2>
                         </div>

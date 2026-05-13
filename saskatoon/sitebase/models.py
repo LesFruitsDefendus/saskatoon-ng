@@ -49,6 +49,7 @@ class PageContent(models.Model):
         ABOUT_US = 'about_us', _("About Us")
         ABOUT_VALUES = 'about_values', _("About Values")
         ABOUT_ROLES = 'about_roles', _("About Roles")
+        PROPERTY_THANKS = 'property_thanks', _("New Property Thanks")
 
     type = models.CharField(
         verbose_name=_("Page type"),
