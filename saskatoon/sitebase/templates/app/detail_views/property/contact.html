@@ -1,5 +1,10 @@
 {% load i18n %}
 {% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
+{% endblock style %}
+
 <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
 
     <div class="contact-hd search-hd-eg">
@@ -93,7 +98,47 @@
             </td>
         </tr>
         {% endif %}
+
+        {% if not pending and authorization is None %}
+            <tr>
+                <td>{% trans "Authorization" %}</td>
+                <td class="text-right">
+                {% if auth_email_date %}
+                    <h5>
+                        {% trans "Email sent" %}
+                        <i class="notika-icon notika-checked"></i>
+                        <br>
+                        <small>{{auth_email_date}}</small>
+                    </h5>
+                {% else %}
+                    <button class="btn btn-primary notika-btn-primary"
+                            commandFor="email-owner-dialog"
+                            command="show-modal">
+                        <i class="fa-solid fa-envelope"></i>&nbsp;
+                        {% trans "Send Email" %}
+                    </button>
+                    <dialog class="confirmation text-center" closedby="any" id="email-owner-dialog">
+                        <form method="post"
+                            action="{% url 'property-send-authorization-email' id %}"
+                            id="email-owner-form">
+                            {% csrf_token %}
+                            <p>{% trans "Are you sure you want to send an authorization request to" %} <b>{{ owner.email }}</b> ?</p>
+                        </form>
+                        <div class="btn-group" role="group">
+                            <button class="btn btn-danger notika-btn-danger"
+                                    type="submit"
+                                    form="email-owner-form">{% trans "Yes" %}
+                            </button>
+                            <button class="btn btn-primary notika-btn-primary"
+                                    commandFor="email-owner-dialog"
+                                    command="close">{% trans "No" %}
+                            </button>
+                        </div>
+                    </dialog>
+                {% endif %}
+                </td>
+            </tr>
+        {% endif %}
         </tbody>
     </table>
-
 </div>

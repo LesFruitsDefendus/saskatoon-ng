@@ -3,6 +3,7 @@ from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
 from typing import Mapping, Any, Optional
 from datetime import timedelta
+from django.utils import timezone as tz
 
 from member.models import Actor, Organization
 from member.serializers import (
@@ -30,6 +31,7 @@ from harvest.models import (
 )
 from harvest.utils import similar_properties, buffer_reservation_time
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
+from sitebase.models import Email, EmailType
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
@@ -101,6 +103,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     owner_type = serializers.SerializerMethodField()
     similar_properties = serializers.SerializerMethodField()
     needs_orphan = serializers.ReadOnlyField()
+    auth_email_date = serializers.SerializerMethodField()
 
     def get_owner(self, obj):
         if obj.owner:
@@ -115,6 +118,18 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
 
     def get_similar_properties(self, obj):
         return similar_properties(obj)
+
+    def get_auth_email_date(self, obj):
+        sent = Email.objects.filter(
+            type=EmailType.SEASON_AUTHORIZATION,
+            date_sent__year=tz.now().date().year,
+            recipient=obj.owner.person,
+            sent=True,
+        )
+        if not sent.exists():
+            return None
+
+        return sent.last().date_sent.strftime("%Y-%m-%d %-I:%M %p")
 
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
