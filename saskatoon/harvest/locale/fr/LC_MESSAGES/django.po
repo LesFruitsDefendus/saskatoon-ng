@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-12 22:40-0400\n"
+"POT-Creation-Date: 2026-05-14 09:48-0400\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,27 +31,37 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: harvest/api.py:81
+#: harvest/api.py:83
 msgid "New Harvest"
 msgstr "Nouvelle Cueillette"
 
-#: harvest/api.py:132
+#: harvest/api.py:134
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
-#: harvest/api.py:142
+#: harvest/api.py:144
 msgid "Property successfully authorized!"
 msgstr "Création de propriété réussie!"
 
-#: harvest/api.py:144 harvest/views.py:295
+#: harvest/api.py:146 harvest/views.py:295
 msgid "Something went wrong"
 msgstr "Une erreur est survenue"
 
-#: harvest/api.py:179
+#: harvest/api.py:161
+#, python-brace-format
+msgid "Authorization email successfully sent to {email}!"
+msgstr "Email d'autorisation envoyé avec succès à {email}!"
+
+#: harvest/api.py:168
+#, python-brace-format
+msgid "Could not send authorization email to {email}."
+msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
+
+#: harvest/api.py:204
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:228
+#: harvest/api.py:253
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
@@ -251,8 +261,12 @@ msgid "My tree(s)/vine(s) produce fruit every year"
 msgstr "Produit des fruits annuellement"
 
 #: harvest/forms.py:322
-msgid "if not, please include info about frequency in additional comments at the bottom"
-msgstr "si non, merci de préciser leur fréquence de production dans les commentaires ci-dessous"
+msgid ""
+"if not, please include info about frequency in additional comments at the "
+"bottom"
+msgstr ""
+"si non, merci de préciser leur fréquence de production dans les commentaires "
+"ci-dessous"
 
 #: harvest/forms.py:328
 msgid "Have you already registered your property in the past?"
