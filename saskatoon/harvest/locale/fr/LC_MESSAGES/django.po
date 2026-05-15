@@ -253,27 +253,20 @@ msgid "I would lend my ladder for another harvest nearby"
 msgstr "Je peux prêter mon échelle lors d'une cueillette à proximité"
 
 #: harvest/forms.py:318
-#, fuzzy
-#| msgid "Produces fruits every year"
 msgid "My tree(s)/vine(s) produce fruit every year"
-msgstr "Produit des fruits annuellement"
+msgstr "Mon arbre (mes arbres) ou vigne(s) produise(nt) des fruits annuellement"
 
 #: harvest/forms.py:320
-#, fuzzy
-#| msgid ""
-#| "My tree(s)/vine(s) produce fruit every year (if not, please include info "
-#| "about frequency in additional comments at the bottom)"
 msgid ""
 "if not, please include info about frequency in additional comments at the "
 "bottom"
 msgstr ""
-"Mon arbre (mes arbres) ou vigne(s) produise(nt) des fruits annuellement "
 "(sinon, merci de préciser leur fréquence de production dans les Commentaires "
 "ci-dessous)"
 
 #: harvest/forms.py:326
 msgid "Have you already registered your property in the past?"
-msgstr ""
+msgstr "Avez vous déjà inscrit votre propriété par le passé"
 
 #: harvest/forms.py:327 harvest/forms.py:334
 msgid "Yes"
@@ -382,8 +375,7 @@ msgstr "Laissez ce champ vide pour publier la récolte le plus tôt possible"
 
 #: harvest/forms.py:473 harvest/forms.py:558
 msgid "Harvest must be confirmed before an equipment point can be booked"
-msgstr ""
-"La récolte doit être confirmée avant de pouvoir réserver un point d'équipment"
+msgstr "La récolte doit être confirmée avant de pouvoir réserver un point d'équipment"
 
 #: harvest/forms.py:503
 msgid ""
@@ -933,10 +925,8 @@ msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
 #: harvest/views.py:123
-#, fuzzy
-#| msgid "Property successfully authorized!"
 msgid "Property successfully registered!"
-msgstr "Création de propriété réussie!"
+msgstr "Propriété enregistrée avec succès"
 
 #: harvest/views.py:149
 msgid "Property updated successfully!"
