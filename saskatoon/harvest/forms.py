@@ -472,7 +472,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
             forward=['id', 'start_date', 'end_date'],
         ),
         label=_("Equipment Point"),
-        help_text=_("Harvest must already be scheduled to reserve and equipment point"),
+        help_text=_("Harvest must be confirmed before an equipment point can be booked"),
         required=False,
     )
 
