@@ -132,6 +132,9 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
         return similar_properties(obj)
 
     def get_auth_email_date(self, obj):
+        if obj.owner is None or obj.owner.person is None:
+            return None
+
         sent = Email.objects.filter(
             type=EmailType.SEASON_AUTHORIZATION,
             date_sent__year=tz.now().date().year,
@@ -184,6 +187,7 @@ class PropertyListSerializer(PropertySerializer):
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+    auth_email_date = None  # type: ignore
 
 
 class PropertyEquipmentSerializer(PropertyListSerializer):
