@@ -13,7 +13,6 @@ dl {
     margin-top: 1em;
     display: grid;
     grid-row-gap: 0.5em;
-    border-right: none;
 }
 
 dl.harvest {
@@ -23,15 +22,12 @@ dl.harvest {
 
 
 dl.property {
-    margin-top: 1em;
-    display: grid;
     grid-template-columns: 25px minmax(145px, 1fr) 25px minmax(145px, 1fr)
 }
 
 @media (min-width: 740px) {
 
     dl.harvest {
-        margin-right: 1em;
         border-right: 1px solid black;
     }
 
