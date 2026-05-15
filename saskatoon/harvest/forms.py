@@ -581,16 +581,18 @@ class HarvestForm(forms.ModelForm[Harvest]):
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean() or {}
 
-        if data['status'] == Harvest.Status.ORPHAN and self.instance.pk:
-            unresolved_requests = self.instance.requests.filter(
-                status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
-            )
-            if unresolved_requests.exists():
-                raise forms.ValidationError(
-                    _("This harvest cannot be left orphan, please resolve requests first.")
-                )
+        if data['status'] == Harvest.Status.ORPHAN:
             if data['pick_leader'] is not None:
                 data['status'] = Harvest.Status.ADOPTED
+
+            if self.instance.pk:
+                unresolved_requests = self.instance.requests.filter(
+                    status__in=[RFP.Status.PENDING, RFP.Status.ACCEPTED]
+                )
+                if unresolved_requests.exists():
+                    raise forms.ValidationError(
+                        _("This harvest cannot be left orphan, please resolve requests first.")
+                    )
 
         if data['pick_leader'] is None and data['status'] not in [
             Harvest.Status.ORPHAN,
