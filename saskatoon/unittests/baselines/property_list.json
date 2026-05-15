@@ -114,17 +114,7 @@
                     "end_date": "2026-10-01",
                     "pick_leader": null,
                     "trees": [
-                        {
-                            "id": 10,
-                            "name_en": "Peach tree",
-                            "name_fr": "Pêcher",
-                            "fruit_name_en": "Peaches",
-                            "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        10
                     ]
                 },
                 {
@@ -134,19 +124,14 @@
                     "start_date": "2025-08-06",
                     "start_time": "3:00 PM",
                     "end_date": "2025-08-06",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 10,
-                            "name_en": "Peach tree",
-                            "name_fr": "Pêcher",
-                            "fruit_name_en": "Peaches",
-                            "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        10
                     ]
                 }
             ],
@@ -239,19 +224,14 @@
                     "start_date": "2026-10-01",
                     "start_time": "8:00 AM",
                     "end_date": "2026-10-01",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 18,
-                            "name_en": "Purple plum tree",
-                            "name_fr": "Prunier mauve",
-                            "fruit_name_en": "Purple plums",
-                            "fruit_name_fr": "Prunes mauves",
-                            "fruit_icon": null,
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
-                        }
+                        18
                     ]
                 }
             ],
@@ -431,19 +411,14 @@
                     "start_date": "2026-08-01",
                     "start_time": "9:00 AM",
                     "end_date": "2026-08-01",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        9
                     ]
                 },
                 {
@@ -453,19 +428,14 @@
                     "start_date": "2026-07-24",
                     "start_time": "3:00 PM",
                     "end_date": "2026-07-24",
-                    "pick_leader": "Pick Leader",
+                    "pick_leader": {
+                        "actor_id": 3,
+                        "name": "Pick Leader",
+                        "phone": "(333) 333-3333",
+                        "email": "pick@leader.com"
+                    },
                     "trees": [
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        9
                     ]
                 },
                 {
@@ -475,19 +445,14 @@
                     "start_date": "2026-01-22",
                     "start_time": "5:00 PM",
                     "end_date": "2026-01-22",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 14,
-                            "name_en": "Green apple tree",
-                            "name_fr": "Pommier vert",
-                            "fruit_name_en": "Green apples",
-                            "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
-                        }
+                        14
                     ]
                 },
                 {
@@ -497,30 +462,15 @@
                     "start_date": "2026-01-19",
                     "start_time": "4:00 PM",
                     "end_date": "2026-01-19",
-                    "pick_leader": "Pick Leader",
+                    "pick_leader": {
+                        "actor_id": 3,
+                        "name": "Pick Leader",
+                        "phone": "(333) 333-3333",
+                        "email": "pick@leader.com"
+                    },
                     "trees": [
-                        {
-                            "id": 14,
-                            "name_en": "Green apple tree",
-                            "name_fr": "Pommier vert",
-                            "fruit_name_en": "Green apples",
-                            "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
-                        },
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        14,
+                        9
                     ]
                 }
             ],

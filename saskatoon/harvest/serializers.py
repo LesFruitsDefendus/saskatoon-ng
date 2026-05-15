@@ -146,6 +146,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
     start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
+    trees = None  # type: ignore
 
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):

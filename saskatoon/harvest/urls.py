@@ -1,5 +1,4 @@
 from django.urls import path, re_path
-from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from harvest import api, views, autocomplete
 from rest_framework.routers import DefaultRouter

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 12:50+0000\n"
+"POT-Creation-Date: 2026-05-15 13:14+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,117 +54,121 @@ msgstr "À propos Valeurs"
 msgid "About Roles"
 msgstr "À propos Roles"
 
-#: sitebase/models.py:54
+#: sitebase/models.py:52
+msgid "New Property Thanks"
+msgstr "Merci Nouvelle Propriété"
+
+#: sitebase/models.py:55
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:109
+#: sitebase/models.py:110
 msgid "FAQ Item"
 msgstr "Item de FAQ"
 
-#: sitebase/models.py:110
+#: sitebase/models.py:111
 msgid "FAQ Items"
 msgstr "Items de FAQ"
 
-#: sitebase/models.py:146
+#: sitebase/models.py:147
 msgid "FAQ List"
 msgstr "Liste FAQ"
 
-#: sitebase/models.py:147
+#: sitebase/models.py:148
 msgid "FAQ Lists"
 msgstr "Listes FAQ"
 
-#: sitebase/models.py:151
+#: sitebase/models.py:152
 msgid "Ref. Name"
 msgstr "Ref. Nom"
 
-#: sitebase/models.py:168
+#: sitebase/models.py:169
 msgid "Items"
 msgstr "Items"
 
-#: sitebase/models.py:170
+#: sitebase/models.py:171
 msgid "Enabled"
 msgstr "Activé"
 
-#: sitebase/models.py:177
+#: sitebase/models.py:178
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:180
+#: sitebase/models.py:181
 msgid "Pickleader Registration Invite"
 msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
-#: sitebase/models.py:181
+#: sitebase/models.py:182
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:182
+#: sitebase/models.py:183
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:183
+#: sitebase/models.py:184
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:186
+#: sitebase/models.py:187
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:187
+#: sitebase/models.py:188
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:190
+#: sitebase/models.py:191
 msgid "Unselected pickers"
 msgstr "Cueilleur.euse non sélectionné.es"
 
-#: sitebase/models.py:191
+#: sitebase/models.py:192
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:192
+#: sitebase/models.py:193
 msgid "Rejected picker"
 msgstr ""
 
-#: sitebase/models.py:199
+#: sitebase/models.py:200
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:204 sitebase/models.py:276
+#: sitebase/models.py:205 sitebase/models.py:277
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:214
+#: sitebase/models.py:215
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:229
+#: sitebase/models.py:230
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:233
+#: sitebase/models.py:234
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:265
+#: sitebase/models.py:266
 #: sitebase/templates/app/detail_views/harvest/about.html:59
 #: sitebase/templates/app/detail_views/organization/contact.html:46
-#: sitebase/templates/app/detail_views/property/contact.html:63
+#: sitebase/templates/app/detail_views/property/contact.html:68
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:266
+#: sitebase/models.py:267
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:271
+#: sitebase/models.py:272
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:18
 #: sitebase/templates/app/stats.html:246
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:283
+#: sitebase/models.py:284
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
@@ -172,11 +176,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:289
+#: sitebase/models.py:290
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:300
+#: sitebase/models.py:301
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:28
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
@@ -185,7 +189,7 @@ msgstr "Date"
 #: sitebase/templates/app/base/footer.html:8
 #: sitebase/templates/app/detail_views/harvest/equipment.html:18
 #: sitebase/templates/app/detail_views/organization/contact.html:5
-#: sitebase/templates/app/detail_views/property/contact.html:42
+#: sitebase/templates/app/detail_views/property/contact.html:47
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
@@ -514,7 +518,7 @@ msgstr "Adresse"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:48
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:5
-#: sitebase/templates/app/detail_views/property/contact.html:8
+#: sitebase/templates/app/detail_views/property/contact.html:13
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
@@ -525,13 +529,13 @@ msgstr "Propriétaire"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:53
 #: sitebase/templates/app/detail_views/organization/contact.html:35
-#: sitebase/templates/app/detail_views/property/contact.html:50
+#: sitebase/templates/app/detail_views/property/contact.html:55
 msgid "Phone"
 msgstr "Téléphone"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:65
 #: sitebase/templates/app/detail_views/organization/contact.html:57
-#: sitebase/templates/app/detail_views/property/contact.html:78
+#: sitebase/templates/app/detail_views/property/contact.html:83
 msgid "Language"
 msgstr "Langue"
 
@@ -541,7 +545,7 @@ msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:5
 #: sitebase/templates/app/detail_views/organization/contact.html:66
-#: sitebase/templates/app/detail_views/property/contact.html:90
+#: sitebase/templates/app/detail_views/property/contact.html:95
 #: sitebase/templates/app/forms/participation_manage_form.html:33
 #: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
@@ -705,10 +709,12 @@ msgid "Are you sure you want to cancel the reservation for"
 msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:42
+#: sitebase/templates/app/detail_views/property/contact.html:130
 msgid "Yes"
 msgstr "Oui"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:45
+#: sitebase/templates/app/detail_views/property/contact.html:134
 msgid "No"
 msgstr "Non"
 
@@ -834,41 +840,57 @@ msgstr "Accessibilité"
 msgid "Additional information"
 msgstr "Information additionnelle"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:26
+#: sitebase/templates/app/detail_views/property/breadcomb.html:31
 msgid "PENDING"
 msgstr "EN ATTENTE"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:29
+#: sitebase/templates/app/detail_views/property/breadcomb.html:34
 msgid "Last succeeded harvest"
 msgstr "Dernière récolte réussie"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:33
+#: sitebase/templates/app/detail_views/property/breadcomb.html:38
 msgid "No succeeded harvest on this property so far"
 msgstr "Pas de récolte réussie pour l'instant"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:46
+#: sitebase/templates/app/detail_views/property/breadcomb.html:51
 msgid "Authorize"
 msgstr "Autoriser"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:53
+#: sitebase/templates/app/detail_views/property/breadcomb.html:58
 msgid "Edit Property"
 msgstr "Éditer la propriété"
 
-#: sitebase/templates/app/detail_views/property/contact.html:10
+#: sitebase/templates/app/detail_views/property/contact.html:15
 msgid "(Organization)"
 msgstr "(Organisation)"
 
-#: sitebase/templates/app/detail_views/property/contact.html:14
+#: sitebase/templates/app/detail_views/property/contact.html:19
 msgid "edit"
 msgstr "modifier"
 
-#: sitebase/templates/app/detail_views/property/contact.html:18
+#: sitebase/templates/app/detail_views/property/contact.html:23
 msgid "Unregistered owner"
 msgstr "Propriétaire inconnu"
 
-#: sitebase/templates/app/detail_views/property/contact.html:22
+#: sitebase/templates/app/detail_views/property/contact.html:27
 msgid "register"
 msgstr "Inscrire"
+
+#: sitebase/templates/app/detail_views/property/contact.html:104
+msgid "Authorization"
+msgstr "Autorisation"
+
+#: sitebase/templates/app/detail_views/property/contact.html:108
+msgid "Email sent"
+msgstr "Courriel envoyé"
+
+#: sitebase/templates/app/detail_views/property/contact.html:118
+msgid "Send Email"
+msgstr "Envoyer Courriel"
+
+#: sitebase/templates/app/detail_views/property/contact.html:125
+msgid "Are you sure you want to send an authorization request to"
+msgstr "Êtes-vous certain(e) de vouloir envoyer un courriel d'autorisation à"
 
 #: sitebase/templates/app/detail_views/property/features.html:6
 msgid "Property features"
@@ -1052,7 +1074,7 @@ msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
 #: sitebase/templates/app/forms/participation_create_form.html:85
-#: sitebase/templates/app/forms/property_create_public.html:23
+#: sitebase/templates/app/forms/property_create_public.html:32
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1068,7 +1090,7 @@ msgstr "Nombre de cueilleur.euses"
 msgid "Trees"
 msgstr "Arbres"
 
-#: sitebase/templates/app/forms/property_create_public.html:16
+#: sitebase/templates/app/forms/property_create_public.html:25
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
@@ -1122,15 +1144,15 @@ msgstr "Type d'Équipement"
 msgid "Shared"
 msgstr "Partagé"
 
-#: sitebase/templates/app/list_views/filters.html:16
+#: sitebase/templates/app/list_views/filters.html:20
 msgid "Filters"
 msgstr "Filtres"
 
-#: sitebase/templates/app/list_views/filters.html:26
+#: sitebase/templates/app/list_views/filters.html:30
 msgid "Filter"
 msgstr "Filtrer"
 
-#: sitebase/templates/app/list_views/filters.html:32
+#: sitebase/templates/app/list_views/filters.html:36
 msgid "Reset"
 msgstr "Réinitialiser"
 
@@ -1207,10 +1229,8 @@ msgid "entries"
 msgstr "entrées"
 
 #: sitebase/templates/app/list_views/property/data_row.html:18
-#, fuzzy
-#| msgid "Are you really sure you want to delete this harvest?"
 msgid " Are you really sure you want to delete this property?"
-msgstr "Êtes-vous certain(e) de vouloir effacer cette récolte?"
+msgstr "Êtes-vous certain(e) de vouloir effacer cette propriété?"
 
 #: sitebase/templates/app/list_views/property/legend.html:11
 msgid "Legend"
@@ -1253,10 +1273,8 @@ msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
 #: sitebase/templates/app/list_views/property/legend.html:71
-#, fuzzy
-#| msgid "Edit Property"
 msgid "Validated Property "
-msgstr "Éditer la propriété"
+msgstr "Propriété Validé"
 
 #: sitebase/templates/app/list_views/property/map.html:54
 msgid "Last harvest was on"
@@ -1278,7 +1296,7 @@ msgstr "Dernière récolte"
 msgid "Next pick"
 msgstr "Prochaine récolte"
 
-#: sitebase/templates/app/property_thanks.html:10
+#: sitebase/templates/app/property_thanks.html:17
 msgid "Back to Home"
 msgstr "Retour à la page d'accueil"
 
