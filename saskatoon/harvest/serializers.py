@@ -131,8 +131,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
     start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
-    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore
-    # mypy says it's a SerializerMethodField
 
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):

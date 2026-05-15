@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-12 17:45+0000\n"
+"POT-Creation-Date: 2026-05-15 12:50+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1212,45 +1212,51 @@ msgstr "entrées"
 msgid " Are you really sure you want to delete this property?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette récolte?"
 
-#: sitebase/templates/app/list_views/property/legend.html:7
+#: sitebase/templates/app/list_views/property/legend.html:11
 msgid "Legend"
 msgstr "Légende"
 
-#: sitebase/templates/app/list_views/property/legend.html:13
+#: sitebase/templates/app/list_views/property/legend.html:16
 msgid "Succeeded Harvest"
 msgstr "Récolte réussie"
 
-#: sitebase/templates/app/list_views/property/legend.html:18
+#: sitebase/templates/app/list_views/property/legend.html:21
 msgid "Cancelled Harvest"
 msgstr "Récolte Annulée"
 
-#: sitebase/templates/app/list_views/property/legend.html:25
-msgid "Authorised Property"
-msgstr "Propritété Authorisée"
-
-#: sitebase/templates/app/list_views/property/legend.html:30
+#: sitebase/templates/app/list_views/property/legend.html:26
 msgid "Ready Harvest"
 msgstr "Récolte Prête"
 
-#: sitebase/templates/app/list_views/property/legend.html:35
+#: sitebase/templates/app/list_views/property/legend.html:31
 msgid "Adopted Harvest"
 msgstr "Récolte Adoptée"
 
-#: sitebase/templates/app/list_views/property/legend.html:42
-msgid "Pending Property"
-msgstr "Propriété en attente de validation"
-
-#: sitebase/templates/app/list_views/property/legend.html:47
+#: sitebase/templates/app/list_views/property/legend.html:36
 msgid "Scheduled Harvest"
 msgstr "Récolte Programmée"
 
-#: sitebase/templates/app/list_views/property/legend.html:52
+#: sitebase/templates/app/list_views/property/legend.html:41
 msgid "Orphan Harvest"
 msgstr "Récolte Orpheline"
 
-#: sitebase/templates/app/list_views/property/legend.html:59
+#: sitebase/templates/app/list_views/property/legend.html:50
+msgid "Authorised Property"
+msgstr "Propritété Authorisée"
+
+#: sitebase/templates/app/list_views/property/legend.html:57
+msgid "Pending Property"
+msgstr "Propriété en attente de validation"
+
+#: sitebase/templates/app/list_views/property/legend.html:64
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
+
+#: sitebase/templates/app/list_views/property/legend.html:71
+#, fuzzy
+#| msgid "Edit Property"
+msgid "Validated Property "
+msgstr "Éditer la propriété"
 
 #: sitebase/templates/app/list_views/property/map.html:54
 msgid "Last harvest was on"

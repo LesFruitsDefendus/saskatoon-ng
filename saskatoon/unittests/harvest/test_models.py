@@ -43,6 +43,9 @@ class TestProperty(TestCase):
         if property.is_active and property.pending:
             assert property.status == Property.Status.PENDING
 
+        if property.is_active and not property.pending and property.authorized is None:
+            assert property.status == Property.Status.VALIDATED
+
         if property.is_active and not property.pending and not property.authorized:
             assert property.status == Property.Status.UNAUTHORIZED
 

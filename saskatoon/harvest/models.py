@@ -137,6 +137,7 @@ class Property(models.Model):
         INACTIVE = 'inactive', _("Inactive")
         UNAUTHORIZED = 'unauthorized', _("Unauthorized")
         PENDING = 'pending', _("Pending")
+        VALIDATED = 'validated', _("Validated")
         AUTHORIZED = 'authorized', _("Authorized")
 
     owner = models.ForeignKey(
@@ -463,6 +464,9 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
         if self.pending:
             return Property.Status.PENDING
+
+        if self.authorized is None:
+            return Property.Status.VALIDATED
 
         if not self.authorized:
             return Property.Status.UNAUTHORIZED

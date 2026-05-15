@@ -75,6 +75,7 @@ def property_status(status: Optional[str]) -> str:
             (Property.Status.UNAUTHORIZED.value, 'saskatoon-danger'),
             (Property.Status.AUTHORIZED.value, 'saskatoon-success'),
             (Property.Status.INACTIVE.value, 'saskatoon-neutral'),
+            (Property.Status.VALIDATED.value, 'saskatoon-info'),
         ]
     }.get(status, default)
 
