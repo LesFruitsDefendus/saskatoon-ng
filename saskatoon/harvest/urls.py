@@ -35,11 +35,10 @@ urlpatterns = [
         views.property_create_orphans,
         name='property-create-orphans',
     ),
-    # backward compatibility with saskatoon-og
     path(
         r'harvest/properties/create_pending/',
         RedirectView.as_view(url='/property/create_public/'),
-    ),
+    ),  # backward compatibility with saskatoon-og
     path(r'harvest/create/', views.HarvestCreateView.as_view(), name='harvest-create'),
     path(r'harvest/adopt/<int:id>/', views.harvest_adopt, name='harvest-adopt'),
     path(
@@ -99,7 +98,7 @@ urlpatterns = [
     # MISC
     path(
         r'property/thanks/',
-        TemplateView.as_view(template_name='app/property_thanks.html'),
+        views.PropertyThanksView.as_view(template_name='app/property_thanks.html'),
         name='property-thanks',
     ),
     path('stats/', api.StatsView.as_view(), name='statistics'),

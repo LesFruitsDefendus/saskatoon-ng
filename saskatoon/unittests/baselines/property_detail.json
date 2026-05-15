@@ -250,6 +250,7 @@
     "longitude": -73.576813,
     "latitude": 45.514527,
     "status": "authorized",
+    "auth_email_date": null,
     "is_active": true,
     "authorized": true,
     "pending": false,

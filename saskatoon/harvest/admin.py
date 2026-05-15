@@ -218,7 +218,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     def harvests(self, _property):
         return _property.harvests.count()
 
-    @admin.action(description="UNAUTHORIZE selected properties ʕ•ᴥ•ʔ")
+    @admin.action(description="Reset authorization on selected properties ʕ•ᴥ•ʔ")
     def reset_authorize(self, request, queryset):
         """Set authorized=None to queryset"""
         queryset.update(**{'authorized': None})

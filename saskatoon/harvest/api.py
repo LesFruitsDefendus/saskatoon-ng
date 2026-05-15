@@ -36,6 +36,8 @@ from member.permissions import (
     IsCoreOrAdmin,
     IsPickLeaderOrCoreOrAdmin,
 )
+from sitebase.models import Email, EmailType
+from sitebase.serializers import EmailPropertySerializer
 from sitebase.utils import (
     get_filter_context,
     renderer_format_needs_json_response,
@@ -144,6 +146,29 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
             messages.error(request, _("Something went wrong"))
 
         return response
+
+    @action(methods=['post'], detail=True, permission_classes=[IsCoreOrAdmin])
+    def send_authorization_email(self, request, pk=None):
+        property = self.get_object()
+        recipient = property.owner.person
+
+        if Email.objects.create(
+            recipient=recipient,
+            type=EmailType.SEASON_AUTHORIZATION,
+        ).send(data=dict(EmailPropertySerializer(property).data)):
+            messages.success(
+                request,
+                _("Authorization email successfully sent to {email}!").format(
+                    email=recipient.email
+                ),
+            )
+        else:
+            messages.error(
+                request,
+                _("Could not send authorization email to {email}.").format(email=recipient.email),
+            )
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
 
 class PropertyMapView(LoginRequiredMixin, generics.ListAPIView[Property]):
