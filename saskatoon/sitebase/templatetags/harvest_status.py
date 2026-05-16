@@ -43,7 +43,7 @@ def harvest_filter(harvest_status: str, size: str) -> str:
             ),
             (Harvest.Status.READY, '<span class="fa fa-shopping-basket fa-lg"></span>'),
             (Harvest.Status.SUCCEEDED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
-            (Harvest.Status.CANCELLED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
+            (Harvest.Status.CANCELLED, '<span class="fa fa-close fa-lg"></span>'),
         ]
     }.get(
         harvest_status, '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>'
