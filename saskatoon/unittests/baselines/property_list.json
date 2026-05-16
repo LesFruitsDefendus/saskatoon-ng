@@ -17,15 +17,22 @@
                     "name_fr": "Framboisier",
                     "fruit_name_en": "Raspberries",
                     "fruit_name_fr": "Framboises",
-                    "fruit_icon": null
+                    "fruit_icon": null,
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": null,
+            "last_succeeded_harvest": null,
+            "next_harvest": null,
             "is_active": true,
             "authorized": true,
             "pending": true,
-            "harvests": []
+            "harvests": [],
+            "longitude": -73.976813,
+            "latitude": 45.214527,
+            "status": "pending"
         },
         {
             "id": 11,
@@ -38,11 +45,62 @@
                     "name_fr": "Pêcher",
                     "fruit_name_en": "Peaches",
                     "fruit_name_fr": "Pêches",
-                    "fruit_icon": "🍑"
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": "2025-08-06T19:00:00Z",
+            "last_succeeded_harvest": {
+                "id": 7,
+                "status": "succeeded",
+                "status_display": "Succeeded",
+                "start_date": "2025-08-06",
+                "start_time": "3:00 PM",
+                "end_date": "2025-08-06",
+                "pick_leader": {
+                    "actor_id": 5,
+                    "name": "Core Member",
+                    "phone": "(514) 123-4321",
+                    "email": "core@member.com"
+                },
+                "trees": [
+                    {
+                        "id": 10,
+                        "name_en": "Peach tree",
+                        "name_fr": "Pêcher",
+                        "fruit_name_en": "Peaches",
+                        "fruit_name_fr": "Pêches",
+                        "fruit_icon": "🍑",
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": null
+                    }
+                ]
+            },
+            "next_harvest": {
+                "id": 6,
+                "status": "orphan",
+                "status_display": "Orphan",
+                "start_date": "2026-05-01",
+                "start_time": "12:00 AM",
+                "end_date": "2026-10-01",
+                "pick_leader": null,
+                "trees": [
+                    {
+                        "id": 10,
+                        "name_en": "Peach tree",
+                        "name_fr": "Pêcher",
+                        "fruit_name_en": "Peaches",
+                        "fruit_name_fr": "Pêches",
+                        "fruit_icon": "🍑",
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": null
+                    }
+                ]
+            },
             "is_active": true,
             "authorized": true,
             "pending": false,
@@ -56,17 +114,7 @@
                     "end_date": "2026-10-01",
                     "pick_leader": null,
                     "trees": [
-                        {
-                            "id": 10,
-                            "name_en": "Peach tree",
-                            "name_fr": "Pêcher",
-                            "fruit_name_en": "Peaches",
-                            "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        10
                     ]
                 },
                 {
@@ -76,22 +124,20 @@
                     "start_date": "2025-08-06",
                     "start_time": "3:00 PM",
                     "end_date": "2025-08-06",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 10,
-                            "name_en": "Peach tree",
-                            "name_fr": "Pêcher",
-                            "fruit_name_en": "Peaches",
-                            "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        10
                     ]
                 }
-            ]
+            ],
+            "longitude": -73.976813,
+            "latitude": 45.314527,
+            "status": "authorized"
         },
         {
             "id": 10,
@@ -104,15 +150,22 @@
                     "name_fr": "Abricotier",
                     "fruit_name_en": "Apricots",
                     "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑"
+                    "fruit_icon": "🍑",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": null,
+            "last_succeeded_harvest": null,
+            "next_harvest": null,
             "is_active": false,
             "authorized": true,
             "pending": false,
-            "harvests": []
+            "harvests": [],
+            "longitude": -73.976813,
+            "latitude": 45.414527,
+            "status": "inactive"
         },
         {
             "id": 6,
@@ -125,11 +178,41 @@
                     "name_fr": "Prunier mauve",
                     "fruit_name_en": "Purple plums",
                     "fruit_name_fr": "Prunes mauves",
-                    "fruit_icon": null
+                    "fruit_icon": null,
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": null,
+            "last_succeeded_harvest": null,
+            "next_harvest": {
+                "id": 5,
+                "status": "scheduled",
+                "status_display": "Scheduled",
+                "start_date": "2026-10-01",
+                "start_time": "8:00 AM",
+                "end_date": "2026-10-01",
+                "pick_leader": {
+                    "actor_id": 5,
+                    "name": "Core Member",
+                    "phone": "(514) 123-4321",
+                    "email": "core@member.com"
+                },
+                "trees": [
+                    {
+                        "id": 18,
+                        "name_en": "Purple plum tree",
+                        "name_fr": "Prunier mauve",
+                        "fruit_name_en": "Purple plums",
+                        "fruit_name_fr": "Prunes mauves",
+                        "fruit_icon": null,
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
+                    }
+                ]
+            },
             "is_active": true,
             "authorized": true,
             "pending": false,
@@ -141,22 +224,20 @@
                     "start_date": "2026-10-01",
                     "start_time": "8:00 AM",
                     "end_date": "2026-10-01",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 18,
-                            "name_en": "Purple plum tree",
-                            "name_fr": "Prunier mauve",
-                            "fruit_name_en": "Purple plums",
-                            "fruit_name_fr": "Prunes mauves",
-                            "fruit_icon": null,
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
-                        }
+                        18
                     ]
                 }
-            ]
+            ],
+            "longitude": -73.976813,
+            "latitude": 45.514527,
+            "status": "authorized"
         },
         {
             "id": 5,
@@ -169,15 +250,22 @@
                     "name_fr": "Aronie",
                     "fruit_name_en": "Chokeberries",
                     "fruit_name_fr": "Aronia",
-                    "fruit_icon": null
+                    "fruit_icon": null,
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/img018.jpg"
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": null,
+            "last_succeeded_harvest": null,
+            "next_harvest": null,
             "is_active": true,
             "authorized": false,
             "pending": false,
-            "harvests": []
+            "harvests": [],
+            "longitude": -73.876813,
+            "latitude": 45.514527,
+            "status": "unauthorized"
         },
         {
             "id": 4,
@@ -190,7 +278,10 @@
                     "name_fr": "Mûrier sauvage",
                     "fruit_name_en": "Blackberries",
                     "fruit_name_fr": "Mûres sauvages",
-                    "fruit_icon": null
+                    "fruit_icon": null,
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/220px-Ripe_ripening_and_green_blackberries.jpg"
                 },
                 {
                     "id": 21,
@@ -198,15 +289,22 @@
                     "name_fr": "Rhubarbe",
                     "fruit_name_en": "Rhubarb",
                     "fruit_name_fr": "Rhubarbe",
-                    "fruit_icon": null
+                    "fruit_icon": null,
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
                 }
             ],
             "ladder_available": false,
-            "last_succeeded_harvest_date": null,
+            "last_succeeded_harvest": null,
+            "next_harvest": null,
             "is_active": true,
             "authorized": true,
             "pending": true,
-            "harvests": []
+            "harvests": [],
+            "longitude": -73.676813,
+            "latitude": 45.514527,
+            "status": "pending"
         },
         {
             "id": 3,
@@ -219,7 +317,10 @@
                     "name_fr": "Pommier vert",
                     "fruit_name_en": "Green apples",
                     "fruit_name_fr": "Pommes vertes",
-                    "fruit_icon": "🍏"
+                    "fruit_icon": "🍏",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
                 },
                 {
                     "id": 9,
@@ -227,11 +328,78 @@
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",
                     "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
+                    "fruit_icon": "🥜",
+                    "maturity_start": "2025-05-01",
+                    "maturity_end": "2025-10-01",
+                    "image": null
                 }
             ],
             "ladder_available": true,
-            "last_succeeded_harvest_date": "2026-01-19T21:00:00Z",
+            "last_succeeded_harvest": {
+                "id": 1,
+                "status": "succeeded",
+                "status_display": "Succeeded",
+                "start_date": "2026-01-19",
+                "start_time": "4:00 PM",
+                "end_date": "2026-01-19",
+                "pick_leader": {
+                    "actor_id": 3,
+                    "name": "Pick Leader",
+                    "phone": "(333) 333-3333",
+                    "email": "pick@leader.com"
+                },
+                "trees": [
+                    {
+                        "id": 14,
+                        "name_en": "Green apple tree",
+                        "name_fr": "Pommier vert",
+                        "fruit_name_en": "Green apples",
+                        "fruit_name_fr": "Pommes vertes",
+                        "fruit_icon": "🍏",
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                    },
+                    {
+                        "id": 9,
+                        "name_en": "Walnut tree",
+                        "name_fr": "Noyer",
+                        "fruit_name_en": "Walnuts",
+                        "fruit_name_fr": "Noix de Grenoble",
+                        "fruit_icon": "🥜",
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": null
+                    }
+                ]
+            },
+            "next_harvest": {
+                "id": 2,
+                "status": "ready",
+                "status_display": "Ready",
+                "start_date": "2026-07-24",
+                "start_time": "3:00 PM",
+                "end_date": "2026-07-24",
+                "pick_leader": {
+                    "actor_id": 3,
+                    "name": "Pick Leader",
+                    "phone": "(333) 333-3333",
+                    "email": "pick@leader.com"
+                },
+                "trees": [
+                    {
+                        "id": 9,
+                        "name_en": "Walnut tree",
+                        "name_fr": "Noyer",
+                        "fruit_name_en": "Walnuts",
+                        "fruit_name_fr": "Noix de Grenoble",
+                        "fruit_icon": "🥜",
+                        "maturity_start": "2025-05-01",
+                        "maturity_end": "2025-10-01",
+                        "image": null
+                    }
+                ]
+            },
             "is_active": true,
             "authorized": true,
             "pending": false,
@@ -243,19 +411,14 @@
                     "start_date": "2026-08-01",
                     "start_time": "9:00 AM",
                     "end_date": "2026-08-01",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        9
                     ]
                 },
                 {
@@ -265,19 +428,14 @@
                     "start_date": "2026-07-24",
                     "start_time": "3:00 PM",
                     "end_date": "2026-07-24",
-                    "pick_leader": "Pick Leader",
+                    "pick_leader": {
+                        "actor_id": 3,
+                        "name": "Pick Leader",
+                        "phone": "(333) 333-3333",
+                        "email": "pick@leader.com"
+                    },
                     "trees": [
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        9
                     ]
                 },
                 {
@@ -287,19 +445,14 @@
                     "start_date": "2026-01-22",
                     "start_time": "5:00 PM",
                     "end_date": "2026-01-22",
-                    "pick_leader": "Core Member",
+                    "pick_leader": {
+                        "actor_id": 5,
+                        "name": "Core Member",
+                        "phone": "(514) 123-4321",
+                        "email": "core@member.com"
+                    },
                     "trees": [
-                        {
-                            "id": 14,
-                            "name_en": "Green apple tree",
-                            "name_fr": "Pommier vert",
-                            "fruit_name_en": "Green apples",
-                            "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
-                        }
+                        14
                     ]
                 },
                 {
@@ -309,33 +462,21 @@
                     "start_date": "2026-01-19",
                     "start_time": "4:00 PM",
                     "end_date": "2026-01-19",
-                    "pick_leader": "Pick Leader",
+                    "pick_leader": {
+                        "actor_id": 3,
+                        "name": "Pick Leader",
+                        "phone": "(333) 333-3333",
+                        "email": "pick@leader.com"
+                    },
                     "trees": [
-                        {
-                            "id": 14,
-                            "name_en": "Green apple tree",
-                            "name_fr": "Pommier vert",
-                            "fruit_name_en": "Green apples",
-                            "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
-                        },
-                        {
-                            "id": 9,
-                            "name_en": "Walnut tree",
-                            "name_fr": "Noyer",
-                            "fruit_name_en": "Walnuts",
-                            "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
-                            "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
-                        }
+                        14,
+                        9
                     ]
                 }
-            ]
+            ],
+            "longitude": -73.576813,
+            "latitude": 45.514527,
+            "status": "authorized"
         }
     ]
 }

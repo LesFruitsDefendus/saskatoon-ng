@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from django.views.generic import CreateView, TemplateView, UpdateView
 from django_stubs_ext import StrOrPromise
-
+from datetime import datetime
 from logging import getLogger
 
 from harvest.forms import (
@@ -547,11 +547,15 @@ def property_create_orphans(request, id):
     num_created = 0
     for t in property.trees.all():
         if not harvests.filter(trees__in=[t]).exists():
+
+            def update_year(d):
+                return d.replace(year=datetime.today().year) if d is not None else None
+
             h = Harvest.objects.create(
                 status=Harvest.Status.ORPHAN,
                 property=property,
-                start_date=to_datetime(t.maturity_start),
-                end_date=to_datetime(t.maturity_end),
+                start_date=update_year(to_datetime(t.maturity_start)),
+                end_date=update_year(to_datetime(t.maturity_end)),
             )
             h.trees.add(t)
             num_created += 1

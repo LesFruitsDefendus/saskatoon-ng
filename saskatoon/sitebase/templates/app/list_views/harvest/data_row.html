@@ -35,11 +35,11 @@
             <div class="progress">
                 <div class="lead-content">{{ harvest.status_display }}</div>
                 {% with progress=harvest.status|progress %}
-                <div class="progress-bar wow fadeInLeft"
+                <div class="progress-bar wow fadeInLeft {{harvest.status|color}}"
                      data-progress="{{progress}}%"
                      data-wow-delay="1.2s"
                      data-wow-duration="1.5s"
-                     style="background-color: {{harvest.status|color}}; width: {{progress}}%;">
+                     style="width: {{progress}}%;">
                 </div>
                 {% endwith %}
             </div>

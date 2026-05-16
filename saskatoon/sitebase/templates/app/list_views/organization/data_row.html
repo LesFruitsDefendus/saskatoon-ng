@@ -11,9 +11,10 @@
         {% if perms.member.delete_actor %}
             &nbsp;&nbsp;
             <small>
-                <a href="{% url 'admin:member_actor_delete' org.actor_id %}" onclick="return confirm('{% trans " Are you really sure
-                    you want to delete this actor?" %}');" title="{% trans 'Delete' %} {{ org.civil_name }}">
-                    <i class="fa fa-trash text-danger"></i>
+                <a href="{% url 'admin:member_actor_delete' org.actor_id %}"
+                   onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');"
+                   title="{% trans 'Delete' %} {{ org.civil_name }}">
+                    <i class="fa fa-trash saskatoon-danger"></i>
                 </a>
             </small>
         {% endif %}

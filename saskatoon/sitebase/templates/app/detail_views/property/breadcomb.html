@@ -18,20 +18,21 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>
-                                    {% if owner %}
-                                        {{ title }}
-                                    {% elif pending_contact_name %}
-                                        {{ pending_contact_name }}
-                                        at {{ address }}
-                                    {% else %}
-                                        {{ address }}
-                                    {% endif %}
+                                        {% if owner %}
+                                            {{ title }}
+                                        {% elif pending_contact_name %}
+                                            {{ pending_contact_name }}
+                                            at {{ address }}
+                                        {% else %}
+                                            {{ address }}
+                                        {% endif %}
                                     </h1>
                                     {% if pending %}
                                         <h4>** {% translate 'PENDING' %} **</h4>
-                                    {% elif last_succeeded_harvest_date %}
-                                        <p>{% trans "Last succeeded harvest" %}
-                                            on {{ last_succeeded_harvest_date|date }}
+                                    {% elif last_succeeded_harvest %}
+                                        <p>
+                                            {% trans "Last succeeded harvest" %}
+                                            on {{ last_succeeded_harvest.start_date }}
                                         </p>
                                     {% else %}
                                         <p>{% translate 'No succeeded harvest on this property so far' %}</p>
@@ -42,8 +43,10 @@
                         <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-right">
                             <div class="form-group" style="margin-top: 1em;">
                                 {% if perms.harvest.change_property %}
-                                    {% if not pending and authorized is None %}
-                                        <button title="Authorize" class="btn btn-success notika-btn-success" onclick="authorizeProperty({{id}})">
+                                    {% if not pending and not authorized is None %}
+                                        <button title="Authorize"
+                                                class="btn btn-success notika-btn-success"
+                                                onclick="authorizeProperty({{ id }})">
                                             <i class="fa fa-check"></i>&nbsp;
                                             {% trans "Authorize" %}
                                         </button>

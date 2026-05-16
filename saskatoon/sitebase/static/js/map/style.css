@@ -1,8 +1,19 @@
 .leaflet-container {
 	max-height: 100vh;
 
-	a.leaflet-popup-close-button {
-		top: 12px;
+	a {
+		&.leaflet-popup-close-button {
+			top: 12px;
+		}
+	}
+
+
+	.leaflet-popup-content {
+		max-height: 40vh;
+		overflow: auto;
+		padding-right: 0.5em;
+		width: 25vw !important;
+		min-width: 300px;
 	}
 }
 
@@ -19,15 +30,8 @@ leaflet-marker {
 	margin-left: -2px;
 }
 
-.saskatoon-map-success {
-	color: #440bd4;
-}
-
-.saskatoon-map-danger {
-	color: #c01c28;
-}
-
-.leaflet-popup-content {
-	max-height: 40vh;
-	overflow: auto;
+leaflet-popup {
+	> * {
+		padding-right: 0.5rem;
+	}
 }

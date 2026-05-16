@@ -11,6 +11,7 @@ from django.utils.safestring import mark_safe
 from typing import Optional
 from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 
+from saskatoon.settings import DEFAULT_LEAFLET_TILE
 from member.admin_filters import (
     ActorTypeAdminFilter,
     OrganizationHasNoContactAdminFilter,
@@ -380,18 +381,7 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
         ),
     )
 
-    settings_overrides = {
-        'TILES': [
-            (
-                'OSM',
-                '//tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-                    'attribution': '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    'referrerPolicy': 'strict-origin-when-cross-origin',
-                },
-            )
-        ]
-    }
+    settings_overrides = {'TILES': [DEFAULT_LEAFLET_TILE]}
 
     @admin.display(description="Contact Person")
     def contact(self, org):

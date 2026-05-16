@@ -1,5 +1,4 @@
 from django.urls import path, re_path
-from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 from harvest import api, views, autocomplete
 from rest_framework.routers import DefaultRouter
@@ -12,6 +11,12 @@ router.register('equipment', api.EquipmentViewset, 'equipment')
 router.register('participation', api.RFPViewset, 'participation')
 
 urlpatterns = [
+    # MAP VIEWS
+    path(
+        'property/map',
+        api.PropertyMapView.as_view(),
+        name='property-map',
+    ),
     # CREATE VIEWS
     path(
         r'equipment/create/',

@@ -79,9 +79,17 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
 
     def get_pick_leader(self, harvest):
-        if harvest.pick_leader:
-            return PersonSerializer(harvest.pick_leader.person).data
-        return None
+        if harvest.pick_leader is None:
+            return None
+
+        data = PersonSerializer(harvest.pick_leader.person).data
+
+        return {
+            'actor_id': data['actor_id'],
+            'name': data['name'],
+            'phone': data['phone'],
+            'email': data['email'],
+        }
 
 
 class PropertySerializer(serializers.ModelSerializer[Property]):
@@ -95,7 +103,8 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    last_succeeded_harvest_date = serializers.ReadOnlyField()
+    last_succeeded_harvest = PropertyHarvestSerializer(many=False, read_only=True)
+    next_harvest = PropertyHarvestSerializer(many=False, read_only=True)
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
@@ -103,6 +112,9 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     owner_type = serializers.SerializerMethodField()
     similar_properties = serializers.SerializerMethodField()
     needs_orphan = serializers.ReadOnlyField()
+    longitude = serializers.ReadOnlyField()
+    latitude = serializers.ReadOnlyField()
+    status = serializers.ReadOnlyField()
     auth_email_date = serializers.SerializerMethodField()
 
     def get_owner(self, obj):
@@ -120,6 +132,9 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
         return similar_properties(obj)
 
     def get_auth_email_date(self, obj):
+        if obj.owner is None or obj.owner.person is None:
+            return None
+
         sent = Email.objects.filter(
             type=EmailType.SEASON_AUTHORIZATION,
             date_sent__year=tz.now().date().year,
@@ -134,8 +149,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
 
 class PropertyListHarvestSerializer(PropertyHarvestSerializer):
     start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
-    pick_leader = serializers.StringRelatedField(many=False)  # type: ignore
-    # mypy says it's a SerializerMethodField
+    trees = None  # type: ignore
 
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
@@ -159,17 +173,21 @@ class PropertyListSerializer(PropertySerializer):
             'neighborhood',
             'trees',
             'ladder_available',
-            'last_succeeded_harvest_date',
+            'last_succeeded_harvest',
+            'next_harvest',
             'is_active',
             'authorized',
             'pending',
             'harvests',
+            'longitude',
+            'latitude',
+            'status',
         ]
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
-    trees = PropertyTreeTypeSerializer(many=True, read_only=True)
     harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+    auth_email_date = None  # type: ignore
 
 
 class PropertyEquipmentSerializer(PropertyListSerializer):

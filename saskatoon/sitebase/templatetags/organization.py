@@ -8,7 +8,7 @@ register = template.Library()
 @register.filter
 @typechecked
 def reservation(status: Optional[str]) -> str:
-    default = '#440bd4'
+    default = 'saskatoon-primary'
 
     if status is None:
         return default
@@ -16,8 +16,8 @@ def reservation(status: Optional[str]) -> str:
     return {
         t[0]: t[1]
         for t in [
-            ('reserved', '#c01c28'),
-            ('available', '#440bd4'),
+            ('reserved', 'saskatoon-danger'),
+            ('available', 'saskatoon-success'),
         ]
     }.get(status, default)
 

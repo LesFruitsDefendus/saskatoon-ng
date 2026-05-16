@@ -133,6 +133,13 @@ class Property(models.Model):
             '-id',
         ]
 
+    class Status(models.TextChoices, Enum):
+        INACTIVE = 'inactive', _("Inactive")
+        UNAUTHORIZED = 'unauthorized', _("Unauthorized")
+        PENDING = 'pending', _("Pending")
+        VALIDATED = 'validated', _("Validated")
+        AUTHORIZED = 'authorized', _("Authorized")
+
     owner = models.ForeignKey(
         'member.Actor',
         null=True,
@@ -334,28 +341,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         on_delete=models.CASCADE,
     )
 
-    longitude = models.FloatField(
-        verbose_name=_("Longitude"),
-        null=True,
-        blank=True,
-        validators=[
-            MinValueValidator(-180),
-            MaxValueValidator(180),
-            validate_is_not_nan,
-        ],
-    )
-
-    latitude = models.FloatField(
-        verbose_name=_("Latitude"),
-        null=True,
-        blank=True,
-        validators=[
-            MinValueValidator(-90),
-            MaxValueValidator(90),
-            validate_is_not_nan,
-        ],
-    )
-
     additional_info = models.CharField(
         verbose_name=_("Additional information"),
         help_text=_("Any additional information that we should be aware of"),
@@ -383,12 +368,21 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
             return self.street
 
     @property
-    def last_succeeded_harvest_date(self):
-        """Date of the last successful harvest for this property"""
-        last_harvest = (
-            self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
+    def last_succeeded_harvest(self):
+        """Last Successful harvest for this property"""
+        return self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
+
+    @property
+    def next_harvest(self):
+        """Next harvest for this property"""
+        return (
+            self.harvests.exclude(
+                status__in=[Harvest.Status.SUCCEEDED, Harvest.Status.CANCELLED],
+                start_date__lte=datetime.now().astimezone(),
+            )
+            .order_by('start_date')
+            .first()
         )
-        return last_harvest.start_date if last_harvest else None
 
     def get_owner_subclass(self):
         if self.owner:
@@ -448,6 +442,36 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
             self.trees.count()
             > self.harvests.filter(start_date__year=tz.now().date().year).count()
         )
+
+    @property
+    def latitude(self):
+        if self.geom is not None and self.geom['type'] == "Point":
+            return self.geom['coordinates'][1]
+
+        return None
+
+    @property
+    def longitude(self):
+        if self.geom is not None and self.geom['type'] == "Point":
+            return self.geom['coordinates'][0]
+
+        return None
+
+    @property
+    def status(self):
+        if not self.is_active:
+            return Property.Status.INACTIVE
+
+        if self.pending:
+            return Property.Status.PENDING
+
+        if self.authorized is None:
+            return Property.Status.VALIDATED
+
+        if not self.authorized:
+            return Property.Status.UNAUTHORIZED
+
+        return Property.Status.AUTHORIZED
 
     def __str__(self):
         number = self.street_number if self.street_number else ""

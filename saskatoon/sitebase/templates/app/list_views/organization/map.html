@@ -7,10 +7,11 @@
     <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}">
     <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
     <link rel="stylesheet" href="{% static 'css/map.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}"></link>
 {% endblock style %}
 
 {% block script %}
-    <script defer src="/static/js/list-view-tabs.js"></script>
+    <script defer src="{% static 'js/list-view-tabs.js' %}"></script>
 {% endblock script %}
 
 {% block data %}
@@ -35,14 +36,13 @@
                  >
                     <leaflet-tooltip direction="top">{{ org.civil_name }}</leaflet-tooltip>
                     <leaflet-icon
-                      style="color: {{ filter.form.status.value | reservation }};"
+                      class="{{ filter.form.status.value | reservation }}"
                       icon-anchor="10 -5"
                     >
                       {{ org | org_icon | safe }}
                     </leaflet-icon>
                     <leaflet-icon
-                      style="color: {{ filter.form.status.value | reservation }};"
-                      class="leaflet-hover-icon"
+                      class="leaflet-hover-icon {{ filter.form.status.value | reservation }}"
                       icon-anchor="10 -5"
                       popup-anchor="0 0"
                     >

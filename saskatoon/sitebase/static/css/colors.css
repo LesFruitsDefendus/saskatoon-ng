@@ -1,0 +1,67 @@
+:root {
+    --saskatoon-success: #8bc34a;
+    --saskatoon-primary: var(--saskatoon-info);
+    --saskatoon-danger: #c01c28;
+    --saskatoon-warning: #e8ad2b;
+    --saskatoon-info: #440bd4;
+    --saskatoon-neutral: #000;
+}
+
+.saskatoon-success {
+    color: var(--saskatoon-success);
+}
+
+.saskatoon-danger {
+    color: var(--saskatoon-danger);
+}
+
+.saskatoon-warning {
+    color: var(--saskatoon-warning);
+}
+
+.saskatoon-primary,
+.saskatoon-info {
+    color: var(--saskatoon-info);
+}
+
+.saskatoon-neutral {
+    color: var(--saskatoon-neutral);
+}
+
+.skill .progress:nth-child(1) .progress-bar.saskatoon-success,
+.btn.saskatoon-success,
+.badge.saskatoon-success {
+    color: white;
+    background-color: var(--saskatoon-success);
+}
+
+.skill .progress:nth-child(1) .progress-bar.saskatoon-danger,
+.btn.saskatoon-danger,
+.badge.saskatoon-danger {
+    color: white;
+    background-color: var(--saskatoon-danger);
+}
+
+.skill .progress:nth-child(1) .progress-bar.saskatoon-warning,
+.btn.saskatoon-warning,
+.badge.saskatoon-warning {
+    color: white;
+    background-color: var(--saskatoon-warning);
+}
+
+.skill .progress:nth-child(1) .progress-bar.saskatoon-primary,
+.btn.saskatoon-primary,
+.badge.saskatoon-primary,
+.skill .progress:nth-child(1) .progress-bar.saskatoon-info,
+.btn.saskatoon-info,
+.badge.saskatoon-info {
+    color: white;
+    background-color: var(--saskatoon-info);
+}
+
+.skill .progress:nth-child(1) .progress-bar.saskatoon-neutral,
+.btn.saskatoon-neutral,
+.badge.saskatoon-neutral {
+    color: white;
+    background-color: var(--saskatoon-neutral);
+}

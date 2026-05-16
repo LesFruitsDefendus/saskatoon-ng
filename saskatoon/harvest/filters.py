@@ -116,7 +116,6 @@ class PropertyFilter(filters.FilterSet):
             'authorized',
             'neighborhood',
             'trees',
-            'ladder',
         ]
 
     is_active = filters.BooleanFilter(label=_("Active"), help_text="")
@@ -145,12 +144,6 @@ class PropertyFilter(filters.FilterSet):
         queryset=TreeType.objects.all(), label=_("Tree"), help_text="", required=False
     )
 
-    ladder = filters.BooleanFilter(
-        field_name='ladder_available',
-        label=_("Ladder available"),
-        help_text="",
-    )
-
     season = filters.ChoiceFilter(
         label=_("Harvested in"),
         field_name='season',
@@ -169,7 +162,7 @@ class PropertyFilter(filters.FilterSet):
             return queryset
 
         harvests = Harvest.objects.filter(start_date__year=year)
-        return queryset.filter(harvests__in=harvests)
+        return queryset.filter(harvests__in=harvests).distinct()
 
 
 @typechecked
