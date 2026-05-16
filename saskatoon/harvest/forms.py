@@ -260,8 +260,8 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         fields = (
             'pending_contact_first_name',
             'pending_contact_family_name',
-            'pending_contact_phone',
             'pending_contact_email',
+            'pending_contact_phone',
             'pending_recurring',
             'authorized',
             'trees',
@@ -269,7 +269,6 @@ class PublicPropertyForm(forms.ModelForm[Property]):
             'approximative_maturity_date',
             'trees_location',
             'trees_accessibility',
-            # 'public_access',
             'neighbor_access',
             'compost_bin',
             'ladder_available',
@@ -288,11 +287,27 @@ class PublicPropertyForm(forms.ModelForm[Property]):
             'additional_info',
             'pending_newsletter',
         )
+        labels = {'pending_contact_phone': _("Phone number")}
 
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
             'avg_nb_required_pickers': forms.NumberInput(),
         }
+
+    pending_contact_first_name = forms.CharField(
+        label=_("First Name"),
+        required=True,
+    )
+
+    pending_contact_family_name = forms.CharField(
+        label=_("Last Name"),
+        required=True,
+    )
+
+    pending_contact_email = forms.EmailField(
+        label=_("Email"),
+        required=True,
+    )
 
     neighbor_access = forms.BooleanField(
         label=_("Volunteers have permission to go on the neighbours property to access fruits"),
