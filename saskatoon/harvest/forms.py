@@ -204,6 +204,30 @@ class PropertyForm(forms.ModelForm[Property]):
 
     field_order = ['pending', 'is_active', 'authorized', 'owner']
 
+    def clean(self):
+        data = super().clean()
+        if not data['pending']:
+            owner = data['owner']
+            if owner is None:
+                raise forms.ValidationError(
+                    _("Owner must be set before property can be marked as validated")
+                )
+
+            email = None
+            if owner.is_person:
+                email = owner.person.email
+            elif owner.is_organization:
+                email = owner.organization.email
+
+            if email is None:
+                raise forms.ValidationError(
+                    _(
+                        "Owner must have an email address before the property can be marked as validated"
+                    )
+                )
+
+        return data
+
 
 class PropertyCreateForm(PropertyForm):
     """Property create form."""
