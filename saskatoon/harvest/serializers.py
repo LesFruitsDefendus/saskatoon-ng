@@ -12,7 +12,7 @@ from member.serializers import (
     ContactPersonSerializer,
     CountrySerializer,
     StateSerializer,
-    PersonOwnerSerializer,
+    OwnerPersonSerializer,
     PersonSerializer,
     OrganizationOwnerSerializer,
     PickLeaderSerializer,
@@ -120,7 +120,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     def get_owner(self, obj):
         if obj.owner:
             if obj.owner.is_person:
-                return PersonOwnerSerializer(obj.owner.person).data
+                return OwnerPersonSerializer(obj.owner.person).data
             elif obj.owner.is_organization:
                 return OrganizationOwnerSerializer(obj.owner.organization).data
         return None

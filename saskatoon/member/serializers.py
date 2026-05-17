@@ -121,7 +121,7 @@ class ContactPersonSerializer(PersonSerializer):
         fields = ['actor_id', 'roles', 'name', 'email', 'phone']
 
 
-class PersonOwnerSerializer(serializers.ModelSerializer[Person]):
+class OwnerPersonSerializer(serializers.ModelSerializer[Person]):
     class Meta:
         model = Person
         fields = [
