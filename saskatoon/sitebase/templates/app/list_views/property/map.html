@@ -48,7 +48,8 @@
                                             {{ property.address }} <i class="fa fa-external-link fa-xs"></i>
                                         </a>
                                     </h4>
-                                    <span class="badge {{ property.status | property_status }}">{{ property.status.label }}</span>
+                                    <span class="badge {{ property.status | property_status }}"
+                                          {{ property.status | property_status_attributes | safe }}>{{ property.status.label }}</span>
                                     {% if property.last_succeeded_harvest %}
                                         <p>
                                             {% trans 'Last harvest was on' %}

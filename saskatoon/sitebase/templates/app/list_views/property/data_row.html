@@ -32,7 +32,7 @@
     </td>
     <td>{{ property.neighborhood }}</td>
     <td>
-        <span class="badge {{ property.status | property_status }}">{{ property.status.label }}</span>
+        <span class="badge {{ property.status | property_status }}" {{ property.status | property_status_attributes | safe }}>{{ property.status.label }}</span>
     </td>
     <td>
         {% for tree in property.trees %}

@@ -2,6 +2,7 @@ from django import template
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from typeguard import typechecked
+from typing import Optional
 
 from harvest.models import Harvest
 
@@ -106,3 +107,41 @@ def harvest_link_attributes(harvest):
         + pick_leader
         + '"'
     )
+
+
+@register.filter
+@typechecked
+def harvest_status_attributes(status: Optional[str], direction: str = "bottom") -> str:
+    default = ''
+
+    if status is None:
+        return default
+
+    help_text = {
+        t[0]: t[1]
+        for t in [
+            (
+                Harvest.Status.ADOPTED.value,
+                _("Harvest has been adopted, but still needs to be scheduled "),
+            ),
+            (
+                Harvest.Status.SCHEDULED.value,
+                _("Harvest has been scheduled and has room for more pickers"),
+            ),
+            (
+                Harvest.Status.READY.value,
+                _("Harvest is ready to start, there are no more empty spots for pickers"),
+            ),
+            (
+                Harvest.Status.CANCELLED.value,
+                _("Harvest is cancelled, it will need to be rescheduled by the pick leader"),
+            ),
+            (
+                Harvest.Status.SUCCEEDED.value,
+                _("Harvest is finished and fruits have been harvested"),
+            ),
+            (Harvest.Status.ORPHAN.value, _("Harvest needs a pick leader to adopt it")),
+        ]
+    }.get(status, default)
+
+    return 'data-placement="' + direction + '" data-toggle="tooltip" title="' + help_text + '"'

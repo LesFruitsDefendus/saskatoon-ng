@@ -1,4 +1,5 @@
 from django import template
+from django.utils.translation import gettext_lazy as _
 from datetime import datetime
 from typeguard import typechecked
 from typing import Optional
@@ -114,3 +115,41 @@ def selected_season(request):
         return request.GET['season']
 
     return str(datetime.now().year)
+
+
+@register.filter
+@typechecked
+def property_status_attributes(status):
+    default = ''
+
+    if status is None:
+        return default
+
+    help_text = {
+        t[0]: t[1]
+        for t in [
+            (
+                Property.Status.PENDING.value,
+                _(
+                    "The property owner wants a harvest this season, but core must first validate it"
+                ),
+            ),
+            (
+                Property.Status.UNAUTHORIZED.value,
+                _("The property owner does not want a harvest this season, do not contact them"),
+            ),
+            (
+                Property.Status.AUTHORIZED.value,
+                _("If this property does not already have a harvest, you can create one"),
+            ),
+            (Property.Status.INACTIVE.value, _("This property is inactive")),
+            (
+                Property.Status.VALIDATED.value,
+                _(
+                    "The property owner has not yet indicated that they want to participate this year, you may contact them to confirm after creating a related harvest"
+                ),
+            ),
+        ]
+    }.get(status, default)
+
+    return 'data-placement="bottom" data-toggle="tooltip" title="' + help_text + '"'

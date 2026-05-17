@@ -31,7 +31,7 @@
         </div>
     </td>
     <td>
-        <div class="skill">
+        <div class="skill" {{ harvest.status | harvest_status_attributes | safe }}>
             <div class="progress">
                 <div class="lead-content">{{ harvest.status_display }}</div>
                 {% with progress=harvest.status|progress %}

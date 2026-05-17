@@ -2,13 +2,15 @@
 {% load static %}
 {% load tz %}
 {% load auth_users %}
+{% load harvest_status %}
+
 <div class="harvest-info">
     <section>
-        <p>{% translate "Harvest status" %}</p>
-        {% if user|is_pickleader:id %}
+        <p >{% translate "Harvest status" %}</p>
+        {% if user|is_pickleader:id or user|is_core_or_admin %}
             {% include 'app/detail_views/harvest/status_choices.html' %}
         {% else %}
-            <h2>{{ status_display }}</h2>
+            <h2 class="badge {{ status | color }}" {{ status | harvest_status_attributes | safe }}>{{ status_display }}</h2>
         {% endif %}
     </section>
     <section>
