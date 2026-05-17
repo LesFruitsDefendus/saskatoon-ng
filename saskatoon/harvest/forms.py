@@ -311,7 +311,10 @@ class PublicPropertyForm(forms.ModelForm[Property]):
             'additional_info',
             'pending_newsletter',
         )
-        labels = {'pending_contact_phone': _("Phone number")}
+        labels = {
+            'pending_contact_phone': _("Phone number"),
+            'pending_contact_family_name': _("Last name"),
+        }
 
         widgets = {
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
@@ -320,11 +323,6 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
     pending_contact_first_name = forms.CharField(
         label=_("First Name"),
-        required=True,
-    )
-
-    pending_contact_family_name = forms.CharField(
-        label=_("Last Name"),
         required=True,
     )
 
