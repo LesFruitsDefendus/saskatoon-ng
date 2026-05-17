@@ -5,6 +5,7 @@ from django.contrib.auth import forms as auth_forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.widgets import PasswordInput
 from logging import getLogger
+from phone_field.forms import PhoneFormField
 
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization
@@ -158,7 +159,7 @@ class OrganizationCreateForm(OrganizationForm):
         label=_("Email"), help_text=_("This field is required"), required=False
     )
 
-    contact_phone = forms.CharField(label=_("Phone"), required=False)
+    contact_phone = PhoneFormField(label=_("Phone"), required=False, max_length=18)
 
     def clean(self):
         data = super().clean()
