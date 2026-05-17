@@ -5,6 +5,7 @@ from django import forms
 from django.contrib.auth.models import Group
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
+from phone_field.forms import PhoneFormField
 from logging import getLogger
 from postalcodes_ca import parse_postal_code
 from types import SimpleNamespace
@@ -52,7 +53,7 @@ class RFPForm(forms.ModelForm[RFP]):
     first_name = forms.CharField(label=_("First name"))
     last_name = forms.CharField(label=_("Last name"))
     email = forms.EmailField(label=_("Email"), help_text=_("Enter a valid email address, please."))
-    phone = forms.CharField(label=_("Phone number"))
+    phone = PhoneFormField(label=_("Phone number"), max_length=18)
     comment = forms.CharField(label=_("Comments"), required=False, widget=forms.widgets.Textarea())
 
     def __init__(self, *args, **kwargs):
@@ -239,7 +240,7 @@ class PropertyCreateForm(PropertyForm):
 
     owner_last_name = forms.CharField(label=_("Last Name"), required=False)
 
-    owner_phone = forms.CharField(label=_("Phone"), required=False)
+    owner_phone = PhoneFormField(label=_("Phone"), max_length=18)
 
     owner_email = forms.EmailField(
         label=_("Email"), help_text=_("This field is required"), required=False
