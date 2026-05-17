@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-10 15:01-0400\n"
+"POT-Creation-Date: 2026-05-17 12:04-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgid "Role(s)"
 msgstr "Rôle(s)"
 
 #: member/filters.py:34 member/filters.py:137 member/filters.py:170
-#: member/models.py:249 member/models.py:463
+#: member/models.py:249 member/models.py:465
 msgid "Borough"
 msgstr "Voisinage"
 
@@ -152,7 +152,7 @@ msgstr "Ce champ est requis"
 msgid "Last Name"
 msgstr "Nom"
 
-#: member/forms.py:161 member/models.py:231 member/models.py:434
+#: member/forms.py:161 member/models.py:231 member/models.py:436
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -238,34 +238,34 @@ msgid "First name"
 msgstr "Prénom"
 
 #: member/models.py:228
-msgid "Family name"
+msgid "Last name"
 msgstr "Nom"
 
 #: member/models.py:234
 msgid "Number"
 msgstr "Numéro civique"
 
-#: member/models.py:237 member/models.py:451
+#: member/models.py:237 member/models.py:453
 msgid "Street"
 msgstr "Rue"
 
-#: member/models.py:240 member/models.py:454
+#: member/models.py:240 member/models.py:456
 msgid "Complement"
 msgstr "Complément"
 
-#: member/models.py:244 member/models.py:458
+#: member/models.py:244 member/models.py:460
 msgid "Postal code"
 msgstr "Code postal"
 
-#: member/models.py:257 member/models.py:470
+#: member/models.py:257 member/models.py:472
 msgid "City"
 msgstr "Ville"
 
-#: member/models.py:265 member/models.py:478
+#: member/models.py:265 member/models.py:480
 msgid "State"
 msgstr "Province"
 
-#: member/models.py:273 member/models.py:486
+#: member/models.py:273 member/models.py:488
 msgid "Country"
 msgstr "Pays"
 
@@ -289,19 +289,19 @@ msgstr "Commentaires"
 msgid "Onboarding group"
 msgstr "Groupe d'intégration"
 
-#: member/models.py:397
+#: member/models.py:399
 msgid "organization"
 msgstr "Organisme"
 
-#: member/models.py:398
+#: member/models.py:400
 msgid "organizations"
 msgstr "Organismes"
 
-#: member/models.py:402
+#: member/models.py:404
 msgid "Is Beneficiary"
 msgstr "Est Bénéficiaire"
 
-#: member/models.py:404
+#: member/models.py:406
 msgid ""
 "Only check this box if the Organization is currently accepting fruit "
 "donations"
@@ -309,11 +309,11 @@ msgstr ""
 "Cochez cette case seulement si l'organisme accepte des dons de fruits en ce "
 "moment"
 
-#: member/models.py:410
+#: member/models.py:412
 msgid "Is Equipment Point"
 msgstr "Est un point d'équipement"
 
-#: member/models.py:412
+#: member/models.py:414
 msgid ""
 "Only check this box if the equipment registered at this Organization is "
 "currenlty made available"
@@ -321,68 +321,68 @@ msgstr ""
 "Cochez cette boîte uniquement si l'équipement enregistré à cette "
 "organisation est disponible"
 
-#: member/models.py:419
+#: member/models.py:421
 msgid "Redmine contact"
 msgstr "Contact Redmine"
 
-#: member/models.py:422 member/models.py:577 member/models.py:590
-#: member/models.py:603 member/models.py:616
+#: member/models.py:424 member/models.py:579 member/models.py:592
+#: member/models.py:605 member/models.py:618
 msgid "Name"
 msgstr "Nom"
 
-#: member/models.py:424
+#: member/models.py:426
 msgid "Short description"
 msgstr "Courte description"
 
-#: member/models.py:427
+#: member/models.py:429
 msgid "Beneficiary description"
 msgstr "Description du bénéficiaire"
 
-#: member/models.py:431
+#: member/models.py:433
 msgid "Equipment point description"
 msgstr "Description du point d'équipement"
 
-#: member/models.py:439
+#: member/models.py:441
 msgid "Contact person"
 msgstr "Personne contact"
 
-#: member/models.py:444
+#: member/models.py:446
 msgid "Contact person role"
 msgstr "Responsabilités de la personne contact"
 
-#: member/models.py:448
+#: member/models.py:450
 msgid "Street number"
 msgstr "Numéro civique"
 
-#: member/models.py:573
+#: member/models.py:575
 msgid "borough"
 msgstr "Arrondissement"
 
-#: member/models.py:574
+#: member/models.py:576
 msgid "boroughs"
 msgstr "Arrondissement"
 
-#: member/models.py:587
+#: member/models.py:589
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:588
+#: member/models.py:590
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:600
+#: member/models.py:602
 msgid "state"
 msgstr "province"
 
-#: member/models.py:601
+#: member/models.py:603
 msgid "states"
 msgstr "provinces"
 
-#: member/models.py:613
+#: member/models.py:615
 msgid "country"
 msgstr "pays"
 
-#: member/models.py:614
+#: member/models.py:616
 msgid "countries"
 msgstr "pays"
 
@@ -475,3 +475,6 @@ msgid "Failed to send password reset email to {email}"
 msgstr ""
 "Échec de l'envoie du courriel de requête de changement de mot de passe à "
 "{email}"
+
+#~ msgid "Family name"
+#~ msgstr "Nom"

@@ -235,7 +235,7 @@
   "fields": {
     "language": "fr",
     "first_name": "Onboarding",
-    "family_name": "User",
+    "family_name": "",
     "phone": "111-111-1111, press 1",
     "street_number": null,
     "street": null,
