@@ -1384,7 +1384,7 @@ msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
 #: sitebase/templatetags/harvest_status.py:129
 msgid "Harvest has been scheduled and has room for more pickers"
-msgstr "Récolte a été planifié et attend la participation de bénévoles"
+msgstr "Récolte a été planifiée et attend la participation de bénévoles"
 
 #: sitebase/templatetags/harvest_status.py:133
 msgid "Harvest is ready to start, there are no more empty spots for pickers"
@@ -1392,15 +1392,15 @@ msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
 #: sitebase/templatetags/harvest_status.py:137
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
-msgstr "Récole est annulé, elle devra être replanifié par le "
+msgstr "Récolte est annulée, elle devra être replanifiée par le ou la chef.fe de cueillette"
 
 #: sitebase/templatetags/harvest_status.py:141
 msgid "Harvest is finished and fruits have been harvested"
-msgstr "Récolte est fini, les fruits ont été récoltés"
+msgstr "Récolte est terminée et les fruits ont été récoltés"
 
 #: sitebase/templatetags/harvest_status.py:143
 msgid "Harvest needs a pick leader to adopt it"
-msgstr "Récolte doit être adopté par un.e chef.fe de cueillette"
+msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
 #: sitebase/templatetags/property.py:133
 msgid "The property information needs to be validated by a core member."
@@ -1412,7 +1412,7 @@ msgid ""
 "them"
 msgstr ""
 "Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
-"ne les contacter pas"
+"ne les contactez pas"
 
 #: sitebase/templatetags/property.py:143
 msgid "If this property does not already have a harvest, you can create one"
