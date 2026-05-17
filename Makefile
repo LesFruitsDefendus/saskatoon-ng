@@ -32,3 +32,6 @@ staticchecks:
 
 unittests:
 	@tox -e unittests
+
+baselines:
+	@tox -e baselines
