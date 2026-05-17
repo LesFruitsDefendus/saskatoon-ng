@@ -310,7 +310,9 @@ class Person(Actor):
 
     @property
     def name(self):
-        return "%s %s" % (self.first_name, self.family_name)
+        if self.family_name != "":
+            return "%s %s" % (self.first_name, self.family_name)
+        return self.first_name
 
     @property
     def email(self):
