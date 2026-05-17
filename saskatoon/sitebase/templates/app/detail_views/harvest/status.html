@@ -6,7 +6,7 @@
 
 <div class="harvest-info">
     <section>
-        <p >{% translate "Harvest status" %}</p>
+        <p>{% translate "Harvest status" %}</p>
         {% if user|is_pickleader:id %}
             {% include 'app/detail_views/harvest/status_choices.html' %}
         {% else %}

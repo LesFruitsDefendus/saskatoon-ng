@@ -19,7 +19,7 @@
         aria-labelledby="menu1"
     >
         {% for choice in status_choices %}
-            <li role="presentation"  {{ choice.0 | harvest_status_attributes:"right" | safe }}>
+            <li role="presentation" {{ choice.0 | harvest_status_attributes:"right" | safe }}>
                 <a
                 href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
                 role="menuitem"
