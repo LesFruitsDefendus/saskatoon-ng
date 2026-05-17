@@ -222,10 +222,26 @@ class ActorTypeAdminFilter(SimpleListFilter):
         return queryset
 
 
+class UserHasNoPersonAdminFilter(SimpleListFilter):
+    """Checks if a AuthUser is associated with a Person"""
+
+    title = 'Has No Person Filter'
+    parameter_name = 'user'
+    default_value: Optional[AuthUser] = None
+
+    def lookups(self, request, model_admin):
+        return [('0', 'has no person')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.filter(person__isnull=True)
+        return queryset
+
+
 class PersonHasNoUserAdminFilter(SimpleListFilter):
     """Checks if a Person is associated with an AuthUser"""
 
-    title = 'AuthUser Filter'
+    title = 'Has No AuthUser Filter'
     parameter_name = 'user'
     default_value: Optional[Person] = None
 

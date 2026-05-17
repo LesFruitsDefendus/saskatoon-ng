@@ -18,6 +18,7 @@ from member.admin_filters import (
     PersonHasNoUserAdminFilter,
     UserGroupAdminFilter,
     UserHasLedPicksAdminFilter,
+    UserHasNoPersonAdminFilter,
     UserHasPasswordAdminFilter,
     UserHasPropertyAdminFilter,
     UserHasSignedInAdminFilter,
@@ -101,6 +102,7 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
         UserHasPasswordAdminFilter,
         UserHasSignedInAdminFilter,
         'agreed_terms',
+        UserHasNoPersonAdminFilter,
     )
 
     fieldsets = (
@@ -276,11 +278,11 @@ class PersonAdmin(admin.ModelAdmin[Person]):
         'pk',
     )
     list_filter = (
+        'language',
+        'newsletter_subscription',
         PersonHasNoUserAdminFilter,
         'neighborhood',
         'city',
-        'language',
-        'newsletter_subscription',
     )
     search_fields = (
         'first_name',
