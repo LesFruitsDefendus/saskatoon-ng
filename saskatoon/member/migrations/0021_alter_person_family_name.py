@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             model_name='person',
             name='family_name',
             field=models.CharField(
-                blank=True, default='', max_length=50, verbose_name='Family name'
+                blank=True, default='', max_length=50, verbose_name='Last name'
             ),
         ),
     ]
