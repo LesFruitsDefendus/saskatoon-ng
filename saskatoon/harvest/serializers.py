@@ -12,9 +12,10 @@ from member.serializers import (
     ContactPersonSerializer,
     CountrySerializer,
     StateSerializer,
-    PersonOwnerSerializer,
-    PersonSerializer,
     OrganizationOwnerSerializer,
+    OwnerPersonSerializer,
+    PersonSerializer,
+    PickLeaderPersonSerializer,
     PickLeaderSerializer,
     PickerSerializer,
     RequestForParticipationPersonSerializer,
@@ -82,14 +83,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
         if harvest.pick_leader is None:
             return None
 
-        data = PersonSerializer(harvest.pick_leader.person).data
-
-        return {
-            'actor_id': data['actor_id'],
-            'name': data['name'],
-            'phone': data['phone'],
-            'email': data['email'],
-        }
+        return PickLeaderPersonSerializer(harvest.pick_leader.person).data
 
 
 class PropertySerializer(serializers.ModelSerializer[Property]):
@@ -120,7 +114,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     def get_owner(self, obj):
         if obj.owner:
             if obj.owner.is_person:
-                return PersonOwnerSerializer(obj.owner.person).data
+                return OwnerPersonSerializer(obj.owner.person).data
             elif obj.owner.is_organization:
                 return OrganizationOwnerSerializer(obj.owner.organization).data
         return None
