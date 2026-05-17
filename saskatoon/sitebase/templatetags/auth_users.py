@@ -28,7 +28,7 @@ def is_pickleader(user: AuthUser, hid: Optional[int] = None) -> bool:
         harvest = Harvest.objects.get(id=hid)
         return harvest.pick_leader == user
 
-    return perms.is_pickleader_or_core(user)
+    return perms.is_pickleader_or_core_or_admin(user)
 
 
 @register.filter(name="is_translator")
