@@ -225,7 +225,7 @@ class Person(Actor):
     first_name = models.CharField(verbose_name=_("First name"), max_length=30)
 
     family_name = models.CharField(
-        verbose_name=_("Family name"), max_length=50, null=True, blank=True
+        verbose_name=_("Family name"), max_length=50, blank=True, default=""
     )
 
     phone = PhoneField(verbose_name=_("Phone"), null=True, blank=True)
