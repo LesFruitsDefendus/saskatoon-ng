@@ -251,5 +251,28 @@
     "comments": "",
     "onboarding": 1
   }
+},
+{
+  "model": "member.person",
+  "pk": 16,
+  "fields": {
+    "language": "fr",
+    "first_name": "Lone",
+    "family_name": "Person",
+    "phone": null,
+    "street_number": null,
+    "street": null,
+    "complement": null,
+    "postal_code": null,
+    "neighborhood": 37,
+    "city": 1,
+    "state": 1,
+    "country": 1,
+    "newsletter_subscription": false,
+    "longitude": null,
+    "latitude": null,
+    "comments": "This person is not connected to any auth_user",
+    "onboarding": null
+  }
 }
 ]
