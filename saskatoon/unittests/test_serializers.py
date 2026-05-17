@@ -1,3 +1,4 @@
+import os
 import pytest
 import json
 from pathlib import Path
@@ -27,9 +28,10 @@ def test_serializers(django_db_setup_with_fixtures, client_core_user, endpoint, 
 
     response_json = json.loads(response.content)
     baseline_path = BASELINES_PATH.joinpath(baseline_filename)
-    with open(baseline_path, 'r', encoding='utf-8') as baseline_file:
-        assert response_json == json.load(baseline_file)
-    ''' Generate new baseline files
-    with open(baseline_path, 'w', encoding='utf-8') as baseline_file:
-        json.dump(response_json, baseline_file, ensure_ascii=False, indent=4)
-    '''
+
+    if os.getenv('SASKATOON_UPDATE_BASELINES', '').lower() in ['yes', 'true']:
+        with open(baseline_path, 'w', encoding='utf-8') as baseline_file:
+            json.dump(response_json, baseline_file, ensure_ascii=False, indent=4)
+    else:
+        with open(baseline_path, 'r', encoding='utf-8') as baseline_file:
+            assert response_json == json.load(baseline_file)

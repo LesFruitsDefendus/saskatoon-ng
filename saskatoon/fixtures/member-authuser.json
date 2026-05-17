@@ -105,7 +105,7 @@
   "pk": 7,
   "fields": {
     "password": "pbkdf2_sha256$600000$QYYe9epryqzrNGNFJ62V7x$1zpWIvEfIWW4KVFFfasVqSShjKMI6phq9jeDDErjygU=",
-    "last_login": "2026-05-08T11:55:14.028Z",
+    "last_login": "2026-05-17T15:51:55.043Z",
     "is_superuser": true,
     "person": 10,
     "has_temporary_password": false,
@@ -219,6 +219,24 @@
     "groups": [
       4
     ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "member.authuser",
+  "pk": 13,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$cbNhnNaYEMvyJZ2F6cJf5n$qmNivAJJj8F3brGBdY38dv9z/VjnOv9y+ofsiMlvugI=",
+    "last_login": null,
+    "is_superuser": false,
+    "person": null,
+    "has_temporary_password": false,
+    "agreed_terms": false,
+    "email": "lone@auth.user",
+    "date_joined": "2026-05-17T18:53:33.868Z",
+    "is_active": true,
+    "is_staff": false,
+    "groups": [],
     "user_permissions": []
   }
 }
