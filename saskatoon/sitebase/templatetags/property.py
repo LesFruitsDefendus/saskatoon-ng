@@ -130,13 +130,13 @@ def property_status_attributes(status):
         for t in [
             (
                 Property.Status.PENDING.value,
-                _(
-                    "The property owner wants a harvest this season, but core must first validate it"
-                ),
+                _("The property information needs to be validated by a core member."),
             ),
             (
                 Property.Status.UNAUTHORIZED.value,
-                _("The property owner does not want a harvest this season, do not contact them"),
+                _(
+                    "The property owner does not want a harvest this season, please don't contact them"
+                ),
             ),
             (
                 Property.Status.AUTHORIZED.value,
@@ -146,7 +146,7 @@ def property_status_attributes(status):
             (
                 Property.Status.VALIDATED.value,
                 _(
-                    "The property owner has not yet indicated that they want to participate this year, you may contact them to confirm after creating a related harvest"
+                    "The property owner has not yet indicated whether they want to participate this year, you may contact them to confirm"
                 ),
             ),
         ]

@@ -122,7 +122,7 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
         for t in [
             (
                 Harvest.Status.ADOPTED.value,
-                _("Harvest has been adopted, but still needs to be scheduled "),
+                _("Harvest has been adopted, but still needs to be scheduled"),
             ),
             (
                 Harvest.Status.SCHEDULED.value,

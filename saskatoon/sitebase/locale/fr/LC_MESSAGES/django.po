@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 10:29+0000\n"
+"POT-Creation-Date: 2026-05-17 19:15+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr "Participation acceptée"
 
 #: sitebase/models.py:193
 msgid "Rejected picker"
-msgstr "Cueilleur.euse Rejeté"
+msgstr "Cueilleur.euse Rejetée"
 
 #: sitebase/models.py:200
 msgid "Email Content"
@@ -1238,7 +1238,7 @@ msgstr "Légende"
 
 #: sitebase/templates/app/list_views/property/legend.html:16
 msgid "Succeeded Harvest"
-msgstr "Récolte réussie"
+msgstr "Récolte Réussie"
 
 #: sitebase/templates/app/list_views/property/legend.html:21
 msgid "Cancelled Harvest"
@@ -1273,8 +1273,8 @@ msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
 #: sitebase/templates/app/list_views/property/legend.html:71
-msgid "Validated Property "
-msgstr "Propriété Validé"
+msgid "Validated Property"
+msgstr "Propriété Validée"
 
 #: sitebase/templates/app/list_views/property/map.html:55
 msgid "Last harvest was on"
@@ -1379,8 +1379,8 @@ msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
 #: sitebase/templatetags/harvest_status.py:125
-msgid "Harvest has been adopted, but still needs to be scheduled "
-msgstr "Récolte a été adopté, mais doit encore être planifié"
+msgid "Harvest has been adopted, but still needs to be scheduled"
+msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
 #: sitebase/templatetags/harvest_status.py:129
 msgid "Harvest has been scheduled and has room for more pickers"
@@ -1402,15 +1402,17 @@ msgstr "Récolte est fini, les fruits ont été récoltés"
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adopté par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/property.py:134
-msgid ""
-"The property owner wants a harvest this season, but core must first validate it"
-msgstr "Les propriétaires veulent une cueillette cette saison, mais la propriété n'a pas encore été validé"
+#: sitebase/templatetags/property.py:133
+msgid "The property information needs to be validated by a core member."
+msgstr "La propriété n'a pas encore été validé"
 
-#: sitebase/templatetags/property.py:139
+#: sitebase/templatetags/property.py:138
 msgid ""
-"The property owner does not want a harvest this season, do not contact them"
-msgstr "Les propriétaires ne veulent pas de cueillette cette saison, ne les contacter pas"
+"The property owner does not want a harvest this season, please don't contact "
+"them"
+msgstr ""
+"Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
+"ne les contacter pas"
 
 #: sitebase/templatetags/property.py:143
 msgid "If this property does not already have a harvest, you can create one"
@@ -1422,9 +1424,8 @@ msgstr "Cette propriété est marquée comme inactive"
 
 #: sitebase/templatetags/property.py:149
 msgid ""
-"The property owner has not yet indicated that they want to participate this "
-"year, you may contact them to confirm after creating a related harvest"
+"The property owner has not yet indicated whether they want to participate "
+"this year, you may contact them to confirm"
 msgstr ""
-"Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette saison,"
-"il est permis de les contacter pour confirmer leur accord après avoir créé une"
-"cueillette."
+"Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
+"saison, il est permis de les contacter pour confirmer leur accord"
