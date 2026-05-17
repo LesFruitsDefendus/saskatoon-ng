@@ -3,6 +3,10 @@
 {% load static %}
 {% load auth_users %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}">
+{% endblock style %}
+
 {% block content %}
 
 {% include 'app/detail_views/property/breadcomb.html' %}

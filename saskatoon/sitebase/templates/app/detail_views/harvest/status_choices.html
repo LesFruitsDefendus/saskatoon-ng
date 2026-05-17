@@ -1,8 +1,7 @@
 {% load harvest_status %}
 
-<div class="dropdown">
-    <button class="btn btn-default notika-btn-default dropdown-toggle"
-            style="margin-bottom: -5px; background-color: {{status|color}};"
+<div class="dropdown" {{ status | harvest_status_attributes:"top" | safe }}>
+    <button class="btn btn-default notika-btn-default dropdown-toggle {{status|color}}"
             type="button"
             id="harvest-status-dropdown"
             data-toggle="dropdown"
@@ -20,7 +19,7 @@
         aria-labelledby="menu1"
     >
         {% for choice in status_choices %}
-            <li role="presentation">
+            <li role="presentation" {{ choice.0 | harvest_status_attributes:"right" | safe }}>
                 <a
                 href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
                 role="menuitem"

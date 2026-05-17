@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-15 22:20-0400\n"
+"POT-Creation-Date: 2026-05-17 19:15+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,7 +128,7 @@ msgstr "Participation acceptée"
 
 #: sitebase/models.py:193
 msgid "Rejected picker"
-msgstr ""
+msgstr "Cueilleur.euse Rejetée"
 
 #: sitebase/models.py:200
 msgid "Email Content"
@@ -323,7 +323,7 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/calendar/succeeded-modal.html:25
 #: sitebase/templates/app/detail_views/harvest/about.html:24
 #: sitebase/templates/app/detail_views/harvest/equipment.html:15
-#: sitebase/templates/app/detail_views/harvest/status.html:19
+#: sitebase/templates/app/detail_views/harvest/status.html:21
 #: sitebase/templates/app/forms/participation_create_form.html:46
 msgid "to"
 msgstr "à"
@@ -436,7 +436,7 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/legend.html:23
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
-#: sitebase/templatetags/harvest_status.py:94
+#: sitebase/templatetags/harvest_status.py:95
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -446,7 +446,7 @@ msgstr "n'a pas encore été adoptée"
 
 #: sitebase/templates/app/calendar/legend.html:28
 msgid "already assigned to a pickleader"
-msgstr "déjà assignée à un.e chef.fe de ceuillette"
+msgstr "déjà assignée à un.e chef.fe de cueillette"
 
 #: sitebase/templates/app/calendar/orphan-modal.html:12
 msgid "this harvest hasn't been adopted yet!"
@@ -523,7 +523,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:93
+#: sitebase/templates/app/list_views/property/map.html:94
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -722,31 +722,31 @@ msgstr "Non"
 msgid "No equipment point has been reserved"
 msgstr "Aucun point d'équipment n'a été reservé"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:7
+#: sitebase/templates/app/detail_views/harvest/status.html:9
 msgid "Harvest status"
 msgstr "Statut de la récolte"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:16
+#: sitebase/templates/app/detail_views/harvest/status.html:18
 msgid "Expected maturity"
 msgstr "Maturité approx."
 
-#: sitebase/templates/app/detail_views/harvest/status.html:25
+#: sitebase/templates/app/detail_views/harvest/status.html:27
 msgid "Total harvested:"
 msgstr "Total récolté:"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:32
+#: sitebase/templates/app/detail_views/harvest/status.html:34
 msgid "Pickers count"
 msgstr "Nombre de bénévoles"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:40
+#: sitebase/templates/app/detail_views/harvest/status.html:42
 msgid "Pick leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:42
+#: sitebase/templates/app/detail_views/harvest/status.html:44
 msgid "Missing"
 msgstr "Manquant"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:45
+#: sitebase/templates/app/detail_views/harvest/status.html:47
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
@@ -1237,50 +1237,50 @@ msgid "Legend"
 msgstr "Légende"
 
 #: sitebase/templates/app/list_views/property/legend.html:16
-msgid "Orphan Harvest"
-msgstr "Récolte Orpheline"
+msgid "Succeeded Harvest"
+msgstr "Récolte Réussie"
 
 #: sitebase/templates/app/list_views/property/legend.html:21
-msgid "Adopted Harvest"
-msgstr "Récolte Adoptée"
-
-#: sitebase/templates/app/list_views/property/legend.html:26
-msgid "Scheduled Harvest"
-msgstr "Récolte Programmée"
-
-#: sitebase/templates/app/list_views/property/legend.html:31
-msgid "Ready Harvest"
-msgstr "Récolte Prête"
-
-#: sitebase/templates/app/list_views/property/legend.html:36
-msgid "Succeeded Harvest"
-msgstr "Récolte réussie"
-
-#: sitebase/templates/app/list_views/property/legend.html:41
 msgid "Cancelled Harvest"
 msgstr "Récolte Annulée"
 
-#: sitebase/templates/app/list_views/property/legend.html:49
-msgid "Pending Property"
-msgstr "Propriété en attente de validation"
+#: sitebase/templates/app/list_views/property/legend.html:26
+msgid "Ready Harvest"
+msgstr "Récolte Prête"
 
-#: sitebase/templates/app/list_views/property/legend.html:56
-msgid "Validated Property "
-msgstr "Propriété Validé"
+#: sitebase/templates/app/list_views/property/legend.html:31
+msgid "Adopted Harvest"
+msgstr "Récolte Adoptée"
 
-#: sitebase/templates/app/list_views/property/legend.html:63
+#: sitebase/templates/app/list_views/property/legend.html:36
+msgid "Scheduled Harvest"
+msgstr "Récolte Programmée"
+
+#: sitebase/templates/app/list_views/property/legend.html:41
+msgid "Orphan Harvest"
+msgstr "Récolte Orpheline"
+
+#: sitebase/templates/app/list_views/property/legend.html:50
 msgid "Authorised Property"
 msgstr "Propritété Authorisée"
 
-#: sitebase/templates/app/list_views/property/legend.html:70
+#: sitebase/templates/app/list_views/property/legend.html:57
+msgid "Pending Property"
+msgstr "Propriété en attente de validation"
+
+#: sitebase/templates/app/list_views/property/legend.html:64
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
-#: sitebase/templates/app/list_views/property/map.html:54
+#: sitebase/templates/app/list_views/property/legend.html:71
+msgid "Validated Property"
+msgstr "Propriété Validée"
+
+#: sitebase/templates/app/list_views/property/map.html:55
 msgid "Last harvest was on"
 msgstr "La dernière récolte était le"
 
-#: sitebase/templates/app/list_views/property/map.html:62
+#: sitebase/templates/app/list_views/property/map.html:63
 msgid "Next harvest is on"
 msgstr "La prochaine récolte est le"
 
@@ -1377,3 +1377,55 @@ msgstr "Connexion"
 #: sitebase/templates/registration/login.html:65
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
+
+#: sitebase/templatetags/harvest_status.py:125
+msgid "Harvest has been adopted, but still needs to be scheduled"
+msgstr "Récolte a été adoptée, mais doit encore être planifiée"
+
+#: sitebase/templatetags/harvest_status.py:129
+msgid "Harvest has been scheduled and has room for more pickers"
+msgstr "Récolte a été planifiée et attend la participation de bénévoles"
+
+#: sitebase/templatetags/harvest_status.py:133
+msgid "Harvest is ready to start, there are no more empty spots for pickers"
+msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
+
+#: sitebase/templatetags/harvest_status.py:137
+msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
+msgstr "Récolte est annulée, elle devra être replanifiée par le ou la chef.fe de cueillette"
+
+#: sitebase/templatetags/harvest_status.py:141
+msgid "Harvest is finished and fruits have been harvested"
+msgstr "Récolte est terminée et les fruits ont été récoltés"
+
+#: sitebase/templatetags/harvest_status.py:143
+msgid "Harvest needs a pick leader to adopt it"
+msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
+
+#: sitebase/templatetags/property.py:133
+msgid "The property information needs to be validated by a core member."
+msgstr "La propriété n'a pas encore été validé"
+
+#: sitebase/templatetags/property.py:138
+msgid ""
+"The property owner does not want a harvest this season, please don't contact "
+"them"
+msgstr ""
+"Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
+"ne les contactez pas"
+
+#: sitebase/templatetags/property.py:143
+msgid "If this property does not already have a harvest, you can create one"
+msgstr "Si cette propriété n'a pas de cueillettes, il faudrait en créer une"
+
+#: sitebase/templatetags/property.py:145
+msgid "This property is inactive"
+msgstr "Cette propriété est marquée comme inactive"
+
+#: sitebase/templatetags/property.py:149
+msgid ""
+"The property owner has not yet indicated whether they want to participate "
+"this year, you may contact them to confirm"
+msgstr ""
+"Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
+"saison, il est permis de les contacter pour confirmer leur accord"

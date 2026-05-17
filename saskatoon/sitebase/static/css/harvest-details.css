@@ -15,6 +15,14 @@
         }
     }
 
+    .tooltip.right {
+        min-width: 15em;
+    }
+
+    .dropdown {
+        width: fit-content;
+    }
+
     section {
         background-color: #e7e0f9;
         padding: 20px 20px;
@@ -22,6 +30,10 @@
         h2 {
             font-size: 20px;
             color: #333;
+
+            &.badge {
+                padding: 0.5em;
+            }
         }
 
         p {
@@ -29,6 +41,7 @@
             color: #333;
         }
     }
+
 
     .harvest-info,
     .property-and-announcements,
@@ -64,6 +77,11 @@
     td {
         font-weight: normal;
     }
+}
+
+.dropdown p {
+    margin: 0;
+    padding: 0;
 }
 
 @media (min-width: 400px) {

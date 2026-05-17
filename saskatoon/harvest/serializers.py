@@ -14,7 +14,6 @@ from member.serializers import (
     StateSerializer,
     OrganizationOwnerSerializer,
     OwnerPersonSerializer,
-    PersonSerializer,
     PickLeaderPersonSerializer,
     PickLeaderSerializer,
     PickerSerializer,
