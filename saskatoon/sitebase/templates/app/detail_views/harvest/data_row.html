@@ -27,7 +27,7 @@
     <td style="text-align: center;">{{ r.number_of_pickers }}</td>
 
     <!-- Requester comment -->
-    <td>{{ r.comment }}</td>
+    <td title="{{r.comment}}">{{ r.comment|truncatechars:100 }}</td>
 
     <!-- Past experience -->
     <td style="text-align: center;">
