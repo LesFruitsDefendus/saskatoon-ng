@@ -283,6 +283,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     class Meta:
         model = Property
         fields = (
+            'pending',
             'pending_contact_first_name',
             'pending_contact_family_name',
             'pending_contact_email',
@@ -318,6 +319,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         }
 
         widgets = {
+            'pending': forms.HiddenInput(),
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
             'avg_nb_required_pickers': forms.NumberInput(),
         }
@@ -435,6 +437,8 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+        self.initial['pending'] = True
         self.fields['avg_nb_required_pickers'].widget.attrs['min'] = 1
         self.fields['number_of_trees'].widget.attrs['min'] = 1
         self.fields['fruits_height'].widget.attrs['min'] = 1
@@ -444,8 +448,8 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     def clean(self):
         cleaned_data = super().clean()
         logger.info("Pending property form submitted by %s", cleaned_data['pending_contact_email'])
-        postal_code = cleaned_data['postal_code'].replace(" ", "")
 
+        postal_code = cleaned_data['postal_code'].replace(" ", "")
         try:
             cleaned_data['postal_code'] = parse_postal_code(postal_code)
         except ValueError as invalid_postal_code:
