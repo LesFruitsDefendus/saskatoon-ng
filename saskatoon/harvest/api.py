@@ -150,7 +150,10 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
     @action(methods=['post'], detail=True, permission_classes=[IsCoreOrAdmin])
     def send_authorization_email(self, request, pk=None):
         property = self.get_object()
-        recipient = property.owner.person
+        recipient = property.email_recipient
+        if recipient is None:
+            messages.error(request, _("No email address associated with property!"))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         if Email.objects.create(
             recipient=recipient,
