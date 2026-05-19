@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-17 12:04-0400\n"
+"POT-Creation-Date: 2026-05-18 20:30-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -108,55 +108,55 @@ msgstr "De"
 msgid "To"
 msgstr "À"
 
-#: member/forms.py:21 member/forms.py:71 member/forms.py:158
+#: member/forms.py:22 member/forms.py:72 member/forms.py:159
 msgid "Email"
 msgstr "Courriel"
 
-#: member/forms.py:99
+#: member/forms.py:100
 msgid "Please assign at least one role to the user"
 msgstr "Merci d'assginer au moins un rôle à cet usager"
 
-#: member/forms.py:102
+#: member/forms.py:103
 msgid "An email address is required to assign a role to the user"
 msgstr "Une adresse courriel est requise pour assigner un rôle à cet usager"
 
-#: member/forms.py:131
+#: member/forms.py:132
 msgid "Beneficiary organization"
 msgstr "Organisme bénéficiaire"
 
-#: member/forms.py:132
+#: member/forms.py:133
 msgid "Equipment point"
 msgstr "Point d'équipement"
 
-#: member/forms.py:133
+#: member/forms.py:134
 msgid "Contact Position/Role"
 msgstr "Titre/Responsabilités de la Personne Contact"
 
-#: member/forms.py:144
+#: member/forms.py:145
 msgid "Select Person"
 msgstr "Sélectionner une Personne"
 
-#: member/forms.py:149
+#: member/forms.py:150
 msgid "Register new contact person"
 msgstr "Enregistrer une nouvelle personne contact"
 
-#: member/forms.py:152
+#: member/forms.py:153
 msgid "First Name"
 msgstr "Prénom"
 
-#: member/forms.py:152 member/forms.py:158
+#: member/forms.py:153 member/forms.py:159
 msgid "This field is required"
 msgstr "Ce champ est requis"
 
-#: member/forms.py:155
+#: member/forms.py:156
 msgid "Last Name"
 msgstr "Nom"
 
-#: member/forms.py:161 member/models.py:231 member/models.py:436
+#: member/forms.py:162 member/models.py:231 member/models.py:436
 msgid "Phone"
 msgstr "Téléphone"
 
-#: member/forms.py:172
+#: member/forms.py:173
 msgid ""
 "ERROR: You must either select a Contact                     Person or create "
 "a new one and provide their personal information"
