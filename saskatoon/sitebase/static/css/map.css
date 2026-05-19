@@ -4,7 +4,7 @@ leaflet-popup {
     }
 
     h5 {
-         margin-bottom: 0.5em;
+        margin-bottom: 0.5em;
     }
 
     > section:has(button) {
