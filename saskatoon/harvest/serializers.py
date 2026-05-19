@@ -116,7 +116,17 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
                 return OwnerPersonSerializer(obj.owner.person).data
             elif obj.owner.is_organization:
                 return OrganizationOwnerSerializer(obj.owner.organization).data
-        return None
+
+        last_name = obj.pending_contact_family_name
+        pending_name = obj.pending_contact_first_name + (
+            ' ' + last_name if last_name is not None and last_name != '' else ''
+        )
+
+        return {
+            "name": pending_name,
+            "phone": obj.pending_contact_phone,
+            "email": obj.pending_contact_email,
+        }
 
     def get_owner_type(self, obj):
         return OwnerTypeSerializer(obj.owner).data
