@@ -209,16 +209,18 @@ class PropertyForm(forms.ModelForm[Property]):
         data = super().clean()
         if not data['pending']:
             owner = data['owner']
-            if owner is None:
+            email = data.get('owner_email')  # may be provided in PropertyCreateForm
+
+            if owner is None and email is None:
                 raise forms.ValidationError(
                     _("Owner must be set before property can be marked as validated")
                 )
 
-            email = None
-            if owner.is_person:
-                email = owner.person.email
-            elif owner.is_organization:
-                email = owner.organization.email
+            if owner is not None:
+                if owner.is_person:
+                    email = owner.person.email
+                elif owner.is_organization:
+                    email = owner.organization.email
 
             if email is None:
                 raise forms.ValidationError(
