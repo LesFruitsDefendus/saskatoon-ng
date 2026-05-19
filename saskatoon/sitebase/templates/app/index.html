@@ -2,51 +2,18 @@
 {% load i18n %}
 {% load static %}
 
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock style %}
+
 {% block content %}
 
-<div class="breadcomb-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="breadcomb-list mg-b-15">
-                    <div class="row">
-                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                            <div class="breadcomb-wp">
-                                <div class="breadcomb-icon">
-                                    <i class="notika-icon notika-windows"></i>
-                                </div>
-
-                                <div class="breadcomb-ctn">
-                                    <h1>{{content.title}}</h1>
-                                    <h2>{{content.subtitle}}</h2>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                            <div class="breadcomb-report">
-                                <a href="{% url 'calendar' %}">
-                                    <button data-placement="left" title="Calendar" class="btn btn-primary notika-btn-primary">
-                                        {% trans 'Go to calendar' %}
-                                    </button>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 mg-b-15">
-                <div class="breadcomb-list" style="font-size: 1.15em;">
-                    {{ content.body.html | safe }}
-                </div>
-            </div>
-
-            <img src="{{ MEDIA_URL }}/home.jpg" alt="{% trans 'A fruit défendus harvest' %}"
-                class="col-lg-6 col-md-6 col-sm-6 col-xs-12" />
-        </div>
-    </div>
+<div class="home container mg-t-15 mg-b-15">
+    {% if user.is_authenticated %}
+        {% include 'app/home/pickleader.html' %}
+    {% else %}
+        {% include 'app/home/public.html' %}
+    {% endif %}
 </div>
 
 {% endblock content %}

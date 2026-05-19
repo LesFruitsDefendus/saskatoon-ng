@@ -22,13 +22,15 @@ permissions:
 collectstatic:
 	@python3 saskatoon/manage.py collectstatic
 
+lint:
+	@tox -e ruff_format
+	@tox -e css-beautify
+
 staticchecks:
 	@tox -e ruff_check
 	@tox -e mypy
 	@tox -e pytype
-	@tox -e ruff_format
 	@tox -e djlint
-	@tox -e css-beautify
 
 unittests:
 	@tox -e unittests

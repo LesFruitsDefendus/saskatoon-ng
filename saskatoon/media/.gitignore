@@ -1,5 +1,5 @@
 *
 !.gitignore
-!home.jpg
+!home/
+!guides/
 !about.jpg
-!volunteer_waiver.pdf

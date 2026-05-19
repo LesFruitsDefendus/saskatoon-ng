@@ -21,13 +21,21 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_type = PageContent.Type.VOLUNTEER_HOME
-
         if self.request.user.is_authenticated:
-            content_type = PageContent.Type.PICKLEADER_HOME
+            context['content'] = PageContent.get(
+                type=PageContent.Type.HOME_USER, lang=self.request.LANGUAGE_CODE
+            )
+            return context
 
-        context['content'] = PageContent.get(type=content_type, lang=self.request.LANGUAGE_CODE)
-
+        for key, content_type in [
+            ('intro', PageContent.Type.HOME_INTRO),
+            ('volunteer', PageContent.Type.HOME_VOLUNTEER),
+            ('owner', PageContent.Type.HOME_OWNER),
+            ('beneficiary', PageContent.Type.HOME_BENEFICIARY),
+            ('pickleader', PageContent.Type.HOME_PICKLEADER),
+            ('closing', PageContent.Type.FAQ),
+        ]:
+            context[key] = PageContent.get(type=content_type, lang=self.request.LANGUAGE_CODE)
         return context
 
     def dispatch(self, request, *args, **kwargs):

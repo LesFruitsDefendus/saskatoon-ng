@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load static %}
+
+<img class="banner" src="{{ MEDIA_URL }}/home/banner.jpg" alt="Photo Credit: Lauren Kolyn"/>
+<div class="intro">
+    <h1>{{ intro.title }}</h1>
+    <p>{{ intro.body.html | safe }}</p>
+    <h4 style="text-align: center;">{{ intro.subtitle }}</h4>
+</div>
+
+<div class="row section">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+        <img src="{{ MEDIA_URL }}/home/volunteer.jpg" alt="volunteer pickers"/>
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-12 content">
+        <h4>{{ volunteer.subtitle }}</h4>
+        <p>{{ volunteer.body.html | safe }}</p>
+    </div>
+</div>
+
+<div class="row section">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+        <img src="{{ MEDIA_URL }}/home/pickleader.jpg" alt="harvest leaders"/>
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-12 content">
+        <h4>{{ pickleader.subtitle }}</h4>
+        <p>{{ pickleader.body.html | safe }}</p>
+    </div>
+</div>
+
+<div class="row section">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+        <img src="{{ MEDIA_URL }}/home/owner.jpg" alt="tree owners"/>
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-12 content">
+        <h4>{{ owner.subtitle }}</h4>
+        <p>{{ owner.body.html | safe }}</p>
+    </div>
+</div>
+
+<div class="row section">
+    <div class="col-md-3 col-sm-4 col-xs-12">
+        <img src="{{ MEDIA_URL }}/home/beneficiary.jpg" alt="beneficiary organizations"/>
+    </div>
+    <div class="col-md-9 col-sm-8 col-xs-12 content">
+        <h4>{{ beneficiary.subtitle }}</h4>
+        <p>{{ beneficiary.body.html | safe }}</p>
+    </div>
+</div>
+
+<div class="closing">
+    {{ closing.body.html | safe }}
+</div>

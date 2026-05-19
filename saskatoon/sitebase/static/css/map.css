@@ -12,6 +12,15 @@ leaflet-popup {
     > section {
         margin-top: 1em;
     }
+
+    a {
+        text-decoration: none;
+        color: #440bd4 !important;
+
+        &:hover {
+            color: #2da4f0 !important;
+        }
+    }
 }
 
 @media (max-width: 992px) {
