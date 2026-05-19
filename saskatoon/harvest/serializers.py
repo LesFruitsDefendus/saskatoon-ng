@@ -125,13 +125,14 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
         return similar_properties(obj)
 
     def get_auth_email_date(self, obj):
-        if obj.owner is None or obj.owner.person is None:
+        recipient = obj.email_recipient
+        if recipient is None:
             return None
 
         sent = Email.objects.filter(
             type=EmailType.SEASON_AUTHORIZATION,
             date_sent__year=tz.now().date().year,
-            recipient=obj.owner.person,
+            recipient=recipient,
             sent=True,
         )
         if not sent.exists():
