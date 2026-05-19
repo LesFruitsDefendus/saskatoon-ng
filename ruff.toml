@@ -5,3 +5,7 @@ line-length = 99
 [format]
 # Leave all quotes unchanged
 quote-style = "preserve"
+exclude = [
+    "venv/*",
+    "**/migrations/*",
+]
