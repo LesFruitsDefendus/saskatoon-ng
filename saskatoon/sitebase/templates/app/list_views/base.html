@@ -5,7 +5,6 @@
 
 {% block script %}
 <script src="{%static 'js/datetime-picker.js' %}"></script>
-<script src="{%static 'js/search-input.js' %}"></script>
 {% endblock script %}
 
 {% block content %}
@@ -25,14 +24,18 @@
                                 <input
                                     class="search-input"
                                     type="text"
+                                    name="search"
+                                    form="filter-form"
                                     id="search-input"
                                     placeholder={% trans "Search" %}
                                 >
-                                <a class="search-btn btn btn-primary notika-btn-primary"
+                                <button class="search-btn btn btn-primary notika-btn-primary"
+                                   type="submit"
                                    id="search-button"
+                                   form="filter-form"
                                 >
                                     <i class="fa fa-solid fa-search"></i>
-                                </a>
+                                </button>
                             </span>
                         </div>
                         <div class="col-xs-4">

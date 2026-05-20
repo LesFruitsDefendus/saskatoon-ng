@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-18 20:30-0400\n"
+"POT-Creation-Date: 2026-05-19 23:59+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1112,7 +1112,7 @@ msgstr "Arbres"
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
-#: sitebase/templates/app/list_views/base.html:29
+#: sitebase/templates/app/list_views/base.html:30
 msgid "Search"
 msgstr "Rechercher"
 
