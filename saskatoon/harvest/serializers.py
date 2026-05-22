@@ -57,6 +57,16 @@ class OwnerTypeSerializer(serializers.ModelSerializer[Actor]):
         fields = ['is_person', 'is_organization']
 
 
+class PendingOwnerPropertySerializer(serializers.ModelSerializer[Property]):
+    class Meta:
+        model = Property
+        fields = ['phone', 'email', 'name']
+
+    phone = serializers.CharField(source='pending_contact_phone')
+    email = serializers.CharField(source='pending_contact_email')
+    name = serializers.CharField(source='pending_contact_name')
+
+
 class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     class Meta:
         model = Harvest
@@ -116,7 +126,8 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
                 return OwnerPersonSerializer(obj.owner.person).data
             elif obj.owner.is_organization:
                 return OrganizationOwnerSerializer(obj.owner.organization).data
-        return None
+
+        return PendingOwnerPropertySerializer(obj).data
 
     def get_owner_type(self, obj):
         return OwnerTypeSerializer(obj.owner).data

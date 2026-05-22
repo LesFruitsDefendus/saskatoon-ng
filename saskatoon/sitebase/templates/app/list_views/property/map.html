@@ -66,34 +66,39 @@
                                             </a>
                                         </p>
                                     {% endif %}
-
-                                    {% for tree in property.trees %}
-                                        <section>
-                                            <h5>
-                                                {% if LANG == "en" %}
-                                                    {{ tree.fruit_name_en }}
-                                                {% else %}
-                                                    {{ tree.fruit_name_fr }}
-                                                {% endif %}
-                                            </h5>
-                                            <ul class="list-inline">
-                                                {% for harvest in property.harvests %}
-                                                    {% if tree in harvest.trees %}
-                                                        <li style="padding-top: 0.5em;">
-                                                            <a class="{{ harvest.status | color }}"
-                                                               {{ harvest|harvest_link_attributes|safe }}>
-                                                                {{ harvest.status | harvest_icon | safe }}
-                                                            </a>
-                                                        </li>
+                                    <section>
+                                        {% for tree in property.trees %}
+                                            <article>
+                                                <h5>
+                                                    {% if LANG == "en" %}
+                                                        {{ tree.fruit_name_en }}
+                                                    {% else %}
+                                                        {{ tree.fruit_name_fr }}
                                                     {% endif %}
-                                                {% endfor %}
-                                            </ul>
-                                        </section>
-                                    {% endfor %}
+                                                </h5>
+                                                {% if property.harvests|length > 0 %}
+                                                    <ul class="list-inline">
+                                                        {% for harvest in property.harvests %}
+                                                            {% if tree in harvest.trees %}
+                                                                <li style="padding-top: 0.5em;">
+                                                                    <a class="{{ harvest.status | color }}"
+                                                                       {{ harvest|harvest_link_attributes|safe }}>
+                                                                        {{ harvest.status | harvest_icon | safe }}
+                                                                    </a>
+                                                                </li>
+                                                            {% endif %}
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% else %}
+                                                    {% trans 'No harvests' %}
+                                                {% endif %}
+                                            </article>
+                                        {% endfor %}
+                                    </section>
                                     <section>
                                         <h5>{% trans "Owner" %}</h5>
                                         <address>
-                                            {{ property.owner_name }}
+                                            {{ property.owner.name }}
                                             <br>
                                             {{ property.address }}, {{ property.neighborhood.name }}
                                             <br>

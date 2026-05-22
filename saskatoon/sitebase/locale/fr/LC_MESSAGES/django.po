@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-19 23:59+0000\n"
+"POT-Creation-Date: 2026-05-20 16:03+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -27,8 +27,6 @@ msgid "Home Introduction"
 msgstr "Accueil Introduction"
 
 #: sitebase/models.py:46
-#, fuzzy
-#| msgid "Volunteers"
 msgid "Home Volunteers"
 msgstr "Accueil Bénévoles"
 
@@ -541,7 +539,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:94
+#: sitebase/templates/app/list_views/property/map.html:99
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -1293,6 +1291,10 @@ msgstr "La dernière récolte était le"
 #: sitebase/templates/app/list_views/property/map.html:63
 msgid "Next harvest is on"
 msgstr "La prochaine récolte est le"
+
+#: sitebase/templates/app/list_views/property/map.html:93
+msgid "No harvests"
+msgstr "Pas de récolte(s)"
 
 #: sitebase/templates/app/list_views/property/view.html:32
 msgid "Picks"

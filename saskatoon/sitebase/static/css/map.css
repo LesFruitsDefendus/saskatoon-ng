@@ -3,6 +3,10 @@ leaflet-popup {
         font-size: 14px;
     }
 
+    h5 {
+        margin-bottom: 0.5em;
+    }
+
     > section:has(button) {
         display: grid;
         grid-template-columns: 49% 49%;
@@ -10,15 +14,18 @@ leaflet-popup {
     }
 
     > section {
+        margin-top: 1.5em;
+    }
+
+    article {
         margin-top: 1em;
     }
 
     a {
-        text-decoration: none;
-        color: #440bd4 !important;
+        color: #440bd4;
 
         &:hover {
-            color: #2da4f0 !important;
+            color: #2da4f0;
         }
     }
 }
