@@ -1,0 +1,13 @@
+{% load i18n %}
+{% load static %}
+{% load harvest_status %}
+
+<li style="padding-top: 0.5em;">
+    <a class="{{ harvest.status | color }}"
+       {{ harvest|harvest_link_attributes|safe }}>
+        {{ harvest.status | harvest_icon | safe }}
+        {% if harvest|past_harvest == 'upcoming' %}
+            <span style="color: black;">{{ harvest|next_harvest_date }}</span>
+        {% endif %}
+    </a>
+</li>

@@ -5,6 +5,8 @@ from typeguard import typechecked
 from typing import Optional
 
 from harvest.models import Harvest
+from sitebase.utils import parse_naive_datetime, local_today
+from saskatoon.settings import DATE_INPUT_FORMATS
 
 register = template.Library()
 
@@ -90,6 +92,49 @@ def is_ready_or_succeeded(status: str) -> bool:
 
 @register.filter
 @typechecked
+def next_harvest_date(harvest):
+    start = parse_naive_datetime(harvest['start_date'], DATE_INPUT_FORMATS[0])
+    end = parse_naive_datetime(harvest['end_date'], DATE_INPUT_FORMATS[0])
+
+    if start is not None and end is not None and start < end:
+        return start.strftime("%Y-%m") + ' ' + _('to') + ' ' + end.strftime("%Y-%m")
+
+    return harvest['start_date']
+
+
+@register.filter
+@typechecked
+def past_harvest(harvest):
+    start = parse_naive_datetime(harvest['start_date'], DATE_INPUT_FORMATS[0])
+    end = parse_naive_datetime(harvest['end_date'], DATE_INPUT_FORMATS[0])
+    today = local_today()
+
+    if start is None or end is None:
+        return 'time parsing error'
+
+    if today > start and today < end:
+        return 'upcoming'
+
+    if today < start:
+        return 'upcoming'
+
+    return 'past'
+
+
+@register.filter
+@typechecked
+def past_harvests(harvests, tree):
+    return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'past', harvests))
+
+
+@register.filter
+@typechecked
+def upcoming_harvests(harvests, tree):
+    return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'upcoming', harvests))
+
+
+@register.filter
+@typechecked
 def harvest_link_attributes(harvest):
     pick_leader = (
         harvest['pick_leader']['name'] if harvest['pick_leader'] is not None else _("Orphan")
@@ -102,8 +147,8 @@ def harvest_link_attributes(harvest):
         + '" title="#'
         + str(harvest['id'])
         + ': '
-        + harvest['start_date']
-        + ' - '
+        + next_harvest_date(harvest)
+        + ' '
         + pick_leader
         + '"'
     )

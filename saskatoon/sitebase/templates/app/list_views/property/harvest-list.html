@@ -1,0 +1,33 @@
+{% load i18n %}
+{% load static %}
+{% load harvest_status %}
+<td>
+    {% if LANG == "en" %}
+        {{ tree.fruit_name_en }}
+    {% else %}
+        {{ tree.fruit_name_fr }}
+    {% endif %}
+</td>
+<td>
+    {% with past=property.harvests|past_harvests:tree %}
+        {% if past|length > 0 %}
+            <ul class="list-inline">
+                {% for harvest in past %}
+                    {% include 'app/list_views/property/harvest-list-row.html' %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</td>
+<td>
+    {% with upcoming=property.harvests|upcoming_harvests:tree %}
+        {% if upcoming|length > 0 %}
+            <ul class="list-inline">
+                {% for harvest in upcoming %}
+                    {% include 'app/list_views/property/harvest-list-row.html' %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+</td>

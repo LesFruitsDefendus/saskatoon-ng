@@ -372,18 +372,6 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
         """Last Successful harvest for this property"""
         return self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
 
-    @property
-    def next_harvest(self):
-        """Next harvest for this property"""
-        return (
-            self.harvests.exclude(
-                status__in=[Harvest.Status.SUCCEEDED, Harvest.Status.CANCELLED],
-                start_date__lte=datetime.now().astimezone(),
-            )
-            .order_by('start_date')
-            .first()
-        )
-
     def get_owner_subclass(self):
         if self.owner:
             if self.owner.is_person:

@@ -107,7 +107,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     title = serializers.ReadOnlyField(source="__str__")
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
     last_succeeded_harvest = PropertyHarvestSerializer(many=False, read_only=True)
-    next_harvest = PropertyHarvestSerializer(many=False, read_only=True)
     address = serializers.ReadOnlyField(source="short_address")
     trees = TreeTypeSerializer(many=True, read_only=True)
     owner = serializers.SerializerMethodField()
@@ -152,11 +151,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
         return sent.last().date_sent.strftime("%Y-%m-%d %-I:%M %p")
 
 
-class PropertyListHarvestSerializer(PropertyHarvestSerializer):
-    start_date = serializers.DateTimeField(source='get_local_start', format="%Y-%m-%d")
-    trees = None  # type: ignore
-
-
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
         fields = [  # type: ignore
@@ -179,7 +173,6 @@ class PropertyListSerializer(PropertySerializer):
             'trees',
             'ladder_available',
             'last_succeeded_harvest',
-            'next_harvest',
             'is_active',
             'authorized',
             'pending',
@@ -191,8 +184,9 @@ class PropertyListSerializer(PropertySerializer):
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
-    harvests = PropertyListHarvestSerializer(many=True, read_only=True)
+    harvests = PropertyHarvestSerializer(many=True, read_only=True)
     auth_email_date = None  # type: ignore
+    trees = TreeTypeSerializer(many=True, read_only=True)
 
 
 class PropertyEquipmentSerializer(PropertyListSerializer):
