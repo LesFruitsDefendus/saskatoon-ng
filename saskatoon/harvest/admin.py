@@ -14,6 +14,7 @@ from harvest.admin_filters import (
     OwnerGotAuthorizationEmailFilter,
     PropertyOwnerTypeAdminFilter,
     PropertyHasHarvestAdminFilter,
+    PropertyHasLocationAdminFilter,
     RFPSeasonAdminFilter,
 )
 from harvest.admin_forms import (
@@ -147,23 +148,22 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     inlines = [PropertyImageInline]
     list_display = (
         'short_address',
+        'neighborhood',
+        'has_location',
         'owner_edit',
         'owner_type',
         'owner_phone',
         'email',
+        'id',
         'is_active',
         'pending',
         'harvests',
         'authorized',
-        'approximative_maturity_date',
-        'neighborhood',
-        'city',
-        'postal_code',
-        'id',
     )
     list_filter = (
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
+        PropertyHasLocationAdminFilter,
         OwnerHasNoEmailAdminFilter,
         OwnerGotAuthorizationEmailFilter,
         'authorized',
@@ -182,6 +182,10 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     )
 
     settings_overrides = {'TILES': [DEFAULT_LEAFLET_TILE]}
+
+    @admin.display(boolean=True, description="Location")
+    def has_location(self, _property):
+        return _property.geom is not None
 
     @admin.display(description="Owner type")
     def owner_type(self, _property):
