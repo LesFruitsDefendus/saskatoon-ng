@@ -28,16 +28,30 @@ class PropertyOwnerTypeAdminFilter(SimpleListFilter):
 class PropertyHasHarvestAdminFilter(SimpleListFilter):
     """Check whether at least one harvest is associated with property"""
 
-    title = "Had harvest Filter"
+    title = "Has harvest Filter"
     parameter_name = 'harvest'
 
     def lookups(self, request, model_admin):
-        return [('0', 'Has harvest(s)'), ('1', 'No harvest yet')]
+        return [('0', 'No harvest yet'), ('1', 'Has harvest(s)')]
 
     def queryset(self, request, queryset):
         if self.value():
-            is_null = bool(int(self.value()))
-            return queryset.filter(harvests__isnull=is_null)
+            return queryset.exclude(harvests__isnull=bool(int(self.value())))
+        return queryset
+
+
+class PropertyHasLocationAdminFilter(SimpleListFilter):
+    """Check whether property has geom field set"""
+
+    title = "Has Location Filter"
+    parameter_name = 'geom'
+
+    def lookups(self, request, model_admin):
+        return [('0', 'No location set'), ('1', 'Has GPS coordinates')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.exclude(geom__isnull=bool(int(self.value())))
         return queryset
 
 

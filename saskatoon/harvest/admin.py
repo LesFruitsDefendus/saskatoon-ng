@@ -14,6 +14,7 @@ from harvest.admin_filters import (
     OwnerGotAuthorizationEmailFilter,
     PropertyOwnerTypeAdminFilter,
     PropertyHasHarvestAdminFilter,
+    PropertyHasLocationAdminFilter,
     RFPSeasonAdminFilter,
 )
 from harvest.admin_forms import (
@@ -162,6 +163,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     list_filter = (
         PropertyOwnerTypeAdminFilter,
         PropertyHasHarvestAdminFilter,
+        PropertyHasLocationAdminFilter,
         OwnerHasNoEmailAdminFilter,
         OwnerGotAuthorizationEmailFilter,
         'authorized',
