@@ -152,6 +152,15 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
             u.is_active = False
             u.save()
 
+    @admin.action(description="Unset password for selected User(s)")
+    def unset_password(self, request, queryset):
+        for u in queryset:
+            if u.is_superuser:
+                messages.error(request, f"Cannot unset password for superuser {u}")
+                continue
+            u.password = ""
+            u.save()
+
     @admin.action(description="Add staff status to selected User(s)")
     def add_to_staff(self, request, queryset):
         queryset.update(**{'is_staff': True})
@@ -248,6 +257,7 @@ class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
 
     actions = [
         deactivate_account,
+        unset_password,
         remove_from_staff,
         remove_from_superuser,
         add_to_staff,
