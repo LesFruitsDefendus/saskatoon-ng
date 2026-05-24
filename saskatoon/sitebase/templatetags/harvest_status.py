@@ -93,11 +93,8 @@ def is_ready_or_succeeded(status: str) -> bool:
 @register.filter
 @typechecked
 def next_harvest_date(harvest):
-    start = parse_naive_datetime(harvest['start_date'], DATE_INPUT_FORMATS[0])
-    end = parse_naive_datetime(harvest['end_date'], DATE_INPUT_FORMATS[0])
-
-    if start is not None and end is not None and start < end:
-        return start.strftime("%Y-%m") + ' ' + _('to') + ' ' + end.strftime("%Y-%m")
+    if harvest['date_range'] is not None:
+        return harvest['date_range']
 
     return harvest['start_date']
 
@@ -123,14 +120,20 @@ def past_harvest(harvest):
 
 @register.filter
 @typechecked
-def past_harvests(harvests, tree):
+def past_harvests_by_tree(harvests, tree):
     return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'past', harvests))
 
 
 @register.filter
 @typechecked
-def upcoming_harvests(harvests, tree):
+def upcoming_harvests_by_tree(harvests, tree):
     return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'upcoming', harvests))
+
+
+@register.filter
+@typechecked
+def upcoming_harvests(harvests):
+    return list(filter(lambda h: past_harvest(h) == 'upcoming', harvests))
 
 
 @register.filter

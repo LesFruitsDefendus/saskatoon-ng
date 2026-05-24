@@ -77,6 +77,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
             'start_date',
             'start_time',
             'end_date',
+            'date_range',
             'pick_leader',
             'trees',
         ]
@@ -87,6 +88,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
     start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
     end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
+    date_range = serializers.ReadOnlyField(source='get_date_range')
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader is None:

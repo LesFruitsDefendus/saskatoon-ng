@@ -5,7 +5,7 @@ from typeguard import typechecked
 from typing import Optional
 
 from harvest.models import Property, Harvest
-from sitebase.templatetags.harvest_status import color, harvest_filter
+from sitebase.templatetags.harvest_status import color, harvest_filter, upcoming_harvests
 
 register = template.Library()
 
@@ -35,8 +35,9 @@ def property_filter(property, size: str, year: int) -> str:
     if show_property(harvests, property['status'], year):
         return property_icon_shape(size)
 
-    if property['next_harvest']:
-        return harvest_filter(property['next_harvest']['status'], size)
+    next = upcoming_harvests(property['harvests'])
+    if len(next) > 0:
+        return harvest_filter(next[0]['status'], size)
 
     if property['last_succeeded_harvest']:
         return harvest_filter(property['last_succeeded_harvest']['status'], size)
@@ -90,8 +91,9 @@ def property_icon_color(property, year_str: str) -> str:
     if show_property(harvests, property['status'], year):
         return property_status(property['status'])
 
-    if property['next_harvest']:
-        return color(property['next_harvest']['status'])
+    next = upcoming_harvests(property['harvests'])
+    if len(next) > 0:
+        return color(next[0]['status'])
 
     if property['last_succeeded_harvest']:
         return color(property['last_succeeded_harvest']['status'])

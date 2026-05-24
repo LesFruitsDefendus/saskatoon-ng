@@ -9,7 +9,7 @@
     {% endif %}
 </td>
 <td>
-    {% with past=property.harvests|past_harvests:tree %}
+    {% with past=property.harvests|past_harvests_by_tree:tree %}
         {% if past|length > 0 %}
             <ul class="list-inline">
                 {% for harvest in past %}
@@ -20,7 +20,7 @@
     {% endwith %}
 </td>
 <td>
-    {% with upcoming=property.harvests|upcoming_harvests:tree %}
+    {% with upcoming=property.harvests|upcoming_harvests_by_tree:tree %}
         {% if upcoming|length > 0 %}
             <ul class="list-inline">
                 {% for harvest in upcoming %}
