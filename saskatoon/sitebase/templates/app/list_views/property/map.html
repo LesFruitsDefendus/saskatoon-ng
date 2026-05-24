@@ -6,7 +6,6 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}">
-    <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
     <link rel="stylesheet" href="{% static 'css/map.css' %}">
     <link rel="stylesheet" href="{% static 'css/colors.css' %}">
 {% endblock style %}
@@ -50,22 +49,6 @@
                                     </h4>
                                     <span class="badge {{ property.status | property_status }}"
                                           {{ property.status | property_status_attributes | safe }}>{{ property.status.label }}</span>
-                                    {% if property.last_succeeded_harvest %}
-                                        <p>
-                                            {% trans 'Last harvest was on' %}
-                                            <a {{ property.last_succeeded_harvest|harvest_link_attributes|safe }}>
-                                                {{ property.last_succeeded_harvest.start_date }}
-                                            </a>
-                                        </p>
-                                    {% endif %}
-                                    {% if property.next_harvest %}
-                                        <p>
-                                            {% trans 'Next harvest is on' %}
-                                            <a {{ property.next_harvest|harvest_link_attributes|safe }}>
-                                                {{ property.next_harvest.start_date }}
-                                            </a>
-                                        </p>
-                                    {% endif %}
                                     <section>
                                         {% for tree in property.trees %}
                                             <article>
@@ -77,22 +60,38 @@
                                                     {% endif %}
                                                 </h5>
                                                 {% if property.harvests|length > 0 %}
-                                                    <ul class="list-inline">
-                                                        {% for harvest in property.harvests %}
-                                                            {% if tree in harvest.trees %}
-                                                                <li style="padding-top: 0.5em;">
-                                                                    <a class="{{ harvest.status | color }}"
-                                                                       {{ harvest|harvest_link_attributes|safe }}>
-                                                                        {{ harvest.status | harvest_icon | safe }}
-                                                                    </a>
-                                                                </li>
-                                                            {% endif %}
-                                                        {% endfor %}
-                                                    </ul>
-                                                {% else %}
-                                                    {% trans 'No harvests' %}
-                                                {% endif %}
-                                            </article>
+                                                    {% with past=property.harvests|past_harvests_by_tree:tree %}
+                                                        <ul class="list-inline">
+                                                            <li style="padding-top: 0.5em;">
+                                                                {% if past|length > 0 %}
+                                                                    {% trans 'Harvested' %}
+                                                                {% else %}
+                                                                    {% trans 'No past harvests' %}
+                                                                {% endif %}
+                                                            </li>
+                                                            {% for harvest in past %}
+                                                                {% include 'app/list_views/property/harvest-list-row.html' %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endwith %}
+                                                    {% with upcoming=property.harvests|upcoming_harvests_by_tree:tree %}
+                                                        <ul class="list-inline">
+                                                            <li style="padding-top: 0.5em;">
+                                                                {% if upcoming|length > 0 %}
+                                                                    {% trans 'Upcoming' %}
+                                                                {% else %}
+                                                                    {% trans 'No upcoming harvests' %}
+                                                                {% endif %}
+                                                            </li>
+                                                            {% for harvest in upcoming %}
+                                                                {% include 'app/list_views/property/harvest-list-row.html' %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endwith %}
+                                                </article>
+                                            {% else %}
+                                                {% trans 'No harvests' %}
+                                            {% endif %}
                                         {% endfor %}
                                     </section>
                                     <section>

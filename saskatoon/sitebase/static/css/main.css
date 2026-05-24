@@ -264,3 +264,7 @@ textarea {
         page-break-after: avoid;
     }
 }
+
+.list-inline > li {
+    padding-right: 2px;
+}
