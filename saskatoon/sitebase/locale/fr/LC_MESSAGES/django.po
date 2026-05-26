@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 00:20+0000\n"
+"POT-Creation-Date: 2026-05-26 17:07+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -551,7 +551,7 @@ msgstr "Téléphone"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:65
 #: sitebase/templates/app/detail_views/organization/contact.html:57
-#: sitebase/templates/app/detail_views/property/contact.html:74
+#: sitebase/templates/app/detail_views/property/contact.html:72
 msgid "Language"
 msgstr "Langue"
 
@@ -561,7 +561,7 @@ msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:5
 #: sitebase/templates/app/detail_views/organization/contact.html:66
-#: sitebase/templates/app/detail_views/property/contact.html:85
+#: sitebase/templates/app/detail_views/property/contact.html:83
 #: sitebase/templates/app/forms/participation_manage_form.html:33
 #: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
@@ -725,12 +725,12 @@ msgid "Are you sure you want to cancel the reservation for"
 msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:42
-#: sitebase/templates/app/detail_views/property/contact.html:120
+#: sitebase/templates/app/detail_views/property/contact.html:118
 msgid "Yes"
 msgstr "Oui"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:45
-#: sitebase/templates/app/detail_views/property/contact.html:124
+#: sitebase/templates/app/detail_views/property/contact.html:122
 msgid "No"
 msgstr "Non"
 
@@ -856,23 +856,23 @@ msgstr "Accessibilité"
 msgid "Additional information"
 msgstr "Information additionnelle"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:31
+#: sitebase/templates/app/detail_views/property/breadcomb.html:29
 msgid "PENDING"
 msgstr "EN ATTENTE"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:34
+#: sitebase/templates/app/detail_views/property/breadcomb.html:32
 msgid "Last succeeded harvest"
 msgstr "Dernière récolte réussie"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:38
+#: sitebase/templates/app/detail_views/property/breadcomb.html:36
 msgid "No succeeded harvest on this property so far"
 msgstr "Pas de récolte réussie pour l'instant"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:51
+#: sitebase/templates/app/detail_views/property/breadcomb.html:49
 msgid "Authorize"
 msgstr "Autoriser"
 
-#: sitebase/templates/app/detail_views/property/breadcomb.html:58
+#: sitebase/templates/app/detail_views/property/breadcomb.html:56
 msgid "Edit Property"
 msgstr "Éditer la propriété"
 
@@ -892,19 +892,19 @@ msgstr "Propriétaire inconnu"
 msgid "register"
 msgstr "Inscrire"
 
-#: sitebase/templates/app/detail_views/property/contact.html:94
+#: sitebase/templates/app/detail_views/property/contact.html:92
 msgid "Authorization"
 msgstr "Autorisation"
 
-#: sitebase/templates/app/detail_views/property/contact.html:98
+#: sitebase/templates/app/detail_views/property/contact.html:96
 msgid "Email sent"
 msgstr "Courriel envoyé"
 
-#: sitebase/templates/app/detail_views/property/contact.html:108
+#: sitebase/templates/app/detail_views/property/contact.html:106
 msgid "Send Email"
 msgstr "Envoyer Courriel"
 
-#: sitebase/templates/app/detail_views/property/contact.html:115
+#: sitebase/templates/app/detail_views/property/contact.html:113
 msgid "Are you sure you want to send an authorization request to"
 msgstr "Êtes-vous certain(e) de vouloir envoyer un courriel d'autorisation à"
 

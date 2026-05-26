@@ -20,11 +20,9 @@
                                     <h1>
                                         {% if owner and 'pk' in owner %}
                                             {{ title }}
-                                        {% elif owner and 'name' in owner and owner.name %}
+                                        {% else %}
                                             {{ owner.name }}
                                             at {{ address }}
-                                        {% else %}
-                                            {{ address }}
                                         {% endif %}
                                     </h1>
                                     {% if pending %}

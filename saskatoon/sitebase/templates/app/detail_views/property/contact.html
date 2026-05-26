@@ -51,7 +51,7 @@
             <td>{% trans "Phone" %}</td>
             <td class="text-right">
                 <h5>
-                    {% if owner and 'phone' in owner and owner.phone %}
+                    {% if owner.phone %}
                         {{ owner.phone }}
                     {% endif %}
                 </h5>
@@ -62,9 +62,7 @@
             <td>{% trans "Email" %}</td>
             <td class="text-right">
                 <h5>
-                    {% if owner and 'email' in owner and owner.email %}
-                        {{ owner.email }}
-                    {% endif %}
+                    {{ owner.email }}
                 </h5>
             </td>
         </tr>
