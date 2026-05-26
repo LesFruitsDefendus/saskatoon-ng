@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 00:13+0000\n"
+"POT-Creation-Date: 2026-05-26 00:20+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,7 +169,7 @@ msgstr "Contenu (fr)"
 #: sitebase/models.py:277
 #: sitebase/templates/app/detail_views/harvest/about.html:59
 #: sitebase/templates/app/detail_views/organization/contact.html:46
-#: sitebase/templates/app/detail_views/property/contact.html:60
+#: sitebase/templates/app/detail_views/property/contact.html:62
 msgid "Email"
 msgstr "Courriel"
 
@@ -551,7 +551,7 @@ msgstr "Téléphone"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:65
 #: sitebase/templates/app/detail_views/organization/contact.html:57
-#: sitebase/templates/app/detail_views/property/contact.html:71
+#: sitebase/templates/app/detail_views/property/contact.html:74
 msgid "Language"
 msgstr "Langue"
 
@@ -561,7 +561,7 @@ msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:5
 #: sitebase/templates/app/detail_views/organization/contact.html:66
-#: sitebase/templates/app/detail_views/property/contact.html:83
+#: sitebase/templates/app/detail_views/property/contact.html:85
 #: sitebase/templates/app/forms/participation_manage_form.html:33
 #: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
@@ -725,12 +725,12 @@ msgid "Are you sure you want to cancel the reservation for"
 msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:42
-#: sitebase/templates/app/detail_views/property/contact.html:118
+#: sitebase/templates/app/detail_views/property/contact.html:120
 msgid "Yes"
 msgstr "Oui"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:45
-#: sitebase/templates/app/detail_views/property/contact.html:122
+#: sitebase/templates/app/detail_views/property/contact.html:124
 msgid "No"
 msgstr "Non"
 
@@ -892,19 +892,19 @@ msgstr "Propriétaire inconnu"
 msgid "register"
 msgstr "Inscrire"
 
-#: sitebase/templates/app/detail_views/property/contact.html:92
+#: sitebase/templates/app/detail_views/property/contact.html:94
 msgid "Authorization"
 msgstr "Autorisation"
 
-#: sitebase/templates/app/detail_views/property/contact.html:96
+#: sitebase/templates/app/detail_views/property/contact.html:98
 msgid "Email sent"
 msgstr "Courriel envoyé"
 
-#: sitebase/templates/app/detail_views/property/contact.html:106
+#: sitebase/templates/app/detail_views/property/contact.html:108
 msgid "Send Email"
 msgstr "Envoyer Courriel"
 
-#: sitebase/templates/app/detail_views/property/contact.html:113
+#: sitebase/templates/app/detail_views/property/contact.html:115
 msgid "Are you sure you want to send an authorization request to"
 msgstr "Êtes-vous certain(e) de vouloir envoyer un courriel d'autorisation à"
 
