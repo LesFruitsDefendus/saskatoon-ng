@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-24 14:50+0000\n"
+"POT-Creation-Date: 2026-05-26 00:13+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -169,7 +169,7 @@ msgstr "Contenu (fr)"
 #: sitebase/models.py:277
 #: sitebase/templates/app/detail_views/harvest/about.html:59
 #: sitebase/templates/app/detail_views/organization/contact.html:46
-#: sitebase/templates/app/detail_views/property/contact.html:68
+#: sitebase/templates/app/detail_views/property/contact.html:60
 msgid "Email"
 msgstr "Courriel"
 
@@ -205,7 +205,7 @@ msgstr "Date"
 #: sitebase/templates/app/base/footer.html:8
 #: sitebase/templates/app/detail_views/harvest/equipment.html:18
 #: sitebase/templates/app/detail_views/organization/contact.html:5
-#: sitebase/templates/app/detail_views/property/contact.html:47
+#: sitebase/templates/app/detail_views/property/contact.html:43
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
@@ -545,13 +545,13 @@ msgstr "Propriétaire"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:53
 #: sitebase/templates/app/detail_views/organization/contact.html:35
-#: sitebase/templates/app/detail_views/property/contact.html:55
+#: sitebase/templates/app/detail_views/property/contact.html:51
 msgid "Phone"
 msgstr "Téléphone"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:65
 #: sitebase/templates/app/detail_views/organization/contact.html:57
-#: sitebase/templates/app/detail_views/property/contact.html:83
+#: sitebase/templates/app/detail_views/property/contact.html:71
 msgid "Language"
 msgstr "Langue"
 
@@ -561,7 +561,7 @@ msgstr "Éditer la récolte"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:5
 #: sitebase/templates/app/detail_views/organization/contact.html:66
-#: sitebase/templates/app/detail_views/property/contact.html:95
+#: sitebase/templates/app/detail_views/property/contact.html:83
 #: sitebase/templates/app/forms/participation_manage_form.html:33
 #: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
@@ -725,12 +725,12 @@ msgid "Are you sure you want to cancel the reservation for"
 msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:42
-#: sitebase/templates/app/detail_views/property/contact.html:130
+#: sitebase/templates/app/detail_views/property/contact.html:118
 msgid "Yes"
 msgstr "Oui"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:45
-#: sitebase/templates/app/detail_views/property/contact.html:134
+#: sitebase/templates/app/detail_views/property/contact.html:122
 msgid "No"
 msgstr "Non"
 
@@ -892,19 +892,19 @@ msgstr "Propriétaire inconnu"
 msgid "register"
 msgstr "Inscrire"
 
-#: sitebase/templates/app/detail_views/property/contact.html:104
+#: sitebase/templates/app/detail_views/property/contact.html:92
 msgid "Authorization"
 msgstr "Autorisation"
 
-#: sitebase/templates/app/detail_views/property/contact.html:108
+#: sitebase/templates/app/detail_views/property/contact.html:96
 msgid "Email sent"
 msgstr "Courriel envoyé"
 
-#: sitebase/templates/app/detail_views/property/contact.html:118
+#: sitebase/templates/app/detail_views/property/contact.html:106
 msgid "Send Email"
 msgstr "Envoyer Courriel"
 
-#: sitebase/templates/app/detail_views/property/contact.html:125
+#: sitebase/templates/app/detail_views/property/contact.html:113
 msgid "Are you sure you want to send an authorization request to"
 msgstr "Êtes-vous certain(e) de vouloir envoyer un courriel d'autorisation à"
 
