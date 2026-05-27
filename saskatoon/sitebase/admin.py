@@ -36,11 +36,12 @@ def add_coordinates(modelAdmin, request, queryset):
             entry.geom = {'type': 'Point', 'coordinates': [location.longitude, location.latitude]}
             entry.save()
         else:
-            messages.error(request, f"Could not find coordinates for entry {entry.pk} at <{entry.short_address}>")
+            messages.error(
+                request,
+                f"Could not find coordinates for entry {entry.pk} at <{entry.short_address}>",
+            )
 
-    messages.success(request, f"Finished adding coordinates")
-
-
+    messages.success(request, "Finished adding coordinates")
 
 
 @admin.register(PageContent)
