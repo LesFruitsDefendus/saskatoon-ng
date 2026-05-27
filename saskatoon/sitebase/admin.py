@@ -2,12 +2,16 @@ from django.contrib import admin, messages
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
 from logging import getLogger
+from django.db.models import QuerySet
+from typeguard import typechecked
+from typing import Union
 
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
 from sitebase.utils import maybe
-from harvest.models import Comment, RequestForParticipation
+from harvest.models import Comment, RequestForParticipation, Property
+from member.models import Organization
 from saskatoon.settings import SASKATOON_USER_AGENT
 
 nominatim = Nominatim(user_agent=SASKATOON_USER_AGENT)
@@ -15,8 +19,12 @@ geocode = RateLimiter(nominatim.geocode, min_delay_seconds=1)
 logger = getLogger('saskatoon')
 
 
-@admin.action(description="Add coordinates")
-def add_coordinates(modelAdmin, request, queryset):
+@admin.action(description="Update map coordinates on selected entries")
+@typechecked
+def update_map_coordinates(modelAdmin, request, queryset: QuerySet[Union[Organization, Property]]):
+    errors = 0
+    total = 0
+
     for entry in queryset:
         address = ' '.join(
             list(
@@ -34,20 +42,22 @@ def add_coordinates(modelAdmin, request, queryset):
             )
         )
         location = geocode(address)
-        errors = False
         if location:
             entry.geom = {'type': 'Point', 'coordinates': [location.longitude, location.latitude]}
             entry.save()
+            total = total + 1
         else:
+            errors = errors + 1
             logger.error(
                 f"Could not find coordinates for {entry.__class__.__name__} {entry.pk} at <{entry.short_address}>"
             )
-            errors = True
 
-    if errors:
-        messages.success(request, "Finished adding coordinates, not all addresses could be found.")
+    if errors > 0:
+        messages.warning(
+            request, f"Updated {total} coordinates, {errors} addresses could not be found."
+        )
     else:
-        messages.success(request, "Finished adding coordinates")
+        messages.success(request, f"Updated {total} coordinates")
 
 
 @admin.register(PageContent)

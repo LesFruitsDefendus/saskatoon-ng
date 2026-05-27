@@ -45,7 +45,7 @@ from member.models import (
 from member.utils import reset_password
 from saskatoon.settings import EMAIL_LIST_OUTPUT
 from sitebase.models import Email, EmailType
-from sitebase.admin import add_coordinates
+from sitebase.admin import update_map_coordinates
 
 
 # see https://github.com/typeddjango/django-stubs/issues/2878
@@ -352,7 +352,7 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
         'is_beneficiary',
         'neighborhood',
     )
-    actions = [add_coordinates]
+    actions = [update_map_coordinates]
 
     fieldsets = (
         (
