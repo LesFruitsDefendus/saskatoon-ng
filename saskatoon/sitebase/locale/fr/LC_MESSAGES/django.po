@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 17:07+0000\n"
+"POT-Creation-Date: 2026-05-27 13:19+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,7 +209,7 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:63
+#: sitebase/templates/app/list_views/organization/map.html:55
 #: sitebase/templates/app/list_views/organization/organizations.html:33
 msgid "Contact"
 msgstr "Contact"
@@ -705,6 +705,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 #: sitebase/templates/app/detail_views/harvest/equipment.html:5
 #: sitebase/templates/app/detail_views/organization/features.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:21
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:36
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
@@ -812,9 +813,9 @@ msgid "Description"
 msgstr "Description"
 
 #: sitebase/templates/app/detail_views/organization/features.html:7
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:31
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:36
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:42
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:32
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:37
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:43
 #: sitebase/templates/app/list_views/organization/organizations.html:34
 #: sitebase/templates/app/stats.html:88 sitebase/templates/app/stats.html:206
 msgid "Beneficiary"
@@ -1176,11 +1177,11 @@ msgstr "Chef.fe de cueillette"
 msgid "Volunteers"
 msgstr "Bénévoles"
 
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:6
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:8
 msgid "Beneficiary details dialog"
 msgstr "Dialogue de détails de Bénéficiaire"
 
-#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:21
+#: sitebase/templates/app/list_views/organization/beneficiary_modal.html:22
 msgid "This organization accepts fruit donations"
 msgstr "Cet organisme accepte les dons de fruits"
 
@@ -1189,33 +1190,33 @@ msgstr "Cet organisme accepte les dons de fruits"
 msgid "View"
 msgstr "Voir"
 
-#: sitebase/templates/app/list_views/organization/equipment_modal.html:6
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:9
 msgid "Equipment point details dialog"
 msgstr "Dialogue de détails de point d'équipement"
 
-#: sitebase/templates/app/list_views/organization/equipment_modal.html:12
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:21
 msgid "This organization is an equipment point"
 msgstr "Cet organisme accepte les dons de fruits"
 
-#: sitebase/templates/app/list_views/organization/equipment_modal.html:33
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:42
 msgid "No Equipment"
 msgstr "Pas d'Équipement"
 
-#: sitebase/templates/app/list_views/organization/map.html:20
+#: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:18
 #: sitebase/templates/app/list_views/property/map.html:20
 #: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/map.html:21
+#: sitebase/templates/app/list_views/organization/map.html:22
 #: sitebase/templates/app/list_views/organization/organizations.html:19
 #: sitebase/templates/app/list_views/property/map.html:21
 #: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:58
+#: sitebase/templates/app/list_views/organization/map.html:50
 msgid "Extra details"
 msgstr "Plus de détails"
 
