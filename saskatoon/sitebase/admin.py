@@ -1,6 +1,7 @@
 from django.contrib import admin, messages
 from geopy.geocoders import Nominatim
 from geopy.extra.rate_limiter import RateLimiter
+from logging import getLogger
 
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
@@ -9,12 +10,13 @@ from sitebase.utils import maybe
 from harvest.models import Comment, RequestForParticipation
 from saskatoon.settings import SASKATOON_USER_AGENT
 
+nominatim = Nominatim(user_agent=SASKATOON_USER_AGENT)
+geocode = RateLimiter(nominatim.geocode, min_delay_seconds=1)
+logger = getLogger('saskatoon')
+
 
 @admin.action(description="Add coordinates")
 def add_coordinates(modelAdmin, request, queryset):
-    nominatim = Nominatim(user_agent=SASKATOON_USER_AGENT)
-    geocode = RateLimiter(nominatim.geocode, min_delay_seconds=1)
-
     for entry in queryset:
         address = ' '.join(
             list(
@@ -32,16 +34,20 @@ def add_coordinates(modelAdmin, request, queryset):
             )
         )
         location = geocode(address)
+        errors = False
         if location:
             entry.geom = {'type': 'Point', 'coordinates': [location.longitude, location.latitude]}
             entry.save()
         else:
-            messages.error(
-                request,
-                f"Could not find coordinates for entry {entry.pk} at <{entry.short_address}>",
+            logger.error(
+                f"Could not find coordinates for {entry.__class__.__name__} {entry.pk} at <{entry.short_address}>"
             )
+            errors = True
 
-    messages.success(request, "Finished adding coordinates")
+    if errors:
+        messages.success(request, "Finished adding coordinates, not all addresses could be found.")
+    else:
+        messages.success(request, "Finished adding coordinates")
 
 
 @admin.register(PageContent)
