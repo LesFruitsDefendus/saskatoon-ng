@@ -3,7 +3,7 @@ from django.utils import timezone
 import pytest
 
 from django.conf import settings
-from sitebase.utils import parse_naive_datetime, local_today
+from sitebase.utils import parse_naive_datetime, local_today, maybe
 
 
 @pytest.mark.parametrize("unparsed", ["2025-12-18 16:00", "2025-12-18 18:00", "2025-12-19 15:00"])
@@ -27,3 +27,18 @@ def test_local_today() -> None:
     start_of_day = datetime.combine(today, datetime.min.time()).replace(tzinfo=today.tzinfo)
 
     assert start_of_day == local_today()
+
+
+def test_maybe_default() -> None:
+    null_str = None
+    assert maybe(null_str, '') == ''
+
+
+def test_maybe_value() -> None:
+    maybe_str = "test"
+    assert maybe(maybe_str, '') == maybe_str
+
+
+def test_maybe_lambda() -> None:
+    maybe_lower = "test"
+    assert maybe(maybe_lower, '', lambda s: s.upper()) == "TEST"

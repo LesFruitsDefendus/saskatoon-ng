@@ -52,6 +52,7 @@ setup(
         "typeguard>=3.0.2,<4",
         "types-django-filter>=25,<26",
         "chardet>=3.0.2,<6",
+        "geopy",
     ],
     extras_require={
         'test': [

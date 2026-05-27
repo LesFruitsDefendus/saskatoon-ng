@@ -36,6 +36,7 @@ from sitebase.models import Email, EmailType
 from sitebase.serializers import (
     EmailPropertySerializer,
 )
+from sitebase.admin import add_coordinates
 
 
 @admin.register(Harvest)
@@ -280,7 +281,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
         if num_sent > 1:
             messages.info(request, f"Sent authorization emails to {num_sent} owners!")
 
-    actions = [reset_authorize, create_owner_user, send_authorization_email]
+    actions = [reset_authorize, create_owner_user, send_authorization_email, add_coordinates]
 
     def get_actions(self, request):
         actions = super().get_actions(request)

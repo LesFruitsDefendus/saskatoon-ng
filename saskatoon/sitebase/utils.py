@@ -2,7 +2,7 @@ import re
 from datetime import datetime, date
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional
+from typing import Optional, Any, Callable
 from typeguard import typechecked
 from django.conf import settings
 
@@ -72,3 +72,11 @@ def parse_naive_datetime(
 
 def is_quill_html_empty(html: str) -> bool:
     return not len(re.sub(HTML_TAGS_REGEX, '', html))
+
+
+@typechecked
+def maybe(val: Any, default: Optional[Any] = None, callable: Callable[[Any], Any] = lambda b: b):
+    if val is not None:
+        return callable(val)
+
+    return default
