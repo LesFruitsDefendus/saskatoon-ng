@@ -11,7 +11,7 @@
     <td> {{ neighborhood }} </td>
     <td> {% include 'app/list_views/property/status.html' %} </td>
 
-    {% if owner %}
+    {% if owner and 'pk' in owner %}
         <td>
             {{ owner }} &nbsp;
             {% if owner.is_person and perms.member.change_person %}

@@ -18,13 +18,11 @@
                                 </div>
                                 <div class="breadcomb-ctn">
                                     <h1>
-                                        {% if owner %}
+                                        {% if owner and 'pk' in owner %}
                                             {{ title }}
-                                        {% elif pending_contact_name %}
-                                            {{ pending_contact_name }}
-                                            at {{ address }}
                                         {% else %}
-                                            {{ address }}
+                                            {{ owner.name }}
+                                            at {{ address }}
                                         {% endif %}
                                     </h1>
                                     {% if pending %}

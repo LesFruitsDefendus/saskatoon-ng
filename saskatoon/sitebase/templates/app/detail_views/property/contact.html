@@ -9,7 +9,7 @@
 
     <div class="contact-hd search-hd-eg">
       <h2>
-        {% if owner %}
+        {% if owner and 'pk' in owner %}
             {% trans "Owner" %}
             {% if owner_type.is_organization %}
                 <small>{% trans "(Organization)" %}</small>
@@ -33,11 +33,7 @@
     </div>
 
     <p class="lead">
-    {% if owner %}
         {{ owner.name }}
-    {% else %}
-        {{ pending_contact_first_name }} {{ pending_contact_family_name }}
-    {% endif %}
     </p>
 
     <table class="table">
@@ -55,11 +51,9 @@
             <td>{% trans "Phone" %}</td>
             <td class="text-right">
                 <h5>
-                {% if owner and owner.phone %}
-                    {{ owner.phone }}
-                {% elif pending_contact_phone %}
-                    {{ pending_contact_phone }}
-                {% endif %}
+                    {% if owner.phone %}
+                        {{ owner.phone }}
+                    {% endif %}
                 </h5>
             </td>
         </tr>
@@ -68,29 +62,23 @@
             <td>{% trans "Email" %}</td>
             <td class="text-right">
                 <h5>
-                {% if owner %}
                     {{ owner.email }}
-                {% else %}
-                    {{ pending_contact_email }}
-                {% endif %}
                 </h5>
             </td>
         </tr>
 
-        {% if owner %}
-            {% if owner.language %}
+        {% if owner and 'language' in owner and owner.language %}
                 <tr>
                     <td>{% trans "Language" %}</td>
                     <td class="text-right">
                         <h5>{{ owner.language }}</h5>
                     </td>
                 </tr>
-            {% endif %}
         {% else %}
             <!-- TODO: preferred language -->
         {% endif %}
 
-        {% if owner.comments %}
+        {% if owner and 'comments' in owner and owner.comments %}
         <tr>
             <td>{% trans "Comments" %}</td>
             <td class="text-right">
