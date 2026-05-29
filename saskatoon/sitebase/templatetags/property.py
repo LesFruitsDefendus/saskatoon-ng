@@ -1,13 +1,19 @@
 from django import template
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
 from typeguard import typechecked
 from typing import Optional
 
 from harvest.models import Property, Harvest
-from sitebase.templatetags.harvest_status import color, harvest_filter, upcoming_harvests, make_icon, tree_icon
+from sitebase.templatetags.harvest_status import (
+    color,
+    harvest_filter,
+    upcoming_harvests,
+    make_icon,
+    tree_icon,
+)
 
 register = template.Library()
+
 
 @register.filter
 @typechecked
@@ -17,9 +23,7 @@ def property_icon_shape(size: str) -> str:
 
 @typechecked
 def show_property(harvests, status: Property.Status) -> bool:
-    return (
-        len(harvests) == 0 or status != Property.Status.AUTHORIZED
-    )
+    return len(harvests) == 0 or status != Property.Status.AUTHORIZED
 
 
 @typechecked
@@ -34,12 +38,14 @@ def property_filter(property, size: str, mode: str) -> str:
     if property['last_succeeded_harvest']:
         return harvest_filter(property['last_succeeded_harvest']['status'], size, mode)
 
-    cancelled_harvest = [h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]]
+    cancelled_harvest = [
+        h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]
+    ]
 
     if len(cancelled_harvest) > 0:
         return harvest_filter(Harvest.Status.CANCELLED, size, mode)
 
-    return make_icon(tree_icon, size, mode),
+    return make_icon(tree_icon, size, mode)
 
 
 @register.filter
@@ -52,6 +58,7 @@ def property_icon(property) -> str:
 @typechecked
 def property_icon_hover(property) -> str:
     return property_filter(property, 'xl')
+
 
 @register.filter
 @typechecked
@@ -98,7 +105,9 @@ def property_icon_color(property) -> str:
     if property['last_succeeded_harvest']:
         return color(property['last_succeeded_harvest']['status'])
 
-    cancelled_harvest = [h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]]
+    cancelled_harvest = [
+        h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]
+    ]
 
     if len(cancelled_harvest) > 0:
         return color(Harvest.Status.CANCELLED)

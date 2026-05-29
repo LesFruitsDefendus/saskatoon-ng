@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-26 17:07+0000\n"
+"POT-Creation-Date: 2026-05-29 16:29+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -209,7 +209,7 @@ msgstr "Date"
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
 #: sitebase/templates/app/list_views/equipment/data_table.html:17
 #: sitebase/templates/app/list_views/equipment/view.html:18
-#: sitebase/templates/app/list_views/organization/map.html:63
+#: sitebase/templates/app/list_views/organization/marker.html:32
 #: sitebase/templates/app/list_views/organization/organizations.html:33
 msgid "Contact"
 msgstr "Contact"
@@ -452,7 +452,7 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/legend.html:23
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
-#: sitebase/templatetags/harvest_status.py:143
+#: sitebase/templatetags/harvest_status.py:198
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -539,7 +539,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:98
+#: sitebase/templates/app/list_views/property/map.html:96
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -1201,21 +1201,21 @@ msgstr "Cet organisme accepte les dons de fruits"
 msgid "No Equipment"
 msgstr "Pas d'Équipement"
 
-#: sitebase/templates/app/list_views/organization/map.html:20
+#: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:18
 #: sitebase/templates/app/list_views/property/map.html:20
 #: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
-#: sitebase/templates/app/list_views/organization/map.html:21
+#: sitebase/templates/app/list_views/organization/map.html:22
 #: sitebase/templates/app/list_views/organization/organizations.html:19
 #: sitebase/templates/app/list_views/property/map.html:21
 #: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
 
-#: sitebase/templates/app/list_views/organization/map.html:58
+#: sitebase/templates/app/list_views/organization/marker.html:27
 msgid "Extra details"
 msgstr "Plus de détails"
 
@@ -1284,25 +1284,25 @@ msgstr "Propriété non authorisée"
 msgid "Validated Property"
 msgstr "Propriété Validée"
 
-#: sitebase/templates/app/list_views/property/map.html:67
+#: sitebase/templates/app/list_views/property/map.html:65
 #: sitebase/templates/app/list_views/property/view.html:32
 msgid "Harvested"
 msgstr "Récolté"
 
-#: sitebase/templates/app/list_views/property/map.html:69
+#: sitebase/templates/app/list_views/property/map.html:67
 msgid "No past harvests"
 msgstr "Pas de récoltes antérieures"
 
-#: sitebase/templates/app/list_views/property/map.html:81
+#: sitebase/templates/app/list_views/property/map.html:79
 #: sitebase/templates/app/list_views/property/view.html:33
 msgid "Upcoming"
 msgstr "À venir"
 
-#: sitebase/templates/app/list_views/property/map.html:83
+#: sitebase/templates/app/list_views/property/map.html:81
 msgid "No upcoming harvests"
 msgstr "Pas de récoltes à venir"
 
-#: sitebase/templates/app/list_views/property/map.html:93
+#: sitebase/templates/app/list_views/property/map.html:91
 msgid "No harvests"
 msgstr "Pas de récoltes"
 
@@ -1388,37 +1388,37 @@ msgstr "Connexion"
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
-#: sitebase/templatetags/harvest_status.py:173
+#: sitebase/templatetags/harvest_status.py:228
 msgid "Harvest has been adopted, but still needs to be scheduled"
 msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
-#: sitebase/templatetags/harvest_status.py:177
+#: sitebase/templatetags/harvest_status.py:232
 msgid "Harvest has been scheduled and has room for more pickers"
 msgstr "Récolte a été planifiée et attend la participation de bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:181
+#: sitebase/templatetags/harvest_status.py:236
 msgid "Harvest is ready to start, there are no more empty spots for pickers"
 msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:185
+#: sitebase/templatetags/harvest_status.py:240
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
 msgstr ""
 "Récolte est annulée, elle devra être replanifiée par le ou la chef.fe de "
 "cueillette"
 
-#: sitebase/templatetags/harvest_status.py:189
+#: sitebase/templatetags/harvest_status.py:244
 msgid "Harvest is finished and fruits have been harvested"
 msgstr "Récolte est terminée et les fruits ont été récoltés"
 
-#: sitebase/templatetags/harvest_status.py:191
+#: sitebase/templatetags/harvest_status.py:246
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/property.py:135
+#: sitebase/templatetags/property.py:131
 msgid "The property information needs to be validated by a core member."
 msgstr "La propriété n'a pas encore été validé"
 
-#: sitebase/templatetags/property.py:140
+#: sitebase/templatetags/property.py:136
 msgid ""
 "The property owner does not want a harvest this season, please don't contact "
 "them"
@@ -1426,15 +1426,15 @@ msgstr ""
 "Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
 "ne les contactez pas"
 
-#: sitebase/templatetags/property.py:145
+#: sitebase/templatetags/property.py:141
 msgid "If this property does not already have a harvest, you can create one"
 msgstr "Si cette propriété n'a pas de cueillettes, il faudrait en créer une"
 
-#: sitebase/templatetags/property.py:147
+#: sitebase/templatetags/property.py:143
 msgid "This property is inactive"
 msgstr "Cette propriété est marquée comme inactive"
 
-#: sitebase/templatetags/property.py:151
+#: sitebase/templatetags/property.py:147
 msgid ""
 "The property owner has not yet indicated whether they want to participate "
 "this year, you may contact them to confirm"

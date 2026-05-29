@@ -29,15 +29,18 @@ def reservation(status: Optional[str]) -> str:
 def equipment_point_icon_shape(size: str) -> str:
     return '<i class="fa-scissors fa-solid fa-{size}"></i>'.format(size=size)
 
+
 @register.filter
 @typechecked
 def beneficiary_icon_shape(size: str) -> str:
     return '<i class="fa-gift fa-solid fa-{size}"></i>'.format(size=size)
 
+
 @register.filter
 @typechecked
 def default_icon_shape(size: str) -> str:
     return '<i class="fa-location-pin fa-solid fa-{size}"></i>'.format(size=size)
+
 
 @typechecked
 def org_filter(org, size: str, mode: str) -> str:
@@ -61,15 +64,18 @@ def org_icon(org) -> str:
 def org_icon_hover(org) -> str:
     return org_filter(org, 'xl')
 
+
 @register.filter
 @typechecked
 def org_icon_stacked(org) -> str:
     return org_filter(org, 'lg', 'stack')
 
+
 @register.filter
 @typechecked
 def org_icon_stacked_hover(org) -> str:
     return org_filter(org, 'xl', 'stack')
+
 
 @register.filter
 @typechecked

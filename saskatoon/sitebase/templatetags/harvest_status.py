@@ -26,26 +26,38 @@ def color(harvest_status: str) -> str:
         ]
     }.get(harvest_status, "saskatoon-success")
 
+
 def make_icon(icon: Callable[[str], str], size: str, mode: str):
     stack = mode == 'stack'
 
-    return '<span class="fa-stack fa-2x fa-{size}"><i class="fa-solid fa-circle fa-stack-2x" style="color: white;"></i>{icon}</span>'.format(size=size, icon=icon('stack-1x')) if stack else icon(size)
+    return (
+        '<span class="fa-stack fa-2x fa-{size}"><i class="fa-solid fa-circle fa-stack-2x" style="color: white;"></i>{icon}</span>'.format(
+            size=size, icon=icon('stack-1x')
+        )
+        if stack
+        else icon(size)
+    )
+
 
 @typechecked
 def tree_icon(size: str):
     return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
 
+
 @typechecked
 def apple_icon(size: str):
     return '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
+
 
 @typechecked
 def shopping_basket_icon(size: str):
     return '<i class="fa-shopping-basket fa-solid fa-{size}"></i>'.format(size=size)
 
+
 @typechecked
 def close_icon(size: str):
     return '<i class="fa-close fa-solid fa-{size}"></i>'.format(size=size)
+
 
 @typechecked
 def harvest_filter(harvest_status: str, size: str, mode: str = 'flat') -> str:
@@ -65,13 +77,22 @@ def harvest_filter(harvest_status: str, size: str, mode: str = 'flat') -> str:
                 Harvest.Status.SCHEDULED,
                 make_icon(shopping_basket_icon, size, mode),
             ),
-            (Harvest.Status.READY,                 make_icon(shopping_basket_icon, size, mode),
-),
-            (Harvest.Status.SUCCEEDED, make_icon(apple_icon, size, mode),),
-            (Harvest.Status.CANCELLED, make_icon(close_icon, size, mode),),
+            (
+                Harvest.Status.READY,
+                make_icon(shopping_basket_icon, size, mode),
+            ),
+            (
+                Harvest.Status.SUCCEEDED,
+                make_icon(apple_icon, size, mode),
+            ),
+            (
+                Harvest.Status.CANCELLED,
+                make_icon(close_icon, size, mode),
+            ),
         ]
     }.get(
-        harvest_status, make_icon(tree_icon, size, mode),
+        harvest_status,
+        make_icon(tree_icon, size, mode),
     )
 
 
