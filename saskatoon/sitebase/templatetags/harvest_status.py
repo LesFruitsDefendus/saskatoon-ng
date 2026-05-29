@@ -2,7 +2,7 @@ from django import template
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
 from typeguard import typechecked
-from typing import Optional
+from typing import Optional, Callable
 
 from harvest.models import Harvest
 from sitebase.utils import parse_naive_datetime, local_today
@@ -26,31 +26,53 @@ def color(harvest_status: str) -> str:
         ]
     }.get(harvest_status, "saskatoon-success")
 
+def make_icon(icon: Callable[[str], str], size: str, mode: str):
+    stack = mode == 'stack'
+
+    return '<span class="fa-stack fa-2x fa-{size}"><i class="fa-solid fa-circle fa-stack-2x" style="color: white;"></i>{icon}</span>'.format(size=size, icon=icon('stack-1x')) if stack else icon(size)
 
 @typechecked
-def harvest_filter(harvest_status: str, size: str) -> str:
+def tree_icon(size: str):
+    return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
+
+@typechecked
+def apple_icon(size: str):
+    return '<i class="glyphicon glyphicon-apple fa-{size}"></i>'.format(size=size)
+
+@typechecked
+def shopping_basket_icon(size: str):
+    return '<i class="fa-shopping-basket fa-solid fa-{size}"></i>'.format(size=size)
+
+@typechecked
+def close_icon(size: str):
+    return '<i class="fa-close fa-solid fa-{size}"></i>'.format(size=size)
+
+@typechecked
+def harvest_filter(harvest_status: str, size: str, mode: str = 'flat') -> str:
+
     return {
         t[0].value: t[1]
         for t in [
             (
                 Harvest.Status.ORPHAN,
-                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+                make_icon(tree_icon, size, mode),
             ),
             (
                 Harvest.Status.ADOPTED,
-                '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>',
+                make_icon(tree_icon, size, mode),
             ),
             (
                 Harvest.Status.SCHEDULED,
-                '<span class="fa fa-shopping-basket fa-lg"></span>',
+                make_icon(shopping_basket_icon, size, mode),
             ),
-            (Harvest.Status.READY, '<span class="fa fa-shopping-basket fa-lg"></span>'),
-            (Harvest.Status.SUCCEEDED, '<span class="glyphicon glyphicon-apple fa-lg"></span>'),
-            (Harvest.Status.CANCELLED, '<span class="fa fa-close fa-lg"></span>'),
+            (Harvest.Status.READY,                 make_icon(shopping_basket_icon, size, mode),
+),
+            (Harvest.Status.SUCCEEDED, make_icon(apple_icon, size, mode),),
+            (Harvest.Status.CANCELLED, make_icon(close_icon, size, mode),),
         ]
     }.get(
-        harvest_status, '<span class="glyphicon glyphicon-tree-deciduous fa-lg"></span>'
-    )  # btn-default
+        harvest_status, make_icon(tree_icon, size, mode),
+    )
 
 
 @register.filter
@@ -63,6 +85,18 @@ def harvest_icon(harvest_status: str) -> str:
 @typechecked
 def harvest_icon_hover(harvest_status: str) -> str:
     return harvest_filter(harvest_status, 'xl')
+
+
+@register.filter
+@typechecked
+def harvest_icon_stacked(harvest_status: str) -> str:
+    return harvest_filter(harvest_status, 'lg', 'stack')
+
+
+@register.filter
+@typechecked
+def harvest_icon__stacked_hover(harvest_status: str) -> str:
+    return harvest_filter(harvest_status, 'xl', 'stack')
 
 
 @register.filter
@@ -93,7 +127,7 @@ def is_ready_or_succeeded(status: str) -> bool:
 @register.filter
 @typechecked
 def next_harvest_date(harvest):
-    if harvest['date_range'] is not None:
+    if harvest['date_range'] not in [None, '']:
         return harvest['date_range']
 
     return harvest['start_date']

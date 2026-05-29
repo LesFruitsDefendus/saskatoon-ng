@@ -1,0 +1,49 @@
+{% load i18n %}
+{% load static %}
+{% load organization %}
+
+{% if org.longitude is not None and org.latitude is not None %}
+    <leaflet-marker latitude="{{ org.latitude }}"
+                    longitude="{{ org.longitude }}"
+                    style="display: none">
+        <leaflet-tooltip direction="top">
+            {{ org.civil_name }}
+        </leaflet-tooltip>
+        <leaflet-icon class="{{ status | reservation }}" icon-anchor="20 -10">
+            {{ org | org_icon_stacked | safe }}
+        </leaflet-icon>
+        <leaflet-icon class="leaflet-hover-icon {{ status | reservation }}"
+                      icon-anchor="22 -5"
+                      popup-anchor="0 0">
+            {{ org | org_icon_stacked_hover | safe }}
+        </leaflet-icon>
+        <leaflet-popup>
+            <h4>
+                <a href="{% url 'organization-detail' org.actor_id %}">
+                    {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
+                </a>
+            </h4>
+            <p class="text-justify">{{ org.description }}</p>
+            <section role="group" aria-label="{% trans 'Extra details' %}">
+                {% include 'app/list_views/organization/beneficiary_modal.html' %}
+                {% include 'app/list_views/organization/equipment_modal.html' %}
+            </section>
+            <section>
+                <h5>{% trans "Contact" %}</h5>
+                <address>
+                    {{ org.contact_person.name }}
+                    <br>
+                    {{ org.short_address }}
+                    <br>
+                    {% if org.contact_person.phone is not None %}
+                        {{ org.contact_person.phone }}
+                        <br>
+                    {% endif %}
+                    {% if org.contact_person.email is not None %}
+                        <a href="mailto:{{ org.contact_person.email }}">{{ org.contact_person.email }}</a>
+                    {% endif %}
+                </address>
+            </section>
+        </leaflet-popup>
+    </leaflet-marker>
+{% endif %}

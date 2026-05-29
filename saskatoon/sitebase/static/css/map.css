@@ -41,3 +41,7 @@ leaflet-popup {
         }
     }
 }
+
+leaflet-marker {
+    display: none;
+}
