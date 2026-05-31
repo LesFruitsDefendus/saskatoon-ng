@@ -43,7 +43,7 @@ def default_icon_shape(size: str) -> str:
 
 
 @typechecked
-def org_filter(org, size: str, mode: str) -> str:
+def org_filter(org, size: str, mode: str = 'flat') -> str:
     if org['is_equipment_point']:
         return make_icon(equipment_point_icon_shape, size, mode)
 

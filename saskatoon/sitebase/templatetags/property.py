@@ -27,7 +27,7 @@ def show_property(harvests, status: Property.Status) -> bool:
 
 
 @typechecked
-def property_filter(property, size: str, mode: str) -> str:
+def property_filter(property, size: str, mode: str = 'flat') -> str:
     if show_property(property['harvests'], property['status']):
         return make_icon(property_icon_shape, size, mode)
 

@@ -28,15 +28,12 @@ def color(harvest_status: str) -> str:
 
 
 def make_icon(icon: Callable[[str], str], size: str, mode: str):
-    stack = mode == 'stack'
-
-    return (
-        '<span class="fa-stack fa-2x fa-{size}"><i class="fa-solid fa-circle fa-stack-2x" style="color: white;"></i>{icon}</span>'.format(
+    if mode == 'stack':
+        return '<span class="fa-stack fa-2x fa-{size}"><i class="fa-solid fa-circle fa-stack-2x" style="color: white;"></i>{icon}</span>'.format(
             size=size, icon=icon('stack-1x')
         )
-        if stack
-        else icon(size)
-    )
+
+    return icon(size)
 
 
 @typechecked
@@ -61,7 +58,6 @@ def close_icon(size: str):
 
 @typechecked
 def harvest_filter(harvest_status: str, size: str, mode: str = 'flat') -> str:
-
     return {
         t[0].value: t[1]
         for t in [
