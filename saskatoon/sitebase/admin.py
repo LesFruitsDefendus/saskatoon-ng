@@ -1,9 +1,64 @@
 from django.contrib import admin, messages
+from geopy.geocoders import Nominatim
+from geopy.extra.rate_limiter import RateLimiter
+from logging import getLogger
+from django.db.models import QuerySet
+from typeguard import typechecked
+from typing import Union
 
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
-from harvest.models import Comment, RequestForParticipation
+from sitebase.utils import maybe
+from harvest.models import Comment, RequestForParticipation, Property
+from member.models import Organization
+from saskatoon.settings import SASKATOON_USER_AGENT
+
+nominatim = Nominatim(user_agent=SASKATOON_USER_AGENT)
+geocode = RateLimiter(nominatim.geocode, min_delay_seconds=1)
+logger = getLogger('saskatoon')
+
+
+@admin.action(description="Update map coordinates on selected entries")
+@typechecked
+def update_map_coordinates(modelAdmin, request, queryset: QuerySet[Union[Organization, Property]]):
+    num_updated = 0
+    num_errors = 0
+
+    for entry in queryset:
+        address = ' '.join(
+            list(
+                filter(
+                    lambda a: a != '',
+                    [
+                        maybe(entry.street_number, ''),
+                        maybe(entry.street, ''),
+                        maybe(entry.city, '', lambda a: a.name),
+                        maybe(entry.state, '', lambda a: a.name),
+                        maybe(entry.postal_code, ''),
+                        maybe(entry.country, '', lambda a: a.name),
+                    ],
+                )
+            )
+        )
+        location = geocode(address)
+        if location:
+            entry.geom = {'type': 'Point', 'coordinates': [location.longitude, location.latitude]}
+            entry.save()
+            num_updated += 1
+        else:
+            num_errors += 1
+            logger.error(
+                f"Could not find coordinates for {entry.__class__.__name__} {entry.pk} at <{entry.short_address}>"
+            )
+
+    if num_errors > 0:
+        messages.warning(
+            request,
+            f"{num_errors} addresses could not be found ({num_updated}/{num_updated + num_errors} coordinates successfully updated)",
+        )
+    else:
+        messages.success(request, f"Successfully updated {num_updated} coordinates")
 
 
 @admin.register(PageContent)

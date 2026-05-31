@@ -321,3 +321,4 @@ DEFAULT_LEAFLET_TILE = (
         'referrerPolicy': 'strict-origin-when-cross-origin',
     },
 )
+SASKATOON_USER_AGENT = 'Les Fruits Défendus'
