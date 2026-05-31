@@ -37,7 +37,7 @@
                 </li>
             </ul>
         </li>
-        {% if user.is_staff %}
+        {% if user|is_core_or_admin %}
             <li class="nav-item dropdown">
                 <a href="#"
                     data-toggle="dropdown"
@@ -49,11 +49,9 @@
                     <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu">
-                    {% if user|is_core_or_admin %}
-                        <li>
-                            <a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>
-                        </li>
-                    {% endif %}
+                    <li>
+                        <a href="{% url 'admin:index' %}">{% translate "Admin panel" %}</a>
+                    </li>
                     {% if perms.member.add_authuser %}
                     <li>
                         <a href="{% url 'person-create' %}">{% translate "Add new user" %}</a>
