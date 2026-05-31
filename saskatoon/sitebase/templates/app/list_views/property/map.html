@@ -22,24 +22,22 @@
         </nav>
         <section role="tabpanel" style="padding-top: 1em;" aria-labelledby="map-tab">
             <script type="module">import "{% static 'js/map/main.js' %}"</script>
-            {% with request|selected_season as season %}
                 <leaflet-map style="height: 60vh;">
                     {% for property in data %}
                         {% if property.longitude is not None and property.latitude is not None %}
                             <leaflet-marker latitude="{{ property.latitude }}"
-                                            longitude="{{ property.longitude }}"
-                                            style="display: none">
+                                            longitude="{{ property.longitude }}">
                                 <leaflet-tooltip direction="top">
                                     {{ property.address }}
                                 </leaflet-tooltip>
-                                <leaflet-icon icon-anchor="10 -5"
-                                              class="{{ property | property_icon_color:season }}">
-                                    {{ property | property_icon:season | safe }}
+                                <leaflet-icon icon-anchor="20 -10"
+                                              class="{{ property | property_icon_color }}">
+                                    {{ property | property_icon_stacked | safe }}
                                 </leaflet-icon>
-                                <leaflet-icon class="leaflet-hover-icon {{ property | property_icon_color:season }}"
-                                              icon-anchor="10 -5"
+                                <leaflet-icon class="leaflet-hover-icon {{ property | property_icon_color }}"
+                                              icon-anchor="22 -5"
                                               popup-anchor="0 0">
-                                    {{ property | property_icon_hover:season | safe }}
+                                    {{ property | property_icon_stacked_hover | safe }}
                                 </leaflet-icon>
                                 <leaflet-popup>
                                     <h4>
@@ -122,7 +120,6 @@
                     {% endfor %}
                 </leaflet-map>
                 {% include 'app/list_views/property/legend.html' %}
-            {% endwith %}
         </section>
     </tab-list>
 {% endblock data %}

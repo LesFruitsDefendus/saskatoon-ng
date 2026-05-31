@@ -1,18 +1,18 @@
 from django import template
 from django.utils.translation import gettext_lazy as _
-from datetime import datetime
 from typeguard import typechecked
 from typing import Optional
 
 from harvest.models import Property, Harvest
-from sitebase.templatetags.harvest_status import color, harvest_filter, upcoming_harvests
+from sitebase.templatetags.harvest_status import (
+    color,
+    harvest_filter,
+    upcoming_harvests,
+    make_icon,
+    tree_icon,
+)
 
 register = template.Library()
-
-
-@typechecked
-def harvests_for_year(harvests, year: int):
-    return [h for h in harvests if datetime.strptime(h["start_date"], "%Y-%m-%d").year == year]
 
 
 @register.filter
@@ -22,44 +22,54 @@ def property_icon_shape(size: str) -> str:
 
 
 @typechecked
-def show_property(harvests, status: Property.Status, year: int) -> bool:
-    return (
-        len(harvests) == 0 or status != Property.Status.AUTHORIZED and datetime.now().year == year
-    )
+def show_property(harvests, status: Property.Status) -> bool:
+    return len(harvests) == 0 or status != Property.Status.AUTHORIZED
 
 
 @typechecked
-def property_filter(property, size: str, year: int) -> str:
-    harvests = harvests_for_year(property['harvests'], year)
-
-    if show_property(harvests, property['status'], year):
-        return property_icon_shape(size)
+def property_filter(property, size: str, mode: str = 'flat') -> str:
+    if show_property(property['harvests'], property['status']):
+        return make_icon(property_icon_shape, size, mode)
 
     next = upcoming_harvests(property['harvests'])
     if len(next) > 0:
-        return harvest_filter(next[0]['status'], size)
+        return harvest_filter(next[0]['status'], size, mode)
 
     if property['last_succeeded_harvest']:
-        return harvest_filter(property['last_succeeded_harvest']['status'], size)
+        return harvest_filter(property['last_succeeded_harvest']['status'], size, mode)
 
-    cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
+    cancelled_harvest = [
+        h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]
+    ]
 
     if len(cancelled_harvest) > 0:
-        return color(Harvest.Status.CANCELLED)
+        return harvest_filter(Harvest.Status.CANCELLED, size, mode)
 
-    return '<i class="glyphicon glyphicon-tree-deciduous fa-{size}"></i>'.format(size=size)
-
-
-@register.filter
-@typechecked
-def property_icon(property, year_str: str) -> str:
-    return property_filter(property, 'lg', int(year_str))
+    return make_icon(tree_icon, size, mode)
 
 
 @register.filter
 @typechecked
-def property_icon_hover(property, year_str: str) -> str:
-    return property_filter(property, 'xl', int(year_str))
+def property_icon(property) -> str:
+    return property_filter(property, 'lg')
+
+
+@register.filter
+@typechecked
+def property_icon_hover(property) -> str:
+    return property_filter(property, 'xl')
+
+
+@register.filter
+@typechecked
+def property_icon_stacked(property) -> str:
+    return property_filter(property, 'lg', 'stack')
+
+
+@register.filter
+@typechecked
+def property_icon_stacked_hover(property) -> str:
+    return property_filter(property, 'xl', 'stack')
 
 
 @register.filter
@@ -84,11 +94,8 @@ def property_status(status: Optional[str]) -> str:
 
 @register.filter
 @typechecked
-def property_icon_color(property, year_str: str) -> str:
-    year = int(year_str)
-    harvests = harvests_for_year(property['harvests'], year)
-
-    if show_property(harvests, property['status'], year):
+def property_icon_color(property) -> str:
+    if show_property(property['harvests'], property['status']):
         return property_status(property['status'])
 
     next = upcoming_harvests(property['harvests'])
@@ -98,25 +105,14 @@ def property_icon_color(property, year_str: str) -> str:
     if property['last_succeeded_harvest']:
         return color(property['last_succeeded_harvest']['status'])
 
-    cancelled_harvest = [h for h in harvests if h["status"] in [Harvest.Status.CANCELLED]]
+    cancelled_harvest = [
+        h for h in property['harvests'] if h["status"] in [Harvest.Status.CANCELLED]
+    ]
 
     if len(cancelled_harvest) > 0:
         return color(Harvest.Status.CANCELLED)
 
     return "saskatoon-success"
-
-
-@register.filter
-@typechecked
-def selected_season(request):
-    if (
-        'season' in request.GET
-        and request.GET['season'] is not None
-        and request.GET['season'] != ""
-    ):
-        return request.GET['season']
-
-    return str(datetime.now().year)
 
 
 @register.filter
