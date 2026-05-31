@@ -359,7 +359,7 @@ msgstr "Numéro d'appartement (si applicable)"
 
 #: harvest/forms.py:424
 msgid ""
-"I would like to receive emails from Les Fruits Defendus such as newsletters "
+"I would like to receive emails from Les Fruits Défendus such as newsletters "
 "and updates"
 msgstr ""
 "Je souhaite recevoir les courriels de la part des Fruits Défendus (nouvelles "
