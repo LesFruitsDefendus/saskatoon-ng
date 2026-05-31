@@ -4,6 +4,7 @@ run:
 	@python3 saskatoon/manage.py runserver
 
 init:
+	@python3 -m pip install .['test']
 	@saskatoon/fixtures/init
 
 migrate:
