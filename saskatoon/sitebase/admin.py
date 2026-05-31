@@ -22,8 +22,8 @@ logger = getLogger('saskatoon')
 @admin.action(description="Update map coordinates on selected entries")
 @typechecked
 def update_map_coordinates(modelAdmin, request, queryset: QuerySet[Union[Organization, Property]]):
-    errors = 0
-    total = 0
+    num_updated = 0
+    num_errors = 0
 
     for entry in queryset:
         address = ' '.join(
@@ -45,19 +45,20 @@ def update_map_coordinates(modelAdmin, request, queryset: QuerySet[Union[Organiz
         if location:
             entry.geom = {'type': 'Point', 'coordinates': [location.longitude, location.latitude]}
             entry.save()
-            total = total + 1
+            num_updated += 1
         else:
-            errors = errors + 1
+            num_errors += 1
             logger.error(
                 f"Could not find coordinates for {entry.__class__.__name__} {entry.pk} at <{entry.short_address}>"
             )
 
-    if errors > 0:
+    if num_errors > 0:
         messages.warning(
-            request, f"Updated {total} coordinates, {errors} addresses could not be found."
+            request,
+            f"{num_errors} addresses could not be found ({num_updated}/{num_updated + num_errors} coordinates successfully updated)",
         )
     else:
-        messages.success(request, f"Updated {total} coordinates")
+        messages.success(request, f"Successfully updated {num_updated} coordinates")
 
 
 @admin.register(PageContent)
