@@ -1,8 +1,7 @@
 {% extends 'app/base/base.html' %}
 
-<!-- Menu -->
 {% block menu %}
-    {% if user.is_authenticated %}
+    {% if user.is_authenticated and user.agreed_terms %}
         {% include 'app/base/menu.html' %}
     {% endif %}
 {% endblock menu %}

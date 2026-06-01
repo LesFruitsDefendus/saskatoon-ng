@@ -422,7 +422,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
     pending_newsletter = forms.BooleanField(
         label=_(
             "I would like to receive emails from "
-            "Les Fruits Defendus such as newsletters and updates"
+            "Les Fruits Défendus such as newsletters and updates"
         ),
         required=False,
     )
