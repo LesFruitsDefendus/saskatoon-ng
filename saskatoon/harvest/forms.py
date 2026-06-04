@@ -242,7 +242,7 @@ class PropertyCreateForm(PropertyForm):
 
     owner_last_name = forms.CharField(label=_("Last Name"), required=False)
 
-    owner_phone = PhoneFormField(label=_("Phone"), max_length=18)
+    owner_phone = PhoneFormField(label=_("Phone"), max_length=18, required=False)
 
     owner_email = forms.EmailField(
         label=_("Email"), help_text=_("This field is required"), required=False
