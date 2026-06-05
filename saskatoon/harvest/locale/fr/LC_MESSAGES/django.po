@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-22 23:40+0000\n"
+"POT-Creation-Date: 2026-06-05 17:01+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,41 +31,41 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: harvest/api.py:83
+#: harvest/api.py:85
 msgid "New Harvest"
 msgstr "Nouvelle Cueillette"
 
-#: harvest/api.py:134 harvest/api.py:212
+#: harvest/api.py:159 harvest/api.py:237
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
-#: harvest/api.py:144
+#: harvest/api.py:169
 msgid "Property successfully authorized!"
 msgstr "Création de propriété réussie!"
 
-#: harvest/api.py:146 harvest/views.py:295
+#: harvest/api.py:171 harvest/views.py:295
 msgid "Something went wrong"
 msgstr "Une erreur est survenue"
 
-#: harvest/api.py:155
+#: harvest/api.py:180
 msgid "No email address associated with property!"
 msgstr "Aucun courriel n'est associé à la propriété!"
 
-#: harvest/api.py:164
+#: harvest/api.py:189
 #, python-brace-format
 msgid "Authorization email successfully sent to {email}!"
 msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 
-#: harvest/api.py:171
+#: harvest/api.py:196
 #, python-brace-format
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
-#: harvest/api.py:248
+#: harvest/api.py:273
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:297
+#: harvest/api.py:322
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 

@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load static %}
+
+<button class="btn saskatoon-danger"
+        commandFor="cancel-reservation-dialog"
+        command="show-modal">{% trans "Cancel Reservation" %}</button>
+<dialog class="confirmation" closedby="any" id="cancel-reservation-dialog">
+    <form method="post"
+          action="{% url 'harvest-cancel-reservation' id %}"
+          id="cancel-reservation-form">
+        {% csrf_token %}
+        <p>
+            {% trans "Are you sure you want to cancel the reservation for" %} {{ equipment_point.civil_name }} ?
+        </p>
+    </form>
+    <div class="btn-group" role="group">
+        <button class="btn saskatoon-danger"
+                type="submit"
+                form="cancel-reservation-form">{% trans "Yes" %}</button>
+        <button class="btn btn-primary notika-btn-primary"
+                commandFor="cancel-reservation-dialog"
+                command="close">{% trans "No" %}</button>
+    </div>
+</dialog>

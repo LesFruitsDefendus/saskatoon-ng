@@ -49,7 +49,9 @@
             "state": 1,
             "country": 1
         },
-        "neighborhood": "Plateau-Mont-Royal"
+        "neighborhood": "Plateau-Mont-Royal",
+        "longitude": -73.576813,
+        "latitude": 45.514527
     },
     "requests": [
         {
@@ -350,5 +352,166 @@
     "equipment_point": null,
     "reservation_start": null,
     "reservation_end": null,
+    "equipment_points": [
+        {
+            "actor_id": 7,
+            "civil_name": "L'Orgue Bien Équipée",
+            "contact_person": {
+                "actor_id": 6,
+                "roles": [
+                    "Contact Person"
+                ],
+                "name": "Contact Person",
+                "email": "contact@person.com",
+                "phone": null
+            },
+            "phone": "123-456-1234",
+            "short_address": "45 av. de la Fourchette",
+            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+            "neighborhood": {
+                "id": 11,
+                "name": "Mile End"
+            },
+            "description": "This organization shares its equipment but can't accept fruit donations.",
+            "is_beneficiary": false,
+            "beneficiary_description": "",
+            "is_equipment_point": true,
+            "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
+            "equipment": [
+                {
+                    "id": 2,
+                    "property": null,
+                    "type": {
+                        "name": "Échelle",
+                        "name_fr": "Échelle",
+                        "name_en": "Ladder"
+                    },
+                    "description": "Step ladder",
+                    "count": 2,
+                    "shared": true,
+                    "owner": 7
+                },
+                {
+                    "id": 3,
+                    "property": null,
+                    "type": {
+                        "name": "Échelle",
+                        "name_fr": "Échelle",
+                        "name_en": "Ladder"
+                    },
+                    "description": "20ft extension ladder",
+                    "count": 1,
+                    "shared": true,
+                    "owner": 7
+                },
+                {
+                    "id": 4,
+                    "property": null,
+                    "type": {
+                        "name": "Cueille-fruits",
+                        "name_fr": "Cueille-fruits",
+                        "name_en": "Fruit picker"
+                    },
+                    "description": "10ft",
+                    "count": 4,
+                    "shared": true,
+                    "owner": 7
+                },
+                {
+                    "id": 5,
+                    "property": null,
+                    "type": {
+                        "name": "Trousse de premiers soins",
+                        "name_fr": "Trousse de premiers soins",
+                        "name_en": "First Aid Kit"
+                    },
+                    "description": "",
+                    "count": 1,
+                    "shared": true,
+                    "owner": 7
+                }
+            ],
+            "inventory": {
+                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+            },
+            "latitude": 45.52451,
+            "longitude": -73.586855,
+            "status": "available"
+        },
+        {
+            "actor_id": 9,
+            "civil_name": "Le Vestibule Vert",
+            "contact_person": {
+                "actor_id": 5,
+                "roles": [
+                    "Core Member"
+                ],
+                "name": "Core Member",
+                "email": "core@member.com",
+                "phone": "(514) 123-4321"
+            },
+            "phone": "(555) 444-3333",
+            "short_address": "6 Ontario, Est",
+            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+            "neighborhood": {
+                "id": 10,
+                "name": "Mercier-Hochelaga-Maisonneuve"
+            },
+            "description": "This organization both accepts fruit donations and has some equipment.",
+            "is_beneficiary": true,
+            "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+            "is_equipment_point": true,
+            "equipment_description": "You must register online at www.equipment.ca",
+            "equipment": [
+                {
+                    "id": 6,
+                    "property": null,
+                    "type": {
+                        "name": "Ciseaux",
+                        "name_fr": "Ciseaux",
+                        "name_en": "Cisors"
+                    },
+                    "description": "",
+                    "count": 4,
+                    "shared": true,
+                    "owner": 9
+                },
+                {
+                    "id": 7,
+                    "property": null,
+                    "type": {
+                        "name": "Cueille-fruits",
+                        "name_fr": "Cueille-fruits",
+                        "name_en": "Fruit picker"
+                    },
+                    "description": "10ft",
+                    "count": 2,
+                    "shared": true,
+                    "owner": 9
+                },
+                {
+                    "id": 8,
+                    "property": null,
+                    "type": {
+                        "name": "Cueille-fruits",
+                        "name_fr": "Cueille-fruits",
+                        "name_en": "Fruit picker"
+                    },
+                    "description": "13ft",
+                    "count": 1,
+                    "shared": true,
+                    "owner": 9
+                }
+            ],
+            "inventory": {
+                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+            },
+            "latitude": 45.511693,
+            "longitude": -73.566792,
+            "status": "available"
+        }
+    ],
     "nb_required_pickers": 3
 }

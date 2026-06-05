@@ -4,6 +4,8 @@ from typeguard import typechecked
 from typing import Mapping, Any, Optional
 from datetime import timedelta
 from django.utils import timezone as tz
+from django.db.models import Value
+from itertools import chain
 
 from member.models import Actor, Organization
 from member.serializers import (
@@ -32,6 +34,7 @@ from harvest.models import (
 from harvest.utils import similar_properties, buffer_reservation_time
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 from sitebase.models import Email, EmailType
+from member.utils import get_available_equipment_points
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
@@ -303,7 +306,7 @@ class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
 
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'address', 'owner', 'neighborhood']  # type: ignore
+        fields = ['id', 'title', 'address', 'owner', 'neighborhood', 'longitude', 'latitude']  # type: ignore
 
     neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
     # mypy says it should be a NeighborhoodSerializer
@@ -399,6 +402,32 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
         )
 
 
+class HarvestDetailsOrganizationSerializer(OrganizationSerializer):
+    class Meta:
+        model = Organization
+        fields = [
+            'actor_id',
+            'civil_name',
+            'contact_person',
+            'phone',
+            'short_address',
+            'address',
+            'neighborhood',
+            'description',
+            'is_beneficiary',
+            'beneficiary_description',
+            'is_equipment_point',
+            'equipment_description',
+            'equipment',
+            'inventory',
+            'latitude',
+            'longitude',
+            'status',
+        ]
+
+    status = serializers.ReadOnlyField()
+
+
 @typechecked
 class HarvestDetailSerializer(HarvestSerializer):
     class Meta:
@@ -422,6 +451,7 @@ class HarvestDetailSerializer(HarvestSerializer):
     equipment_point = serializers.SerializerMethodField()
     reservation_start = serializers.SerializerMethodField()
     reservation_end = serializers.SerializerMethodField()
+    equipment_points = serializers.SerializerMethodField()
 
     def __init__(self, *args, **kwargs):
         super(HarvestDetailSerializer, self).__init__(*args, **kwargs)
@@ -456,3 +486,32 @@ class HarvestDetailSerializer(HarvestSerializer):
             return None
 
         return buffer_reservation_time(obj.end_date)
+
+    def get_equipment_points(self, obj: Harvest):
+        equipment_point = Organization.objects.none()
+
+        if self.unserialized_equipment_point:
+            equipment_point = Organization.objects.filter(
+                actor_id=self.unserialized_equipment_point.actor_id
+            ).annotate(status=Value('using'))
+
+        available = Organization.objects.none()
+        if obj.start_date and obj.end_date:
+            available = get_available_equipment_points(obj.start_date, obj.end_date).annotate(
+                status=Value('available')
+            )
+
+        not_available = (
+            Organization.objects.filter(is_equipment_point=True)
+            .exclude(
+                actor_id__in=map(
+                    lambda o: o['actor_id'],
+                    chain(available.values('actor_id'), equipment_point.values('actor_id')),
+                )
+            )
+            .annotate(status=Value('reserved'))
+        )
+
+        return HarvestDetailsOrganizationSerializer(
+            list(chain(available, not_available, equipment_point)), many=True, read_only=True
+        ).data

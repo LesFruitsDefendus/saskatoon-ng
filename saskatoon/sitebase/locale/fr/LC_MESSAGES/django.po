@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-31 20:19-0400\n"
+"POT-Creation-Date: 2026-06-05 18:08+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -203,7 +203,7 @@ msgid "Date"
 msgstr "Date"
 
 #: sitebase/templates/app/base/footer.html:8
-#: sitebase/templates/app/detail_views/harvest/equipment.html:18
+#: sitebase/templates/app/detail_views/harvest/equipment.html:22
 #: sitebase/templates/app/detail_views/organization/contact.html:5
 #: sitebase/templates/app/detail_views/property/contact.html:43
 #: sitebase/templates/app/detail_views/property/similar_table.html:18
@@ -338,8 +338,8 @@ msgstr "Dates de maturité des fruits"
 #: sitebase/templates/app/calendar/scheduled-modal.html:25
 #: sitebase/templates/app/calendar/succeeded-modal.html:25
 #: sitebase/templates/app/detail_views/harvest/about.html:24
-#: sitebase/templates/app/detail_views/harvest/equipment.html:15
-#: sitebase/templates/app/detail_views/harvest/status.html:21
+#: sitebase/templates/app/detail_views/harvest/equipment.html:19
+#: sitebase/templates/app/detail_views/harvest/status.html:22
 #: sitebase/templates/app/forms/participation_create_form.html:46
 msgid "to"
 msgstr "à"
@@ -555,9 +555,27 @@ msgstr "Téléphone"
 msgid "Language"
 msgstr "Langue"
 
-#: sitebase/templates/app/detail_views/harvest/breadcomb.html:42
+#: sitebase/templates/app/detail_views/harvest/breadcomb.html:40
 msgid "Edit Harvest"
 msgstr "Éditer la récolte"
+
+#: sitebase/templates/app/detail_views/harvest/cancel_reservation.html:6
+msgid "Cancel Reservation"
+msgstr "Annuler la réservation"
+
+#: sitebase/templates/app/detail_views/harvest/cancel_reservation.html:13
+msgid "Are you sure you want to cancel the reservation for"
+msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
+
+#: sitebase/templates/app/detail_views/harvest/cancel_reservation.html:19
+#: sitebase/templates/app/detail_views/property/contact.html:118
+msgid "Yes"
+msgstr "Oui"
+
+#: sitebase/templates/app/detail_views/harvest/cancel_reservation.html:22
+#: sitebase/templates/app/detail_views/property/contact.html:122
+msgid "No"
+msgstr "Non"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:5
 #: sitebase/templates/app/detail_views/organization/contact.html:66
@@ -702,67 +720,51 @@ msgstr "Effacer"
 msgid "Are you sure you want to delete this entry?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:5
+#: sitebase/templates/app/detail_views/harvest/equipment.html:8
 #: sitebase/templates/app/detail_views/organization/features.html:19
 #: sitebase/templates/app/list_views/harvest/view.html:21
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:13
+#: sitebase/templates/app/detail_views/harvest/equipment.html:17
 msgid "Reserved on"
 msgstr "Demandé le"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:15
+#: sitebase/templates/app/detail_views/harvest/equipment.html:19
 msgid "From"
 msgstr "De"
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:31
-msgid "Cancel Reservation"
-msgstr "Annuler la réservation"
+#: sitebase/templates/app/detail_views/harvest/equipment.html:51
+msgid ""
+"You can select an equipment point from the map and reserve it's equipment "
+"for your harvest. This is only possible if the harvest is scheduled or ready."
+msgstr ""
 
-#: sitebase/templates/app/detail_views/harvest/equipment.html:37
-msgid "Are you sure you want to cancel the reservation for"
-msgstr "Êtes-vous certain(e) de vouloir annuler la réservation pour"
-
-#: sitebase/templates/app/detail_views/harvest/equipment.html:42
-#: sitebase/templates/app/detail_views/property/contact.html:118
-msgid "Yes"
-msgstr "Oui"
-
-#: sitebase/templates/app/detail_views/harvest/equipment.html:45
-#: sitebase/templates/app/detail_views/property/contact.html:122
-msgid "No"
-msgstr "Non"
-
-#: sitebase/templates/app/detail_views/harvest/equipment.html:49
-msgid "No equipment point has been reserved"
-msgstr "Aucun point d'équipment n'a été reservé"
-
-#: sitebase/templates/app/detail_views/harvest/status.html:9
+#: sitebase/templates/app/detail_views/harvest/status.html:8
 msgid "Harvest status"
 msgstr "Statut de la récolte"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:18
+#: sitebase/templates/app/detail_views/harvest/status.html:19
 msgid "Expected maturity"
 msgstr "Maturité approx."
 
-#: sitebase/templates/app/detail_views/harvest/status.html:27
+#: sitebase/templates/app/detail_views/harvest/status.html:28
 msgid "Total harvested:"
 msgstr "Total récolté:"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:34
+#: sitebase/templates/app/detail_views/harvest/status.html:35
 msgid "Pickers count"
 msgstr "Nombre de bénévoles"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:42
+#: sitebase/templates/app/detail_views/harvest/status.html:43
 msgid "Pick leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:44
+#: sitebase/templates/app/detail_views/harvest/status.html:45
 msgid "Missing"
 msgstr "Manquant"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:47
+#: sitebase/templates/app/detail_views/harvest/status.html:49
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
@@ -1223,6 +1225,14 @@ msgstr "Carte"
 msgid "Extra details"
 msgstr "Plus de détails"
 
+#: sitebase/templates/app/list_views/organization/marker.html:57
+msgid "Change Reservation"
+msgstr "Annuler la réservation"
+
+#: sitebase/templates/app/list_views/organization/marker.html:59
+msgid "Reserve"
+msgstr "Réserver"
+
 #: sitebase/templates/app/list_views/organization/organizations.html:32
 msgid "Organization"
 msgstr "Organisation"
@@ -1392,36 +1402,36 @@ msgstr "Connexion"
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
-#: sitebase/templatetags/harvest_status.py:224
+#: sitebase/templatetags/harvest_status.py:225
 msgid "Harvest has been adopted, but still needs to be scheduled"
 msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
-#: sitebase/templatetags/harvest_status.py:228
+#: sitebase/templatetags/harvest_status.py:229
 msgid "Harvest has been scheduled and has room for more pickers"
 msgstr "Récolte a été planifiée et attend la participation de bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:232
+#: sitebase/templatetags/harvest_status.py:233
 msgid "Harvest is ready to start, there are no more empty spots for pickers"
 msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:236
+#: sitebase/templatetags/harvest_status.py:237
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
 msgstr ""
 "Récolte annulée, devra être replanifiée par le ou la chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:240
+#: sitebase/templatetags/harvest_status.py:241
 msgid "Harvest is finished and fruits have been harvested"
 msgstr "Récolte est terminée et les fruits ont été récoltés"
 
-#: sitebase/templatetags/harvest_status.py:242
+#: sitebase/templatetags/harvest_status.py:243
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/property.py:131
+#: sitebase/templatetags/property.py:149
 msgid "The property information needs to be validated by a core member."
 msgstr "La propriété n'a pas encore été validé"
 
-#: sitebase/templatetags/property.py:136
+#: sitebase/templatetags/property.py:154
 msgid ""
 "The property owner does not want a harvest this season, please don't contact "
 "them"
@@ -1429,15 +1439,15 @@ msgstr ""
 "Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
 "ne les contactez pas"
 
-#: sitebase/templatetags/property.py:141
+#: sitebase/templatetags/property.py:159
 msgid "If this property does not already have a harvest, you can create one"
 msgstr "Si cette propriété n'a pas de cueillettes, il faudrait en créer une"
 
-#: sitebase/templatetags/property.py:143
+#: sitebase/templatetags/property.py:161
 msgid "This property is inactive"
 msgstr "Cette propriété est marquée comme inactive"
 
-#: sitebase/templatetags/property.py:147
+#: sitebase/templatetags/property.py:165
 msgid ""
 "The property owner has not yet indicated whether they want to participate "
 "this year, you may contact them to confirm"
