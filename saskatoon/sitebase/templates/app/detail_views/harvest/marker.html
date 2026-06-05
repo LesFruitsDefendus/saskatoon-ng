@@ -1,0 +1,11 @@
+{% load i18n %}
+{% load static %}
+{% load property %}
+{% get_current_language as LANG %}
+
+<leaflet-marker latitude="{{ property.latitude }}"
+                longitude="{{ property.longitude }}">
+    <leaflet-icon class="{{ status | harvest_details_color }}" icon-anchor="10 -5">
+        {{ status | harvest_details_icon_stacked:'lg' | safe }}
+    </leaflet-icon>
+</leaflet-marker>

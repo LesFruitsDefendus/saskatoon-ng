@@ -2,9 +2,16 @@ from django import template
 from typeguard import typechecked
 from typing import Optional
 
+from harvest.models import Harvest
 from sitebase.templatetags.harvest_status import make_icon
 
 register = template.Library()
+
+
+@register.filter
+@typechecked
+def can_reserve_equipment(harvest) -> bool:
+    return harvest['status'] in Harvest.CAN_RESERVE_EQUIPMENT
 
 
 @register.filter
