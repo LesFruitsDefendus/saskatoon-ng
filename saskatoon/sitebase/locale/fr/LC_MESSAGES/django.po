@@ -739,8 +739,8 @@ msgid ""
 "You can select an equipment point from the map and reserve it's equipment "
 "for your harvest. This is only possible if the harvest is scheduled or ready."
 msgstr ""
-"Il est possible de sélectionner un point d'équipement sur la carteet de "
-"réserver son équipement, mais seulement si la récolteest déjà planifié ou "
+"Il est possible de sélectionner un point d'équipement sur la carte et de "
+"réserver son équipement, mais seulement si la récolte est déjà planifié ou "
 "prête."
 
 #: sitebase/templates/app/detail_views/harvest/status.html:8
