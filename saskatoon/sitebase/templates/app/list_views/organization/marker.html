@@ -44,7 +44,7 @@
                     {% endif %}
                 </address>
             </section>
-            {% if "harvest" in request.path and harvest|can_reserve_equipment %}
+            {% if "harvest" in request.path %}
                 <section class="harvest-reserve">
                     {% if equipment_point and equipment_point.actor_id == org.actor_id %}
                         {% include 'app/detail_views/harvest/cancel_reservation.html' %}
@@ -52,7 +52,12 @@
                         <form method="post" action="{% url 'harvest-make-reservation' id %}">
                             {% csrf_token %}
                             <input type="hidden" value="{{ org.actor_id }}" name="org">
-                            <button type="submit" class="btn saskatoon-success" href="">
+                            <button type="submit"
+                                    class="btn saskatoon-success"
+                                    href=""
+                                    {% if status|can_reserve_equipment %}
+                                        disabled data-placement="top" data-toggle="tooltip" title="{% trans 'Only scheduled and ready harvests can reserve equipment' %}"
+                                    {% endif %}>
                                 {% if equipment_point %}
                                     {% trans 'Change Reservation' %}
                                 {% else %}

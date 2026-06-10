@@ -10,8 +10,8 @@ register = template.Library()
 
 @register.filter
 @typechecked
-def can_reserve_equipment(harvest) -> bool:
-    return harvest['status'] in Harvest.CAN_RESERVE_EQUIPMENT
+def can_reserve_equipment(status: str) -> bool:
+    return status in Harvest.CAN_RESERVE_EQUIPMENT
 
 
 @register.filter
