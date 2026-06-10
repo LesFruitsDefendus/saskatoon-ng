@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load organization %}
+{% load harvest_status %}
 {% load property %}
 {% get_current_language as LANG %}
 
@@ -8,33 +9,63 @@
     <h2>{% trans "Equipment Point" %}</h2>
     {% if equipment_point is not None %}
         <div class="reservation-info">
-            <address>
-                <a href="{% url 'organization-detail' equipment_point.actor_id %}">{{ equipment_point.civil_name }}</a>
-                <br>
-                {{ equipment_point.short_address }}
-            </address>
-            <p>
-                {% trans "Reserved on" %} {{ start_date }}
-                <br>
-                {% trans "From" %}  <b>{{ reservation_start }}</b> {% trans "to" %} <b>{{ reservation_end }}</b>
-            </p>
-            <address>
-                {% trans "Contact" %} {{ equipment_point.contact_person.name }}
-                {% if equipment_point.contact_person.phone is not None %}
+            <div>
+                <address>
+                    <a href="{% url 'organization-detail' equipment_point.actor_id %}">{{ equipment_point.civil_name }}</a>
                     <br>
-                    {{ equipment_point.contact_person.phone }}
-                {% endif %}
-                {% if equipment_point.contact_person.email is not None %}
+                    {{ equipment_point.short_address }}
+                </address>
+                <p>
+                    {% trans "Reserved on" %} {{ start_date }}
                     <br>
-                    <a href="mailto:{{ equipment_point.contact_person.email }}">{{ equipment_point.contact_person.email }}</a>
-                {% endif %}
-            </address>
-            <p>{{ equipment_point.equipment_description }}</p>
+                    {% trans "From" %}  <b>{{ reservation_start }}</b> {% trans "to" %} <b>{{ reservation_end }}</b>
+                </p>
+                <address>
+                    {% trans "Contact" %} {{ equipment_point.contact_person.name }}
+                    {% if equipment_point.contact_person.phone is not None %}
+                        <br>
+                        {{ equipment_point.contact_person.phone }}
+                    {% endif %}
+                    {% if equipment_point.contact_person.email is not None %}
+                        <br>
+                        <a href="mailto:{{ equipment_point.contact_person.email }}">{{ equipment_point.contact_person.email }}</a>
+                    {% endif %}
+                </address>
+                <p>{{ equipment_point.equipment_description }}</p>
+            </div>
             {% include 'app/detail_views/harvest/cancel_reservation.html' %}
+
+            <dl>
+                <dt class="{{ status | color }}">{{ status | harvest_icon | safe }}</dt>
+                <dd {{ status | harvest_status_attributes | safe }}>
+                    {% trans 'This Harvest' %}
+                </dd>
+
+                <dt class="{{'using' | reservation}}">{{ 'lg' | equipment_point_icon_shape | safe}}</dt>
+                <dd>
+                    {% trans 'Currently Reserved Equipment Point' %}
+                </dd>
+
+                <dt class="{{'available' | reservation}}">
+                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                </dt>
+                <dd>
+                    {% trans 'Available Equipment Point' %}
+                </dd>
+
+                <dt class="{{'reserved' | reservation}}">
+                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                </dt>
+                <dd>
+                    {% trans 'Unavailable Equipment Point' %}
+                </dd>
+
+            </dl>
+
         </div>
         <div class="reservation-map">
-            <leaflet-map style="height: 60vh;
-                                min-height: 400px"
+            <leaflet-map style="height: 450px;
+                                max-height: 90vh"
                          center="[{{ equipment_point.latitude }}, {{ equipment_point.longitude }}]"
                          zoom="14">
                 {% for org in equipment_points %}
@@ -50,11 +81,32 @@
             <p>
                 {% trans "You can select an equipment point from the map and reserve it's equipment for your harvest. This is only possible if the harvest is scheduled or ready." %}
             </p>
+
+            <dl>
+                <dt class="{{ status | color }}">{{ status | harvest_icon | safe }}</dt>
+                <dd {{ status | harvest_status_attributes | safe }}>
+                    {% trans 'This Harvest' %}
+                </dd>
+
+                <dt class="{{'available' | reservation}}">
+                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                </dt>
+                <dd>
+                    {% trans 'Available Equipment Point' %}
+                </dd>
+
+                <dt class="{{'reserved' | reservation}}">
+                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                </dt>
+                <dd>
+                    {% trans 'Unavailable Equipment Point' %}
+                </dd>
+            </dl>
         </div>
 
         <div class="reservation-map">
-            <leaflet-map style="height: 60vh;
-                                min-height: 400px"
+            <leaflet-map style="height: 450px;
+                                max-height: 90vh"
                          center="[{{ property.latitude }}, {{ property.longitude }}]"
                          zoom="14">
                 {% for org in equipment_points %}

@@ -43,6 +43,13 @@
         .harvest-reserve button {
             width: 100%;
         }
+
+        dl {
+            grid-template-columns: 22px auto;
+            display: grid;
+            gap: 1em;
+            width: fit-content;
+        }
     }
 
     .harvest-info,
