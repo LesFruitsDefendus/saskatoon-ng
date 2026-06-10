@@ -1,7 +1,6 @@
 {% load i18n %}
 {% load static %}
 {% load organization %}
-{% load harvest_status %}
 {% load property %}
 {% get_current_language as LANG %}
 
@@ -36,30 +35,12 @@
             {% include 'app/detail_views/harvest/cancel_reservation.html' %}
 
             <dl>
-                <dt class="{{ status | color }}">{{ status | harvest_icon | safe }}</dt>
-                <dd {{ status | harvest_status_attributes | safe }}>
-                    {% trans 'This Harvest' %}
-                </dd>
-
                 <dt class="{{'using' | reservation}}">{{ 'lg' | equipment_point_icon_shape | safe}}</dt>
                 <dd>
                     {% trans 'Currently Reserved Equipment Point' %}
                 </dd>
 
-                <dt class="{{'available' | reservation}}">
-                    {{ 'lg' | equipment_point_icon_shape | safe}}
-                </dt>
-                <dd>
-                    {% trans 'Available Equipment Point' %}
-                </dd>
-
-                <dt class="{{'reserved' | reservation}}">
-                    {{ 'lg' | equipment_point_icon_shape | safe}}
-                </dt>
-                <dd>
-                    {% trans 'Unavailable Equipment Point' %}
-                </dd>
-
+                {% include 'app/detail_views/harvest/legend.html' %}
             </dl>
 
         </div>
@@ -83,24 +64,7 @@
             </p>
 
             <dl>
-                <dt class="{{ status | color }}">{{ status | harvest_icon | safe }}</dt>
-                <dd {{ status | harvest_status_attributes | safe }}>
-                    {% trans 'This Harvest' %}
-                </dd>
-
-                <dt class="{{'available' | reservation}}">
-                    {{ 'lg' | equipment_point_icon_shape | safe}}
-                </dt>
-                <dd>
-                    {% trans 'Available Equipment Point' %}
-                </dd>
-
-                <dt class="{{'reserved' | reservation}}">
-                    {{ 'lg' | equipment_point_icon_shape | safe}}
-                </dt>
-                <dd>
-                    {% trans 'Unavailable Equipment Point' %}
-                </dd>
+                {% include 'app/detail_views/harvest/legend.html' %}
             </dl>
         </div>
 
