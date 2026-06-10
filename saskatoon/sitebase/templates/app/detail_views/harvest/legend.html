@@ -1,0 +1,23 @@
+{% load i18n %}
+{% load static %}
+{% load harvest_status %}
+{% load organization %}
+
+<dt class="{{ status | color }}">{{ status | harvest_icon | safe }}</dt>
+<dd {{ status | harvest_status_attributes | safe }}>
+    {% trans 'This Harvest' %}
+</dd>
+
+<dt class="{{'available' | reservation}}">
+    {{ 'lg' | equipment_point_icon_shape | safe}}
+</dt>
+<dd>
+    {% trans 'Available Equipment Point' %}
+</dd>
+
+<dt class="{{'reserved' | reservation}}">
+    {{ 'lg' | equipment_point_icon_shape | safe}}
+</dt>
+<dd>
+    {% trans 'Unavailable Equipment Point' %}
+</dd>
