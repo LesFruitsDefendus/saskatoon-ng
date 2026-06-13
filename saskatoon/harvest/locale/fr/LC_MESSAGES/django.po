@@ -37,15 +37,15 @@ msgstr "Nouvelle Cueillette"
 
 #: harvest/api.py:103
 msgid "You need to specify an organization id"
-msgstr ""
+msgstr "Tu dois spécifier l'id d'une organization"
 
 #: harvest/api.py:106
 msgid "The organization does not exist"
-msgstr ""
+msgstr "Cette organization n'existe pas"
 
 #: harvest/api.py:112
 msgid "The harvest does not exist"
-msgstr ""
+msgstr "Cette récolte n'existe pas"
 
 #: harvest/api.py:122
 msgid "Your reservation was successfull"
