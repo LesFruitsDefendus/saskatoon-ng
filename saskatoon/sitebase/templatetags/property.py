@@ -50,6 +50,18 @@ def property_filter(property, size: str, mode: str = 'flat') -> str:
 
 @register.filter
 @typechecked
+def harvest_details_icon(status, size: str) -> str:
+    return harvest_filter(status, size)
+
+
+@register.filter
+@typechecked
+def harvest_details_icon_stacked(status, size: str) -> str:
+    return harvest_filter(status, size, 'stack')
+
+
+@register.filter
+@typechecked
 def property_icon(property) -> str:
     return property_filter(property, 'lg')
 
@@ -113,6 +125,12 @@ def property_icon_color(property) -> str:
         return color(Harvest.Status.CANCELLED)
 
     return "saskatoon-success"
+
+
+@register.filter
+@typechecked
+def harvest_details_color(status) -> str:
+    return color(status)
 
 
 @register.filter

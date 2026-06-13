@@ -9,10 +9,8 @@
 
 
 	.leaflet-popup-content {
-		max-height: 40vh;
 		overflow: auto;
 		padding-right: 0.5em;
-		width: 25vw !important;
 		min-width: 300px;
 	}
 }

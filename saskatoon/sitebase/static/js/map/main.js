@@ -40,8 +40,12 @@ class LeafletMap extends HTMLElement {
 		// if no size is set, then the map wont appear
 		const styles = window.getComputedStyle(this);
 		const height = `height: ${styles.getPropertyValue("height")};`;
+		const minHeight = `min-height: ${styles.getPropertyValue("min-height")};`;
+		const maxHeight = `max-height: ${styles.getPropertyValue("max-height")};`;
 		const width = `width: ${styles.getPropertyValue("width")};`;
-		mapRoot.style.cssText = `${height}${width}`;
+		const minWidth = `min-width: ${styles.getPropertyValue("min-width")};`;
+		const maxWidth = `max-width: ${styles.getPropertyValue("max-width")};`;
+		mapRoot.style.cssText = `${height}${width}${minHeight}${minWidth}${maxHeight}${maxWidth}`;
 
 		this.appendChild(mapRoot);
 
@@ -57,11 +61,24 @@ class LeafletMap extends HTMLElement {
 
 		// Hardcode location of montreal for now, zooming out should stop if it can contain
 		// the whole island
+	         var center, zoom;
+	         const defaultCenter = "[45.5088, -73.5617]";
+	         const defaultZoom = "10";
+
+	         try {
+	             center = JSON.parse(getAttributeValue(this, 'center', defaultCenter));
+	             zoom = parseInt(getAttributeValue(this, 'zoom', defaultZoom), 10);
+	         } catch (e) {
+	             console.error(e);
+	             center = JSON.parse(defaultCenter);
+	             zoom = parseInt(defaultZoom, 10);
+	         }
+
 		const map = L.map(mapRoot, {
 			minZoom: 9,
 		})
 			.addLayer(layer)
-			.setView([45.5088, -73.5617], 13);
+			.setView(center, zoom);
 
 		let markerCluster = null;
 		let markerBuffer = [];

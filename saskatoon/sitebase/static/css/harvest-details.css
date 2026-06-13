@@ -2,18 +2,7 @@
     --saskatoon-gap: 15px;
 }
 
-.main-content {
-    header {
-        background-color: #e7e0f9aa;
-        display: grid;
-        grid-template-columns: auto;
-        gap: var(--saskatoon-gap);
-
-        a {
-            margin-top: auto;
-            margin-bottom: auto;
-        }
-    }
+.harvest-details {
 
     .tooltip.right {
         min-width: 15em;
@@ -23,25 +12,45 @@
         width: fit-content;
     }
 
-    section {
-        background-color: #e7e0f9aa;
-        padding: 20px 20px;
+    .equipment-point {
+        min-height: 425px;
+        display: grid;
+        grid-template-areas:
+            "title ."
+            "info map";
+        grid-template-rows: auto auto;
+        grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
 
-        h2 {
-            font-size: 20px;
-            color: #333;
+        > h2 {
+            grid-area: title;
+        }
 
-            &.badge {
-                padding: 0.5em;
+        .reservation-info {
+            grid-area: info;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+
+            > button {
+                width: 90%;
             }
         }
 
-        p {
-            font-size: 14px;
-            color: #333;
+        .reservation-map {
+            grid-area: map;
+        }
+
+        .harvest-reserve button {
+            width: 100%;
+        }
+
+        dl {
+            grid-template-columns: 22px auto;
+            display: grid;
+            gap: 1em;
+            width: fit-content;
         }
     }
-
 
     .harvest-info,
     .property-and-announcements,
@@ -62,7 +71,63 @@
 
     .equipment-point,
     .picker-requests {
+        background-color: #e7e0f9aa;
+        padding: 20px 20px;
+
+        h2 {
+            font-size: 20px;
+
+            &.badge {
+                padding: 0.5em;
+            }
+        }
+
+        p {
+            font-size: 14px;
+            color: #333;
+        }
+
         margin-bottom: var(--saskatoon-gap);
+    }
+
+
+    .harvest-info > section,
+    .property-and-announcements > section,
+    .distribution-and-comments > section,
+    .equipment-point,
+    .picker-requests {
+        background-color: #e7e0f9aa;
+        padding: 20px 20px;
+
+        @media (min-width: 400px) {
+            > header {
+                grid-template-columns: auto min-content;
+            }
+        }
+
+        > header {
+            display: grid;
+            gap: var(--saskatoon-gap);
+
+            a {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+
+        h2 {
+            font-size: 20px;
+            color: #333;
+
+            &.badge {
+                padding: 0.5em;
+            }
+        }
+
+        p {
+            font-size: 14px;
+            color: #333;
+        }
     }
 
     table {
@@ -82,12 +147,4 @@
 .dropdown p {
     margin: 0;
     padding: 0;
-}
-
-@media (min-width: 400px) {
-    .main-content {
-        section > header {
-            grid-template-columns: auto min-content;
-        }
-    }
 }
