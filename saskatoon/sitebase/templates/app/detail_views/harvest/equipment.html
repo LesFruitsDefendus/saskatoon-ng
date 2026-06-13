@@ -35,7 +35,9 @@
             {% include 'app/detail_views/harvest/cancel_reservation.html' %}
 
             <dl>
-                <dt class="{{'using' | reservation}}">{{ 'lg' | equipment_point_icon_shape | safe}}</dt>
+                <dt class="{{'reserved' | reservation}}">
+                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                </dt>
                 <dd>
                     {% trans 'Currently Reserved Equipment Point' %}
                 </dd>
@@ -44,19 +46,13 @@
             </dl>
 
         </div>
-        <div class="reservation-map">
-            <leaflet-map style="height: 450px;
-                                max-height: 90vh"
-                         center="[{{ equipment_point.latitude }}, {{ equipment_point.longitude }}]"
-                         zoom="14">
-                {% for org in equipment_points %}
-                    {% with status=org.status %}
-                        {% include 'app/list_views/organization/marker.html' %}
-                    {% endwith %}
-                {% endfor %}
-                {% include 'app/detail_views/harvest/marker.html' %}
-            </leaflet-map>
-        </div>
+        {% with latitude=equipment_point.latitude %}
+            {% with longitude=equipment_point.longitude %}
+
+                {% include 'app/detail_views/harvest/equipment_map.html' %}
+            {% endwith %}
+        {% endwith %}
+
     {% elif equipment_points is not None %}
         <div class="reservation-info">
             <p>
@@ -67,19 +63,12 @@
                 {% include 'app/detail_views/harvest/legend.html' %}
             </dl>
         </div>
+        {% with latitude=property.latitude %}
+            {% with longitude=property.longitude %}
 
-        <div class="reservation-map">
-            <leaflet-map style="height: 450px;
-                                max-height: 90vh"
-                         center="[{{ property.latitude }}, {{ property.longitude }}]"
-                         zoom="14">
-                {% for org in equipment_points %}
-                    {% with status=org.status %}
-                        {% include 'app/list_views/organization/marker.html' %}
-                    {% endwith %}
-                {% endfor %}
-                {% include 'app/detail_views/harvest/marker.html' %}
-            </leaflet-map>
-        </div>
+                {% include 'app/detail_views/harvest/equipment_map.html' %}
+            {% endwith %}
+        {% endwith %}
+
     {% endif %}
 </section>

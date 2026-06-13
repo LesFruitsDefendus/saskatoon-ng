@@ -3,9 +3,7 @@
 {% load organization %}
 
 {% if org.longitude is not None and org.latitude is not None %}
-    <leaflet-marker latitude="{{ org.latitude }}"
-                    longitude="{{ org.longitude }}"
-                    style="display: none">
+    <leaflet-marker latitude="{{ org.latitude }}" longitude="{{ org.longitude }}">
         <leaflet-tooltip direction="top">
             {{ org.civil_name }}
         </leaflet-tooltip>
@@ -53,11 +51,11 @@
                             {% csrf_token %}
                             <input type="hidden" value="{{ org.actor_id }}" name="org">
                             <button type="submit"
-                                    class="btn saskatoon-success"
-                                    href=""
-                                    {% if status|can_reserve_equipment %}
-                                        disabled data-placement="top" data-toggle="tooltip" title="{% trans 'Only scheduled and ready harvests can reserve equipment' %}"
-                                    {% endif %}>
+                                class="btn saskatoon-success"
+                                href=""
+                                {% if not harvest_status|can_reserve_equipment or not status|available %}
+                                    disabled data-placement="top" data-toggle="tooltip" title={% if not harvest_status|can_reserve_equipment %}"{% trans 'Only scheduled and ready harvests can reserve equipment' %}"{% else %}"{% trans 'This equipment point is not available at the time of harvest' %}"{% endif %}"
+                                {% endif %}>
                                 {% if equipment_point %}
                                     {% trans 'Change Reservation' %}
                                 {% else %}

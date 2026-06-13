@@ -402,7 +402,7 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
         )
 
 
-class HarvestDetailsOrganizationSerializer(OrganizationSerializer):
+class HarvestDetailOrganizationSerializer(OrganizationSerializer):
     class Meta:
         model = Organization
         fields = [
@@ -488,30 +488,24 @@ class HarvestDetailSerializer(HarvestSerializer):
         return buffer_reservation_time(obj.end_date)
 
     def get_equipment_points(self, obj: Harvest):
-        equipment_point = Organization.objects.none()
-
+        reserved = Organization.objects.none()
         if self.unserialized_equipment_point:
-            equipment_point = Organization.objects.filter(
+            reserved = Organization.objects.filter(
                 actor_id=self.unserialized_equipment_point.actor_id
-            ).annotate(status=Value('using'))
+            ).annotate(status=Value(Organization.EquipmentPointStatus.RESERVED))
 
         available = Organization.objects.none()
-        if obj.start_date and obj.end_date:
+        if obj.start_date and obj.end_date and obj.status in Harvest.CAN_RESERVE_EQUIPMENT:
             available = get_available_equipment_points(obj.start_date, obj.end_date).annotate(
-                status=Value('available')
+                status=Value(Organization.EquipmentPointStatus.AVAILABLE)
             )
 
         not_available = (
             Organization.objects.filter(is_equipment_point=True)
-            .exclude(
-                actor_id__in=map(
-                    lambda o: o['actor_id'],
-                    chain(available.values('actor_id'), equipment_point.values('actor_id')),
-                )
-            )
-            .annotate(status=Value('reserved'))
+            .exclude(actor_id__in=(available | reserved))
+            .annotate(status=Value(Organization.EquipmentPointStatus.UNAVAILABLE))
         )
 
-        return HarvestDetailsOrganizationSerializer(
-            list(chain(available, not_available, equipment_point)), many=True, read_only=True
+        return HarvestDetailOrganizationSerializer(
+            list(chain(available, not_available, reserved)), many=True, read_only=True
         ).data

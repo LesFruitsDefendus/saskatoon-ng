@@ -5,7 +5,17 @@
 
 <leaflet-marker latitude="{{ property.latitude }}"
                 longitude="{{ property.longitude }}">
-    <leaflet-icon class="{{ status | harvest_details_color }}" icon-anchor="10 -5">
+    <leaflet-tooltip direction="top">
+        {% trans 'This Harvest' %}
+    </leaflet-tooltip>
+
+    <leaflet-icon class="{{ status | harvest_details_color }}" icon-anchor="20 -10">
         {{ status | harvest_details_icon_stacked:'lg' | safe }}
+    </leaflet-icon>
+
+    <leaflet-icon class="leaflet-hover-icon {{ status | harvest_details_color }}"
+                  icon-anchor="22 -5"
+                  popup-anchor="0 0">
+        {{ status | harvest_details_icon_stacked:'xl' | safe }}
     </leaflet-icon>
 </leaflet-marker>
