@@ -114,6 +114,7 @@ class PropertyFilter(filters.FilterSet):
             'is_active',
             'pending',
             'authorized',
+            'orphaned',
             'neighborhood',
             'trees',
         ]
@@ -131,6 +132,13 @@ class PropertyFilter(filters.FilterSet):
         label=_("Authorized"),
         help_text="",
         method='authorized_filter',
+    )
+
+    orphaned = filters.BooleanFilter(
+        label=_("Orphaned"),
+        widget=forms.CheckboxInput(),
+        help_text="",
+        method='has_orphan_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -156,6 +164,12 @@ class PropertyFilter(filters.FilterSet):
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
+
+    def has_orphan_filter(self, queryset, name, value) -> QuerySet[Property]:
+        if not value:
+            return queryset
+
+        return queryset.filter(harvests__in=Harvest.objects.filter(status=Harvest.Status.ORPHAN))
 
     def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:
