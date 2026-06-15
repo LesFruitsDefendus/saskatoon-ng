@@ -268,3 +268,18 @@ class OrganizationHasNoContactAdminFilter(SimpleListFilter):
         if self.value():
             return queryset.filter(contact_person__isnull=True)
         return queryset
+
+
+class OrganizationHasLocationAdminFilter(SimpleListFilter):
+    """Check whether Organization has geom field set"""
+
+    title = "Has Location Filter"
+    parameter_name = 'geom'
+
+    def lookups(self, request, model_admin):
+        return [('0', 'No location set'), ('1', 'Has GPS coordinates')]
+
+    def queryset(self, request, queryset):
+        if self.value():
+            return queryset.exclude(geom__isnull=bool(int(self.value())))
+        return queryset
