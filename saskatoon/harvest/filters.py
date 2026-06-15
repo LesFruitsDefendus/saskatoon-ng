@@ -1,4 +1,5 @@
 from dal import autocomplete
+from datetime import datetime
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
@@ -114,6 +115,7 @@ class PropertyFilter(filters.FilterSet):
             'is_active',
             'pending',
             'authorized',
+            'harvest_status',
             'neighborhood',
             'trees',
         ]
@@ -131,6 +133,13 @@ class PropertyFilter(filters.FilterSet):
         label=_("Authorized"),
         help_text="",
         method='authorized_filter',
+    )
+
+    harvest_status = filters.ChoiceFilter(
+        choices=Harvest.Status.choices,
+        label=_("Harvest Status"),
+        help_text="",
+        method='harvest_status_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -156,6 +165,13 @@ class PropertyFilter(filters.FilterSet):
         if choice == '2':
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
+
+    def harvest_status_filter(self, queryset, name, choice) -> QuerySet[Property]:
+        if not choice:
+            return queryset
+
+        harvests = Harvest.objects.filter(start_date__year=datetime.now().year, status=choice)
+        return queryset.filter(harvests__in=harvests).distinct()
 
     def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:
