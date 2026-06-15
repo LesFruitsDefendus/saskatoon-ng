@@ -1,4 +1,5 @@
 from dal import autocomplete
+from datetime import datetime
 from django import forms
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
@@ -114,7 +115,7 @@ class PropertyFilter(filters.FilterSet):
             'is_active',
             'pending',
             'authorized',
-            'orphaned',
+            'harvest_status',
             'neighborhood',
             'trees',
         ]
@@ -134,11 +135,11 @@ class PropertyFilter(filters.FilterSet):
         method='authorized_filter',
     )
 
-    orphaned = filters.BooleanFilter(
-        label=_("Orphaned"),
-        widget=forms.CheckboxInput(),
+    harvest_status = filters.ChoiceFilter(
+        choices=Harvest.Status.choices,
+        label=_("Harvest Status"),
         help_text="",
-        method='has_orphan_filter',
+        method='harvest_status_filter',
     )
 
     neighborhood = filters.ModelChoiceFilter(
@@ -165,11 +166,12 @@ class PropertyFilter(filters.FilterSet):
             return queryset.filter(authorized__isnull=True)
         return queryset.filter(authorized=bool(int(choice)))
 
-    def has_orphan_filter(self, queryset, name, value) -> QuerySet[Property]:
-        if not value:
+    def harvest_status_filter(self, queryset, name, choice) -> QuerySet[Property]:
+        if not choice:
             return queryset
 
-        return queryset.filter(harvests__in=Harvest.objects.filter(status=Harvest.Status.ORPHAN))
+        harvests = Harvest.objects.filter(start_date__year=datetime.now().year, status=choice)
+        return queryset.filter(harvests__in=harvests).distinct()
 
     def season_filter(self, queryset, name, year) -> QuerySet[Property]:
         if year is None:

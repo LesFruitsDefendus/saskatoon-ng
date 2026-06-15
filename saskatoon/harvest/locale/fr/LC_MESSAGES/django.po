@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-14 23:57-0400\n"
+"POT-Creation-Date: 2026-06-15 00:21-0400\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -69,88 +69,88 @@ msgstr "Nouvel Équipement"
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
-#: harvest/filters.py:31
+#: harvest/filters.py:32
 msgid "Season"
 msgstr "Saison"
 
-#: harvest/filters.py:38
+#: harvest/filters.py:39
 msgid "Date"
 msgstr "Date"
 
-#: harvest/filters.py:40
+#: harvest/filters.py:41
 msgid "Upcoming harvests only"
 msgstr "Cueillettes futures seulement"
 
-#: harvest/filters.py:41
+#: harvest/filters.py:42
 msgid "Past harvests only"
 msgstr "Cueillettes passées seulement"
 
-#: harvest/filters.py:42
+#: harvest/filters.py:43
 msgid "Lastly Created first"
 msgstr "Plus récente en premier"
 
-#: harvest/filters.py:43
+#: harvest/filters.py:44
 msgid "Oldest to Newest"
 msgstr "Plus ancienne à la plus récente"
 
-#: harvest/filters.py:49
+#: harvest/filters.py:50
 msgid "Status"
 msgstr "Statut"
 
-#: harvest/filters.py:52
+#: harvest/filters.py:53
 msgid "Pick leader"
 msgstr "Chef.fe de cueillette"
 
-#: harvest/filters.py:60
+#: harvest/filters.py:61
 msgid "Tree type"
 msgstr "Type d'arbre"
 
-#: harvest/filters.py:67 harvest/filters.py:146 harvest/models.py:315
+#: harvest/filters.py:68 harvest/filters.py:147 harvest/models.py:315
 msgid "Borough"
 msgstr "Arrondissement"
 
-#: harvest/filters.py:74
+#: harvest/filters.py:75
 msgid "Reserved equipment"
 msgstr "A réservé de l'équipement"
 
-#: harvest/filters.py:82 harvest/filters.py:201 harvest/forms.py:516
+#: harvest/filters.py:83 harvest/filters.py:203 harvest/forms.py:516
 #: harvest/forms.py:695
 msgid "Equipment Point"
 msgstr "Point d'équipement"
 
-#: harvest/filters.py:122
+#: harvest/filters.py:123
 msgid "Active"
 msgstr "Est active"
 
-#: harvest/filters.py:124
+#: harvest/filters.py:125
 msgid "Pending validation"
 msgstr "Validation en attente"
 
-#: harvest/filters.py:128
+#: harvest/filters.py:129
 msgid "Not yet authorized"
 msgstr "Pas encore autorisée"
 
-#: harvest/filters.py:129 harvest/filters.py:132 harvest/models.py:141
+#: harvest/filters.py:130 harvest/filters.py:133 harvest/models.py:141
 msgid "Authorized"
 msgstr "Autorisée"
 
-#: harvest/filters.py:130 harvest/models.py:138
+#: harvest/filters.py:131 harvest/models.py:138
 msgid "Unauthorized"
 msgstr "Non autorisée"
 
-#: harvest/filters.py:138
-msgid "Orphaned"
-msgstr "Orpheline"
+#: harvest/filters.py:140
+msgid "Harvest Status"
+msgstr "Statut de récolte"
 
-#: harvest/filters.py:152 harvest/models.py:856
+#: harvest/filters.py:153 harvest/models.py:856
 msgid "Tree"
 msgstr "Arbre"
 
-#: harvest/filters.py:156
+#: harvest/filters.py:157
 msgid "Harvested in"
 msgstr "Récoltée en"
 
-#: harvest/filters.py:194 harvest/models.py:478
+#: harvest/filters.py:196 harvest/models.py:478
 msgid "Type"
 msgstr "Type"
 
@@ -1149,3 +1149,6 @@ msgstr "{} cueillettes orphelines créées avec succès"
 #: harvest/views.py:566
 msgid "Harvests have already been created for this property"
 msgstr "Des récoltes ont déjà été crées pour cette propriété"
+
+#~ msgid "Orphaned"
+#~ msgstr "Orpheline"
