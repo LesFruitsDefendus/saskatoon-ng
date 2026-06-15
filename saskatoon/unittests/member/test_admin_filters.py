@@ -18,7 +18,7 @@ def make_org(loc: Location, with_geom: bool) -> Organization:
     )
 
 
-def query_admin_org(request) -> QuerySet:
+def query_admin_org(request) -> QuerySet[Organization]:
     admin_user = AuthUser.objects.create_superuser("admin", "password")
 
     modeladmin = OrganizationAdmin(Organization, admin.site)
