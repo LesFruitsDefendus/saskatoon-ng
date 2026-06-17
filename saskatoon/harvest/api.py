@@ -103,13 +103,13 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
             messages.error(request, _("You need to specify an organization id"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except Organization.DoesNotExist:
-            messages.error(request, _("The organization does not exist"))
+            messages.error(request, _("Organization does not exist"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         try:
             harvest = Harvest.objects.get(pk=pk)
         except Harvest.DoesNotExist:
-            messages.error(request, _("The harvest does not exist"))
+            messages.error(request, _("Harvest does not exist"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         try:
@@ -119,9 +119,9 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
 
             harvest.equipment_reserved.set(Equipment.objects.filter(owner=available))
             harvest.save()
-            messages.success(request, _("Your reservation was successfull"))
+            messages.success(request, _("Your reservation was successful!"))
         except Organization.DoesNotExist:
-            messages.error(request, _("The equipment point is not available"))
+            messages.error(request, _("Sorry, the selected equipment point is no longer available"))
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

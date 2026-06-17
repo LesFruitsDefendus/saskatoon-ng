@@ -744,7 +744,7 @@ msgid ""
 "for your harvest. This is only possible if the harvest is scheduled or ready."
 msgstr ""
 "Il est possible de sélectionner un point d'équipement sur la carte et de "
-"réserver son équipement, mais seulement si la récolte est déjà planifié ou "
+"réserver son équipement, mais seulement si la récolte est déjà planifiée ou "
 "prête."
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:8
@@ -758,7 +758,7 @@ msgstr "Point d'Équipement Disponible"
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:22
 msgid "Unavailable Equipment Point"
-msgstr "Point d'Équipement Indisponible"
+msgstr "Point d'équipement non disponible"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:8
 msgid "Harvest status"
@@ -1248,13 +1248,13 @@ msgstr "Plus de détails"
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "Only scheduled and ready harvests can reserve equipment"
 msgstr ""
-"Seulement les récoltes prêtes ou schédulé peuvent réserver de l'équipement"
+"Seulement les récoltes prêtes ou schédulées peuvent réserver de l'équipement"
 
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "This equipment point is not available at the time of harvest"
 msgstr ""
 "Ce point d'équipment n'est pas disponible au moment que cette récolte est "
-"planifié"
+"planifiée"
 
 #: sitebase/templates/app/list_views/organization/marker.html:60
 msgid "Change Reservation"
