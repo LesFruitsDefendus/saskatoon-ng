@@ -15,6 +15,7 @@ from saskatoon.settings import DEFAULT_LEAFLET_TILE
 from member.admin_filters import (
     ActorTypeAdminFilter,
     OrganizationHasNoContactAdminFilter,
+    OrganizationHasLocationAdminFilter,
     PersonHasNoUserAdminFilter,
     UserGroupAdminFilter,
     UserHasLedPicksAdminFilter,
@@ -348,6 +349,7 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
     )
     list_filter = (
         OrganizationHasNoContactAdminFilter,
+        OrganizationHasLocationAdminFilter,
         'is_equipment_point',
         'is_beneficiary',
         'neighborhood',
