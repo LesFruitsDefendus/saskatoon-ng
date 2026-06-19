@@ -2,9 +2,23 @@ from django import template
 from typeguard import typechecked
 from typing import Optional
 
+from harvest.models import Harvest
+from member.models import Organization
 from sitebase.templatetags.harvest_status import make_icon
 
 register = template.Library()
+
+
+@register.filter
+@typechecked
+def available(status: str) -> bool:
+    return status == Organization.EquipmentPointStatus.AVAILABLE.value
+
+
+@register.filter
+@typechecked
+def can_reserve_equipment(status: str) -> bool:
+    return status in Harvest.CAN_RESERVE_EQUIPMENT
 
 
 @register.filter
@@ -18,8 +32,8 @@ def reservation(status: Optional[str]) -> str:
     return {
         t[0]: t[1]
         for t in [
-            ('reserved', 'saskatoon-danger'),
-            ('available', 'saskatoon-success'),
+            (Organization.EquipmentPointStatus.UNAVAILABLE.value, 'saskatoon-danger'),
+            (Organization.EquipmentPointStatus.AVAILABLE.value, 'saskatoon-success'),
         ]
     }.get(status, default)
 

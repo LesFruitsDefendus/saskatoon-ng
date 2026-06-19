@@ -9,6 +9,7 @@ from rest_framework.filters import SearchFilter
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from typing import Dict
+
 from harvest.filters import (
     HarvestFilter,
     PropertyFilter,
@@ -36,6 +37,7 @@ from member.permissions import (
     IsCoreOrAdmin,
     IsPickLeaderOrCoreOrAdmin,
 )
+from member.utils import get_available_equipment_points
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailPropertySerializer
 from sitebase.utils import (
@@ -89,6 +91,36 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
     def cancel_reservation(self, request, pk=None):
         harvest = self.get_object()
         harvest.equipment_reserved.set([])
+
+        return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+    @action(methods=['post'], detail=True, permission_classes=[IsPickLeaderOrCoreOrAdmin])
+    def make_reservation(self, request, pk=None):
+        try:
+            org: int = int(request.data.get('org'))
+        except ValueError:
+            messages.error(request, _("Missing Organization id"))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+        except Organization.DoesNotExist:
+            messages.error(request, _("Organization does not exist"))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        try:
+            harvest = Harvest.objects.get(pk=pk)
+        except Harvest.DoesNotExist:
+            messages.error(request, _("Harvest does not exist"))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        try:
+            available = get_available_equipment_points(
+                harvest.start_date, harvest.end_date, harvest
+            ).get(actor_id=org)
+
+            harvest.equipment_reserved.set(Equipment.objects.filter(owner=available))
+            harvest.save()
+            messages.success(request, _("Your reservation was successful!"))
+        except Organization.DoesNotExist:
+            messages.error(request, _("Sorry, this equipment point is no longer available"))
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

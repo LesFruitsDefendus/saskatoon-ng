@@ -7,9 +7,9 @@ leaflet-popup {
         margin-bottom: 0.2em;
     }
 
-    > section:has(button) {
+    > section[role=group] {
         display: grid;
-        grid-template-columns: 49% 49%;
+        grid-template-columns: auto auto;
         gap: 2%;
     }
 

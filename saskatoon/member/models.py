@@ -15,6 +15,7 @@ from phone_field import PhoneField
 from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
 from djgeojson.fields import PointField
+from enum import Enum
 
 from sitebase.validators import validate_is_not_nan
 from sitebase.utils import local_today
@@ -399,6 +400,11 @@ class Organization(Actor):
         verbose_name = _("organization")
         verbose_name_plural = _("organizations")
         ordering = ["civil_name"]
+
+    class EquipmentPointStatus(models.TextChoices, Enum):
+        UNAVAILABLE = 'unavailable', _("Unavailable")
+        RESERVED = 'reserved', _("Reserved")
+        AVAILABLE = 'available', _("Available")
 
     is_beneficiary = models.BooleanField(
         verbose_name=_('Is Beneficiary'),

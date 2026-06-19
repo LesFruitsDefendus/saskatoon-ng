@@ -3,14 +3,15 @@
 {% load tz %}
 {% load auth_users %}
 {% load harvest_status %}
-
 <div class="harvest-info">
     <section>
         <p>{% translate "Harvest status" %}</p>
         {% if user|is_pickleader:id %}
             {% include 'app/detail_views/harvest/status_choices.html' %}
         {% else %}
-            <h2 class="badge {{ status | color }}" {{ status | harvest_status_attributes | safe }}>{{ status_display }}</h2>
+            <h2 class="badge {{ status | color }}"
+                {{ status | harvest_status_attributes | safe }}>{{ status_display }}
+            </h2>
         {% endif %}
     </section>
     <section>
@@ -44,7 +45,9 @@
             <h2>{% trans "Missing" %}</h2>
             {% if status == 'orphan' and user|is_pickleader and not user|is_pickleader:id %}
                 <a href="{% url 'harvest-adopt' id %}">
-                    <button title="Adopt" class="btn btn-success notika-btn-success">{% trans "Adopt it!" %}</button>
+                    <button title="Adopt" class="btn btn-success notika-btn-success">
+                        {% trans "Adopt it!" %}
+                    </button>
                 </a>
             {% endif %}
         {% else %}

@@ -3,9 +3,7 @@
 {% load organization %}
 
 {% if org.longitude is not None and org.latitude is not None %}
-    <leaflet-marker latitude="{{ org.latitude }}"
-                    longitude="{{ org.longitude }}"
-                    style="display: none">
+    <leaflet-marker latitude="{{ org.latitude }}" longitude="{{ org.longitude }}">
         <leaflet-tooltip direction="top">
             {{ org.civil_name }}
         </leaflet-tooltip>
@@ -44,6 +42,30 @@
                     {% endif %}
                 </address>
             </section>
+            {% if "harvest" in request.path %}
+                <section class="harvest-reserve">
+                    {% if equipment_point and equipment_point.actor_id == org.actor_id %}
+                        {% include 'app/detail_views/harvest/cancel_reservation.html' %}
+                    {% else %}
+                        <form method="post" action="{% url 'harvest-make-reservation' id %}">
+                            {% csrf_token %}
+                            <input type="hidden" value="{{ org.actor_id }}" name="org">
+                            <button type="submit"
+                                class="btn saskatoon-success"
+                                href=""
+                                {% if not harvest_status|can_reserve_equipment or not status|available %}
+                                    disabled data-placement="top" data-toggle="tooltip" title={% if not harvest_status|can_reserve_equipment %}"{% trans 'Only scheduled and ready harvests can reserve equipment' %}"{% else %}"{% trans 'This equipment point is not available at the time of harvest' %}"{% endif %}"
+                                {% endif %}>
+                                {% if equipment_point %}
+                                    {% trans 'Change Reservation' %}
+                                {% else %}
+                                    {% trans 'Reserve' %}
+                                {% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+                </section>
+            {% endif %}
         </leaflet-popup>
     </leaflet-marker>
 {% endif %}

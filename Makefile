@@ -6,6 +6,7 @@ run:
 init:
 	@python3 -m pip install .['test']
 	@saskatoon/fixtures/init
+	django-admin compilemessages
 
 migrate:
 	@python3 saskatoon/manage.py migrate
@@ -15,6 +16,9 @@ migrations:
 
 translations:
 	@cd saskatoon && django-admin makemessages --locale fr --domain django
+
+translate:
+	django-admin compilemessages
 
 permissions:
 	@python3 saskatoon/manage.py check_permissions

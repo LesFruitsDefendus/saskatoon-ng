@@ -1,0 +1,22 @@
+{% load i18n %}
+{% load static %}
+{% load organization %}
+{% load property %}
+{% get_current_language as LANG %}
+
+        <div class="reservation-map">
+            <leaflet-map style="height: 450px;
+                                max-height: 90vh"
+                         center="[{{ latitude }}, {{ longitude }}]"
+                         zoom="14">
+                {% for org in equipment_points %}
+                    {% with harvest_status=status %}
+                    {% with status=org.status %}
+                        {% include 'app/list_views/organization/marker.html' %}
+                    {% endwith %}
+                    {% endwith %}
+                {% endfor %}
+                {% include 'app/detail_views/harvest/marker.html' %}
+            </leaflet-map>
+        </div>
+

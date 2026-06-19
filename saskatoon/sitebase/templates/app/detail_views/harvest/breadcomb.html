@@ -6,7 +6,7 @@
 <div class="breadcomb-area">
     <div class="breadcomb-list">
         <div class="row">
-            <div class="col-xs-10">
+            <div class="col-xs-12 col-md-10">
                 <div class="breadcomb-wp">
                     <div class="breadcomb-icon">
                         <i class="fa fa-shopping-basket notika-text-primary"></i>
@@ -15,7 +15,7 @@
                         <h1>
                             #{{ id }}
                             &nbsp;
-                            {%for t in trees %}
+                            {% for t in trees %}
                                 {% if LANG == "en" %}
                                     {{ t.name_en }}
                                 {% else %}
@@ -26,18 +26,16 @@
                             —
                             {{ property.address }}
                         </h1>
-                        <h4>
-                            {{ property.neighborhood }}
-                        </h4>
+                        <h4>{{ property.neighborhood }}</h4>
                     </div>
                 </div>
             </div>
 
-            <div class="col-xs-2">
+            <div class="col-xs-12 col-md-2">
                 <div class="breadcomb-report">
                     {% if user|is_core_or_admin or user|is_pickleader:id %}
                         <a href="{% url 'harvest-update' id %}">
-                            <button title="Edit harvest" class="btn">
+                            <button title="Edit harvest" class="btn saskatoon-primary waves-effect">
                                 <i class="fa fa-pencil"></i>&nbsp;
                                 {% trans "Edit Harvest" %}
                             </button>
