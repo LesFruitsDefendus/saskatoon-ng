@@ -479,6 +479,3 @@ msgid "Failed to send password reset email to {email}"
 msgstr ""
 "Échec de l'envoie du courriel de requête de changement de mot de passe à "
 "{email}"
-
-#~ msgid "Family name"
-#~ msgstr "Nom"

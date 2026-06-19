@@ -96,11 +96,10 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
 
     @action(methods=['post'], detail=True, permission_classes=[IsPickLeaderOrCoreOrAdmin])
     def make_reservation(self, request, pk=None):
-
         try:
             org: int = int(request.data.get('org'))
         except ValueError:
-            messages.error(request, _("You need to specify an organization id"))
+            messages.error(request, _("Missing Organization id"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except Organization.DoesNotExist:
             messages.error(request, _("Organization does not exist"))
@@ -121,7 +120,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
             harvest.save()
             messages.success(request, _("Your reservation was successful!"))
         except Organization.DoesNotExist:
-            messages.error(request, _("Sorry, the selected equipment point is no longer available"))
+            messages.error(request, _("Sorry, this equipment point is no longer available"))
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
