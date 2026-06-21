@@ -3,9 +3,9 @@
 
 <img class="banner" src="{{ MEDIA_URL }}/home/banner.jpg" alt="Photo Credit: Lauren Kolyn"/>
 <div class="intro">
-    <h1>{{ intro.title }}</h1>
-    <p>{{ intro.body.html | safe }}</p>
-    <h5 style="text-align: center;">{{ intro.subtitle | safe }}</h5>
+    <h1>{{ home_intro.title }}</h1>
+    <p>{{ home_intro.body.html | safe }}</p>
+    <h5 style="text-align: center;">{{ home_intro.subtitle | safe }}</h5>
 </div>
 
 <div class="row section">
@@ -13,8 +13,8 @@
         <img src="{{ MEDIA_URL }}/home/volunteer.jpg" alt="volunteer pickers"/>
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
-        <h4>{{ volunteer.subtitle }}</h4>
-        <p>{{ volunteer.body.html | safe }}</p>
+        <h4>{{ home_volunteer.subtitle }}</h4>
+        <p>{{ home_volunteer.body.html | safe }}</p>
     </div>
 </div>
 
@@ -23,8 +23,8 @@
         <img src="{{ MEDIA_URL }}/home/pickleader.jpg" alt="harvest leaders"/>
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
-        <h4>{{ pickleader.subtitle }}</h4>
-        <p>{{ pickleader.body.html | safe }}</p>
+        <h4>{{ home_pickleader.subtitle }}</h4>
+        <p>{{ home_pickleader.body.html | safe }}</p>
     </div>
 </div>
 
@@ -33,8 +33,8 @@
         <img src="{{ MEDIA_URL }}/home/owner.jpg" alt="tree owners"/>
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
-        <h4>{{ owner.subtitle }}</h4>
-        <p>{{ owner.body.html | safe }}</p>
+        <h4>{{ home_owner.subtitle }}</h4>
+        <p>{{ home_owner.body.html | safe }}</p>
     </div>
 </div>
 
@@ -43,11 +43,11 @@
         <img src="{{ MEDIA_URL }}/home/beneficiary.jpg" alt="beneficiary organizations"/>
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
-        <h4>{{ beneficiary.subtitle }}</h4>
-        <p>{{ beneficiary.body.html | safe }}</p>
+        <h4>{{ home_beneficiary.subtitle }}</h4>
+        <p>{{ home_beneficiary.body.html | safe }}</p>
     </div>
 </div>
 
 <div class="closing">
-    {{ closing.body.html | safe }}
+    {{ faq.body.html | safe }}
 </div>

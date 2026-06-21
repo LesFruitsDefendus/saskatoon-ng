@@ -3,13 +3,31 @@
 
 {% get_current_language as LANG %}
 
-<div class="user-guides">
-    <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png" alt="harvest lifecycle"/>
-    <h1>{{ content.title }}</h1>
-    <h4>{{ content.subtitle }}</h4>
-    {{ content.body.html | safe }}
+    <div class="user-guides">
+        <p>
+            {{guides_intro.title}} <b>{{user.name}}</b> !
+            {{guides_intro.body.html | safe}}
+        </p>
+        <br>
 
-    <br>
-    <h1> ⚠️ {% trans "UNDER CONSTRUCTION" %} ⚠️ </h1>
+    <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png" alt="harvest lifecycle" />
 
+    {% with guides_adopt_harvest as guide %}
+        {% include 'app/home/guide.html' %}
+    {% endwith %}
+
+    {% with guides_publish_calendar as guide %}
+        {% include 'app/home/guide.html' %}
+    {% endwith %}
+
+    {% with guides_picker_selection as guide %}
+        {% include 'app/home/guide.html' %}
+    {% endwith %}
+
+    {% with guides_fruit_distribution as guide %}
+        {% include 'app/home/guide.html' %}
+    {% endwith %}
+
+    <h4>{{ guides_resources.title }}</h4>
+    <p>{{ guides_resources.body.html | safe }}</p>
 </div>

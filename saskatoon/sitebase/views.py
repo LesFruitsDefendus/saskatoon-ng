@@ -21,21 +21,31 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        if self.request.user.is_authenticated:
-            context['content'] = PageContent.get(
-                type=PageContent.Type.HOME_USER, lang=self.request.LANGUAGE_CODE
-            )
-            return context
+        content_types = (
+            [
+                PageContent.Type.GUIDES_INTRO,
+                PageContent.Type.GUIDES_ADOPT,
+                PageContent.Type.GUIDES_PUBLISH,
+                PageContent.Type.GUIDES_PICKERS,
+                PageContent.Type.GUIDES_DISTRIBUTION,
+                PageContent.Type.GUIDES_RESOURCES,
+            ]
+            if self.request.user.is_authenticated
+            else [
+                PageContent.Type.HOME_INTRO,
+                PageContent.Type.HOME_VOLUNTEER,
+                PageContent.Type.HOME_OWNER,
+                PageContent.Type.HOME_BENEFICIARY,
+                PageContent.Type.HOME_PICKLEADER,
+                PageContent.Type.FAQ,
+            ]
+        )
 
-        for key, content_type in [
-            ('intro', PageContent.Type.HOME_INTRO),
-            ('volunteer', PageContent.Type.HOME_VOLUNTEER),
-            ('owner', PageContent.Type.HOME_OWNER),
-            ('beneficiary', PageContent.Type.HOME_BENEFICIARY),
-            ('pickleader', PageContent.Type.HOME_PICKLEADER),
-            ('closing', PageContent.Type.FAQ),
-        ]:
-            context[key] = PageContent.get(type=content_type, lang=self.request.LANGUAGE_CODE)
+        for content_type in content_types:
+            context[content_type.value] = PageContent.get(
+                type=content_type, lang=self.request.LANGUAGE_CODE
+            )
+
         return context
 
     def dispatch(self, request, *args, **kwargs):

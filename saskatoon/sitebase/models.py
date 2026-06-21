@@ -42,29 +42,36 @@ class PageContent(models.Model):
 
     class Type(models.TextChoices):
         # Main homepage
-        HOME_INTRO = 'home_intro', _("Home Introduction")
-        HOME_VOLUNTEER = 'home_volunteer', _("Home Volunteers")
-        HOME_OWNER = 'home_owner', _("Home Tree Owners")
-        HOME_BENEFICIARY = 'home_beneficiary', _("Home Beneficiaries")
-        HOME_PICKLEADER = 'home_pickleader', _("Home Pickleaders")
+        HOME_INTRO = 'home_intro', _("[Home] Introduction")
+        HOME_VOLUNTEER = 'home_volunteer', _("[Home] Volunteers")
+        HOME_OWNER = 'home_owner', _("[Home] Tree Owners")
+        HOME_BENEFICIARY = 'home_beneficiary', _("[Home] Beneficiaries")
+        HOME_PICKLEADER = 'home_pickleader', _("[Home] Pickleaders")
 
         # About page
-        ABOUT_US = 'about_us', _("About Us")
-        ABOUT_VALUES = 'about_values', _("About Values")
-        ABOUT_ROLES = 'about_roles', _("About Roles")
+        ABOUT_US = 'about_us', _("[About] Us")
+        ABOUT_VALUES = 'about_values', _("[About] Values")
+        ABOUT_ROLES = 'about_roles', _("[About] Roles")
 
         # Publicly accessible content
         PRIVACY_POLICY = 'privacy_policy', _("Privacy Policy")
         FAQ = 'faq', _("FAQ")
         PROPERTY_THANKS = 'property_thanks', _("New Property Thanks")
 
+        # Pickleader landing page
+        GUIDES_INTRO = 'guides_intro', _("[Guides] Preamble")
+        GUIDES_ADOPT = 'guides_adopt_harvest', _("Guides - How to Adopt Harvest")
+        GUIDES_PUBLISH = 'guides_publish_calendar', _("[Guides] How to Publish Calendar")
+        GUIDES_PICKERS = 'guides_picker_selection', _("[Guides] How to Select Pickers")
+        GUIDES_DISTRIBUTION = 'guides_fruit_distribution', _("[Guides] How to Distribute Fruits")
+        GUIDES_RESOURCES = 'guides_resources', _("[Guides] Pickleader Resources")
+
         # Authenticated users
-        HOME_USER = 'home_user', _("Home Authenticated User")
         TERMS_CONDITIONS = 'terms_conditions', _("Terms & Conditions")
 
     type = models.CharField(
         verbose_name=_("Page type"),
-        max_length=20,
+        max_length=30,
         choices=Type.choices,
         null=True,
         blank=True,

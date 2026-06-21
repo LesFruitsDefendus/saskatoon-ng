@@ -28,10 +28,10 @@
     <section>
         <h2>
             {% translate 'Property information' %}
-            {% if perms.harvest.change_property %}
+            {% if perms.harvest.view_property %}
                 &nbsp;
-                <a href="{% url 'property-update' property.id %}" title="edit">
-                    <i class="fa fa-pencil"></i>
+                <a href="{% url 'property-detail' property.id %}" title="view">
+                    <i class="fa fa-eye"></i>
                 </a>
             {% endif %}
         </h2>
@@ -40,9 +40,7 @@
                 <tr>
                     <th>{% trans "Address" %}</th>
                     &nbsp;
-                    <td>
-                        <a href="{% url 'property-detail' property.id %}">{{ property.address }}</a>
-                    </td>
+                    <td>{{ property.address }}</td>
                 </tr>
                 <tr>
                     <th>{% trans 'Owner' %}</th>
@@ -68,6 +66,9 @@
                 </tr>
             </table>
         </address>
-        {% if property.owner.comments %}<p>{{ property.owner.comments }}</p>{% endif %}
+        {% if property.owner.comments %}
+        <b>{% trans "Notes" %}</b>
+        <p>{{ property.owner.comments }}</p>
+        {% endif %}
     </section>
 </div>
