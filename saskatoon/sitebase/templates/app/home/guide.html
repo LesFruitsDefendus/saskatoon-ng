@@ -1,0 +1,12 @@
+{% load i18n %}
+{% load static %}
+
+<div class="guide">
+    <h4>{{guide.title}}</h4>
+    <p>{{guide.body.html | safe}}</p>
+    {% if guide.subtitle %}
+    <video width="100%" controls>
+        <source src="{{MEDIA_URL}}/guides/{{guide.subtitle}}.mp4" type="video/mp4">
+    </video>
+    {% endif %}
+</div>
