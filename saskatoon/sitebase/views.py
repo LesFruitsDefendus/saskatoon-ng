@@ -11,6 +11,7 @@ from harvest.models import Harvest
 from member.permissions import is_pickleader_or_core_or_admin
 from saskatoon.settings import VOLUNTEER_WAIVER_PDF_PATH
 from sitebase.models import PageContent, FAQList
+from typing import List
 
 
 class Index(TemplateView):
@@ -21,7 +22,7 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_types = (
+        content_types: List[PageContent.Type] = (  # type: ignore
             [
                 PageContent.Type.GUIDES_INTRO,
                 PageContent.Type.GUIDES_ADOPT,
