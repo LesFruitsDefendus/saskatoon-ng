@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-13 13:44+0000\n"
+"POT-Creation-Date: 2026-06-21 23:54-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -23,36 +23,36 @@ msgid "Page Content"
 msgstr "Contenu de la page"
 
 #: sitebase/models.py:45
-msgid "Home Introduction"
-msgstr "Accueil Introduction"
+msgid "[Home] Introduction"
+msgstr "[Accueil] Introduction"
 
 #: sitebase/models.py:46
-msgid "Home Volunteers"
-msgstr "Accueil Bénévoles"
+msgid "[Home] Volunteers"
+msgstr "[Accueil] Bénévoles"
 
 #: sitebase/models.py:47
-msgid "Home Tree Owners"
-msgstr "Accueil Properiétaires"
+msgid "[Home] Tree Owners"
+msgstr "[Accueil] Properiétaires"
 
 #: sitebase/models.py:48
-msgid "Home Beneficiaries"
-msgstr "Accueil Bénéficiaires"
+msgid "[Home] Beneficiaries"
+msgstr "[Accueil] Bénéficiaires"
 
 #: sitebase/models.py:49
-msgid "Home Pickleaders"
-msgstr "Accueil Chef.fe.s"
+msgid "[Home] Pickleaders"
+msgstr "[Accueil] Chef.fe.s"
 
 #: sitebase/models.py:52
-msgid "About Us"
-msgstr "À propos de nous"
+msgid "[About] Us"
+msgstr "[À propos] de nous"
 
 #: sitebase/models.py:53
-msgid "About Values"
-msgstr "À propos Valeurs"
+msgid "[About] Values"
+msgstr "[À propos] Valeurs"
 
 #: sitebase/models.py:54
-msgid "About Roles"
-msgstr "À propos Roles"
+msgid "[About] Roles"
+msgstr "[À propos] Roles"
 
 #: sitebase/models.py:57
 msgid "Privacy Policy"
@@ -67,124 +67,144 @@ msgid "New Property Thanks"
 msgstr "Merci Nouvelle Propriété"
 
 #: sitebase/models.py:62
-msgid "Home Authenticated User"
-msgstr "Accueil Utilisateur.ices"
+msgid "[Guides] Preamble"
+msgstr ""
 
 #: sitebase/models.py:63
+msgid "Guides - How to Adopt Harvest"
+msgstr ""
+
+#: sitebase/models.py:64
+msgid "[Guides] How to Publish Calendar"
+msgstr ""
+
+#: sitebase/models.py:65
+msgid "[Guides] How to Select Pickers"
+msgstr ""
+
+#: sitebase/models.py:66
+msgid "[Guides] How to Distribute Fruits"
+msgstr ""
+
+#: sitebase/models.py:67
+msgid "[Guides] Pickleader Resources"
+msgstr ""
+
+#: sitebase/models.py:70
 msgid "Terms & Conditions"
 msgstr "Termes & Conditions"
 
-#: sitebase/models.py:66
+#: sitebase/models.py:73
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:121
+#: sitebase/models.py:128
 msgid "FAQ Item"
 msgstr "Item de FAQ"
 
-#: sitebase/models.py:122
+#: sitebase/models.py:129
 msgid "FAQ Items"
 msgstr "Items de FAQ"
 
-#: sitebase/models.py:158
+#: sitebase/models.py:165
 msgid "FAQ List"
 msgstr "Liste FAQ"
 
-#: sitebase/models.py:159
+#: sitebase/models.py:166
 msgid "FAQ Lists"
 msgstr "Listes FAQ"
 
-#: sitebase/models.py:163
+#: sitebase/models.py:170
 msgid "Ref. Name"
 msgstr "Ref. Nom"
 
-#: sitebase/models.py:180
+#: sitebase/models.py:187
 msgid "Items"
 msgstr "Items"
 
-#: sitebase/models.py:182
+#: sitebase/models.py:189
 msgid "Enabled"
 msgstr "Activé"
 
-#: sitebase/models.py:189
+#: sitebase/models.py:196
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:192
+#: sitebase/models.py:199
 msgid "Pickleader Registration Invite"
 msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
-#: sitebase/models.py:193
+#: sitebase/models.py:200
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:194
+#: sitebase/models.py:201
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:195
+#: sitebase/models.py:202
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:198
+#: sitebase/models.py:205
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:199
+#: sitebase/models.py:206
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:202
+#: sitebase/models.py:209
 msgid "Unselected pickers"
 msgstr "Cueilleur.euse non sélectionné.es"
 
-#: sitebase/models.py:203
+#: sitebase/models.py:210
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:204
+#: sitebase/models.py:211
 msgid "Rejected picker"
 msgstr "Cueilleur.euse Rejetée"
 
-#: sitebase/models.py:211
+#: sitebase/models.py:218
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:216 sitebase/models.py:288
+#: sitebase/models.py:223 sitebase/models.py:295
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:226
+#: sitebase/models.py:233
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:241
+#: sitebase/models.py:248
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:245
+#: sitebase/models.py:252
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:277
-#: sitebase/templates/app/detail_views/harvest/about.html:59
+#: sitebase/models.py:284
+#: sitebase/templates/app/detail_views/harvest/about.html:57
 #: sitebase/templates/app/detail_views/organization/contact.html:46
 #: sitebase/templates/app/detail_views/property/contact.html:62
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:278
+#: sitebase/models.py:285
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:283
+#: sitebase/models.py:290
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:18
 #: sitebase/templates/app/stats.html:246
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:295
+#: sitebase/models.py:302
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
@@ -192,11 +212,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:301
+#: sitebase/models.py:308
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:312
+#: sitebase/models.py:319
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:28
 #: sitebase/templates/app/detail_views/property/harvest_table.html:51
 msgid "Date"
@@ -532,7 +552,7 @@ msgstr "Informations de la propriété"
 msgid "Address"
 msgstr "Adresse"
 
-#: sitebase/templates/app/detail_views/harvest/about.html:48
+#: sitebase/templates/app/detail_views/harvest/about.html:46
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:5
 #: sitebase/templates/app/detail_views/property/contact.html:13
 #: sitebase/templates/app/detail_views/property/similar_table.html:17
@@ -543,17 +563,21 @@ msgstr "Adresse"
 msgid "Owner"
 msgstr "Propriétaire"
 
-#: sitebase/templates/app/detail_views/harvest/about.html:53
+#: sitebase/templates/app/detail_views/harvest/about.html:51
 #: sitebase/templates/app/detail_views/organization/contact.html:35
 #: sitebase/templates/app/detail_views/property/contact.html:51
 msgid "Phone"
 msgstr "Téléphone"
 
-#: sitebase/templates/app/detail_views/harvest/about.html:65
+#: sitebase/templates/app/detail_views/harvest/about.html:63
 #: sitebase/templates/app/detail_views/organization/contact.html:57
 #: sitebase/templates/app/detail_views/property/contact.html:72
 msgid "Language"
 msgstr "Langue"
+
+#: sitebase/templates/app/detail_views/harvest/about.html:70
+msgid "Notes"
+msgstr "Notes"
 
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:40
 msgid "Edit Harvest"
@@ -740,8 +764,8 @@ msgstr "Point d'Équipement Réservé"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:59
 msgid ""
-"You can select an equipment point from the map and reserve its equipment "
-"for your harvest. This is only possible if the harvest is scheduled or ready."
+"You can select an equipment point from the map and reserve its equipment for "
+"your harvest. This is only possible if the harvest is scheduled or ready."
 msgstr ""
 "Il est possible de sélectionner un point d'équipement sur la carte et de "
 "réserver son équipement, mais seulement si la récolte est déjà planifiée ou "
@@ -1132,10 +1156,6 @@ msgstr "Arbres"
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
-#: sitebase/templates/app/home/pickleader.html:13
-msgid "UNDER CONSTRUCTION"
-msgstr "EN CONSTRUCTION"
-
 #: sitebase/templates/app/list_views/base.html:30
 msgid "Search"
 msgstr "Rechercher"
@@ -1247,12 +1267,12 @@ msgstr "Plus de détails"
 
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "Only scheduled and ready harvests can reserve equipment"
-msgstr "Seules les récoltes prêtes ou planifiées peuvent réserver de l'équipement"
+msgstr ""
+"Seules les récoltes prêtes ou planifiées peuvent réserver de l'équipement"
 
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "This equipment point is not available at the time of harvest"
-msgstr ""
-"Ce point d'équipment n'est pas disponible au moment de la récolte"
+msgstr "Ce point d'équipment n'est pas disponible au moment de la récolte"
 
 #: sitebase/templates/app/list_views/organization/marker.html:60
 msgid "Change Reservation"
