@@ -514,7 +514,7 @@ def notify_unselected_pickers(sender, instance, **kwargs):
 def notify_new_request_for_participation(sender, instance, created, **kwargs):
     if created:
         pick_leader = instance.harvest.pick_leader
-        if pick_leader is None or pick_leader is instance.person:
+        if pick_leader is None or pick_leader.person == instance.person:
             return
 
         Email.objects.create(
@@ -527,7 +527,7 @@ def notify_new_request_for_participation(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Comment)
 def notify_new_harvest_comment(sender, instance, **kwargs):
     pick_leader = instance.harvest.pick_leader
-    if pick_leader is None or pick_leader is instance.author:
+    if pick_leader is None or pick_leader == instance.author:
         return
 
     Email.objects.create(
