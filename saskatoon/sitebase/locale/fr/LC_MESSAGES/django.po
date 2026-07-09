@@ -22,6 +22,10 @@ msgstr ""
 msgid "Duplicates"
 msgstr "Doublons"
 
+#: sitebase/admin_filters.py:18
+msgid "Originals"
+msgstr "Originaux"
+
 #: sitebase/models.py:39
 msgid "Page Content"
 msgstr "Contenu de la page"
