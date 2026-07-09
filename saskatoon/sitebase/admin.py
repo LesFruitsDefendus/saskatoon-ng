@@ -154,16 +154,21 @@ class EmailAdmin(admin.ModelAdmin[Email]):
     model = Email
     list_display = (
         '__str__',
-        'recipient',
-        'type',
-        'harvest',
         'sent',
         'date_sent',
+        'recipient',
+        'type',
+        'hid',
         'id',
     )
 
     readonly_fields = list_display
     list_filter = ('type', 'sent', EmailIsDuplicateAdminFilter)
+
+    @admin.display(description="Harvest")
+    def hid(self, email):
+        if email.harvest:
+            return email.harvest.id
 
     @admin.action(description="Resend selected Email(s)")
     def resend_emails(self, request, queryset):
