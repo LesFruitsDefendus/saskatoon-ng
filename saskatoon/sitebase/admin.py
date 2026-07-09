@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from typeguard import typechecked
 from typing import Union
 
+from sitebase.admin_filters import EmailIsDuplicateAdminFilter
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
@@ -126,7 +127,7 @@ class EmailContentAdmin(admin.ModelAdmin[EmailContent]):
                 type=email_content.type,
                 harvest=test_harvest,
             )
-            if m.send(data=test_data) == 1:
+            if m.send(data=test_data):
                 messages.success(
                     request,
                     f"<{email_content}> email successfully sent to {m.recipient.email}",
@@ -153,13 +154,34 @@ class EmailAdmin(admin.ModelAdmin[Email]):
     model = Email
     list_display = (
         '__str__',
-        'recipient',
-        'type',
-        'harvest',
         'sent',
         'date_sent',
+        'recipient',
+        'type',
+        'hid',
         'id',
     )
 
     readonly_fields = list_display
-    list_filter = ('type', 'sent')
+    list_filter = ('type', 'sent', EmailIsDuplicateAdminFilter)
+
+    @admin.display(description="Harvest")
+    def hid(self, email):
+        if email.harvest:
+            return email.harvest.id
+
+    @admin.action(description="Resend selected Email(s)")
+    def resend_emails(self, request, queryset):
+        for m in queryset.all():
+            if m.resend():
+                messages.success(
+                    request,
+                    f"<{m.type}> email successfully sent to {m.recipient.email}",
+                )
+            else:
+                messages.error(
+                    request,
+                    f"Could not send <{m.type}> email to {m.recipient.email}",
+                )
+
+    actions = [resend_emails]

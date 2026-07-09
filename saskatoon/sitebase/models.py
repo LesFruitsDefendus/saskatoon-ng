@@ -358,6 +358,20 @@ class Email(models.Model):
             return [DEFAULT_REPLY_TO_EMAIL]
         return [self.harvest.pick_leader.email]
 
+    @property
+    def is_duplicate(self):
+        try:
+            prev = Email.objects.get(id=self.id - 1)
+            return (
+                prev.recipient == self.recipient
+                and prev.type == prev.type
+                and prev.harvest == self.harvest
+                and prev.body == self.body
+                and (self.date_sent - prev.date_sent).total_seconds() < 1
+            )
+        except Email.DoesNotExist:
+            return False
+
     def get_subject(self, data: Dict[str, str]) -> str:
         subject = self.content.subject(self.recipient.language)
         return subject.format(**data)
@@ -431,6 +445,12 @@ class Email(models.Model):
 
         return self.record_failure(message, "Something went wrong.")
 
+    def resend(self) -> bool:
+        m = self
+        m.pk = None
+        m.save()
+        return m.send(message=self.body)
+
 
 @receiver(pre_save, sender=Property)
 def notify_property_validated(sender, instance, **kwargs):
@@ -500,7 +520,7 @@ def notify_unselected_pickers(sender, instance, **kwargs):
 def notify_new_request_for_participation(sender, instance, created, **kwargs):
     if created:
         pick_leader = instance.harvest.pick_leader
-        if pick_leader is None or pick_leader is instance.person:
+        if pick_leader is None or pick_leader.person == instance.person:
             return
 
         Email.objects.create(
@@ -513,7 +533,7 @@ def notify_new_request_for_participation(sender, instance, created, **kwargs):
 @receiver(post_save, sender=Comment)
 def notify_new_harvest_comment(sender, instance, **kwargs):
     pick_leader = instance.harvest.pick_leader
-    if pick_leader is None or pick_leader is instance.author:
+    if pick_leader is None or pick_leader == instance.author:
         return
 
     Email.objects.create(
