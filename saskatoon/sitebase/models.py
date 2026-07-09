@@ -358,6 +358,20 @@ class Email(models.Model):
             return [DEFAULT_REPLY_TO_EMAIL]
         return [self.harvest.pick_leader.email]
 
+    @property
+    def is_duplicate(self):
+        try:
+            prev = Email.objects.get(id=self.id - 1)
+            return (
+                prev.recipient == self.recipient
+                and prev.type == prev.type
+                and prev.harvest == self.harvest
+                and prev.body == self.body
+                and (self.date_sent - prev.date_sent).total_seconds() < 1
+            )
+        except Email.DoesNotExist:
+            return False
+
     def get_subject(self, data: Dict[str, str]) -> str:
         subject = self.content.subject(self.recipient.language)
         return subject.format(**data)

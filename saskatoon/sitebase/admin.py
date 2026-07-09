@@ -6,6 +6,7 @@ from django.db.models import QuerySet
 from typeguard import typechecked
 from typing import Union
 
+from sitebase.admin_filters import EmailIsDuplicateAdminFilter
 from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
@@ -162,4 +163,4 @@ class EmailAdmin(admin.ModelAdmin[Email]):
     )
 
     readonly_fields = list_display
-    list_filter = ('type', 'sent')
+    list_filter = ('type', 'sent', EmailIsDuplicateAdminFilter)
