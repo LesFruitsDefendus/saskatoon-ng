@@ -445,6 +445,12 @@ class Email(models.Model):
 
         return self.record_failure(message, "Something went wrong.")
 
+    def resend(self) -> bool:
+        m = self
+        m.pk = None
+        m.save()
+        return m.send(message=self.body)
+
 
 @receiver(pre_save, sender=Property)
 def notify_property_validated(sender, instance, **kwargs):

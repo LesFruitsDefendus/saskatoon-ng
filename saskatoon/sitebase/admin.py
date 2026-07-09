@@ -127,7 +127,7 @@ class EmailContentAdmin(admin.ModelAdmin[EmailContent]):
                 type=email_content.type,
                 harvest=test_harvest,
             )
-            if m.send(data=test_data) == 1:
+            if m.send(data=test_data):
                 messages.success(
                     request,
                     f"<{email_content}> email successfully sent to {m.recipient.email}",
@@ -164,3 +164,19 @@ class EmailAdmin(admin.ModelAdmin[Email]):
 
     readonly_fields = list_display
     list_filter = ('type', 'sent', EmailIsDuplicateAdminFilter)
+
+    @admin.action(description="Resend selected Email(s)")
+    def resend_emails(self, request, queryset):
+        for m in queryset.all():
+            if m.resend():
+                messages.success(
+                    request,
+                    f"<{m.type}> email successfully sent to {m.recipient.email}",
+                )
+            else:
+                messages.error(
+                    request,
+                    f"Could not send <{m.type}> email to {m.recipient.email}",
+                )
+
+    actions = [resend_emails]
