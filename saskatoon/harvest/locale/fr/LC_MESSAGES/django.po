@@ -37,23 +37,23 @@ msgstr "Nouvelle Cueillette"
 
 #: harvest/api.py:103
 msgid "Missing Organization id"
-msgstr "ID d'organisme manquant"
+msgstr "ID d'organisation manquant"
 
 #: harvest/api.py:106
 msgid "Organization does not exist"
-msgstr "L'organisme n'existe pas"
+msgstr "L'organisation n'existe pas"
 
 #: harvest/api.py:112
 msgid "Harvest does not exist"
-msgstr "La récolte n'existe pas"
+msgstr "Cette récolte n'existe pas"
 
 #: harvest/api.py:122
 msgid "Your reservation was successful!"
-msgstr "Votre réservation est un succès"
+msgstr "Réservation réussie"
 
 #: harvest/api.py:124
 msgid "Sorry, this equipment point is no longer available"
-msgstr "Le point d'équipement n'est plus disponible"
+msgstr "Désolé, ce point d'équipement n'est plus disponible"
 
 #: harvest/api.py:167 harvest/api.py:252
 msgid "New Property"
@@ -475,11 +475,11 @@ msgstr ""
 
 #: harvest/models.py:34
 msgid "Fruit name (en)"
-msgstr "Nom du fruit"
+msgstr "Nom du fruit (en)"
 
 #: harvest/models.py:37
 msgid "Nom du fruit (fr)"
-msgstr ""
+msgstr "Nom du fruit (fr)"
 
 #: harvest/models.py:41
 msgid "Fruit icon"
@@ -507,11 +507,11 @@ msgstr "types d'équipement"
 
 #: harvest/models.py:111
 msgid "Nom (fr)"
-msgstr ""
+msgstr "Nom (fr)"
 
 #: harvest/models.py:114
 msgid "Name (en)"
-msgstr "Nom"
+msgstr "Nom (en)"
 
 #: harvest/models.py:130
 msgid "property"
@@ -531,7 +531,7 @@ msgstr "En attente"
 
 #: harvest/models.py:140
 msgid "Validated"
-msgstr ""
+msgstr "Validé"
 
 #: harvest/models.py:147 harvest/models.py:499
 msgid "Owner"
@@ -1169,6 +1169,3 @@ msgstr "{} cueillettes orphelines créées avec succès"
 #: harvest/views.py:566
 msgid "Harvests have already been created for this property"
 msgstr "Des récoltes ont déjà été crées pour cette propriété"
-
-#~ msgid "Orphaned"
-#~ msgstr "Orpheline"
