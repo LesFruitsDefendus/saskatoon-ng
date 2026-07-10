@@ -28,6 +28,7 @@ from harvest.serializers import (
     HarvestDetailSerializer,
     PropertyListSerializer,
     PropertySerializer,
+    PropertyMapSerializer,
     EquipmentSerializer,
     RequestForParticipationSerializer,
 )
@@ -168,6 +169,13 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
             }
         )
 
+    def marker(self, request, pk=None):
+        self.template_name = 'app/list_views/property/marker.html'
+        property = self.get_object()
+
+        serialized = PropertySerializer(property)
+        return Response(serialized.data)
+
     def partial_update(self, request, pk=None):
         property = self.get_object()
         response = super().partial_update(request, pk)
@@ -211,7 +219,7 @@ class PropertyMapView(LoginRequiredMixin, generics.ListAPIView[Property]):
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Property.objects.all().order_by('-id')
-    serializer_class = PropertySerializer
+    serializer_class = PropertyMapSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Property]]]
     filterset_class = PropertyFilter
     template_name = 'app/list_views/property/map.html'

@@ -35,6 +35,12 @@ from harvest.utils import similar_properties, buffer_reservation_time
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 from sitebase.models import Email, EmailType
 from member.utils import get_available_equipment_points
+from sitebase.templatetags.property import show_property, property_icon_shape, property_status
+from sitebase.templatetags.harvest_status import (
+    color,
+    harvest_filter,
+    make_icon,
+)
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
@@ -100,6 +106,26 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
         return PickLeaderPersonSerializer(harvest.pick_leader.person).data
 
 
+class PropertyMapHarvestSerializer(serializers.ModelSerializer[Harvest]):
+    class Meta:
+        model = Harvest
+        fields = [
+            'id',
+            'status',
+            'start_date',
+            'start_time',
+            'end_date',
+            'date_range',
+            'trees',
+        ]
+
+    trees = TreeTypeSerializer(many=True, read_only=True)
+    start_date = serializers.DateTimeField(source='get_local_start', format=r"%Y-%m-%d")
+    start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
+    end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
+    date_range = serializers.ReadOnlyField(source='get_date_range')
+
+
 class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
@@ -154,6 +180,57 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
             return None
 
         return sent.last().date_sent.strftime("%Y-%m-%d %-I:%M %p")
+
+
+class PropertyMapSerializer(serializers.ModelSerializer[Property]):
+    class Meta:
+        model = Property
+        fields = [
+            'id',
+            'address',
+            'longitude',
+            'latitude',
+            'status',
+            'icon',
+            'icon_hover',
+            'icon_color',
+        ]
+
+    address = serializers.ReadOnlyField(source="short_address")
+    longitude = serializers.ReadOnlyField()
+    latitude = serializers.ReadOnlyField()
+    status = serializers.ReadOnlyField()
+    icon = serializers.SerializerMethodField()
+    icon_hover = serializers.SerializerMethodField()
+    icon_color = serializers.SerializerMethodField()
+
+    def icon_shape(self, property, size: str):
+        if show_property(property.nb_harvests, property.status):
+            return make_icon(property_icon_shape, size, 'stack')
+
+        if property.next_harvest:
+            return harvest_filter(property.next_harvest.status, size, 'stack')
+
+        if property.last_harvest:
+            return harvest_filter(property.last_harvest.status, size, 'stack')
+
+        return make_icon(property_icon_shape, size, 'stack')
+
+    def get_icon(self, obj):
+        return self.icon_shape(obj, 'lg')
+
+    def get_icon_hover(self, obj):
+        return self.icon_shape(obj, 'xl')
+
+    def get_icon_color(self, obj):
+        if show_property(obj.nb_harvests, obj.status):
+            return property_status(obj.status)
+
+        if obj.next_harvest:
+            return color(obj.next_harvest.status)
+
+        if obj.last_harvest:
+            return color(obj.last_harvest.status)
 
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):

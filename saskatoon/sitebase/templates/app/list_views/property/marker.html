@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load static %}
+{% load property %}
+{% load harvest_status %}
+
+<h4>
+    <a href="{% url 'property-detail' id %}">
+        {{ address }} <i class="fa fa-external-link fa-xs"></i>
+    </a>
+</h4>
+<span class="badge {{ status | property_status }}"
+      {{ status | property_status_attributes | safe }}>{{ status.label }}</span>
+<section>
+    {% for tree in trees %}
+        <article>
+            <h5>
+                {% if LANG == "en" %}
+                    {{ tree.fruit_name_en }}
+                {% else %}
+                    {{ tree.fruit_name_fr }}
+                {% endif %}
+            </h5>
+            {% if harvests|length > 0 %}
+                {% with past=harvests|past_harvests_by_tree:tree %}
+                    <ul class="list-inline">
+                        <li style="padding-top: 0.5em;">
+                            {% if past|length > 0 %}
+                                {% trans 'Harvested' %}
+                            {% else %}
+                                {% trans 'No past harvests' %}
+                            {% endif %}
+                        </li>
+                        {% for harvest in past %}
+                            {% include 'app/list_views/property/harvest-list-row.html' %}
+                        {% endfor %}
+                    </ul>
+                {% endwith %}
+                {% with upcoming=harvests|upcoming_harvests_by_tree:tree %}
+                    <ul class="list-inline">
+                        <li style="padding-top: 0.5em;">
+                            {% if upcoming|length > 0 %}
+                                {% trans 'Upcoming' %}
+                            {% else %}
+                                {% trans 'No upcoming harvests' %}
+                            {% endif %}
+                        </li>
+                        {% for harvest in upcoming %}
+                            {% include 'app/list_views/property/harvest-list-row.html' %}
+                        {% endfor %}
+                    </ul>
+                {% endwith %}
+            </article>
+        {% else %}
+            {% trans 'No harvests' %}
+        {% endif %}
+    {% endfor %}
+</section>
+<section>
+    <h5>{% trans "Owner" %}</h5>
+    <address>
+        {{ owner.name }}
+        <br>
+        {{ address }}, {{ neighborhood.name }}
+        <br>
+        {% if owner.phone is not None %}
+            {{ owner.phone }}
+            <br>
+        {% endif %}
+        {% if owner.email is not None %}
+            <a href="mailto:{{ owner.email }}">{{ owner.email }}</a>
+        {% endif %}
+    </address>
+</section>
+<a
+    class="btn btn-primary notika-btn-primary waves-effect""
+    href="{% url 'property-detail' id %}"
+    >
+    See details
+</a>

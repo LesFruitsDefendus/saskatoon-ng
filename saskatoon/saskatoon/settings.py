@@ -322,3 +322,6 @@ DEFAULT_LEAFLET_TILE = (
     },
 )
 SASKATOON_USER_AGENT = 'Les Fruits Défendus'
+
+# Allow maps to use iframes in markers
+X_FRAME_OPTIONS = 'SAMEORIGIN'

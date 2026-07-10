@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-09 01:06-0400\n"
+"POT-Creation-Date: 2026-07-09 19:27+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,47 +20,63 @@ msgstr ""
 
 #: sitebase/admin_filters.py:17
 msgid "Duplicates"
-msgstr "Doublons"
+msgstr ""
 
 #: sitebase/admin_filters.py:18
 msgid "Originals"
-msgstr "Originaux"
+msgstr ""
 
 #: sitebase/models.py:39
 msgid "Page Content"
 msgstr "Contenu de la page"
 
 #: sitebase/models.py:45
+#, fuzzy
+#| msgid "Home Introduction"
 msgid "[Home] Introduction"
-msgstr "[Accueil] Introduction"
+msgstr "Accueil Introduction"
 
 #: sitebase/models.py:46
+#, fuzzy
+#| msgid "Home Volunteers"
 msgid "[Home] Volunteers"
-msgstr "[Accueil] Bénévoles"
+msgstr "Accueil Bénévoles"
 
 #: sitebase/models.py:47
+#, fuzzy
+#| msgid "Home Tree Owners"
 msgid "[Home] Tree Owners"
-msgstr "[Accueil] Properiétaires"
+msgstr "Accueil Properiétaires"
 
 #: sitebase/models.py:48
+#, fuzzy
+#| msgid "Home Beneficiaries"
 msgid "[Home] Beneficiaries"
-msgstr "[Accueil] Bénéficiaires"
+msgstr "Accueil Bénéficiaires"
 
 #: sitebase/models.py:49
+#, fuzzy
+#| msgid "Home Pickleaders"
 msgid "[Home] Pickleaders"
-msgstr "[Accueil] Chef.fe.s"
+msgstr "Accueil Chef.fe.s"
 
 #: sitebase/models.py:52
+#, fuzzy
+#| msgid "About Us"
 msgid "[About] Us"
-msgstr "[À propos] de nous"
+msgstr "À propos de nous"
 
 #: sitebase/models.py:53
+#, fuzzy
+#| msgid "About Values"
 msgid "[About] Values"
-msgstr "[À propos] Valeurs"
+msgstr "À propos Valeurs"
 
 #: sitebase/models.py:54
+#, fuzzy
+#| msgid "About Roles"
 msgid "[About] Roles"
-msgstr "[À propos] Roles"
+msgstr "À propos Roles"
 
 #: sitebase/models.py:57
 msgid "Privacy Policy"
@@ -567,7 +583,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:96
+#: sitebase/templates/app/list_views/property/marker.html:59
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -585,7 +601,7 @@ msgstr "Langue"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:70
 msgid "Notes"
-msgstr "Notes"
+msgstr ""
 
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:40
 msgid "Edit Harvest"
@@ -774,10 +790,7 @@ msgstr "Point d'Équipement Réservé"
 msgid ""
 "You can select an equipment point from the map and reserve its equipment for "
 "your harvest. This is only possible if the harvest is scheduled or ready."
-msgstr ""
-"Il est possible de sélectionner un point d'équipement sur la carte et de "
-"réserver son équipement, mais seulement si la récolte est déjà planifiée ou "
-"prête."
+msgstr "Tu peux sélectionner un point d'équipement sur la carte et réserver son équipement pour ta récolte. Ceci est seulement possible si la récolte est schédulé ou prête à cueillir."
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:8
 #: sitebase/templates/app/detail_views/harvest/marker.html:9
@@ -790,7 +803,7 @@ msgstr "Point d'Équipement Disponible"
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:22
 msgid "Unavailable Equipment Point"
-msgstr "Point d'équipement non disponible"
+msgstr "Point d'Équipement Non Disponible"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:8
 msgid "Harvest status"
@@ -1257,14 +1270,14 @@ msgstr "Pas d'Équipement"
 
 #: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:18
-#: sitebase/templates/app/list_views/property/map.html:20
+#: sitebase/templates/app/list_views/property/map.html:23
 #: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:22
 #: sitebase/templates/app/list_views/organization/organizations.html:19
-#: sitebase/templates/app/list_views/property/map.html:21
+#: sitebase/templates/app/list_views/property/map.html:24
 #: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
@@ -1276,11 +1289,10 @@ msgstr "Plus de détails"
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "Only scheduled and ready harvests can reserve equipment"
 msgstr ""
-"Seules les récoltes prêtes ou planifiées peuvent réserver de l'équipement"
 
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "This equipment point is not available at the time of harvest"
-msgstr "Ce point d'équipment n'est pas disponible au moment de la récolte"
+msgstr ""
 
 #: sitebase/templates/app/list_views/organization/marker.html:60
 msgid "Change Reservation"
@@ -1355,25 +1367,25 @@ msgstr "Propriété non authorisée"
 msgid "Validated Property"
 msgstr "Propriété Validée"
 
-#: sitebase/templates/app/list_views/property/map.html:65
+#: sitebase/templates/app/list_views/property/marker.html:28
 #: sitebase/templates/app/list_views/property/view.html:32
 msgid "Harvested"
 msgstr "Récolté"
 
-#: sitebase/templates/app/list_views/property/map.html:67
+#: sitebase/templates/app/list_views/property/marker.html:30
 msgid "No past harvests"
 msgstr "Pas de récoltes antérieures"
 
-#: sitebase/templates/app/list_views/property/map.html:79
+#: sitebase/templates/app/list_views/property/marker.html:42
 #: sitebase/templates/app/list_views/property/view.html:33
 msgid "Upcoming"
 msgstr "À venir"
 
-#: sitebase/templates/app/list_views/property/map.html:81
+#: sitebase/templates/app/list_views/property/marker.html:44
 msgid "No upcoming harvests"
 msgstr "Pas de récoltes à venir"
 
-#: sitebase/templates/app/list_views/property/map.html:91
+#: sitebase/templates/app/list_views/property/marker.html:54
 msgid "No harvests"
 msgstr "Pas de récoltes"
 
@@ -1511,3 +1523,12 @@ msgid ""
 msgstr ""
 "Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
 "saison, il est permis de les contacter pour confirmer leur accord"
+
+#~ msgid "Home Authenticated User"
+#~ msgstr "Accueil Utilisateur.ices"
+
+#~ msgid "No equipment point has been reserved"
+#~ msgstr "Aucun point d'équipment n'a été reservé"
+
+#~ msgid "UNDER CONSTRUCTION"
+#~ msgstr "EN CONSTRUCTION"

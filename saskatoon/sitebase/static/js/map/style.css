@@ -33,3 +33,11 @@ leaflet-popup {
 		padding-right: 0.5rem;
 	}
 }
+
+.saskatoon-map-spinner {
+    display: flex;
+
+    i {
+        margin: auto;
+    }
+}
