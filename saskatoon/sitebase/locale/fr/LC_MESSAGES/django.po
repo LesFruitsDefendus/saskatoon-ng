@@ -31,52 +31,36 @@ msgid "Page Content"
 msgstr "Contenu de la page"
 
 #: sitebase/models.py:45
-#, fuzzy
-#| msgid "Home Introduction"
 msgid "[Home] Introduction"
-msgstr "Accueil Introduction"
+msgstr "[Accueil] Introduction"
 
 #: sitebase/models.py:46
-#, fuzzy
-#| msgid "Home Volunteers"
 msgid "[Home] Volunteers"
-msgstr "Accueil Bénévoles"
+msgstr "[Accueil] Bénévoles"
 
 #: sitebase/models.py:47
-#, fuzzy
-#| msgid "Home Tree Owners"
 msgid "[Home] Tree Owners"
-msgstr "Accueil Properiétaires"
+msgstr "[Accueil] Propriétaires"
 
 #: sitebase/models.py:48
-#, fuzzy
-#| msgid "Home Beneficiaries"
 msgid "[Home] Beneficiaries"
-msgstr "Accueil Bénéficiaires"
+msgstr "[Accueil] Bénéficiaires"
 
 #: sitebase/models.py:49
-#, fuzzy
-#| msgid "Home Pickleaders"
 msgid "[Home] Pickleaders"
-msgstr "Accueil Chef.fe.s"
+msgstr "[Accueil] Chef.fe.s"
 
 #: sitebase/models.py:52
-#, fuzzy
-#| msgid "About Us"
 msgid "[About] Us"
-msgstr "À propos de nous"
+msgstr "[À propos] de nous"
 
 #: sitebase/models.py:53
-#, fuzzy
-#| msgid "About Values"
 msgid "[About] Values"
-msgstr "À propos Valeurs"
+msgstr "[À propos] Valeurs"
 
 #: sitebase/models.py:54
-#, fuzzy
-#| msgid "About Roles"
 msgid "[About] Roles"
-msgstr "À propos Roles"
+msgstr "[À propos] Roles"
 
 #: sitebase/models.py:57
 msgid "Privacy Policy"
@@ -601,7 +585,7 @@ msgstr "Langue"
 
 #: sitebase/templates/app/detail_views/harvest/about.html:70
 msgid "Notes"
-msgstr ""
+msgstr "Notes"
 
 #: sitebase/templates/app/detail_views/harvest/breadcomb.html:40
 msgid "Edit Harvest"
@@ -790,7 +774,10 @@ msgstr "Point d'Équipement Réservé"
 msgid ""
 "You can select an equipment point from the map and reserve its equipment for "
 "your harvest. This is only possible if the harvest is scheduled or ready."
-msgstr "Tu peux sélectionner un point d'équipement sur la carte et réserver son équipement pour ta récolte. Ceci est seulement possible si la récolte est schédulé ou prête à cueillir."
+msgstr ""
+"Il est possible de sélectionner un point d'équipement sur la carte et de "
+"réserver son équipement, mais seulement si la récolte est déjà planifiée ou "
+"prête."
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:8
 #: sitebase/templates/app/detail_views/harvest/marker.html:9
@@ -1289,10 +1276,11 @@ msgstr "Plus de détails"
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "Only scheduled and ready harvests can reserve equipment"
 msgstr ""
+"Seules les récoltes prêtes ou planifiées peuvent réserver de l'équipement"
 
 #: sitebase/templates/app/list_views/organization/marker.html:57
 msgid "This equipment point is not available at the time of harvest"
-msgstr ""
+msgstr "Ce point d'équipment n'est pas disponible au moment de la récolte"
 
 #: sitebase/templates/app/list_views/organization/marker.html:60
 msgid "Change Reservation"
@@ -1523,12 +1511,3 @@ msgid ""
 msgstr ""
 "Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
 "saison, il est permis de les contacter pour confirmer leur accord"
-
-#~ msgid "Home Authenticated User"
-#~ msgstr "Accueil Utilisateur.ices"
-
-#~ msgid "No equipment point has been reserved"
-#~ msgstr "Aucun point d'équipment n'a été reservé"
-
-#~ msgid "UNDER CONSTRUCTION"
-#~ msgstr "EN CONSTRUCTION"
