@@ -169,7 +169,9 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
             }
         )
 
-    def marker(self, request, pk=None):
+    def map_marker_info(self, request, pk=None):
+        """Property details displayed in map pop-up window"""
+
         self.template_name = 'app/list_views/property/marker.html'
         property = self.get_object()
 

@@ -19,7 +19,7 @@ urlpatterns = [
     ),
     path(
         r'property/map/<int:pk>',
-        api.PropertyViewset.as_view({'get': 'marker'}),
+        api.PropertyViewset.as_view({'get': 'map_marker_info'}),
         name='property-map-marker',
     ),
     # CREATE VIEWS
