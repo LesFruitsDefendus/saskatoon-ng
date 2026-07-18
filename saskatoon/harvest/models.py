@@ -15,7 +15,7 @@ from typeguard import typechecked
 from sys import float_info
 from types import SimpleNamespace
 
-from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty
+from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, local_today
 from sitebase.validators import validate_is_not_nan
 
 
@@ -368,9 +368,24 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
             return self.street
 
     @property
-    def last_succeeded_harvest(self):
+    def last_succeeded_harvest(self) -> Optional['Harvest']:
         """Last Successful harvest for this property"""
         return self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
+
+    @property
+    def last_harvest(self) -> Optional['Harvest']:
+        """Last harvest for this property"""
+        return self.harvests.filter(end_date__lt=local_today()).order_by('-start_date').first()
+
+    @property
+    def next_harvest(self) -> Optional['Harvest']:
+        """Next harvest for this property"""
+        return self.harvests.filter(end_date__gte=local_today()).order_by('start_date').first()
+
+    @property
+    def nb_harvests(self) -> int:
+        """Next harvest for this property"""
+        return self.harvests.count()
 
     def get_owner_subclass(self):
         if self.owner:

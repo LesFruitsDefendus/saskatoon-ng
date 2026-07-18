@@ -13,9 +13,14 @@ router.register('participation', api.RFPViewset, 'participation')
 urlpatterns = [
     # MAP VIEWS
     path(
-        'property/map',
+        r'property/map',
         api.PropertyMapView.as_view(),
         name='property-map',
+    ),
+    path(
+        r'property/map/<int:pk>',
+        api.PropertyViewset.as_view({'get': 'map_marker_info'}),
+        name='property-map-marker',
     ),
     # CREATE VIEWS
     path(

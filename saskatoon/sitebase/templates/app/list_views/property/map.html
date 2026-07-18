@@ -12,6 +12,9 @@
 
 {% block script %}
     <script defer src="{% static 'js/list-view-tabs.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js"
+            integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
+            crossorigin="anonymous"></script>
 {% endblock script %}
 
 {% block data %}
@@ -22,104 +25,36 @@
         </nav>
         <section role="tabpanel" style="padding-top: 1em;" aria-labelledby="map-tab">
             <script type="module">import "{% static 'js/map/main.js' %}"</script>
-                <leaflet-map style="height: 60vh;">
-                    {% for property in data %}
-                        {% if property.longitude is not None and property.latitude is not None %}
-                            <leaflet-marker latitude="{{ property.latitude }}"
-                                            longitude="{{ property.longitude }}">
-                                <leaflet-tooltip direction="top">
-                                    {{ property.address }}
-                                </leaflet-tooltip>
-                                <leaflet-icon icon-anchor="20 -10"
-                                              class="{{ property | property_icon_color }}">
-                                    {{ property | property_icon_stacked | safe }}
-                                </leaflet-icon>
-                                <leaflet-icon class="leaflet-hover-icon {{ property | property_icon_color }}"
-                                              icon-anchor="22 -5"
-                                              popup-anchor="0 0">
-                                    {{ property | property_icon_stacked_hover | safe }}
-                                </leaflet-icon>
-                                <leaflet-popup>
-                                    <h4>
-                                        <a href="{% url 'property-detail' property.id %}">
-                                            {{ property.address }} <i class="fa fa-external-link fa-xs"></i>
-                                        </a>
-                                    </h4>
-                                    <span class="badge {{ property.status | property_status }}"
-                                          {{ property.status | property_status_attributes | safe }}>{{ property.status.label }}</span>
-                                    <section>
-                                        {% for tree in property.trees %}
-                                            <article>
-                                                <h5>
-                                                    {% if LANG == "en" %}
-                                                        {{ tree.fruit_name_en }}
-                                                    {% else %}
-                                                        {{ tree.fruit_name_fr }}
-                                                    {% endif %}
-                                                </h5>
-                                                {% if property.harvests|length > 0 %}
-                                                    {% with past=property.harvests|past_harvests_by_tree:tree %}
-                                                        <ul class="list-inline">
-                                                            <li style="padding-top: 0.5em;">
-                                                                {% if past|length > 0 %}
-                                                                    {% trans 'Harvested' %}
-                                                                {% else %}
-                                                                    {% trans 'No past harvests' %}
-                                                                {% endif %}
-                                                            </li>
-                                                            {% for harvest in past %}
-                                                                {% include 'app/list_views/property/harvest-list-row.html' %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                    {% endwith %}
-                                                    {% with upcoming=property.harvests|upcoming_harvests_by_tree:tree %}
-                                                        <ul class="list-inline">
-                                                            <li style="padding-top: 0.5em;">
-                                                                {% if upcoming|length > 0 %}
-                                                                    {% trans 'Upcoming' %}
-                                                                {% else %}
-                                                                    {% trans 'No upcoming harvests' %}
-                                                                {% endif %}
-                                                            </li>
-                                                            {% for harvest in upcoming %}
-                                                                {% include 'app/list_views/property/harvest-list-row.html' %}
-                                                            {% endfor %}
-                                                        </ul>
-                                                    {% endwith %}
-                                                </article>
-                                            {% else %}
-                                                {% trans 'No harvests' %}
-                                            {% endif %}
-                                        {% endfor %}
-                                    </section>
-                                    <section>
-                                        <h5>{% trans "Owner" %}</h5>
-                                        <address>
-                                            {{ property.owner.name }}
-                                            <br>
-                                            {{ property.address }}, {{ property.neighborhood.name }}
-                                            <br>
-                                            {% if property.owner.phone is not None %}
-                                                {{ property.owner.phone }}
-                                                <br>
-                                            {% endif %}
-                                            {% if property.owner.email is not None %}
-                                                <a href="mailto:{{ property.owner.email }}">{{ property.owner.email }}</a>
-                                            {% endif %}
-                                        </address>
-                                    </section>
-                                    <a
-                                        class="btn btn-primary notika-btn-primary waves-effect""
-                                        href="{% url 'property-detail' property.id %}"
-                                        >
-                                        See details
-                                    </a>
-                                </leaflet-popup>
-                            </leaflet-marker>
-                        {% endif %}
-                    {% endfor %}
-                </leaflet-map>
-                {% include 'app/list_views/property/legend.html' %}
+            <leaflet-map style="height: 60vh;">
+                {% for property in data %}
+                    {% if property.longitude is not None and property.latitude is not None %}
+                        <leaflet-marker latitude="{{ property.latitude }}"
+                                        longitude="{{ property.longitude }}">
+                            <leaflet-tooltip direction="top">
+                                {{ property.address }}
+                            </leaflet-tooltip>
+                            <leaflet-icon icon-anchor="20 -10" class="{{ property.icon_color }}">
+                                {{ property.icon | safe }}
+                            </leaflet-icon>
+                            <leaflet-icon class="leaflet-hover-icon {{ property.icon_color }}"
+                                          icon-anchor="22 -5"
+                                          popup-anchor="0 0">
+                                {{ property.icon_hover | safe }}
+                            </leaflet-icon>
+                            <leaflet-popup>
+                                <div style="height: 320px"
+                                     class="saskatoon-map-spinner"
+                                     hx-get="{% url 'property-map-marker' property.id %}"
+                                     hx-swap="outerHTML"
+                                     hx-trigger="intersect">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                </div>
+                            </leaflet-popup>
+                        </leaflet-marker>
+                    {% endif %}
+                {% endfor %}
+            </leaflet-map>
+            {% include 'app/list_views/property/legend.html' %}
         </section>
     </tab-list>
 {% endblock data %}

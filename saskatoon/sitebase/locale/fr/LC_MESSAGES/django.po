@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-09 01:06-0400\n"
+"POT-Creation-Date: 2026-07-09 19:27+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,11 @@ msgstr ""
 
 #: sitebase/admin_filters.py:17
 msgid "Duplicates"
-msgstr "Doublons"
+msgstr ""
 
 #: sitebase/admin_filters.py:18
 msgid "Originals"
-msgstr "Originaux"
+msgstr ""
 
 #: sitebase/models.py:39
 msgid "Page Content"
@@ -40,7 +40,7 @@ msgstr "[Accueil] Bénévoles"
 
 #: sitebase/models.py:47
 msgid "[Home] Tree Owners"
-msgstr "[Accueil] Properiétaires"
+msgstr "[Accueil] Propriétaires"
 
 #: sitebase/models.py:48
 msgid "[Home] Beneficiaries"
@@ -567,7 +567,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/map.html:96
+#: sitebase/templates/app/list_views/property/marker.html:59
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -790,7 +790,7 @@ msgstr "Point d'Équipement Disponible"
 
 #: sitebase/templates/app/detail_views/harvest/legend.html:22
 msgid "Unavailable Equipment Point"
-msgstr "Point d'équipement non disponible"
+msgstr "Point d'Équipement Non Disponible"
 
 #: sitebase/templates/app/detail_views/harvest/status.html:8
 msgid "Harvest status"
@@ -1257,14 +1257,14 @@ msgstr "Pas d'Équipement"
 
 #: sitebase/templates/app/list_views/organization/map.html:21
 #: sitebase/templates/app/list_views/organization/organizations.html:18
-#: sitebase/templates/app/list_views/property/map.html:20
+#: sitebase/templates/app/list_views/property/map.html:23
 #: sitebase/templates/app/list_views/property/view.html:19
 msgid "Table"
 msgstr "Tableau"
 
 #: sitebase/templates/app/list_views/organization/map.html:22
 #: sitebase/templates/app/list_views/organization/organizations.html:19
-#: sitebase/templates/app/list_views/property/map.html:21
+#: sitebase/templates/app/list_views/property/map.html:24
 #: sitebase/templates/app/list_views/property/view.html:20
 msgid "Map"
 msgstr "Carte"
@@ -1355,25 +1355,25 @@ msgstr "Propriété non authorisée"
 msgid "Validated Property"
 msgstr "Propriété Validée"
 
-#: sitebase/templates/app/list_views/property/map.html:65
+#: sitebase/templates/app/list_views/property/marker.html:28
 #: sitebase/templates/app/list_views/property/view.html:32
 msgid "Harvested"
 msgstr "Récolté"
 
-#: sitebase/templates/app/list_views/property/map.html:67
+#: sitebase/templates/app/list_views/property/marker.html:30
 msgid "No past harvests"
 msgstr "Pas de récoltes antérieures"
 
-#: sitebase/templates/app/list_views/property/map.html:79
+#: sitebase/templates/app/list_views/property/marker.html:42
 #: sitebase/templates/app/list_views/property/view.html:33
 msgid "Upcoming"
 msgstr "À venir"
 
-#: sitebase/templates/app/list_views/property/map.html:81
+#: sitebase/templates/app/list_views/property/marker.html:44
 msgid "No upcoming harvests"
 msgstr "Pas de récoltes à venir"
 
-#: sitebase/templates/app/list_views/property/map.html:91
+#: sitebase/templates/app/list_views/property/marker.html:54
 msgid "No harvests"
 msgstr "Pas de récoltes"
 

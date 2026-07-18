@@ -22,13 +22,13 @@ def property_icon_shape(size: str) -> str:
 
 
 @typechecked
-def show_property(harvests, status: Property.Status) -> bool:
-    return len(harvests) == 0 or status != Property.Status.AUTHORIZED
+def show_property(nb_harvests: int, status: Property.Status) -> bool:
+    return nb_harvests == 0 or status != Property.Status.AUTHORIZED
 
 
 @typechecked
 def property_filter(property, size: str, mode: str = 'flat') -> str:
-    if show_property(property['harvests'], property['status']):
+    if show_property(len(property['harvests']), property['status']):
         return make_icon(property_icon_shape, size, mode)
 
     next = upcoming_harvests(property['harvests'])
@@ -107,7 +107,7 @@ def property_status(status: Optional[str]) -> str:
 @register.filter
 @typechecked
 def property_icon_color(property) -> str:
-    if show_property(property['harvests'], property['status']):
+    if show_property(len(property['harvests']), property['status']):
         return property_status(property['status'])
 
     next = upcoming_harvests(property['harvests'])
