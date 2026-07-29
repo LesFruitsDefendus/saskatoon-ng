@@ -10,37 +10,7 @@
 <section class="legend">
     <h3 class="panel-title">{% trans 'Legend' %}</h3>
     <div>
-        <dl class="harvest">
-            <dt class="{{'succeeded' | color}}">{{'succeeded' | harvest_icon | safe}}</dt>
-            <dd {{ 'succeeded' | harvest_status_attributes | safe }}>
-                {% trans 'Succeeded Harvest' %}
-            </dd>
-
-            <dt class="{{'cancelled' | color}}">{{'cancelled' | harvest_icon | safe}}</dt>
-            <dd {{ 'cancelled' | harvest_status_attributes | safe }}>
-                {% trans 'Cancelled Harvest' %}
-            </dd>
-
-            <dt class="{{'ready' | color}}">{{'ready' | harvest_icon | safe}}</dt>
-            <dd {{ 'ready' | harvest_status_attributes | safe }}>
-                {% trans 'Ready Harvest' %}
-            </dd>
-
-            <dt class="{{'adopted' | color}}">{{'adopted' | harvest_icon | safe}}</dt>
-            <dd {{ 'adopted' | harvest_status_attributes | safe }}>
-                {% trans 'Adopted Harvest' %}
-            </dd>
-
-            <dt class="{{'scheduled' | color}}">{{'scheduled' | harvest_icon | safe}}</dt>
-            <dd {{ 'scheduled' | harvest_status_attributes | safe }}>
-                {% trans 'Scheduled Harvest' %}
-            </dd>
-
-            <dt class="{{'orphan' | color}}">{{'orphan' | harvest_icon | safe}}</dt>
-            <dd {{ 'orphan' | harvest_status_attributes | safe }}>
-                {% trans 'Orphan Harvest' %}
-            </dd>
-        </dl>
+        {% include 'app/list_views/harvest/legend-harvest.html' %}
 
         <dl class="property">
             <dt class="{{ 'authorized' | property_status }}">

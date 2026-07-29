@@ -1,0 +1,65 @@
+{% extends 'app/list_views/base.html' %}
+{% load i18n %}
+{% load static %}
+{% load property %}
+{% load harvest_status %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/list-view-tabs.css' %}">
+    <link rel="stylesheet" href="{% static 'css/map.css' %}">
+    <link rel="stylesheet" href="{% static 'css/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/legend.css' %}">
+{% endblock style %}
+
+{% block script %}
+    <script defer src="{% static 'js/list-view-tabs.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js"
+            integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
+            crossorigin="anonymous"></script>
+{% endblock script %}
+
+{% block data %}
+    <tab-list role="tablist">
+        <nav>
+            <a href="." rel="keep-params">{% trans 'Table' %}</a>
+            <span role="tab" id="map-tab">{% trans 'Map' %}</span>
+        </nav>
+        <section role="tabpanel" style="padding-top: 1em;" aria-labelledby="map-tab">
+            <script type="module">import "{% static 'js/map/main.js' %}"</script>
+            <leaflet-map style="height: 60vh;">
+                {% for harvest in data %}
+                    {% if harvest.property.longitude is not None and harvest.property.latitude is not None %}
+                        <leaflet-marker latitude="{{ harvest.property.latitude }}"
+                                        longitude="{{ harvest.property.longitude }}">
+                            <leaflet-tooltip direction="top">
+                                {{ harvest.property.address }}
+                            </leaflet-tooltip>
+                            <leaflet-icon icon-anchor="20 -10" class="{{ harvest.icon_color }}">
+                                {{ harvest.icon | safe }}
+                            </leaflet-icon>
+                            <leaflet-icon class="leaflet-hover-icon {{ harvest.icon_color }}"
+                                          icon-anchor="22 -5"
+                                          popup-anchor="0 0">
+                                {{ harvest.icon_hover | safe }}
+                            </leaflet-icon>
+                            <leaflet-popup>
+                                <div style="height: 320px"
+                                     class="saskatoon-map-spinner"
+                                     hx-get="{% url 'harvest-map-marker' harvest.id %}"
+                                     hx-swap="outerHTML"
+                                     hx-trigger="intersect">
+                                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                                </div>
+                            </leaflet-popup>
+                        </leaflet-marker>
+                    {% endif %}
+                {% endfor %}
+            </leaflet-map>
+        </section>
+
+        <section class="legend">
+            <h3 class="panel-title">{% trans 'Legend' %}</h3>
+            <div>{% include 'app/list_views/harvest/legend-harvest.html' %}</div>
+        </section>
+    </tab-list>
+{% endblock data %}

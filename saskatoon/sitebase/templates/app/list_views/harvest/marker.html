@@ -1,0 +1,64 @@
+{% load i18n %}
+{% load static %}
+{% load harvest_status %}
+
+<link rel="stylesheet" href="{% static 'css/colors.css' %}">
+
+<h4>
+    <a href="{% url 'harvest-detail' id %}">
+        {% if date_range %}
+            {{ date_range }}
+        {% else %}
+            {{ start_date }}
+
+        {% endif %}
+        <i class="fa fa-external-link fa-xs"></i>
+    </a>
+    <br />
+    <small>
+        {% for tree in trees %}
+
+            {% if LANG == "en" %}
+                {{ tree.fruit_name_en }}
+            {% else %}
+                {{ tree.fruit_name_fr }}
+            {% endif %}
+            {% if not forloop.last %},{% endif %}
+
+        {% endfor %}
+    </small>
+</h4>
+<span class="badge {{ status | color }}"
+      {{ status | harvest_status_attributes | safe }}>{{ status_display }}</span>
+
+<p>
+    {% if pick_leader %}
+
+        {% trans 'Led by' %} {{ pick_leader.name|default:'' }}
+        <br />
+    {% endif %}
+    {% if not date_range %}{{ start_time }} - {{ end_time }}{% endif %}
+</p>
+<section>
+    <h5>{% trans "Property" %}</h5>
+    <address>
+        <a href="{% url 'property-detail' property.id %}">{{ property.title }}</a>
+        <br />
+        {{ property.neighborhood.name }}
+    </address>
+</section>
+{% if equipment_point.civil_name %}
+    <section>
+        <h5>Equipment Point Reservation</h5>
+        <address>
+            <a href="{% url 'organization-detail' equipment_point.actor_id %}">{{ equipment_point.civil_name }}</a>
+        </address>
+    </section>
+{% endif %}
+
+<a
+    class="btn btn-primary notika-btn-primary waves-effect""
+    href="{% url 'harvest-detail' id %}"
+    >
+    See details
+</a>
