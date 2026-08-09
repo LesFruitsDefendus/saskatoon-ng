@@ -36,9 +36,11 @@
         }
     }
 
-    .content {
-        padding-left: 2em;
-        min-width: 400px;
+    @media(min-width: 768px) {
+        .content {
+            padding-left: 2em;
+            min-width: 400px;
+        }
     }
 
     .closing {
@@ -47,14 +49,20 @@
     }
 
     .user-guides {
-        width: 80%;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
         margin-top: 1em;
 
-        @media (max-width: 992px) {
-            max-width: 80vw;
+        @media (min-width: 768px) {
+            width: 80%;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+
+            img {
+                width: 80%;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
 
         .guide,

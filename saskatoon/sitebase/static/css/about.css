@@ -1,4 +1,7 @@
 .about {
+    @media (min-width: 768px) {
+        max-width: 80vw;
+    }
 
     img {
         display: block;
@@ -35,9 +38,5 @@
     .roles li {
         margin-top: 1em;
         margin-bottom: 1em;
-    }
-
-    @media (max-width: 992px) {
-        max-width: 80vw;
     }
 }
