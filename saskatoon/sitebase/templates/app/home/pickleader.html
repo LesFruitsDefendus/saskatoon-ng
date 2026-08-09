@@ -3,12 +3,12 @@
 
 {% get_current_language as LANG %}
 
-    <div class="user-guides">
-        <p>
-            {{guides_intro.title}} <b>{{user.name}}</b> !
-            {{guides_intro.body.html | safe}}
-        </p>
-        <br>
+<div class="user-guides">
+    <p>
+        {{guides_intro.title}} <b>{{user.name}}</b> !
+        {{guides_intro.body.html | safe}}
+    </p>
+    <br>
 
     <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png" alt="harvest lifecycle" />
 
