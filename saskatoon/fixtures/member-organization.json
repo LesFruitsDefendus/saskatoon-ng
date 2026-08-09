@@ -21,7 +21,13 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "geom": {"type": "Point", "coordinates": [-73.575174, 45.516465]}
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -73.575174,
+        45.516465
+      ]
+    }
   }
 },
 {
@@ -46,7 +52,13 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "geom": {"type": "Point", "coordinates": [-73.586855, 45.52451]}
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -73.586855,
+        45.52451
+      ]
+    }
   }
 },
 {
@@ -71,7 +83,13 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "geom": {"type": "Point", "coordinates": [-73.574238, 45.52893]}
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -73.574238,
+        45.52893
+      ]
+    }
   }
 },
 {
@@ -96,7 +114,13 @@
     "city": 1,
     "state": 1,
     "country": 1,
-    "geom": {"type": "Point", "coordinates": [-73.566792, 45.511693]}
+    "geom": {
+      "type": "Point",
+      "coordinates": [
+        -73.566792,
+        45.511693
+      ]
+    }
   }
 }
 ]

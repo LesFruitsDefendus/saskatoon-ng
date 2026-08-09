@@ -105,7 +105,7 @@
   "pk": 7,
   "fields": {
     "password": "pbkdf2_sha256$600000$QYYe9epryqzrNGNFJ62V7x$1zpWIvEfIWW4KVFFfasVqSShjKMI6phq9jeDDErjygU=",
-    "last_login": "2026-05-31T22:05:46.130Z",
+    "last_login": "2026-08-09T04:42:27.441Z",
     "is_superuser": true,
     "person": 10,
     "has_temporary_password": false,

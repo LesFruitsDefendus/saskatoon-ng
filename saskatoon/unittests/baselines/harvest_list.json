@@ -8,7 +8,7 @@
     "results": [
         {
             "id": 5,
-            "start_date": "Thu. Oct. 1, 2026",
+            "start_date": "Tue. Dec. 1, 2026",
             "start_time": "8:00 AM",
             "end_time": "11:00 AM",
             "date_range": "",
@@ -132,7 +132,7 @@
                             "name": "Core Member",
                             "email": "core@member.com"
                         },
-                        "start_date": "2026-10-01",
+                        "start_date": "2026-12-01",
                         "start_time": "07:00 AM",
                         "end_time": "12:00 PM"
                     }
@@ -142,46 +142,8 @@
             }
         },
         {
-            "id": 4,
-            "start_date": "Sat. Aug. 1, 2026",
-            "start_time": "9:00 AM",
-            "end_time": "12:00 PM",
-            "date_range": "",
-            "status": "scheduled",
-            "status_display": "Scheduled",
-            "pick_leader": {
-                "id": 4,
-                "name": "Core Member",
-                "email": "core@member.com"
-            },
-            "trees": [
-                {
-                    "id": 9,
-                    "name_en": "Walnut tree",
-                    "name_fr": "Noyer",
-                    "fruit_name_en": "Walnuts",
-                    "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
-                }
-            ],
-            "property": {
-                "id": 3,
-                "title": "Nice Owner at 123 av. Mont-Royal",
-                "ladder_available": true,
-                "neighborhood": "Plateau-Mont-Royal"
-            },
-            "volunteers": {
-                "pending": 1,
-                "accepted": 0,
-                "declined": 0,
-                "cancelled": 0,
-                "obsolete": 0
-            },
-            "equipment_point": null
-        },
-        {
             "id": 2,
-            "start_date": "Fri. Jul. 24, 2026",
+            "start_date": "Tue. Nov. 24, 2026",
             "start_time": "3:00 PM",
             "end_time": "6:00 PM",
             "date_range": "",
@@ -292,7 +254,7 @@
                             "name": "Pick Leader",
                             "email": "pick@leader.com"
                         },
-                        "start_date": "2026-07-24",
+                        "start_date": "2026-11-24",
                         "start_time": "02:00 PM",
                         "end_time": "07:00 PM"
                     }
@@ -300,6 +262,44 @@
                 "latitude": 45.511693,
                 "longitude": -73.566792
             }
+        },
+        {
+            "id": 4,
+            "start_date": "Sat. Aug. 1, 2026",
+            "start_time": "9:00 AM",
+            "end_time": "12:00 PM",
+            "date_range": "",
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "pick_leader": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "trees": [
+                {
+                    "id": 9,
+                    "name_en": "Walnut tree",
+                    "name_fr": "Noyer",
+                    "fruit_name_en": "Walnuts",
+                    "fruit_name_fr": "Noix de Grenoble",
+                    "fruit_icon": "🥜"
+                }
+            ],
+            "property": {
+                "id": 3,
+                "title": "Nice Owner at 123 av. Mont-Royal",
+                "ladder_available": true,
+                "neighborhood": "Plateau-Mont-Royal"
+            },
+            "volunteers": {
+                "pending": 1,
+                "accepted": 0,
+                "declined": 0,
+                "cancelled": 0,
+                "obsolete": 0
+            },
+            "equipment_point": null
         },
         {
             "id": 6,
@@ -532,7 +532,7 @@
                             "name": "Pick Leader",
                             "email": "pick@leader.com"
                         },
-                        "start_date": "2026-07-24",
+                        "start_date": "2026-11-24",
                         "start_time": "02:00 PM",
                         "end_time": "07:00 PM"
                     }
