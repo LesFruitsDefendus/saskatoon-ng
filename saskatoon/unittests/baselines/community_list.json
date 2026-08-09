@@ -128,7 +128,7 @@
                         "property": "Plum Mendès at 5670 Veranda st.",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2026-10-01",
+                        "start_date": "2026-12-01",
                         "role": "owner"
                     }
                 ],
@@ -222,7 +222,7 @@
             "role_codes": [],
             "date_joined": "2026-01-24",
             "password": "pbkdf2_sha256$600000$QYYe9epryqzrNGNFJ62V7x$1zpWIvEfIWW4KVFFfasVqSShjKMI6phq9jeDDErjygU=",
-            "last_login": "2026-05-31T18:05:46.130000-04:00",
+            "last_login": "2026-08-09T00:42:27.441000-04:00",
             "is_superuser": true,
             "has_temporary_password": false,
             "agreed_terms": true,
@@ -339,21 +339,21 @@
                 "comments": "Passer par l'arrière ruelle",
                 "harvests": [
                     {
+                        "id": 2,
+                        "pick_leader": "Pick Leader",
+                        "property": "Nice Owner at 123 av. Mont-Royal",
+                        "status": "ready",
+                        "status_display": "Ready",
+                        "start_date": "2026-11-24",
+                        "role": "owner"
+                    },
+                    {
                         "id": 4,
                         "pick_leader": "Core Member",
                         "property": "Nice Owner at 123 av. Mont-Royal",
                         "status": "scheduled",
                         "status_display": "Scheduled",
                         "start_date": "2026-08-01",
-                        "role": "owner"
-                    },
-                    {
-                        "id": 2,
-                        "pick_leader": "Pick Leader",
-                        "property": "Nice Owner at 123 av. Mont-Royal",
-                        "status": "ready",
-                        "status_display": "Ready",
-                        "start_date": "2026-07-24",
                         "role": "owner"
                     },
                     {
@@ -430,7 +430,7 @@
                         "property": "Plum Mendès at 5670 Veranda st.",
                         "status": "scheduled",
                         "status_display": "Scheduled",
-                        "start_date": "2026-10-01",
+                        "start_date": "2026-12-01",
                         "role": "pickleader"
                     },
                     {

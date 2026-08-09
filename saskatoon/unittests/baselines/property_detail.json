@@ -19,18 +19,18 @@
     "title": "Nice Owner at 123 av. Mont-Royal",
     "harvests": [
         {
-            "id": 4,
-            "status": "scheduled",
-            "status_display": "Scheduled",
-            "start_date": "2026-08-01",
-            "start_time": "9:00 AM",
-            "end_date": "2026-08-01",
+            "id": 2,
+            "status": "ready",
+            "status_display": "Ready",
+            "start_date": "2026-11-24",
+            "start_time": "3:00 PM",
+            "end_date": "2026-11-24",
             "date_range": "",
             "pick_leader": {
-                "actor_id": 5,
-                "name": "Core Member",
-                "phone": "(514) 123-4321",
-                "email": "core@member.com"
+                "actor_id": 3,
+                "name": "Pick Leader",
+                "phone": "(333) 333-3333",
+                "email": "pick@leader.com"
             },
             "trees": [
                 {
@@ -47,18 +47,18 @@
             ]
         },
         {
-            "id": 2,
-            "status": "ready",
-            "status_display": "Ready",
-            "start_date": "2026-07-24",
-            "start_time": "3:00 PM",
-            "end_date": "2026-07-24",
+            "id": 4,
+            "status": "scheduled",
+            "status_display": "Scheduled",
+            "start_date": "2026-08-01",
+            "start_time": "9:00 AM",
+            "end_date": "2026-08-01",
             "date_range": "",
             "pick_leader": {
-                "actor_id": 3,
-                "name": "Pick Leader",
-                "phone": "(333) 333-3333",
-                "email": "pick@leader.com"
+                "actor_id": 5,
+                "name": "Core Member",
+                "phone": "(514) 123-4321",
+                "email": "core@member.com"
             },
             "trees": [
                 {

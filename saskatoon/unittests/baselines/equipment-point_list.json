@@ -83,7 +83,7 @@
                         "name": "Pick Leader",
                         "email": "pick@leader.com"
                     },
-                    "start_date": "2026-07-24",
+                    "start_date": "2026-11-24",
                     "start_time": "02:00 PM",
                     "end_time": "07:00 PM"
                 }
@@ -181,7 +181,7 @@
                         "name": "Core Member",
                         "email": "core@member.com"
                     },
-                    "start_date": "2026-10-01",
+                    "start_date": "2026-12-01",
                     "start_time": "07:00 AM",
                     "end_time": "12:00 PM"
                 }
