@@ -142,6 +142,19 @@
     td {
         font-weight: normal;
     }
+
+    .action-btn-group {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 4px;
+
+        a,
+        button {
+            width: 100%;
+            margin: 0;
+        }
+    }
 }
 
 .dropdown p {

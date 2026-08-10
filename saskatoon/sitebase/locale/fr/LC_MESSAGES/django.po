@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-08 23:13-0400\n"
+"POT-Creation-Date: 2026-08-10 20:23+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -257,10 +257,10 @@ msgid "About"
 msgstr "À propos"
 
 #: sitebase/templates/app/base/footer.html:90
-msgid "is a Montreal-based urban fruit harvesting collective that aims at reducing "
+msgid ""
+"is a Montreal-based urban fruit harvesting collective that aims at reducing "
 "food waste by connecting local fruit tree owners with volunteer harvesters."
-msgstr "est un collectif de glanage urbain montréalais qui aide à réduire le gaspillage "
-"de nourriture en mettant en relation propriétaires d'arbres fruitiers et cueilleur.euse.s bénévoles."
+msgstr ""
 
 #: sitebase/templates/app/base/logo.html:14
 msgid "Urban fruit harvesting collective"
@@ -641,13 +641,13 @@ msgstr "Obsolète"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:93
 msgid "Accept"
-msgstr "Acceptée"
+msgstr "Accepter"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:100
+#: sitebase/templates/app/detail_views/harvest/data_row.html:103
 msgid "Decline"
 msgstr "Décliner"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:105
+#: sitebase/templates/app/detail_views/harvest/data_row.html:109
 #: sitebase/templates/app/list_views/organization/data_row.html:28
 #: sitebase/templates/app/list_views/organization/data_row.html:43
 msgid "Edit"
@@ -1504,3 +1504,14 @@ msgid ""
 msgstr ""
 "Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
 "saison, il est permis de les contacter pour confirmer leur accord"
+
+#~ msgid "is a Montreal-based urban fruit harvesting collective hosted by"
+#~ msgstr "est un collectif de glanage urbain montréalais soutenu par"
+
+#~ msgid ""
+#~ "The initiative connects local fruit tree owners with volunteer harvesters "
+#~ "to help reduce local food waste."
+#~ msgstr ""
+#~ "Cette initiative met en relation propriétaires d'arbres fruitiers et "
+#~ "cueilleur.euse.s bénévoles afin d'aider à réduire le gaspillage de "
+#~ "nourriture."
