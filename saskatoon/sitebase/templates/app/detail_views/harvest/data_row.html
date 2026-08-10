@@ -81,14 +81,14 @@
     </td>
 
     <!-- Action -->
-    <td style="white-space: nowrap; vertical-align: middle;">
+    <td>
         {% if r.status == 'pending' and user|is_pickleader:id %}
                 {% if volunteers_count < nb_required_pickers %}
                     <a href="{% url 'participation-update' r.id %}accept/">
                         <button
                             title="Accept"
                             class="btn btn-success notika-btn-success"
-                            style="margin-bottom: 0.25em;"
+                            style="margin-bottom: 0.25em; min-width: 6em;"
                         >
                             {% trans "Accept" %}
                         </button>
@@ -96,7 +96,10 @@
                 {% endif %}
 
                 <a href="{% url 'participation-update' r.id %}decline/">
-                    <button title="Decline" class="btn btn-danger notika-btn-danger" style="margin-bottom: 0.25em; white-space: nowrap;">
+                    <button 
+                        title="Decline" 
+                        class="btn btn-danger notika-btn-danger" 
+                        style="margin-bottom: 0.25em; min-width: 6em;">
                         {% trans "Decline" %}
                     </button>
                 </a>
