@@ -83,12 +83,12 @@
     <!-- Action -->
     <td>
         {% if r.status == 'pending' and user|is_pickleader:id %}
+            <div class="action-btn-group">
                 {% if volunteers_count < nb_required_pickers %}
                     <a href="{% url 'participation-update' r.id %}accept/">
                         <button
                             title="Accept"
                             class="btn btn-success notika-btn-success"
-                            style="margin-bottom: 0.25em; min-width: 6em;"
                         >
                             {% trans "Accept" %}
                         </button>
@@ -99,10 +99,11 @@
                     <button 
                         title="Decline" 
                         class="btn btn-danger notika-btn-danger" 
-                        style="margin-bottom: 0.25em; min-width: 6em;">
+                    >
                         {% trans "Decline" %}
                     </button>
                 </a>
+            </div>
         {% elif user|is_core_or_admin %}
         <a href="{% url 'participation-update' r.id %}">
             {% trans "Edit" %}&nbsp;<i class="fa fa-pencil"></i>
