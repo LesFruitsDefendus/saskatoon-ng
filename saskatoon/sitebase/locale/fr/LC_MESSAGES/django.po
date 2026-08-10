@@ -641,7 +641,7 @@ msgstr "Obsolète"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:93
 msgid "Accept"
-msgstr "Acceptée"
+msgstr "Accepter"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:100
 msgid "Decline"
