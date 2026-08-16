@@ -78,6 +78,10 @@ def is_pickleader_or_core(user: AuthUser) -> bool:
     return user.groups.filter(name__in=[PICKLEADER, CORE]).exists()
 
 
+def is_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
+    return user.is_superuser or user.groups.filter(name="admin").exists()
+
+
 def is_core_or_admin(user: Union[AuthUser, AnonymousUser]) -> bool:
     return user.groups.filter(name__in=[CORE, "admin"]).exists()
 

@@ -98,6 +98,11 @@ urlpatterns = [
         views.EquipmentUpdateView.as_view(),
         name='equipment-update',
     ),
+    re_path(
+        r'^comment/update/(?P<pk>\d+)/$',
+        views.CommentUpdateView.as_view(),
+        name='comment-update',
+    ),
     # AUTO-COMPLETE VIEWS
     re_path(
         r'^property-autocomplete/$',

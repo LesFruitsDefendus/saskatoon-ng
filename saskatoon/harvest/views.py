@@ -1,5 +1,9 @@
 from django.contrib import messages
-from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    UserPassesTestMixin,
+)
 from django.contrib.auth.decorators import login_required
 from django.contrib.humanize.templatetags.humanize import ordinal
 from django.contrib.messages.views import SuccessMessageMixin
@@ -392,6 +396,34 @@ class CommentCreateView(
 
     def get_success_url(self):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.harvest.id})
+
+
+class CommentUpdateView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin[CommentForm],
+    UpdateView[Comment, CommentForm],
+):
+    """Edit an existing comment."""
+
+    model = Comment
+    form_class = CommentForm
+    template_name = 'app/forms/model_form.html'
+    success_message = _("Comment updated!")
+
+    def test_func(self) -> bool:
+        return self.get_object().author_id == self.request.user.id or is_core_or_admin(
+            self.request.user
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Edit comment")
+        context['cancel_url'] = self.get_success_url()
+        return context
+
+    def get_success_url(self):
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
 
 
 @login_required

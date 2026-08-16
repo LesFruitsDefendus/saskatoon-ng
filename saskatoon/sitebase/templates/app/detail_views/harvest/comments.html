@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load auth_users %}
 <section>
     <header>
         <h2>{% trans "Comments" %}</h2>
@@ -21,7 +22,13 @@
                                         <br>
                                         <small>{{ comment.author.email }}</small>
                                         <br>
-                                        <small>{{ comment.date_created }}</small>
+                                        <small>
+                                        {% if comment.date_updated %}
+                                            {{ comment.date_updated }} ({% trans "edited" %})
+                                        {% else %}
+                                            {{ comment.date_created }}
+                                        {% endif %}
+                                        </small>
                                     </div>
                                 </td>
                                 <td>
@@ -30,6 +37,13 @@
                                             <p>{{ comment.content }}</p>
                                         </div>
                                     </div>
+                                    {% if comment.author.id == user.id or user|is_admin %}
+                                        <a href="{% url 'comment-update' comment.id %}"
+                                           class="btn btn-sm"
+                                           title="{% trans 'Edit comment' %}">
+                                            <i class="fa fa-pencil"></i>
+                                        </a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
