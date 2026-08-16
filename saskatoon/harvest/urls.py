@@ -22,6 +22,16 @@ urlpatterns = [
         api.PropertyViewset.as_view({'get': 'map_marker_info'}),
         name='property-map-marker',
     ),
+    path(
+        r'harvest/map',
+        api.HarvestViewset.as_view({'get': 'map'}),
+        name='harvest-map',
+    ),
+    path(
+        r'harvest/map/<int:pk>',
+        api.HarvestViewset.as_view({'get': 'map_marker_info'}),
+        name='harvest-map-marker',
+    ),
     # CREATE VIEWS
     path(
         r'equipment/create/',

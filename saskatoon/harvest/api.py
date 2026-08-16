@@ -24,8 +24,10 @@ from harvest.models import (
     TreeType,
 )
 from harvest.serializers import (
+    HarvestSerializer,
     HarvestListSerializer,
     HarvestDetailSerializer,
+    HarvestMapSerializer,
     PropertyListSerializer,
     PropertySerializer,
     PropertyMapSerializer,
@@ -84,6 +86,37 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
                 "new": {
                     "url": reverse_lazy("harvest-create"),
                     "title": _("New Harvest"),
+                },
+            }
+        )
+
+    def map_marker_info(self, request, pk=None):
+        """Harvest details displayed in map pop-up window"""
+
+        self.template_name = 'app/list_views/harvest/marker.html'
+        harvest = self.get_object()
+
+        serialized = HarvestSerializer(harvest)
+        return Response(serialized.data)
+
+    def map(self, request, *args, **kwargs):
+        """Harvest map view."""
+
+        self.serializer_class = HarvestMapSerializer
+        self.template_name = 'app/list_views/harvest/map.html'
+        self.pagination_class = None
+        response = super().list(request, *args, **kwargs)
+
+        if renderer_format_needs_json_response(request):
+            return response
+
+        return Response(
+            {
+                "data": response.data,
+                'filter': get_filter_context(self, 'harvest'),
+                'new': {
+                    'url': reverse_lazy('harvest-create'),
+                    'title': _("New Harvest"),
                 },
             }
         )

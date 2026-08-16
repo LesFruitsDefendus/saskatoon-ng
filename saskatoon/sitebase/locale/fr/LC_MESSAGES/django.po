@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-10 20:23+0000\n"
+"POT-Creation-Date: 2026-08-16 09:41-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -216,7 +216,7 @@ msgstr "Bénéficiaire"
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/forms/participation_manage_form.html:12
-#: sitebase/templates/app/list_views/harvest/view.html:15
+#: sitebase/templates/app/list_views/harvest/view.html:29
 msgid "Harvest"
 msgstr "Récolte"
 
@@ -374,7 +374,7 @@ msgstr "à"
 #: sitebase/templates/app/detail_views/property/harvest_table.html:50
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
-#: sitebase/templates/app/list_views/harvest/view.html:17
+#: sitebase/templates/app/list_views/harvest/view.html:31
 #: sitebase/templates/app/list_views/property/view.html:30
 msgid "Status"
 msgstr "Statut"
@@ -747,7 +747,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:8
 #: sitebase/templates/app/detail_views/organization/features.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:21
+#: sitebase/templates/app/list_views/harvest/view.html:35
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
@@ -1057,7 +1057,7 @@ msgid "New Harvest"
 msgstr "Nouvelle récolte"
 
 #: sitebase/templates/app/detail_views/property/harvest_table.html:48
-#: sitebase/templates/app/list_views/harvest/view.html:20
+#: sitebase/templates/app/list_views/harvest/view.html:34
 #: sitebase/templates/app/list_views/property/view.html:31
 msgid "Tree(s)"
 msgstr "Arbre(s)"
@@ -1072,7 +1072,8 @@ msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:18
+#: sitebase/templates/app/list_views/harvest/marker.html:43
+#: sitebase/templates/app/list_views/harvest/view.html:32
 #: sitebase/templates/app/list_views/property/view.html:28
 #: sitebase/templates/app/participation_list.html:20
 msgid "Property"
@@ -1082,7 +1083,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/community/view.html:16
 #: sitebase/templates/app/list_views/equipment/data_table.html:18
 #: sitebase/templates/app/list_views/equipment/view.html:19
-#: sitebase/templates/app/list_views/harvest/view.html:19
+#: sitebase/templates/app/list_views/harvest/view.html:33
 #: sitebase/templates/app/list_views/organization/organizations.html:36
 #: sitebase/templates/app/list_views/property/view.html:29
 #: sitebase/templates/app/participation_list.html:21
@@ -1211,15 +1212,66 @@ msgstr "Filtrer"
 msgid "Reset"
 msgstr "Réinitialiser"
 
-#: sitebase/templates/app/list_views/harvest/view.html:16
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:6
+msgid "Succeeded Harvest"
+msgstr "Récolte Réussie"
+
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:11
+msgid "Cancelled Harvest"
+msgstr "Récolte Annulée"
+
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:16
+msgid "Ready Harvest"
+msgstr "Récolte Prête"
+
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:21
+msgid "Adopted Harvest"
+msgstr "Récolte Adoptée"
+
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:26
+msgid "Scheduled Harvest"
+msgstr "Récolte Programmée"
+
+#: sitebase/templates/app/list_views/harvest/legend-harvest.html:31
+msgid "Orphan Harvest"
+msgstr "Récolte Orpheline"
+
+#: sitebase/templates/app/list_views/harvest/map.html:24
+#: sitebase/templates/app/list_views/harvest/view.html:20
+#: sitebase/templates/app/list_views/organization/map.html:21
+#: sitebase/templates/app/list_views/organization/organizations.html:18
+#: sitebase/templates/app/list_views/property/map.html:23
+#: sitebase/templates/app/list_views/property/view.html:19
+msgid "Table"
+msgstr "Tableau"
+
+#: sitebase/templates/app/list_views/harvest/map.html:25
+#: sitebase/templates/app/list_views/harvest/view.html:21
+#: sitebase/templates/app/list_views/organization/map.html:22
+#: sitebase/templates/app/list_views/organization/organizations.html:19
+#: sitebase/templates/app/list_views/property/map.html:24
+#: sitebase/templates/app/list_views/property/view.html:20
+msgid "Map"
+msgstr "Carte"
+
+#: sitebase/templates/app/list_views/harvest/map.html:61
+#: sitebase/templates/app/list_views/property/legend.html:11
+msgid "Legend"
+msgstr "Légende"
+
+#: sitebase/templates/app/list_views/harvest/marker.html:37
+msgid "Led by"
+msgstr "Guidée par"
+
+#: sitebase/templates/app/list_views/harvest/view.html:30
 msgid "Date/Time"
 msgstr "Date/Heure"
 
-#: sitebase/templates/app/list_views/harvest/view.html:22
+#: sitebase/templates/app/list_views/harvest/view.html:36
 msgid "Pick Leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/list_views/harvest/view.html:23
+#: sitebase/templates/app/list_views/harvest/view.html:37
 msgid "Volunteers"
 msgstr "Bénévoles"
 
@@ -1247,20 +1299,6 @@ msgstr "Cet organisme accepte les dons de fruits"
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:33
 msgid "No Equipment"
 msgstr "Pas d'Équipement"
-
-#: sitebase/templates/app/list_views/organization/map.html:21
-#: sitebase/templates/app/list_views/organization/organizations.html:18
-#: sitebase/templates/app/list_views/property/map.html:23
-#: sitebase/templates/app/list_views/property/view.html:19
-msgid "Table"
-msgstr "Tableau"
-
-#: sitebase/templates/app/list_views/organization/map.html:22
-#: sitebase/templates/app/list_views/organization/organizations.html:19
-#: sitebase/templates/app/list_views/property/map.html:24
-#: sitebase/templates/app/list_views/property/view.html:20
-msgid "Map"
-msgstr "Carte"
 
 #: sitebase/templates/app/list_views/organization/marker.html:25
 msgid "Extra details"
@@ -1304,47 +1342,19 @@ msgstr "entrées"
 msgid " Are you really sure you want to delete this property?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette propriété?"
 
-#: sitebase/templates/app/list_views/property/legend.html:11
-msgid "Legend"
-msgstr "Légende"
-
-#: sitebase/templates/app/list_views/property/legend.html:16
-msgid "Succeeded Harvest"
-msgstr "Récolte Réussie"
-
-#: sitebase/templates/app/list_views/property/legend.html:21
-msgid "Cancelled Harvest"
-msgstr "Récolte Annulée"
-
-#: sitebase/templates/app/list_views/property/legend.html:26
-msgid "Ready Harvest"
-msgstr "Récolte Prête"
-
-#: sitebase/templates/app/list_views/property/legend.html:31
-msgid "Adopted Harvest"
-msgstr "Récolte Adoptée"
-
-#: sitebase/templates/app/list_views/property/legend.html:36
-msgid "Scheduled Harvest"
-msgstr "Récolte Programmée"
-
-#: sitebase/templates/app/list_views/property/legend.html:41
-msgid "Orphan Harvest"
-msgstr "Récolte Orpheline"
-
-#: sitebase/templates/app/list_views/property/legend.html:50
+#: sitebase/templates/app/list_views/property/legend.html:20
 msgid "Authorised Property"
 msgstr "Propritété Authorisée"
 
-#: sitebase/templates/app/list_views/property/legend.html:57
+#: sitebase/templates/app/list_views/property/legend.html:27
 msgid "Pending Property"
 msgstr "Propriété en attente de validation"
 
-#: sitebase/templates/app/list_views/property/legend.html:64
+#: sitebase/templates/app/list_views/property/legend.html:34
 msgid "Unauthorised Property "
 msgstr "Propriété non authorisée"
 
-#: sitebase/templates/app/list_views/property/legend.html:71
+#: sitebase/templates/app/list_views/property/legend.html:41
 msgid "Validated Property"
 msgstr "Propriété Validée"
 

@@ -343,6 +343,45 @@ class HarvestSerializer(serializers.ModelSerializer[Harvest]):
         return OrganizationSerializer(organizations, many=True).data
 
 
+class HarvestMapPropertySerializer(serializers.ModelSerializer[Property]):
+    class Meta:
+        model = Property
+        fields = ['id', 'address', 'longitude', 'latitude']
+
+    address = serializers.ReadOnlyField(source="short_address")
+    longitude = serializers.ReadOnlyField()
+    latitude = serializers.ReadOnlyField()
+
+
+class HarvestMapSerializer(serializers.ModelSerializer[Harvest]):
+    class Meta:
+        model = Harvest
+        fields = [
+            'id',
+            'icon',
+            'icon_hover',
+            'icon_color',
+            'property',
+        ]
+
+    property = HarvestMapPropertySerializer(many=False, read_only=True)
+    icon = serializers.SerializerMethodField()
+    icon_hover = serializers.SerializerMethodField()
+    icon_color = serializers.SerializerMethodField()
+
+    def icon_shape(self, harvest, size: str):
+        return harvest_filter(harvest.status, size, 'stack')
+
+    def get_icon(self, obj):
+        return self.icon_shape(obj, 'lg')
+
+    def get_icon_hover(self, obj):
+        return self.icon_shape(obj, 'xl')
+
+    def get_icon_color(self, obj):
+        return color(obj.status)
+
+
 class HarvestBeneficiarySerializer(serializers.ModelSerializer[Organization]):
     class Meta:
         model = Organization
