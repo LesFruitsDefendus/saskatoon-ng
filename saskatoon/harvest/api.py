@@ -248,31 +248,12 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
 
         return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-
-class PropertyMapView(LoginRequiredMixin, generics.ListAPIView[Property]):
-    """Map associated with the Property list view"""
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Property.objects.all().order_by('-id')
-    serializer_class = PropertyMapSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Property]]]
-    filterset_class = PropertyFilter
-    template_name = 'app/list_views/property/map.html'
-    pagination_class = None
-    search_fields = [
-        'id',
-        'owner__person__family_name',
-        'owner__person__first_name',
-        'street',
-        'street_number',
-        'pending_contact_first_name',
-        'pending_contact_family_name',
-        'pending_contact_email',
-    ]
-
-    def list(self, request, *args, **kwargs):
+    def map(self, request, *args, **kwargs):
         """Property map view."""
 
+        self.serializer_class = PropertyMapSerializer
+        self.template_name = 'app/list_views/property/map.html'
+        self.pagination_class = None
         response = super().list(request, *args, **kwargs)
 
         if renderer_format_needs_json_response(request):
@@ -288,7 +269,6 @@ class PropertyMapView(LoginRequiredMixin, generics.ListAPIView[Property]):
                 },
             }
         )
-
 
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet[Equipment]):
     """Equipment viewset"""
