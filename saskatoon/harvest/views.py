@@ -410,8 +410,8 @@ class CommentUpdateView(
 class CommentDeleteView(
     LoginRequiredMixin,
     UserPassesTestMixin,
-    SuccessMessageMixin,
-    DeleteView,
+    SuccessMessageMixin[CommentForm],
+    DeleteView[Comment, CommentForm],
 ):
     """Delete an existing comment."""
 
