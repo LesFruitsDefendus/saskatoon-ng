@@ -4,10 +4,6 @@
 <section>
     <header>
         <h2>{% trans "Comments" %}</h2>
-        <a href="{% url 'comment-create' id %}"
-           class="btn btn-primary notika-btn-primary waves-effect">
-            <i class="fa fa-plus"></i>&nbsp; {% trans "New comment" %}
-        </a>
     </header>
     <div class="card-box mg-t-30">
         <div class="chat-conversation">
@@ -49,6 +45,17 @@
                         {% endfor %}
                     </table>
                 </ul>
+            </div>
+            <div class="mg-t-20 pd-15" style="border-top: 1px solid #eee;">
+                <form method="post" action="{% url 'comment-create' id %}">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <textarea name="content" class="form-control" rows="3" placeholder="{% trans 'Write a comment...' %}" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
+                        <i class="fa fa-paper-plane"></i>&nbsp; {% trans "Post comment" %}
+                    </button>
+                </form>
             </div>
         </div>
     </div>
