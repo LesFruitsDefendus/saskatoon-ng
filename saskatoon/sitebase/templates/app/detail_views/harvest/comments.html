@@ -2,6 +2,10 @@
 {% load static %}
 {% load auth_users %}
 
+{% block script %}
+    <script src="{% static 'js/harvest-comments.js' %}"></script>
+{% endblock script %}
+
 <section>
     <header>
         <h2>{% trans "Comments" %}</h2>
@@ -102,5 +106,3 @@
         </div>
     </div>
 </section>
-
-<script src="{% static 'js/harvest-comments.js' %}"></script>
