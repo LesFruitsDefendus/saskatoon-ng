@@ -11,8 +11,8 @@
                 <ul class="conversation-list ">
                     <table>
                         {% for comment in comments %}
-                            <tr>
-                                <td style="text-align: right;">
+                            <tr id="comment-row-{{ comment.id }}">
+                                <td style="text-align: right; vertical-align: top; padding-top: 10px;">
                                     <div style="margin-bottom: 1em;">
                                         <b>{{ comment.author.name }}</b>
                                         <br>
@@ -28,17 +28,57 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <div class="conversation-text" style="margin-bottom: 1em;">
-                                        <div class="ctext-wrap">
-                                            <p>{{ comment.content }}</p>
+                                    <div id="comment-view-{{ comment.id }}" class="conversation-text-container" style="margin-bottom: 1em;">
+                                        <div class="conversation-text">
+                                            <div class="ctext-wrap">
+                                                <p id="comment-text-{{ comment.id }}">{{ comment.content }}</p>
+                                            </div>
                                         </div>
+                                        {% if comment.author.id == user.id or user|is_admin %}
+                                              <button type="button"
+                                                    class="btn btn-sm btn-link edit-comment-btn text-primary"
+                                                    data-comment-id="{{ comment.id }}"
+                                                    title="{% trans 'Edit comment' %}"
+                                                    style="padding: 2px 6px; margin-top: 4px;">
+                                                <i class="fa fa-pencil"></i>
+                                            </button>
+                                        {% endif %}
+                                        
+                                        {% if user|is_admin %}
+                                            <form method="post" 
+                                                action="{% url 'comment-delete' comment.id %}" 
+                                                style="display: inline-block;"
+                                                onsubmit="return confirm('{% filter escapejs %}{% trans "Are you sure you want to delete this comment?" %}{% endfilter %}');">
+                                                {% csrf_token %}
+                                                <button type="submit" 
+                                                        class="btn btn-sm btn-link text-danger" 
+                                                        title="{% trans 'Delete comment' %}">
+                                                    <i class="fa fa-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                        {% endif %}
                                     </div>
+
                                     {% if comment.author.id == user.id or user|is_admin %}
-                                        <a href="{% url 'comment-update' comment.id %}"
-                                           class="btn btn-sm"
-                                           title="{% trans 'Edit comment' %}">
-                                            <i class="fa fa-pencil"></i>
-                                        </a>
+                                        <div id="comment-edit-{{ comment.id }}" class="comment-edit-form-container" style="display: none; margin-bottom: 1em;">
+                                            <form method="post" action="{% url 'comment-update' comment.id %}">
+                                                {% csrf_token %}
+                                                <div class="form-group">
+                                                    <textarea name="content" 
+                                                              class="form-control comment-edit-textarea" 
+                                                              rows="3" 
+                                                              required>{{ comment.content }}</textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                                                    <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
+                                                </button>
+                                                <button type="button" 
+                                                        class="btn btn-default waves-effect btn-sm cancel-edit-btn" 
+                                                        data-comment-id="{{ comment.id }}">
+                                                    {% trans "Cancel" %}
+                                                </button>
+                                            </form>
+                                        </div>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -46,6 +86,7 @@
                     </table>
                 </ul>
             </div>
+
             <div class="mg-t-20 pd-15" style="border-top: 1px solid #eee;">
                 <form method="post" action="{% url 'comment-create' id %}">
                     {% csrf_token %}
@@ -60,3 +101,39 @@
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.edit-comment-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-comment-id');
+            const viewContainer = document.getElementById(`comment-view-${commentId}`);
+            const editContainer = document.getElementById(`comment-edit-${commentId}`);
+
+            if (viewContainer && editContainer) {
+                viewContainer.style.display = 'none';
+                editContainer.style.display = 'block';
+
+                const textarea = editContainer.querySelector('textarea');
+                if (textarea) {
+                    textarea.focus();
+                    textarea.setSelectionRange(textarea.value.length, textarea.value.length);
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.cancel-edit-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const commentId = this.getAttribute('data-comment-id');
+            const viewContainer = document.getElementById(`comment-view-${commentId}`);
+            const editContainer = document.getElementById(`comment-edit-${commentId}`);
+
+            if (viewContainer && editContainer) {
+                editContainer.style.display = 'none';
+                viewContainer.style.display = 'block';
+            }
+        });
+    });
+});
+</script>
