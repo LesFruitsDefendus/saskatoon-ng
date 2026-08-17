@@ -14,7 +14,7 @@ urlpatterns = [
     # MAP VIEWS
     path(
         r'property/map',
-        api.PropertyMapView.as_view(),
+        api.PropertyViewset.as_view({'get': 'map'}),
         name='property-map',
     ),
     path(
