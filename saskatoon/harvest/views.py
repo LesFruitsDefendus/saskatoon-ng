@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView
 from django_stubs_ext import StrOrPromise
 from datetime import datetime
 from logging import getLogger
@@ -36,7 +36,7 @@ from harvest.models import (
     RequestForParticipation as RFP,
 )
 from member.models import Organization
-from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
+from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin, is_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
 
@@ -402,6 +402,24 @@ class CommentUpdateView(
         context['title'] = _("Edit comment")
         context['cancel_url'] = self.get_success_url()
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
+
+
+class CommentDeleteView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin,
+    DeleteView,
+):
+    """Delete an existing comment."""
+
+    model = Comment
+    success_message = _("Comment deleted!")
+
+    def test_func(self) -> bool:
+        return self.get_object().author_id == self.request.user.id or is_admin(self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})

@@ -77,6 +77,11 @@ urlpatterns = [
         views.harvest_yield_delete,
         name='harvest-yield-delete',
     ),
+    path(
+        r'^comment/delete/<int:pk>/',
+        views.CommentDeleteView.as_view(),
+        name='comment-delete',
+    ),
     # UPDATE VIEWS
     re_path(
         r'^property/update/(?P<pk>\d+)/$',
