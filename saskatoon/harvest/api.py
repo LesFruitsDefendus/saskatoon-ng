@@ -270,6 +270,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
             }
         )
 
+
 class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet[Equipment]):
     """Equipment viewset"""
 
