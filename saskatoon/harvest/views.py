@@ -367,35 +367,16 @@ class CommentCreateView(
     CreateView[Comment, CommentForm],
 ):
     permission_required = 'harvest.add_comment'
-    model = Comment
     form_class = CommentForm
-    template_name = 'app/forms/model_form.html'
     success_message = _("New comment added!")
 
-    def get_form_kwargs(self, *args, **kwargs):
-        """Retrieve harvest object and comment author"""
-
-        self.author = self.request.user
-        try:
-            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
-        except Harvest.DoesNotExist:
-            raise Exception('Invalid Harvest ID provided')
-
-        return super().get_form_kwargs(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _("Add new comment")
-        context['cancel_url'] = self.get_success_url()
-        return context
-
     def form_valid(self, form):
-        form.instance.author = self.author
-        form.instance.harvest = self.harvest
+        form.instance.harvest = get_object_or_404(Harvest, id=self.kwargs.get('hid'))
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('harvest-detail', kwargs={'pk': self.harvest.id})
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.kwargs.get('hid')})
 
 
 class CommentUpdateView(
