@@ -643,7 +643,7 @@ msgstr "Annuler"
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:95
 msgid "Write a comment..."
-msgstr "Écrire une commentaire"
+msgstr "Écrire un commentaire..."
 
 #: sitebase/templates/app/detail_views/harvest/comments.html:98
 msgid "Post comment"
