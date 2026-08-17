@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-17 20:45+0000\n"
+"POT-Creation-Date: 2026-08-17 22:28+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -602,7 +602,7 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:7
+#: sitebase/templates/app/detail_views/harvest/comments.html:11
 #: sitebase/templates/app/detail_views/organization/contact.html:66
 #: sitebase/templates/app/detail_views/property/contact.html:83
 #: sitebase/templates/app/forms/participation_manage_form.html:33
@@ -610,23 +610,23 @@ msgstr "Non"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:20
+#: sitebase/templates/app/detail_views/harvest/comments.html:24
 msgid "edited"
 msgstr "modifié"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:40
+#: sitebase/templates/app/detail_views/harvest/comments.html:44
 msgid "Edit comment"
 msgstr "Modifier le commentaire"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:46
+#: sitebase/templates/app/detail_views/harvest/comments.html:50
 msgid "Are you sure you want to delete this comment?"
 msgstr "Êtes-vous certain(e) de vouloir effacer ce commentaire?"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:54
+#: sitebase/templates/app/detail_views/harvest/comments.html:58
 msgid "Delete comment"
 msgstr "Effacer le Commentaire"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:74
+#: sitebase/templates/app/detail_views/harvest/comments.html:78
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
 #: sitebase/templates/app/forms/model_form.html:17
 #: sitebase/templates/app/forms/organization_create_form.html:44
@@ -634,20 +634,20 @@ msgstr "Effacer le Commentaire"
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:79
+#: sitebase/templates/app/detail_views/harvest/comments.html:83
 #: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:48
 #: sitebase/templates/app/forms/property_create_form.html:65
 msgid "Cancel"
 msgstr "Annuler"
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:95
+#: sitebase/templates/app/detail_views/harvest/comments.html:99
 msgid "Write a comment..."
 msgstr "Écrire un commentaire..."
 
-#: sitebase/templates/app/detail_views/harvest/comments.html:98
+#: sitebase/templates/app/detail_views/harvest/comments.html:102
 msgid "Post comment"
-msgstr "Afficher un commentaire"
+msgstr "Ajouter un commentaire"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:37
 msgid "harvest(s)"
