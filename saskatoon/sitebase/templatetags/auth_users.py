@@ -13,6 +13,13 @@ def is_person(actor):
     return actor.is_person
 
 
+@register.filter(name="is_admin")
+def is_admin(user: AuthUser) -> bool:
+    """checks if the user making the request belongs to the admin group"""
+
+    return perms.is_admin(user)
+
+
 @register.filter(name="is_core_or_admin")
 def is_core_or_admin(user: AuthUser) -> bool:
     """checks if the user making the request has the groups core or admin"""

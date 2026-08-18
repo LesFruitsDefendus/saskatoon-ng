@@ -293,8 +293,8 @@ class CommentSerializer(serializers.ModelSerializer[Comment]):
         fields = '__all__'
 
     author = PickLeaderSerializer(many=False, read_only=True)
-    date_created = serializers.DateTimeField(format=r'%c')
-    date_updated = serializers.DateTimeField(format=r'%c')
+    date_created = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p')
+    date_updated = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p')
 
 
 class HarvestSerializer(serializers.ModelSerializer[Harvest]):
