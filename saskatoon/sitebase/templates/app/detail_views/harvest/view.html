@@ -11,6 +11,7 @@
 
 {% block script %}
     <script type="module">import "{% static 'js/map/main.js' %}"</script>
+    <script src="{% static 'js/edit-comments.js' %}"></script>
 {% endblock script %}
 
 {% block content %}
@@ -22,7 +23,7 @@
         {% include 'app/detail_views/harvest/data_table.html' %}
         <div class="distribution-and-comments">
             {% include 'app/detail_views/harvest/distribution/view.html' %}
-            {% include 'app/detail_views/harvest/comments.html' %}
+            {% include 'app/detail_views/harvest/comments/view.html' %}
         </div>
     </div>
 {% endblock content %}
