@@ -157,7 +157,7 @@
 
     .comments-wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: column-reverse;
         gap: 10px;
         margin-bottom: 20px;
     }
