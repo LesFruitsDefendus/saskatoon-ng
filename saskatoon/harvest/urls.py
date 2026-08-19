@@ -78,7 +78,7 @@ urlpatterns = [
         name='harvest-yield-delete',
     ),
     path(
-        r'^comment/delete/<int:pk>/',
+        r'comment/delete/<int:hid>/',
         views.CommentDeleteView.as_view(),
         name='comment-delete',
     ),
