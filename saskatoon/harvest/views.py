@@ -419,7 +419,7 @@ class CommentDeleteView(
     success_message = _("Comment deleted!")
 
     def test_func(self) -> bool:
-        return self.get_object().author_id == self.request.user.id or is_admin(self.request.user)
+        return is_admin(self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
