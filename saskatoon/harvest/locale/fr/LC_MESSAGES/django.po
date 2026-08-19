@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 16:29-0400\n"
+"POT-Creation-Date: 2026-08-17 22:28+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "Réservation réussie"
 msgid "Sorry, this equipment point is no longer available"
 msgstr "Désolé, ce point d'équipement n'est plus disponible"
 
-#: harvest/api.py:200 harvest/api.py:287
+#: harvest/api.py:200 harvest/api.py:268
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
@@ -81,11 +81,11 @@ msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
-#: harvest/api.py:323
+#: harvest/api.py:304
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:372
+#: harvest/api.py:353
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
@@ -1052,93 +1052,93 @@ msgstr "Mise à jour de la demande réussie!"
 msgid "Request For Participation"
 msgstr "Demande de participation"
 
-#: harvest/views.py:373
+#: harvest/views.py:371
 msgid "New comment added!"
 msgstr "Nouveau commentaire ajouté!"
 
-#: harvest/views.py:388
-msgid "Add new comment"
-msgstr "Ajouter un nouveau commentaire"
-
-#: harvest/views.py:412
+#: harvest/views.py:393
 msgid "Comment updated!"
 msgstr "Commentaire modifié!"
 
-#: harvest/views.py:421
+#: harvest/views.py:402
 msgid "Edit comment"
 msgstr "Modifier le commentaire"
 
-#: harvest/views.py:435
+#: harvest/views.py:419
+msgid "Comment deleted!"
+msgstr "Commentaire effacé!"
+
+#: harvest/views.py:434
 msgid "You must be a pickleader to delete a fruit distribution entry!"
 msgstr ""
 "Vous devez être chef de cueillette pour supprimer une entrée dans la "
 "distribution de fruits!"
 
-#: harvest/views.py:450
+#: harvest/views.py:449
 msgid "You must be a pickleader to add a fruit distribution entry!"
 msgstr ""
 "Vous devez être chef de cueillette pour ajouter une entrée dans la "
 "distribution de fruits!"
 
-#: harvest/views.py:456
+#: harvest/views.py:455
 msgid "New fruit distribution failed: please select a recipient"
 msgstr ""
 "La nouvelle distribution de fruit a échouée: merci de sélectionner un(e) "
 "bénéficiaire"
 
-#: harvest/views.py:464
+#: harvest/views.py:463
 msgid "New fruit distribution failed: weight must be positive"
 msgstr ""
 "La nouvelle distribution de fruit a échouée: les poids doivent être positifs"
 
-#: harvest/views.py:473
+#: harvest/views.py:472
 msgid "New Fruit Recipient successfully added!"
 msgstr "Ajout du nouveau (de la nouvelle) Bénéficiaire réussi(e)!"
 
-#: harvest/views.py:487
+#: harvest/views.py:486
 msgid "You must be a pickleader to adopt this harvest!"
 msgstr "Vous devez être chef de cueillette pour adopter cette cueillette"
 
-#: harvest/views.py:492
+#: harvest/views.py:491
 msgid "You successfully adopted this harvest!"
 msgstr "Vous avez adopté cette cueillette avec succès !"
 
-#: harvest/views.py:494
+#: harvest/views.py:493
 msgid "This harvest already has a pickleader!"
 msgstr "Cette cueillette a déjà un.e chef.fe de cueillette!"
 
-#: harvest/views.py:510
+#: harvest/views.py:509
 msgid "Harvest status already set to: {}"
 msgstr "Le statut de la cueillette a été changé pour: {}"
 
-#: harvest/views.py:513
+#: harvest/views.py:512
 msgid "You are not authorized to update this harvest status."
 msgstr ""
 "Vous n'avez pas l'autorisation de mettre à jour le statut de cette "
 "cueillette."
 
-#: harvest/views.py:521
+#: harvest/views.py:520
 msgid "You can't leave this harvest as there are unresolved requests."
 msgstr ""
 "Vous ne pouvez pas quitter cette cueillette puisqu'il y a des requêtes non "
 "résolues."
 
-#: harvest/views.py:528
+#: harvest/views.py:527
 msgid "This harvest no longer has any pick leader"
 msgstr "Cette récolte n'a plus de chef.fe de cueillette"
 
-#: harvest/views.py:532
+#: harvest/views.py:531
 msgid ""
 "Please fill in the public anouncement field so the harvest can be published."
 msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
-#: harvest/views.py:536
+#: harvest/views.py:535
 msgid "Please set a date before marking the harvest as scheduled."
 msgstr ""
 "Merci de fixer une date de récolte avant de marquer la cueillette comme "
 "programmée."
 
-#: harvest/views.py:542
+#: harvest/views.py:541
 msgid ""
 "Please resolve all requests for participation before marking the harvest as "
 "ready."
@@ -1146,34 +1146,37 @@ msgstr ""
 "Merci de résoudre toutes les requêtes de participation avant de marquer "
 "cette cueillette comme étant prête."
 
-#: harvest/views.py:548
+#: harvest/views.py:547
 msgid ""
 "Please complete fruit distribution before marking the harvest as succeeded."
 msgstr ""
 "Merci de compléter la distribution des fruits avant de marquer la cueillette "
 "comme réussie."
 
-#: harvest/views.py:555
+#: harvest/views.py:554
 msgid "Harvest status successfully set to: {}"
 msgstr "Statut de la cueillette changé avec succès pour: {}"
 
-#: harvest/views.py:569
+#: harvest/views.py:568
 msgid "You must be a core member to create a orphan harvest."
 msgstr ""
 "Vous devez être membre de l'équipe Core pour créer une cueillette orpheline."
 
-#: harvest/views.py:572
+#: harvest/views.py:571
 msgid "Property is has not yet been validated!"
 msgstr "La propriété n'a pas encore été validée pour cette saison!"
 
-#: harvest/views.py:575
+#: harvest/views.py:574
 msgid "Property is not authorized for this season!"
 msgstr "La propriété n'est pas autorisée pour cette saison!"
 
-#: harvest/views.py:596
+#: harvest/views.py:595
 msgid "Successfully created {} orphan harvests"
 msgstr "{} cueillettes orphelines créées avec succès"
 
-#: harvest/views.py:598
+#: harvest/views.py:597
 msgid "Harvests have already been created for this property"
 msgstr "Des récoltes ont déjà été crées pour cette propriété"
+
+#~ msgid "Add new comment"
+#~ msgstr "Ajouter un nouveau commentaire"

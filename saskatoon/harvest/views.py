@@ -12,7 +12,7 @@ from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
-from django.views.generic import CreateView, TemplateView, UpdateView
+from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView
 from django_stubs_ext import StrOrPromise
 from datetime import datetime
 from logging import getLogger
@@ -36,7 +36,7 @@ from harvest.models import (
     RequestForParticipation as RFP,
 )
 from member.models import Organization
-from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin
+from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin, is_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
 
@@ -367,35 +367,16 @@ class CommentCreateView(
     CreateView[Comment, CommentForm],
 ):
     permission_required = 'harvest.add_comment'
-    model = Comment
     form_class = CommentForm
-    template_name = 'app/forms/model_form.html'
     success_message = _("New comment added!")
 
-    def get_form_kwargs(self, *args, **kwargs):
-        """Retrieve harvest object and comment author"""
-
-        self.author = self.request.user
-        try:
-            self.harvest = Harvest.objects.get(id=self.kwargs.get('hid'))
-        except Harvest.DoesNotExist:
-            raise Exception('Invalid Harvest ID provided')
-
-        return super().get_form_kwargs(*args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _("Add new comment")
-        context['cancel_url'] = self.get_success_url()
-        return context
-
     def form_valid(self, form):
-        form.instance.author = self.author
-        form.instance.harvest = self.harvest
+        form.instance.harvest = get_object_or_404(Harvest, id=self.kwargs.get('hid'))
+        form.instance.author = self.request.user
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse_lazy('harvest-detail', kwargs={'pk': self.harvest.id})
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.kwargs.get('hid')})
 
 
 class CommentUpdateView(
@@ -421,6 +402,24 @@ class CommentUpdateView(
         context['title'] = _("Edit comment")
         context['cancel_url'] = self.get_success_url()
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
+
+
+class CommentDeleteView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin[CommentForm],
+    DeleteView[Comment, CommentForm],
+):
+    """Delete an existing comment."""
+
+    model = Comment
+    success_message = _("Comment deleted!")
+
+    def test_func(self) -> bool:
+        return is_admin(self.request.user)
 
     def get_success_url(self):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
