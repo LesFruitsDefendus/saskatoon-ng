@@ -1,8 +1,9 @@
 document.addEventListener('DOMContentLoaded', function () {
-    document.addEventListener('click', function (e) {
-        const editBtn = e.target.closest('.edit-comment-btn');
-        if (editBtn) {
-            const commentId = editBtn.getAttribute('data-comment-id');
+    const editBtns = document.querySelectorAll('.edit-comment-btn');
+
+    editBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const commentId = btn.getAttribute('data-comment-id');
             const viewContainer = document.getElementById(`comment-view-${commentId}`);
             const editContainer = document.getElementById(`comment-edit-${commentId}`);
 
@@ -16,11 +17,14 @@ document.addEventListener('DOMContentLoaded', function () {
                     textarea.setSelectionRange(textarea.value.length, textarea.value.length);
                 }
             }
-        }
+        });
+    });
 
-        const cancelBtn = e.target.closest('.cancel-edit-btn');
-        if (cancelBtn) {
-            const commentId = cancelBtn.getAttribute('data-comment-id');
+    const cancelBtns = document.querySelectorAll('.cancel-edit-btn');
+
+    cancelBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            const commentId = btn.getAttribute('data-comment-id');
             const viewContainer = document.getElementById(`comment-view-${commentId}`);
             const editContainer = document.getElementById(`comment-edit-${commentId}`);
 
@@ -28,6 +32,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 editContainer.style.display = 'none';
                 viewContainer.style.display = '';
             }
-        }
+        });
     });
 });
