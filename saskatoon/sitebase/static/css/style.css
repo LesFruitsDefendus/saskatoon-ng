@@ -6385,7 +6385,7 @@ body.box-layout {
 .breadcomb-report .btn {
     background: #440bd4;
     border-color: #440bd4;
-    color: #e7e0f9aa;
+    color: #ffffff;
     box-shadow: none;
     border-radius: 3px;
     outline: none;
@@ -6396,6 +6396,7 @@ body.box-layout {
 .breadcomb-report .btn:hover {
     background: #440bd4;
     border-color: #440bd4;
+    color: #e7e0f9aa;
     box-shadow: none;
     outline: none;
 }

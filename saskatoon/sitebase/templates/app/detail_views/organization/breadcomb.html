@@ -4,7 +4,7 @@
 <div class="breadcomb-area">
     <div class="breadcomb-list">
         <div class="row">
-            <div class="col-xs-10">
+            <div class="col-12 col-sm-8">
                 <div class="breadcomb-wp">
                     <div class="breadcomb-icon">
                         {% if is_equipment_point %}
@@ -24,11 +24,11 @@
                 </div>
             </div>
 
-            <div class="col-xs-2">
-                <div class="breadcomb-report">
+            <div class="col-xs-12 col-sm-4 text-right">
+                <div class="breadcomb-report" style="padding-right: 4px; margin-top: 12px;">
                     {% if perms.member.change_organization %}
                         <a href="{% url 'organization-update' actor_id %}">
-                            <button title="Edit Organization" class="btn">
+                            <button title="Edit Organization" class="btn btn-primary notika-btn-primary waves-effect">
                                 <i class="fa fa-pencil"></i>&nbsp;
                                 {% trans "Edit Organization" %}
                             </button>

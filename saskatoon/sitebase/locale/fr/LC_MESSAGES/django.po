@@ -823,7 +823,7 @@ msgstr "Adoptez la!"
 
 #: sitebase/templates/app/detail_views/organization/breadcomb.html:33
 msgid "Edit Organization"
-msgstr "Modifier l'Organisation"
+msgstr "Modifier l'Organisme"
 
 #: sitebase/templates/app/detail_views/organization/contact.html:14
 msgid "Contact person"
