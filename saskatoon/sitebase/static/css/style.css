@@ -6385,10 +6385,11 @@ body.box-layout {
 .breadcomb-report .btn {
     background: #440bd4;
     border-color: #440bd4;
-    color: #e7e0f9aa;
+    color: #ffffff;
     box-shadow: none;
     border-radius: 3px;
     outline: none;
+    margin-right: -2px;
 }
 
 .breadcomb-report .btn:focus,
@@ -6396,12 +6397,23 @@ body.box-layout {
 .breadcomb-report .btn:hover {
     background: #440bd4;
     border-color: #440bd4;
+    color: #e7e0f9aa;
     box-shadow: none;
     outline: none;
 }
 
 #sidebar.active .sidebar-nav ul.metismenu li ul.submenu-angle.layout-mini-tl {
     top: -322px;
+}
+
+@media (max-width: 767px) {
+
+    .breadcomb-report .btn {
+        text-align: right;
+        margin-top: 15px;
+        margin-bottom: 20px;
+        margin-right: 20px;
+    }
 }
 
 /*----------------------------------------*/
