@@ -10,6 +10,58 @@
 
     .dropdown {
         width: fit-content;
+
+        .btn.dropdown-toggle.btn-default {
+            &.saskatoon-warning {
+                background-color: var(--saskatoon-warning);
+            }
+
+            &.saskatoon-info {
+                background-color: var(--saskatoon-info);
+            }
+
+            &.saskatoon-success {
+                background-color: var(--saskatoon-success);
+            }
+
+            &.saskatoon-danger {
+                background-color: var(--saskatoon-danger);
+            }
+
+            &:hover,
+            &:focus,
+            &:active {
+                filter: brightness(90%);
+                color: #ffffff;
+                border-color: transparent;
+                box-shadow: none;
+            }
+        }
+
+        .status-dropdown-title {
+            font-size: 1.2em;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .dropdown-menu.harvest-status-menu > li > a.status-dropdown-item {
+            display: flex;
+            padding-left: 8px;
+            padding-right: 12px;
+            font-weight: bold;
+        }
+
+        .harvest-status-menu .status-icon-wrapper {
+            display: inline-block;
+            width: 20px;
+            margin-right: 8px;
+            flex-shrink: 0;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+        }
     }
 
     .equipment-point {
@@ -52,6 +104,28 @@
         }
     }
 
+    .harvest-info {
+        .badge {
+            &.saskatoon-warning {
+                background-color: var(--saskatoon-warning);
+            }
+
+            &.saskatoon-info {
+                background-color: var(--saskatoon-info);
+            }
+
+            &.saskatoon-success {
+                background-color: var(--saskatoon-success);
+            }
+
+            &.saskatoon-danger {
+                background-color: var(--saskatoon-danger);
+            }
+
+            color: #ffffff;
+        }
+    }
+
     .harvest-info,
     .property-and-announcements,
     .distribution-and-comments {
@@ -89,7 +163,6 @@
 
         margin-bottom: var(--saskatoon-gap);
     }
-
 
     .harvest-info > section,
     .property-and-announcements > section,
@@ -155,9 +228,4 @@
             margin: 0;
         }
     }
-}
-
-.dropdown p {
-    margin: 0;
-    padding: 0;
 }

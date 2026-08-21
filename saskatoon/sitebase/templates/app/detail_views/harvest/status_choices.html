@@ -14,19 +14,13 @@
         </p>
     </button>
     <ul
-        class="dropdown-menu"
+        class="dropdown-menu harvest-status-menu"
         role="menu"
         aria-labelledby="menu1"
     >
         {% for choice in status_choices %}
             <li role="presentation" {{ choice.0 | harvest_status_attributes:"right" | safe }}>
-                <a
-                href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
-                role="menuitem"
-                tabindex="-1"
-                >
-                {{ choice.1 }}
-            </a>
+                <a href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}" role="menuitem" tabindex="-1" class="status-dropdown-item"><span class="status-icon-wrapper {{ choice.0 | color }}">{{ choice.0 | harvest_icon | safe }}</span><span>{{ choice.1 }}</span></a>
             </li>
             {% if not forloop.last %}
                 <li role="presentation" class="divider"></li>
