@@ -104,6 +104,28 @@
         }
     }
 
+    .harvest-info {
+        .badge {
+            &.saskatoon-warning {
+                background-color: var(--saskatoon-warning);
+            }
+
+            &.saskatoon-info {
+                background-color: var(--saskatoon-info);
+            }
+
+            &.saskatoon-success {
+                background-color: var(--saskatoon-success);
+            }
+
+            &.saskatoon-danger {
+                background-color: var(--saskatoon-danger);
+            }
+
+            color: #ffffff;
+        }
+    }
+
     .harvest-info,
     .property-and-announcements,
     .distribution-and-comments {
