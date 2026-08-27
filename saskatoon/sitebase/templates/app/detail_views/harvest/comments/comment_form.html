@@ -2,7 +2,7 @@
 {% load static %}
 {% load auth_users %}
 
-<div class="comment-divider">
+<div class="comment-form-container">
     <form method="post" action="{% url 'comment-create' object_id %}">
         {% csrf_token %}
         <div class="form-group">
@@ -12,8 +12,10 @@
                       placeholder="{% trans 'Write a comment...' %}" 
                       required></textarea>
         </div>
-        <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
+        <div class="text-right">
+            <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
             <i class="fa fa-paper-plane"></i>&nbsp; {% trans "Post comment" %}
-        </button>
+            </button>
+        </div>
     </form>
 </div>

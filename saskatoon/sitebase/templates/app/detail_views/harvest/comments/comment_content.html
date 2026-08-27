@@ -47,15 +47,17 @@
                               rows="3" 
                               required>{{ comment.content }}</textarea>
                 </div>
-                <div class="edit-form-actions">
-                    <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
-                        <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
-                    </button>
-                    <button type="button" 
-                            class="btn btn-default waves-effect btn-sm cancel-edit-btn" 
-                            data-comment-id="{{ comment.id }}">
-                        {% trans "Cancel" %}
-                    </button>
+                <div class="text-right">
+                    <div class="edit-form-actions">
+                        <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                            <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
+                        </button>
+                        <button type="button" 
+                                class="btn btn-default waves-effect btn-sm cancel-edit-btn" 
+                                data-comment-id="{{ comment.id }}">
+                            {% trans "Cancel" %}
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
