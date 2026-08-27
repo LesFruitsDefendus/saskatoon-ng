@@ -2,10 +2,14 @@
     --saskatoon-gap: 15px;
 }
 
-.harvest-details {
 
-    .tooltip.right {
-        min-width: 15em;
+.tooltip.right {
+    min-width: 15em;
+}
+
+.harvest-details {
+    .dropdown.open ~ .tooltip.top {
+        opacity: 0;
     }
 
     .dropdown {
@@ -44,11 +48,25 @@
             margin: 0;
         }
 
-        .dropdown-menu.harvest-status-menu > li > a.status-dropdown-item {
-            display: flex;
-            padding-left: 8px;
-            padding-right: 12px;
-            font-weight: bold;
+        .dropdown-menu.harvest-status-menu {
+            padding: 0;
+            border: 1px solid #ccc;
+
+            > li {
+                margin: 0;
+
+                > a.status-dropdown-item {
+                    display: flex;
+                    width: 100%;
+                    padding: 15px 15px;
+                    font-weight: bold;
+
+                    &:hover,
+                    &:focus {
+                        background-color: #e7e0f9aa;
+                    }
+                }
+            }
         }
 
         .harvest-status-menu .status-icon-wrapper {
