@@ -901,6 +901,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
+        ordering = ["-date_created"]
 
     harvest = models.ForeignKey(
         'Harvest',
