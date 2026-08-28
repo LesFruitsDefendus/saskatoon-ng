@@ -16,7 +16,7 @@
                                     <div class="author-name">{{ comment.author.name }}</div>
                                     <div class="author-details">
                                         {{ comment.author.email }}<br>
-                                        {% if comment.date_updated %}
+                                        {% if comment.edited %}
                                             {{ comment.date_updated }} ({% trans "edited" %})
                                         {% else %}
                                             {{ comment.date_created }}

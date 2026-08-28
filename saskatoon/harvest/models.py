@@ -1,5 +1,5 @@
 from crequest.middleware import CrequestMiddleware
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django_quill.fields import QuillField
 from django.db import models
@@ -926,6 +926,16 @@ class Comment(models.Model):
         auto_now=True,
         null=True,
     )
+
+    @property
+    def edited(self) -> bool:
+        print("CREATED:", self.date_created, type(self.date_created))
+        print("UPDATED:", self.date_updated, type(self.date_updated))
+
+        if not self.date_updated or not self.date_created:
+            return False
+        d = self.date_updated - self.date_created
+        return d > timedelta(seconds=1)
 
     def __str__(self):
         return self.content

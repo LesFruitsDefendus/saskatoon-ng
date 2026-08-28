@@ -294,15 +294,11 @@ class CommentSerializer(serializers.ModelSerializer[Comment]):
 
     author = PickLeaderSerializer(many=False, read_only=True)
     date_created = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p')
-    date_updated = serializers.SerializerMethodField()
+    date_updated = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p', allow_null=True)
+    edited = serializers.SerializerMethodField()
 
-    def get_date_updated(self, obj: Comment) -> Optional[str]:
-        if not obj.date_updated or not obj.date_created:
-            return None
-        if (obj.date_updated - obj.date_created) > timedelta(seconds=1):
-            local_updated = tz.localtime(obj.date_updated)
-            return local_updated.strftime(r'%a %b %-d %Y %-I:%M %p')
-        return None
+    def get_edited(self, obj: Comment) -> bool:
+        return obj.edited
 
 
 class HarvestSerializer(serializers.ModelSerializer[Harvest]):
