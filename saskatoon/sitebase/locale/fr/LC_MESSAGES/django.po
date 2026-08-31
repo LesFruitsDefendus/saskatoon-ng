@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-18 15:11+0000\n"
+"POT-Creation-Date: 2026-08-31 22:26+0000\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -614,7 +614,7 @@ msgstr "Êtes-vous certain(e) de vouloir effacer ce commentaire?"
 msgid "Delete comment"
 msgstr "Effacer le Commentaire"
 
-#: sitebase/templates/app/detail_views/harvest/comments/comment_content.html:52
+#: sitebase/templates/app/detail_views/harvest/comments/comment_content.html:53
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
 #: sitebase/templates/app/forms/model_form.html:17
 #: sitebase/templates/app/forms/organization_create_form.html:44
@@ -622,7 +622,7 @@ msgstr "Effacer le Commentaire"
 msgid "Save"
 msgstr "Sauvegarder"
 
-#: sitebase/templates/app/detail_views/harvest/comments/comment_content.html:57
+#: sitebase/templates/app/detail_views/harvest/comments/comment_content.html:58
 #: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:48
 #: sitebase/templates/app/forms/property_create_form.html:65
@@ -633,7 +633,7 @@ msgstr "Annuler"
 msgid "Write a comment..."
 msgstr "Écrire un commentaire..."
 
-#: sitebase/templates/app/detail_views/harvest/comments/comment_form.html:16
+#: sitebase/templates/app/detail_views/harvest/comments/comment_form.html:17
 msgid "Post comment"
 msgstr "Ajouter un commentaire"
 
@@ -645,9 +645,13 @@ msgstr "Ajouter un commentaire"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: sitebase/templates/app/detail_views/harvest/comments/view.html:19
+#: sitebase/templates/app/detail_views/harvest/comments/view.html:20
 msgid "edited"
 msgstr "modifié"
+
+#: sitebase/templates/app/detail_views/harvest/comments/view.html:32
+msgid "Older comments"
+msgstr "Plus anciens"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:37
 msgid "harvest(s)"
@@ -1536,9 +1540,6 @@ msgid ""
 msgstr ""
 "Les propriétaires n'ont pas encore indiqué qu'ils veulent participer cette "
 "saison, il est permis de les contacter pour confirmer leur accord"
-
-#~ msgid "New comment"
-#~ msgstr "Nouveau commentaire"
 
 #~ msgid "is a Montreal-based urban fruit harvesting collective hosted by"
 #~ msgstr "est un collectif de glanage urbain montréalais soutenu par"

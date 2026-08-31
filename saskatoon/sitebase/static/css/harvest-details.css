@@ -2,7 +2,6 @@
     --saskatoon-gap: 15px;
 }
 
-
 .tooltip.right {
     min-width: 15em;
 }
@@ -38,7 +37,6 @@
             &:active {
                 filter: brightness(90%);
                 color: #ffffff;
-                border-color: transparent;
                 box-shadow: none;
             }
         }
@@ -262,11 +260,65 @@
         }
     }
 
+    .chat-conversation {
+        position: relative;
+    }
+
+    .comment-scrollbar {
+        max-height: 400px;
+        overflow-y: auto;
+        position: relative;
+
+        .mCSB_scrollTools {
+            opacity: 1;
+
+            .mCSB_dragger .mCSB_dragger_bar {
+                background-color: var(--saskatoon-info);
+            }
+        }
+    }
+
     .comments-wrapper {
         display: flex;
         flex-direction: column;
         gap: 10px;
-        margin-bottom: 20px;
+    }
+
+    .btn-scroll-older {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        padding: 6px 14px;
+        border-radius: 20px;
+
+        background-color: var(--saskatoon-info);
+        color: #ffffff;
+        font-size: 0.85em;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--saskatoon-info);
+            color: #e7e0f9aa;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(8px);
+        }
     }
 
     .comment-card {
@@ -354,9 +406,7 @@
     }
 
     .comment-form-container {
-        margin-top: 0;
         margin-bottom: 15px;
-        padding: 0;
 
         .form-group {
             margin-bottom: 8px;

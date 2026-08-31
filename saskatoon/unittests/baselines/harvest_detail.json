@@ -318,8 +318,43 @@
             },
             "date_created": "Sun Jan 25 2026 3:28 PM",
             "date_updated": "Sun Jan 25 2026 3:30 PM",
-            "edited": true,
             "content": "Everything went smoothly. Owner was very helpful.",
+            "harvest": 1
+        },
+        {
+            "id": 4,
+            "author": {
+                "id": 7,
+                "name": "Admin Istrator",
+                "email": "admin@admin.com"
+            },
+            "date_created": "Sun Jan 25 2026 1:49 PM",
+            "date_updated": "Sun Jan 25 2026 3:17 PM",
+            "content": "Makes sense!",
+            "harvest": 1
+        },
+        {
+            "id": 3,
+            "author": {
+                "id": 2,
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
+            },
+            "date_created": "Sun Jan 25 2026 1:48 PM",
+            "date_updated": null,
+            "content": "Fruits were frozen :(",
+            "harvest": 1
+        },
+        {
+            "id": 2,
+            "author": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "date_created": "Sat Jan 24 2026 11:23 AM",
+            "date_updated": "Sat Jan 24 2026 11:23 AM",
+            "content": "This is a note left by a Core member to a Pick leader",
             "harvest": 1
         }
     ],
