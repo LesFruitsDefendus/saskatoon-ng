@@ -7,13 +7,13 @@
         <div class="data-table-list">
           <div class="table-responsive">
             <div class="row">
-                <div class="col-xs-6">
+                <div class="col-xs-4">
                     <h4> {% trans "Upcoming Reservations" %} </h4>
                 </div>
-                <div class="col-xs-6">
+                <div class="col-xs-8">
                     <a href="{% url 'harvest-list' %}?date=past&has_equipment_point=on&equipment_point={{ actor_id }}" style="float: right">
                         <button title="Past reservations" class="btn btn-primary notika-btn-primary waves-effect">
-                        <i class="fa fa-eye"></i> &nbsp; {% trans "Past reservations" %}
+                        <i class="fa fa-eye hidden-xs">&nbsp;</i> {% trans "Past reservations" %}
                         </button>
                     </a>
                 </div>

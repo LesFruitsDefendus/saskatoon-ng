@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-16 16:29-0400\n"
+"POT-Creation-Date: 2026-08-20 14:30+0000\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,7 +55,7 @@ msgstr "Réservation réussie"
 msgid "Sorry, this equipment point is no longer available"
 msgstr "Désolé, ce point d'équipement n'est plus disponible"
 
-#: harvest/api.py:200 harvest/api.py:287
+#: harvest/api.py:200 harvest/api.py:268
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
@@ -81,11 +81,11 @@ msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
-#: harvest/api.py:323
+#: harvest/api.py:304
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:372
+#: harvest/api.py:353
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
