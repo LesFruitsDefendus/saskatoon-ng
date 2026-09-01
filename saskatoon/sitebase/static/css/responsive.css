@@ -1,5 +1,5 @@
 /* md & lg */
-@media (min-width: 991px) {
+@media (min-width: 992px) {
     .header-top-area {
         margin-bottom: 15px;
     }
@@ -23,6 +23,11 @@
     .logo-img {
         min-width: 60px;
         padding-right: 10px;
+    }
+
+    .table-responsive > .table > tbody > tr > td,
+    .datatable-minimal td {
+        min-width: 80px;
     }
 }
 
@@ -93,6 +98,18 @@
     .nav.navbar-nav.notika-top-nav li a {
         padding: 1em;
     }
+
+    .table-responsive > .table > tbody > tr > td,
+    .datatable-minimal td {
+        min-width: 80px;
+    }
+
+    .table-responsive > .table > tbody > tr > td:nth-child(2),
+    .datatable-minimal td:nth-child(2) {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 110px;
+    }
 }
 
 /* Normal desktop (md)*/
@@ -160,6 +177,13 @@
     .table-responsive > .table > thead > tr > td,
     .table-responsive > .table > thead > tr > th {
         white-space: nowrap;
+    }
+
+    .table-responsive > .table > tbody > tr > td:nth-child(2),
+    .datatable-minimal td:nth-child(2) {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 110px;
     }
 
     .table-responsive .pagination-inbox {
