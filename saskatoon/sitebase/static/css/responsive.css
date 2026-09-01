@@ -6,6 +6,7 @@
 
     .nav.navbar-nav.notika-top-nav li {
         margin: 0px 5px;
+        ;
     }
 
     .logo-area {
@@ -34,7 +35,7 @@
 /* xs & sm */
 @media (max-width: 991px) {
     .breadcomb-list {
-        padding: 0;
+        padding: 15px;
 
         > *:first-child {
             margin-bottom: 1em;
@@ -71,6 +72,7 @@
     .mobile-menu-area {
         background: #440bd4;
         display: block;
+        margin-bottom: 30px;
     }
 
     .header-top-menu {
@@ -124,6 +126,7 @@
 
     ul.notika-menu-wrap li a {
         padding: 5px;
+        margin-bottom: 10px;
     }
 
     ul.notika-main-menu-dropdown li > a {
@@ -444,7 +447,7 @@
     }
 
     .breadcomb-area {
-        margin-top: 40px;
+        margin: 0px;
     }
 
     .box-layout .header-top-area {
