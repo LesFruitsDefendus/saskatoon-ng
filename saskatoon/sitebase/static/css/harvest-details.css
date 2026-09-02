@@ -241,6 +241,7 @@
 
     th {
         font-weight: bold;
+        white-space: nowrap;
     }
 
     td {
