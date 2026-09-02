@@ -2,7 +2,6 @@
     --saskatoon-gap: 15px;
 }
 
-
 .tooltip.right {
     min-width: 15em;
 }
@@ -38,7 +37,6 @@
             &:active {
                 filter: brightness(90%);
                 color: #ffffff;
-                border-color: transparent;
                 box-shadow: none;
             }
         }
@@ -259,6 +257,167 @@
         button {
             width: 100%;
             margin: 0;
+        }
+    }
+
+    .chat-conversation {
+        position: relative;
+    }
+
+    .comment-scrollbar {
+        max-height: 400px;
+        overflow-y: auto;
+        position: relative;
+
+        .mCSB_scrollTools {
+            opacity: 1;
+
+            .mCSB_dragger .mCSB_dragger_bar {
+                background-color: var(--saskatoon-info);
+            }
+        }
+    }
+
+    .comments-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .btn-scroll-older {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 10;
+
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        padding: 6px 14px;
+        border-radius: 20px;
+
+        background-color: var(--saskatoon-info);
+        color: #ffffff;
+        font-size: 0.85em;
+        font-weight: 600;
+        border: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+
+        &:hover {
+            background-color: var(--saskatoon-info);
+            color: #e7e0f9aa;
+            transform: translateX(-50%) translateY(-2px);
+        }
+
+        &.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(8px);
+        }
+    }
+
+    .comment-card {
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 8px;
+        align-items: start;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 1fr;
+            gap: 4px;
+        }
+    }
+
+    .comment-author-meta {
+        text-align: left;
+        line-height: 1.3;
+
+        .author-name {
+            font-weight: bold;
+        }
+
+        .author-details {
+            font-size: 0.85em;
+            color: #666;
+        }
+    }
+
+    .comment-content-cell {
+        width: 100%;
+    }
+
+    .conversation-text-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 1em;
+
+        .conversation-text {
+            flex-grow: 1;
+            word-break: break-word;
+
+            background-color: #e7e0f9aa;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 8px 12px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .comment-actions-group {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            white-space: nowrap;
+        }
+
+        .btn-comment-action {
+            padding: 2px 6px;
+            margin-top: 4px;
+        }
+
+        .comment-delete-form {
+            display: inline-block;
+        }
+    }
+
+    .comment-edit-form-container {
+        display: none;
+        width: 100%;
+        margin-top: 2px;
+        padding-right: 12px;
+
+        .comment-edit-textarea {
+            width: 100%;
+            resize: vertical;
+        }
+
+        .edit-form-actions {
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 6px;
+        }
+    }
+
+    .comment-form-container {
+        margin-bottom: 15px;
+
+        .form-group {
+            margin-bottom: 8px;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .notika-btn-primary {
+            width: auto;
         }
     }
 }
