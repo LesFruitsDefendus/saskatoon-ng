@@ -532,6 +532,9 @@ def notify_new_request_for_participation(sender, instance, created, **kwargs):
 
 @receiver(post_save, sender=Comment)
 def notify_new_harvest_comment(sender, instance, **kwargs):
+    if not instance.harvest:
+        return
+
     pick_leader = instance.harvest.pick_leader
     if pick_leader is None or pick_leader == instance.author:
         return

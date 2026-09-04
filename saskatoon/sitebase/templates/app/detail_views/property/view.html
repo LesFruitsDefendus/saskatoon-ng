@@ -5,7 +5,12 @@
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/colors.css' %}">
+    <link rel="stylesheet" href="{% static 'css/comment.css' %}">
 {% endblock style %}
+
+{% block script %}
+    <script src="{% static 'js/comment.js' %}"></script>
+{% endblock script %}
 
 {% block content %}
 
@@ -35,4 +40,11 @@
     {% include 'app/detail_views/property/harvest_table.html' %}
 {% endif %}
 
+<div class="container mg-t-30">
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-property' object_id=id %}
+        </div>
+    </div>
+</div>
 {% endblock content %}
