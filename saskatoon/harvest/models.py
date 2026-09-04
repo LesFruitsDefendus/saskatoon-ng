@@ -942,9 +942,6 @@ class Comment(models.Model):
 
     @builtins.property
     def edited(self) -> bool:
-        print("CREATED:", self.date_created, type(self.date_created))
-        print("UPDATED:", self.date_updated, type(self.date_updated))
-
         if not self.date_updated or not self.date_created:
             return False
         d = self.date_updated - self.date_created

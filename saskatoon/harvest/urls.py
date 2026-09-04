@@ -77,8 +77,8 @@ urlpatterns = [
         views.harvest_yield_delete,
         name='harvest-yield-delete',
     ),
-    path(
-        r'comment/delete/<int:hid>/',
+    re_path(
+        r'^comment/delete/(?P<id>\d+)/$',
         views.CommentDeleteView.as_view(),
         name='comment-delete',
     ),
@@ -104,7 +104,7 @@ urlpatterns = [
         name='equipment-update',
     ),
     re_path(
-        r'^comment/update/(?P<pk>\d+)/$',
+        r'^comment/update/(?P<id>\d+)/$',
         views.CommentUpdateView.as_view(),
         name='comment-update',
     ),

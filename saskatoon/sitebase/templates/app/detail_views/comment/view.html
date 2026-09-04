@@ -7,7 +7,7 @@
     </header>
     <div class="card-box mg-t-30">
         <div class="chat-conversation">
-            {% include 'app/detail_views/harvest/comments/comment_form.html' with object_id=id %}
+            {% include 'app/detail_views/comment/comment_form.html' %}
             <div class="comment-scrollbar" id="commentScrollbar">
                 <div class="comments-wrapper">
                     {% for comment in comments %}
@@ -23,7 +23,7 @@
                                     {% endif %}
                                 </div>
                             </div>
-                            {% include 'app/detail_views/harvest/comments/comment_content.html' %}
+                            {% include 'app/detail_views/comment/comment_content.html' %}
                         </div>
                     {% endfor %}
                 </div>
