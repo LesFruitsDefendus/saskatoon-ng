@@ -72,12 +72,10 @@ msgid "No email address associated with property!"
 msgstr "Aucun courriel n'est associé à la propriété!"
 
 #: harvest/api.py:239
-#, python-brace-format
 msgid "Authorization email successfully sent to {email}!"
 msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 
 #: harvest/api.py:246
-#, python-brace-format
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
@@ -433,7 +431,6 @@ msgid "End time must be after start time"
 msgstr "La date de fin doit être après la date de début"
 
 #: harvest/forms.py:567
-#, python-brace-format
 msgid "Selected tree(s) <{}> not registered on the selected property."
 msgstr ""
 "L'arbre sélectionné <{}> n'est pas enregistré sur la propriété sélectionnée."
@@ -443,7 +440,6 @@ msgid "Please fill in the public announcement to be published on the calendar."
 msgstr "Remplissez l'annonce qui sera visible publiquement sur le calendrier."
 
 #: harvest/forms.py:616
-#, python-brace-format
 msgid "The {} equipment point is no longer available."
 msgstr "Le point d'équipement {} n'est plus disponible"
 
@@ -842,12 +838,10 @@ msgid "Creation date"
 msgstr "Date de création"
 
 #: harvest/models.py:643
-#, python-brace-format
 msgid "Harvest on {} for {}"
 msgstr "Récolte le {} pour {}"
 
 #: harvest/models.py:647
-#, python-brace-format
 msgid "Harvest for {}"
 msgstr "Récolte pour {}"
 
@@ -1020,7 +1014,6 @@ msgstr ""
 "cueillette comme Réussie. "
 
 #: harvest/views.py:265
-#, python-brace-format
 msgid ""
 "You’ve just led your {} fruit harvest this season!                     Thank "
 "you for supporting your community!"
@@ -1117,7 +1110,6 @@ msgid "This harvest already has a pickleader!"
 msgstr "Cette cueillette a déjà un.e chef.fe de cueillette!"
 
 #: harvest/views.py:540
-#, python-brace-format
 msgid "Harvest status already set to: {}"
 msgstr "Le statut de la cueillette a été changé pour: {}"
 
@@ -1164,7 +1156,6 @@ msgstr ""
 "comme réussie."
 
 #: harvest/views.py:585
-#, python-brace-format
 msgid "Harvest status successfully set to: {}"
 msgstr "Statut de la cueillette changé avec succès pour: {}"
 
@@ -1182,7 +1173,6 @@ msgid "Property is not authorized for this season!"
 msgstr "La propriété n'est pas autorisée pour cette saison!"
 
 #: harvest/views.py:626
-#, python-brace-format
 msgid "Successfully created {} orphan harvests"
 msgstr "{} cueillettes orphelines créées avec succès"
 
