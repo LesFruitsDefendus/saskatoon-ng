@@ -66,9 +66,14 @@ urlpatterns = [
         name='rfp-create',
     ),
     path(
-        r'comment/create/<int:hid>/',
+        r'comment/create/harvest/<int:hid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create',
+        name='comment-create-harvest',
+    ),
+    path(
+        r'comment/create/property/<int:pid>/',
+        views.CommentCreateView.as_view(),
+        name='comment-create-property',
     ),
     path(r'yield/create/', views.harvest_yield_create, name='harvest-yield-create'),
     # DELETE VIEWS
