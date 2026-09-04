@@ -5,7 +5,9 @@
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/colors.css' %}">
     <link rel="stylesheet" href="{% static 'css/dialog.css' %}">
-    <link rel="stylesheet" href="{% static 'css/harvest-details.css' %}">
+    <link rel="stylesheet" href="{% static 'css/harvest-details.css' %}
+    ">
+    <link rel="stylesheet" href="{% static 'css/comment.css' %}">
     <link rel="stylesheet" href="{% static 'css/map.css' %}">
 {% endblock style %}
 
@@ -23,7 +25,7 @@
         {% include 'app/detail_views/harvest/data_table.html' %}
         <div class="distribution-and-comments">
             {% include 'app/detail_views/harvest/distribution/view.html' %}
-            {% include 'app/detail_views/comment/view.html' with object_id=id %}
+            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-harvest' object_id=id %}
         </div>
     </div>
 {% endblock content %}

@@ -3,7 +3,7 @@
 {% load auth_users %}
 
 <div class="comment-form-container">
-    <form method="post" action="{% url 'comment-create' object_id %}">
+    <form method="post" action="{% url comment_create_url_name object_id %}">
         {% csrf_token %}
         <div class="form-group">
             <textarea name="content" 

@@ -460,21 +460,18 @@ msgid "Password successfully changed!"
 msgstr "Mise à jour du mot de passe réussie!"
 
 #: member/views.py:199
-#, python-brace-format
 msgid "Cannot reset password for {email}: User does not have a password set."
 msgstr ""
 "Impossible de changer le mot de passe pour {email} : L'usager n'a pas de mot "
 "de passe."
 
 #: member/views.py:213
-#, python-brace-format
 msgid "Password reset email successfully sent to {email}"
 msgstr ""
 "Courriel de requête de changement de mot de passe envoyé avec succès à "
 "{email}"
 
 #: member/views.py:221
-#, python-brace-format
 msgid "Failed to send password reset email to {email}"
 msgstr ""
 "Échec de l'envoie du courriel de requête de changement de mot de passe à "
