@@ -136,23 +136,27 @@ class EquipmentPointAutocomplete(Autocomplete):
         end_str = self.forwarded.get('end_date', "")
 
         if start_str == "" and end_str == "":
-            return Organization.objects.filter(is_equipment_point=True)
-
-        if start_str == "" or end_str == "":
+            qs = Organization.objects.filter(is_equipment_point=True)
+        elif start_str == "" or end_str == "":
             return none
+        else:
+            start = parse_naive_datetime(start_str)
+            end = parse_naive_datetime(end_str)
+            if start is None or end is None or start > end:
+                return none
 
-        start = parse_naive_datetime(start_str)
-        end = parse_naive_datetime(end_str)
-        if start is None or end is None or start > end:
-            return none
+            try:
+                harvest_id = int(self.forwarded.get('id', ""))
+                harvest = Harvest.objects.get(pk=harvest_id)
+            except (Harvest.DoesNotExist, ValueError):
+                harvest = None
 
-        try:
-            harvest_id = int(self.forwarded.get('id', ""))
-            harvest = Harvest.objects.get(pk=harvest_id)
-        except (Harvest.DoesNotExist, ValueError):
-            harvest = None
+            qs = get_available_equipment_points(start, end, harvest)
 
-        return get_available_equipment_points(start, end, harvest)
+        if hasattr(self, 'q') and self.q:
+            qs = qs.filter(civil_name__icontains=self.q)
+
+        return qs.order_by('civil_name')
 
 
 @typechecked
@@ -163,4 +167,9 @@ class NeighborhoodAutocomplete(Autocomplete):
         if not self.is_authenticated():
             return Neighborhood.objects.none()
 
-        return Neighborhood.objects.all()
+        qs = Neighborhood.objects.all()
+        if self.q:
+            q = Q(name__icontains=self.q)
+            return qs.filter(q)
+
+        return qs.order_by('name')
