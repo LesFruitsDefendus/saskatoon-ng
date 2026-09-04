@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-04 17:16-0400\n"
+"POT-Creation-Date: 2026-09-07 19:35-0400\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,10 +72,12 @@ msgid "No email address associated with property!"
 msgstr "Aucun courriel n'est associé à la propriété!"
 
 #: harvest/api.py:239
+#, python-brace-format
 msgid "Authorization email successfully sent to {email}!"
 msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 
 #: harvest/api.py:246
+#, python-brace-format
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
@@ -1181,6 +1183,3 @@ msgstr "{} cueillettes orphelines créées avec succès"
 #: harvest/views.py:628
 msgid "Harvests have already been created for this property"
 msgstr "Des récoltes ont déjà été crées pour cette propriété"
-
-#~ msgid "Add new comment"
-#~ msgstr "Ajouter un nouveau commentaire"
