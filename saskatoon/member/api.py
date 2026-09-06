@@ -67,16 +67,15 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         )
 
 
-class OrganizationMapView(LoginRequiredMixin, generics.ListAPIView[Organization]):
-    """List view for organizations that are equipment points."""
+class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization]):
+    """Organization viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.filter(is_beneficiary=True).order_by('-actor_id')
+    queryset = Organization.objects.all().order_by('-actor_id')
+    template_name = 'app/detail_views/organization/view.html'
     serializer_class = OrganizationSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
     filterset_class = OrganizationFilter
-    template_name = 'app/list_views/organization/map.html'
-    pagination_class = None
     search_fields = [
         'actor_id',
         'civil_name',
@@ -84,33 +83,76 @@ class OrganizationMapView(LoginRequiredMixin, generics.ListAPIView[Organization]
         'contact_person__family_name',
         'contact_person__auth_user__email',
     ]
-    org_creation_url = 'organization-create'
-    filter_context_string = 'organization'
 
     def list(self, request, *args, **kwargs):
-        """Beneficiary map view."""
+        """Beneficiairies list view"""
+
+        self.template_name = 'app/list_views/organization/organizations.html'
+        self.queryset = Organization.objects.all().order_by('-actor_id')
+        response = super().list(request, *args, **kwargs)
+        if renderer_format_needs_json_response(request):
+            return response
+
+        return Response(
+            {
+                "data": response.data["results"],
+                "count": response.data["count"],
+                "next": response.data["next"],
+                "previous": response.data["previous"],
+                "pages_count": response.data["pages_count"],
+                "current_page_number": response.data["current_page_number"],
+                "items_per_page": response.data["items_per_page"],
+                "filter": get_filter_context(self),
+                'new': {
+                    'url': reverse_lazy('organization-create'),
+                    'title': _("New Organization"),
+                },
+            }
+        )
+
+    def map_marker_info(self, request, pk=None):
+        """Organization details displayed in map pop-up window"""
+
+        self.template_name = 'app/list_views/organization/marker.html'
+        organization = self.get_object()
+
+        filter = get_filter_context(self, 'organization')
+        print(filter.get('form').__dict__)
+
+        serialized = OrganizationSerializer(organization)
+        return Response({'org': serialized.data})
+
+    def map(self, request, *args, **kwargs):
+        """Organization map view."""
+
+        self.serializer_class = OrganizationMapSerializer
+        self.template_name = 'app/list_views/organization/map.html'
+        self.pagination_class = None
+        filter_context_string = 'organization'
 
         response = super().list(request, *args, **kwargs)
 
         if renderer_format_needs_json_response(request):
             return response
 
+        filter = get_filter_context(self, filter_context_string)
+
         context = {
             'data': response.data,
-            'filter': get_filter_context(self, self.filter_context_string),
+            'filter': filter,
         }
 
         if is_core_or_admin(self.request.user):
             context['new'] = {
-                'url': reverse_lazy(self.org_creation_url),
+                'url': reverse_lazy('admin:member_organization_add'),
                 'title': _("New Organization"),
             }
 
         return Response(context)
 
 
-class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organization]):
-    """List view for organizations that are equipment points."""
+class EquipmentPointViewSet(LoginRequiredMixin, viewsets.ModelViewSet[Organization]):
+    """View set for organizations that are equipment points."""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
@@ -153,14 +195,33 @@ class EquipmentPointListView(LoginRequiredMixin, generics.ListAPIView[Organizati
 
         return Response(context)
 
+    def map(self, request, *args, **kwargs):
+        """Equipment Point map view."""
 
-class EquipmentPointMapView(OrganizationMapView):
-    """List view for organizations that are equipment points."""
+        self.serializer_class = OrganizationMapSerializer
+        self.template_name = 'app/list_views/organization/map.html'
+        self.filterset_class = EquipmentPointFilter  # type: ignore  # expression has type "type[EquipmentPointFilter]", base class "OrganizationMapView" defined the type as "type[OrganizationFilter]"
 
-    queryset = Organization.objects.filter(is_equipment_point=True).order_by('-actor_id')
-    filterset_class = EquipmentPointFilter  # type: ignore  # expression has type "type[EquipmentPointFilter]", base class "OrganizationMapView" defined the type as "type[OrganizationFilter]"
-    org_creation_url = 'admin:member_organization_add'
-    filter_context_string = 'equipment-point'
+        self.pagination_class = None
+        filter_context_string = 'equipment-point'
+
+        response = super().list(request, *args, **kwargs)
+
+        if renderer_format_needs_json_response(request):
+            return response
+
+        context = {
+            'data': response.data,
+            'filter': get_filter_context(self, filter_context_string),
+        }
+
+        if is_core_or_admin(self.request.user):
+            context['new'] = {
+                'url': reverse_lazy('admin:member_organization_add'),
+                'title': _("New Organization"),
+            }
+
+        return Response(context)
 
 
 class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):

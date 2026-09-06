@@ -484,6 +484,18 @@ class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     property = PropertyEquipmentSerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
 
+class OrganizationMapSerializer(serializers.ModelSerializer[Organization]):
+    class Meta:
+        model = Organization
+        fields = [
+            'actor_id',
+            'civil_name',
+            'is_beneficiary',
+            'is_equipment_point',
+            'latitude',
+            'longitude',
+        ]
+
 
 class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     class Meta:
