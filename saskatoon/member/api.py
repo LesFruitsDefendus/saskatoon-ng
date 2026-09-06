@@ -66,50 +66,6 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
             }
         )
 
-
-class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization]):
-    """Organization viewset"""
-
-    permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Organization.objects.all().order_by('-actor_id')
-    template_name = 'app/detail_views/organization/view.html'
-    serializer_class = OrganizationSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
-    filterset_class = OrganizationFilter
-    search_fields = [
-        'actor_id',
-        'civil_name',
-        'contact_person__first_name',
-        'contact_person__family_name',
-        'contact_person__auth_user__email',
-    ]
-
-    def list(self, request, *args, **kwargs):
-        """Beneficiairies list view"""
-
-        self.template_name = 'app/list_views/organization/organizations.html'
-        self.queryset = Organization.objects.all().order_by('-actor_id')
-        response = super().list(request, *args, **kwargs)
-        if renderer_format_needs_json_response(request):
-            return response
-
-        return Response(
-            {
-                "data": response.data["results"],
-                "count": response.data["count"],
-                "next": response.data["next"],
-                "previous": response.data["previous"],
-                "pages_count": response.data["pages_count"],
-                "current_page_number": response.data["current_page_number"],
-                "items_per_page": response.data["items_per_page"],
-                "filter": get_filter_context(self),
-                'new': {
-                    'url': reverse_lazy('organization-create'),
-                    'title': _("New Organization"),
-                },
-            }
-        )
-
     def map_marker_info(self, request, pk=None):
         """Organization details displayed in map pop-up window"""
 
@@ -200,7 +156,7 @@ class EquipmentPointViewSet(LoginRequiredMixin, viewsets.ModelViewSet[Organizati
 
         self.serializer_class = OrganizationMapSerializer
         self.template_name = 'app/list_views/organization/map.html'
-        self.filterset_class = EquipmentPointFilter  # type: ignore  # expression has type "type[EquipmentPointFilter]", base class "OrganizationMapView" defined the type as "type[OrganizationFilter]"
+        self.filterset_class = EquipmentPointFilter
 
         self.pagination_class = None
         filter_context_string = 'equipment-point'
