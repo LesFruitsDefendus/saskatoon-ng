@@ -126,6 +126,21 @@ class PropertyMapHarvestSerializer(serializers.ModelSerializer[Harvest]):
     date_range = serializers.ReadOnlyField(source='get_date_range')
 
 
+class CommentSerializer(serializers.ModelSerializer[Comment]):
+    class Meta:
+        model = Comment
+        fields = '__all__'
+
+    author = PickLeaderSerializer(many=False, read_only=True)
+    date_created = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p')
+    date_updated = serializers.SerializerMethodField()
+
+    def get_date_updated(self, obj: Comment) -> Optional[str]:
+        if not obj.edited or not obj.date_updated:
+            return None
+        return tz.localtime(obj.date_updated).strftime(r'%a %b %-d %Y %-I:%M %p')
+
+
 class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
@@ -136,6 +151,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     state = StateSerializer(many=False, read_only=True)
     country = CountrySerializer(many=False, read_only=True)
     title = serializers.ReadOnlyField(source="__str__")
+    comments = CommentSerializer(many=True, read_only=True)
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
     last_succeeded_harvest = PropertyHarvestSerializer(many=False, read_only=True)
     address = serializers.ReadOnlyField(source="short_address")
@@ -285,21 +301,6 @@ class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
     recipient: serializers.StringRelatedField[HarvestYield] = serializers.StringRelatedField(
         many=False
     )
-
-
-class CommentSerializer(serializers.ModelSerializer[Comment]):
-    class Meta:
-        model = Comment
-        fields = '__all__'
-
-    author = PickLeaderSerializer(many=False, read_only=True)
-    date_created = serializers.DateTimeField(format=r'%a %b %-d %Y %-I:%M %p')
-    date_updated = serializers.SerializerMethodField()
-
-    def get_date_updated(self, obj: Comment) -> Optional[str]:
-        if not obj.edited or not obj.date_updated:
-            return None
-        return tz.localtime(obj.date_updated).strftime(r'%a %b %-d %Y %-I:%M %p')
 
 
 class HarvestSerializer(serializers.ModelSerializer[Harvest]):

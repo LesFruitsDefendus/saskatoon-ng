@@ -366,17 +366,39 @@ class CommentCreateView(
     SuccessMessageMixin[CommentForm],
     CreateView[Comment, CommentForm],
 ):
+    """Create a new comment."""
+
     permission_required = 'harvest.add_comment'
     form_class = CommentForm
     success_message = _("New comment added!")
 
-    def form_valid(self, form):
-        form.instance.harvest = get_object_or_404(Harvest, id=self.kwargs.get('hid'))
-        form.instance.author = self.request.user
-        return super().form_valid(form)
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if 'instance' not in kwargs or kwargs['instance'] is None:
+            kwargs['instance'] = Comment()
+
+        hid = self.kwargs.get('hid')
+        pid = self.kwargs.get('pid')
+
+        if hid:
+            kwargs['instance'].harvest = get_object_or_404(Harvest, id=hid)
+        elif pid:
+            kwargs['instance'].property = get_object_or_404(Property, id=pid)
+
+        if self.request.user.is_authenticated:
+            kwargs['instance'].author = self.request.user
+
+        return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('harvest-detail', kwargs={'pk': self.kwargs.get('hid')})
+        hid = self.kwargs.get('hid')
+        pid = self.kwargs.get('pid')
+
+        if hid:
+            return reverse_lazy('harvest-detail', kwargs={'pk': hid})
+        elif pid:
+            return reverse_lazy('property-detail', kwargs={'pk': pid})
+        return reverse_lazy('home')
 
 
 class CommentUpdateView(
@@ -389,8 +411,8 @@ class CommentUpdateView(
 
     model = Comment
     form_class = CommentForm
-    template_name = 'app/forms/model_form.html'
     success_message = _("Comment updated!")
+    pk_url_kwarg = 'id'
 
     def test_func(self) -> bool:
         return self.get_object().author_id == self.request.user.id or is_core_or_admin(
@@ -404,7 +426,11 @@ class CommentUpdateView(
         return context
 
     def get_success_url(self):
-        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
+        if self.object.harvest_id:
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+        elif self.object.property_id:
+            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        return reverse_lazy('home')
 
 
 class CommentDeleteView(
@@ -417,12 +443,17 @@ class CommentDeleteView(
 
     model = Comment
     success_message = _("Comment deleted!")
+    pk_url_kwarg = 'id'
 
     def test_func(self) -> bool:
         return is_admin(self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest.id})
+        if self.object.harvest_id:
+            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+        elif self.object.property_id:
+            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        return reverse_lazy('home')
 
 
 @login_required
