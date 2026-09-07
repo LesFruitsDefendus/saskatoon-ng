@@ -17,6 +17,34 @@
         "name": "Canada"
     },
     "title": "Nice Owner at 123 av. Mont-Royal",
+    "comments": [
+        {
+            "id": 6,
+            "author": {
+                "id": 4,
+                "name": "Core Member",
+                "email": "core@member.com"
+            },
+            "date_created": "Mon Sep 7 2026 7:21 PM",
+            "date_updated": null,
+            "content": "Thank you Pick, this is really useful information!",
+            "harvest": null,
+            "property": 3
+        },
+        {
+            "id": 5,
+            "author": {
+                "id": 2,
+                "name": "Pick Leader",
+                "email": "pick@leader.com"
+            },
+            "date_created": "Mon Sep 7 2026 7:19 PM",
+            "date_updated": "Mon Sep 7 2026 7:21 PM",
+            "content": "I confirm the owner is nice!",
+            "harvest": null,
+            "property": 3
+        }
+    ],
     "harvests": [
         {
             "id": 2,

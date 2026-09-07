@@ -9,7 +9,7 @@ has_meaningful_changes() {
     local diffs="$1"
     local lines meaningful
     lines=$(echo "$diffs" | grep -E '^\+|^-' | grep -v '^---' | grep -v '^+++')
-    meaningful=$(echo "$lines" | grep -v '^[-+]\s*#:' | grep -v 'POT-Creation-Date:' || true)
+    meaningful=$(echo "$lines" | grep -v '^[-+]\s*#' | grep -v 'POT-Creation-Date:' || true)
     [ -n "$meaningful" ]
 }
 

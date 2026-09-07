@@ -1,6 +1,7 @@
 from crequest.middleware import CrequestMiddleware
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.exceptions import ValidationError
 from django_quill.fields import QuillField
 from django.db import models
 from django.db.models.signals import pre_save
@@ -14,6 +15,7 @@ from enum import Enum
 from typeguard import typechecked
 from sys import float_info
 from types import SimpleNamespace
+import builtins
 
 from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, local_today
 from sitebase.validators import validate_is_not_nan
@@ -896,17 +898,29 @@ class HarvestYield(models.Model):
 
 
 class Comment(models.Model):
-    """Harvest comment model"""
+    """Harvest and Property comment model"""
 
     class Meta:
         verbose_name = _("comment")
         verbose_name_plural = _("comments")
+        ordering = ["-date_created"]
 
     harvest = models.ForeignKey(
         'Harvest',
         verbose_name=_("harvest"),
         related_name="comments",
         on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+
+    property = models.ForeignKey(
+        Property,
+        verbose_name=_("property"),
+        related_name="comments",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
     )
 
     author = models.ForeignKey(
@@ -925,6 +939,21 @@ class Comment(models.Model):
         auto_now=True,
         null=True,
     )
+
+    @builtins.property
+    def edited(self) -> bool:
+        if not self.date_updated or not self.date_created:
+            return False
+        d = self.date_updated - self.date_created
+        return d > timedelta(seconds=1)
+
+    def clean(self):
+        super().clean()
+        # XOR (^) ensures exactly ONE of them is True
+        if bool(self.harvest) ^ bool(self.property) is False:
+            raise ValidationError(
+                _("A comment must belong to either a Harvest or a Property, but not both.")
+            )
 
     def __str__(self):
         return self.content

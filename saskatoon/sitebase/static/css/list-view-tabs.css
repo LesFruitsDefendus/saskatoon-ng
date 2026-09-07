@@ -54,3 +54,14 @@ tab-list {
         }
     }
 }
+
+.table-responsive .table td:nth-child(3) {
+    min-width: 100px;
+    white-space: nowrap;
+}
+
+.table-responsive .table td:nth-child(9),
+.table-responsive .table th:nth-child(9) {
+    min-width: 80px;
+    white-space: nowrap;
+}

@@ -5853,7 +5853,7 @@ textarea.auto-size {
 }
 
 .comment-scrollbar .mCSB_outside + .mCSB_scrollTools {
-    right: -2px;
+    right: -10px;
     top: 5px;
 }
 

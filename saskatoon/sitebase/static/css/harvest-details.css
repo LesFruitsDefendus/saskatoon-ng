@@ -2,7 +2,6 @@
     --saskatoon-gap: 15px;
 }
 
-
 .tooltip.right {
     min-width: 15em;
 }
@@ -38,7 +37,6 @@
             &:active {
                 filter: brightness(90%);
                 color: #ffffff;
-                border-color: transparent;
                 box-shadow: none;
             }
         }
@@ -158,8 +156,8 @@
         grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     }
 
-    .distribution-and-comments {
-        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    .distribution-and-comments > section {
+        height: 100%;
     }
 
     .equipment-point,

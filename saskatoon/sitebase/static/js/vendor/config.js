@@ -84,7 +84,7 @@
 				theme:"light-1"
 			});
 			$(".comment-scrollbar").mCustomScrollbar({
-				autoHideScrollbar: true,
+				autoHideScrollbar: false,
 				scrollbarPosition: "outside",
 				theme:"light-1"
 			});
