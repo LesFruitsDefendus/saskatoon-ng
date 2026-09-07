@@ -1,6 +1,7 @@
 from django.urls import path, re_path
-from member import api, views, autocomplete
 from rest_framework.routers import DefaultRouter
+
+from member import api, autocomplete, views
 
 # REST FRAMEWORK VIEWS
 router = DefaultRouter()
@@ -11,19 +12,24 @@ urlpatterns = [
     # LIST VIEWS
     path(
         'equipment-point/',
-        api.EquipmentPointListView.as_view(),
+        api.EquipmentPointViewSet.as_view({'get': 'list'}),
         name='equipment-point-list',
     ),
     # MAP VIEWS
     path(
         'organization/map',
-        api.OrganizationMapView.as_view(),
+        api.OrganizationViewset.as_view({'get': 'map'}),
         name='organization-map',
     ),
     path(
         'equipment-point/map',
-        api.EquipmentPointMapView.as_view(),
+        api.EquipmentPointViewSet.as_view({'get': 'map'}),
         name='equipment-point-map',
+    ),
+    path(
+        r'organization/map/<int:pk>',
+        api.OrganizationViewset.as_view({'get': 'map_marker_info'}),
+        name='organization-map-marker',
     ),
     # CREATE VIEWS
     path('person/create/', views.PersonCreateView.as_view(), name='person-create'),
