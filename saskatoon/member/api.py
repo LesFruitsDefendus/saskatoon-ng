@@ -6,9 +6,7 @@ from rest_framework import viewsets, generics
 from rest_framework.filters import SearchFilter
 from rest_framework.response import Response
 
-from harvest.serializers import (
-    OrganizationSerializer, OrganizationMapSerializer
-)
+from harvest.serializers import OrganizationSerializer, OrganizationMapSerializer
 from member.models import AuthUser, Organization
 from member.filters import (
     CommunityFilter,
