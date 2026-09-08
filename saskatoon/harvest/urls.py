@@ -66,9 +66,14 @@ urlpatterns = [
         name='rfp-create',
     ),
     path(
-        r'comment/create/<int:hid>/',
+        r'comment/create/harvest/<int:hid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create',
+        name='comment-create-harvest',
+    ),
+    path(
+        r'comment/create/property/<int:pid>/',
+        views.CommentCreateView.as_view(),
+        name='comment-create-property',
     ),
     path(r'yield/create/', views.harvest_yield_create, name='harvest-yield-create'),
     # DELETE VIEWS
@@ -77,8 +82,8 @@ urlpatterns = [
         views.harvest_yield_delete,
         name='harvest-yield-delete',
     ),
-    path(
-        r'comment/delete/<int:hid>/',
+    re_path(
+        r'^comment/delete/(?P<id>\d+)/$',
         views.CommentDeleteView.as_view(),
         name='comment-delete',
     ),
@@ -104,7 +109,7 @@ urlpatterns = [
         name='equipment-update',
     ),
     re_path(
-        r'^comment/update/(?P<pk>\d+)/$',
+        r'^comment/update/(?P<id>\d+)/$',
         views.CommentUpdateView.as_view(),
         name='comment-update',
     ),

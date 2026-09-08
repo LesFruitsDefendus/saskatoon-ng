@@ -36,36 +36,36 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     const $scrollContainer = $('#commentScrollbar');
-        const $scrollBtn = $('#scrollOlderBtn');
+    const $scrollBtn = $('#scrollOlderBtn');
 
-        if ($scrollContainer.length && $scrollBtn.length) {
-            if ($scrollContainer.data('mCustomScrollbar')) {
-                $scrollContainer.mCustomScrollbar('destroy');
-            }
+    if ($scrollContainer.length && $scrollBtn.length) {
+        if ($scrollContainer.data('mCustomScrollbar')) {
+            $scrollContainer.mCustomScrollbar('destroy');
+        }
 
-            $scrollContainer.mCustomScrollbar({
-                theme: 'minimal-dark',
-                scrollInertia: 200,
-                callbacks: {
-                    whileScrolling: function () {
-                        if (this.mcs && this.mcs.topPct < 90) {
-                            $scrollBtn.removeClass('hidden');
-                        } else {
-                            $scrollBtn.addClass('hidden');
-                        }
-                    },
-                    onOverflowY: function () {
+        $scrollContainer.mCustomScrollbar({
+            theme: 'minimal-dark',
+            scrollInertia: 200,
+            callbacks: {
+                whileScrolling: function () {
+                    if (this.mcs && this.mcs.topPct < 40) {
                         $scrollBtn.removeClass('hidden');
-                    },
-                    onOverflowYNone: function () {
+                    } else {
                         $scrollBtn.addClass('hidden');
                     }
+                },
+                onOverflowY: function () {
+                    $scrollBtn.removeClass('hidden');
+                },
+                onOverflowYNone: function () {
+                    $scrollBtn.addClass('hidden');
                 }
-            });
+            }
+        });
 
-            $scrollBtn.off('click').on('click', function (e) {
-                e.preventDefault();
-                $scrollContainer.mCustomScrollbar('scrollTo', 'bottom');
-            });
-        }
+        $scrollBtn.off('click').on('click', function (e) {
+            e.preventDefault();
+            $scrollContainer.mCustomScrollbar('scrollTo', 'bottom');
+        });
+    }
 });

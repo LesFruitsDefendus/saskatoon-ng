@@ -1,71 +1,29 @@
 {% load i18n %}
 {% load static %}
 {% load organization %}
-
-{% if org.longitude is not None and org.latitude is not None %}
-    <leaflet-marker latitude="{{ org.latitude }}" longitude="{{ org.longitude }}">
-        <leaflet-tooltip direction="top">
-            {{ org.civil_name }}
-        </leaflet-tooltip>
-        <leaflet-icon class="{{ status | reservation }}" icon-anchor="20 -10">
-            {{ org | org_icon_stacked | safe }}
-        </leaflet-icon>
-        <leaflet-icon class="leaflet-hover-icon {{ status | reservation }}"
-                      icon-anchor="22 -5"
-                      popup-anchor="0 0">
-            {{ org | org_icon_stacked_hover | safe }}
-        </leaflet-icon>
-        <leaflet-popup>
-            <h4>
-                <a href="{% url 'organization-detail' org.actor_id %}">
-                    {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
-                </a>
-            </h4>
-            <p class="text-justify">{{ org.description }}</p>
-            <section role="group" aria-label="{% trans 'Extra details' %}">
-                {% include 'app/list_views/organization/beneficiary_modal.html' %}
-                {% include 'app/list_views/organization/equipment_modal.html' %}
-            </section>
-            <section>
-                <h5>{% trans "Contact" %}</h5>
-                <address>
-                    {{ org.contact_person.name }}
-                    <br>
-                    {{ org.short_address }}
-                    <br>
-                    {% if org.contact_person.phone is not None %}
-                        {{ org.contact_person.phone }}
-                        <br>
-                    {% endif %}
-                    {% if org.contact_person.email is not None %}
-                        <a href="mailto:{{ org.contact_person.email }}">{{ org.contact_person.email }}</a>
-                    {% endif %}
-                </address>
-            </section>
-            {% if "harvest" in request.path %}
-                <section class="harvest-reserve">
-                    {% if equipment_point and equipment_point.actor_id == org.actor_id %}
-                        {% include 'app/detail_views/harvest/cancel_reservation.html' %}
-                    {% else %}
-                        <form method="post" action="{% url 'harvest-make-reservation' id %}">
-                            {% csrf_token %}
-                            <input type="hidden" value="{{ org.actor_id }}" name="org">
-                            <button type="submit"
-                                class="btn saskatoon-success"
-                                href=""
-                                {% if not harvest_status|can_reserve_equipment or not status|available %}
-                                    disabled data-placement="top" data-toggle="tooltip" title={% if not harvest_status|can_reserve_equipment %}"{% trans 'Only scheduled and ready harvests can reserve equipment' %}"{% else %}"{% trans 'This equipment point is not available at the time of harvest' %}"{% endif %}"
-                                {% endif %}>
-                                {% if equipment_point %}
-                                    {% trans 'Change Reservation' %}
-                                {% else %}
-                                    {% trans 'Reserve' %}
-                                {% endif %}
-                            </button>
-                        </form>
-                    {% endif %}
-                </section>
-            {% endif %}
-        </leaflet-popup>
-    </leaflet-marker>
-{% endif %}
+<h4>
+    <a href="{% url 'organization-detail' org.actor_id %}">
+        {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
+    </a>
+</h4>
+<p class="text-justify">{{ org.description }}</p>
+<section role="group" aria-label="{% trans 'Extra details' %}">
+    {% include 'app/list_views/organization/beneficiary_modal.html' %}
+    {% include 'app/list_views/organization/equipment_modal.html' %}
+</section>
+<section>
+    <h5>{% trans "Contact" %}</h5>
+    <address>
+        {{ org.contact_person.name }}
+        <br>
+        {{ org.short_address }}
+        <br>
+        {% if org.contact_person.phone is not None %}
+            {{ org.contact_person.phone }}
+            <br>
+        {% endif %}
+        {% if org.contact_person.email is not None %}
+            <a href="mailto:{{ org.contact_person.email }}">{{ org.contact_person.email }}</a>
+        {% endif %}
+    </address>
+</section>

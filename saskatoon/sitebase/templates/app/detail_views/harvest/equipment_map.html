@@ -4,19 +4,64 @@
 {% load property %}
 {% get_current_language as LANG %}
 
-        <div class="reservation-map">
-            <leaflet-map style="height: 450px;
-                                max-height: 90vh"
-                         center="[{{ latitude }}, {{ longitude }}]"
-                         zoom="14">
-                {% for org in equipment_points %}
-                    {% with harvest_status=status %}
-                    {% with status=org.status %}
-                        {% include 'app/list_views/organization/marker.html' %}
-                    {% endwith %}
-                    {% endwith %}
-                {% endfor %}
-                {% include 'app/detail_views/harvest/marker.html' %}
-            </leaflet-map>
-        </div>
-
+{% block script %}
+    <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.10/dist/htmx.min.js"
+            integrity="sha384-H5SrcfygHmAuTDZphMHqBJLc3FhssKjG7w/CeCpFReSfwBWDTKpkzPP8c+cLsK+V"
+            crossorigin="anonymous"></script>
+{% endblock script %}
+<div class="reservation-map">
+    <leaflet-map style="height: 450px;
+                        max-height: 90vh"
+                 center="[{{ latitude }}, {{ longitude }}]"
+                 zoom="14">
+        {% for org in equipment_points %}
+            {% if org.longitude is not None and org.latitude is not None %}
+                <leaflet-marker latitude="{{ org.latitude }}" longitude="{{ org.longitude }}">
+                    <leaflet-tooltip direction="top">
+                        {{ org.civil_name }}
+                    </leaflet-tooltip>
+                    <leaflet-icon icon-anchor="20 -10" class="{{ org.status | reservation }}">
+                        {{ org | org_icon_stacked | safe }}
+                    </leaflet-icon>
+                    <leaflet-icon class="leaflet-hover-icon {{ org.status | reservation }}"
+                                  icon-anchor="22 -5"
+                                  popup-anchor="0 0">
+                        {{ org | org_icon_stacked_hover | safe }}
+                    </leaflet-icon>
+                    <leaflet-popup>
+                        <div style="height: 320px"
+                             class="saskatoon-map-spinner"
+                             hx-get="{% url 'organization-map-marker' org.actor_id %}"
+                             hx-swap="outerHTML"
+                             hx-trigger="intersect">
+                            <i class="fa-solid fa-circle-notch fa-spin"></i>
+                        </div>
+                        <section class="harvest-reserve">
+                            {% if equipment_point and equipment_point.actor_id == org.actor_id %}
+                                {% include 'app/detail_views/harvest/cancel_reservation.html' %}
+                            {% else %}
+                                <form method="post" action="{% url 'harvest-make-reservation' id %}">
+                                    {% csrf_token %}
+                                    <input type="hidden" value="{{ org.actor_id }}" name="org">
+                                    <button type="submit"
+                                        class="btn saskatoon-success"
+                                        href=""
+                                        {% if not harvest_status|can_reserve_equipment or not org.status|available %}
+                                            disabled data-placement="top" data-toggle="tooltip" title={% if not status|can_reserve_equipment %}"{% trans 'Only scheduled and ready harvests can reserve equipment' %}"{% else %}"{% trans 'This equipment point is not available at the time of harvest' %}"{% endif %}"
+                                        {% endif %}>
+                                        {% if equipment_point %}
+                                            {% trans 'Change Reservation' %}
+                                        {% else %}
+                                            {% trans 'Reserve' %}
+                                        {% endif %}
+                                    </button>
+                                </form>
+                            {% endif %}
+                        </section>
+                    </leaflet-popup>
+                </leaflet-marker>
+            {% endif %}
+        {% endfor %}
+        {% include 'app/detail_views/harvest/marker.html' %}
+    </leaflet-map>
+</div>

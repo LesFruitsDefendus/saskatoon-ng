@@ -1,5 +1,5 @@
 /* md & lg */
-@media (min-width: 991px) {
+@media (min-width: 992px) {
     .header-top-area {
         margin-bottom: 15px;
     }
@@ -24,12 +24,17 @@
         min-width: 60px;
         padding-right: 10px;
     }
+
+    .table-responsive > .table > tbody > tr > td,
+    .datatable-minimal td {
+        min-width: 80px;
+    }
 }
 
 /* xs & sm */
 @media (max-width: 991px) {
     .breadcomb-list {
-        padding: 0;
+        padding: 15px;
 
         > *:first-child {
             margin-bottom: 1em;
@@ -66,6 +71,7 @@
     .mobile-menu-area {
         background: #440bd4;
         display: block;
+        margin-bottom: 30px;
     }
 
     .header-top-menu {
@@ -93,6 +99,18 @@
     .nav.navbar-nav.notika-top-nav li a {
         padding: 1em;
     }
+
+    .table-responsive > .table > tbody > tr > td,
+    .datatable-minimal td {
+        min-width: 80px;
+    }
+
+    .table-responsive > .table > tbody > tr > td:nth-child(2),
+    .datatable-minimal td:nth-child(2) {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 110px;
+    }
 }
 
 /* Normal desktop (md)*/
@@ -107,6 +125,7 @@
 
     ul.notika-menu-wrap li a {
         padding: 5px;
+        margin-bottom: 10px;
     }
 
     ul.notika-main-menu-dropdown li > a {
@@ -160,6 +179,13 @@
     .table-responsive > .table > thead > tr > td,
     .table-responsive > .table > thead > tr > th {
         white-space: nowrap;
+    }
+
+    .table-responsive > .table > tbody > tr > td:nth-child(2),
+    .datatable-minimal td:nth-child(2) {
+        word-break: break-word;
+        overflow-wrap: anywhere;
+        min-width: 110px;
     }
 
     .table-responsive .pagination-inbox {
@@ -420,7 +446,7 @@
     }
 
     .breadcomb-area {
-        margin-top: 40px;
+        margin: 0px;
     }
 
     .box-layout .header-top-area {
