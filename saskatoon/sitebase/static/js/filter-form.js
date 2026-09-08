@@ -3,11 +3,20 @@ $(document).ready(function () {
         $('.collapse').collapse('show');
     }
 
-    $('#filter-panel').resize(function(){
-        const width = $(this).width()
-        const paddingRight = 24; // px
-        $('.select2-selection').each(function() {
-            $(this).width(width-paddingRight);
+    const filterPanel = document.getElementById('filter-panel');
+    
+    if (filterPanel) {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                const width = entry.contentRect.width;
+                const paddingRight = 24; // px
+                
+                $('.select2-selection, .select2-container').each(function() {
+                    $(this).width(width - paddingRight);
+                });
+            }
         });
-    });
+        
+        observer.observe(filterPanel);
+    }
 });

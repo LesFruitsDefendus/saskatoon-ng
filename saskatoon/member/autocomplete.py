@@ -137,8 +137,6 @@ class EquipmentPointAutocomplete(Autocomplete):
 
         if start_str == "" and end_str == "":
             qs = Organization.objects.filter(is_equipment_point=True)
-        elif start_str == "" or end_str == "":
-            return none
         else:
             start = parse_naive_datetime(start_str)
             end = parse_naive_datetime(end_str)
