@@ -12,16 +12,16 @@
         <table class="table compact">
             <thead>
                 <tr>
-                    <th>{% trans "Requester" %}</th>
-                    <th style="width: 10%">{% trans "Requested on" %}</th>
-                    <th style="width: 7%">{% trans "# Pickers" %}</th>
-                    <th style="width: 15%">{% trans "Requester comment" %}</th>
-                    <th style="width: 8%">{% trans "Experience" %}</th>
-                    <th style="width: 8%">{% trans "Rejections" %}</th>
-                    <th style="width: 9%">{% trans "Status" %}</th>
-                    <th style="width: 15%">{% trans "Pickleader note" %}</th>
-                    <th>{% trans "Last updated" %}</th>
-                    <th>{% trans "Action" %}</th>
+                    <th class="col-requester">{% trans "Requester" %}</th>
+                    <th class="col-date">{% trans "Requested on" %}</th>
+                    <th class="col-number">{% trans "#&nbsp;Pickers" %}</th>
+                    <th class="col-comment">{% trans "Requester comment" %}</th>
+                    <th class="col-experience">{% trans "Experience" %}</th>
+                    <th class="col-rejections">{% trans "Rejections" %}</th>
+                    <th class="col-status">{% trans "Status" %}</th>
+                    <th class="col-notes">{% trans "Pickleader note" %}</th>
+                    <th class="col-date">{% trans "Last updated" %}</th>
+                    <th class="col-actions">{% trans "Action" %}</th>
                 </tr>
             </thead>
             <tbody>
