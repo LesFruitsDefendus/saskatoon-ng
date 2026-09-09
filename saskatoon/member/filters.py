@@ -32,6 +32,7 @@ class CommunityFilter(filters.FilterSet):
         field_name='person__neighborhood',
         queryset=Neighborhood.objects.all(),
         label=_("Borough"),
+        widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
     language = filters.ChoiceFilter(

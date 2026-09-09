@@ -147,10 +147,15 @@ class PropertyFilter(filters.FilterSet):
         label=_("Borough"),
         help_text="",
         required=False,
+        widget=autocomplete.ModelSelect2('neighborhood-autocomplete'),
     )
 
     trees = filters.ModelChoiceFilter(
-        queryset=TreeType.objects.all(), label=_("Tree"), help_text="", required=False
+        queryset=TreeType.objects.all(),
+        label=_("Tree"),
+        help_text="",
+        required=False,
+        widget=autocomplete.ModelSelect2('tree-autocomplete'),
     )
 
     season = filters.ChoiceFilter(
