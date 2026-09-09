@@ -323,6 +323,7 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         widgets = {
             'pending': forms.HiddenInput(),
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
+            'neighborhood': autocomplete.ModelSelect2('neighborhood-autocomplete'),
             'avg_nb_required_pickers': forms.NumberInput(),
         }
 
