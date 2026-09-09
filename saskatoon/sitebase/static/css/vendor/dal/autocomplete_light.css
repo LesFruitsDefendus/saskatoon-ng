@@ -9,3 +9,15 @@
     font-size: 1.1em;
     padding-left: 0px !important;
 }
+
+.select2-container--default .select2-selection--multiple,
+.form-group .select2-container {
+    width: 100%;
+    height: auto;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
