@@ -4,7 +4,7 @@
 {% get_current_language as LANG %}
 <tr>
     <!-- Requester -->
-    <td>
+    <td class="col-requester">
         <b>{{ r.person.name }}</b><br>
         {% if r.person.email %}
             <a href="mailto:{{ r.person.email }}">
@@ -16,21 +16,20 @@
     </td>
 
     <!-- Date requested -->
-    <td style="text-align: center;">
+    <td class="col-date">
         {{ r.date_created }}<br>
         {% if LANG == "en" %}at{% else %}à{% endif %}
         {{ r.time_created }}
-
     </td>
 
     <!-- Number of pickers -->
-    <td style="text-align: center;">{{ r.number_of_pickers }}</td>
+    <td class="col-number">{{ r.number_of_pickers }}</td>
 
     <!-- Requester comment -->
-    <td title="{{r.comment}}">{{ r.comment|truncatechars:100 }}</td>
+    <td class="col-comment" title="{{ r.comment }}">{{ r.comment|truncatechars:100 }}</td>
 
     <!-- Past experience -->
-    <td style="text-align: center;">
+    <td class="col-experience">
         {% if r.person.accept_count > 0 %}
         <i class="fa fa-thumbs-o-up text-success"></i>
         {{ r.person.accept_count }}
@@ -41,7 +40,7 @@
     </td>
 
     <!-- Rejections -->
-    <td style="text-align: center;">
+    <td class="col-rejections">
         {% if r.person.reject_count > 0 %}
         <i class="fa fa-frown-o text-danger"></i>
         {% endif %}
@@ -49,7 +48,7 @@
     </td>
 
     <!-- Status -->
-    <td style="text-align: center;">
+    <td class="col-status">
         <b>
             {% if r.status == 'pending' %}
             <i class="fa fa-question text-warning"></i>
@@ -71,17 +70,17 @@
     </td>
 
     <!-- PickLeader notes -->
-    <td>{{ r.notes }}</td>
+    <td class="col-notes">{{ r.notes }}</td>
 
     <!-- Last updated -->
-    <td>
+    <td class="col-date">
         {% if r.date_status_updated %}
         {{ r.date_status_updated }}
         {% endif %}
     </td>
 
     <!-- Action -->
-    <td>
+    <td class="col-actions">
         {% if r.status == 'pending' and user|is_pickleader:id %}
             <div class="action-btn-group">
                 {% if volunteers_count < nb_required_pickers %}

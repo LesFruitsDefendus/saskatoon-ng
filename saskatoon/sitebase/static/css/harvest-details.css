@@ -236,16 +236,61 @@
 
     table {
         width: 100%;
-        overflow: auto;
     }
 
     th {
         font-weight: bold;
-        white-space: nowrap;
     }
 
     td {
         font-weight: normal;
+    }
+
+    .col-comment,
+    .col-notes {
+        min-width: 15%;
+    }
+
+    .col-date {
+        min-width: 10%;
+        white-space: nowrap;
+    }
+
+    .col-number,
+    .col-rejections {
+        min-width: 7%;
+
+    }
+
+    td.col-number {
+        text-align: center;
+    }
+
+    .col-requester {
+        min-width: 12%;
+    }
+
+    .col-experience,
+    .col-status {
+        min-width: 11%;
+    }
+
+    .col-actions {
+        min-width: 8%;
+    }
+
+    @media (max-width: 1168px) {
+
+        th.col-number,
+        th.col-notes {
+            white-space: normal !important;
+        }
+
+        td.col-comment,
+        td.col-notes {
+            min-width: 200px !important;
+            white-space: normal !important;
+        }
     }
 
     .action-btn-group {
