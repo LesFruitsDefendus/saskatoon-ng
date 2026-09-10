@@ -400,6 +400,16 @@ class CommentCreateView(
             return reverse_lazy('property-detail', kwargs={'pk': pid})
         return reverse_lazy('home')
 
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self.get_success_url())
+
 
 class CommentUpdateView(
     LoginRequiredMixin,
@@ -431,6 +441,16 @@ class CommentUpdateView(
         elif self.object.property_id:
             return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
         return reverse_lazy('home')
+
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CommentDeleteView(

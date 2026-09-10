@@ -56,6 +56,33 @@
     gap: 10px;
 }
 
+.collapsed-comment {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin-bottom: 4px;
+}
+
+.expanded-comment {
+    display: block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin-bottom: 4px;
+}
+
+.toggle-comment-btn {
+    background: none;
+    border: none;
+    color: var(--saskatoon-info);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.85rem;
+}
+
 .btn-scroll-older {
     position: absolute;
     bottom: 12px;
@@ -106,6 +133,7 @@
 }
 
 .comment-author-meta {
+    word-break: break-word;
     text-align: left;
     line-height: 1.3;
 
