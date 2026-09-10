@@ -8,6 +8,10 @@
 <script src="{%static 'js/public-form.js' %}"></script>
 {% endblock script %}
 
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock style %}
+
 {% block content %}
 
 {{ form.media }}
