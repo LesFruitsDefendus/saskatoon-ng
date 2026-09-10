@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-07 19:35-0400\n"
+"POT-Creation-Date: 2026-09-10 18:17-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,68 +43,68 @@ msgstr "Nouvelle personne"
 msgid "Role(s)"
 msgstr "Rôle(s)"
 
-#: member/filters.py:34 member/filters.py:137 member/filters.py:170
+#: member/filters.py:34 member/filters.py:138 member/filters.py:171
 #: member/models.py:250 member/models.py:471
 msgid "Borough"
 msgstr "Voisinage"
 
-#: member/filters.py:40
+#: member/filters.py:41
 msgid "Language"
 msgstr "Langue"
 
-#: member/filters.py:44
+#: member/filters.py:45
 msgid "Active in"
 msgstr ""
 
-#: member/filters.py:52
+#: member/filters.py:53
 msgid "Sort by"
 msgstr ""
 
-#: member/filters.py:54
+#: member/filters.py:55
 msgid "Most harvests led"
 msgstr ""
 
-#: member/filters.py:55
+#: member/filters.py:56
 msgid "Most participations"
 msgstr ""
 
-#: member/filters.py:128
+#: member/filters.py:129
 msgid "Type"
 msgstr "Type"
 
-#: member/filters.py:130
+#: member/filters.py:131
 msgid "Beneficiaries"
 msgstr "Bénéficiaires"
 
-#: member/filters.py:131
+#: member/filters.py:132
 msgid "Equipment Points"
 msgstr "Points d'équipements"
 
-#: member/filters.py:164
+#: member/filters.py:165
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
 
-#: member/filters.py:176
+#: member/filters.py:177
 msgid "Equipment Type"
 msgstr "Type d'équipement"
 
-#: member/filters.py:182
+#: member/filters.py:183
 msgid "Status"
 msgstr "Statut"
 
-#: member/filters.py:184 member/models.py:407
+#: member/filters.py:185 member/models.py:407
 msgid "Available"
 msgstr "Disponible"
 
-#: member/filters.py:185 member/models.py:406
+#: member/filters.py:186 member/models.py:406
 msgid "Reserved"
 msgstr "Réservé"
 
-#: member/filters.py:190
+#: member/filters.py:191
 msgid "From"
 msgstr "De"
 
-#: member/filters.py:191
+#: member/filters.py:192
 msgid "To"
 msgstr "À"
 
