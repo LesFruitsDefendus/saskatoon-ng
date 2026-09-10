@@ -68,4 +68,34 @@ document.addEventListener('DOMContentLoaded', function () {
             $scrollContainer.mCustomScrollbar('scrollTo', 'bottom');
         });
     }
+
+    const commentWrappers = document.querySelectorAll('.comment-wrapper');
+
+    commentWrappers.forEach((wrapper) => {
+        const commentP = wrapper.querySelector('.comment-text');
+        const toggleBtn = wrapper.querySelector('.toggle-comment-btn');
+
+        if (commentP && toggleBtn) {
+            setTimeout(() => {
+                if (commentP.scrollHeight > commentP.clientHeight || commentP.textContent.trim().length > 100) {
+                    toggleBtn.style.display = 'inline-block';
+                }
+            }, 50);
+
+            toggleBtn.addEventListener('click', () => {
+                const moreText = toggleBtn.getAttribute('data-more-text') || 'Read more';
+                const lessText = toggleBtn.getAttribute('data-less-text') || 'Read less';
+
+                if (commentP.classList.contains('collapsed-comment')) {
+                    commentP.classList.remove('collapsed-comment');
+                    commentP.classList.add('expanded-comment');
+                    toggleBtn.textContent = lessText;
+                } else {
+                    commentP.classList.remove('expanded-comment');
+                    commentP.classList.add('collapsed-comment');
+                    toggleBtn.textContent = moreText;
+                }
+            });
+        }
+    });
 });

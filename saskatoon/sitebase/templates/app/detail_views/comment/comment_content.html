@@ -5,8 +5,15 @@
 <div class="comment-content-cell">
     <div id="comment-view-{{ comment.id }}" class="conversation-text-container">
         <div class="conversation-text">
-            <div class="ctext-wrap">
-                <p id="comment-text-{{ comment.id }}">{{ comment.content }}</p>
+            <div class="ctext-wrap comment-wrapper">
+                <p id="comment-text-{{ comment.id }}" class="collapsed-comment comment-text">{{ comment.content }}</p>
+                <button type="button"
+                        class="btn-link toggle-comment-btn"
+                        style="display: none;"
+                        data-more-text="{% trans 'Read more' %}"
+                        data-less-text="{% trans 'Read less' %}">
+                    {% trans "Read more" %}
+                </button>
             </div>
         </div>
 
