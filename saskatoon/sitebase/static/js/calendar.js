@@ -21,7 +21,7 @@ $(document).ready(function () {
             /* filling modal templates*/
             $('.harvest-id').attr('value', info.event.extendedProps.harvest_id);
             $('.harvest-url').attr('href', "/harvest/" + info.event.extendedProps.harvest_id + "/");
-            $('.rfp-url').attr('href', info.event.url);
+            $('.rfp-url').attr('href', info.event.url + '?from=calendar');
             $('.modal-title').html(info.event.title);
             $('.start-date').html(info.event.extendedProps.start_date);
             $('.start-time').html(info.event.extendedProps.start_time);

@@ -15,6 +15,7 @@ from typing_extensions import Self
 
 from member.forms import validate_email
 from member.models import AuthUser, Organization, Person
+from member.permissions import is_core_or_admin
 from member.utils import is_equipment_point_available
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
@@ -57,19 +58,48 @@ class RFPForm(forms.ModelForm[RFP]):
     comment = forms.CharField(label=_("Comments"), required=False, widget=forms.widgets.Textarea())
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
         if 'harvest' in kwargs:
             self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
 
-    def clean_email(self):
-        email = self.cleaned_data['email']
+    @property
+    def is_harvest_leader(self) -> bool:
+        return (
+            self.request
+            and self.request.user.is_authenticated
+            and self.harvest
+            and (
+                self.harvest.pick_leader == self.request.user
+                or (hasattr(self.request.user, 'person') and self.harvest.pick_leader == self.request.user.person)
+                or is_core_or_admin(self.request.user)
+            )
+        )
 
-        if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email)
+    def clean_email(self):
+        email = self.cleaned_data['email'].strip().lower()
+
+        auth_user = AuthUser.objects.filter(email__iexact=email).first()
+        if auth_user and auth_user.person:
 
             # check if a request with the same email already exists
             if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
-                raise forms.ValidationError(_("You have already requested to join this pick."))
+                is_self_application = (
+                    self.request
+                    and self.request.user.is_authenticated
+                    and self.request.user.email == email
+                )
+
+                is_target_harvest_leader = (
+                    self.harvest.pick_leader == auth_user 
+                    or (hasattr(auth_user, 'person') and self.harvest.pick_leader == auth_user.person)
+                    or is_core_or_admin(auth_user)
+                )
+
+                if (self.is_harvest_leader or is_target_harvest_leader)and not is_self_application:
+                    raise forms.ValidationError(_("This person has already been added to this pick."))
+                else:
+                    raise forms.ValidationError(_("You have already requested to join this pick."))
 
         return email
 
