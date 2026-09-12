@@ -105,7 +105,8 @@ def get_auth_user(email: str) -> Optional[AuthUser]:
     if not email:
         return None
     normalized_email = AuthUser.objects.normalize_email(email)
-    return AuthUser.objects.filter(email__iexact=normalized_email).first()
+    user = AuthUser.objects.filter(email__iexact=normalized_email).first()
+    return cast(Optional[AuthUser], user)
 
 
 def create_auth_user(email: str, roles: List[Role]) -> AuthUser:
