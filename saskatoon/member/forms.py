@@ -9,6 +9,7 @@ from phone_field.forms import PhoneFormField
 
 from harvest.models import Property
 from member.models import AuthUser, Person, Organization
+from member.utils import create_auth_user
 from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')
@@ -39,16 +40,30 @@ class PersonCreateForm(forms.ModelForm[Person]):
         validate_email(cleaned_data['email'])
 
     def save(self):
-        # create Person instance
-        instance = super().save()
-
-        # create associated auth.user
-        auth_user = AuthUser.objects.create(email=self.cleaned_data['email'], person=instance)
+        email = self.cleaned_data['email']
         roles = self.cleaned_data['roles']
-        auth_user.set_roles(roles)
-
-        # associate pending_property (if any)
         pid = self.cleaned_data['pending_property_id']
+
+        auth_user = create_auth_user(email, roles)
+
+        if auth_user.person:
+            instance = auth_user.person
+            for field in [
+                'first_name',
+                'family_name',
+                'phone',
+                'neighborhood',
+                'language',
+                'comment',
+            ]:
+                if field in self.cleaned_data and self.cleaned_data[field]:
+                    setattr(instance, field, self.cleaned_data[field])
+            instance.save()
+        else:
+            instance = super().save()
+            auth_user.person = instance
+            auth_user.save()
+
         if pid and 'owner' in roles:
             try:
                 pending_property = Property.objects.get(id=pid)
@@ -109,9 +124,11 @@ class PersonUpdateForm(forms.ModelForm[Person]):
         roles = self.cleaned_data.get('roles', None)
         if email and roles:
             if not self.auth_user:
-                self.auth_user = AuthUser.objects.create(person=instance, email=email)
+                self.auth_user = create_auth_user(email, roles)
             self.auth_user.email = email
             self.auth_user.set_roles(roles)  # calls auth_user.save()
+
+        return instance
 
 
 class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
@@ -180,18 +197,22 @@ class OrganizationCreateForm(OrganizationForm):
         # # create Organization instance
         instance = super(OrganizationCreateForm, self).save()
 
-        # # create Contact Person/AuthUser
-        person = Person.objects.create(
-            first_name=self.cleaned_data['contact_first_name'],
-            family_name=self.cleaned_data['contact_last_name'],
-            phone=self.cleaned_data['contact_phone'],
-        )
-        person.save()
+        if self.cleaned_data['contact_person']:
+            person = self.cleaned_data['contact_person']
+        else:
+            email = self.cleaned_data['contact_email']
+            auth_user = create_auth_user(email, ['contact'])
 
-        auth_user = AuthUser.objects.create(
-            email=self.cleaned_data['contact_email'], person=person
-        )
-        auth_user.set_roles(['contact'])
+            if auth_user.person:
+                person = auth_user.person
+            else:
+                person = Person.objects.create(
+                    first_name=self.cleaned_data['contact_first_name'],
+                    family_name=self.cleaned_data['contact_last_name'],
+                    phone=self.cleaned_data['contact_phone'],
+                )
+                auth_user.person = person
+                auth_user.save()
 
         # # associate Contact to Organization
         instance.contact_person = person

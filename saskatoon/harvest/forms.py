@@ -14,8 +14,8 @@ from typing import Any, Optional
 from typing_extensions import Self
 
 from member.forms import validate_email
-from member.models import AuthUser, Organization, Person
-from member.utils import is_equipment_point_available
+from member.models import Organization, Person
+from member.utils import is_equipment_point_available, create_auth_user, get_auth_user
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -63,10 +63,9 @@ class RFPForm(forms.ModelForm[RFP]):
 
     def clean_email(self):
         email = self.cleaned_data['email']
+        auth_user = get_auth_user(email)
 
-        if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email)
-
+        if auth_user and auth_user.person:
             # check if a request with the same email already exists
             if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
                 raise forms.ValidationError(_("You have already requested to join this pick."))
@@ -79,19 +78,17 @@ class RFPForm(forms.ModelForm[RFP]):
 
         # check if a user with the same email is already registered
         email = self.cleaned_data['email']
-        if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email)
-            instance.person = auth_user.person
-        else:
-            instance.person = Person.objects.create(
+        auth_user = create_auth_user(email, ['volunteer'])
+
+        if not auth_user.person:
+            auth_user.person = Person.objects.create(
                 first_name=self.cleaned_data['first_name'],
                 family_name=self.cleaned_data['last_name'],
                 phone=self.cleaned_data['phone'],
             )
-            auth_user = AuthUser.objects.create(email=email, person=instance.person)
+            auth_user.save()
 
-        group, __ = Group.objects.get_or_create(name='volunteer')
-        auth_user.groups.add(group)
+        instance.person = auth_user.person
         instance.save()
 
         Email(
@@ -265,15 +262,26 @@ class PropertyCreateForm(PropertyForm):
     def save(self):
         instance = super().save()
         if not self.cleaned_data['owner']:
-            person = Person.objects.create(
-                first_name=self.cleaned_data['owner_first_name'],
-                family_name=self.cleaned_data['owner_last_name'],
-                phone=self.cleaned_data['owner_phone'],
-            )
-            auth_user = AuthUser.objects.create(
-                email=self.cleaned_data['owner_email'], person=person
-            )
-            auth_user.set_roles(['owner'])
+            email = self.cleaned_data['owner_email']
+            auth_user = create_auth_user(email)
+
+            person = auth_user.person
+            if not person:
+                person = Person.objects.create(
+                    first_name=self.cleaned_data['owner_first_name'],
+                    family_name=self.cleaned_data['owner_last_name'],
+                    phone=self.cleaned_data['owner_phone'],
+                )
+                auth_user.person = person
+                auth_user.save()
+            else:
+                person = Person.objects.create(
+                    first_name=self.cleaned_data['owner_first_name'],
+                    family_name=self.cleaned_data['owner_last_name'],
+                    phone=self.cleaned_data['owner_phone'],
+                )
+                auth_user.person = person
+                auth_user.save()
 
             instance.owner = person
             instance.save()

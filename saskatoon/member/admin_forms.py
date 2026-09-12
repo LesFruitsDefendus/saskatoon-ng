@@ -3,6 +3,7 @@ from django.contrib import admin
 
 from member.models import AuthUser, Person
 from harvest.models import Equipment
+from member.utils import get_auth_user, create_auth_user
 
 from django.contrib.auth.forms import (
     UserCreationForm,
@@ -82,7 +83,13 @@ class PendingPickLeaderAdminForm(forms.ModelForm[Person]):
     def save(self, commit=True):
         self.instance = super().save(commit=False)
         data = self.cleaned_data
-        person = Person.objects.filter(auth_user__email=data.get('email')).first()
+        email = data.get('email')
+
+        auth_user = get_auth_user(email)
+        person = None
+        if auth_user and auth_user.person:
+            person = auth_user.person
+
         if person:
             for key in ['first_name', 'family_name', 'phone']:
                 setattr(person, key, data.get(key))
@@ -98,13 +105,18 @@ class PendingPickLeaderInlineAdminFormSet(
     forms.models.BaseInlineFormSet[Person, Person, PendingPickLeaderAdminForm]
 ):
     def get_emails(self):
-        return dict(
-            [
-                (f.instance.pk, f.cleaned_data.get('email'))
-                for f in self.forms
-                if f.instance.pk is not None
-            ]
-        )
+        emails = {}
+        for f in self.forms:
+            if (
+                f.instance.pk is not None
+                and f.cleaned_data
+                and not f.cleaned_data.get('DELETE', False)
+            ):
+                email = f.cleaned_data.get('email')
+                if email:
+                    # Normalize immediately so checks match database behavior
+                    emails[f.instance.pk] = AuthUser.objects.normalize_email(email).lower()
+        return emails
 
     def clean(self):
         email_list = list(self.get_emails().values())
@@ -114,21 +126,29 @@ class PendingPickLeaderInlineAdminFormSet(
     def save_new_objects(self, commit=True):
         saved_instances = super().save_new_objects(commit)
         for person in [p for p in saved_instances if p is not None]:
-            email = self.get_emails().get(person.pk)
-            user, _ = AuthUser.objects.get_or_create(email=email, person=person)
+            email = self.get_emails().get(person.pk) or getattr(person, 'email', None)
 
             # PickLeaders don't get assigned the 'pickleader' role until
             # they have read and agreed to the privacy policy
-            user.add_role('volunteer')
+            if email:
+                user = create_auth_user(email, ['volunteer'])
+                if not user.person:
+                    user.person = person
+                    user.save()
 
         return saved_instances
 
     def save_existing_objects(self, commit=True):
         saved_instances = super().save_existing_objects(commit)
-        for i, person in enumerate(saved_instances):
-            user = AuthUser.objects.get(person=person)
-            user.email = self.get_emails().get(person.pk)
-            user.save()
+        email_map = self.get_emails()
+
+        for person in saved_instances:
+            if person is not None:
+                user = AuthUser.objects.filter(person=person).first()
+                new_email = email_map.get(person.pk)
+                if user and new_email:
+                    user.email = new_email
+                    user.save()
 
         return saved_instances
 

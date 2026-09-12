@@ -4,9 +4,9 @@ from django.db.models import Q, QuerySet
 from datetime import timedelta, datetime
 from secrets import choice
 from typeguard import typechecked
-from typing import Optional, Union
+from typing import Optional, Union, List, cast
 
-from member.models import AuthUser, Organization
+from member.models import AuthUser, Organization, Role
 from harvest.models import Equipment, Harvest
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
@@ -97,3 +97,36 @@ def is_equipment_point_available(
         return False
 
     return get_available_equipment_points(start, end, harvest).filter(pk=org.pk).exists()
+
+
+def get_auth_user(email: str) -> Optional[AuthUser]:
+    """Retrieve an AuthUser case-insensitively, safely returning the first match."""
+
+    if not email:
+        return None
+    normalized_email = AuthUser.objects.normalize_email(email)
+    user = AuthUser.objects.filter(email__iexact=normalized_email).first() # type: ignore[misc]
+
+    return cast(Optional[AuthUser], user)
+
+
+def create_auth_user(email: str, roles: List[Role]) -> AuthUser:
+    """Safely create or retrieve an AuthUser with full normalization."""
+
+    if not email:
+        raise ValueError("Email is required.")
+
+    email = email.strip().lower()
+
+    # Check if they already exist (case-insensitively)
+    existing_user = get_auth_user(email)
+    if existing_user:
+        return existing_user
+
+    # Cast to AuthUser for MyPy
+    user = cast(AuthUser, AuthUser.objects.create(email=email))  # type: ignore
+
+    if roles:
+        user.set_roles(roles)
+
+    return user
