@@ -105,7 +105,8 @@ def get_auth_user(email: str) -> Optional[AuthUser]:
     if not email:
         return None
     normalized_email = AuthUser.objects.normalize_email(email)
-    user = AuthUser.objects.filter(email__iexact=normalized_email).first()
+    user = AuthUser.objects.filter(email__iexact=normalized_email).first() # type: ignore[misc]
+
     return cast(Optional[AuthUser], user)
 
 
@@ -122,8 +123,8 @@ def create_auth_user(email: str, roles: List[Role]) -> AuthUser:
     if existing_user:
         return existing_user
 
-    # Cast to AuthUser so Mypy knows it has the custom model attributes/methods
-    user = cast(AuthUser, AuthUser.objects.create(email=email))
+    # Cast to AuthUser for MyPy
+    user = cast(AuthUser, AuthUser.objects.create(email=email))  # type: ignore
 
     if roles:
         user.set_roles(roles)
