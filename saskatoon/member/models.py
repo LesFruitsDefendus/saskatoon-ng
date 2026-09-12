@@ -28,6 +28,10 @@ from harvest.models import (
 class AuthUserManager(BaseUserManager[AbstractBaseUser]):
     """Base user management"""
 
+    @classmethod
+    def normalize_email(cls, email):
+            return super().normalize_email(email).lower()
+    
     def create_user(self, email, password=None):
         if not email:
             raise ValueError(_('Users must have an email address'))
@@ -131,6 +135,11 @@ class AuthUser(AbstractBaseUser, PermissionsMixin):
         if self.person is not None:
             return self.person.name
         return None
+
+    def save(self, *args, **kwargs):
+        if self.email:
+            self.email = self.__class__.objects.normalize_email(self.email).lower()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         if self.person:
