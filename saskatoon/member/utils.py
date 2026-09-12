@@ -4,7 +4,7 @@ from django.db.models import Q, QuerySet
 from datetime import timedelta, datetime
 from secrets import choice
 from typeguard import typechecked
-from typing import Optional, Union, List
+from typing import Optional, Union, List, cast
 
 from member.models import AuthUser, Organization, Role
 from harvest.models import Equipment, Harvest
@@ -99,7 +99,6 @@ def is_equipment_point_available(
     return get_available_equipment_points(start, end, harvest).filter(pk=org.pk).exists()
 
 
-
 def get_auth_user(email: str) -> Optional[AuthUser]:
     """Retrieve an AuthUser case-insensitively, safely returning the first match."""
 
@@ -109,19 +108,22 @@ def get_auth_user(email: str) -> Optional[AuthUser]:
     return AuthUser.objects.filter(email__iexact=normalized_email).first()
 
 
-def create_auth_user(email: str, roles:List[Role]) -> AuthUser:
+def create_auth_user(email: str, roles: List[Role]) -> AuthUser:
     """Safely create or retrieve an AuthUser with full normalization."""
 
     if not email:
-        raise ValueError("An email address is required to create a user.")
-    
-    # Check if they already exist (case-insensitively) to prevent any duplicate collisions
+        raise ValueError("Email is required.")
+
+    email = email.strip().lower()
+
+    # Check if they already exist (case-insensitively)
     existing_user = get_auth_user(email)
     if existing_user:
         return existing_user
 
-    user = AuthUser.objects.create(email=email)
-    
+    # Cast to AuthUser so Mypy knows it has the custom model attributes/methods
+    user = cast(AuthUser, AuthUser.objects.create(email=email))
+
     if roles:
         user.set_roles(roles)
 

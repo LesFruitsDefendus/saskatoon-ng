@@ -15,7 +15,7 @@ from typing_extensions import Self
 
 from member.forms import validate_email
 from member.models import Organization, Person
-from member.utils import is_equipment_point_available, create_auth_user
+from member.utils import is_equipment_point_available, create_auth_user, get_auth_user
 from sitebase.models import Email, EmailType
 from sitebase.serializers import EmailRFPSerializer
 from sitebase.utils import is_quill_html_empty
@@ -266,7 +266,7 @@ class PropertyCreateForm(PropertyForm):
             auth_user = create_auth_user(email)
 
             person = auth_user.person
-            if not person: 
+            if not person:
                 person = Person.objects.create(
                     first_name=self.cleaned_data['owner_first_name'],
                     family_name=self.cleaned_data['owner_last_name'],
@@ -282,7 +282,7 @@ class PropertyCreateForm(PropertyForm):
                 )
                 auth_user.person = person
                 auth_user.save()
-                
+
             instance.owner = person
             instance.save()
 

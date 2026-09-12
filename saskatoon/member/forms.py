@@ -48,7 +48,14 @@ class PersonCreateForm(forms.ModelForm[Person]):
 
         if auth_user.person:
             instance = auth_user.person
-            for field in ['first_name', 'family_name', 'phone', 'neighborhood', 'language', 'comment']:
+            for field in [
+                'first_name',
+                'family_name',
+                'phone',
+                'neighborhood',
+                'language',
+                'comment',
+            ]:
                 if field in self.cleaned_data and self.cleaned_data[field]:
                     setattr(instance, field, self.cleaned_data[field])
             instance.save()
@@ -120,7 +127,7 @@ class PersonUpdateForm(forms.ModelForm[Person]):
                 self.auth_user = create_auth_user(email, roles)
             self.auth_user.email = email
             self.auth_user.set_roles(roles)  # calls auth_user.save()
-            
+
         return instance
 
 

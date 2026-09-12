@@ -30,8 +30,8 @@ class AuthUserManager(BaseUserManager[AbstractBaseUser]):
 
     @classmethod
     def normalize_email(cls, email):
-            return super().normalize_email(email).lower()
-    
+        return super().normalize_email(email).lower()
+
     def create_user(self, email, password=None):
         if not email:
             raise ValueError(_('Users must have an email address'))

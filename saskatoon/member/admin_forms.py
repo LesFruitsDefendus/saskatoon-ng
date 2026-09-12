@@ -107,7 +107,11 @@ class PendingPickLeaderInlineAdminFormSet(
     def get_emails(self):
         emails = {}
         for f in self.forms:
-            if f.instance.pk is not None and f.cleaned_data and not f.cleaned_data.get('DELETE', False):
+            if (
+                f.instance.pk is not None
+                and f.cleaned_data
+                and not f.cleaned_data.get('DELETE', False)
+            ):
                 email = f.cleaned_data.get('email')
                 if email:
                     # Normalize immediately so checks match database behavior
