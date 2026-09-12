@@ -27,7 +27,7 @@ def similar_properties(pending_property: Property):
     try:
         email = p.pending_contact_email
         if email:
-            query |= Q(owner__person__auth_user__email=email)
+            query |= Q(owner__person__auth_user__email__iexact=email)
 
         first_name = p.pending_contact_first_name
         family_name = p.pending_contact_family_name

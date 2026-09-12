@@ -8,7 +8,7 @@ def validate_email(email, auth_user=None):
     '''Check if a user with same email address is already registered'''
 
     if email:
-        duplicates = AuthUser.objects.filter(email=email)
+        duplicates = AuthUser.objects.filter(email__iexact=email)
         if auth_user:
             duplicates = duplicates.exclude(id=auth_user.id)
         if duplicates.exists():
