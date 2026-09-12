@@ -2,6 +2,7 @@ from django.contrib import admin, messages
 from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
+from member.utils import create_auth_user
 from django.utils.safestring import mark_safe
 from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 
@@ -250,8 +251,14 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
                     elif len(emails) == 1:
                         email = emails[0]
                 if email:
-                    AuthUser.objects.create(email=email, person=_property.owner.person)
-                    nb_users += 1
+                    person = _property.owner.person
+                    user = create_auth_user(email, ['owner'])
+
+                    if not user.person:
+                        user.person = person
+                        user.save()
+                        nb_users += 1
+
             except Exception as e:
                 messages.error(request, e)
 

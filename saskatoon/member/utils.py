@@ -115,14 +115,12 @@ def create_auth_user(email: str, roles:List[Role]) -> AuthUser:
     if not email:
         raise ValueError("An email address is required to create a user.")
     
-    normalized_email = AuthUser.objects.normalize_email(email)
-    
     # Check if they already exist (case-insensitively) to prevent any duplicate collisions
-    existing_user = get_auth_user(normalized_email)
+    existing_user = get_auth_user(email)
     if existing_user:
         return existing_user
 
-    user = AuthUser.objects.create_user(email=normalized_email)
+    user = AuthUser.objects.create(email=email)
     
     if roles:
         user.set_roles(roles)
