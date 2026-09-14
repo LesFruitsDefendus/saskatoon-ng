@@ -256,14 +256,14 @@
         white-space: nowrap;
     }
 
+    th.col-number.lang-en::before {
+        content: "# ";
+    }
+
     .col-number,
     .col-rejections {
         min-width: 7%;
 
-    }
-
-    td.col-number {
-        text-align: center;
     }
 
     .col-requester {
@@ -277,6 +277,12 @@
 
     .col-actions {
         min-width: 8%;
+    }
+
+    td.col-experience,
+    td.col-rejections,
+    td.col-number {
+        text-align: center;
     }
 
     @media (max-width: 1168px) {
