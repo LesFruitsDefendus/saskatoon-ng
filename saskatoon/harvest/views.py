@@ -315,21 +315,11 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
         }
 
     def form_invalid(self, form):
-        email_errors = form.errors.get('email', [])
-        is_volunteer_duplicate = any(
-            "You have already requested to join this pick" in str(err) 
-            for err in email_errors
-        )
-
-        if is_volunteer_duplicate:
-            if form.is_harvest_leader:
-                messages.error(self.request, _("This person has already been added to this pick."))
-                return super().form_invalid(form)
-            else:
-                messages.error(self.request, _("You have already requested to join this pick."))
-                if self.request.GET.get('from') == 'calendar':
-                    return HttpResponseRedirect(reverse_lazy('calendar'))
-                return HttpResponseRedirect(self.get_success_url())           
+        if getattr(form, 'is_volunteer_duplicate', False):
+            messages.error(self.request, _("You have already requested to join this pick."))
+            if self.request.GET.get('from') == 'calendar':
+                return HttpResponseRedirect(reverse_lazy('calendar'))
+            return HttpResponseRedirect(self.get_success_url())
 
         return super().form_invalid(form)
 

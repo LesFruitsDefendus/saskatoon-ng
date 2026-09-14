@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-06 14:29+0000\n"
+"POT-Creation-Date: 2026-09-14 17:29-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1180,7 +1180,7 @@ msgstr "Personne resource"
 msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
-#: sitebase/templates/app/forms/participation_create_form.html:85
+#: sitebase/templates/app/forms/participation_create_form.html:74
 #: sitebase/templates/app/forms/property_create_public.html:32
 msgid "Send"
 msgstr "Envoyer"
