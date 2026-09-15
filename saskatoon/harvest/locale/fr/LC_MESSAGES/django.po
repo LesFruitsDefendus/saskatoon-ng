@@ -1033,8 +1033,8 @@ msgstr ""
 
 #: harvest/views.py:266
 msgid ""
-"You’ve just led your {} fruit harvest this season!                     Thank "
-"you for supporting your community!"
+"You’ve just led your {} fruit harvest this season! Thank you for supporting "
+"your community!"
 msgstr ""
 "Vous avez mené votre {} cueillette de fruits de la saison ! Merci de "
 "supporter votre communauté ! "
