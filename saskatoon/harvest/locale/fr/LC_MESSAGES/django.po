@@ -72,10 +72,12 @@ msgid "No email address associated with property!"
 msgstr "Aucun courriel n'est associé à la propriété!"
 
 #: harvest/api.py:239
+#, python-brace-format
 msgid "Authorization email successfully sent to {email}!"
 msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 
 #: harvest/api.py:246
+#, python-brace-format
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
@@ -848,10 +850,12 @@ msgid "Creation date"
 msgstr "Date de création"
 
 #: harvest/models.py:643
+#, python-brace-format
 msgid "Harvest on {} for {}"
 msgstr "Récolte le {} pour {}"
 
 #: harvest/models.py:647
+#, python-brace-format
 msgid "Harvest for {}"
 msgstr "Récolte pour {}"
 
@@ -1026,6 +1030,7 @@ msgstr ""
 "cueillette comme Réussie. "
 
 #: harvest/views.py:265
+#, python-brace-format
 msgid ""
 "You’ve just led your {} fruit harvest this season!                     Thank "
 "you for supporting your community!"
