@@ -244,3 +244,50 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
     }.get(status, default)
 
     return 'data-placement="' + direction + '" data-toggle="tooltip" title="' + help_text + '"'
+
+
+@register.filter
+@typechecked
+def harvest_recipient_attributes(status: Optional[str], direction: str = "top") -> str:
+    default = ''
+
+    if status is None:
+        return default
+
+    help_text = {
+        t[0]: t[1]
+        for t in [
+            (
+                Harvest.Status.ORPHAN.value,
+                _("Harvest needs a pick leader to adopt it"),
+            ),
+            (
+                Harvest.Status.ADOPTED.value,
+                _("A Harvest must be ready before adding recipients"),
+            ),
+            (
+                Harvest.Status.SCHEDULED.value,
+                _("A Harvest must be ready before adding recipients"),
+            ),
+            (
+                Harvest.Status.READY.value,
+                _("Add a new recipient to record fruit distribution for this harvest"),
+            ),
+            (
+                Harvest.Status.SUCCEEDED.value,
+                _("Add a new recipient to record fruit distribution for this harvest"),
+            ),
+            (
+                Harvest.Status.CANCELLED.value,
+                _("Harvest is cancelled, it will need to be rescheduled by the pick leader"),
+            ),
+        ]
+    }.get(status, default)
+
+    return (
+        'data-placement="'
+        + direction
+        + '" data-toggle="tooltip" data-trigger="hover" title="'
+        + help_text
+        + '"'
+    )
