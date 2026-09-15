@@ -228,6 +228,10 @@ class HarvestUpdateView(
     def get_form_kwargs(self, *args, **kwargs):
         return super().get_form_kwargs(*args, **kwargs) | {'yields': self.object.yields}
 
+    def form_valid(self, form):
+        self.original_status = self.get_object().status
+        return super().form_valid(form)
+
     def get_success_message(self, cleaned_data) -> StrOrPromise:
         if self.object.status == Harvest.Status.READY and self.object.has_pending_requests():
             messages.error(
@@ -254,16 +258,29 @@ class HarvestUpdateView(
                 self.object.save()
                 return ""
 
-            if (pl := self.object.pick_leader) is not None and (person := pl.person) is not None:
+            transitioned_correctly = getattr(self, 'original_status', None) in [
+                Harvest.Status.SCHEDULED,
+                Harvest.Status.READY,
+            ]
+
+            pl = self.object.pick_leader
+            is_user_pickleader = pl is not None and pl == self.request.user
+
+            if (
+                pl is not None
+                and transitioned_correctly
+                and is_user_pickleader
+                and pl.person is not None
+            ):
                 season_count = (
-                    person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
+                    pl.person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
                     .filter(start_date__year=tz.now().date().year)
                     .count()
                 )
 
                 return _(
-                    "You’ve just led your {} fruit harvest this season! \
-                    Thank you for supporting your community!"
+                    "You’ve just led your {} fruit harvest this season! "
+                    "Thank you for supporting your community!"
                 ).format(ordinal(season_count))
 
         return self.success_message
@@ -578,12 +595,38 @@ def harvest_status_change(request, id):
             _("Please complete fruit distribution before marking the harvest as succeeded."),
         )
     else:
+        transitioned_correctly = harvest.status in [
+            Harvest.Status.SCHEDULED,
+            Harvest.Status.READY,
+        ]
+
         harvest.status = request_status
         harvest.save()
-        messages.success(
-            request,
-            _("Harvest status successfully set to: {}").format(harvest.get_status_display()),
-        )
+
+        pl = harvest.pick_leader
+        if (
+            pl is not None
+            and request_status == Harvest.Status.SUCCEEDED
+            and transitioned_correctly
+            and pl.person is not None
+        ):
+            season_count = (
+                pl.person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
+                .filter(start_date__year=tz.now().date().year)
+                .count()
+            )
+            messages.success(
+                request,
+                _(
+                    "You’ve just led your {} fruit harvest this season! "
+                    "Thank you for supporting your community!"
+                ).format(ordinal(season_count)),
+            )
+        else:
+            messages.success(
+                request,
+                _("Harvest status successfully set to: {}").format(harvest.get_status_display()),
+            )
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
