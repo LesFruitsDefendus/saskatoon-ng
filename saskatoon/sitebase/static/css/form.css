@@ -6,3 +6,9 @@
         margin-top: 5px;
     }
 }
+
+.form-check,
+.checkboxinput {
+    display: inline-flex;
+    gap: 0.5rem;
+}
