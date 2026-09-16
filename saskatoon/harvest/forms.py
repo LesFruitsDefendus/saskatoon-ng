@@ -58,7 +58,7 @@ class RFPForm(forms.ModelForm[RFP]):
     comment = forms.CharField(label=_("Comments"), required=False, widget=forms.widgets.Textarea())
 
     def __init__(self, *args, **kwargs):
-        self.request = kwargs.pop('request', None)
+        self.request_user = kwargs.pop('request_user', None)
         if 'harvest' in kwargs:
             self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
