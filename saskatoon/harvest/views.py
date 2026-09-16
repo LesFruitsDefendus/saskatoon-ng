@@ -291,7 +291,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
             logger.error(e)
 
         form_kwargs = super().get_form_kwargs(*args, **kwargs)
-        return form_kwargs | {'harvest': self.harvest, 'request': self.request}
+        return form_kwargs | {'harvest': self.harvest, 'request_user': self.request.user}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -316,7 +316,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
 
     def form_invalid(self, form):
         if getattr(form, 'is_volunteer_duplicate', False):
-            messages.error(self.request, _("You have already requested to join this pick."))
+            messages.error(self.request, _("You have already submitted a request for this pick."))
             if self.request.GET.get('from') == 'calendar':
                 return HttpResponseRedirect(reverse_lazy('calendar'))
             return HttpResponseRedirect(self.get_success_url())
