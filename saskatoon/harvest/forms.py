@@ -78,10 +78,10 @@ class RFPForm(forms.ModelForm[RFP]):
         return user_email.lower().strip() == leader_email.lower().strip()
 
     def clean_email(self):
-        email = self.cleaned_data['email'].strip().lower()
+        email = self.cleaned_data['email'].strip()
 
         auth_user = AuthUser.objects.filter(email__iexact=email).first()
-        if auth_user and auth_user.person:
+        if auth_user is not None and auth_user.person is not None:
             # check if a request with the same email already exists
             if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
                 is_self_application = (
