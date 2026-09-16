@@ -64,54 +64,42 @@ class RFPForm(forms.ModelForm[RFP]):
         super().__init__(*args, **kwargs)
 
     @property
-    def is_harvest_leader(self) -> bool:
-        user = getattr(self.request, 'user', None)
-        if not user or not user.is_authenticated:
+    def is_requester_harvest_leader(self) -> bool:
+        if not self.request_user or not getattr(self.request_user, 'email', None):
             return False
 
-        user_email = getattr(user, 'email', None)
-        leader_email = getattr(self.harvest.pick_leader, 'email', None)
-
-        if not user_email or not leader_email:
-            return False
-
-        return user_email.lower().strip() == leader_email.lower().strip()
+        return self.request_user.email == self.harvest.pick_leader.email
 
     def clean_email(self):
         email = self.cleaned_data['email'].strip()
 
-        auth_user = AuthUser.objects.filter(email__iexact=email).first()
+        auth_user = AuthUser.objects.filter(email=email).first()
         if auth_user is not None and auth_user.person is not None:
             # check if a request with the same email already exists
             if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
                 is_self_application = (
-                    self.request
-                    and self.request.user.is_authenticated
-                    and self.request.user.email.lower() == email
+                    self.request_user
+                    and self.request_user.is_authenticated
+                    and self.request_user.email == email
                 )
 
-                leader_email = getattr(self.harvest.pick_leader, 'email', None)
-                target_email = getattr(auth_user, 'email', None)
+                is_target_harvest_leader = auth_user == self.harvest.pick_leader
 
-                is_target_harvest_leader = bool(
-                    leader_email
-                    and target_email
-                    and leader_email.lower().strip() == target_email.lower().strip()
-                )
-
-                if self.is_harvest_leader and is_self_application:
+                if self.is_requester_harvest_leader and is_self_application:
                     raise forms.ValidationError(
                         _("The harvest pick leader cannot volunteer for their own pick.")
                     )
                 elif (
-                    self.is_harvest_leader or is_target_harvest_leader
+                    self.is_requester_harvest_leader or is_target_harvest_leader
                 ) and not is_self_application:
                     raise forms.ValidationError(
-                        _("This person has already been added to this pick.")
+                        _("This person has already submitted a request for this pick.")
                     )
                 else:
                     self.is_volunteer_duplicate = True
-                    raise forms.ValidationError(_("You have already requested to join this pick."))
+                    raise forms.ValidationError(
+                        _("You have already submitted a request for this pick.")
+                    )
 
         return email
 
