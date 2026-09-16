@@ -263,17 +263,14 @@ class HarvestUpdateView(
                 Harvest.Status.READY,
             ]
 
-            pl = self.object.pick_leader
-            is_user_pickleader = pl is not None and pl == self.request.user
-
             if (
-                pl is not None
-                and transitioned_correctly
-                and is_user_pickleader
-                and pl.person is not None
+                transitioned_correctly
+                and (pl := self.object.pick_leader) is not None
+                and pl == self.request.user
+                and (person := pl.person) is not None
             ):
                 season_count = (
-                    pl.person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
+                    person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
                     .filter(start_date__year=tz.now().date().year)
                     .count()
                 )
