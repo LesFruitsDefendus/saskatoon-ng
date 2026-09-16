@@ -32,6 +32,15 @@
     }
 }
 
+.alert {
+    display: inline-block;
+    max-width: 100%;
+    padding: 12px 15px;
+    border-radius: 4px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
 .chat-conversation {
     position: relative;
 }
