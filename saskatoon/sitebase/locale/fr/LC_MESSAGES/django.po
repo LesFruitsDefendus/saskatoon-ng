@@ -574,11 +574,11 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: sitebase/templates/app/detail_views/comment/comment_form.html:12
+#: sitebase/templates/app/detail_views/comment/comment_form.html:19
 msgid "Write a comment..."
 msgstr "Écrire un commentaire..."
 
-#: sitebase/templates/app/detail_views/comment/comment_form.html:17
+#: sitebase/templates/app/detail_views/comment/comment_form.html:24
 msgid "Post comment"
 msgstr "Ajouter un commentaire"
 

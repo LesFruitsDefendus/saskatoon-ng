@@ -2,7 +2,14 @@
 {% load static %}
 {% load auth_users %}
 
-<div class="comment-form-container">
+<div class="comment-form-container" id="comment-form">
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.level_tag }}{% if message.extra_tags %} {{ message.extra_tags }}{% endif %}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
     <form method="post" action="{% url comment_create_url_name object_id %}">
         {% csrf_token %}
         <div class="form-group">
