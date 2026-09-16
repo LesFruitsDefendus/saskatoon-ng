@@ -16,6 +16,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView, DeleteVie
 from django_stubs_ext import StrOrPromise
 from datetime import datetime
 from logging import getLogger
+from harvest.mixins import CommentFormInvalidMixin
 
 from harvest.forms import (
     CommentForm,
@@ -363,6 +364,7 @@ class RequestForParticipationUpdateView(
 
 class CommentCreateView(
     PermissionRequiredMixin,
+    CommentFormInvalidMixin,
     SuccessMessageMixin[CommentForm],
     CreateView[Comment, CommentForm],
 ):
@@ -395,25 +397,17 @@ class CommentCreateView(
         pid = self.kwargs.get('pid')
 
         if hid:
-            return reverse_lazy('harvest-detail', kwargs={'pk': hid})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': hid})
         elif pid:
-            return reverse_lazy('property-detail', kwargs={'pk': pid})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': pid})
 
-    def form_invalid(self, form):
-        error_messages = []
-        for field, errors in form.errors.items():
-            for error in errors:
-                field_name = field.capitalize() if field != '__all__' else ''
-                error_messages.append(f"{field_name}: {error}" if field_name else error)
-
-        messages.error(self.request, " | ".join(error_messages))
-        return HttpResponseRedirect(self.get_success_url())
+        return f"{url}#comment-form"
 
 
 class CommentUpdateView(
     LoginRequiredMixin,
     UserPassesTestMixin,
+    CommentFormInvalidMixin,
     SuccessMessageMixin[CommentForm],
     UpdateView[Comment, CommentForm],
 ):
@@ -437,20 +431,13 @@ class CommentUpdateView(
 
     def get_success_url(self):
         if self.object.harvest_id:
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
         elif self.object.property_id:
-            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        else:
+            url = reverse_lazy('home')
 
-    def form_invalid(self, form):
-        error_messages = []
-        for field, errors in form.errors.items():
-            for error in errors:
-                field_name = field.capitalize() if field != '__all__' else ''
-                error_messages.append(f"{field_name}: {error}" if field_name else error)
-
-        messages.error(self.request, " | ".join(error_messages))
-        return HttpResponseRedirect(self.get_success_url())
+        return f"{url}#comment-form"
 
 
 class CommentDeleteView(
@@ -470,10 +457,13 @@ class CommentDeleteView(
 
     def get_success_url(self):
         if self.object.harvest_id:
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
         elif self.object.property_id:
-            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        else:
+            url = reverse_lazy('home')
+
+        return f"{url}#comment-form"
 
 
 @login_required
