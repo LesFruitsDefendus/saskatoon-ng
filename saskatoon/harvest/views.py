@@ -372,6 +372,7 @@ class CommentCreateView(
 
     permission_required = 'harvest.add_comment'
     form_class = CommentForm
+    message_extra_tag = "comment"
     success_message = _("New comment added!")
 
     def get_form_kwargs(self):
@@ -401,7 +402,7 @@ class CommentCreateView(
         elif pid:
             url = reverse_lazy('property-detail', kwargs={'pk': pid})
 
-        return f"{url}#comment-form"
+        return f"{url}#comments"
 
 
 class CommentUpdateView(
@@ -415,6 +416,7 @@ class CommentUpdateView(
 
     model = Comment
     form_class = CommentForm
+    message_extra_tag = "comment"
     success_message = _("Comment updated!")
     pk_url_kwarg = 'id'
 
@@ -437,7 +439,7 @@ class CommentUpdateView(
         else:
             url = reverse_lazy('home')
 
-        return f"{url}#comment-form"
+        return f"{url}#comments"
 
 
 class CommentDeleteView(
@@ -449,6 +451,7 @@ class CommentDeleteView(
     """Delete an existing comment."""
 
     model = Comment
+    message_extra_tag = "comment"
     success_message = _("Comment deleted!")
     pk_url_kwarg = 'id'
 
@@ -463,7 +466,7 @@ class CommentDeleteView(
         else:
             url = reverse_lazy('home')
 
-        return f"{url}#comment-form"
+        return f"{url}#comments"
 
 
 @login_required
