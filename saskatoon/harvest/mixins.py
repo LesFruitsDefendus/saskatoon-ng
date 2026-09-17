@@ -1,15 +1,20 @@
+from typing import Any, Optional
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
 
 class TaggedFormInvalidMixin:
     """Mixin to format form errors with optional extra_tags."""
 
-    message_extra_tag = None
-    error_field_name = None
+    request: HttpRequest
+    message_extra_tag: Optional[str] = None
+    error_field_name: Optional[str] = None
 
-    def form_invalid(self, form):
+    def get_success_url(self) -> str:
+        raise NotImplementedError
+
+    def form_invalid(self, form: Any) -> HttpResponse:
         if self.error_field_name:
             field_errors = form.errors.get(self.error_field_name, [])
         else:
@@ -30,11 +35,12 @@ class TaggedFormInvalidMixin:
 class TaggedSuccessMessageMixin:
     """Mixin to handle custom success messages with optional extra_tags."""
 
-    success_message = None
-    message_extra_tag = None
+    request: HttpRequest
+    success_message: Any = None
+    message_extra_tag: Optional[str] = None
 
-    def form_valid(self, form):
-        response = super().form_valid(form)
+    def form_valid(self, form: Any) -> HttpResponse:
+        response = super().form_valid(form)  # type: ignore[misc]
 
         extra_args = {}
         if self.message_extra_tag:
