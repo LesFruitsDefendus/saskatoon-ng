@@ -256,10 +256,6 @@
         white-space: nowrap;
     }
 
-    th.col-number.lang-en::before {
-        content: "# ";
-    }
-
     .col-number,
     .col-rejections {
         min-width: 7%;
