@@ -574,11 +574,11 @@ msgstr "Sauvegarder"
 msgid "Cancel"
 msgstr "Annuler"
 
-#: sitebase/templates/app/detail_views/comment/comment_form.html:19
+#: sitebase/templates/app/detail_views/comment/comment_form.html:12
 msgid "Write a comment..."
 msgstr "Écrire un commentaire..."
 
-#: sitebase/templates/app/detail_views/comment/comment_form.html:24
+#: sitebase/templates/app/detail_views/comment/comment_form.html:17
 msgid "Post comment"
 msgstr "Ajouter un commentaire"
 
@@ -590,11 +590,11 @@ msgstr "Ajouter un commentaire"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: sitebase/templates/app/detail_views/comment/view.html:20
+#: sitebase/templates/app/detail_views/comment/view.html:29
 msgid "edited"
 msgstr "modifié"
 
-#: sitebase/templates/app/detail_views/comment/view.html:32
+#: sitebase/templates/app/detail_views/comment/view.html:41
 msgid "Older comments"
 msgstr "Plus anciens"
 

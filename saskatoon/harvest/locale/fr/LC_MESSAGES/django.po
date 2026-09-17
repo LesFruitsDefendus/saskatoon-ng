@@ -467,10 +467,6 @@ msgstr ""
 "Vous devez choisir un.e chef.fe de ceuillette ou changer le statut de la "
 "récolte"
 
-#: harvest/mixins.py:15
-msgid "Please correct the error below."
-msgstr ""
-
 #: harvest/models.py:28
 msgid "tree type"
 msgstr "type d'arbre"

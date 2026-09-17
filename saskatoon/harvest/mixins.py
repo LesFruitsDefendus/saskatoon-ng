@@ -3,15 +3,42 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import gettext_lazy as _
 
 
-class CommentFormInvalidMixin:
-    """Mixin to format form errors and redirect on invalid submissions."""
+class TaggedFormInvalidMixin:
+    """Mixin to format form errors with optional extra_tags."""
+
+    message_extra_tag = None
+    error_field_name = None
 
     def form_invalid(self, form):
-        content_errors = form.errors.get('content')
-
-        if content_errors:
-            messages.error(self.request, " | ".join(content_errors))
+        if self.error_field_name:
+            field_errors = form.errors.get(self.error_field_name, [])
         else:
-            messages.error(self.request, _("Please correct the error below."))
+            field_errors = []
+            for errors in form.errors.values():
+                field_errors.extend(errors)
+
+        if field_errors:
+            extra_args = {}
+            if self.message_extra_tag:
+                extra_args['extra_tags'] = f"component-{self.message_extra_tag}"
+
+            messages.error(self.request, " | ".join(field_errors), **extra_args)
 
         return HttpResponseRedirect(self.get_success_url())
+
+
+class TaggedSuccessMessageMixin:
+    """Mixin to handle custom success messages with optional extra_tags."""
+
+    success_message = None
+    message_extra_tag = None
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+
+        extra_args = {}
+        if self.message_extra_tag:
+            extra_args['extra_tags'] = f"component-{self.message_extra_tag}"
+
+        messages.success(self.request, self.success_message, **extra_args)
+        return response
