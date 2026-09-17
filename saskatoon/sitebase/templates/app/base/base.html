@@ -22,7 +22,9 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 {% for message in messages %}
-                <div class="text-center alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
+                    {% if "component-" not in message.tags %}
+                        <div class="text-center alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
+                    {% endif %}
                 {% endfor %}
             </div>
         </div>

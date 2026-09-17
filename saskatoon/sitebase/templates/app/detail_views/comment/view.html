@@ -1,11 +1,20 @@
 {% load i18n %}
 {% load static %}
 
-<section class="detail-section-card">
+<section class="detail-section-card" id="comments">
     <header>
         <h2>{% trans "Comments" %}</h2>
     </header>
-    <div class="card-box mg-t-30">
+    {% if messages %}
+        {% for message in messages %}
+            {% if "comment" in message.extra_tags %}
+                <div class="alert alert-{{ message.level_tag }} mb-2 {% if message.extra_tags %}{{ message.extra_tags }}{% endif %}">  
+                    {{ message }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="card-box {% if messages %}mg-t-10{% else %}mg-t-30{% endif %}">
         <div class="chat-conversation">
             {% include 'app/detail_views/comment/comment_form.html' %}
             <div class="comment-scrollbar" id="commentScrollbar">
