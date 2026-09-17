@@ -74,32 +74,32 @@ class RFPForm(forms.ModelForm[RFP]):
         email = self.cleaned_data['email'].strip()
 
         auth_user = AuthUser.objects.filter(email=email).first()
-        if auth_user is not None and auth_user.person is not None:
-            # check if a request with the same email already exists
-            if RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists():
-                is_self_application = (
-                    self.request_user
-                    and self.request_user.is_authenticated
-                    and self.request_user.email == email
+        # check if a request with the same email already exists
+        if (
+            auth_user
+            and auth_user.person
+            and RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists()
+        ):
+            is_self_application = (
+                self.request_user
+                and self.request_user.is_authenticated
+                and self.request_user.email == email
+            )
+
+            is_target_harvest_leader = auth_user == self.harvest.pick_leader
+
+            if is_target_harvest_leader:
+                raise forms.ValidationError(
+                    _("The harvest pick leader cannot volunteer for their own pick.")
                 )
 
-                is_target_harvest_leader = auth_user == self.harvest.pick_leader
+            if is_self_application:
+                self.is_volunteer_duplicate = True
+                error_message = _("You have already submitted a request for this pick.")
+            else:
+                error_message = _("This person has already submitted a request for this pick.")
 
-                if self.is_requester_harvest_leader and is_self_application:
-                    raise forms.ValidationError(
-                        _("The harvest pick leader cannot volunteer for their own pick.")
-                    )
-                elif (
-                    self.is_requester_harvest_leader or is_target_harvest_leader
-                ) and not is_self_application:
-                    raise forms.ValidationError(
-                        _("This person has already submitted a request for this pick.")
-                    )
-                else:
-                    self.is_volunteer_duplicate = True
-                    raise forms.ValidationError(
-                        _("You have already submitted a request for this pick.")
-                    )
+            raise forms.ValidationError(error_message)
 
         return email
 
