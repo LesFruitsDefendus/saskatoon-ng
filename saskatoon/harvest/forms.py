@@ -178,6 +178,11 @@ class CommentForm(forms.ModelForm[Comment]):
                 'maxlength': '500',
             }
         ),
+        error_messages={
+            'max_length': _(
+                "Comments cannot be more than 500 characters long (it has %(show_value)s)."
+            ),
+        },
     )
 
 
