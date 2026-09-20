@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 16:12-0400\n"
+"POT-Creation-Date: 2026-09-17 17:24-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -207,7 +207,7 @@ msgstr "Courriels"
 
 #: sitebase/models.py:290
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:20
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:18
 #: sitebase/templates/app/stats.html:246
 msgid "Recipient"
 msgstr "Bénéficiaire"
@@ -406,7 +406,7 @@ msgstr "Programmée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:34
 #: sitebase/templates/app/calendar/legend.html:19
-#: sitebase/templates/app/detail_views/harvest/data_row.html:65
+#: sitebase/templates/app/detail_views/harvest/data_row.html:64
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -653,40 +653,40 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:37
+#: sitebase/templates/app/detail_views/harvest/data_row.html:36
 msgid "harvest(s)"
 msgstr "récolte(s)"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:39
+#: sitebase/templates/app/detail_views/harvest/data_row.html:38
 msgid "First time"
 msgstr "Première fois"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:56
+#: sitebase/templates/app/detail_views/harvest/data_row.html:55
 msgid "Pending"
 msgstr "En attente"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:59
+#: sitebase/templates/app/detail_views/harvest/data_row.html:58
 #: sitebase/templates/app/stats.html:245
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:62
+#: sitebase/templates/app/detail_views/harvest/data_row.html:61
 msgid "Declined"
 msgstr "Déclinée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:68
+#: sitebase/templates/app/detail_views/harvest/data_row.html:67
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:93
+#: sitebase/templates/app/detail_views/harvest/data_row.html:92
 msgid "Accept"
 msgstr "Accepter"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:103
+#: sitebase/templates/app/detail_views/harvest/data_row.html:102
 msgid "Decline"
 msgstr "Décliner"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:109
+#: sitebase/templates/app/detail_views/harvest/data_row.html:108
 #: sitebase/templates/app/list_views/organization/data_row.html:28
 #: sitebase/templates/app/list_views/organization/data_row.html:43
 msgid "Edit"
@@ -709,7 +709,7 @@ msgid "Requested on"
 msgstr "Demandé le"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:17
-msgid "# Pickers"
+msgid "# Pickers"
 msgstr "nombre de cueilleur.euse.s"
 
 #: sitebase/templates/app/detail_views/harvest/data_table.html:18
@@ -737,7 +737,7 @@ msgid "Action"
 msgstr "Action"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:7
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:21
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:19
 #: sitebase/templates/app/stats.html:131
 msgid "Fruit"
 msgstr "Fruits"
@@ -760,20 +760,20 @@ msgstr "Sélectionner un bénéficiaire"
 msgid "Fruit distribution"
 msgstr "Partage des fruits récoltés"
 
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:12
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:11
 msgid "New recipient"
 msgstr "Nouveau bénéficiaire"
 
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:22
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:20
 msgid "Weight"
 msgstr "Poids"
 
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:23
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:21
 #: sitebase/templates/app/list_views/organization/data_row.html:16
 msgid "Delete"
 msgstr "Effacer"
 
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:40
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:38
 msgid "Are you sure you want to delete this entry?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
@@ -1181,7 +1181,7 @@ msgid "Back to Calendar"
 msgstr "Retour au Calendrier"
 
 #: sitebase/templates/app/forms/participation_create_form.html:85
-#: sitebase/templates/app/forms/property_create_public.html:32
+#: sitebase/templates/app/forms/property_create_public.html:36
 msgid "Send"
 msgstr "Envoyer"
 
@@ -1197,7 +1197,7 @@ msgstr "Nombre de cueilleur.euses"
 msgid "Trees"
 msgstr "Arbres"
 
-#: sitebase/templates/app/forms/property_create_public.html:25
+#: sitebase/templates/app/forms/property_create_public.html:29
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
@@ -1501,7 +1501,6 @@ msgid "Harvest is ready to start, there are no more empty spots for pickers"
 msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
 #: sitebase/templatetags/harvest_status.py:236
-#: sitebase/templatetags/harvest_status.py:282
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
 msgstr ""
 "Récolte annulée, devra être replanifiée par le ou la chef.fe de cueillette"
@@ -1511,21 +1510,8 @@ msgid "Harvest is finished and fruits have been harvested"
 msgstr "Récolte est terminée et les fruits ont été récoltés"
 
 #: sitebase/templatetags/harvest_status.py:242
-#: sitebase/templatetags/harvest_status.py:262
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
-
-#: sitebase/templatetags/harvest_status.py:266
-#: sitebase/templatetags/harvest_status.py:270
-msgid "A Harvest must be ready before adding recipients"
-msgstr "Une cueillette doit être prête avant d'ajouter des bénéficiaires"
-
-#: sitebase/templatetags/harvest_status.py:274
-#: sitebase/templatetags/harvest_status.py:278
-msgid "Add a new recipient to record fruit distribution for this harvest"
-msgstr ""
-"Ajouter un nouveau bénéficiaire pour enregistrer la distribution de fruits "
-"pour cette cueillette"
 
 #: sitebase/templatetags/property.py:149
 msgid "The property information needs to be validated by a core member."
