@@ -11,7 +11,7 @@
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ beneficiary_description }}</p>
+      <p>{{ beneficiary_description_lang.html|safe }}</p>
     </div>
 
     <div class="search-engine-int" style="flex: 50%;">
@@ -23,7 +23,7 @@
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ equipment_description }}</p>
+      <p>{{ equipment_description_lang.html|safe  }}</p>
     </div>
   </div>
 </div>

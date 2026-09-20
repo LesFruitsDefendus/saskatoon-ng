@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 09:52-0400\n"
+"POT-Creation-Date: 2026-09-30 13:37-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -553,14 +553,14 @@ msgstr "Effacer le Commentaire"
 #: sitebase/templates/app/detail_views/comment/comment_content.html:53
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
 #: sitebase/templates/app/forms/model_form.html:17
-#: sitebase/templates/app/forms/organization_create_form.html:44
+#: sitebase/templates/app/forms/organization_create_form.html:45
 #: sitebase/templates/app/forms/property_create_form.html:61
 msgid "Save"
 msgstr "Sauvegarder"
 
 #: sitebase/templates/app/detail_views/comment/comment_content.html:58
 #: sitebase/templates/app/forms/model_form.html:21
-#: sitebase/templates/app/forms/organization_create_form.html:48
+#: sitebase/templates/app/forms/organization_create_form.html:49
 #: sitebase/templates/app/forms/property_create_form.html:65
 msgid "Cancel"
 msgstr "Annuler"
@@ -1172,7 +1172,7 @@ msgstr "Questions Fréquement Posées"
 msgid "Could not save form: some fields are invalid."
 msgstr "Impossible de sauver le formulaire: Certains champs sont invalides."
 
-#: sitebase/templates/app/forms/organization_create_form.html:25
+#: sitebase/templates/app/forms/organization_create_form.html:26
 msgid "Contact Person"
 msgstr "Personne resource"
 

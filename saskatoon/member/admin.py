@@ -362,7 +362,8 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
             {
                 'fields': (
                     'civil_name',
-                    'description',
+                    'description_en',
+                    'description_fr',
                     'phone',
                     'contact_person',
                     'street_number',
@@ -382,7 +383,8 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
             {
                 'fields': (
                     'is_beneficiary',
-                    'beneficiary_description',
+                    'beneficiary_description_en',
+                    'beneficiary_description_fr',
                 )
             },
         ),
@@ -391,7 +393,8 @@ class OrganizationAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Organization]):
             {
                 'fields': (
                     'is_equipment_point',
-                    'equipment_description',
+                    'equipment_description_en',
+                    'equipment_description_fr',
                 )
             },
         ),

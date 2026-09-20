@@ -30,7 +30,7 @@
                         <a href="mailto:{{ equipment_point.contact_person.email }}">{{ equipment_point.contact_person.email }}</a>
                     {% endif %}
                 </address>
-                <p>{{ equipment_point.equipment_description }}</p>
+                <p>{{ equipment_point.equipment_description_lang.html|safe }}</p>
             </div>
             {% include 'app/detail_views/harvest/cancel_reservation.html' %}
 

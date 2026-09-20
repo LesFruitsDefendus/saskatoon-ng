@@ -6,7 +6,7 @@
         {{ org.civil_name }} <i class="fa fa-external-link fa-xs"></i>
     </a>
 </h4>
-<p class="text-justify">{{ org.description }}</p>
+<p class="text-justify">{{ org.description.html|safe }}</p>
 <section role="group" aria-label="{% trans 'Extra details' %}">
     {% include 'app/list_views/organization/beneficiary_modal.html' %}
     {% include 'app/list_views/organization/equipment_modal.html' %}
