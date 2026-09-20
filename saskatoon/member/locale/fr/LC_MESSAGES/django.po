@@ -403,7 +403,6 @@ msgstr ""
 "cueillette, administrateurs et aux membres de l'équipe noyau "
 
 #: member/validators.py:15
-#, python-brace-format
 msgid "Email address < {} > is already registered!"
 msgstr "ERREUR: L'adresse courriel < {} > est déjà enregistrée!"
 
