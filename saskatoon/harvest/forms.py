@@ -65,32 +65,33 @@ class RFPForm(forms.ModelForm[RFP]):
 
     @property
     def is_requester_harvest_leader(self) -> bool:
-        if not self.request_user or not getattr(self.request_user, 'email', None):
+        if self.request_user is None or self.request_user.is_anonymous:
             return False
 
-        return self.request_user.email == self.harvest.pick_leader.email
+        return self.request_user == self.harvest.pick_leader
 
     def clean_email(self):
         email = self.cleaned_data['email'].strip()
 
-        auth_user = AuthUser.objects.filter(email=email).first()
+        target_user = AuthUser.objects.filter(email=email).first()
         # check if a request with the same email already exists
         if (
-            auth_user
-            and auth_user.person
-            and RFP.objects.filter(person=auth_user.person, harvest_id=self.harvest.id).exists()
+            target_user
+            and target_user.person
+            and RFP.objects.filter(person=target_user.person, harvest_id=self.harvest.id).exists()
         ):
             is_self_application = (
                 self.request_user
                 and self.request_user.is_authenticated
                 and self.request_user.email == email
+                or not self.request_user.is_authenticated
             )
 
-            is_target_harvest_leader = auth_user == self.harvest.pick_leader
+            is_target_harvest_leader = target_user == self.harvest.pick_leader
 
             if is_target_harvest_leader:
                 raise forms.ValidationError(
-                    _("The harvest pick leader cannot volunteer for their own pick.")
+                    _("A pick leader cannot volunteer for their own harvest.")
                 )
 
             if is_self_application:
