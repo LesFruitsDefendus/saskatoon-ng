@@ -476,7 +476,7 @@ def harvest_yield_delete(request, id):
     else:
         _yield = HarvestYield.objects.get(id=id)
         _yield.delete()
-        messages.warning(request, "Fruit distribution deleted!")
+        messages.warning(request, _("Fruit distribution deleted!"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
