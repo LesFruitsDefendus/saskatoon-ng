@@ -255,33 +255,26 @@ def harvest_recipient_attributes(status: Optional[str], direction: str = "top") 
         return default
 
     help_text = {
-        t[0]: t[1]
-        for t in [
+        status: text
+        for statuses, text in [
             (
-                Harvest.Status.ORPHAN.value,
-                _("Harvest needs a pick leader to adopt it"),
+                [
+                    Harvest.Status.ADOPTED.value,
+                    Harvest.Status.SCHEDULED.value,
+                    Harvest.Status.CANCELLED.value,
+                    Harvest.Status.ORPHAN.value,
+                ],
+                _("A harvest must be marked as Ready before you can complete fruit distribution"),
             ),
             (
-                Harvest.Status.ADOPTED.value,
-                _("A Harvest must be ready before adding recipients"),
-            ),
-            (
-                Harvest.Status.SCHEDULED.value,
-                _("A Harvest must be ready before adding recipients"),
-            ),
-            (
-                Harvest.Status.READY.value,
+                [
+                    Harvest.Status.READY.value,
+                    Harvest.Status.SUCCEEDED.value,
+                ],
                 _("Add a new recipient to record fruit distribution for this harvest"),
-            ),
-            (
-                Harvest.Status.SUCCEEDED.value,
-                _("Add a new recipient to record fruit distribution for this harvest"),
-            ),
-            (
-                Harvest.Status.CANCELLED.value,
-                _("Harvest is cancelled, it will need to be rescheduled by the pick leader"),
             ),
         ]
+        for status in statuses
     }.get(status, default)
 
     return (
