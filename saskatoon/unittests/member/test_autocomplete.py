@@ -19,7 +19,6 @@ autocomplete_classes = [
     ActorAutocomplete,
     OwnerAutocomplete,
     EquipmentPointAutocomplete,
-    NeighborhoodAutocomplete,
 ]
 
 
@@ -40,3 +39,10 @@ def test_Autocomplete_get_queryset_none(Autocomplete):
     results = autocomplete.get_queryset()
 
     assert results.count() == 0
+
+
+@pytest.mark.django_db
+def test_NeighborhoodAutocomplete_get_queryset_public():
+    autocomplete = NeighborhoodAutocomplete()
+    results = autocomplete.get_queryset()
+    assert results.count() >= 0

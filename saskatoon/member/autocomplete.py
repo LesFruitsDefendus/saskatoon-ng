@@ -164,13 +164,7 @@ class NeighborhoodAutocomplete(Autocomplete):
     def get_queryset(self) -> QuerySet[Neighborhood]:
         qs = Neighborhood.objects.all()
 
-        try:
-            search_term = self.q
-        except AttributeError:
-            search_term = None
-
-        if search_term:
-            q = Q(name__icontains=search_term)
-            return qs.filter(q)
+        if self.q:
+            return qs.filter(name__icontains=self.q)
 
         return qs.order_by('name')
