@@ -401,6 +401,8 @@ class CommentCreateView(
             url = reverse_lazy('harvest-detail', kwargs={'pk': hid})
         elif pid:
             url = reverse_lazy('property-detail', kwargs={'pk': pid})
+        else:
+            url = reverse_lazy('home')
 
         return f"{url}#comments"
 
