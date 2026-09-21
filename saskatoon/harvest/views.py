@@ -229,7 +229,7 @@ class HarvestUpdateView(
         return super().get_form_kwargs(*args, **kwargs) | {'yields': self.object.yields}
 
     def form_valid(self, form):
-        self.original_status = self.get_object().status
+        self.was_ready = self.get_object().status == Harvest.Status.READY
         return super().form_valid(form)
 
     def get_success_message(self, cleaned_data) -> StrOrPromise:
@@ -258,13 +258,8 @@ class HarvestUpdateView(
                 self.object.save()
                 return ""
 
-            transitioned_correctly = getattr(self, 'original_status', None) in [
-                Harvest.Status.SCHEDULED,
-                Harvest.Status.READY,
-            ]
-
             if (
-                transitioned_correctly
+                self.was_ready
                 and (pl := self.object.pick_leader) is not None
                 and pl == self.request.user
                 and (person := pl.person) is not None
@@ -592,10 +587,7 @@ def harvest_status_change(request, id):
             _("Please complete fruit distribution before marking the harvest as succeeded."),
         )
     else:
-        transitioned_correctly = harvest.status in [
-            Harvest.Status.SCHEDULED,
-            Harvest.Status.READY,
-        ]
+        status_was_ready = harvest.status == Harvest.Status.READY
 
         harvest.status = request_status
         harvest.save()
@@ -604,7 +596,7 @@ def harvest_status_change(request, id):
         if (
             pl is not None
             and request_status == Harvest.Status.SUCCEEDED
-            and transitioned_correctly
+            and status_was_ready
             and pl.person is not None
         ):
             season_count = (
