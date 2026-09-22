@@ -16,7 +16,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView, DeleteVie
 from django_stubs_ext import StrOrPromise
 from datetime import datetime
 from logging import getLogger
-from harvest.mixins import TaggedFormInvalidMixin, TaggedSuccessMessageMixin
+from harvest.mixins import TaggedSuccessMessageMixin
 
 from harvest.forms import (
     CommentForm,
@@ -364,7 +364,6 @@ class RequestForParticipationUpdateView(
 
 class CommentCreateView(
     PermissionRequiredMixin,
-    TaggedFormInvalidMixin,
     TaggedSuccessMessageMixin,
     CreateView[Comment, CommentForm],
 ):
@@ -410,7 +409,6 @@ class CommentCreateView(
 class CommentUpdateView(
     LoginRequiredMixin,
     UserPassesTestMixin,
-    TaggedFormInvalidMixin,
     TaggedSuccessMessageMixin,
     UpdateView[Comment, CommentForm],
 ):
