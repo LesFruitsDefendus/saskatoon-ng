@@ -32,6 +32,15 @@
     }
 }
 
+.alert {
+    display: inline-block;
+    max-width: 100%;
+    padding: 12px 15px;
+    border-radius: 4px;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
 .chat-conversation {
     position: relative;
 }
@@ -54,6 +63,33 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
+}
+
+.collapsed-comment {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin-bottom: 4px;
+}
+
+.expanded-comment {
+    display: block;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+    margin-bottom: 4px;
+}
+
+.toggle-comment-btn {
+    background: none;
+    border: none;
+    color: var(--saskatoon-info);
+    cursor: pointer;
+    padding: 0;
+    font-size: 0.85rem;
 }
 
 .btn-scroll-older {
@@ -106,6 +142,7 @@
 }
 
 .comment-author-meta {
+    word-break: break-word;
     text-align: left;
     line-height: 1.3;
 

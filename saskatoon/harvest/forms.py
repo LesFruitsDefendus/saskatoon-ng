@@ -172,8 +172,17 @@ class CommentForm(forms.ModelForm[Comment]):
 
     content = forms.CharField(
         label=_("Pickleader notes"),
-        required=False,
-        widget=forms.widgets.Textarea(attrs={'placeholder': _("Your comment here")}),
+        widget=forms.widgets.Textarea(
+            attrs={
+                'placeholder': _("Your comment here"),
+                'maxlength': '500',
+            }
+        ),
+        error_messages={
+            'max_length': _(
+                "Comments cannot be more than 500 characters long (it has %(show_value)s)."
+            ),
+        },
     )
 
 
