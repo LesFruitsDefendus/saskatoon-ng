@@ -406,7 +406,7 @@ msgstr "Programmée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:34
 #: sitebase/templates/app/calendar/legend.html:19
-#: sitebase/templates/app/detail_views/harvest/data_row.html:65
+#: sitebase/templates/app/detail_views/harvest/data_row.html:64
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -662,40 +662,40 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:37
+#: sitebase/templates/app/detail_views/harvest/data_row.html:36
 msgid "harvest(s)"
 msgstr "récolte(s)"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:39
+#: sitebase/templates/app/detail_views/harvest/data_row.html:38
 msgid "First time"
 msgstr "Première fois"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:56
+#: sitebase/templates/app/detail_views/harvest/data_row.html:55
 msgid "Pending"
 msgstr "En attente"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:59
+#: sitebase/templates/app/detail_views/harvest/data_row.html:58
 #: sitebase/templates/app/stats.html:245
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:62
+#: sitebase/templates/app/detail_views/harvest/data_row.html:61
 msgid "Declined"
 msgstr "Déclinée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:68
+#: sitebase/templates/app/detail_views/harvest/data_row.html:67
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:93
+#: sitebase/templates/app/detail_views/harvest/data_row.html:92
 msgid "Accept"
 msgstr "Accepter"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:103
+#: sitebase/templates/app/detail_views/harvest/data_row.html:102
 msgid "Decline"
 msgstr "Décliner"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:109
+#: sitebase/templates/app/detail_views/harvest/data_row.html:108
 #: sitebase/templates/app/list_views/organization/data_row.html:28
 #: sitebase/templates/app/list_views/organization/data_row.html:43
 msgid "Edit"
@@ -1212,7 +1212,7 @@ msgstr "Nombre de cueilleur.euses"
 msgid "Trees"
 msgstr "Arbres"
 
-#: sitebase/templates/app/forms/property_create_public.html:25
+#: sitebase/templates/app/forms/property_create_public.html:29
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
