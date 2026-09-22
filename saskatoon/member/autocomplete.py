@@ -165,6 +165,6 @@ class NeighborhoodAutocomplete(Autocomplete):
         qs = Neighborhood.objects.all()
 
         if self.q:
-            return qs.filter(name__icontains=self.q)
+            return qs.filter(name__icontains=self.q).order_by('name')
 
-        return qs.order_by('name')
+        return qs
