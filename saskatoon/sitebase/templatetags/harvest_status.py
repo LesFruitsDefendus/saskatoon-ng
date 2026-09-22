@@ -1,6 +1,7 @@
 from django import template
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
 from typeguard import typechecked
 from typing import Optional, Callable
 
@@ -244,6 +245,36 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
     }.get(status, default)
 
     return 'data-placement="' + direction + '" data-toggle="tooltip" title="' + help_text + '"'
+
+
+@register.filter
+@typechecked
+def harvest_volunteer_attributes(
+    status: Optional[str], direction: str = "top", is_open_to_public_requests: bool = False
+) -> str:
+    default = ''
+
+    if status is None:
+        return default
+
+    if is_open_to_public_requests:
+        help_text = _(
+            "This harvest is currently published on the public calendar and open for requests"
+        )
+    else:
+        help_text = _(
+            "This harvest is not currently published on the calendar for public requests but you can add volunteers"
+        )
+
+    attributes = (
+        'data-placement="'
+        + direction
+        + '" data-toggle="tooltip" data-trigger="hover" title="'
+        + help_text
+        + '"'
+    )
+
+    return mark_safe(attributes)
 
 
 @register.filter
