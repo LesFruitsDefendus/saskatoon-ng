@@ -9,8 +9,8 @@ from member.autocomplete import (
     ActorAutocomplete,
     OwnerAutocomplete,
     EquipmentPointAutocomplete,
-    NeighborhoodAutocomplete,
 )
+from member.models import Neighborhood
 
 autocomplete_classes = [
     PersonAutocomplete,
@@ -34,14 +34,32 @@ def test_Autocomplete_init(Autocomplete):
 
 @pytest.mark.django_db
 def test_neighborhood_autocomplete_search(client):
+    Neighborhood.objects.create(name="Verdun")
+    Neighborhood.objects.create(name="Plateau-Mont-Royal")
+
     url = reverse('neighborhood-autocomplete')
-    response = client.get(url, {'q': 'Dorval'})
+    response = client.get(url, {'q': 'Plat'})
 
     assert response.status_code == 200
-
     data = response.json()
-
     assert 'results' in data
 
-    for item in data['results']:
-        assert 'Dorval' in item['text']
+    results = data['results']
+    assert len(results) == 1
+
+    returned_texts = [item['text'] for item in results]
+
+    for text in returned_texts:
+        assert 'Plateau-Mont-Royal' in text
+
+    response = client.get(url, {'q': ''})
+    data = response.json()
+    results = data['results']
+
+    assert len(results) == 2
+
+    response = client.get(url, {'q': 'Mile End'})
+    data = response.json()
+    results = data['results']
+
+    assert len(results) == 0
