@@ -312,6 +312,7 @@ class HarvestSerializer(serializers.ModelSerializer[Harvest]):
     volunteers_count = serializers.SerializerMethodField()
     is_open_to_requests = serializers.SerializerMethodField()
     is_open_to_public_requests = serializers.SerializerMethodField()
+    is_publishable = serializers.SerializerMethodField()
     start_date = serializers.DateTimeField(source='get_local_start', format=r"%a. %b. %-d, %Y")
     start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
     end_time = serializers.DateTimeField(source='get_local_end', format=r"%-I:%M %p")
@@ -335,6 +336,9 @@ class HarvestSerializer(serializers.ModelSerializer[Harvest]):
 
     def get_is_open_to_public_requests(self, obj):
         return obj.is_open_to_requests(True)
+
+    def get_is_publishable(self, obj):
+        return obj.is_publishable()
 
     def get_pickers(self, obj):
         # used for the Fruit Distribution recipient list (includes pick_leader)
