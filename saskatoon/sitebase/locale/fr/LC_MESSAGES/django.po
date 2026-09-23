@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-17 17:24-0400\n"
+"POT-Creation-Date: 2026-09-23 11:49-0400\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -215,7 +215,7 @@ msgstr "Bénéficiaire"
 #: sitebase/models.py:302
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:47
-#: sitebase/templates/app/forms/participation_manage_form.html:12
+#: sitebase/templates/app/forms/participation_manage_form.html:15
 #: sitebase/templates/app/list_views/harvest/view.html:29
 msgid "Harvest"
 msgstr "Récolte"
@@ -576,7 +576,7 @@ msgstr "Ajouter un commentaire"
 #: sitebase/templates/app/detail_views/comment/view.html:6
 #: sitebase/templates/app/detail_views/organization/contact.html:66
 #: sitebase/templates/app/detail_views/property/contact.html:83
-#: sitebase/templates/app/forms/participation_manage_form.html:33
+#: sitebase/templates/app/forms/participation_manage_form.html:36
 #: sitebase/templates/app/list_views/community/view.html:17
 msgid "Comments"
 msgstr "Commentaires"
@@ -1120,7 +1120,7 @@ msgid "Similar properties"
 msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
-#: sitebase/templates/app/forms/participation_manage_form.html:19
+#: sitebase/templates/app/forms/participation_manage_form.html:22
 #: sitebase/templates/app/list_views/harvest/marker.html:43
 #: sitebase/templates/app/list_views/harvest/view.html:32
 #: sitebase/templates/app/list_views/property/view.html:28
@@ -1185,11 +1185,20 @@ msgstr "Retour au Calendrier"
 msgid "Send"
 msgstr "Envoyer"
 
-#: sitebase/templates/app/forms/participation_manage_form.html:23
+#: sitebase/templates/app/forms/participation_manage_form.html:10
+msgid ""
+"Note: Making changes here will not automatically email the volunteer. Please "
+"contact volunteers directly if details change."
+msgstr ""
+"Note : Les modifications apportées ici n'enverront pas automatiquement d'e-"
+"mail au bénévole. Veuillez contacter directement les bénévoles si les "
+"détails changent."
+
+#: sitebase/templates/app/forms/participation_manage_form.html:26
 msgid "Participant"
 msgstr "Participant.e"
 
-#: sitebase/templates/app/forms/participation_manage_form.html:29
+#: sitebase/templates/app/forms/participation_manage_form.html:32
 msgid "Number of pickers"
 msgstr "Nombre de cueilleur.euses"
 
