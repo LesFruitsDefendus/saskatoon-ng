@@ -1,6 +1,7 @@
 from django import template
 from django.urls import reverse
 from django.utils.translation import gettext_lazy as _
+from django.utils.safestring import mark_safe
 from typeguard import typechecked
 from typing import Optional, Callable
 
@@ -244,3 +245,91 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
     }.get(status, default)
 
     return 'data-placement="' + direction + '" data-toggle="tooltip" title="' + help_text + '"'
+
+
+@register.filter
+@typechecked
+def harvest_volunteer_attributes(
+    status: Optional[str] = None,
+    is_publishable: bool = False,
+) -> str:
+    direction = "top"
+    default = ''
+
+    if status is None:
+        return default
+
+    status_help_texts = {
+        st: text
+        for statuses, text in [
+            (
+                [
+                    Harvest.Status.CANCELLED.value,
+                    Harvest.Status.ORPHAN.value,
+                    Harvest.Status.SUCCEEDED.value,
+                ],
+                _("This harvest is not open to accept participation requests."),
+            ),
+        ]
+        for st in statuses
+    }
+
+    help_text = status_help_texts.get(status)
+
+    if not help_text:
+        if is_publishable:
+            help_text = _(
+                "This harvest is currently published on the public calendar and open for participation requests"
+            )
+        else:
+            help_text = _(
+                "This harvest is not currently published on the calendar for public participation requests but you can add volunteers"
+            )
+
+    return mark_safe(
+        'data-placement="'
+        + direction
+        + '" data-toggle="tooltip" data-trigger="hover" title="'
+        + help_text
+        + '"'
+    )
+
+
+@register.filter
+@typechecked
+def harvest_recipient_attributes(status: Optional[str], direction: str = "top") -> str:
+    default = ''
+
+    if status is None:
+        return default
+
+    help_text = {
+        status: text
+        for statuses, text in [
+            (
+                [
+                    Harvest.Status.ADOPTED.value,
+                    Harvest.Status.SCHEDULED.value,
+                    Harvest.Status.CANCELLED.value,
+                    Harvest.Status.ORPHAN.value,
+                ],
+                _("A harvest must be marked as Ready before you can complete fruit distribution"),
+            ),
+            (
+                [
+                    Harvest.Status.READY.value,
+                    Harvest.Status.SUCCEEDED.value,
+                ],
+                _("Add a new recipient to record fruit distribution for this harvest"),
+            ),
+        ]
+        for status in statuses
+    }.get(status, default)
+
+    return (
+        'data-placement="'
+        + direction
+        + '" data-toggle="tooltip" data-trigger="hover" title="'
+        + help_text
+        + '"'
+    )

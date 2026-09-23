@@ -5,11 +5,13 @@
 <section>
     <header>
         <h2>{% trans "Fruit distribution" %}</h2>
-        <a data-toggle="collapse"
-           href="#new-recipient"
-           {% if status|is_ready_or_succeeded %} class="btn btn-primary notika-btn-primary waves-effect" {% else %} class="btn btn-default notika-btn-default disabled" {% endif %}>
-            <i class="fa fa-plus"></i>&nbsp; {% trans "New recipient" %}
-        </a>
+        <div {{ status | harvest_recipient_attributes:"top" | safe}}>
+            <a data-toggle="collapse"
+                href="#new-recipient"
+                {% if status|is_ready_or_succeeded %} class="btn btn-primary notika-btn-primary waves-effect" {% else %} class="btn btn-default notika-btn-default disabled" {% endif %}>
+                <i class="fa fa-plus"></i>&nbsp; {% trans "New recipient" %}
+            </a>
+        </div>
     </header>
     <div class="collapse" id="new-recipient">{% include 'app/detail_views/harvest/distribution/create_yield.html' %}</div>
     <div class="table-responsive">
