@@ -4,6 +4,7 @@
     "volunteers_count": 0,
     "is_open_to_requests": false,
     "is_open_to_public_requests": false,
+    "is_publishable": true,
     "start_date": "Mon. Jan. 19, 2026",
     "start_time": "4:00 PM",
     "end_time": "7:00 PM",
