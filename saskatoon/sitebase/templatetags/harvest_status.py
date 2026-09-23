@@ -250,31 +250,49 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
 @register.filter
 @typechecked
 def harvest_volunteer_attributes(
-    status: Optional[str], direction: str = "top", is_open_to_public_requests: bool = False
+    status: Optional[str] = None,
+    is_publishable: bool = False,
 ) -> str:
+    direction = "top"
     default = ''
 
     if status is None:
         return default
 
-    if is_open_to_public_requests:
-        help_text = _(
-            "This harvest is currently published on the public calendar and open for requests"
-        )
-    else:
-        help_text = _(
-            "This harvest is not currently published on the calendar for public requests but you can add volunteers"
-        )
+    status_help_texts = {
+        st: text
+        for statuses, text in [
+            (
+                [
+                    Harvest.Status.CANCELLED.value,
+                    Harvest.Status.ORPHAN.value,
+                    Harvest.Status.SUCCEEDED.value,
+                ],
+                _("This harvest is not open to accept participation requests."),
+            ),
+        ]
+        for st in statuses
+    }
 
-    attributes = (
+    help_text = status_help_texts.get(status)
+
+    if not help_text:
+        if is_publishable:
+            help_text = _(
+                "This harvest is currently published on the public calendar and open for participation requests"
+            )
+        else:
+            help_text = _(
+                "This harvest is not currently published on the calendar for public participation requests but you can add volunteers"
+            )
+
+    return mark_safe(
         'data-placement="'
         + direction
         + '" data-toggle="tooltip" data-trigger="hover" title="'
         + help_text
         + '"'
     )
-
-    return mark_safe(attributes)
 
 
 @register.filter
@@ -286,33 +304,26 @@ def harvest_recipient_attributes(status: Optional[str], direction: str = "top") 
         return default
 
     help_text = {
-        t[0]: t[1]
-        for t in [
+        status: text
+        for statuses, text in [
             (
-                Harvest.Status.ORPHAN.value,
-                _("Harvest needs a pick leader to adopt it"),
+                [
+                    Harvest.Status.ADOPTED.value,
+                    Harvest.Status.SCHEDULED.value,
+                    Harvest.Status.CANCELLED.value,
+                    Harvest.Status.ORPHAN.value,
+                ],
+                _("A harvest must be marked as Ready before you can complete fruit distribution"),
             ),
             (
-                Harvest.Status.ADOPTED.value,
-                _("A Harvest must be ready before adding recipients"),
-            ),
-            (
-                Harvest.Status.SCHEDULED.value,
-                _("A Harvest must be ready before adding recipients"),
-            ),
-            (
-                Harvest.Status.READY.value,
+                [
+                    Harvest.Status.READY.value,
+                    Harvest.Status.SUCCEEDED.value,
+                ],
                 _("Add a new recipient to record fruit distribution for this harvest"),
-            ),
-            (
-                Harvest.Status.SUCCEEDED.value,
-                _("Add a new recipient to record fruit distribution for this harvest"),
-            ),
-            (
-                Harvest.Status.CANCELLED.value,
-                _("Harvest is cancelled, it will need to be rescheduled by the pick leader"),
             ),
         ]
+        for status in statuses
     }.get(status, default)
 
     return (
