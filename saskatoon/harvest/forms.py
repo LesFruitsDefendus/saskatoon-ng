@@ -195,6 +195,7 @@ class PropertyForm(forms.ModelForm[Property]):
         widgets = {
             'owner': autocomplete.ModelSelect2('owner-autocomplete'),
             'trees': autocomplete.ModelSelect2Multiple('tree-autocomplete'),
+            'neighborhood': autocomplete.ModelSelect2('neighborhood-autocomplete'),
             'additional_info': forms.Textarea(),
             'avg_nb_required_pickers': forms.NumberInput(),
         }

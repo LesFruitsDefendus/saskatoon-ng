@@ -162,12 +162,9 @@ class NeighborhoodAutocomplete(Autocomplete):
     """Neighborhoods (aka Boroughs)"""
 
     def get_queryset(self) -> QuerySet[Neighborhood]:
-        if not self.is_authenticated():
-            return Neighborhood.objects.none()
+        qs = Neighborhood.objects.all().order_by('name')
 
-        qs = Neighborhood.objects.all()
         if self.q:
-            q = Q(name__icontains=self.q)
-            return qs.filter(q)
+            return qs.filter(name__icontains=self.q)
 
-        return qs.order_by('name')
+        return qs
