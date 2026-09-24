@@ -162,9 +162,9 @@ class NeighborhoodAutocomplete(Autocomplete):
     """Neighborhoods (aka Boroughs)"""
 
     def get_queryset(self) -> QuerySet[Neighborhood]:
-        qs = Neighborhood.objects.all()
+        qs = Neighborhood.objects.all().order_by('name')
 
         if self.q:
-            return qs.filter(name__icontains=self.q).order_by('name')
+            return qs.filter(name__icontains=self.q)
 
         return qs
