@@ -34,32 +34,21 @@ def test_Autocomplete_init(Autocomplete):
 
 @pytest.mark.django_db
 def test_neighborhood_autocomplete_search(client):
-    Neighborhood.objects.create(name="Verdun")
-    Neighborhood.objects.create(name="Plateau-Mont-Royal")
+    neighborhoods = ["Pointe-Saint-Charles", "Saint-Henri", "Verdun"]
+    Neighborhood.objects.bulk_create([Neighborhood(name=name) for name in neighborhoods])
 
     url = reverse('neighborhood-autocomplete')
-    response = client.get(url, {'q': 'Plat'})
 
-    assert response.status_code == 200
-    data = response.json()
-    assert 'results' in data
-
-    results = data['results']
-    assert len(results) == 1
-
-    returned_texts = [item['text'] for item in results]
-
-    for text in returned_texts:
-        assert 'Plateau-Mont-Royal' in text
-
-    response = client.get(url, {'q': ''})
-    data = response.json()
-    results = data['results']
-
-    assert len(results) == 2
-
-    response = client.get(url, {'q': 'Mile End'})
-    data = response.json()
-    results = data['results']
-
-    assert len(results) == 0
+    for search, expected in [
+        (None, neighborhoods),
+        ("", neighborhoods),
+        ("Pointe", neighborhoods[:1]),
+        ("Saint", neighborhoods[:2]),
+        ("Mile-End", []),
+    ]:
+        query = {'q': search} if search is not None else {}
+        response = client.get(url, query)
+        assert response.status_code == 200
+        data = response.json()
+        results = [item['text'] for item in data['results']]
+        assert results == expected
