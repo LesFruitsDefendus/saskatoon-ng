@@ -1187,12 +1187,9 @@ msgstr "Envoyer"
 
 #: sitebase/templates/app/forms/participation_manage_form.html:10
 msgid ""
-"Note: Making changes here will not automatically email the volunteer. Please "
-"contact volunteers directly if details change."
+"Warning: modifying a Request For Participation does not automatically notify the volunteer. Please contact them directly to warn them of the changes."
 msgstr ""
-"Note : Les modifications apportées ici n'enverront pas automatiquement d'e-"
-"mail au bénévole. Veuillez contacter directement les bénévoles si les "
-"détails changent."
+"Attention: les modifications apportées à une requête ne sont pas automatiquement communiquées au bénévole. Merci de les contacter directement pour les avertir des changements."
 
 #: sitebase/templates/app/forms/participation_manage_form.html:26
 msgid "Participant"
