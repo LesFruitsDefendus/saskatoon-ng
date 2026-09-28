@@ -315,8 +315,9 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
         }
 
     def form_invalid(self, form):
-        if getattr(form, 'is_volunteer_duplicate', False):
-            messages.error(self.request, _("You have already submitted a request for this pick."))
+        error_message = getattr(form, "error_message", None)
+        if error_message is not None:
+            messages.error(self.request, error_message)
             if self.request.GET.get('from') == 'calendar':
                 return HttpResponseRedirect(reverse_lazy('calendar'))
             return HttpResponseRedirect(self.get_success_url())

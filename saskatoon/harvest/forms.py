@@ -63,44 +63,33 @@ class RFPForm(forms.ModelForm[RFP]):
             self.harvest = kwargs.pop('harvest')
         super().__init__(*args, **kwargs)
 
-    @property
-    def is_requester_harvest_leader(self) -> bool:
-        if self.request_user is None or self.request_user.is_anonymous:
-            return False
-
-        return self.request_user == self.harvest.pick_leader
-
     def clean_email(self):
         email = self.cleaned_data['email'].strip()
 
         target_user = AuthUser.objects.filter(email=email).first()
+
+        if target_user == self.harvest.pick_leader:
+            raise forms.ValidationError(_("A pick leader cannot volunteer for their own harvest."))
+
         # check if a request with the same email already exists
         if (
             target_user
             and target_user.person
             and RFP.objects.filter(person=target_user.person, harvest_id=self.harvest.id).exists()
         ):
-            is_self_application = (
-                self.request_user
-                and self.request_user.is_authenticated
-                and self.request_user.email == email
-                or not self.request_user.is_authenticated
-            )
-
-            is_target_harvest_leader = target_user == self.harvest.pick_leader
-
-            if is_target_harvest_leader:
-                raise forms.ValidationError(
-                    _("A pick leader cannot volunteer for their own harvest.")
+            # if user is anon or the same as target email
+            if (
+                self.request_user.is_authenticated and self.request_user.email == email
+            ) or not self.request_user.is_authenticated:
+                self.error_message = _("You have already submitted a request for this pick.")
+            # if user is adding a target email that is duplicate
+            else:
+                self.error_message = _(
+                    "This person has already submitted a request for this pick."
                 )
 
-            if is_self_application:
-                self.is_volunteer_duplicate = True
-                error_message = _("You have already submitted a request for this pick.")
-            else:
-                error_message = _("This person has already submitted a request for this pick.")
-
-            raise forms.ValidationError(error_message)
+            # errors are sent to the redirect page
+            raise forms.ValidationError(self.error_message)
 
         return email
 
