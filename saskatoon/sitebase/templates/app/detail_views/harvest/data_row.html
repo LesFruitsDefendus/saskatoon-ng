@@ -103,7 +103,7 @@
                     </button>
                 </a>
             </div>
-        {% elif user|is_core_or_admin %}
+        {% elif user|is_core_or_admin or user|is_pickleader:id %}
         <a href="{% url 'participation-update' r.id %}">
             {% trans "Edit" %}&nbsp;<i class="fa fa-pencil"></i>
         </a>
