@@ -370,7 +370,7 @@ msgstr "à"
 #: sitebase/templates/app/calendar/orphan-modal.html:29
 #: sitebase/templates/app/calendar/ready-modal.html:38
 #: sitebase/templates/app/calendar/succeeded-modal.html:32
-#: sitebase/templates/app/detail_views/harvest/data_table.html:25
+#: sitebase/templates/app/detail_views/harvest/data_table.html:24
 #: sitebase/templates/app/detail_views/property/harvest_table.html:50
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
@@ -696,43 +696,43 @@ msgstr "Éditer"
 msgid "Pickers requests"
 msgstr "Demandes de cueilleur.euse.s"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:11
+#: sitebase/templates/app/detail_views/harvest/data_table.html:10
 msgid "New request"
 msgstr "Nouvelle demande"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:19
+#: sitebase/templates/app/detail_views/harvest/data_table.html:18
 msgid "Requester"
 msgstr "Demandé par"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:20
+#: sitebase/templates/app/detail_views/harvest/data_table.html:19
 msgid "Requested on"
 msgstr "Demandé le"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:21
+#: sitebase/templates/app/detail_views/harvest/data_table.html:20
 msgid "# Pickers"
 msgstr "nombre de cueilleur.euse.s"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:22
+#: sitebase/templates/app/detail_views/harvest/data_table.html:21
 msgid "Requester comment"
 msgstr "Commentaire"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:23
+#: sitebase/templates/app/detail_views/harvest/data_table.html:22
 msgid "Experience"
 msgstr "Expérience"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:24
+#: sitebase/templates/app/detail_views/harvest/data_table.html:23
 msgid "Rejections"
 msgstr "Rejets"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:26
+#: sitebase/templates/app/detail_views/harvest/data_table.html:25
 msgid "Pickleader note"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:27
+#: sitebase/templates/app/detail_views/harvest/data_table.html:26
 msgid "Last updated"
 msgstr "Mis à jour le"
 
-#: sitebase/templates/app/detail_views/harvest/data_table.html:28
+#: sitebase/templates/app/detail_views/harvest/data_table.html:27
 msgid "Action"
 msgstr "Action"
 
@@ -1519,12 +1519,11 @@ msgstr "Récolte est terminée et les fruits ont été récoltés"
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:271
-msgid "This harvest is not open to accept participation requests."
-msgstr ""
-"cette récolte n'est pas ouverte pour accepter des demandes de participation"
+#: sitebase/templatetags/harvest_status.py:267
+msgid "This harvest does not accept requests for participation"
+msgstr "cette récolte n'accepte pas les demandes de participation"
 
-#: sitebase/templatetags/harvest_status.py:282
+#: sitebase/templatetags/harvest_status.py:270
 msgid ""
 "This harvest is currently published on the public calendar and open for "
 "participation requests"
@@ -1532,24 +1531,20 @@ msgstr ""
 "Cette récolte est actuellement publiée sur le calendrier public et ouverte "
 "aux demandes de participation."
 
-#: sitebase/templatetags/harvest_status.py:286
-msgid ""
-"This harvest is not currently published on the calendar for public "
-"participation requests but you can add volunteers"
+#: sitebase/templatetags/harvest_status.py:273
+msgid "This harvest is not currently published on the public calendar"
 msgstr ""
-"Cette récolte n'est pas actuellement publiée sur le calendrier pour les "
-"demandes publiques de participation, mais vous pouvez ajouter des bénévoles."
+"Cette récolte est actuellement publiée sur le calendrier public et ouverte "
+"aux demandes de participation."
 
-#: sitebase/templatetags/harvest_status.py:316
+#: sitebase/templatetags/harvest_status.py:302
 msgid ""
 "A harvest must be marked as Ready before you can complete fruit distribution"
-msgstr "Une cueillette doit être prête avant d'ajouter des bénéficiaires"
+msgstr "Une cueillette doit être Prête avant d'ajouter des bénéficiaires"
 
-#: sitebase/templatetags/harvest_status.py:323
+#: sitebase/templatetags/harvest_status.py:309
 msgid "Add a new recipient to record fruit distribution for this harvest"
-msgstr ""
-"Ajouter un nouveau bénéficiaire pour enregistrer la distribution de fruits "
-"pour cette cueillette"
+msgstr "Ajouter un nouveau bénéficiaire pour répartir les fruits récoltés"
 
 #: sitebase/templatetags/property.py:149
 msgid "The property information needs to be validated by a core member."

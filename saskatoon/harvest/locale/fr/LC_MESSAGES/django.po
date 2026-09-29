@@ -162,7 +162,7 @@ msgstr "Non autorisée"
 msgid "Harvest Status"
 msgstr "Statut de récolte"
 
-#: harvest/filters.py:155 harvest/models.py:873
+#: harvest/filters.py:155 harvest/models.py:872
 msgid "Tree"
 msgstr "Arbre"
 
@@ -523,7 +523,7 @@ msgstr "Nom (fr)"
 msgid "Name (en)"
 msgstr "Nom (en)"
 
-#: harvest/models.py:132 harvest/models.py:919
+#: harvest/models.py:132 harvest/models.py:918
 msgid "property"
 msgstr "propriété"
 
@@ -535,7 +535,7 @@ msgstr "propriétés"
 msgid "Inactive"
 msgstr "Est inactif"
 
-#: harvest/models.py:141 harvest/models.py:170 harvest/models.py:791
+#: harvest/models.py:141 harvest/models.py:170 harvest/models.py:790
 msgid "Pending"
 msgstr "En attente"
 
@@ -761,7 +761,7 @@ msgstr "Partagé"
 msgid "Can be used in harvests outside of property"
 msgstr "Peut être utilisé pour d'autres cueillettes à proximité"
 
-#: harvest/models.py:549 harvest/models.py:910
+#: harvest/models.py:549 harvest/models.py:909
 msgid "harvest"
 msgstr "récolte"
 
@@ -793,7 +793,7 @@ msgstr "Prête"
 msgid "Succeeded"
 msgstr "Réussie"
 
-#: harvest/models.py:560 harvest/models.py:794
+#: harvest/models.py:560 harvest/models.py:793
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -850,112 +850,110 @@ msgid "Creation date"
 msgstr "Date de création"
 
 #: harvest/models.py:643
-#, python-brace-format
 msgid "Harvest on {} for {}"
 msgstr "Récolte le {} pour {}"
 
 #: harvest/models.py:647
-#, python-brace-format
 msgid "Harvest for {}"
 msgstr "Récolte pour {}"
 
-#: harvest/models.py:787
+#: harvest/models.py:786
 msgid "request for participation"
 msgstr "demande de participation"
 
-#: harvest/models.py:788
+#: harvest/models.py:787
 msgid "requests for participation"
 msgstr "demandes de participation"
 
-#: harvest/models.py:792
+#: harvest/models.py:791
 msgid "Accepted"
 msgstr "Accepté"
 
-#: harvest/models.py:793
+#: harvest/models.py:792
 msgid "Declined"
 msgstr "Refusée"
 
-#: harvest/models.py:795
+#: harvest/models.py:794
 msgid "Obsolete"
 msgstr "Obsolète"
 
-#: harvest/models.py:798
+#: harvest/models.py:797
 msgid "Accept request"
 msgstr "Accepter cette demande"
 
-#: harvest/models.py:799
+#: harvest/models.py:798
 msgid "Decline request"
 msgstr "Refuser cette demande"
 
-#: harvest/models.py:803 harvest/models.py:866
+#: harvest/models.py:802 harvest/models.py:865
 msgid "Harvest"
 msgstr "Récolte"
 
-#: harvest/models.py:810
+#: harvest/models.py:809
 msgid "Requester"
 msgstr "Demandeur"
 
-#: harvest/models.py:818
+#: harvest/models.py:817
 msgid "Request status"
 msgstr "État de la demande"
 
-#: harvest/models.py:828
+#: harvest/models.py:827
 msgid "Comment from participant"
 msgstr "Commentaire du/de la bénévole"
 
-#: harvest/models.py:830
+#: harvest/models.py:829
 msgid "PickLeader notes"
 msgstr "Notes du chef de cueille"
 
-#: harvest/models.py:832 harvest/models.py:935
+#: harvest/models.py:831 harvest/models.py:934
 msgid "Created on"
 msgstr "Créé le"
 
-#: harvest/models.py:835
+#: harvest/models.py:834
 msgid "Status updated on"
 msgstr "Statut mis à jour le"
 
-#: harvest/models.py:839
+#: harvest/models.py:838
 msgid "Picker(s) showed up"
 msgstr "Cueilleurs (cueilleuses) présent(e)s"
 
-#: harvest/models.py:861
+#: harvest/models.py:860
 msgid "harvest yield"
 msgstr "rendement de cueillette"
 
-#: harvest/models.py:862
+#: harvest/models.py:861
 msgid "harvest yields"
 msgstr "rendements de cueillettes"
 
-#: harvest/models.py:878
+#: harvest/models.py:877
 msgid "Weight (lb)"
 msgstr "Poids (en livres)"
 
-#: harvest/models.py:888
+#: harvest/models.py:887
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: harvest/models.py:904
+#: harvest/models.py:903
 msgid "comment"
 msgstr "commentaire"
 
-#: harvest/models.py:905
+#: harvest/models.py:904
 msgid "comments"
 msgstr "commentaires"
 
-#: harvest/models.py:928
+#: harvest/models.py:927
 msgid "Author"
 msgstr "Auteur"
 
-#: harvest/models.py:933
+#: harvest/models.py:932
 msgid "Content"
 msgstr "Contenu"
 
-#: harvest/models.py:938
+#: harvest/models.py:937
 msgid "Updated on"
 msgstr "Mis à jour le"
 
-#: harvest/models.py:955
+#: harvest/models.py:954
 msgid "A comment must belong to either a Harvest or a Property, but not both."
 msgstr ""
 "Un commentaire doit appartenir soit à une récolte, soit à une propriété, "
@@ -1030,7 +1028,6 @@ msgstr ""
 "cueillette comme Réussie. "
 
 #: harvest/views.py:265
-#, python-brace-format
 msgid ""
 "You’ve just led your {} fruit harvest this season!                     Thank "
 "you for supporting your community!"

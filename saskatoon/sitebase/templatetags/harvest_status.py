@@ -251,7 +251,7 @@ def harvest_status_attributes(status: Optional[str], direction: str = "bottom") 
 @typechecked
 def harvest_volunteer_attributes(
     status: Optional[str] = None,
-    is_publishable: bool = False,
+    is_public: bool = False,
 ) -> str:
     direction = "top"
     default = ''
@@ -259,32 +259,18 @@ def harvest_volunteer_attributes(
     if status is None:
         return default
 
-    status_help_texts = {
-        st: text
-        for statuses, text in [
-            (
-                [
-                    Harvest.Status.CANCELLED.value,
-                    Harvest.Status.ORPHAN.value,
-                    Harvest.Status.SUCCEEDED.value,
-                ],
-                _("This harvest is not open to accept participation requests."),
-            ),
-        ]
-        for st in statuses
-    }
-
-    help_text = status_help_texts.get(status)
-
-    if not help_text:
-        if is_publishable:
-            help_text = _(
-                "This harvest is currently published on the public calendar and open for participation requests"
-            )
-        else:
-            help_text = _(
-                "This harvest is not currently published on the calendar for public participation requests but you can add volunteers"
-            )
+    if status in [
+        Harvest.Status.CANCELLED,
+        Harvest.Status.ORPHAN,
+        Harvest.Status.SUCCEEDED,
+    ]:
+        help_text = _("This harvest does not accept requests for participation")
+    elif is_public:
+        help_text = _(
+            "This harvest is currently published on the public calendar and open for participation requests"
+        )
+    else:
+        help_text = _("This harvest is not currently published on the public calendar")
 
     return mark_safe(
         'data-placement="'
