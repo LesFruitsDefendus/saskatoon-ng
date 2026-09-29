@@ -290,7 +290,8 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
             self.harvest = None
             logger.error(e)
 
-        return super().get_form_kwargs(*args, **kwargs) | {'harvest': self.harvest}
+        form_kwargs = super().get_form_kwargs(*args, **kwargs)
+        return form_kwargs | {'harvest': self.harvest, 'request_user': self.request.user}
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -312,6 +313,16 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
             You can check the calendar for other harvests."
             )
         }
+
+    def form_invalid(self, form):
+        error_message = getattr(form, "error_message", None)
+        if error_message is not None:
+            messages.error(self.request, error_message)
+            if self.request.GET.get('from') == 'calendar':
+                return HttpResponseRedirect(reverse_lazy('calendar'))
+            return HttpResponseRedirect(self.get_success_url())
+
+        return super().form_invalid(form)
 
     def get_success_url(self):
         if self.request.user.is_authenticated and self.harvest is not None:
