@@ -2,7 +2,6 @@ from crequest.middleware import CrequestMiddleware
 from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 from django_quill.fields import QuillField
 from django.db import models
 from django.db.models.signals import pre_save
@@ -755,7 +754,7 @@ class Harvest(models.Model):
             Harvest.Status.READY,
         ]
 
-    def get_congratulations_message(self) -> Optional[str] | None:
+    def get_congratulations_message(self) -> Optional[str]:
         if (
             self.pick_leader is None
             or self.pick_leader.person is None

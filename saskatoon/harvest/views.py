@@ -258,7 +258,7 @@ class HarvestUpdateView(
             if congrats_message:
                 self.success_message = congrats_message  # type: ignore[assignment]
 
-            return self.success_message
+        return self.success_message
 
     def get_success_url(self):
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
@@ -504,7 +504,7 @@ def harvest_yield_delete(request, id):
     else:
         _yield = HarvestYield.objects.get(id=id)
         _yield.delete()
-        messages.warning(request, _("Fruit distribution deleted!"))
+        messages.warning(request, "Fruit distribution deleted!")
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
