@@ -346,6 +346,10 @@ class Email(models.Model):
     def cc_list(self):
         if self.harvest is None or self.harvest.pick_leader is None:
             return []
+
+        if self.type in [EmailType.SELECTED_PICKER, EmailType.REJECTED_PICKER]:
+            return []
+
         return [self.harvest.pick_leader.email]
 
     @property
