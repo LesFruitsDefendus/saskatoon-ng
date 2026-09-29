@@ -2,7 +2,6 @@ from crequest.middleware import CrequestMiddleware
 from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
-from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 from django_quill.fields import QuillField
 from django.db import models
 from django.db.models.signals import pre_save
@@ -18,7 +17,13 @@ from sys import float_info
 from types import SimpleNamespace
 import builtins
 
-from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, local_today
+from sitebase.utils import (
+    local_datetime,
+    to_datetime,
+    is_quill_html_empty,
+    local_today,
+    french_ordinal,
+)
 from sitebase.validators import validate_is_not_nan
 
 
@@ -749,15 +754,6 @@ class Harvest(models.Model):
             Harvest.Status.READY,
         ]
 
-    @staticmethod
-    def localized_ordinal(n: int) -> str:
-        # If French, use French ordinal rules (er / e)
-        lang = get_language()
-        if lang and lang.startswith('fr'):
-            return f"{n}{'er' if n == 1 else 'ème'}"
-
-        return str(django_ordinal(n))
-
     def get_congratulations_message(self) -> Optional[str] | None:
         if (
             self.pick_leader is None
@@ -775,7 +771,7 @@ class Harvest(models.Model):
         return _(
             "You’ve just led your {} fruit harvest this season! "
             "Thank you for supporting your community!"
-        ).format(self.localized_ordinal(season_count))
+        ).format(french_ordinal(season_count))
 
     def get_equipment_point(self):
         """Turn the list of reserved equipment into an equipment point.
