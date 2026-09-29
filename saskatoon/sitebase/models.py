@@ -347,7 +347,10 @@ class Email(models.Model):
         if self.harvest is None or self.harvest.pick_leader is None:
             return []
 
-        if self.type in [EmailType.SELECTED_PICKER, EmailType.REJECTED_PICKER]:
+        if (
+            self.type in [EmailType.SELECTED_PICKER, EmailType.REJECTED_PICKER]
+            or self.recipient == self.harvest.pick_leader.person
+        ):
             return []
 
         return [self.harvest.pick_leader.email]
