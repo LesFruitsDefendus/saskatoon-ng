@@ -74,6 +74,9 @@ document.addEventListener('DOMContentLoaded', function () {
     commentWrappers.forEach((wrapper) => {
         const commentP = wrapper.querySelector('.comment-text');
         const toggleBtn = wrapper.querySelector('.toggle-comment-btn');
+        const lessText = toggleBtn.getAttribute('data-less-text') || 'less';
+        const moreText = toggleBtn.getAttribute('data-more-text') || 'more';
+        toggleBtn.textContent = moreText;
 
         if (commentP && toggleBtn) {
             setTimeout(() => {
@@ -83,9 +86,6 @@ document.addEventListener('DOMContentLoaded', function () {
             }, 50);
 
             toggleBtn.addEventListener('click', () => {
-                const moreText = toggleBtn.getAttribute('data-more-text') || 'Read more';
-                const lessText = toggleBtn.getAttribute('data-less-text') || 'Read less';
-
                 if (commentP.classList.contains('collapsed-comment')) {
                     commentP.classList.remove('collapsed-comment');
                     commentP.classList.add('expanded-comment');

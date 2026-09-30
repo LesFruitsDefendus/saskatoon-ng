@@ -382,6 +382,7 @@ class CommentCreateView(
 
     permission_required = 'harvest.add_comment'
     form_class = CommentForm
+    #passed as extra tag through TaggedSuccessMessageMixin to help redirect to comments section
     message_extra_tag = "comment"
     success_message = _("New comment added!")
 
@@ -428,6 +429,7 @@ class CommentUpdateView(
     model = Comment
     form_class = CommentForm
     message_extra_tag = "comment"
+    #passed as extra tag through TaggedSuccessMessageMixin to help redirect to comments section
     success_message = _("Comment updated!")
     pk_url_kwarg = 'id'
 
