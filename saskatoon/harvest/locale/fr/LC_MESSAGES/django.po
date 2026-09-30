@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-29 09:52-0400\n"
+"POT-Creation-Date: 2026-09-30 20:33-0400\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -361,7 +361,7 @@ msgstr ""
 "(par exemple: porte verrouillée à l'arrière, accès libre depuis la rue, "
 "etc...)"
 
-#: harvest/forms.py:420 harvest/models.py:823
+#: harvest/forms.py:420 harvest/models.py:822
 msgid "Number of pickers"
 msgstr "Nombre de cueilleurs (cueilleuses)"
 
