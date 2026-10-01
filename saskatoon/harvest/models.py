@@ -739,15 +739,14 @@ class Harvest(models.Model):
         if self.end_date is not None and tz.now() > self.end_date:
             return False
 
-        valid_statuses = [Harvest.Status.SCHEDULED]
-        if not public:
-            valid_statuses += [
-                Harvest.Status.ADOPTED,
-                Harvest.Status.PENDING,
-                Harvest.Status.READY,
-            ]
+        if public:
+            return self.status == Harvest.Status.SCHEDULED and self.is_publishable()
 
-        return self.status in valid_statuses
+        return self.status in [
+            Harvest.Status.ADOPTED,
+            Harvest.Status.SCHEDULED,
+            Harvest.Status.READY,
+        ]
 
     def get_equipment_point(self):
         """Turn the list of reserved equipment into an equipment point.
