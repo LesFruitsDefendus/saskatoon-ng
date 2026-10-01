@@ -16,6 +16,7 @@ from django.views.generic import CreateView, TemplateView, UpdateView, DeleteVie
 from django_stubs_ext import StrOrPromise
 from datetime import datetime
 from logging import getLogger
+from harvest.mixins import TaggedSuccessMessageMixin
 
 from harvest.forms import (
     CommentForm,
@@ -374,13 +375,15 @@ class RequestForParticipationUpdateView(
 
 class CommentCreateView(
     PermissionRequiredMixin,
-    SuccessMessageMixin[CommentForm],
+    TaggedSuccessMessageMixin,
     CreateView[Comment, CommentForm],
 ):
     """Create a new comment."""
 
     permission_required = 'harvest.add_comment'
     form_class = CommentForm
+    # passed as extra tag through TaggedSuccessMessageMixin to help redirect to comments section
+    message_extra_tag = "comment"
     success_message = _("New comment added!")
 
     def get_form_kwargs(self):
@@ -406,22 +409,37 @@ class CommentCreateView(
         pid = self.kwargs.get('pid')
 
         if hid:
-            return reverse_lazy('harvest-detail', kwargs={'pk': hid})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': hid})
         elif pid:
-            return reverse_lazy('property-detail', kwargs={'pk': pid})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': pid})
+        else:
+            url = reverse_lazy('home')
+
+        return f"{url}#comments"
+
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CommentUpdateView(
     LoginRequiredMixin,
     UserPassesTestMixin,
-    SuccessMessageMixin[CommentForm],
+    TaggedSuccessMessageMixin,
     UpdateView[Comment, CommentForm],
 ):
     """Edit an existing comment."""
 
     model = Comment
     form_class = CommentForm
+    message_extra_tag = "comment"
+    # passed as extra tag through TaggedSuccessMessageMixin to help redirect to comments section
     success_message = _("Comment updated!")
     pk_url_kwarg = 'id'
 
@@ -438,21 +456,35 @@ class CommentUpdateView(
 
     def get_success_url(self):
         if self.object.harvest_id:
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
         elif self.object.property_id:
-            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        else:
+            url = reverse_lazy('home')
+
+        return f"{url}#comments"
+
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class CommentDeleteView(
     LoginRequiredMixin,
     UserPassesTestMixin,
-    SuccessMessageMixin[CommentForm],
+    TaggedSuccessMessageMixin,
     DeleteView[Comment, CommentForm],
 ):
     """Delete an existing comment."""
 
     model = Comment
+    message_extra_tag = "comment"
     success_message = _("Comment deleted!")
     pk_url_kwarg = 'id'
 
@@ -461,10 +493,13 @@ class CommentDeleteView(
 
     def get_success_url(self):
         if self.object.harvest_id:
-            return reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
+            url = reverse_lazy('harvest-detail', kwargs={'pk': self.object.harvest_id})
         elif self.object.property_id:
-            return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
-        return reverse_lazy('home')
+            url = reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        else:
+            url = reverse_lazy('home')
+
+        return f"{url}#comments"
 
 
 @login_required
