@@ -6,7 +6,7 @@ from django_quill.fields import QuillField
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField
@@ -17,7 +17,13 @@ from sys import float_info
 from types import SimpleNamespace
 import builtins
 
-from sitebase.utils import local_datetime, to_datetime, is_quill_html_empty, local_today
+from sitebase.utils import (
+    local_datetime,
+    to_datetime,
+    is_quill_html_empty,
+    local_today,
+    french_ordinal,
+)
 from sitebase.validators import validate_is_not_nan
 
 
@@ -747,6 +753,25 @@ class Harvest(models.Model):
             Harvest.Status.SCHEDULED,
             Harvest.Status.READY,
         ]
+
+    def get_congratulations_message(self) -> Optional[str]:
+        if (
+            self.pick_leader is None
+            or self.pick_leader.person is None
+            or self.status != Harvest.Status.SUCCEEDED
+        ):
+            return None
+
+        season_count = (
+            self.pick_leader.person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
+            .filter(start_date__year=tz.now().date().year)
+            .count()
+        )
+
+        return _(
+            "You’ve just led your {} fruit harvest this season! "
+            "Thank you for supporting your community!"
+        ).format(french_ordinal(season_count))
 
     def get_equipment_point(self):
         """Turn the list of reserved equipment into an equipment point.

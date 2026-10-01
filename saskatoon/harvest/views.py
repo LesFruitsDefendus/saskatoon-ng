@@ -5,7 +5,6 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 from django.contrib.auth.decorators import login_required
-from django.contrib.humanize.templatetags.humanize import ordinal
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
@@ -255,17 +254,9 @@ class HarvestUpdateView(
                 self.object.save()
                 return ""
 
-            if (pl := self.object.pick_leader) is not None and (person := pl.person) is not None:
-                season_count = (
-                    person.get_harvests_as_pickleader(status=Harvest.Status.SUCCEEDED)
-                    .filter(start_date__year=tz.now().date().year)
-                    .count()
-                )
-
-                return _(
-                    "You’ve just led your {} fruit harvest this season! \
-                    Thank you for supporting your community!"
-                ).format(ordinal(season_count))
+            congrats_message = self.object.get_congratulations_message()
+            if congrats_message:
+                self.success_message = congrats_message  # type: ignore[assignment]
 
         return self.success_message
 
@@ -626,10 +617,15 @@ def harvest_status_change(request, id):
     else:
         harvest.status = request_status
         harvest.save()
-        messages.success(
-            request,
-            _("Harvest status successfully set to: {}").format(harvest.get_status_display()),
-        )
+        congrats_message = harvest.get_congratulations_message()
+
+        if congrats_message:
+            messages.success(request, congrats_message)
+        else:
+            messages.success(
+                request,
+                _("Harvest status successfully set to: {}").format(harvest.get_status_display()),
+            )
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 

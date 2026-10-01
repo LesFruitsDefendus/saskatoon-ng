@@ -5,6 +5,8 @@ from django.utils import timezone
 from typing import Optional, Any, Callable
 from typeguard import typechecked
 from django.conf import settings
+from django.utils.translation import get_language
+from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
@@ -80,3 +82,11 @@ def maybe(val: Any, default: Optional[Any] = None, callable: Callable[[Any], Any
         return callable(val)
 
     return default
+
+
+def french_ordinal(n: int) -> str:
+    # If French, use French ordinal rules (er / e)
+    if get_language().startswith('fr'):
+        return f"{n}{'er' if n == 1 else 'ème'}"
+
+    return str(django_ordinal(n))
