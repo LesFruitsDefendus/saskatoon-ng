@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANG %}
+
 <div class="search-engine-int mg-t-30 sm-res-mg-t-30 tb-res-mg-t-30">
   <div style="display: flex; flex-flow: row wrap;">
     <div class="search-engine-int" style="flex: 50%">
@@ -11,7 +13,13 @@
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ beneficiary_description }}</p>
+      <p>
+        {% if LANG == 'fr' %}
+        {{ beneficiary_description_fr|safe }}
+        {% else %}
+        {{ beneficiary_description_en|safe }}
+        {% endif %}
+      </p>
     </div>
 
     <div class="search-engine-int" style="flex: 50%;">
@@ -23,7 +31,13 @@
         <i class="notika-icon notika-close"></i>
         {% endif %}
       </h4>
-      <p>{{ equipment_description }}</p>
+      <p>
+        {% if LANG == 'fr' %}
+        {{ equipment_description_fr|safe }}
+        {% else %}
+        {{ equipment_description_en|safe }}
+        {% endif %}
+      </p>
     </div>
   </div>
 </div>

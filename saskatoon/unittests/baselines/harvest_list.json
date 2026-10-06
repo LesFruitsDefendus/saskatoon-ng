@@ -61,11 +61,14 @@
                     "id": 11,
                     "name": "Mile End"
                 },
-                "description": "This organization shares its equipment but can't accept fruit donations.",
+                "description_en": "This organization shares its equipment but can't accept fruit donations.",
+                "description_fr": "",
                 "is_beneficiary": false,
-                "beneficiary_description": "",
+                "beneficiary_description_en": "",
+                "beneficiary_description_fr": "",
                 "is_equipment_point": true,
-                "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
+                "equipment_description_en": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
+                "equipment_description_fr": "",
                 "equipment": [
                     {
                         "id": 2,
@@ -196,11 +199,14 @@
                     "id": 10,
                     "name": "Mercier-Hochelaga-Maisonneuve"
                 },
-                "description": "This organization both accepts fruit donations and has some equipment.",
+                "description_en": "This organization both accepts fruit donations and has some equipment.",
+                "description_fr": "",
                 "is_beneficiary": true,
-                "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+                "beneficiary_description_en": "We accept any kind of donations on Wednesday and Friday",
+                "beneficiary_description_fr": "",
                 "is_equipment_point": true,
-                "equipment_description": "You must register online at www.equipment.ca",
+                "equipment_description_en": "You must register online at www.equipment.ca",
+                "equipment_description_fr": "",
                 "equipment": [
                     {
                         "id": 6,
@@ -474,11 +480,14 @@
                     "id": 10,
                     "name": "Mercier-Hochelaga-Maisonneuve"
                 },
-                "description": "This organization both accepts fruit donations and has some equipment.",
+                "description_en": "This organization both accepts fruit donations and has some equipment.",
+                "description_fr": "",
                 "is_beneficiary": true,
-                "beneficiary_description": "We accept any kind of donations on Wednesday and Friday",
+                "beneficiary_description_en": "We accept any kind of donations on Wednesday and Friday",
+                "beneficiary_description_fr": "",
                 "is_equipment_point": true,
-                "equipment_description": "You must register online at www.equipment.ca",
+                "equipment_description_en": "You must register online at www.equipment.ca",
+                "equipment_description_fr": "",
                 "equipment": [
                     {
                         "id": 6,
