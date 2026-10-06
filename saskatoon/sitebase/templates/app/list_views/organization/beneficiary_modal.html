@@ -2,7 +2,7 @@
 {% load static %}
 
 {% if org.is_beneficiary %}
-    {% if org.beneficiary_description %}
+    {% if org.beneficiary__en %}
         <dialog closedby="any" id="{{org.actor_id}}-beneficiary-dialog" aria-label="{% trans 'Beneficiary details dialog' %}">
           <header class="modal-header">
              <button
@@ -19,7 +19,7 @@
           </header>
           <section class="modal-body">
             <p>{% trans 'This organization accepts fruit donations' %}</p>
-            <blockquote>{{org.beneficiary_description}}</blockquote>
+            <blockquote>{{ org.beneficiary_description_en|safe }}</blockquote>
           </section>
         </dialog>
         <button

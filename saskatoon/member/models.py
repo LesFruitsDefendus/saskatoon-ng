@@ -7,7 +7,7 @@ from django.contrib.auth.models import (
 )
 from django.db import models
 from django.db.models import Q, QuerySet
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import gettext_lazy as _, get_language
 from django.utils import timezone as tz
 from itertools import chain
 from operator import attrgetter
@@ -16,6 +16,7 @@ from typing import Optional
 from django.core.validators import MaxValueValidator, MinValueValidator
 from djgeojson.fields import PointField
 from enum import Enum
+from django_quill.fields import QuillField
 
 from sitebase.validators import validate_is_not_nan
 from sitebase.utils import local_today
@@ -429,14 +430,24 @@ is currenlty made available'
 
     civil_name = models.CharField(verbose_name=_("Name"), max_length=50)
 
-    description = models.TextField(verbose_name=_("Short description"), blank=True)
+    description_en = models.TextField(verbose_name=_("Short description (en)"), blank=True)
 
-    beneficiary_description = models.TextField(
-        verbose_name=_("Beneficiary description"), blank=True
+    description_fr = models.TextField(verbose_name=_("Short description (fr)"), blank=True)
+
+    beneficiary_description_en = models.TextField(
+        verbose_name=_("Beneficiary description (en)"), blank=True
     )
 
-    equipment_description = models.TextField(
-        verbose_name=_("Equipment point description"), blank=True
+    beneficiary_description_fr = models.TextField(
+        verbose_name=_("Beneficiary description (fr)"), blank=True
+    )
+
+    equipment_description_en = models.TextField(
+        verbose_name=_("Equipment point description (en)"), blank=True
+    )
+
+    equipment_description_fr = models.TextField(
+        verbose_name=_("Equipment point description (fr)"), blank=True
     )
 
     phone = PhoneField(verbose_name=_("Phone"), null=True)
@@ -572,6 +583,27 @@ is currenlty made available'
             return self.geom['coordinates'][0]
 
         return None
+
+    @property
+    def description_lang(self):
+        if get_language() == 'fr':
+            return self.description_fr
+
+        return self.description_en
+
+    @property
+    def beneficiary_description_lang(self):
+        if get_language() == 'fr':
+            return self.beneficiary_description_fr
+
+        return self.beneficiary_description_en
+
+    @property
+    def equipment_description_lang(self):
+        if get_language() == 'fr':
+            return self.equipment_description_fr
+
+        return self.equipment_description_en
 
 
 class Neighborhood(models.Model):

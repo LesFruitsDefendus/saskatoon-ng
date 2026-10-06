@@ -33,7 +33,7 @@
                         title="organization"
                         data-info="{{org.address | default:""}}"
                         data-title="{{org.civil_name}}"
-                        data-description="{{org.description}}"
+                        data-description="{{org.description_en}}"
                         href="#modal">
                     {{org.civil_name}}
                 </a>
@@ -65,7 +65,7 @@
                            data-inventory="{{org.inventory.en}}"
                         {% endif %}
                            data-title="{{org.civil_name}}"
-                           data-description="{{org.equipment_description}}"
+                           data-description="{{org.equipment_description_en}}"
                            href="#modal">
                         {% trans "info" %}
                     </a>
