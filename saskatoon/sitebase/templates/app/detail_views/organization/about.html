@@ -1,17 +1,12 @@
 {% load i18n %}
 {% load static %}
-{% get_current_language as LANG %}
 
 <div class="search-engine-int" style="flex: 100%;">
   <div class="contact-hd search-hd-eg">
     <h2>{% translate 'About' %}</h2>
     <hr />
     <p>
-      {% if LANG == 'fr' %}
-      {{ description_fr|safe }}
-      {% else %}
-      {{ description_en|safe }}
-      {% endif %}
+      {{ description|safe }}
     </p>
   </div>
 </div>

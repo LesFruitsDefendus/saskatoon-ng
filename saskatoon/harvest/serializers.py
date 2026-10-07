@@ -6,6 +6,7 @@ from datetime import timedelta
 from django.utils import timezone as tz
 from django.db.models import Value
 from itertools import chain
+from django.utils.translation import get_language
 
 from member.models import Actor, Organization
 from member.serializers import (
@@ -500,6 +501,10 @@ class OrganizationMapSerializer(serializers.ModelSerializer[Organization]):
 
 
 class OrganizationSerializer(serializers.ModelSerializer[Organization]):
+    description = serializers.CharField(read_only=True)
+    beneficiary_description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
+
     class Meta:
         model = Organization
         fields = [
@@ -510,14 +515,11 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
             'short_address',
             'address',
             'neighborhood',
-            'description_en',
-            'description_fr',
+            'description',
             'is_beneficiary',
-            'beneficiary_description_en',
-            'beneficiary_description_fr',
+            'beneficiary_description',
             'is_equipment_point',
-            'equipment_description_en',
-            'equipment_description_fr',
+            'equipment_description',
             'equipment',
             'inventory',
             'upcoming_reservations',

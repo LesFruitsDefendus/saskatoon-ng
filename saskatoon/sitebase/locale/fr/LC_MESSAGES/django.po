@@ -252,7 +252,7 @@ msgstr "Médias Sociaux"
 
 #: sitebase/templates/app/base/footer.html:82
 #: sitebase/templates/app/base/navbar.html:15
-#: sitebase/templates/app/detail_views/organization/about.html:7
+#: sitebase/templates/app/detail_views/organization/about.html:6
 msgid "About"
 msgstr "À propos"
 
@@ -786,8 +786,9 @@ msgid "Are you sure you want to delete this entry?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:8
-#: sitebase/templates/app/detail_views/organization/features.html:27
+#: sitebase/templates/app/detail_views/organization/features.html:22
 #: sitebase/templates/app/list_views/harvest/view.html:35
+#: sitebase/templates/app/list_views/organization/equipment_modal.html:27
 msgid "Equipment Point"
 msgstr "Point d'Équipement"
 
@@ -1351,7 +1352,7 @@ msgstr "Dialogue de détails de point d'équipement"
 
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:12
 msgid "This organization is an equipment point"
-msgstr "Cet organisme accepte les dons de fruits"
+msgstr "Cet organisme est un point d'équipement"
 
 #: sitebase/templates/app/list_views/organization/equipment_modal.html:34
 msgid "No Equipment"
