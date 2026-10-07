@@ -595,7 +595,7 @@ is currenlty made available'
 
     @property
     def description(self):
-        fr = self.escription_fr
+        fr = self.description_fr
         en = self.description_en
 
         if get_language() == 'fr' and self.has_content(fr):
