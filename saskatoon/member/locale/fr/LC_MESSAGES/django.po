@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-06 16:13-0400\n"
+"POT-Creation-Date: 2026-10-07 16:35-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,8 +329,8 @@ msgstr ""
 msgid "Redmine contact"
 msgstr "Contact Redmine"
 
-#: member/models.py:431 member/models.py:617 member/models.py:630
-#: member/models.py:643 member/models.py:656
+#: member/models.py:431 member/models.py:635 member/models.py:648
+#: member/models.py:661 member/models.py:674
 msgid "Name"
 msgstr "Nom"
 
@@ -370,35 +370,35 @@ msgstr "Responsabilités de la personne contact"
 msgid "Street number"
 msgstr "Numéro civique"
 
-#: member/models.py:613
+#: member/models.py:631
 msgid "borough"
 msgstr "Arrondissement"
 
-#: member/models.py:614
+#: member/models.py:632
 msgid "boroughs"
 msgstr "Arrondissement"
 
-#: member/models.py:627
+#: member/models.py:645
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:628
+#: member/models.py:646
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:640
+#: member/models.py:658
 msgid "state"
 msgstr "province"
 
-#: member/models.py:641
+#: member/models.py:659
 msgid "states"
 msgstr "provinces"
 
-#: member/models.py:653
+#: member/models.py:671
 msgid "country"
 msgstr "pays"
 
-#: member/models.py:654
+#: member/models.py:672
 msgid "countries"
 msgstr "pays"
 

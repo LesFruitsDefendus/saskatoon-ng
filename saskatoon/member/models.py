@@ -430,23 +430,23 @@ is currenlty made available'
 
     civil_name = models.CharField(verbose_name=_("Name"), max_length=50)
 
-    description_en = models.TextField(verbose_name=_("Short description (en)"), blank=True)
+    description_en = QuillField(verbose_name=_("Short description (en)"), blank=True)
 
-    description_fr = models.TextField(verbose_name=_("Short description (fr)"), blank=True)
+    description_fr = QuillField(verbose_name=_("Short description (fr)"), blank=True)
 
-    beneficiary_description_en = models.TextField(
+    beneficiary_description_en = QuillField(
         verbose_name=_("Beneficiary description (en)"), blank=True
     )
 
-    beneficiary_description_fr = models.TextField(
+    beneficiary_description_fr = QuillField(
         verbose_name=_("Beneficiary description (fr)"), blank=True
     )
 
-    equipment_description_en = models.TextField(
+    equipment_description_en = QuillField(
         verbose_name=_("Equipment point description (en)"), blank=True
     )
 
-    equipment_description_fr = models.TextField(
+    equipment_description_fr = QuillField(
         verbose_name=_("Equipment point description (fr)"), blank=True
     )
 
@@ -584,26 +584,44 @@ is currenlty made available'
 
         return None
 
-    @property
-    def description_lang(self):
-        if get_language() == 'fr':
-            return self.description_fr
+    # Helper to check if a Quill field has real content
+    def has_content(self, field):
+        if not field or not field.html:
+            return False
 
-        return self.description_en
+        cleaned = field.html.replace("<p></p>", "").replace("<p><br></p>", "").strip()
 
-    @property
-    def beneficiary_description_lang(self):
-        if get_language() == 'fr':
-            return self.beneficiary_description_fr
-
-        return self.beneficiary_description_en
+        return bool(cleaned)
 
     @property
-    def equipment_description_lang(self):
-        if get_language() == 'fr':
-            return self.equipment_description_fr
+    def description(self):
+        fr = self.escription_fr
+        en = self.description_en
 
-        return self.equipment_description_en
+        if get_language() == 'fr' and self.has_content(fr):
+            return fr.html
+
+        return en.html if self.has_content(en) else ""
+
+    @property
+    def beneficiary_description(self):
+        fr = self.beneficiary_description_fr
+        en = self.beneficiary_description_en
+
+        if get_language() == 'fr' and self.has_content(fr):
+            return fr.html
+
+        return en.html if self.has_content(en) else ""
+
+    @property
+    def equipment_description(self):
+        fr = self.equipment_description_fr
+        en = self.equipment_description_en
+
+        if get_language() == 'fr' and self.has_content(fr):
+            return fr.html
+
+        return en.html if self.has_content(en) else ""
 
 
 class Neighborhood(models.Model):

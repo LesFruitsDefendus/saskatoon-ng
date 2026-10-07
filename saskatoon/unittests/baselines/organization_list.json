@@ -25,14 +25,10 @@
                 "id": 10,
                 "name": "Mercier-Hochelaga-Maisonneuve"
             },
-            "description_en": "This organization both accepts fruit donations and has some equipment.",
-            "description_fr": "",
             "is_beneficiary": true,
-            "beneficiary_description_en": "We accept any kind of donations on Wednesday and Friday",
-            "beneficiary_description_fr": "",
+            "beneficiary_description": "<p>We accept any kind of donations on Wednesday and Friday</p>",
             "is_equipment_point": true,
-            "equipment_description_en": "You must register online at www.equipment.ca",
-            "equipment_description_fr": "",
+            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
             "equipment": [
                 {
                     "id": 6,
@@ -113,14 +109,10 @@
                 "id": 17,
                 "name": "Petite-Patrie"
             },
-            "description_en": "This organization has no equipment and no longer accepts donations",
-            "description_fr": "",
             "is_beneficiary": false,
-            "beneficiary_description_en": "",
-            "beneficiary_description_fr": "",
+            "beneficiary_description": "",
             "is_equipment_point": false,
-            "equipment_description_en": "",
-            "equipment_description_fr": "",
+            "equipment_description": "",
             "equipment": [],
             "inventory": {
                 "fr": "",
@@ -149,14 +141,10 @@
                 "id": 11,
                 "name": "Mile End"
             },
-            "description_en": "This organization shares its equipment but can't accept fruit donations.",
-            "description_fr": "",
             "is_beneficiary": false,
-            "beneficiary_description_en": "",
-            "beneficiary_description_fr": "",
+            "beneficiary_description": "",
             "is_equipment_point": true,
-            "equipment_description_en": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
-            "equipment_description_fr": "",
+            "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
             "equipment": [
                 {
                     "id": 2,
@@ -250,14 +238,10 @@
                 "id": 19,
                 "name": "Plateau-Mont-Royal"
             },
-            "description_en": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
-            "description_fr": "",
             "is_beneficiary": true,
-            "beneficiary_description_en": "We usually welcome fruit donations. Please contact us.",
-            "beneficiary_description_fr": "",
+            "beneficiary_description": "We usually welcome fruit donations. Please contact us.",
             "is_equipment_point": false,
-            "equipment_description_en": "",
-            "equipment_description_fr": "",
+            "equipment_description": "",
             "equipment": [],
             "inventory": {
                 "fr": "",

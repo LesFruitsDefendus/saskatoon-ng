@@ -5,7 +5,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         $('#organization-modal').on('show.bs.modal', function (e) {
             $('#organization-modal-title').html($(e.relatedTarget).data('title'));
-            $('#organization-modal-description').html($(e.relatedTarget).data('description_en'));
+            $('#organization-modal-description').html($(e.relatedTarget).data('description'));
 
             let info = $(e.relatedTarget).data('info');
             const inventory = $(e.relatedTarget).data('inventory')

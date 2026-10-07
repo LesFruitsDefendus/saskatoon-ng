@@ -33,7 +33,7 @@
                         title="organization"
                         data-info="{{org.address | default:""}}"
                         data-title="{{org.civil_name}}"
-                        data-description="{{org.description_en}}"
+                        data-description="{% if LANG == 'fr' %}{{ org.description_fr.html }}{% else %}{{ org.description_en.html }}{% endif %}"
                         href="#modal">
                     {{org.civil_name}}
                 </a>
@@ -64,8 +64,8 @@
                            data-info="This organization has the following equipment:"
                            data-inventory="{{org.inventory.en}}"
                         {% endif %}
+                        data-description="{{ org.equipment_description|safe }}"
                            data-title="{{org.civil_name}}"
-                           data-description="{{org.equipment_description_en}}"
                            href="#modal">
                         {% trans "info" %}
                     </a>
