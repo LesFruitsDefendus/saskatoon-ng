@@ -501,10 +501,6 @@ class OrganizationMapSerializer(serializers.ModelSerializer[Organization]):
 
 
 class OrganizationSerializer(serializers.ModelSerializer[Organization]):
-    description = serializers.CharField(read_only=True)
-    beneficiary_description = serializers.CharField(read_only=True)
-    equipment_description = serializers.CharField(read_only=True)
-
     class Meta:
         model = Organization
         fields = [
@@ -532,6 +528,9 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()
     upcoming_reservations = ReservationHarvestSerializer(many=True, read_only=True)
+    description = serializers.CharField(read_only=True)
+    beneficiary_description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
 
     def get_inventory(self, org):
         return dict(
@@ -553,14 +552,11 @@ class HarvestDetailOrganizationSerializer(OrganizationSerializer):
             'short_address',
             'address',
             'neighborhood',
-            'description_en',
-            'description_fr',
+            'description',
             'is_beneficiary',
-            'beneficiary_description_en',
-            'beneficiary_description_fr',
+            'beneficiary_description',
             'is_equipment_point',
-            'equipment_description_en',
-            'equipment_description_fr',
+            'equipment_description',
             'equipment',
             'inventory',
             'latitude',
@@ -569,6 +565,9 @@ class HarvestDetailOrganizationSerializer(OrganizationSerializer):
         ]
 
     status = serializers.ReadOnlyField()
+    description = serializers.CharField(read_only=True)
+    beneficiary_description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
 
 
 @typechecked

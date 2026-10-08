@@ -339,7 +339,7 @@ msgid "Short description (en)"
 msgstr "Courte description (en)"
 
 #: member/models.py:435
-msgid "Short description (fr)"
+msgid "Courte description (fr)"
 msgstr "Courte description (fr)"
 
 #: member/models.py:438
@@ -347,7 +347,7 @@ msgid "Beneficiary description (en)"
 msgstr "Description du bénéficiaire (en)"
 
 #: member/models.py:442
-msgid "Beneficiary description (fr)"
+msgid "Description du bénéficiaire (fr)"
 msgstr "Description du bénéficiaire (fr)"
 
 #: member/models.py:446
@@ -355,7 +355,7 @@ msgid "Equipment point description (en)"
 msgstr "Description du point d'équipement (en)"
 
 #: member/models.py:450
-msgid "Equipment point description (fr)"
+msgid "Description du point d'équipement (fr)"
 msgstr "Description du point d'équipement (fr)"
 
 #: member/models.py:458

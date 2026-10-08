@@ -208,6 +208,7 @@
                 "id": 10,
                 "name": "Mercier-Hochelaga-Maisonneuve"
             },
+            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
             "is_beneficiary": true,
             "beneficiary_description": "<p>We accept any kind of donations on Wednesday and Friday</p>",
             "is_equipment_point": true,
@@ -292,10 +293,11 @@
                 "id": 19,
                 "name": "Plateau-Mont-Royal"
             },
+            "description": "<p>Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.</p>",
             "is_beneficiary": true,
-            "beneficiary_description": "We usually welcome fruit donations. Please contact us.",
+            "beneficiary_description": "<p>We usually welcome fruit donations. Please contact us.</p>",
             "is_equipment_point": false,
-            "equipment_description": "",
+            "equipment_description": "<p>english equip point description</p>",
             "equipment": [],
             "inventory": {
                 "fr": "",
@@ -410,14 +412,11 @@
                 "id": 11,
                 "name": "Mile End"
             },
-            "description_en": "",
-            "description_fr": "",
+            "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
             "is_beneficiary": false,
-            "beneficiary_description_en": "",
-            "beneficiary_description_fr": "",
+            "beneficiary_description": "<p>We accept any kind of donations on Monday and Thursday</p>",
             "is_equipment_point": true,
-            "equipment_description_en": "",
-            "equipment_description_fr": "",
+            "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
             "equipment": [
                 {
                     "id": 2,
@@ -499,14 +498,11 @@
                 "id": 10,
                 "name": "Mercier-Hochelaga-Maisonneuve"
             },
-            "description_en": "{\"ops\":[{\"insert\":\"This organization both accepts fruit donations and has some equipment.\\n\"}]}",
-            "description_fr": "{\"ops\":[{\"insert\":\"description court\\n\"}]}",
+            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
             "is_beneficiary": true,
-            "beneficiary_description_en": "{\"ops\":[{\"insert\":\"We accept any kind of donations on Wednesday and Friday\\n\"}]}",
-            "beneficiary_description_fr": "{\"ops\":[{\"insert\":\"nous acceptons tout les donnes mercredi et vendredi\\n\"}]}",
+            "beneficiary_description": "<p>We accept any kind of donations on Wednesday and Friday</p>",
             "is_equipment_point": true,
-            "equipment_description_en": "{\"ops\":[{\"insert\":\"You must register online at www.equipment.ca\\n\"}]}",
-            "equipment_description_fr": "{\"ops\":[{\"insert\":\"\\n\"}]}",
+            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
             "equipment": [
                 {
                     "id": 6,

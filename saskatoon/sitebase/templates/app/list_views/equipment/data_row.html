@@ -33,7 +33,7 @@
                         title="organization"
                         data-info="{{org.address | default:""}}"
                         data-title="{{org.civil_name}}"
-                        data-description="{% if LANG == 'fr' %}{{ org.description_fr.html }}{% else %}{{ org.description_en.html }}{% endif %}"
+                        data-description="{{ org.description }}"
                         href="#modal">
                     {{org.civil_name}}
                 </a>

@@ -61,10 +61,11 @@
                     "id": 11,
                     "name": "Mile End"
                 },
+                "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
                 "is_beneficiary": false,
-                "beneficiary_description": "",
+                "beneficiary_description": "<p>We accept any kind of donations on Monday and Thursday</p>",
                 "is_equipment_point": true,
-                "equipment_description": "Equipment must be reserved at least 1 day in advance by calling Contact Person.",
+                "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
                 "equipment": [
                     {
                         "id": 2,
@@ -195,6 +196,7 @@
                     "id": 10,
                     "name": "Mercier-Hochelaga-Maisonneuve"
                 },
+                "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
                 "is_beneficiary": true,
                 "beneficiary_description": "<p>We accept any kind of donations on Wednesday and Friday</p>",
                 "is_equipment_point": true,
@@ -472,6 +474,7 @@
                     "id": 10,
                     "name": "Mercier-Hochelaga-Maisonneuve"
                 },
+                "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
                 "is_beneficiary": true,
                 "beneficiary_description": "<p>We accept any kind of donations on Wednesday and Friday</p>",
                 "is_equipment_point": true,
