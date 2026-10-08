@@ -47,16 +47,16 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='organization',
             name='description_fr',
-            field=django_quill.fields.QuillField(blank=True, verbose_name='Short description (fr)'),
+            field=django_quill.fields.QuillField(blank=True, verbose_name='Courte description (fr)'),
         ),
         migrations.AddField(
             model_name='organization',
             name='beneficiary_description_fr',
-            field=django_quill.fields.QuillField(blank=True, verbose_name='Beneficiary description (fr)'),
+            field=django_quill.fields.QuillField(blank=True, verbose_name='Description du bénéficiaire (fr)'),
         ),
         migrations.AddField(
             model_name='organization',
             name='equipment_description_fr',
-            field=django_quill.fields.QuillField(blank=True, verbose_name='Equipment point description (fr)'),
+            field=django_quill.fields.QuillField(blank=True, verbose_name="Description du point d'équipement (fr)"),
         ),
     ]

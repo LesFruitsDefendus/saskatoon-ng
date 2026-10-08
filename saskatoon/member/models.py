@@ -432,14 +432,14 @@ is currenlty made available'
 
     description_en = QuillField(verbose_name=_("Short description (en)"), blank=True)
 
-    description_fr = QuillField(verbose_name=_("Short description (fr)"), blank=True)
+    description_fr = QuillField(verbose_name=_("Courte description (fr)"), blank=True)
 
     beneficiary_description_en = QuillField(
         verbose_name=_("Beneficiary description (en)"), blank=True
     )
 
     beneficiary_description_fr = QuillField(
-        verbose_name=_("Beneficiary description (fr)"), blank=True
+        verbose_name=_("Description du bénéficiaire (fr)"), blank=True
     )
 
     equipment_description_en = QuillField(
@@ -447,7 +447,7 @@ is currenlty made available'
     )
 
     equipment_description_fr = QuillField(
-        verbose_name=_("Equipment point description (fr)"), blank=True
+        verbose_name=_("Description du point d'équipement (fr)"), blank=True
     )
 
     phone = PhoneField(verbose_name=_("Phone"), null=True)
@@ -593,35 +593,17 @@ is currenlty made available'
 
         return bool(cleaned)
 
-    @property
     def description(self):
-        fr = self.description_fr
-        en = self.description_en
+        field = getattr(self, "description_{}".format(get_language()))
+        return field.html if self.has_content(field) else ""
 
-        if get_language() == 'fr' and self.has_content(fr):
-            return fr.html
-
-        return en.html if self.has_content(en) else ""
-
-    @property
     def beneficiary_description(self):
-        fr = self.beneficiary_description_fr
-        en = self.beneficiary_description_en
+        field = getattr(self, "beneficiary_description_{}".format(get_language()))
+        return field.html if self.has_content(field) else ""
 
-        if get_language() == 'fr' and self.has_content(fr):
-            return fr.html
-
-        return en.html if self.has_content(en) else ""
-
-    @property
     def equipment_description(self):
-        fr = self.equipment_description_fr
-        en = self.equipment_description_en
-
-        if get_language() == 'fr' and self.has_content(fr):
-            return fr.html
-
-        return en.html if self.has_content(en) else ""
+        field = getattr(self, "equipment_description_{}".format(get_language()))
+        return field.html if self.has_content(field) else ""
 
 
 class Neighborhood(models.Model):
