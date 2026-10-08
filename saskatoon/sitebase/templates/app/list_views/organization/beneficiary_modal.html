@@ -19,7 +19,7 @@
           </header>
           <section class="modal-body">
             <p>{% trans 'This organization accepts fruit donations' %}</p>
-            <blockquote>{{org.beneficiary_description}}</blockquote>
+            <blockquote>{{ org.beneficiary_description|safe }}</blockquote>
           </section>
         </dialog>
         <button

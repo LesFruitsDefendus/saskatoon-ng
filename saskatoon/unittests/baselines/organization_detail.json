@@ -17,11 +17,11 @@
         "id": 19,
         "name": "Plateau-Mont-Royal"
     },
-    "description": "Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.",
+    "description": "<p>Les Fruits Défendus is Montreal’s volunteer-led urban fruit harvesting collective hosted by Santropol Roulant. The initiative connects local fruit tree owners with volunteer harvesters and helps ensure that this valuable local food resource does not go to waste.</p>",
     "is_beneficiary": true,
-    "beneficiary_description": "We usually welcome fruit donations. Please contact us.",
+    "beneficiary_description": "<p>We usually welcome fruit donations. Please contact us.</p>",
     "is_equipment_point": false,
-    "equipment_description": "",
+    "equipment_description": "<p>english equip point description</p>",
     "equipment": [],
     "inventory": {
         "fr": "",
