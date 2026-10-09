@@ -22,7 +22,7 @@ class PersonAutocomplete(Autocomplete):
         if not self.is_authenticated():
             return Person.objects.none()
 
-        qs = Person.objects.all()
+        qs = Person.objects.all().filter(auth_user__is_active=True)
 
         if self.roles:
             groups = [Group.objects.get(name=role).id for role in self.roles]
@@ -60,7 +60,7 @@ class AuthUserAutocomplete(Autocomplete):
         if not self.is_authenticated():
             return AuthUser.objects.none()
 
-        qs = AuthUser.objects.all()
+        qs = AuthUser.objects.filter(is_active=True)
 
         if self.roles:
             qs = self.get_roles_queryset(qs, self.roles)
