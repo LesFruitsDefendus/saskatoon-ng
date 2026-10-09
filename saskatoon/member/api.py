@@ -186,7 +186,6 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
     # "QuerySet[AbstractBaseUser, AbstractBaseUser]",
     # base class "GenericAPIView" defined the type as
     # "Union[QuerySet[AuthUser, AuthUser], Manager[AuthUser], None]")
-    queryset = AuthUser.objects.filter(person__first_name__isnull=False).order_by('-date_joined')  # type: ignore
     serializer_class = CommunitySerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[AuthUser]]]
     filterset_class = CommunityFilter
@@ -212,4 +211,10 @@ class CommunityViewset(LoginRequiredMixin, viewsets.ModelViewSet[AuthUser]):
                     "title": _("New Person"),
                 },
             }
+        )
+
+    def get_queryset(self):
+        # Mypy checks method bodies much more easily than class attributes
+        return AuthUser.objects.filter(person__first_name__isnull=False, is_active=True).order_by(
+            '-date_joined'
         )
