@@ -60,7 +60,7 @@ class AuthUserAutocomplete(Autocomplete):
         if not self.is_authenticated():
             return AuthUser.objects.none()
 
-        qs = AuthUser.objects.all()
+        qs = AuthUser.objects.filter(is_active=True)
 
         if self.roles:
             qs = self.get_roles_queryset(qs, self.roles)
