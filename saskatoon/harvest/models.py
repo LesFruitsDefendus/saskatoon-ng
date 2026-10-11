@@ -16,7 +16,9 @@ from typeguard import typechecked
 from sys import float_info
 from types import SimpleNamespace
 import builtins
+import uuid
 
+from harvest.utils import resize_and_save_image
 from sitebase.utils import (
     local_datetime,
     to_datetime,
@@ -983,8 +985,20 @@ class Comment(models.Model):
         return self.content
 
 
+def property_image_upload_path(instance, filename):
+    """Generates path: property/<pid>/property_<pid>_<image_id>.jpg"""
+    pid = instance.property_id
+    image_id = uuid.uuid4().hex[:8]
+    return f"property/{pid}/property_{pid}_{image_id}.jpg"
+
+
 class PropertyImage(models.Model):
     """Property Image model"""
+
+    class Meta:
+        verbose_name = _("property image")
+        verbose_name_plural = _("property images")
+        ordering = ["-created_at"]
 
     property = models.ForeignKey(
         Property,
@@ -992,11 +1006,38 @@ class PropertyImage(models.Model):
         on_delete=models.CASCADE,
     )
     image = models.ImageField(
-        upload_to='properties_images',
+        upload_to=property_image_upload_path,
+        verbose_name=_("Image"),
+    )
+    uploaded_by = models.ForeignKey(
+        'member.AuthUser',
+        related_name='property_images_uploaded',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    created_at = models.DateTimeField(
+        verbose_name=_("Created on"), auto_now_add=True, null=True, blank=True
     )
 
+    def save(self, *args, **kwargs):
+        """Automatically resize and convert uploaded images to JPG before saving."""
+        if self.image and hasattr(self.image, 'file'):
+            if not isinstance(self.image, models.fields.files.FieldFile):
+                path = property_image_upload_path(self, seld.image.name)
+                resized_file = resize_and_save_image(self.image, path, image_resize_px=1200)
+                if resized_file:
+                    self.image = resized_file
+
+        super().save(*args, **kwargs)
+
+    def can_delete(self, user) -> bool:
+        from member.permissions import IsCoreOrAdmin
+
+        return self.uploaded_by == user or IsCoreOrAdmin(user)
+
     def __str__(self):
-        return self.property.__str__()
+        return f"Image for {self.property} ({self.id})"
 
 
 class HarvestImage(models.Model):
