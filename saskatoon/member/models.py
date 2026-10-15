@@ -430,24 +430,24 @@ is currenlty made available'
 
     civil_name = models.CharField(verbose_name=_("Name"), max_length=50)
 
-    description_en = QuillField(verbose_name=_("Short description (en)"), blank=True)
+    description_en = QuillField(verbose_name="Short description (en)", blank=True)
 
-    description_fr = QuillField(verbose_name=_("Courte description (fr)"), blank=True)
+    description_fr = QuillField(verbose_name="Courte description (fr)", blank=True)
 
     beneficiary_description_en = QuillField(
-        verbose_name=_("Beneficiary description (en)"), blank=True
+        verbose_name="Beneficiary description (en)", blank=True
     )
 
     beneficiary_description_fr = QuillField(
-        verbose_name=_("Description du bénéficiaire (fr)"), blank=True
+        verbose_name="Description du bénéficiaire (fr)", blank=True
     )
 
     equipment_description_en = QuillField(
-        verbose_name=_("Equipment point description (en)"), blank=True
+        verbose_name="Equipment point description (en)", blank=True
     )
 
     equipment_description_fr = QuillField(
-        verbose_name=_("Description du point d'équipement (fr)"), blank=True
+        verbose_name="Description du point d'équipement (fr)", blank=True
     )
 
     phone = PhoneField(verbose_name=_("Phone"), null=True)
@@ -584,26 +584,14 @@ is currenlty made available'
 
         return None
 
-    # Helper to check if a Quill field has real content
-    def has_content(self, field):
-        if not field or not field.html:
-            return False
-
-        cleaned = field.html.replace("<p></p>", "").replace("<p><br></p>", "").strip()
-
-        return bool(cleaned)
-
     def description(self):
-        field = getattr(self, "description_{}".format(get_language()))
-        return field.html if self.has_content(field) else ""
+        return getattr(self, "description_{}".format(get_language())).html
 
     def beneficiary_description(self):
-        field = getattr(self, "beneficiary_description_{}".format(get_language()))
-        return field.html if self.has_content(field) else ""
+        return getattr(self, "beneficiary_description_{}".format(get_language())).html
 
     def equipment_description(self):
-        field = getattr(self, "equipment_description_{}".format(get_language()))
-        return field.html if self.has_content(field) else ""
+        return getattr(self, "equipment_description_{}".format(get_language())).html
 
 
 class Neighborhood(models.Model):

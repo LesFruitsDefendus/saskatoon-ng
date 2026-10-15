@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-07 16:35-0400\n"
+"POT-Creation-Date: 2026-10-15 10:08-0400\n"
 "PO-Revision-Date: 2025-06-13 11:28-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -329,34 +329,10 @@ msgstr ""
 msgid "Redmine contact"
 msgstr "Contact Redmine"
 
-#: member/models.py:431 member/models.py:635 member/models.py:648
-#: member/models.py:661 member/models.py:674
+#: member/models.py:431 member/models.py:617 member/models.py:630
+#: member/models.py:643 member/models.py:656
 msgid "Name"
 msgstr "Nom"
-
-#: member/models.py:433
-msgid "Short description (en)"
-msgstr "Courte description (en)"
-
-#: member/models.py:435
-msgid "Courte description (fr)"
-msgstr "Courte description (fr)"
-
-#: member/models.py:438
-msgid "Beneficiary description (en)"
-msgstr "Description du bénéficiaire (en)"
-
-#: member/models.py:442
-msgid "Description du bénéficiaire (fr)"
-msgstr "Description du bénéficiaire (fr)"
-
-#: member/models.py:446
-msgid "Equipment point description (en)"
-msgstr "Description du point d'équipement (en)"
-
-#: member/models.py:450
-msgid "Description du point d'équipement (fr)"
-msgstr "Description du point d'équipement (fr)"
 
 #: member/models.py:458
 msgid "Contact person"
@@ -370,35 +346,35 @@ msgstr "Responsabilités de la personne contact"
 msgid "Street number"
 msgstr "Numéro civique"
 
-#: member/models.py:631
+#: member/models.py:613
 msgid "borough"
 msgstr "Arrondissement"
 
-#: member/models.py:632
+#: member/models.py:614
 msgid "boroughs"
 msgstr "Arrondissement"
 
-#: member/models.py:645
+#: member/models.py:627
 msgid "city"
 msgstr "ville"
 
-#: member/models.py:646
+#: member/models.py:628
 msgid "cities"
 msgstr "villes"
 
-#: member/models.py:658
+#: member/models.py:640
 msgid "state"
 msgstr "province"
 
-#: member/models.py:659
+#: member/models.py:641
 msgid "states"
 msgstr "provinces"
 
-#: member/models.py:671
+#: member/models.py:653
 msgid "country"
 msgstr "pays"
 
-#: member/models.py:672
+#: member/models.py:654
 msgid "countries"
 msgstr "pays"
 
@@ -488,3 +464,21 @@ msgid "Failed to send password reset email to {email}"
 msgstr ""
 "Échec de l'envoie du courriel de requête de changement de mot de passe à "
 "{email}"
+
+#~ msgid "Short description (en)"
+#~ msgstr "Courte description (en)"
+
+#~ msgid "Courte description (fr)"
+#~ msgstr "Courte description (fr)"
+
+#~ msgid "Beneficiary description (en)"
+#~ msgstr "Description du bénéficiaire (en)"
+
+#~ msgid "Description du bénéficiaire (fr)"
+#~ msgstr "Description du bénéficiaire (fr)"
+
+#~ msgid "Equipment point description (en)"
+#~ msgstr "Description du point d'équipement (en)"
+
+#~ msgid "Description du point d'équipement (fr)"
+#~ msgstr "Description du point d'équipement (fr)"

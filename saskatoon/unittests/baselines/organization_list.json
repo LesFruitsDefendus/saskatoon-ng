@@ -145,7 +145,7 @@
             },
             "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
             "is_beneficiary": false,
-            "beneficiary_description": "<p>We accept any kind of donations on Monday and Thursday</p>",
+            "beneficiary_description": "",
             "is_equipment_point": true,
             "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
             "equipment": [
@@ -245,7 +245,7 @@
             "is_beneficiary": true,
             "beneficiary_description": "<p>We usually welcome fruit donations. Please contact us.</p>",
             "is_equipment_point": false,
-            "equipment_description": "<p>english equip point description</p>",
+            "equipment_description": "",
             "equipment": [],
             "inventory": {
                 "fr": "",
