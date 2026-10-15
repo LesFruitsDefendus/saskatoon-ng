@@ -1,19 +1,25 @@
 from __future__ import annotations
 
-from django.db.models import Q, Sum
 from logging import getLogger
-from typing import Optional
+from typing import TYPE_CHECKING, Optional, Any
 from datetime import datetime, timedelta
 from typeguard import typechecked
 import os
+import logging
 from io import BytesIO
 from PIL import Image
+
+from django.db.models import Q, Sum
+from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
+from django.utils.translation import gettext_lazy as _
 
 from sitebase.utils import local_datetime
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
-logger = getLogger('saskatoon')
+if TYPE_CHECKING:
+    from harvest.models import Property
+logger = logging.getLogger('saskatoon')
 
 
 def sum_harvest_yields(harvest_yield_qs):
@@ -23,8 +29,6 @@ def sum_harvest_yields(harvest_yield_qs):
 
 def similar_properties(pending_property: Property):
     """Look for potential property/owner duplicates"""
-    from harvest.models import Property
-
     p = pending_property
     if not p.pending:
         return Property.objects.none()
@@ -71,15 +75,28 @@ def buffer_reservation_time(
     return local_time.strftime("%I:%M %p")
 
 
-def resize_and_save_image(image, filename, image_resize_px=1200, field_name='image'):
-    """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile.
+def validate_image_upload(file):
+    """Enforces allowed exrentions (jpg, jpeg, png) and caps upload size at 5MB."""
+    allowed_extensions = ['jpg', 'jpeg', 'png']
+    ext = file.name.split('.')[-1].lower()
+    if ext not in allowed_extensions:
+        raise ValidationError(
+            _("Unsuppoerted file format. Allowed formats: %(exts)s"),
+            params={'exts': ', '.join(allowed_extensions).upper()},
+        )
 
-    Arguments:
-        image -- uploaded image object or file
-        filename -- target file path in storage (MEDIA_ROOT not included)
-        image_resize_px -- maximum allowed width/height in pixels
-        field_name -- the form field name (default: 'image')
-    """
+    max_size_mb = 5
+    if file.size > max_size_mb * 1024 * 1024:
+        raise ValidationError(
+            _("File size too large. Maximum allowed size is %(size)dMB."),
+            params={'size': max_size_mb},
+        )
+
+
+def resize_and_save_image(
+    image: Any, filename: str, image_resize_px: int = 1200, field_name: str = 'image'
+) -> Optional[InMemoryUploadedFile]:
+    """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
     try:
         jpg_image = Image.open(image).convert('RGB')
         w0, h0 = jpg_image.size
