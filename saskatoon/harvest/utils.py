@@ -10,6 +10,7 @@ from io import BytesIO
 from PIL import Image
 
 from django.db.models import Q, Sum
+from django.core.validators import FileExtensionValidator
 from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import gettext_lazy as _
@@ -75,22 +76,19 @@ def buffer_reservation_time(
     return local_time.strftime("%I:%M %p")
 
 
-def validate_image_upload(file):
-    """Enforces allowed exrentions (jpg, jpeg, png) and caps upload size at 5MB."""
-    allowed_extensions = ['jpg', 'jpeg', 'png']
-    ext = file.name.split('.')[-1].lower()
-    if ext not in allowed_extensions:
-        raise ValidationError(
-            _("Unsuppoerted file format. Allowed formats: %(exts)s"),
-            params={'exts': ', '.join(allowed_extensions).upper()},
-        )
-
+def validate_image_size(file):
     max_size_mb = 5
     if file.size > max_size_mb * 1024 * 1024:
         raise ValidationError(
             _("File size too large. Maximum allowed size is %(size)dMB."),
             params={'size': max_size_mb},
         )
+
+
+IMAGE_VALIDATORS = (
+    FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
+    validate_image_size,
+)
 
 
 def resize_and_save_image(

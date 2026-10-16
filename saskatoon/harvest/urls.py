@@ -76,6 +76,11 @@ urlpatterns = [
         name='comment-create-property',
     ),
     path(r'yield/create/', views.harvest_yield_create, name='harvest-yield-create'),
+    path(
+        r'property/image/create/<int:property_pk>/',
+        views.PropertyImageCreateView.as_view(),
+        name='property-image-create',
+    ),
     # DELETE VIEWS
     path(
         r'yield/delete/<int:id>/',
@@ -86,6 +91,11 @@ urlpatterns = [
         r'^comment/delete/(?P<id>\d+)/$',
         views.CommentDeleteView.as_view(),
         name='comment-delete',
+    ),
+    path(
+        r'^property/image/delete/<int:pk>/',
+        views.PropertyImageDeleteView.as_view(),
+        name='property-image-delete',
     ),
     # UPDATE VIEWS
     re_path(

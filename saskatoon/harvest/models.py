@@ -18,7 +18,7 @@ from types import SimpleNamespace
 import builtins
 import uuid
 
-from harvest.utils import resize_and_save_image, validate_image_upload
+from harvest.utils import resize_and_save_image, IMAGE_VALIDATORS
 from sitebase.utils import (
     local_datetime,
     to_datetime,
@@ -1007,7 +1007,7 @@ class PropertyImage(models.Model):
     )
     image = models.ImageField(
         upload_to=property_image_upload_path,
-        validators=[validate_image_upload],
+        validators=IMAGE_VALIDATORS,
         verbose_name=_("Image"),
     )
     uploaded_by = models.ForeignKey(
