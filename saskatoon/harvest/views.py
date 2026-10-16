@@ -681,9 +681,19 @@ class PropertyImageCreateView(
     CreateView[PropertyImage, ModelForm[PropertyImage]],
 ):
     model = PropertyImage
+    template_name = "app/forms/property_image_form.html"
     fields = ['image']
     success_message = _("Image uploaded successfully!")
     permission_required = 'harvest.add_propertyimage'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        property_id = self.kwargs.get('property_pk')
+        property_obj = Property.objects.get(pk=property_id)
+
+        context['property'] = property_obj
+        context['images'] = property_obj.images.all()
+        return context
 
     def form_valid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
         property_id = self.kwargs.get('property_pk')

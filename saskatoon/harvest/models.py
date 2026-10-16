@@ -18,13 +18,14 @@ from types import SimpleNamespace
 import builtins
 import uuid
 
-from harvest.utils import resize_and_save_image, IMAGE_VALIDATORS
 from sitebase.utils import (
     local_datetime,
     to_datetime,
     is_quill_html_empty,
     local_today,
     french_ordinal,
+    resize_and_save_image,
+    IMAGE_VALIDATORS,
 )
 from sitebase.validators import validate_is_not_nan
 

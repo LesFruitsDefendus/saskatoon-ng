@@ -1,0 +1,51 @@
+{% load i18n %}
+{% load static %}
+{% load auth_users %}
+
+<section class="detail-section-card" id="images">
+    <header>
+        <h2>{% trans "Photos" %}</h2>
+    </header>
+
+    <div class="card-box {% if messages %}mg-t-10{% else %}mg-t-30{% endif %}">
+        {% if perms.harvest.add_propertyimage %}
+            <div class="mg-b-15">
+                <a href="{% url 'property-image-create' id %}" class="btn btn-primary btn-sm">
+                    <i class="notika-icon notika-right-arrow"></i> {% trans "Upload photo" %}
+                </a>
+            </div>
+        {% endif %}
+
+        {% if images %}
+            <div class="row">
+                {% for img in images %}
+                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12 mg-b-15">
+                        <div class="thumbnail">
+                            <img src="{{ img.image }}" alt="{% trans 'Property photo' %}" class="img-responsive" style="height: 150px; object-fit: cover; width: 100%;">
+                            
+                            {% if img.uploaded_by == request.user.id or user|is_admin %}
+                                {% translate "Are you sure you want to delete this photo?" as delete_confirm_msg %}
+                                <div class="caption text-right">
+                                    <form method="post"
+                                        action="{% url 'property-image-delete' img.id %}"
+                                        class="inline-form"
+                                        onsubmit="return confirm('{{ delete_confirm_msg|escapejs  }}');"
+                                        style="display: inline;">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn btn-sm btn-link text-danger btn-comment-action"
+                                            title="{% trans 'Delete photo' %}">
+                                        <i class="fa fa-trash text-danger"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
+        {% endif %}
+    </div>
+</section>

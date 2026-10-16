@@ -1,26 +1,13 @@
-from __future__ import annotations
-
-from logging import getLogger
-from typing import TYPE_CHECKING, Optional, Any
+from typing import Optional
 from datetime import datetime, timedelta
 from typeguard import typechecked
-import os
-import logging
-from io import BytesIO
-from PIL import Image
 
 from django.db.models import Q, Sum
-from django.core.validators import FileExtensionValidator
-from django.core.exceptions import ValidationError
-from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.utils.translation import gettext_lazy as _
 
 from sitebase.utils import local_datetime
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
-
-if TYPE_CHECKING:
-    from harvest.models import Property
-logger = logging.getLogger('saskatoon')
+from harvest.models import Property
 
 
 def sum_harvest_yields(harvest_yield_qs):
@@ -74,53 +61,3 @@ def buffer_reservation_time(
         return None
 
     return local_time.strftime("%I:%M %p")
-
-
-def validate_image_size(file):
-    max_size_mb = 5
-    if file.size > max_size_mb * 1024 * 1024:
-        raise ValidationError(
-            _("File size too large. Maximum allowed size is %(size)dMB."),
-            params={'size': max_size_mb},
-        )
-
-
-IMAGE_VALIDATORS = (
-    FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
-    validate_image_size,
-)
-
-
-def resize_and_save_image(
-    image: Any, filename: str, image_resize_px: int = 1200, field_name: str = 'image'
-) -> Optional[InMemoryUploadedFile]:
-    """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
-    try:
-        jpg_image = Image.open(image).convert('RGB')
-        w0, h0 = jpg_image.size
-
-        if max(w0, h0) > image_resize_px:
-            if h0 > w0:  # portrait
-                h1 = image_resize_px
-                w1 = int(w0 * h1 / float(h0))
-            else:  # landscape
-                w1 = image_resize_px
-                h1 = int(h0 * w1 / float(w0))
-            jpg_image = jpg_image.resize((w1, h1), Image.Resampling.LANCZOS)
-
-        image_io = BytesIO()
-        jpg_image.save(image_io, format='JPEG', quality=90)
-        image_io.seek(0)
-
-        jpg_filename = os.path.splitext(filename)[0] + '.jpg'
-        return InMemoryUploadedFile(
-            file=image_io,
-            field_name=field_name,
-            name=jpg_filename,
-            content_type='image/jpeg',
-            size=image_io.tell(),
-            charset=None,
-        )
-    except Exception as e:
-        logger.error("%s: %s", type(e).__name__, str(e))
-        return None

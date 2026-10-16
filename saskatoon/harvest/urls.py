@@ -93,7 +93,7 @@ urlpatterns = [
         name='comment-delete',
     ),
     path(
-        r'^property/image/delete/<int:pk>/',
+        r'property/image/delete/<int:pk>/',
         views.PropertyImageDeleteView.as_view(),
         name='property-image-delete',
     ),
