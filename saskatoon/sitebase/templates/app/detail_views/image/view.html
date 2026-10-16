@@ -1,0 +1,28 @@
+{% load i18n %}
+{% load static %}
+{% load auth_users %}
+
+<section class="detail-section-card" id="images">
+    <header>
+        <h2>{% trans "Photos" %}</h2>
+    </header>
+
+    <div class="card-box">
+        <div class="mg-b-15">
+            {% if images %}
+                {% include 'app/detail_views/image/carousel.html' with images=images %}
+                {% include 'app/detail_views/image/lightbox.html' with images=images %}
+            {% else %}
+                <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
+            {% endif %}
+        </div>
+
+        {% if perms.harvest.add_propertyimage %}
+            <div class="mg-b-15">
+                <a href="{% url 'property-image-create' id %}" class="btn btn-primary btn-sm notika-btn-primary waves-effect">
+                    <i class="fa fa-plus"></i> {% trans "Upload photo" %}
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</section>

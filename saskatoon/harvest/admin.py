@@ -29,6 +29,7 @@ from harvest.models import (
     Harvest,
     Property,
     PropertyImage,
+    property_image_upload_path,
     RequestForParticipation as RFP,
     TreeType,
 )
@@ -300,6 +301,18 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
             postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
         )
         return queryset
+
+    def save(self, *args, **kwargs):
+        # Check if there is an image and it's a fresh upload (not an existing database file)
+        if self.image and hasattr(self.image, 'file'):
+            # Check if it's an uploaded file object rather than an already saved FieldFile
+            if not isinstance(self.image, models.fields.files.FieldFile):
+                path = property_image_upload_path(self, self.image.name)
+                resized_file = self.resize_and_save_image(self.image, path, image_resize_px=1200)
+                if resized_file:
+                    self.image = resized_file
+
+        super().save(*args, **kwargs)
 
 
 @admin.register(TreeType)
