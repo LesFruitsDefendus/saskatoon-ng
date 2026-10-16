@@ -1,13 +1,14 @@
+from django.db.models import Q, Sum
+from logging import getLogger
 from typing import Optional
 from datetime import datetime, timedelta
 from typeguard import typechecked
 
-from django.db.models import Q, Sum
-from django.utils.translation import gettext_lazy as _
-
+from harvest.models import Property
 from sitebase.utils import local_datetime
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
-from harvest.models import Property
+
+logger = getLogger('saskatoon')
 
 
 def sum_harvest_yields(harvest_yield_qs):

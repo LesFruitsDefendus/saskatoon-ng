@@ -8,7 +8,6 @@ from django.conf import settings
 from django.utils.translation import get_language, gettext_lazy as _
 from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 import os
-import logging
 from io import BytesIO
 from PIL import Image
 from django.core.validators import FileExtensionValidator
@@ -16,7 +15,7 @@ from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from logging import getLogger
 
-logger = logging.getLogger('saskatoon')
+logger = getLogger('saskatoon')
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 
