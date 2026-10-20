@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import (
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
@@ -706,9 +706,10 @@ class PropertyImageCreateView(
     def form_invalid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
         messages.error(
             self.request,
-            _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
+            _("Could not upload image. Please check that it is a valid JPG or PNG under 10MB."),
         )
-        return super().form_invalid(form)
+        property_id = self.kwargs.get('property_pk')
+        return redirect('property-detail', pk=property_id)
 
     def get_success_url(self):
         return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})

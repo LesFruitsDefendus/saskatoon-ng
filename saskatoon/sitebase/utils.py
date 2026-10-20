@@ -101,7 +101,7 @@ def french_ordinal(n: int) -> str:
 
 
 def validate_image_size(file):
-    max_size_mb = 5
+    max_size_mb = 10
     if file.size > max_size_mb * 1024 * 1024:
         raise ValidationError(
             _("File size too large. Maximum allowed size is %(size)dMB."),
@@ -116,7 +116,7 @@ IMAGE_VALIDATORS = (
 
 
 def resize_and_save_image(
-    image: Any, filename: str, image_resize_px: int = 1200, field_name: str = 'image'
+    image: Any, filename: str, image_resize_px: int = 1080, field_name: str = 'image'
 ) -> Optional[InMemoryUploadedFile]:
     """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
     try:

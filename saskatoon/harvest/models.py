@@ -1026,7 +1026,7 @@ class PropertyImage(models.Model):
         if self.image and hasattr(self.image, 'file'):
             if not isinstance(self.image, models.fields.files.FieldFile):
                 path = property_image_upload_path(self, self.image.name)
-                resized_file = resize_and_save_image(self.image, path, image_resize_px=1200)
+                resized_file = resize_and_save_image(self.image, path, image_resize_px=1080)
                 if resized_file:
                     self.image = resized_file
 
