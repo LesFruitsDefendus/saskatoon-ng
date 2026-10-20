@@ -1,1 +1,96 @@
+.carousel-inner {
+    border-radius: 4px;
+    overflow: hidden;
+}
 
+.thumbnail {
+    background-color: #e7e0f9aa;
+    margin-bottom: 0;
+    border: none;
+    position: relative;
+}
+
+img.lightbox-trigger {
+    height: 375px;
+    object-fit: scale-down;
+    width: 100%;
+    cursor: pointer;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 30;
+}
+
+#propertyPhotoCarousel .carousel-control {
+    background: none;
+    width: 40px;
+    height: 80%;
+    top: 15%;
+    z-index: 10;
+}
+
+.carousel-control.left {
+    left: 12px;
+}
+
+.carousel-control.right {
+    right: 12px;
+}
+
+.carousel-control i {
+    color: #333;
+    text-shadow: 0 1px 2px #fff;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-dialog {
+    width: auto;
+    max-width: 75%;
+    margin: 30px auto;
+}
+
+.modal-content {
+    background: rgba(0, 0, 0, 0.85);
+    border: none;
+    box-shadow: none;
+}
+
+.modal-body {
+    position: relative;
+    padding: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 300;
+    color: var(--saskatoon-danger);
+    opacity: 1;
+    text-shadow: 0 1px 2px #000;
+}
+
+button.close span {
+    font-size: 28px;
+}
+
+.lightbox-image {
+    max-height: 60vh;
+    max-width: 60vw;
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+}
+
+#lightboxCarousel .carousel-control {
+    background: none;
+    width: 10%;
+    z-index: 30;
+}

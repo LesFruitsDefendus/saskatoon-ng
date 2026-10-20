@@ -46,7 +46,7 @@
 }
 
 .comment-scrollbar {
-    max-height: 300px;
+    max-height: 254px;
     overflow-y: auto;
     position: relative;
 
