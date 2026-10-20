@@ -5,9 +5,21 @@
 <section class="detail-section-card" id="images">
     <header>
         <h2>{% trans "Photos" %}</h2>
+        {% if perms.harvest.add_propertyimage %}
+            <div class="mg-b-15 text-right">
+                <form method="post" action="{% url 'property-image-create' id %}" enctype="multipart/form-data" id="inlineImageForm" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="file" name="image" id="id_image_inline" accept="image/*" style="display: none;" onchange="document.getElementById('inlineImageForm').submit();">
+                    <button type="button" class="btn btn-primary notika-btn-primary waves-effect" onclick="document.getElementById('id_image_inline').click();">
+                        <i class="fa fa-upload"></i> 
+                        {% trans "Upload photo" %}
+                    </button>
+                </form>
+            </div>
+        {% endif %}
     </header>
-
-    <div class="card-box">
+    
+    <div class="card-box mg-t-15">
         <div class="mg-b-15">
             {% if images %}
                 {% include 'app/detail_views/image/carousel.html' with images=images %}
@@ -16,13 +28,5 @@
                 <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
             {% endif %}
         </div>
-
-        {% if perms.harvest.add_propertyimage %}
-            <div class="mg-b-15">
-                <a href="{% url 'property-image-create' id %}" class="btn btn-primary btn-sm notika-btn-primary waves-effect">
-                    <i class="fa fa-plus"></i> {% trans "Upload photo" %}
-                </a>
-            </div>
-        {% endif %}
     </div>
 </section>
