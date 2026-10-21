@@ -271,7 +271,6 @@ body {}
 .invoice-wrap,
 .google-map-single,
 .data-map-single,
-.image-cropper-wp,
 .nk-cd-ed-wp,
 .bar-chart-wp,
 .line-chart-wp,
@@ -5237,7 +5236,6 @@ textarea.auto-size {
 }
 
 .btn-login.btn-success,
-.images-cropper-pro .btn,
 .images-action-pro .btn,
 .notika-todo-btn .btn,
 .btn.notika-add-todo,
@@ -5252,9 +5250,6 @@ textarea.auto-size {
 .btn-login.btn-success:hover,
 .btn-login.btn-success:focus,
 .btn-login.btn-success:active,
-.images-cropper-pro .btn:hover,
-.images-cropper-pro .btn:focus,
-.images-cropper-pro .btn:active,
 .images-action-pro .btn:hover,
 .images-action-pro .btn:focus,
 .images-action-pro .btn:active,
