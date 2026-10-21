@@ -271,9 +271,6 @@ body {}
 .google-map-single,
 .data-map-single,
 .nk-cd-ed-wp,
-.bar-chart-wp,
-.line-chart-wp,
-.area-chart-wp,
 .wb-traffic-inner,
 .notika-icon-int {
     padding: 20px;
@@ -5452,12 +5449,6 @@ textarea.auto-size {
 /*----------------------------------------*/
 /*  45. Bar Chart CSS
 /*----------------------------------------*/
-
-#dynamic-chart,
-#bar-chart {
-    height: 279px;
-    margin-top: 20px;
-}
 
 .chat-inputbar .form-group,
 .todo-inputbar .form-group {
