@@ -3354,31 +3354,6 @@ hr {
     margin-right: 8px;
 }
 
-.icheckbox_square-green.checked {
-    background-position: -44px 0;
-}
-
-.icheckbox_square-green.checked.disabled {
-    background-position: -88px 0;
-}
-
-.iradio_square-green {
-    background-position: -109px 0;
-}
-
-.iradio_square-green.hover {
-    background-position: -131px 0;
-}
-
-.iradio_square-green.checked {
-    background-position: -153px 0;
-    transition: all 0.3s ease 0s;
-}
-
-.iradio_square-green.checked.disabled {
-    background-position: -197px 0;
-}
-
 .inline-checkbox-cs {
     padding: 7px 0px;
 }
@@ -3389,32 +3364,6 @@ hr {
 
 .checkbox.login-checkbox label {
     padding-left: 0px;
-}
-
-.icheckbox_square-green,
-.iradio_square-green {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0;
-    width: 22px;
-    height: 22px;
-    background: url(img/icheckbox/green1.png) no-repeat;
-    border: none;
-    cursor: pointer;
-}
-
-.icheckbox_square-green {
-    background-position: 0 0;
-}
-
-.icheckbox_square-green.hover {
-    background-position: -22px 0;
-}
-
-.icheckbox_square-green.checked {
-    background-position: -44px 0;
-    transition: all 0.3s ease 0s;
 }
 
 .inbox-btn-st-ls {
@@ -4123,10 +4072,6 @@ fieldset[disabled] .form-control {
 
 .fm-checkbox {
     margin: 10px 0px;
-}
-
-.iradio_square-green {
-    background-position: -109px 0;
 }
 
 .form-group.form-elet-mg {
