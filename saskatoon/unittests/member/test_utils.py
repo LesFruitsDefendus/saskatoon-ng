@@ -1,9 +1,10 @@
 import pytest
 import deal
-from datetime import timedelta, datetime, timezone
+from datetime import timedelta, datetime, timezone, tzinfo
+from typing import cast
 import hypothesis.strategies as st
 
-from django.conf import settings
+from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 from sitebase.utils import parse_naive_datetime
 from member.utils import is_equipment_point_available, get_available_equipment_points
 from harvest.models import Harvest, Equipment, EquipmentType
@@ -71,7 +72,7 @@ def test_get_available_equipment_points_fuzz() -> None:
 
     end_strat = start_strat.flatmap(
         lambda d: st.datetimes(
-            timezones=st.just(d.tzinfo),
+            timezones=st.just(cast(tzinfo, d.tzinfo)),
             min_value=d.replace(tzinfo=None),
             max_value=datetime.max,
             allow_imaginary=True,
@@ -305,8 +306,8 @@ def test_is_equipment_point_available_buffer_with_parse_naive_datetime(
 
     harvest.equipment_reserved.set([equipment])
 
-    end_str = harvest.end_date.replace(tzinfo=None).strftime(settings.DATETIME_INPUT_FORMATS[0])
-    end = parse_naive_datetime(end_str, settings.DATETIME_INPUT_FORMATS[0])
+    end_str = harvest.end_date.replace(tzinfo=None).strftime(DATETIME_INPUT_FORMATS[0])
+    end = parse_naive_datetime(end_str, DATETIME_INPUT_FORMATS[0])
     assert end is not None
 
     available = is_equipment_point_available(

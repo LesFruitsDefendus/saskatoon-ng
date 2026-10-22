@@ -1,7 +1,8 @@
 {% load i18n %}
 {% load static %}
 
-<button class="btn saskatoon-danger"
+<button type="button"
+        class="btn saskatoon-danger"
         commandFor="cancel-reservation-dialog"
         command="show-modal">{% trans "Cancel Reservation" %}</button>
 <dialog class="confirmation" closedby="any" id="cancel-reservation-dialog">
@@ -17,7 +18,8 @@
         <button class="btn saskatoon-danger"
                 type="submit"
                 form="cancel-reservation-form">{% trans "Yes" %}</button>
-        <button class="btn btn-primary notika-btn-primary"
+        <button type="button"
+                class="btn btn-primary notika-btn-primary"
                 commandFor="cancel-reservation-dialog"
                 command="close">{% trans "No" %}</button>
     </div>

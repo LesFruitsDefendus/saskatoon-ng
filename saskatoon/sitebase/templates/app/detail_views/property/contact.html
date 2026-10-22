@@ -99,7 +99,8 @@
                         <small>{{auth_email_date}}</small>
                     </h5>
                 {% else %}
-                    <button class="btn btn-primary notika-btn-primary"
+                    <button type="button"
+                            class="btn btn-primary notika-btn-primary"
                             commandFor="email-owner-dialog"
                             command="show-modal">
                         <i class="fa-solid fa-envelope"></i>&nbsp;
@@ -117,7 +118,8 @@
                                     type="submit"
                                     form="email-owner-form">{% trans "Yes" %}
                             </button>
-                            <button class="btn btn-primary notika-btn-primary"
+                            <button type="button"
+                                    class="btn btn-primary notika-btn-primary"
                                     commandFor="email-owner-dialog"
                                     command="close">{% trans "No" %}
                             </button>

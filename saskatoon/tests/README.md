@@ -89,7 +89,7 @@ To install Chrome Webdriver:
     ```
 If after this you get another "unable to obtain chrome driver" error, run this command to debug:
 ```
-/venv/lib/python3.9/site-packages/selenium/webdriver/common/macos/selenium-manager --browser chrome --output json
+/venv/lib/python3.11/site-packages/selenium/webdriver/common/macos/selenium-manager --browser chrome --output json
 ```
 If you get an error like `dyld: cannot load 'selenium-manager' (load command 0x80000034 is unknown)`, it could be your system is incompatible with the latest Selenium, and may be fixed by downgrade Selenium to version 4.20.0 (see more in [this post](https://github.com/SeleniumHQ/selenium/issues/13974)).
 

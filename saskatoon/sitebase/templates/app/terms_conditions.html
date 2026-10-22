@@ -31,7 +31,10 @@
                         </form>
                     </div>
                     <div class="breadcomb-wp">
-                        <a href="{% url "logout" %}" class="btn btn-warning notika-btn-warning">Disagree</a>
+                        <form name="logout" method="post" action="{% url "logout" %}">
+                            {% csrf_token %}
+                            <button class="btn btn-warning notika-btn-warning" type="submit">Disagree</button>
+                        </form>
                     </div>
                 </div>
             </div>

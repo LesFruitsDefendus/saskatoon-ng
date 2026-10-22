@@ -22,5 +22,5 @@ def rfp_color(status: str) -> str:
 def rfp_status_display(status: str) -> str:
     for choice in RFP.Status.choices:
         if status == choice[0]:
-            return choice[1]
+            return str(choice[1])
     return ""

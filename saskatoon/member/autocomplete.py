@@ -1,4 +1,4 @@
-from django.contrib.auth.models import Group, AbstractBaseUser
+from django.contrib.auth.models import Group
 from django.db.models import Q, QuerySet
 from typeguard import typechecked
 
@@ -52,11 +52,11 @@ class AuthUserAutocomplete(Autocomplete):
         self.roles = roles
 
     @staticmethod
-    def get_roles_queryset(queryset, roles) -> QuerySet[AbstractBaseUser]:
+    def get_roles_queryset(queryset, roles) -> QuerySet[AuthUser]:
         groups = Group.objects.filter(name__in=roles).values('id')
         return queryset.filter(groups__in=groups).distinct()
 
-    def get_queryset(self) -> QuerySet[AbstractBaseUser]:
+    def get_queryset(self) -> QuerySet[AuthUser]:
         if not self.is_authenticated():
             return AuthUser.objects.none()
 

@@ -33,7 +33,11 @@
                     <a href="{% url 'privacy_policy' %}">{% translate "Privacy policy" %}</a>
                 </li>
                 <li>
-                    <a href={% url "logout" %}>{% translate "Logout" %}</a>
+                    {# LogoutView only accepts POST since Django 5.0 #}
+                    <form method="post" action="{% url "logout" %}">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-btn">{% translate "Logout" %}</button>
+                    </form>
                 </li>
             </ul>
         </li>

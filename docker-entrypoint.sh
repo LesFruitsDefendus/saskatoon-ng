@@ -19,8 +19,8 @@ if [ "$SASKATOON_DB_HOST" = "localhost" ] || [ "$SASKATOON_DB_HOST" = "127.0.0.1
 fi
 
 echo "Waiting for database to be ready..."
-while ! mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_PASSWORD" -e "SELECT 1" &> /dev/null; do
-    echo "Database not ready yet, waiting..."
+while ! db_error=$(mysql -h "$SASKATOON_DB_HOST" -u "$SASKATOON_DB_USER" -p"$SASKATOON_DB_PASSWORD" -e "SELECT 1" 2>&1 >/dev/null); do
+    echo "Database not ready yet, waiting... (${db_error})"
     sleep 2
 done
 

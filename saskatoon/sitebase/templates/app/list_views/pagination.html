@@ -5,19 +5,18 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <span class="pull-right">
             {% if previous is None %}
-                <button class="btn btn-sm btn-default notika-btn-default disabled" id="previous-btn">
+                <button type="button" class="btn btn-sm btn-default notika-btn-default disabled" id="previous-btn">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </button>
             {% else %}
-                <a href="{{ previous }}">
-                    <button class="btn btn-sm btn-primary notika-btn-primary" id="previous-btn">
-                        <span class="glyphicon glyphicon-chevron-left"></span>
-                    </button>
+                <a href="{{ previous }}" class="btn btn-sm btn-primary notika-btn-primary" id="previous-btn">
+                    <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             {% endif %}
             &nbsp;
             <span class="dropup">
                 <button
+                    type="button"
                     class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
                     data-toggle="dropdown"
                     aria-haspopup="true"
@@ -43,14 +42,12 @@
                 / {{ pages_count }} &nbsp;
             </span>
             {% if next is None %}
-                <button class="btn btn-sm btn-default notika-btn-default disabled" id="next-button">
+                <button type="button" class="btn btn-sm btn-default notika-btn-default disabled" id="next-button">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
             {% else %}
-                <a href="{{ next }}">
-                    <button class="btn btn-sm btn-primary notika-btn-primary" id="next-button">
-                        <span class="glyphicon glyphicon-chevron-right"></span>
-                    </button>
+                <a href="{{ next }}" class="btn btn-sm btn-primary notika-btn-primary" id="next-button">
+                    <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             {% endif %}
         </span>
@@ -61,6 +58,7 @@
             {% trans "Show" %} &nbsp;
             <div class="btn-group">
                 <button
+                    type="button"
                     class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
                     data-toggle="dropdown"
                     aria-haspopup="true"

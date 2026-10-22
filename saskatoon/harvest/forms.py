@@ -552,8 +552,8 @@ class HarvestForm(forms.ModelForm[Harvest]):
         instance = kwargs.get('instance', SimpleNamespace())
 
         # we need the id for autocompletion
-        self.initial['id'] = getattr(instance, 'id', None)  # type: ignore
-        self.initial['equipment_point'] = (  # type: ignore
+        self.initial['id'] = getattr(instance, 'id', None)
+        self.initial['equipment_point'] = (
             instance.get_equipment_point() if isinstance(instance, Harvest) else None
         )
 

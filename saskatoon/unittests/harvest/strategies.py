@@ -1,4 +1,5 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, tzinfo
+from typing import cast
 from hypothesis import strategies as st
 from hypothesis.extra.django import from_model
 
@@ -41,7 +42,7 @@ harvest = st.datetimes(min_value=datetime(1950, 1, 1, 0, 0), timezones=st.timezo
         changed_by=st.just(None),
         start_date=st.just(d - delta),
         end_date=st.datetimes(
-            timezones=st.just(d.tzinfo),
+            timezones=st.just(cast(tzinfo, d.tzinfo)),
             min_value=d.replace(tzinfo=None),
             allow_imaginary=True,
         ),

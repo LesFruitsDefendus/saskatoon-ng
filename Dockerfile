@@ -1,19 +1,20 @@
-FROM python:3.9-slim-bullseye
+FROM python:3.11-slim-bookworm
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
+    build-essential \
+    pkg-config \
     default-libmysqlclient-dev \
     default-mysql-client \
-    libtiff5-dev \
+    libtiff-dev \
     libjpeg-dev \
     libopenjp2-7-dev \
     zlib1g-dev \
-    libfreetype6-dev \
+    libfreetype-dev \
     liblcms2-dev \
     libwebp-dev \
     tcl8.6-dev \
     tk8.6-dev \
-    python3-tk \
     libharfbuzz-dev \
     libfribidi-dev \
     libxcb1-dev \

@@ -4,7 +4,7 @@ from django.urls import reverse
 from django.utils import timezone
 from typing import Optional, Any, Callable
 from typeguard import typechecked
-from django.conf import settings
+from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 from django.utils.translation import get_language
 from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 
@@ -55,7 +55,7 @@ def local_today() -> datetime:
 
 @typechecked
 def parse_naive_datetime(
-    datetime_str: str, datetime_format: str = settings.DATETIME_INPUT_FORMATS[0]
+    datetime_str: str, datetime_format: str = DATETIME_INPUT_FORMATS[0]
 ) -> Optional[datetime]:
     """
     Parse a naive datetime string into a datetime object using the current timezone.
