@@ -76,7 +76,7 @@
         "redmine_contact_id": null,
         "civil_name": "Deprecated Org.",
         "description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"This organization has no equipment and no longer accepts donations\\\\n\\\"}]}\",\"html\":\"<p>This organization has no equipment and no longer accepts donations</p>\"}",
-        "description_fr": "{\"delta\":\"\",\"html\":\"\"}",
+        "description_fr": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Cette organisation ne dispose d'aucun équipement et n'accepte plus de dons\\\\n\\\"}]}\",\"html\":\"<p>Cette organisation ne dispose d'aucun équipement et n'accepte plus de dons</p>\"}",
         "beneficiary_description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"depreciated\\\\n\\\"}]}\",\"html\":\"<p>depreciated</p>\"}",
         "beneficiary_description_fr": "{\"delta\":\"\",\"html\":\"\"}",
         "equipment_description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"no equipment\\\\n\\\"}]}\",\"html\":\"<p>no equipment</p>\"}",
