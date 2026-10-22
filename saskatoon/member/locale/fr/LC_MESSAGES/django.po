@@ -464,21 +464,3 @@ msgid "Failed to send password reset email to {email}"
 msgstr ""
 "Échec de l'envoie du courriel de requête de changement de mot de passe à "
 "{email}"
-
-#~ msgid "Short description (en)"
-#~ msgstr "Courte description (en)"
-
-#~ msgid "Courte description (fr)"
-#~ msgstr "Courte description (fr)"
-
-#~ msgid "Beneficiary description (en)"
-#~ msgstr "Description du bénéficiaire (en)"
-
-#~ msgid "Description du bénéficiaire (fr)"
-#~ msgstr "Description du bénéficiaire (fr)"
-
-#~ msgid "Equipment point description (en)"
-#~ msgstr "Description du point d'équipement (en)"
-
-#~ msgid "Description du point d'équipement (fr)"
-#~ msgstr "Description du point d'équipement (fr)"

@@ -430,9 +430,9 @@ is currenlty made available'
 
     civil_name = models.CharField(verbose_name=_("Name"), max_length=50)
 
-    description_en = QuillField(verbose_name="Short description (en)", blank=True)
+    description_en = QuillField(verbose_name="Short description (en)", blank=False)
 
-    description_fr = QuillField(verbose_name="Courte description (fr)", blank=True)
+    description_fr = QuillField(verbose_name="Courte description (fr)", blank=False)
 
     beneficiary_description_en = QuillField(
         verbose_name="Beneficiary description (en)", blank=True
