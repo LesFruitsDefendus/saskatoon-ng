@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<div class="modal fade" id="imageUploadModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post" action="{% url 'property-image-create' id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h4 class="modal-title">{% trans "Upload Property Photo" %}</h4>
+                </div>
+                <div class="modal-body text-center">
+                    <input type="file" name="image" id="modal_file_input" class="hide" required>
+                    
+                    <div class="mg-b-15">
+                        <img id="imagePreview" src="" alt="{% trans 'Image preview' %}" class="img-thumbnail image-preview-thumb">
+                    </div>
+
+                    <div class="form-group text-left">
+                        <label for="id_description">{% trans "Description (optional)" %}</label>
+                        <textarea name="description" id="id_description" class="form-control" rows="3" maxlength="500" placeholder="{% trans 'Add a short description...' %}"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+                    <button type="submit" class="btn btn-primary">{% trans "Upload" %}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

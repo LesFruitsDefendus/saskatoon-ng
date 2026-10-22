@@ -1011,6 +1011,9 @@ class PropertyImage(models.Model):
         validators=IMAGE_VALIDATORS,
         verbose_name=_("Image"),
     )
+    description = models.CharField(
+        max_length=500, blank=True, null=True, verbose_name=_("Description")
+    )
     uploaded_by = models.ForeignKey(
         'member.AuthUser',
         on_delete=models.SET_NULL,

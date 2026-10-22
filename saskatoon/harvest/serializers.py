@@ -145,7 +145,7 @@ class CommentSerializer(serializers.ModelSerializer[Comment]):
 class PropertyImageSerializer(serializers.ModelSerializer[PropertyImage]):
     class Meta:
         model = PropertyImage
-        fields = ['id', 'image', 'date_uploaded', 'uploaded_by']
+        fields = ['id', 'image', 'description', 'date_uploaded', 'uploaded_by']
 
 
 class PropertySerializer(serializers.ModelSerializer[Property]):

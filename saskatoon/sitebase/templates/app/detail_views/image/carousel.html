@@ -30,10 +30,49 @@
                                 style="display: inline;">
                             {% csrf_token %}
                                 <button type="submit"
-                                    class="btn btn-sm btn-link text-danger btn-comment-action delete-btn"
+                                    class="btn btn-sm btn-link text-danger btn-comment-action"
                                     title="{% trans 'Delete photo' %}">
                                     <i class="fa fa-trash text-danger"></i>
                                 </button>
+                            </form>
+                        </div>
+                    {% endif %}
+                    
+                    <div id="image-view-{{ img.id }}">
+                        <div class="property-photo-caption">
+                            <p class="mb-0">{{ img.description|default:" " }}</p>
+
+                            {% if img.uploaded_by == request.user.id or user|is_admin %}
+                                <button type="button"
+                                    class="btn btn-sm btn-link text-primary edit-image-btn btn-comment-action"
+                                    data-image-id="{{ img.id }}"
+                                    title="{% trans 'Edit description' %}">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if img.uploaded_by == request.user.id or user|is_admin %}
+                        <div id="image-edit-{{ img.id }}" class="image-edit-form-container">
+                            <form method="post" action="{% url 'property-image-update' img.id %}">
+                                {% csrf_token %}
+                                <div class="form-group mg-b-10">
+                                    <textarea name="description" 
+                                        class="form-control" 
+                                        rows="2"
+                                        maxlength="500">{{ img.description }}</textarea>
+                                </div>
+                                <div class="text-right">
+                                    <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                                        <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
+                                    </button>
+                                    <button type="button" 
+                                        class="btn btn-default waves-effect btn-sm cancel-image-edit-btn" 
+                                        data-image-id="{{ img.id }}">
+                                        {% trans "Cancel" %}
+                                    </button>
+                                </div>
                             </form>
                         </div>
                     {% endif %}

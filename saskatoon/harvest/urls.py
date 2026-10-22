@@ -123,6 +123,11 @@ urlpatterns = [
         views.CommentUpdateView.as_view(),
         name='comment-update',
     ),
+    path(
+        'property/image/update/<int:pk>/',
+        views.PropertyImageUpdateView.as_view(),
+        name='property-image-update',
+    ),
     # AUTO-COMPLETE VIEWS
     re_path(
         r'^property-autocomplete/$',

@@ -100,19 +100,7 @@ def french_ordinal(n: int) -> str:
     return str(django_ordinal(n))
 
 
-def validate_image_size(file):
-    max_size_mb = 10
-    if file.size > max_size_mb * 1024 * 1024:
-        raise ValidationError(
-            _("File size too large. Maximum allowed size is %(size)dMB."),
-            params={'size': max_size_mb},
-        )
-
-
-IMAGE_VALIDATORS = (
-    FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png']),
-    validate_image_size,
-)
+IMAGE_VALIDATORS = [FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])]
 
 
 def resize_and_save_image(
@@ -136,6 +124,14 @@ def resize_and_save_image(
         jpg_image.save(image_io, format='JPEG', quality=90)
         image_io.seek(0)
 
+        file_size = image_io.tell()
+
+        if file_size > 5 * 1024 * 1024:
+            raise ValidationError(
+                _("Processed file size too large (%(size).1fMB). Maximum allowed size is 5MB."),
+                params={'size': file_size / (1024 * 1024), 'max_size': 5},
+            )
+
         jpg_filename = os.path.splitext(filename)[0] + '.jpg'
         return InMemoryUploadedFile(
             file=image_io,
@@ -145,6 +141,8 @@ def resize_and_save_image(
             size=image_io.tell(),
             charset=None,
         )
+    except ValidationError:
+        raise
     except Exception as e:
         logger.error("%s: %s", type(e).__name__, str(e))
         return None
