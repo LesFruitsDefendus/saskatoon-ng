@@ -47,7 +47,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='organization',
             name='description_fr',
-            field=django_quill.fields.QuillField(blank=False, verbose_name='Courte description (fr)'),
+            field=django_quill.fields.QuillField(blank=False,
+            default="",
+            verbose_name='Courte description (fr)'),
         ),
         migrations.AddField(
             model_name='organization',
