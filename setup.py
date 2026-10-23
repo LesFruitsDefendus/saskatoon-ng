@@ -59,7 +59,7 @@ setup(
         'test': [
             'invoke',
             'pytest',
-            'pytest-django',
+            'pytest-django<4.10',
             'selenium',
             'tox',
             'hypothesis',
