@@ -10,7 +10,7 @@
             </header>
             <section class="modal-body">
                 <p>{% trans 'This organization is an equipment point' %}</p>
-                <blockquote>{{org.equipment_description}}</blockquote>
+                <blockquote>{{org.equipment_description|safe}}</blockquote>
             {% with actor_id=org.actor_id %}
                 {% with equipment=org.equipment %}
                     {% include 'app/detail_views/organization/equipment_table.html' %}
@@ -24,7 +24,7 @@
             class="btn btn-outline-primary"
         >
             <i class="fa fa-check saskatoon-success"></i>
-            Equipment Point
+            {% trans 'Equipment Point' %}
         </button>
     {% endif %}
 {% else %}

@@ -6,6 +6,7 @@ from datetime import timedelta
 from django.utils import timezone as tz
 from django.db.models import Value
 from itertools import chain
+from django.utils.translation import get_language
 
 from member.models import Actor, Organization
 from member.serializers import (
@@ -527,6 +528,9 @@ class OrganizationSerializer(serializers.ModelSerializer[Organization]):
     equipment = EquipmentSerializer(many=True, read_only=True)
     inventory = serializers.SerializerMethodField()
     upcoming_reservations = ReservationHarvestSerializer(many=True, read_only=True)
+    description = serializers.CharField(read_only=True)
+    beneficiary_description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
 
     def get_inventory(self, org):
         return dict(
@@ -561,6 +565,9 @@ class HarvestDetailOrganizationSerializer(OrganizationSerializer):
         ]
 
     status = serializers.ReadOnlyField()
+    description = serializers.CharField(read_only=True)
+    beneficiary_description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
 
 
 @typechecked
