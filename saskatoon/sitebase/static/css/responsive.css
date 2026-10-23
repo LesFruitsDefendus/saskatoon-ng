@@ -161,10 +161,6 @@
         margin: 5px 0px;
     }
 
-    .images-cropper-pro .btn {
-        margin: 5px 0px;
-    }
-
     .table-responsive {
         width: 100%;
         overflow-y: hidden;
@@ -325,14 +321,6 @@
         display: none;
     }
 
-    .flot-chart {
-        height: 300px;
-    }
-
-    .flot-chart.tb-rc-it-res {
-        height: 142px;
-    }
-
     .email-signle-gp {
         margin: 0px 6px;
     }
@@ -346,20 +334,8 @@
         margin: 7px 160px;
     }
 
-    .flot-chart.bar-three {
-        height: 268px !important;
-    }
-
-    .flot-chart.dyn-ctn-fr {
-        height: 268px !important;
-    }
-
     .tb-res-mg-t-40 {
         margin-top: 40px;
-    }
-
-    .flot-chart.widget-dynamic-chart.ant-ctn-dyn {
-        height: 294px !important;
     }
 
     .tb-res-mg-t-10 {

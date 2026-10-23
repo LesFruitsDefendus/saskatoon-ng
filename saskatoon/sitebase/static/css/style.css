@@ -265,18 +265,12 @@ body {}
 .range-slider-wrap,
 .datepicker-int,
 .colorpicker-int,
-.summernote-wrap,
 .dropdone-nk,
 .form-example-wrap,
 .invoice-wrap,
 .google-map-single,
 .data-map-single,
-.image-cropper-wp,
 .nk-cd-ed-wp,
-.bar-chart-wp,
-.line-chart-wp,
-.area-chart-wp,
-.flot-chart-wp,
 .wb-traffic-inner,
 .notika-icon-int {
     padding: 20px;
@@ -776,37 +770,9 @@ ul.notika-menu-wrap li a {
     margin: 0;
 }
 
-.sparkline-bar-stats1,
-.sparkline-bar-stats2,
-.sparkline-bar-stats3,
-.sparkline-bar-stats4 {
-    margin-left: auto;
-    margin-top: 10px;
-}
-
 /*----------------------------------------*/
 /*  5.  statistics CSS
 /*----------------------------------------*/
-.flot-chart {
-    height: 319px;
-}
-
-.flot-chart.flot-chart-sts {
-    height: 308px;
-}
-
-#flotTip,
-.flot-tooltip {
-    position: absolute;
-    color: #333;
-    display: none;
-    font-size: 12px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, .1);
-    padding: 3px 10px;
-    background: #e7e0f9aa;
-    z-index: 99999;
-}
-
 .jqstooltip {
     width: auto !important;
     height: auto !important;
@@ -896,18 +862,6 @@ ul.notika-menu-wrap li a {
 
 .sale-statistic-inner {
     overflow: hidden;
-}
-
-.flot-chart-sts {
-    width: calc(100% + 16px);
-    left: -10px;
-    bottom: -10px;
-}
-
-.flot-chart.flot-ch-pg {
-    width: calc(100% + 18px);
-    left: -10px;
-    bottom: -10px;
 }
 
 .past-day-statis p {
@@ -1063,21 +1017,9 @@ ul.notika-menu-wrap li a {
     background: #e7e0f9aa;
 }
 
-.flot-chart-items {
-    height: 143px;
-    width: calc(100% + 19px);
-    margin: -20px -10px 0;
-    bottom: -10px;
-    background: #e7e0f9aa;
-}
-
 .rc-it-ltd {
     padding: 20px;
     background: #e7e0f9aa;
-}
-
-.flot-chart-items.flot-chart.vt-ct-it {
-    height: 98px;
 }
 
 .email-rdn-hd,
@@ -1580,10 +1522,6 @@ ul.notika-menu-wrap li a {
     transition: all .4s ease 0s;
 }
 
-.flot-chart--xs {
-    height: 70px;
-}
-
 .widget-inner-wp p {
     margin-bottom: 5px;
 }
@@ -1822,10 +1760,6 @@ ul.tab-ctn-list li:last-child {
 
 [class*=flc-] table {
     display: inline-block;
-}
-
-.visitor-ov-ct .flot-chart {
-    height: 282px;
 }
 
 .search-engine-img {
@@ -3337,31 +3271,6 @@ hr {
     margin-right: 8px;
 }
 
-.icheckbox_square-green.checked {
-    background-position: -44px 0;
-}
-
-.icheckbox_square-green.checked.disabled {
-    background-position: -88px 0;
-}
-
-.iradio_square-green {
-    background-position: -109px 0;
-}
-
-.iradio_square-green.hover {
-    background-position: -131px 0;
-}
-
-.iradio_square-green.checked {
-    background-position: -153px 0;
-    transition: all 0.3s ease 0s;
-}
-
-.iradio_square-green.checked.disabled {
-    background-position: -197px 0;
-}
-
 .inline-checkbox-cs {
     padding: 7px 0px;
 }
@@ -3372,32 +3281,6 @@ hr {
 
 .checkbox.login-checkbox label {
     padding-left: 0px;
-}
-
-.icheckbox_square-green,
-.iradio_square-green {
-    display: inline-block;
-    vertical-align: middle;
-    margin: 0;
-    padding: 0;
-    width: 22px;
-    height: 22px;
-    background: url(img/icheckbox/green1.png) no-repeat;
-    border: none;
-    cursor: pointer;
-}
-
-.icheckbox_square-green {
-    background-position: 0 0;
-}
-
-.icheckbox_square-green.hover {
-    background-position: -22px 0;
-}
-
-.icheckbox_square-green.checked {
-    background-position: -44px 0;
-    transition: all 0.3s ease 0s;
 }
 
 .inbox-btn-st-ls {
@@ -4106,10 +3989,6 @@ fieldset[disabled] .form-control {
 
 .fm-checkbox {
     margin: 10px 0px;
-}
-
-.iradio_square-green {
-    background-position: -109px 0;
 }
 
 .form-group.form-elet-mg {
@@ -4886,8 +4765,6 @@ textarea.auto-size {
     font-size: 12px;
 }
 
-.summernote-clickable .btn-primary,
-.summernote-clickable .btn-success,
 .modal-footer .btn-primary {
     background: #440bd4;
     color: #e7e0f9aa;
@@ -4898,10 +4775,6 @@ textarea.auto-size {
     box-shadow: 0 2px 5px rgba(0, 0, 0, .16), 0 2px 10px rgba(0, 0, 0, .12);
 }
 
-.summernote-clickable .btn-primary:active,
-.summernote-clickable .btn-primary:focus,
-.summernote-clickable .btn-success:focus,
-.summernote-clickable .btn-success:active,
 .modal-footer .btn-primary:focus,
 .modal-footer .btn-primary:active {
     background: #440bd4;
@@ -4911,10 +4784,6 @@ textarea.auto-size {
     box-shadow: none;
     outline: none;
     box-shadow: 0 2px 5px rgba(0, 0, 0, .16), 0 2px 10px rgba(0, 0, 0, .12);
-}
-
-.summernote-clickable {
-    margin-bottom: 10px;
 }
 
 .html-editor-click p,
@@ -4996,10 +4865,6 @@ textarea.auto-size {
 .dropzone.dropzone-nk h2 {
     font-size: 16px;
     color: #333;
-}
-
-.themesaller-forms .slider-group .sliderv-wrapper {
-    margin-bottom: 0px;
 }
 
 .chosen-select-act .chosen-container {
@@ -5218,7 +5083,6 @@ textarea.auto-size {
 }
 
 .btn-login.btn-success,
-.images-cropper-pro .btn,
 .images-action-pro .btn,
 .notika-todo-btn .btn,
 .btn.notika-add-todo,
@@ -5233,9 +5097,6 @@ textarea.auto-size {
 .btn-login.btn-success:hover,
 .btn-login.btn-success:focus,
 .btn-login.btn-success:active,
-.images-cropper-pro .btn:hover,
-.images-cropper-pro .btn:focus,
-.images-cropper-pro .btn:active,
 .images-action-pro .btn:hover,
 .images-action-pro .btn:focus,
 .images-action-pro .btn:active,
@@ -5569,40 +5430,13 @@ textarea.auto-size {
     color: #e7e0f9aa;
 }
 
-.nk-cd-ed-wp .cm-s-ambiance .CodeMirror-gutters {
-    background: #440bd4;
-}
-
 /*----------------------------------------*/
 /*  45. Bar Chart CSS
 /*----------------------------------------*/
 
-#dynamic-chart,
-#bar-chart {
-    height: 279px;
-    margin-top: 20px;
-}
-
 .chat-inputbar .form-group,
 .todo-inputbar .form-group {
     margin-bottom: 0px;
-}
-
-#dynamic-chart.flot-chart.widget-dynamic-chart {
-    height: 319px;
-}
-
-#bar-chart.flot-chart.bar-three.bar-hm-three {
-    height: 308px;
-}
-
-#dynamic-chart.flot-chart.dyn-ctn-fr.bar-hm-three {
-    height: 308px;
-}
-
-#bar-chart.flot-chart.flot-chr-pro,
-#dynamic-chart.flot-chart.flot-chr-pro {
-    margin-top: 0px;
 }
 
 /*----------------------------------------*/
