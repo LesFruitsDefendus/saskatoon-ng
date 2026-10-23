@@ -27,7 +27,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='propertyimage',
             name='description',
-            field=models.CharField(blank=True, max_length=500, null=True, verbose_name='Description'),
+            field=models.CharField(blank=True, max_length=255, null=True, verbose_name='Description'),
         ),
         migrations.AddField(
             model_name='propertyimage',
