@@ -18,7 +18,7 @@ docker-compose up
 
 The Docker setup includes:
 
-- Python 3.9 environment
+- Python 3.11 environment
 - MySQL database
 - All required system dependencies
 - Performs a DB migration

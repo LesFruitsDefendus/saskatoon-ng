@@ -13,6 +13,7 @@ setup(
     author="Tassia Camoes Araujo, Tiago Bortoletto Vaz, Tristan Landes-Tremblay",
     version="2.dev0",
     classifiers=["Programming Language :: Python :: 3"],
+    python_requires=">=3.11",
     license="GNU AFFERO GENERAL PUBLIC LICENSE",
     long_description=pathlib.Path(__file__).parent.joinpath("README.md").read_text(),
     long_description_content_type="text/markdown",
