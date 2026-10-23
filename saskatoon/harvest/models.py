@@ -16,6 +16,7 @@ from typeguard import typechecked
 from sys import float_info
 from types import SimpleNamespace
 import builtins
+import uuid
 
 from sitebase.utils import (
     local_datetime,
@@ -23,6 +24,8 @@ from sitebase.utils import (
     is_quill_html_empty,
     local_today,
     french_ordinal,
+    resize_and_save_image,
+    IMAGE_VALIDATORS,
 )
 from sitebase.validators import validate_is_not_nan
 
@@ -983,8 +986,20 @@ class Comment(models.Model):
         return self.content
 
 
+def property_image_upload_path(instance, filename):
+    """Generates path: property/<pid>/property_<pid>_<image_id>.jpg"""
+    pid = instance.property_id
+    image_id = uuid.uuid4().hex[:8]
+    return f"property/{pid}/property_{pid}_{image_id}.jpg"
+
+
 class PropertyImage(models.Model):
     """Property Image model"""
+
+    class Meta:
+        verbose_name = _("Property Image")
+        verbose_name_plural = _("Property Images")
+        ordering = ["-date_uploaded"]
 
     property = models.ForeignKey(
         Property,
@@ -992,11 +1007,36 @@ class PropertyImage(models.Model):
         on_delete=models.CASCADE,
     )
     image = models.ImageField(
-        upload_to='properties_images',
+        upload_to=property_image_upload_path,
+        validators=IMAGE_VALIDATORS,
+        verbose_name=_("Image"),
+    )
+    description = models.CharField(
+        max_length=255, blank=True, null=True, verbose_name=_("Description")
+    )
+    uploaded_by = models.ForeignKey(
+        'member.AuthUser',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    date_uploaded = models.DateTimeField(
+        verbose_name=_("Uploaded on"), auto_now_add=True, null=True, blank=True
     )
 
+    def save(self, *args, **kwargs):
+        """Automatically resize and convert uploaded images to JPG before saving."""
+        if self.image and hasattr(self.image, 'file'):
+            if not isinstance(self.image, models.fields.files.FieldFile):
+                path = property_image_upload_path(self, self.image.name)
+                resized_file = resize_and_save_image(self.image, path, image_resize_px=1080)
+                if resized_file:
+                    self.image = resized_file
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
-        return self.property.__str__()
+        return self.image.name
 
 
 class HarvestImage(models.Model):

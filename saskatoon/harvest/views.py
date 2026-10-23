@@ -6,13 +6,14 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView
 from django_stubs_ext import StrOrPromise
+from django.forms import ModelForm
 from datetime import datetime
 from logging import getLogger
 from harvest.mixins import TaggedSuccessMessageMixin
@@ -33,6 +34,7 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
+    PropertyImage,
     RequestForParticipation as RFP,
 )
 from member.models import Organization
@@ -670,3 +672,105 @@ def property_create_orphans(request, id):
         messages.warning(request, _("Harvests have already been created for this property"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class PropertyImageCreateView(
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+    SuccessMessageMixin[ModelForm[PropertyImage]],
+    CreateView[PropertyImage, ModelForm[PropertyImage]],
+):
+    model = PropertyImage
+    fields = ['image', 'description']
+    template_name = "app/forms/property_image_form.html"
+    success_message = _("Image uploaded successfully!")
+    permission_required = 'harvest.add_propertyimage'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        property_id = self.kwargs.get('property_pk')
+        property_obj = Property.objects.get(pk=property_id)
+
+        context['property'] = property_obj
+        context['images'] = property_obj.images.all()
+        return context
+
+    def form_valid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
+        property_id = self.kwargs.get('property_pk')
+        property_obj = get_object_or_404(Property, pk=property_id)
+
+        form.instance.property = property_obj
+        form.instance.uploaded_by = self.request.user  # type: ignore[assignment]
+        return super().form_valid(form)
+
+    def form_invalid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
+        messages.error(
+            self.request,
+            _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
+        )
+        property_id = self.kwargs.get('property_pk')
+        return redirect('property-detail', pk=property_id)
+
+    def get_success_url(self):
+        return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+
+
+class PropertyImageUpdateView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin[ModelForm[PropertyImage]],
+    UpdateView[PropertyImage, ModelForm[PropertyImage]],
+):
+    """Edit an existing property image description inline."""
+
+    model = PropertyImage
+    fields = ['description']
+    success_message = _("Image description updated successfully!")
+    pk_url_kwarg = 'pk'
+
+    def test_func(self) -> bool:
+        return self.get_object().uploaded_by_id == self.request.user.id or is_core_or_admin(
+            self.request.user
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = _("Edit Photo Description")
+        context['cancel_url'] = self.get_success_url()
+        return context
+
+    def form_valid(self, form):
+        self.object = form.save()
+        messages.success(self.request, self.success_message)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+
+
+class PropertyImageDeleteView(
+    LoginRequiredMixin,
+    UserPassesTestMixin,
+    SuccessMessageMixin[ModelForm[PropertyImage]],
+    DeleteView[PropertyImage, ModelForm[PropertyImage]],
+):
+    model = PropertyImage
+    success_message = _("Property image deleted successfully!")
+
+    def test_func(self) -> bool:
+        self.object = self.get_object()
+        user = self.request.user
+        return self.object.uploaded_by == user or is_core_or_admin(user)
+
+    def get_success_url(self):
+        return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})

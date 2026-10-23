@@ -1,0 +1,31 @@
+{% extends 'app/base/view.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+<div class="container mg-t-30">
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12 col-lg-offset-3 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{% trans "Upload Property Photo" %}</h3>
+                </div>
+                <div class="panel-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="mg-t-15">
+                            <button type="submit" class="btn btn-primary btn-sm">
+                                <i class="notika-icon notika-checked"></i> {% trans "Upload" %}
+                            </button>
+                            <a href="{% url 'property-detail' view.kwargs.property_pk %}" class="btn btn-default btn-sm">
+                                {% trans "Cancel" %}
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

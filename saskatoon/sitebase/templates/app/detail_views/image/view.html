@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load static %}
+{% load auth_users %}
+
+<section class="detail-section-card" id="images">
+    <header>
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="basic-tb-hd">
+                    <h2>{% trans "Photos" %}</h2>
+                </div>
+            </div>
+            <div class="col-xs-6 text-right">
+                {% if perms.harvest.add_propertyimage %}
+                    <input type="file" id="trigger_file_input" accept="image/*" class="hide">
+                    <button type="button" class="btn btn-primary notika-btn-primary waves-effect" onclick="document.getElementById('trigger_file_input').click();">
+                        <i class="fa fa-upload"></i> 
+                            {% trans "Upload photo" %}
+                    </button>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <div class="card-box mg-t-20">
+        <div class="mg-b-15">
+            {% if images %}
+                {% include 'app/detail_views/image/carousel.html' with images=images %}
+                {% include 'app/detail_views/image/lightbox.html' with images=images %}
+            {% else %}
+                <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+{% include 'app/detail_views/image/image_upload_modal.html' %}

@@ -1,0 +1,183 @@
+.carousel-inner,
+.thumbnail-wrapper,
+.thumbnail,
+.property-photo-caption,
+.image-edit-form-container {
+    background-color: #e7e0f9aa;
+}
+
+.carousel-inner {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.thumbnail-wrapper,
+.thumbnail {
+    margin-bottom: 0;
+    border: none;
+    position: relative;
+}
+
+.thumbnail-wrapper {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+img.lightbox-trigger {
+    height: 500px;
+    object-fit: scale-down;
+    width: 100%;
+    cursor: pointer;
+    flex-shrink: 0;
+}
+
+.delete-btn {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    z-index: 30;
+}
+
+#propertyPhotoCarousel .carousel-control {
+    background: none;
+    width: 40px;
+    height: 70%;
+    top: 15%;
+    bottom: 15%;
+    z-index: 10;
+}
+
+.carousel-control.left {
+    left: 12px;
+}
+
+.carousel-control.right {
+    right: 12px;
+}
+
+.carousel-control i {
+    color: #333;
+    text-shadow: 0 1px 2px #fff;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.modal-dialog {
+    width: auto;
+    max-width: 75%;
+    margin: 30px auto;
+}
+
+.modal-content {
+    background: rgba(0, 0, 0, 0.85);
+    border: none;
+    box-shadow: none;
+}
+
+.modal-body {
+    position: relative;
+    padding: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    z-index: 300;
+    color: var(--saskatoon-danger);
+    opacity: 1;
+    text-shadow: 0 1px 2px #000;
+}
+
+button.close span {
+    font-size: 28px;
+}
+
+.lightbox-image {
+    max-height: 60vh;
+    max-width: 60vw;
+    width: auto;
+    height: auto;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto;
+}
+
+#lightboxCarousel .carousel-control {
+    background: none;
+    width: 10%;
+    z-index: 20;
+}
+
+.image-preview-thumb {
+    max-height: 200px;
+    display: none;
+}
+
+.property-photo-caption {
+    position: relative;
+    padding: 12px 45px 12px 55px;
+    border-top: 1px solid #e5e5e5;
+    color: #333333;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+    min-height: 48px;
+    box-sizing: border-box;
+}
+
+.property-photo-caption p {
+    margin-bottom: 0;
+    word-break: break-word;
+}
+
+.lightbox-caption {
+    padding: 15px 0 5px 0;
+    font-size: 14px;
+    color: #ffffff;
+    text-align: center;
+}
+
+.edit-image-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+    z-index: 50;
+    padding: 0;
+    line-height: 1;
+}
+
+.image-edit-form-container {
+    display: none;
+    border-top: 1px solid #e5e5e5;
+    padding: 12px 15px;
+    width: 100%;
+    position: relative;
+    z-index: 30;
+}
+
+#propertyPhotoCarousel .carousel-indicators {
+    position: absolute;
+    top: 470px;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0;
+    z-index: 25;
+    pointer-events: none;
+}
+
+#propertyPhotoCarousel .carousel-indicators li {
+    pointer-events: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.6);
+}
+
+#propertyPhotoCarousel .carousel-indicators li.active {
+    background-color: #e7e0f9aa;
+}

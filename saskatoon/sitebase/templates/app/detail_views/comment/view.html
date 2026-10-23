@@ -5,6 +5,7 @@
     <header>
         <h2>{% trans "Comments" %}</h2>
     </header>
+
     {% if messages %}
         {% for message in messages %}
             {% if "comment" in message.extra_tags %}
@@ -14,6 +15,7 @@
             {% endif %}
         {% endfor %}
     {% endif %}
+    
     <div class="card-box {% if messages %}mg-t-10{% else %}mg-t-30{% endif %}">
         <div class="chat-conversation">
             {% include 'app/detail_views/comment/comment_form.html' %}

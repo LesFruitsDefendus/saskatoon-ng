@@ -6,45 +6,54 @@
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/colors.css' %}">
     <link rel="stylesheet" href="{% static 'css/comment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/property.css' %}">
+    <link rel="stylesheet" href="{% static 'css/image.css' %}">
 {% endblock style %}
 
 {% block script %}
     <script src="{% static 'js/comment.js' %}"></script>
+    <script src="{% static 'js/image.js' %}"></script>
 {% endblock script %}
 
 {% block content %}
-
-{% include 'app/detail_views/property/breadcomb.html' %}
-
-<div class="search-engine-area mg-t-15">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                {% include 'app/detail_views/property/about.html' %}
-            </div>
+        {% include 'app/detail_views/property/breadcomb.html' %}
+    </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                {% include 'app/detail_views/property/contact.html' %}
-            </div>
+    <div class="search-engine-area mg-t-15">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    {% include 'app/detail_views/property/about.html' %}
+                </div>
 
-            <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                {% include 'app/detail_views/property/features.html' %}
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    {% include 'app/detail_views/property/contact.html' %}
+                </div>
+
+                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
+                    {% include 'app/detail_views/property/features.html' %}
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-{% if pending %}
-    {% include 'app/detail_views/property/similar_table.html' %}
-{% else %}
-    {% include 'app/detail_views/property/harvest_table.html' %}
-{% endif %}
+    <div class="container">
+        {% if pending %}
+            {% include 'app/detail_views/property/similar_table.html' %}
+        {% else %}
+            {% include 'app/detail_views/property/harvest_table.html' %}
+        {% endif %}
+    </div>
 
-<div class="container mg-t-30">
-    <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-property' object_id=id %}
+    <div class="container mg-t-30">
+        <div class="equal-grid">
+            <div>
+                {% include 'app/detail_views/image/view.html' with images=images property_id=id %}
+            </div>
+            <div>
+                {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-property' object_id=id %}
+            </div>
         </div>
     </div>
-</div>
 {% endblock content %}
