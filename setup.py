@@ -48,7 +48,7 @@ setup(
         "django-phone-field>=1.8.1,<2",
         "postalcodes-ca>=0.0.9,<1",
         "django-quill-editor>=0.1.42,<1",
-        "deal[all]>=4,<5",
+        "deal>=4,<5",
         "django-stubs[compatible-mypy]>=5.2,<5.3",
         "django-stubs-ext>=5.2,<5.3",
         "djangorestframework-stubs[compatible-mypy]>=3.16,<3.17",
