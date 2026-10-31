@@ -5,9 +5,8 @@ import django_quill.fields
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('member', '0021_alter_person_family_name'),
+        ('member', '0022_alter_person_language'),
     ]
 
     operations = [
@@ -24,41 +23,44 @@ class Migration(migrations.Migration):
         migrations.RenameField(
             model_name='organization',
             old_name='equipment_description',
-            new_name='equipment_description_en'
+            new_name='equipment_description_en',
         ),
         migrations.AlterField(
             model_name='organization',
             name='description_en',
-            field=django_quill.fields.QuillField(blank=False,
-            verbose_name='Short description (en)'),
+            field=django_quill.fields.QuillField(verbose_name='Short description (en)'),
         ),
         migrations.AlterField(
             model_name='organization',
             name='beneficiary_description_en',
-            field=django_quill.fields.QuillField(blank=True,
-            verbose_name='Beneficiary description (en)'),
+            field=django_quill.fields.QuillField(
+                blank=True, verbose_name='Beneficiary description (en)'
+            ),
         ),
         migrations.AlterField(
             model_name='organization',
             name='equipment_description_en',
-            field=django_quill.fields.QuillField(blank=True,
-            verbose_name='Equipment point description (en)')
+            field=django_quill.fields.QuillField(
+                blank=True, verbose_name='Equipment point description (en)'
+            ),
         ),
         migrations.AddField(
             model_name='organization',
             name='description_fr',
-            field=django_quill.fields.QuillField(blank=False,
-            default="",
-            verbose_name='Courte description (fr)'),
+            field=django_quill.fields.QuillField(verbose_name="Courte description (fr)"),
         ),
         migrations.AddField(
             model_name='organization',
             name='beneficiary_description_fr',
-            field=django_quill.fields.QuillField(blank=True, verbose_name='Description du bénéficiaire (fr)'),
+            field=django_quill.fields.QuillField(
+                blank=True, verbose_name='Description du bénéficiaire (fr)'
+            ),
         ),
         migrations.AddField(
             model_name='organization',
             name='equipment_description_fr',
-            field=django_quill.fields.QuillField(blank=True, verbose_name="Description du point d'équipement (fr)"),
+            field=django_quill.fields.QuillField(
+                blank=True, verbose_name="Description du point d'équipement (fr)"
+            ),
         ),
     ]
