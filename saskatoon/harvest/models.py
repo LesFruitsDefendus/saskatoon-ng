@@ -1,4 +1,4 @@
-from crequest.middlewarpe import CrequestMiddleware
+from crequest.middleware import CrequestMiddleware
 from datetime import datetime, timedelta
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.core.exceptions import ValidationError
@@ -6,7 +6,7 @@ from django_quill.fields import QuillField
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _, get_language
+from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
 from djgeojson.fields import PointField
 from phone_field import PhoneField

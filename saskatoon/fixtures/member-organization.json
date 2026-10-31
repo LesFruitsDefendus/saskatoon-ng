@@ -112,7 +112,7 @@
         "description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"This organization both accepts fruit donations and has some equipment.\\\\n\\\"}]}\",\"html\":\"<p>This organization both accepts fruit donations and has some equipment.</p>\"}",
         "description_fr": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"description court\\\\n\\\"}]}\",\"html\":\"<p>description court</p>\"}",
         "beneficiary_description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"We accept any kind of donations on Wednesday and Friday\\\\n\\\"}]}\",\"html\":\"<p>We accept any kind of donations on Wednesday and Friday</p>\"}",
-        "beneficiary_description_fr": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"nous acceptons tout les donnes mercredi et vendredi\\\\n\\\"}]}\",\"html\":\"<p>nous acceptons tout les donnes mercredi et vendredi</p>\"}",
+        "beneficiary_description_fr": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Nous acceptons tous types de dons le mercredi et vendredi\\\\n\\\"}]}\",\"html\":\"<p>Nous acceptons tous types de dons le mercredi et vendredi</p>\"}",
         "equipment_description_en": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"You must register online at www.equipment.ca\\\\n\\\"}]}\",\"html\":\"<p>You must register online at www.equipment.ca</p>\"}",
         "equipment_description_fr": "{\"delta\":\"{\\\"ops\\\":[{\\\"insert\\\":\\\"Vous devez vous inscrire en ligne sur www.equipment.ca\\\\n\\\"}]}\",\"html\":\"<p>Vous devez vous inscrire en ligne sur www.equipment.ca</p>\"}",
         "phone": "(555) 444-3333",
