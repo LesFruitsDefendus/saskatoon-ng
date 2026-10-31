@@ -1,14 +1,6 @@
 (function ($) {
  "use strict";
 
-		$(".chosen")[0] && $(".chosen").chosen({
-            width: "100%",
-            allow_single_deselect: !0
-        });
-		/*--------------------------
-		 auto-size Active Class
-		---------------------------- */	
-		$(".auto-size")[0] && autosize($(".auto-size"));
 		/*--------------------------
 		 Collapse Accordion Active Class
 		---------------------------- */	
@@ -32,17 +24,6 @@
 		---------------------------- */	
 		$('.btn.dw-al-ft').on('click', function(e) {
 			e.preventDefault();
-		});
-		/*--------------------------
-		 Sidebar Left
-		---------------------------- */	
-		$('#sidebarCollapse').on('click', function () {
-			 $('#sidebar').toggleClass('active');
-			 
-		 });
-		$('#sidebarCollapse').on('click', function () {
-			$("body").toggleClass("mini-navbar");
-			SmoothlyMenu();
 		});
 		$('.menu-switcher-pro').on('click', function () {
 			var button = $(this).find('i.nk-indicator');
@@ -71,18 +52,6 @@
 		 mCustomScrollbar
 		---------------------------- */	
 		$(window).on("load",function(){
-			$(".widgets-chat-scrollbar").mCustomScrollbar({
-				setHeight:460,
-				autoHideScrollbar: true,
-				scrollbarPosition: "outside",
-				theme:"light-1"
-			});
-			$(".notika-todo-scrollbar").mCustomScrollbar({
-				setHeight:445,
-				autoHideScrollbar: true,
-				scrollbarPosition: "outside",
-				theme:"light-1"
-			});
 			$(".comment-scrollbar").mCustomScrollbar({
 				autoHideScrollbar: false,
 				scrollbarPosition: "outside",
@@ -93,12 +62,12 @@
 	 jQuery MeanMenu
 	------------------------------ */
 	jQuery('nav#dropdown').meanmenu();
-	
+
 	/*----------------------------
 	 wow js active
 	------------------------------ */
 	 new WOW().init();
-	   
+
 	/*--------------------------
 	 scrollUp
 	---------------------------- */	
