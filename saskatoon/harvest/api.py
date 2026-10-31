@@ -56,7 +56,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
     queryset = Harvest.objects.all().order_by('-start_date')
     serializer_class = HarvestDetailSerializer
     template_name = 'app/detail_views/harvest/view.html'
-    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Harvest]]]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = HarvestFilter
     search_fields = [
         'id',
@@ -166,7 +166,7 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
     queryset = Property.objects.all().order_by('-id')
     serializer_class = PropertySerializer
     template_name = 'app/detail_views/property/view.html'
-    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Organization]]]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = PropertyFilter
     search_fields = [
         'id',
@@ -277,7 +277,7 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet[Equipment]):
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
     queryset = Equipment.objects.all().order_by('-id')
     serializer_class = EquipmentSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Equipment]]]
+    filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentFilter
     template_name = 'app/list_views/equipment/view.html'
     search_fields = [
@@ -339,7 +339,7 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
-    filter_backends = [DjangoFilterBackend]  # type: ignore  # mypy says it should be Union[type[BaseFilterBackend], type[BaseFilterProtocol[Harvest]]]
+    filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
     filterset_fields = ('status', 'season')
 

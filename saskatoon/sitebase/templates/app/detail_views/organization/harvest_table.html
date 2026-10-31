@@ -11,10 +11,8 @@
                     <h4> {% trans "Upcoming Reservations" %} </h4>
                 </div>
                 <div class="col-xs-8">
-                    <a href="{% url 'harvest-list' %}?date=past&has_equipment_point=on&equipment_point={{ actor_id }}" style="float: right">
-                        <button title="Past reservations" class="btn btn-primary notika-btn-primary waves-effect">
+                    <a href="{% url 'harvest-list' %}?date=past&has_equipment_point=on&equipment_point={{ actor_id }}" style="float: right" title="Past reservations" class="btn btn-primary notika-btn-primary waves-effect">
                         <i class="fa fa-eye hidden-xs">&nbsp;</i> {% trans "Past reservations" %}
-                        </button>
                     </a>
                 </div>
             </div>

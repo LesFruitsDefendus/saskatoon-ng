@@ -25,7 +25,7 @@ from harvest.models import (
 )
 
 
-class AuthUserManager(BaseUserManager[AbstractBaseUser]):
+class AuthUserManager(BaseUserManager["AuthUser"]):
     """Base user management"""
 
     def create_user(self, email, password=None):

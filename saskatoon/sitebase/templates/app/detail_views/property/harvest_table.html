@@ -19,23 +19,14 @@
                             <span style="float: right">
                             {% if perms.harvest.add_harvest and authorized and not pending %}
                                 {% if user|is_core_or_admin and needs_orphan %}
-                                    <a href="{% url 'property-create-orphans' id %}">
-                                        <button title="Create Orphan Harvest(s)"
-                                                class="btn btn-warning notika-btn-warning"
-                                                style="margin-right: 0.5em;"
-                                        >
-                                            <i class="fa fa-plus"></i>&nbsp;
-                                            {% trans "Create Orphan(s)" %}
-                                        </button>
+                                    <a href="{% url 'property-create-orphans' id %}" title="Create Orphan Harvest(s)" class="btn btn-warning notika-btn-warning" style="margin-right: 0.5em;">
+                                        <i class="fa fa-plus"></i>&nbsp;
+                                        {% trans "Create Orphan(s)" %}
                                     </a>
                                 {% endif %}
-                                <a href="{% url 'harvest-create' %}?pid={{ id }}">
-                                    <button title="New harvest"
-                                            class="btn btn-success notika-btn-success waves-effect"
-                                    >
-                                        <i class="fa fa-plus"></i>&nbsp;
-                                        {% trans "New Harvest" %}
-                                    </button>
+                                <a href="{% url 'harvest-create' %}?pid={{ id }}" title="New harvest" class="btn btn-success notika-btn-success waves-effect">
+                                    <i class="fa fa-plus"></i>&nbsp;
+                                    {% trans "New Harvest" %}
                                 </a>
                             {% endif %}
                             </span>

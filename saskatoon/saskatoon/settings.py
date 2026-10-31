@@ -98,6 +98,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'crequest.middleware.CrequestMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
@@ -188,12 +189,9 @@ LOCALE_PATHS = [
     'saskatoon/locale/',
 ]
 
-DATE_INPUT_FORMATS = ["%Y-%m-%d"]
-DATETIME_INPUT_FORMATS = ["%Y-%m-%d %H:%M"]
+FORMAT_MODULE_PATH = ['saskatoon.formats']
 TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
-
 USE_I18N = True
-USE_L10N = False
 USE_TZ = True
 
 CSRF_COOKIE_SECURE = True

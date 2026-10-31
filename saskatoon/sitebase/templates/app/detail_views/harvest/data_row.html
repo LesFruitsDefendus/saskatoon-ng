@@ -84,23 +84,13 @@
         {% if r.status == 'pending' and user|is_pickleader:id %}
             <div class="action-btn-group">
                 {% if volunteers_count < nb_required_pickers %}
-                    <a href="{% url 'participation-update' r.id %}accept/">
-                        <button
-                            title="Accept"
-                            class="btn btn-success notika-btn-success"
-                        >
-                            {% trans "Accept" %}
-                        </button>
+                    <a href="{% url 'participation-update' r.id %}accept/" title="Accept" class="btn btn-success notika-btn-success">
+                        {% trans "Accept" %}
                     </a>
                 {% endif %}
 
-                <a href="{% url 'participation-update' r.id %}decline/">
-                    <button 
-                        title="Decline" 
-                        class="btn btn-danger notika-btn-danger" 
-                    >
-                        {% trans "Decline" %}
-                    </button>
+                <a href="{% url 'participation-update' r.id %}decline/" title="Decline" class="btn btn-danger notika-btn-danger">
+                    {% trans "Decline" %}
                 </a>
             </div>
         {% elif user|is_core_or_admin or user|is_pickleader:id %}

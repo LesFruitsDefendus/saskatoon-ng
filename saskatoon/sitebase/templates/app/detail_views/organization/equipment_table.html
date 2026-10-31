@@ -12,10 +12,8 @@
                 </div>
                 <div class="col-xs-6">
                     {% if perms.harvest.add_equipment %}
-                    <a href="{% url 'equipment-create' %}?aid={{ actor_id }}" style="float: right">
-                        <button title="New Equipment" class="btn btn-primary notika-btn-primary waves-effect">
-                            <i class="fa fa-plus"></i> {% trans "New Equipment" %}
-                        </button>
+                    <a href="{% url 'equipment-create' %}?aid={{ actor_id }}" style="float: right" title="New Equipment" class="btn btn-primary notika-btn-primary waves-effect">
+                        <i class="fa fa-plus"></i> {% trans "New Equipment" %}
                     </a>
                     {% endif %}
                 </div>

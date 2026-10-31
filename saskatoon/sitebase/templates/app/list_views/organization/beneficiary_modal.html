@@ -15,7 +15,7 @@
             >
               <span aria-hidden="true">&times;</span>
             </button>
-            <h3 class="modal-title"">{{org.civil_name}}</h3>
+            <h3 class="modal-title">{{org.civil_name}}</h3>
           </header>
           <section class="modal-body">
             <p>{% trans 'This organization accepts fruit donations' %}</p>
@@ -23,6 +23,7 @@
           </section>
         </dialog>
         <button
+          type="button"
           commandFor="{{org.actor_id}}-beneficiary-dialog"
           command="show-modal"
           class="btn btn-outline-primary"

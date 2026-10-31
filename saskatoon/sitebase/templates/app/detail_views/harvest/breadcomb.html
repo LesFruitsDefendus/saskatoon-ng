@@ -34,11 +34,9 @@
             <div class="col-xs-12 col-md-2">
                 <div class="breadcomb-report">
                     {% if user|is_core_or_admin or user|is_pickleader:id %}
-                        <a href="{% url 'harvest-update' id %}">
-                            <button title="Edit harvest" class="btn saskatoon-primary waves-effect">
-                                <i class="fa fa-pencil"></i>&nbsp;
-                                {% trans "Edit Harvest" %}
-                            </button>
+                        <a href="{% url 'harvest-update' id %}" title="Edit harvest" class="btn saskatoon-primary waves-effect">
+                            <i class="fa fa-pencil"></i>&nbsp;
+                            {% trans "Edit Harvest" %}
                         </a>
                     {% endif %}
                 </div>

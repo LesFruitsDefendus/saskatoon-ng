@@ -16,7 +16,7 @@ Please follow each part of this documentation in order to run your own instance 
 
 ## Requirements
 
-0. Python 3.9 (included in Debian Bullseye)
+0. Python 3.11 (included in Debian Bookworm)
 
 1. MySQL client
 

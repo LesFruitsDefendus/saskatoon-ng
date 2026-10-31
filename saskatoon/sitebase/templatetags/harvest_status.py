@@ -7,7 +7,7 @@ from typing import Optional, Callable
 
 from harvest.models import Harvest
 from sitebase.utils import parse_naive_datetime, local_today
-from saskatoon.settings import DATE_INPUT_FORMATS
+from saskatoon.formats.common import DATE_INPUT_FORMATS
 
 register = template.Library()
 

@@ -2,7 +2,7 @@ from datetime import datetime
 from django.utils import timezone
 import pytest
 
-from django.conf import settings
+from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 from sitebase.utils import parse_naive_datetime, local_today, maybe
 
 
@@ -17,9 +17,9 @@ def test_parse_naive_datetime_returns_right_timezone(unparsed):
 
 @pytest.mark.parametrize("unparsed", ["2025-12-18 16:00", "2025-12-18 18:00", "2025-12-19 15:00"])
 def test_parse_naive_datetime_is_same_date(unparsed):
-    parsed = parse_naive_datetime(unparsed, settings.DATETIME_INPUT_FORMATS[0])
+    parsed = parse_naive_datetime(unparsed, DATETIME_INPUT_FORMATS[0])
 
-    assert parsed.strftime(settings.DATETIME_INPUT_FORMATS[0]) == unparsed
+    assert parsed.strftime(DATETIME_INPUT_FORMATS[0]) == unparsed
 
 
 def test_local_today() -> None:

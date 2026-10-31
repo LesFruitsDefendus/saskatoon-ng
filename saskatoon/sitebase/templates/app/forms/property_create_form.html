@@ -61,10 +61,10 @@
             {% trans 'Save' %}
         </button>
         {% if cancel_url %}
-        <button type="button" class="btn btn-warning notika-btn-warning" style="margin-left:1rem;">
-            <a href="{{ cancel_url }}">{% translate 'Cancel' %}</a>
-            {% endif %}
-        </button>
+            <a href="{{ cancel_url }}" class="btn btn-warning notika-btn-warning" style="margin-left:1rem;">
+                {% translate 'Cancel' %}
+            </a>
+        {% endif %}
     </form>
 
     <script>
