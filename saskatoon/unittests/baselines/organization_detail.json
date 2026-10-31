@@ -8,7 +8,9 @@
         ],
         "name": "Nice Owner",
         "email": "nice@owner.com",
-        "phone": "(514) 666-1234"
+        "phone": "(514) 666-1234",
+        "language": "French",
+        "comments": "I don't bite."
     },
     "phone": "(514) 360-8566",
     "short_address": "111 rue Roy Est",

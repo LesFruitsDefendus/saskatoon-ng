@@ -213,8 +213,8 @@ class Person(Actor):
         ordering = ["first_name"]
 
     class Language(models.TextChoices):
-        FR = 'fr', "Français"
-        EN = 'en', "English"
+        FR = 'fr', _("French")
+        EN = 'en', _("English")
 
     language = models.CharField(
         verbose_name=_("Preferred Language"),

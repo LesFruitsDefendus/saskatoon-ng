@@ -69,10 +69,6 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
 
         self.template_name = 'app/list_views/organization/marker.html'
         organization = self.get_object()
-
-        filter = get_filter_context(self, 'organization')
-        print(filter.get('form').__dict__)
-
         serialized = OrganizationSerializer(organization)
         return Response({'org': serialized.data})
 

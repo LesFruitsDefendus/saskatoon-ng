@@ -619,7 +619,7 @@ msgstr "Adresse"
 #: sitebase/templates/app/forms/property_create_form.html:33
 #: sitebase/templates/app/list_views/equipment/data_table.html:15
 #: sitebase/templates/app/list_views/equipment/view.html:16
-#: sitebase/templates/app/list_views/property/marker.html:59
+#: sitebase/templates/app/list_views/property/marker.html:60
 msgid "Owner"
 msgstr "Propriétaire"
 
@@ -886,7 +886,7 @@ msgstr "Rôle"
 msgid "Organization phone"
 msgstr "Téléphone de l'Organisation"
 
-#: sitebase/templates/app/detail_views/organization/equipment_row.html:6
+#: sitebase/templates/app/detail_views/organization/equipment_row.html:7
 msgid "Modify Equipment"
 msgstr "Modifier l'Équipement"
 
@@ -1129,7 +1129,7 @@ msgstr "Propriétés similaires"
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:14
 #: sitebase/templates/app/forms/participation_manage_form.html:22
-#: sitebase/templates/app/list_views/harvest/marker.html:43
+#: sitebase/templates/app/list_views/harvest/marker.html:44
 #: sitebase/templates/app/list_views/harvest/view.html:32
 #: sitebase/templates/app/list_views/property/view.html:28
 #: sitebase/templates/app/participation_list.html:20
@@ -1316,7 +1316,7 @@ msgstr "Carte"
 msgid "Legend"
 msgstr "Légende"
 
-#: sitebase/templates/app/list_views/harvest/marker.html:37
+#: sitebase/templates/app/list_views/harvest/marker.html:38
 msgid "Led by"
 msgstr "Guidée par"
 
@@ -1398,25 +1398,25 @@ msgstr "Propriété non authorisée"
 msgid "Validated Property"
 msgstr "Propriété Validée"
 
-#: sitebase/templates/app/list_views/property/marker.html:28
+#: sitebase/templates/app/list_views/property/marker.html:29
 #: sitebase/templates/app/list_views/property/view.html:32
 msgid "Harvested"
 msgstr "Récolté"
 
-#: sitebase/templates/app/list_views/property/marker.html:30
+#: sitebase/templates/app/list_views/property/marker.html:31
 msgid "No past harvests"
 msgstr "Pas de récoltes antérieures"
 
-#: sitebase/templates/app/list_views/property/marker.html:42
+#: sitebase/templates/app/list_views/property/marker.html:43
 #: sitebase/templates/app/list_views/property/view.html:33
 msgid "Upcoming"
 msgstr "À venir"
 
-#: sitebase/templates/app/list_views/property/marker.html:44
+#: sitebase/templates/app/list_views/property/marker.html:45
 msgid "No upcoming harvests"
 msgstr "Pas de récoltes à venir"
 
-#: sitebase/templates/app/list_views/property/marker.html:54
+#: sitebase/templates/app/list_views/property/marker.html:55
 msgid "No harvests"
 msgstr "Pas de récoltes"
 

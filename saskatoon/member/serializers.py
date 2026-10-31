@@ -118,7 +118,9 @@ class PersonSerializer(serializers.ModelSerializer[Person]):
 class ContactPersonSerializer(PersonSerializer):
     class Meta:
         model = Person
-        fields = ['actor_id', 'roles', 'name', 'email', 'phone']
+        fields = ['actor_id', 'roles', 'name', 'email', 'phone', 'language', 'comments']
+
+    language = serializers.ReadOnlyField(source='get_language_display')
 
 
 class PickLeaderPersonSerializer(PersonSerializer):
@@ -143,6 +145,7 @@ class OwnerPersonSerializer(serializers.ModelSerializer[Person]):
             'country',
         ]
 
+    language = serializers.ReadOnlyField(source='get_language_display')
     comments = serializers.SerializerMethodField()
 
     def get_comments(self, person):

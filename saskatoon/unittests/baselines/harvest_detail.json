@@ -42,8 +42,8 @@
             "name": "Nice Owner",
             "email": "nice@owner.com",
             "phone": "(514) 666-1234",
-            "language": "fr",
-            "comments": "Passer par l'arrière ruelle",
+            "language": "French",
+            "comments": "I don't bite.",
             "neighborhood": 19,
             "city": 1,
             "state": 1,
@@ -199,7 +199,9 @@
                 ],
                 "name": "Core Member",
                 "email": "core@member.com",
-                "phone": "(514) 123-4321"
+                "phone": "(514) 123-4321",
+                "language": "English",
+                "comments": ""
             },
             "phone": "(555) 444-3333",
             "short_address": "6 Ontario, Est",
@@ -284,7 +286,9 @@
                 ],
                 "name": "Nice Owner",
                 "email": "nice@owner.com",
-                "phone": "(514) 666-1234"
+                "phone": "(514) 666-1234",
+                "language": "French",
+                "comments": "I don't bite."
             },
             "phone": "(514) 360-8566",
             "short_address": "111 rue Roy Est",
@@ -403,7 +407,9 @@
                 ],
                 "name": "Contact Person",
                 "email": "contact@person.com",
-                "phone": null
+                "phone": null,
+                "language": "French",
+                "comments": ""
             },
             "phone": "123-456-1234",
             "short_address": "45 av. de la Fourchette",
@@ -489,7 +495,9 @@
                 ],
                 "name": "Core Member",
                 "email": "core@member.com",
-                "phone": "(514) 123-4321"
+                "phone": "(514) 123-4321",
+                "language": "English",
+                "comments": ""
             },
             "phone": "(555) 444-3333",
             "short_address": "6 Ontario, Est",
