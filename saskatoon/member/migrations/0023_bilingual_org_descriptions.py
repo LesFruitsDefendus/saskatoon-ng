@@ -28,7 +28,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='organization',
             name='description_en',
-            field=django_quill.fields.QuillField(verbose_name='Short description (en)'),
+            field=django_quill.fields.QuillField(
+                default='', verbose_name='Short description (en)'
+            ),
         ),
         migrations.AlterField(
             model_name='organization',
@@ -47,7 +49,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='organization',
             name='description_fr',
-            field=django_quill.fields.QuillField(verbose_name="Courte description (fr)"),
+            field=django_quill.fields.QuillField(
+                default='', verbose_name='Courte description (fr)'
+            ),
         ),
         migrations.AddField(
             model_name='organization',
