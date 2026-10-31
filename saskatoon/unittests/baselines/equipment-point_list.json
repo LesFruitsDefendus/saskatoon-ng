@@ -16,7 +16,9 @@
                 ],
                 "name": "Core Member",
                 "email": "core@member.com",
-                "phone": "(514) 123-4321"
+                "phone": "(514) 123-4321",
+                "language": "English",
+                "comments": ""
             },
             "phone": "(555) 444-3333",
             "short_address": "6 Ontario, Est",
@@ -101,7 +103,9 @@
                 ],
                 "name": "Contact Person",
                 "email": "contact@person.com",
-                "phone": null
+                "phone": null,
+                "language": "French",
+                "comments": ""
             },
             "phone": "123-456-1234",
             "short_address": "45 av. de la Fourchette",
