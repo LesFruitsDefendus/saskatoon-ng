@@ -1,14 +1,6 @@
 (function ($) {
  "use strict";
 
-		$(".chosen")[0] && $(".chosen").chosen({
-            width: "100%",
-            allow_single_deselect: !0
-        });
-		/*--------------------------
-		 auto-size Active Class
-		---------------------------- */	
-		$(".auto-size")[0] && autosize($(".auto-size"));
 		/*--------------------------
 		 Collapse Accordion Active Class
 		---------------------------- */	
@@ -32,17 +24,6 @@
 		---------------------------- */	
 		$('.btn.dw-al-ft').on('click', function(e) {
 			e.preventDefault();
-		});
-		/*--------------------------
-		 Sidebar Left
-		---------------------------- */	
-		$('#sidebarCollapse').on('click', function () {
-			 $('#sidebar').toggleClass('active');
-			 
-		 });
-		$('#sidebarCollapse').on('click', function () {
-			$("body").toggleClass("mini-navbar");
-			SmoothlyMenu();
 		});
 		$('.menu-switcher-pro').on('click', function () {
 			var button = $(this).find('i.nk-indicator');
@@ -71,18 +52,6 @@
 		 mCustomScrollbar
 		---------------------------- */	
 		$(window).on("load",function(){
-			$(".widgets-chat-scrollbar").mCustomScrollbar({
-				setHeight:460,
-				autoHideScrollbar: true,
-				scrollbarPosition: "outside",
-				theme:"light-1"
-			});
-			$(".notika-todo-scrollbar").mCustomScrollbar({
-				setHeight:445,
-				autoHideScrollbar: true,
-				scrollbarPosition: "outside",
-				theme:"light-1"
-			});
 			$(".comment-scrollbar").mCustomScrollbar({
 				autoHideScrollbar: false,
 				scrollbarPosition: "outside",
@@ -93,44 +62,12 @@
 	 jQuery MeanMenu
 	------------------------------ */
 	jQuery('nav#dropdown').meanmenu();
-	
+
 	/*----------------------------
 	 wow js active
 	------------------------------ */
 	 new WOW().init();
-	 
-	/*----------------------------
-	 owl active
-	------------------------------ */  
-	$("#owl-demo").owlCarousel({
-      autoPlay: false, 
-	  slideSpeed:2000,
-	  pagination:false,
-	  navigation:true,	  
-      items : 4,
-	  /* transitionStyle : "fade", */    /* [This code for animation ] */
-	  navigationText:["<i class='fa fa-angle-left'></i>","<i class='fa fa-angle-right'></i>"],
-      itemsDesktop : [1199,4],
-	  itemsDesktopSmall : [980,3],
-	  itemsTablet: [768,2],
-	  itemsMobile : [479,1],
-	});
 
-	/*----------------------------
-	 price-slider active
-	------------------------------ */  
-	  $( "#slider-range" ).slider({
-	   range: true,
-	   min: 40,
-	   max: 600,
-	   values: [ 60, 570 ],
-	   slide: function( event, ui ) {
-		$( "#amount" ).val( "£" + ui.values[ 0 ] + " - £" + ui.values[ 1 ] );
-	   }
-	  });
-	  $( "#amount" ).val( "£" + $( "#slider-range" ).slider( "values", 0 ) +
-	   " - £" + $( "#slider-range" ).slider( "values", 1 ) );  
-	   
 	/*--------------------------
 	 scrollUp
 	---------------------------- */	

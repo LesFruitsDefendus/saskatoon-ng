@@ -194,7 +194,8 @@ TIME_ZONE = os.getenv('SASKATOON_TIME_ZONE') or 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-CSRF_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = not DEBUG
+CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
@@ -247,8 +248,6 @@ REST_FRAMEWORK = {
 }
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
-
-CSRF_FAILURE_VIEW = 'sitebase.views.handler403_csrf_failue'
 
 
 # LOGS
