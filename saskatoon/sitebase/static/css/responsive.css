@@ -255,6 +255,7 @@
 
 /* Mobile (xs) */
 @media (min-width: 1px) and (max-width: 767px) {
+
     .modal-dialog.modals-default .modal-content,
     .modal-dialog.modal-sm .modal-content,
     .modal-dialog.modal-large .modal-content {
