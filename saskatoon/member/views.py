@@ -162,13 +162,15 @@ class OrganizationUpdateView(
     form_class = OrganizationForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Organization updated successfully!")
-    success_url = reverse_lazy('organization-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Organization Update")
-        context['cancel_url'] = reverse_lazy('organization-list')
+        context['cancel_url'] = reverse_lazy('organization-detail', kwargs={'pk': self.object.pk})
         return context
+
+    def get_success_url(self):
+        return reverse_lazy('organization-detail', kwargs={'pk': self.object.pk})
 
 
 class PasswordChangeView(auth_views.PasswordChangeView):
