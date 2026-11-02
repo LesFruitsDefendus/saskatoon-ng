@@ -1,25 +1,19 @@
 import json
 from datetime import datetime
+from logging import getLogger
+from types import SimpleNamespace
+from typing import Any, Optional
+
 from dal import autocomplete
 from django import forms
 from django.contrib.auth.models import Group
 from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from phone_field.forms import PhoneFormField
-from logging import getLogger
 from postalcodes_ca import parse_postal_code
-from types import SimpleNamespace
 from typeguard import typechecked
-from typing import Any, Optional
 from typing_extensions import Self
 
-from member.forms import validate_email
-from member.models import AuthUser, Organization, Person
-from member.permissions import is_core_or_admin
-from member.utils import is_equipment_point_available
-from sitebase.models import Email, EmailType
-from sitebase.serializers import EmailRFPSerializer
-from sitebase.utils import is_quill_html_empty
 from harvest.models import (
     Comment,
     Equipment,
@@ -29,6 +23,12 @@ from harvest.models import (
     RequestForParticipation as RFP,
     TreeType,
 )
+from member.forms import validate_email
+from member.models import AuthUser, Organization, Person
+from member.utils import is_equipment_point_available
+from sitebase.models import Email, EmailType
+from sitebase.serializers import EmailRFPSerializer
+from sitebase.utils import is_quill_html_empty
 
 logger = getLogger('saskatoon')
 

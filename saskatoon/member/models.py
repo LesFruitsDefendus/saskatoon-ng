@@ -1,29 +1,30 @@
 import re
-from django.contrib.auth.models import (
-    Group,
-    AbstractBaseUser,
-    PermissionsMixin,
-    BaseUserManager,
-)
-from django.db import models
-from django.db.models import Q, QuerySet
-from django.utils.translation import gettext_lazy as _, get_language
-from django.utils import timezone as tz
+from enum import Enum
 from itertools import chain
 from operator import attrgetter
-from phone_field import PhoneField
 from typing import Optional
-from django.core.validators import MaxValueValidator, MinValueValidator
-from djgeojson.fields import PointField
-from enum import Enum
-from django_quill.fields import QuillField
 
-from sitebase.validators import validate_is_not_nan
-from sitebase.utils import local_today
-from harvest.models import (
-    RequestForParticipation as RFP,
-    Harvest,
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    Group,
+    PermissionsMixin,
 )
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.db import models
+from django.db.models import Q, QuerySet
+from django.utils import timezone as tz
+from django.utils.translation import get_language, gettext_lazy as _
+from django_quill.fields import QuillField
+from djgeojson.fields import PointField
+from phone_field import PhoneField
+
+from harvest.models import (
+    Harvest,
+    RequestForParticipation as RFP,
+)
+from sitebase.utils import local_today
+from sitebase.validators import validate_is_not_nan
 
 
 class AuthUserManager(BaseUserManager["AuthUser"]):

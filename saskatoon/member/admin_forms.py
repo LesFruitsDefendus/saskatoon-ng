@@ -1,14 +1,13 @@
 from django import forms
 from django.contrib import admin
-
-from member.models import AuthUser, Person
-from harvest.models import Equipment
-
 from django.contrib.auth.forms import (
-    UserCreationForm,
-    UserChangeForm,
     ReadOnlyPasswordHashField,
+    UserChangeForm,
+    UserCreationForm,
 )
+
+from harvest.models import Equipment
+from member.models import AuthUser, Person
 
 
 class AuthUserCreationAdminForm(UserCreationForm[AuthUser]):

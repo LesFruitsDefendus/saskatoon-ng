@@ -14,9 +14,10 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-from dotenv import read_dotenv
 import socket
+
 import django_stubs_ext
+from dotenv import read_dotenv
 
 # Monkeypatching Django, so stubs will work for all generics,
 # see: https://github.com/typeddjango/django-stubs

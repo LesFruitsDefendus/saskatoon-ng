@@ -1,25 +1,26 @@
 from django.contrib import messages
-from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import PasswordResetForm
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
-from django.urls import reverse_lazy, reverse
+from django.urls import reverse, reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, UpdateView, View
 
-from .utils import reset_password
 from harvest.models import Property
-from member.models import Person, Organization, AuthUser
 from member.forms import (
-    PersonCreateForm,
-    PersonUpdateForm,
     OnboardingPersonUpdateForm,
     OrganizationCreateForm,
     OrganizationForm,
     PasswordChangeForm,
+    PersonCreateForm,
+    PersonUpdateForm,
 )
+from member.models import AuthUser, Organization, Person
 from sitebase.models import Email, EmailType
+
+from .utils import reset_password
 
 
 class PersonCreateView(

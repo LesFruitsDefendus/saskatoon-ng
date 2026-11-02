@@ -1,8 +1,8 @@
-import pytest
 from pathlib import Path
-from django.core.management import call_command
-from django.contrib.auth import get_user_model
 
+import pytest
+from django.contrib.auth import get_user_model
+from django.core.management import call_command
 
 FIXTURE_PATH = Path(__file__).parent.parent.parent.joinpath('saskatoon/fixtures')
 FIXTURE_SEQUENCE = [

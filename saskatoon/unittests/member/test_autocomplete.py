@@ -2,13 +2,13 @@ import pytest
 from django.urls import reverse
 
 from member.autocomplete import (
-    PersonAutocomplete,
-    ContactAutocomplete,
-    AuthUserAutocomplete,
-    PickLeaderAutocomplete,
     ActorAutocomplete,
-    OwnerAutocomplete,
+    AuthUserAutocomplete,
+    ContactAutocomplete,
     EquipmentPointAutocomplete,
+    OwnerAutocomplete,
+    PersonAutocomplete,
+    PickLeaderAutocomplete,
 )
 from member.models import Neighborhood
 

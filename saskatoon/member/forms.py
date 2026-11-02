@@ -1,14 +1,15 @@
+from logging import getLogger
+
 from dal import autocomplete
-from django.utils.translation import gettext_lazy as _
 from django import forms
 from django.contrib.auth import forms as auth_forms
 from django.core.exceptions import ObjectDoesNotExist
 from django.forms.widgets import PasswordInput
-from logging import getLogger
+from django.utils.translation import gettext_lazy as _
 from phone_field.forms import PhoneFormField
 
 from harvest.models import Property
-from member.models import AuthUser, Person, Organization
+from member.models import AuthUser, Organization, Person
 from member.validators import validate_email, validate_new_password
 
 logger = getLogger('saskatoon')

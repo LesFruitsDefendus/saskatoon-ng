@@ -1,23 +1,22 @@
+from datetime import datetime, timedelta, timezone
+
 import pytest
 from hypothesis import given, settings
 from hypothesis.extra.django import TestCase, from_model
-from datetime import timedelta, datetime, timezone
-
-from member.models import (
-    Country,
-    State,
-    City,
-    Neighborhood,
-    Actor,
-    Person,
-    AuthUser,
-    Onboarding,
-    Organization,
-)
-
-from harvest.models import Harvest, EquipmentType, Equipment
 
 import unittests.member.strategies as member_st
+from harvest.models import Equipment, EquipmentType, Harvest
+from member.models import (
+    Actor,
+    AuthUser,
+    City,
+    Country,
+    Neighborhood,
+    Onboarding,
+    Organization,
+    Person,
+    State,
+)
 
 # ruff tries to erase it because the weird way pytest applies
 # fixtures is not recognised.

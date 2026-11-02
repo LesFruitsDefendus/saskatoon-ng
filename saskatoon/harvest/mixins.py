@@ -1,7 +1,7 @@
 from typing import Any, Optional
+
 from django.contrib import messages
 from django.http import HttpRequest, HttpResponse
-from django.utils.translation import gettext_lazy as _
 
 
 class TaggedSuccessMessageMixin:

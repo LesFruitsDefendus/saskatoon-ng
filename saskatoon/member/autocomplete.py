@@ -3,7 +3,7 @@ from django.db.models import Q, QuerySet
 from typeguard import typechecked
 
 from harvest.models import Harvest
-from member.models import AuthUser, Organization, Person, Actor, Neighborhood
+from member.models import Actor, AuthUser, Neighborhood, Organization, Person
 from member.utils import get_available_equipment_points
 from saskatoon.autocomplete import Autocomplete
 from sitebase.utils import parse_naive_datetime

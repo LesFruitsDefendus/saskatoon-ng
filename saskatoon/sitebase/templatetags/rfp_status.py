@@ -1,4 +1,5 @@
 from django import template
+
 from harvest.models import RequestForParticipation as RFP
 
 register = template.Library()

@@ -1,8 +1,8 @@
-import pytest
 from typing import TypedDict
 
-from member.models import Country, State, City, Neighborhood
+import pytest
 
+from member.models import City, Country, Neighborhood, State
 
 Location = TypedDict(
     'Location',

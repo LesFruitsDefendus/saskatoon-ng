@@ -1,6 +1,7 @@
 from dal import autocomplete
-from .models import TreeType, Property, Equipment
 from django.db.models.query_utils import Q
+
+from .models import Property, TreeType
 
 
 class TreeAutocomplete(autocomplete.Select2QuerySetView):

@@ -1,8 +1,10 @@
 import os
+
 import pytest
 import selenium.webdriver
 from django.conf import settings
 from dotenv import read_dotenv
+
 from saskatoon.settings import dotenv
 
 # Load the environment variables from .env file.

@@ -29,10 +29,12 @@ collectstatic:
 
 lint:
 	@tox -e ruff_format
+	@tox -e ruff_imports
 	@tox -e css-beautify
 
 staticchecks:
 	@tox -e ruff_check
+	@tox -e ruff_imports_check
 	@tox -e mypy
 	@tox -e pytype
 	@tox -e djlint

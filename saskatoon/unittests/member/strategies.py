@@ -1,20 +1,19 @@
+from django_quill.fields import QuillField
 from hypothesis import strategies as st
 from hypothesis.extra.django import from_model, register_field_strategy
 from phone_field import PhoneField
-from django_quill.fields import QuillField
 
 from member.models import (
-    Country,
-    State,
-    City,
-    Neighborhood,
     Actor,
-    Person,
     AuthUser,
+    City,
+    Country,
+    Neighborhood,
     Onboarding,
     Organization,
+    Person,
+    State,
 )
-
 
 register_field_strategy(PhoneField, st.text(alphabet="0123456789"))
 quill_strategy = st.just('{"delta": "", "html": "<p></p>"}')

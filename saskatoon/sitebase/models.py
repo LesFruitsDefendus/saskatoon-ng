@@ -1,32 +1,33 @@
+from logging import getLogger
+from typing import Any, Dict
+
 from django.core.mail import EmailMessage
 from django.db import models
+from django.db.models.signals import post_save, pre_save
 from django.dispatch import receiver
-from django_quill.fields import QuillField
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
-from django.db.models.signals import post_save, pre_save
-from logging import getLogger
+from django_quill.fields import QuillField
 from sortedm2m.fields import SortedManyToManyField
-from typing import Dict, Any
 
-from member.models import Person
 from harvest.models import (
     Comment,
     Property,
     RequestForParticipation as RFP,
+)
+from member.models import Person
+from saskatoon.settings import (
+    DEFAULT_FROM_EMAIL,
+    DEFAULT_REPLY_TO_EMAIL,
+    EMAIL_HOST,
 )
 from sitebase.serializers import (
     EmailCommentSerializer,
     EmailHarvestSerializer,
     EmailPickLeaderSerializer,
     EmailPropertySerializer,
-    EmailRFPSerializer,
     EmailRecipientSerializer,
-)
-from saskatoon.settings import (
-    EMAIL_HOST,
-    DEFAULT_FROM_EMAIL,
-    DEFAULT_REPLY_TO_EMAIL,
+    EmailRFPSerializer,
 )
 
 logger = getLogger('saskatoon')

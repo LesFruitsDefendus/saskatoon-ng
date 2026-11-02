@@ -1,10 +1,11 @@
-from django.contrib import admin
-from django.conf.urls.static import static
-from django.urls import path, include, URLPattern, URLResolver
 from typing import List, Union
 
-from saskatoon.settings import DEBUG, MEDIA_URL, MEDIA_ROOT
 import debug_toolbar
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import URLPattern, URLResolver, include, path
+
+from saskatoon.settings import DEBUG, MEDIA_ROOT, MEDIA_URL
 
 urlpatterns: List[Union[URLPattern, URLResolver]] = [
     path('', include('sitebase.urls')),

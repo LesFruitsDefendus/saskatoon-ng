@@ -1,6 +1,6 @@
-from hypothesis import given, strategies as st
-from django.core.exceptions import ValidationError
 import pytest
+from django.core.exceptions import ValidationError
+from hypothesis import given, strategies as st
 
 from sitebase.validators import validate_is_not_nan
 

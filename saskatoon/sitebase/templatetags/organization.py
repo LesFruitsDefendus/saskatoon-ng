@@ -1,6 +1,7 @@
+from typing import Optional
+
 from django import template
 from typeguard import typechecked
-from typing import Optional
 
 from harvest.models import Harvest
 from member.models import Organization

@@ -1,21 +1,21 @@
+from datetime import datetime
+from logging import getLogger
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
     LoginRequiredMixin,
     PermissionRequiredMixin,
     UserPassesTestMixin,
 )
-from django.contrib.auth.decorators import login_required
 from django.contrib.messages.views import SuccessMessageMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
-from django.views.generic import CreateView, TemplateView, UpdateView, DeleteView
+from django.utils.translation import gettext_lazy as _
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
 from django_stubs_ext import StrOrPromise
-from datetime import datetime
-from logging import getLogger
-from harvest.mixins import TaggedSuccessMessageMixin
 
 from harvest.forms import (
     CommentForm,
@@ -27,6 +27,7 @@ from harvest.forms import (
     RFPForm,
     RFPManageForm,
 )
+from harvest.mixins import TaggedSuccessMessageMixin
 from harvest.models import (
     Comment,
     Equipment,
@@ -36,7 +37,7 @@ from harvest.models import (
     RequestForParticipation as RFP,
 )
 from member.models import Organization
-from member.permissions import is_core_or_admin, is_pickleader_or_core_or_admin, is_admin
+from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
 

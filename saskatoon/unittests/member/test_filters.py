@@ -1,9 +1,10 @@
-import pytest
 from datetime import datetime, timezone
 
-from harvest.models import Harvest, Equipment, EquipmentType
+import pytest
+
+from harvest.models import Equipment, EquipmentType, Harvest
+from member.filters import CommunityFilter, EquipmentPointFilter, OrganizationFilter
 from member.models import Organization
-from member.filters import CommunityFilter, OrganizationFilter, EquipmentPointFilter
 
 # ruff tries to erase it because the weird way pytest applies
 # fixtures is not recognised.

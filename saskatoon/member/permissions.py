@@ -1,7 +1,8 @@
-from rest_framework.permissions import IsAuthenticated
-from django.utils.translation import gettext_lazy
-from django.contrib.auth.models import AnonymousUser
 from typing import Union
+
+from django.contrib.auth.models import AnonymousUser
+from django.utils.translation import gettext_lazy
+from rest_framework.permissions import IsAuthenticated
 
 from member.models import AuthUser, Role
 

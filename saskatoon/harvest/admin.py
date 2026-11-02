@@ -5,22 +5,20 @@ from django.urls import reverse
 from django.utils.safestring import mark_safe
 from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 
-from member.models import AuthUser
-from saskatoon.settings import DEFAULT_LEAFLET_TILE
 from harvest.admin_filters import (
-    HarvestSeasonAdminFilter,
     HarvestHasNoDateAdminFilter,
-    OwnerHasNoEmailAdminFilter,
+    HarvestSeasonAdminFilter,
     OwnerGotAuthorizationEmailFilter,
-    PropertyOwnerTypeAdminFilter,
+    OwnerHasNoEmailAdminFilter,
     PropertyHasHarvestAdminFilter,
     PropertyHasLocationAdminFilter,
+    PropertyOwnerTypeAdminFilter,
     RFPSeasonAdminFilter,
 )
 from harvest.admin_forms import (
     EquipmentAdminForm,
-    HarvestYieldInline,
     HarvestImageInline,
+    HarvestYieldInline,
     RFPPersonInline,
 )
 from harvest.models import (
@@ -32,11 +30,13 @@ from harvest.models import (
     RequestForParticipation as RFP,
     TreeType,
 )
+from member.models import AuthUser
+from saskatoon.settings import DEFAULT_LEAFLET_TILE
+from sitebase.admin import update_map_coordinates
 from sitebase.models import Email, EmailType
 from sitebase.serializers import (
     EmailPropertySerializer,
 )
-from sitebase.admin import update_map_coordinates
 
 
 @admin.register(Harvest)
