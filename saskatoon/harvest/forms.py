@@ -12,7 +12,6 @@ from django.utils.translation import gettext_lazy as _
 from phone_field.forms import PhoneFormField
 from postalcodes_ca import parse_postal_code
 from typeguard import typechecked
-from typing_extensions import Self
 
 from harvest.models import (
     Comment,
@@ -557,7 +556,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
             instance.get_equipment_point() if isinstance(instance, Harvest) else None
         )
 
-    def clean_end_date(self: Self) -> datetime:
+    def clean_end_date(self) -> datetime:
         """Derive end date from start date"""
         start = self.cleaned_data['start_date']
         end = self.cleaned_data['end_date']
@@ -580,7 +579,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return end
 
-    def clean_trees(self: Self) -> QuerySet[TreeType]:
+    def clean_trees(self) -> QuerySet[TreeType]:
         """Make sure selected trees are registered on property"""
         property = self.cleaned_data['property']
         selected_trees = self.cleaned_data['trees']
@@ -597,7 +596,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return selected_trees
 
-    def clean_about(self: Self):
+    def clean_about(self):
         """Make sure announcement is filled before publishing"""
         status = self.cleaned_data['status']
         about = self.cleaned_data['about']
@@ -613,7 +612,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return about
 
-    def clean_equipment_point(self: Self) -> Optional[Organization]:
+    def clean_equipment_point(self) -> Optional[Organization]:
         """Clear equipment point if no longer available or harvest status is incompatible"""
         equipment_point = self.cleaned_data['equipment_point']
         if equipment_point is None:
@@ -646,7 +645,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return equipment_point
 
-    def clean(self: Self) -> dict[str, Any]:
+    def clean(self) -> dict[str, Any]:
         """Make sure pick_leader and status fields are compatible"""
         data = super().clean() or {}
 
@@ -674,7 +673,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
 
         return data
 
-    def save(self: Self, commit: bool = False) -> Harvest:
+    def save(self, commit: bool = False) -> Harvest:
         """
         Convert list of autocomplete equipment points into all equipment
         owned by said equipment points. i.e. Reserving an equipment point

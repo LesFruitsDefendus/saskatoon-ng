@@ -136,7 +136,7 @@ class PendingPickLeaderInlineAdminForm(admin.TabularInline[Person, Person]):
     model = Person
     fields = ['email', 'first_name', 'family_name', 'phone', 'language']
     form = PendingPickLeaderAdminForm
-    formset = PendingPickLeaderInlineAdminFormSet  # type: ignore
+    formset = PendingPickLeaderInlineAdminFormSet  # type: ignore[assignment]
     extra = 9
 
 

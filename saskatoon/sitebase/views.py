@@ -24,7 +24,7 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_types: List[PageContent.Type] = (  # type: ignore
+        content_types: List[PageContent.Type] = (  # type: ignore[annotation-unchecked]
             [
                 PageContent.Type.GUIDES_INTRO,
                 PageContent.Type.GUIDES_ADOPT,

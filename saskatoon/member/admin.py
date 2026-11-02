@@ -52,7 +52,7 @@ from sitebase.models import Email, EmailType
 # see https://github.com/typeddjango/django-stubs/issues/2878
 # for the type ignore
 @admin.register(AuthUser)
-class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore
+class AuthUserAdmin(UserAdmin[AuthUser]):  # type: ignore[type-var]
     form = AuthUserChangeAdminForm
     add_form = AuthUserCreationAdminForm
     search_fields = ('email', 'person__first_name', 'person__family_name')

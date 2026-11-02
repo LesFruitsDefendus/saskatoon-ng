@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from typing import Optional
 
 from dal import autocomplete
 from django import forms
@@ -204,7 +205,7 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def equipment_type_filter(
-        self, queryset: QuerySet[Organization], name: str, value: EquipmentType
+        self, queryset: QuerySet[Organization], name: str, value: Optional[EquipmentType]
     ) -> QuerySet[Organization]:
         if value:
             equipments = Equipment.objects.filter(type=value)
@@ -212,14 +213,14 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def start_date_filter(
-        self, queryset: QuerySet[Organization], name: str, value: datetime
+        self, queryset: QuerySet[Organization], name: str, value: Optional[datetime]
     ) -> QuerySet[Organization]:
         if value:
             self.start_val = value
         return queryset
 
     def end_date_filter(
-        self, queryset: QuerySet[Organization], name: str, value: datetime
+        self, queryset: QuerySet[Organization], name: str, value: Optional[datetime]
     ) -> QuerySet[Organization]:
         if value:
             self.end_val = value

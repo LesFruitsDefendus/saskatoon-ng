@@ -252,7 +252,7 @@ class PropertyMapSerializer(serializers.ModelSerializer[Property]):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = [  # type: ignore
+        fields = [  # type: ignore[assignment]
             'id',
             'name_en',
             'name_fr',
@@ -281,10 +281,10 @@ class PropertyListSerializer(PropertySerializer):
             'status',
         ]
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
     # mypy says it should be a NeighborhoodSerializer
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    auth_email_date = None  # type: ignore
+    auth_email_date = None  # type: ignore[assignment]
     trees = TreeTypeSerializer(many=True, read_only=True)
 
 
@@ -429,17 +429,17 @@ class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
 
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'address', 'owner', 'neighborhood', 'longitude', 'latitude']  # type: ignore
+        fields = ['id', 'title', 'address', 'owner', 'neighborhood', 'longitude', 'latitude']  # type: ignore[assignment]
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
     # mypy says it should be a NeighborhoodSerializer
 
 
 class HarvestListPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'ladder_available', 'neighborhood']  # type: ignore
+        fields = ['id', 'title', 'ladder_available', 'neighborhood']  # type: ignore[assignment]
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore
+    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
     # mypy says it should be a NeighborhoodSerializer
 
 

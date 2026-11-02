@@ -967,7 +967,7 @@ class Comment(models.Model):
 
     @builtins.property
     def edited(self) -> bool:
-        if not self.date_updated or not self.date_created:
+        if not self.date_updated:
             return False
         d = self.date_updated - self.date_created
         return d > timedelta(seconds=1)
