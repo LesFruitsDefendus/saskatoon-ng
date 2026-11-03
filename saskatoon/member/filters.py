@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta, timezone
+from typing import Optional
 
 from dal import autocomplete
 from django import forms
@@ -204,7 +205,7 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def equipment_type_filter(
-        self, queryset: QuerySet[Organization], name: str, value: EquipmentType
+        self, queryset: QuerySet[Organization], name: str, value: Optional[EquipmentType]
     ) -> QuerySet[Organization]:
         if value:
             equipments = Equipment.objects.filter(type=value)
@@ -212,14 +213,14 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def start_date_filter(
-        self, queryset: QuerySet[Organization], name: str, value: datetime
+        self, queryset: QuerySet[Organization], name: str, value: Optional[datetime]
     ) -> QuerySet[Organization]:
         if value:
             self.start_val = value
         return queryset
 
     def end_date_filter(
-        self, queryset: QuerySet[Organization], name: str, value: datetime
+        self, queryset: QuerySet[Organization], name: str, value: Optional[datetime]
     ) -> QuerySet[Organization]:
         if value:
             self.end_val = value
@@ -233,12 +234,10 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def filter_queryset(self, queryset):
-        sup = super()
-
         # When doing simple tests with pytest, the form itself isnt valid, so we cant call the super.
         # Unless we find a way to have a valid form when instantiating the filter in pytest, we
         # need this check
-        filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
+        filtered = super().filter_queryset(queryset) if self.is_valid() else queryset
 
         if self.status_val == 'reserved' and self.start_val < self.end_val:
             available = get_available_equipment_points(self.start_val, self.end_val)

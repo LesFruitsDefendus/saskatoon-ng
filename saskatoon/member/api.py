@@ -38,6 +38,11 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
         'contact_person__auth_user__email',
     ]
 
+    def get_serializer_class(self):
+        if self.action == 'map':
+            return OrganizationMapSerializer
+        return super().get_serializer_class()
+
     def list(self, request, *args, **kwargs):
         """Beneficiairies list view"""
 
@@ -75,7 +80,6 @@ class OrganizationViewset(LoginRequiredMixin, viewsets.ModelViewSet[Organization
     def map(self, request, *args, **kwargs):
         """Organization map view."""
 
-        self.serializer_class = OrganizationMapSerializer
         self.template_name = 'app/list_views/organization/map.html'
         self.pagination_class = None
         filter_context_string = 'organization'
@@ -118,6 +122,11 @@ class EquipmentPointViewSet(LoginRequiredMixin, viewsets.ModelViewSet[Organizati
         'contact_person__auth_user__email',
     ]
 
+    def get_serializer_class(self):
+        if self.action == 'map':
+            return OrganizationMapSerializer
+        return super().get_serializer_class()
+
     def list(self, request, *args, **kwargs):
         """Equipment Points list view."""
 
@@ -148,7 +157,6 @@ class EquipmentPointViewSet(LoginRequiredMixin, viewsets.ModelViewSet[Organizati
     def map(self, request, *args, **kwargs):
         """Equipment Point map view."""
 
-        self.serializer_class = OrganizationMapSerializer
         self.template_name = 'app/list_views/organization/map.html'
         self.filterset_class = EquipmentPointFilter
 

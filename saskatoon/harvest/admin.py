@@ -3,7 +3,7 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
+from leaflet.admin import LeafletGeoAdminMixin
 
 from harvest.admin_filters import (
     HarvestHasNoDateAdminFilter,
@@ -253,7 +253,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
                     AuthUser.objects.create(email=email, person=_property.owner.person)
                     nb_users += 1
             except Exception as e:
-                messages.error(request, e)
+                messages.error(request, str(e))
 
         messages.info(request, f"Successfully created {nb_users} new users!")
 

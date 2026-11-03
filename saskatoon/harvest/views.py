@@ -1,5 +1,6 @@
 from datetime import datetime
 from logging import getLogger
+from typing import Optional
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -36,7 +37,7 @@ from harvest.models import (
     Property,
     RequestForParticipation as RFP,
 )
-from member.models import Organization
+from member.models import Organization, Role
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
@@ -189,8 +190,9 @@ class HarvestCreateView(
             initial['property'] = _property
             initial['trees'] = _property.trees.all()
 
-        if 'Pick Leader' in self.request.user.roles:
-            initial['pick_leader'] = self.request.user
+        user = self.request.user
+        if user.is_authenticated and user.groups.filter(name=Role.PICKLEADER).exists():
+            initial['pick_leader'] = user
         return initial
 
     def get_context_data(self, **kwargs):
@@ -206,6 +208,7 @@ class HarvestCreateView(
         return context
 
     def get_success_url(self):
+        assert self.object is not None  # self.object is set by form_valid
         return reverse_lazy('harvest-detail', kwargs={'pk': self.object.pk})
 
 
@@ -271,6 +274,7 @@ class RequestForParticipationCreateView(SuccessMessageMixin[RFPForm], CreateView
     model = RFP
     template_name = 'app/forms/participation_create_form.html'
     form_class = RFPForm
+    harvest: Optional[Harvest]
     success_message = _(
         "Thanks for your interest in participating in this harvest! \
     Your request has been sent and a pick leader will contact you soon."

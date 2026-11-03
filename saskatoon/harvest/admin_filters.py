@@ -35,8 +35,9 @@ class PropertyHasHarvestAdminFilter(SimpleListFilter):
         return [('0', 'No harvest yet'), ('1', 'Has harvest(s)')]
 
     def queryset(self, request, queryset):
-        if self.value():
-            return queryset.exclude(harvests__isnull=bool(int(self.value())))
+        value = self.value()
+        if value:
+            return queryset.exclude(harvests__isnull=bool(int(value)))
         return queryset
 
 
@@ -50,8 +51,9 @@ class PropertyHasLocationAdminFilter(SimpleListFilter):
         return [('0', 'No location set'), ('1', 'Has GPS coordinates')]
 
     def queryset(self, request, queryset):
-        if self.value():
-            return queryset.exclude(geom__isnull=bool(int(self.value())))
+        value = self.value()
+        if value:
+            return queryset.exclude(geom__isnull=bool(int(value)))
         return queryset
 
 

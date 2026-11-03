@@ -36,12 +36,14 @@ class PersonCreateForm(forms.ModelForm[Person]):
         self.fields['neighborhood'].required = True
 
     def clean(self):
-        cleaned_data = super().clean()
-        validate_email(cleaned_data['email'])
+        super().clean()
+        validate_email(self.cleaned_data['email'])
 
-    def save(self):
+    def save(self, commit: bool = True) -> Person:
         # create Person instance
-        instance = super().save()
+        instance = super().save(commit)
+        if not commit:
+            return instance
 
         # create associated auth.user
         auth_user = AuthUser.objects.create(email=self.cleaned_data['email'], person=instance)
@@ -104,8 +106,11 @@ class PersonUpdateForm(forms.ModelForm[Person]):
                 _("An email address is required to assign a role to the user")
             )
 
-    def save(self):
-        instance = super().save()
+    def save(self, commit: bool = True) -> Person:
+        instance = super().save(commit)
+        if not commit:
+            return instance
+
         email = self.cleaned_data.get('email', None)
         roles = self.cleaned_data.get('roles', None)
         if email and roles:
@@ -114,15 +119,19 @@ class PersonUpdateForm(forms.ModelForm[Person]):
             self.auth_user.email = email
             self.auth_user.set_roles(roles)  # calls auth_user.save()
 
+        return instance
+
 
 class OnboardingPersonUpdateForm(forms.ModelForm[Person]):
     class Meta:
         model = Person
         exclude = ['redmine_contact_id', 'longitude', 'latitude', 'onboarding']
 
-    def save(self):
-        super().save()
-        self.instance.auth_user.add_role('pickleader')
+    def save(self, commit: bool = True) -> Person:
+        instance = super().save(commit)
+        if commit:
+            instance.auth_user.add_role('pickleader')
+        return instance
 
 
 class OrganizationForm(forms.ModelForm[Organization]):
@@ -163,7 +172,8 @@ class OrganizationCreateForm(OrganizationForm):
     contact_phone = PhoneFormField(label=_("Phone"), required=False, max_length=18)
 
     def clean(self):
-        data = super().clean()
+        super().clean()
+        data = self.cleaned_data
         person = data['contact_person']
         if not person:
             if data['contact_email'] and data['contact_first_name']:
@@ -177,9 +187,11 @@ class OrganizationCreateForm(OrganizationForm):
                 )
         return data
 
-    def save(self):
+    def save(self, commit: bool = True) -> Organization:
         # # create Organization instance
-        instance = super(OrganizationCreateForm, self).save()
+        instance = super().save(commit)
+        if not commit:
+            return instance
 
         # # create Contact Person/AuthUser
         person = Person.objects.create(

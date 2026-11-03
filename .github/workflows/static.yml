@@ -53,10 +53,6 @@ jobs:
       run: |
         tox -e mypy
 
-    - name: Run pytype
-      run: |
-        tox -e pytype
-
     - name: Run djlint
       run: |
         tox -e djlint

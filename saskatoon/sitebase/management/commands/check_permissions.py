@@ -14,7 +14,11 @@ class Command(BaseCommand):
 
         for app_label, permissions in ALL_PERMISSIONS.items():
             app_config = apps.get_app_config(app_label)
-            app_models = {m._meta.model_name for m in app_config.get_models()}
+            app_models = {
+                m._meta.model_name
+                for m in app_config.get_models()
+                if m._meta.model_name is not None
+            }
 
             declared = set(permissions.keys())
 

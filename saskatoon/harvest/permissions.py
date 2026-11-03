@@ -7,7 +7,7 @@ Permissions = dict[ModelName, dict[Action, set[Role]]]
 CORE = Role.CORE
 PICKLEADER = Role.PICKLEADER
 
-PERMISSIONS: Permissions = {  # pytype: disable=annotation-type-mismatch
+PERMISSIONS: Permissions = {
     "harvest": {
         "add": {CORE, PICKLEADER},
         "change": {CORE, PICKLEADER},

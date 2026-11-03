@@ -11,6 +11,7 @@ from sitebase.utils import local_today, maybe, parse_naive_datetime
 def test_parse_naive_datetime_returns_right_timezone(unparsed):
     tzinfo = timezone.get_current_timezone()
     parsed = parse_naive_datetime(unparsed)
+    assert parsed is not None
 
     # datetime.now(tz=tzinfo) is sometimes different from datetime.replace(tzinfo=tzinfo)
     assert parsed.tzinfo == datetime.now(tz=tzinfo).tzinfo
@@ -19,6 +20,7 @@ def test_parse_naive_datetime_returns_right_timezone(unparsed):
 @pytest.mark.parametrize("unparsed", ["2025-12-18 16:00", "2025-12-18 18:00", "2025-12-19 15:00"])
 def test_parse_naive_datetime_is_same_date(unparsed):
     parsed = parse_naive_datetime(unparsed, DATETIME_INPUT_FORMATS[0])
+    assert parsed is not None
 
     assert parsed.strftime(DATETIME_INPUT_FORMATS[0]) == unparsed
 

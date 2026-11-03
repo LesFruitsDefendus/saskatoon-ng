@@ -5,7 +5,7 @@ from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
 
-from harvest.models import Harvest, Property, RequestForParticipation
+from harvest.models import Property, RequestForParticipation
 from member.models import Actor, AuthUser, Organization, Person
 
 
@@ -124,26 +124,20 @@ class UserHasPropertyAdminFilter(SimpleListFilter):
         ]
 
     def queryset(self, request, queryset):
-        if self.value():
-            properties = Property.objects.select_related('owner').filter(owner__isnull=False)
-            if self.value() == 'all':
-                owners = set([p.owner.actor_id for p in properties])
-            elif self.value() == 'active':
-                owners = set([p.owner.actor_id for p in properties.filter(is_active=True)])
-            elif self.value() == 'inactive':
-                # check for owners who only have inactive properties
-                owners = set(
-                    [
-                        p.owner.actor_id
-                        for p in properties.filter(is_active=False)
-                        if not p.owner.properties.filter(is_active=True).exists()
-                    ]
-                )
+        value = self.value()
+        if value not in ('all', 'active', 'inactive'):
+            return queryset
 
-            persons = Person.objects.select_related('actor_id').filter(actor_id__in=owners)
-            return queryset.select_related('person').filter(person__in=persons)
+        properties = Property.objects.filter(owner__isnull=False)
+        if value == 'active':
+            properties = properties.filter(is_active=True)
+        elif value == 'inactive':
+            properties = properties.filter(is_active=False).exclude(
+                owner__properties__is_active=True
+            )
 
-        return queryset
+        persons = Person.objects.filter(actor_id__in=properties.values('owner_id'))
+        return queryset.select_related('person').filter(person__in=persons)
 
 
 class UserHasLedPicksAdminFilter(SimpleListFilter):
@@ -158,10 +152,7 @@ class UserHasLedPicksAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            harvests = Harvest.objects.filter(pick_leader__isnull=False)
-            leaders = set([h.pick_leader.person for h in harvests])
-            users = queryset.filter(person__in=leaders)
-            return users
+            return queryset.filter(harvests__isnull=False).distinct()
         return queryset
 
 
@@ -177,8 +168,9 @@ class UserHasVolunteeredAdminFilter(SimpleListFilter):
 
     def queryset(self, request, queryset):
         if self.value():
-            requests = RequestForParticipation.objects.filter(is_accepted=True)
-            pickers = set([r.picker for r in requests])
+            pickers = Person.objects.filter(
+                requests__status=RequestForParticipation.Status.ACCEPTED
+            )
             users = queryset.filter(person__in=pickers)
             return users
         return queryset
@@ -281,6 +273,7 @@ class OrganizationHasLocationAdminFilter(SimpleListFilter):
         return [('0', 'No location set'), ('1', 'Has GPS coordinates')]
 
     def queryset(self, request, queryset):
-        if self.value():
-            return queryset.exclude(geom__isnull=bool(int(self.value())))
+        value = self.value()
+        if value:
+            return queryset.exclude(geom__isnull=bool(int(value)))
         return queryset

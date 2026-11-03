@@ -67,9 +67,15 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
         'property__street_number',
     ]
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return HarvestListSerializer
+        if self.action == 'map':
+            return HarvestMapSerializer
+        return super().get_serializer_class()
+
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/harvest/view.html'
-        self.serializer_class = HarvestListSerializer
         response = super(HarvestViewset, self).list(request, *args, **kwargs)
         if renderer_format_needs_json_response(request):
             return Response(response.data)
@@ -103,7 +109,6 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
     def map(self, request, *args, **kwargs):
         """Harvest map view."""
 
-        self.serializer_class = HarvestMapSerializer
         self.template_name = 'app/list_views/harvest/map.html'
         self.pagination_class = None
         response = super().list(request, *args, **kwargs)
@@ -133,7 +138,7 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
     def make_reservation(self, request, pk=None):
         try:
             org: int = int(request.data.get('org'))
-        except ValueError:
+        except (TypeError, ValueError):
             messages.error(request, _("Missing Organization id"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
         except Organization.DoesNotExist:
@@ -144,6 +149,10 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
             harvest = Harvest.objects.get(pk=pk)
         except Harvest.DoesNotExist:
             messages.error(request, _("Harvest does not exist"))
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        if harvest.start_date is None or harvest.end_date is None:
+            messages.error(request, _("Harvest dates must be set before reserving equipment"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         try:
@@ -180,9 +189,15 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
         'pending_contact_email',
     ]
 
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return PropertyListSerializer
+        if self.action == 'map':
+            return PropertyMapSerializer
+        return super().get_serializer_class()
+
     def list(self, request, *args, **kwargs):
         self.template_name = 'app/list_views/property/view.html'
-        self.serializer_class = PropertyListSerializer
         response = super().list(request)
         if renderer_format_needs_json_response(request):
             return response
@@ -252,7 +267,6 @@ class PropertyViewset(LoginRequiredMixin, viewsets.ModelViewSet[Property]):
     def map(self, request, *args, **kwargs):
         """Property map view."""
 
-        self.serializer_class = PropertyMapSerializer
         self.template_name = 'app/list_views/property/map.html'
         self.pagination_class = None
         response = super().list(request, *args, **kwargs)

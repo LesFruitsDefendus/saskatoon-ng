@@ -10,6 +10,7 @@ class BasicPageNumberPagination(PageNumberPagination):
     max_page_size = 200
 
     def get_paginated_response(self, data):
+        assert self.page is not None  # set by paginate_queryset
         return Response(
             OrderedDict(
                 [
