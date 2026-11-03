@@ -250,7 +250,9 @@ class PropertyForm(forms.ModelForm[Property]):
     def clean(self):
         super().clean()
         data = self.cleaned_data
-        if not data['pending']:
+        if 'owner' not in data:
+            return data  # report 'owner' field error
+        if not data.get('pending'):
             owner = data['owner']
             email = data.get('owner_email')  # may be provided in PropertyCreateForm
 
@@ -293,8 +295,10 @@ class PropertyCreateForm(PropertyForm):
 
     def clean(self):
         data = super().clean()
+        if 'owner' not in data or 'owner_email' in self.errors:
+            return data  # report field errors
         if not data['owner']:
-            if data['owner_email'] and data['owner_first_name']:
+            if data['owner_email'] and data.get('owner_first_name'):
                 validate_email(data['owner_email'])
             else:
                 raise forms.ValidationError(
