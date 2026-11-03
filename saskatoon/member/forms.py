@@ -35,9 +35,10 @@ class PersonCreateForm(forms.ModelForm[Person]):
         super().__init__(*args, **kwargs)
         self.fields['neighborhood'].required = True
 
-    def clean(self):
-        super().clean()
-        validate_email(self.cleaned_data['email'])
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        validate_email(email)
+        return email
 
     def save(self, commit: bool = True) -> Person:
         # create Person instance
