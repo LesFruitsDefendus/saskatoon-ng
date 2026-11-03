@@ -1,28 +1,29 @@
-from crequest.middleware import CrequestMiddleware
+import builtins
 from datetime import datetime, timedelta
-from django.core.validators import MinValueValidator, MaxValueValidator
+from enum import Enum
+from sys import float_info
+from types import SimpleNamespace
+from typing import Optional
+
+from crequest.middleware import CrequestMiddleware
 from django.core.exceptions import ValidationError
-from django_quill.fields import QuillField
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
+from django.utils.translation import gettext_lazy as _
+from django_quill.fields import QuillField
 from djgeojson.fields import PointField
 from phone_field import PhoneField
-from typing import Optional
-from enum import Enum
 from typeguard import typechecked
-from sys import float_info
-from types import SimpleNamespace
-import builtins
 
 from sitebase.utils import (
-    local_datetime,
-    to_datetime,
-    is_quill_html_empty,
-    local_today,
     french_ordinal,
+    is_quill_html_empty,
+    local_datetime,
+    local_today,
+    to_datetime,
 )
 from sitebase.validators import validate_is_not_nan
 

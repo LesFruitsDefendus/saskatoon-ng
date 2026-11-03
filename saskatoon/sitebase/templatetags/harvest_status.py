@@ -1,13 +1,14 @@
+from typing import Callable, Optional
+
 from django import template
 from django.urls import reverse
-from django.utils.translation import gettext_lazy as _
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext_lazy as _
 from typeguard import typechecked
-from typing import Optional, Callable
 
 from harvest.models import Harvest
-from sitebase.utils import parse_naive_datetime, local_today
 from saskatoon.formats.common import DATE_INPUT_FORMATS
+from sitebase.utils import local_today, parse_naive_datetime
 
 register = template.Library()
 

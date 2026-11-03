@@ -1,19 +1,20 @@
-from django.contrib import admin, messages
-from geopy.geocoders import Nominatim
-from geopy.extra.rate_limiter import RateLimiter
 from logging import getLogger
-from django.db.models import QuerySet
-from typeguard import typechecked
 from typing import Union
 
+from django.contrib import admin, messages
+from django.db.models import QuerySet
+from geopy.extra.rate_limiter import RateLimiter
+from geopy.geocoders import Nominatim
+from typeguard import typechecked
+
+from harvest.models import Comment, Property, RequestForParticipation
+from member.models import Organization
+from saskatoon.settings import SASKATOON_USER_AGENT
 from sitebase.admin_filters import EmailIsDuplicateAdminFilter
-from sitebase.models import Email, EmailContent, EmailType, FAQList, FAQItem, PageContent
+from sitebase.models import Email, EmailContent, EmailType, FAQItem, FAQList, PageContent
 from sitebase.serializers import EmailCommentSerializer, EmailRFPSerializer
 from sitebase.tests import get_test_harvest
 from sitebase.utils import maybe
-from harvest.models import Comment, RequestForParticipation, Property
-from member.models import Organization
-from saskatoon.settings import SASKATOON_USER_AGENT
 
 nominatim = Nominatim(user_agent=SASKATOON_USER_AGENT)
 geocode = RateLimiter(nominatim.geocode, min_delay_seconds=1)

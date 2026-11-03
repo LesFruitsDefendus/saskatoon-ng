@@ -1,6 +1,7 @@
-from django.core.exceptions import ValidationError
 import math
-from typing import Union, SupportsFloat, SupportsIndex
+from typing import SupportsFloat, SupportsIndex, Union
+
+from django.core.exceptions import ValidationError
 from typeguard import typechecked
 
 

@@ -1,7 +1,9 @@
+from typing import List
+
 from django import template
 from rest_framework.utils.urls import remove_query_param, replace_query_param
+
 from saskatoon.pagination import BasicPageNumberPagination
-from typing import List
 
 register = template.Library()
 page_query_param = BasicPageNumberPagination.page_query_param

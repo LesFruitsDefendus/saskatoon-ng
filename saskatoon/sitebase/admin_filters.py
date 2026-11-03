@@ -1,6 +1,7 @@
+from typing import Optional
+
 from django.contrib.admin import SimpleListFilter
 from django.utils.translation import gettext_lazy as _
-from typing import Optional
 
 from sitebase.models import Email
 

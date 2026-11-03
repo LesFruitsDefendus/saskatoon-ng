@@ -1,13 +1,14 @@
 import re
-from datetime import datetime, date
+from datetime import date, datetime
+from typing import Any, Callable, Optional
+
+from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
 from django.urls import reverse
 from django.utils import timezone
-from typing import Optional, Any, Callable
-from typeguard import typechecked
-from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 from django.utils.translation import get_language
-from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
+from typeguard import typechecked
 
+from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 

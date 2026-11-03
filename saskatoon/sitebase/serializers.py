@@ -1,7 +1,7 @@
 from django.urls import reverse_lazy
 from rest_framework import serializers
 
-from harvest.models import Harvest, Comment, Property, RequestForParticipation
+from harvest.models import Comment, Harvest, Property, RequestForParticipation
 from member.models import AuthUser, Person
 from saskatoon.settings import DOMAIN_NAME
 

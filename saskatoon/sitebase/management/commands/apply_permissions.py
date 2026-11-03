@@ -1,6 +1,7 @@
-from django.core.management.base import BaseCommand
 from django.contrib.auth.models import Group, Permission
+from django.core.management.base import BaseCommand
 from django.db.models import Q
+
 from member.models import Role
 from saskatoon.permissions import ALL_PERMISSIONS
 

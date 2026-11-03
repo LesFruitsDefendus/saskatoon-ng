@@ -1,7 +1,8 @@
-import os
-import pytest
 import json
+import os
 from pathlib import Path
+
+import pytest
 
 BASELINES_PATH = Path(__file__).parent.joinpath('baselines')
 ENDPOINT_BASELINE_PAIRS = [

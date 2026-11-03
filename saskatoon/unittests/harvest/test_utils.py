@@ -1,4 +1,5 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
+
 from django.utils import timezone
 
 from harvest.utils import buffer_reservation_time

@@ -1,9 +1,10 @@
-from django import template
 from typing import Optional
 
+from django import template
+
+import member.permissions as perms
 from harvest.models import Harvest
 from member.models import AuthUser
-import member.permissions as perms
 
 register = template.Library()
 

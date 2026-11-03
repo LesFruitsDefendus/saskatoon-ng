@@ -2,6 +2,9 @@
 
 line-length = 99
 
+# Local packages (harvest, member, sitebase, saskatoon) live under ./saskatoon
+src = [".", "saskatoon"]
+
 [format]
 # Leave all quotes unchanged
 quote-style = "preserve"
@@ -9,3 +12,12 @@ exclude = [
     "venv/*",
     "**/migrations/*",
 ]
+
+[lint]
+exclude = [
+    "venv/*",
+    "**/migrations/*",
+]
+
+[lint.isort]
+combine-as-imports = true

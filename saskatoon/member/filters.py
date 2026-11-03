@@ -1,17 +1,17 @@
+from datetime import datetime, timedelta, timezone
+
 from dal import autocomplete
-from django.contrib.auth.models import Group
-from django.db.models.query_utils import Q
-from django.db.models import Count
 from django import forms
+from django.contrib.auth.models import Group
+from django.db.models import Count, QuerySet
+from django.db.models.query_utils import Q
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from typeguard import typechecked
-from datetime import datetime, timezone, timedelta
-from django.db.models import QuerySet
 
+from harvest.models import Equipment, EquipmentType, Harvest, RequestForParticipation
+from member.models import AuthUser, Neighborhood, Organization, Person
 from member.utils import get_available_equipment_points
-from member.models import AuthUser, Organization, Person, Neighborhood
-from harvest.models import EquipmentType, Equipment, Harvest, RequestForParticipation
 
 
 class CommunityFilter(filters.FilterSet):

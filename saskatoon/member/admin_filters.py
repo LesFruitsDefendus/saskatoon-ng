@@ -1,11 +1,12 @@
 from datetime import datetime, timedelta
+from typing import Optional
+
 from django.contrib.admin import SimpleListFilter
 from django.contrib.auth.models import Group
 from django.utils.translation import gettext_lazy as _
-from typing import Optional
 
-from harvest.models import Property, Harvest, RequestForParticipation
-from member.models import Organization, Person, Actor, AuthUser
+from harvest.models import Harvest, Property, RequestForParticipation
+from member.models import Actor, AuthUser, Organization, Person
 
 
 class UserGroupAdminFilter(SimpleListFilter):

@@ -3,11 +3,11 @@
 Command to create a new .env file based on a given sqlite_db_path (for testing only).
 """
 
-import string
-import shlex
-import pathlib
-import uuid
 import argparse
+import pathlib
+import shlex
+import string
+import uuid
 
 template = string.Template("""
 SASKATOON_SECRET_KEY=$secret_key

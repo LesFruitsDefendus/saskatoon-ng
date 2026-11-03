@@ -1,27 +1,13 @@
+from datetime import timedelta
+from itertools import chain
+from typing import Any, Mapping, Optional
+
+from django.db.models import Value
+from django.utils import timezone as tz
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
-from typing import Mapping, Any, Optional
-from datetime import timedelta
-from django.utils import timezone as tz
-from django.db.models import Value
-from itertools import chain
-from django.utils.translation import get_language
 
-from member.models import Actor, Organization
-from member.serializers import (
-    NeighborhoodSerializer,
-    CitySerializer,
-    ContactPersonSerializer,
-    CountrySerializer,
-    StateSerializer,
-    OrganizationOwnerSerializer,
-    OwnerPersonSerializer,
-    PickLeaderPersonSerializer,
-    PickLeaderSerializer,
-    PickerSerializer,
-    RequestForParticipationPersonSerializer,
-)
 from harvest.models import (
     Comment,
     Equipment,
@@ -32,16 +18,30 @@ from harvest.models import (
     RequestForParticipation as RFP,
     TreeType,
 )
-from harvest.utils import similar_properties, buffer_reservation_time
+from harvest.utils import buffer_reservation_time, similar_properties
+from member.models import Actor, Organization
+from member.serializers import (
+    CitySerializer,
+    ContactPersonSerializer,
+    CountrySerializer,
+    NeighborhoodSerializer,
+    OrganizationOwnerSerializer,
+    OwnerPersonSerializer,
+    PickerSerializer,
+    PickLeaderPersonSerializer,
+    PickLeaderSerializer,
+    RequestForParticipationPersonSerializer,
+    StateSerializer,
+)
+from member.utils import get_available_equipment_points
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 from sitebase.models import Email, EmailType
-from member.utils import get_available_equipment_points
-from sitebase.templatetags.property import show_property, property_icon_shape, property_status
 from sitebase.templatetags.harvest_status import (
     color,
     harvest_filter,
     make_icon,
 )
+from sitebase.templatetags.property import property_icon_shape, property_status, show_property
 
 
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):

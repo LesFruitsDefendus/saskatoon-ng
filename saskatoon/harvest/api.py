@@ -1,19 +1,20 @@
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib import messages
-from django_filters.rest_framework import DjangoFilterBackend
-from django.utils.translation import gettext_lazy as _
-from django.urls import reverse_lazy
-from django.http import HttpResponseRedirect
-from rest_framework import generics, status, viewsets
-from rest_framework.filters import SearchFilter
-from rest_framework.decorators import action
-from rest_framework.response import Response
 from typing import Dict
 
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework import generics, status, viewsets
+from rest_framework.decorators import action
+from rest_framework.filters import SearchFilter
+from rest_framework.response import Response
+
 from harvest.filters import (
+    EquipmentFilter,
     HarvestFilter,
     PropertyFilter,
-    EquipmentFilter,
 )
 from harvest.models import (
     Equipment,
@@ -24,18 +25,18 @@ from harvest.models import (
     TreeType,
 )
 from harvest.serializers import (
-    HarvestSerializer,
-    HarvestListSerializer,
-    HarvestDetailSerializer,
-    HarvestMapSerializer,
-    PropertyListSerializer,
-    PropertySerializer,
-    PropertyMapSerializer,
     EquipmentSerializer,
+    HarvestDetailSerializer,
+    HarvestListSerializer,
+    HarvestMapSerializer,
+    HarvestSerializer,
+    PropertyListSerializer,
+    PropertyMapSerializer,
+    PropertySerializer,
     RequestForParticipationSerializer,
 )
 from harvest.utils import sum_harvest_yields
-from member.models import Organization, Neighborhood, Person
+from member.models import Neighborhood, Organization, Person
 from member.permissions import (
     IsCoreOrAdmin,
     IsPickLeaderOrCoreOrAdmin,

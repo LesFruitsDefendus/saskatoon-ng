@@ -1,17 +1,19 @@
+from typing import List
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
-from django.views.generic import View, TemplateView
+from django.views.generic import TemplateView, View
+
 from harvest.models import Harvest
 from member.permissions import is_pickleader_or_core_or_admin
 from saskatoon.settings import VOLUNTEER_WAIVER_PDF_PATH
-from sitebase.models import PageContent, FAQList
-from typing import List
+from sitebase.models import FAQList, PageContent
 
 
 class Index(TemplateView):

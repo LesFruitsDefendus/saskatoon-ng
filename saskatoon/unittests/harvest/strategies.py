@@ -1,20 +1,21 @@
 from datetime import datetime, timedelta, tzinfo
 from typing import cast
+
 from hypothesis import strategies as st
 from hypothesis.extra.django import from_model
 
 import unittests.member.strategies as member_st
-from member.models import Country, State, City, Neighborhood
 from harvest.models import (
-    RequestForParticipation,
     Comment,
-    Property,
-    Harvest,
-    HarvestYield,
     Equipment,
     EquipmentType,
+    Harvest,
+    HarvestYield,
+    Property,
+    RequestForParticipation,
     TreeType,
 )
+from member.models import City, Country, Neighborhood, State
 
 property = from_model(
     Property,

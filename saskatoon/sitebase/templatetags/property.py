@@ -1,15 +1,16 @@
+from typing import Optional
+
 from django import template
 from django.utils.translation import gettext_lazy as _
 from typeguard import typechecked
-from typing import Optional
 
-from harvest.models import Property, Harvest
+from harvest.models import Harvest, Property
 from sitebase.templatetags.harvest_status import (
     color,
     harvest_filter,
-    upcoming_harvests,
     make_icon,
     tree_icon,
+    upcoming_harvests,
 )
 
 register = template.Library()

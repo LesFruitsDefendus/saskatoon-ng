@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from harvest.models import Harvest, Property
 from member.models import (
     AuthUser,
     City,
@@ -8,7 +10,6 @@ from member.models import (
     Person,
     State,
 )
-from harvest.models import Harvest, Property
 
 
 class NeighborhoodSerializer(serializers.ModelSerializer[Neighborhood]):

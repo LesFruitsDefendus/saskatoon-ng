@@ -1,4 +1,6 @@
 import csv
+from typing import Optional
+
 from django.contrib import admin, messages
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import Group
@@ -8,14 +10,12 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.safestring import mark_safe
-from typing import Optional
 from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
 
-from saskatoon.settings import DEFAULT_LEAFLET_TILE
 from member.admin_filters import (
     ActorTypeAdminFilter,
-    OrganizationHasNoContactAdminFilter,
     OrganizationHasLocationAdminFilter,
+    OrganizationHasNoContactAdminFilter,
     PersonHasNoUserAdminFilter,
     UserGroupAdminFilter,
     UserHasLedPicksAdminFilter,
@@ -44,9 +44,9 @@ from member.models import (
     State,
 )
 from member.utils import reset_password
-from saskatoon.settings import EMAIL_LIST_OUTPUT
-from sitebase.models import Email, EmailType
+from saskatoon.settings import DEFAULT_LEAFLET_TILE, EMAIL_LIST_OUTPUT
 from sitebase.admin import update_map_coordinates
+from sitebase.models import Email, EmailType
 
 
 # see https://github.com/typeddjango/django-stubs/issues/2878

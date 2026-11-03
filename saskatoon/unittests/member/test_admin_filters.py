@@ -1,11 +1,11 @@
 import pytest
-from django.test import RequestFactory
 from django.contrib import admin
 from django.db.models import QuerySet
+from django.test import RequestFactory
 
 from member.admin import OrganizationAdmin
-from member.models import Organization, AuthUser
-from unittests.member.fixtures import location, Location  # noqa: F401
+from member.models import AuthUser, Organization
+from unittests.member.fixtures import Location, location  # noqa: F401
 
 ORG_URL = "http://localhost:8000/admin/member/organization/"
 

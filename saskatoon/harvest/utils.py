@@ -1,12 +1,13 @@
-from django.db.models import Q, Sum
+from datetime import datetime, timedelta
 from logging import getLogger
 from typing import Optional
-from datetime import datetime, timedelta
+
+from django.db.models import Q, Sum
 from typeguard import typechecked
 
 from harvest.models import Property
-from sitebase.utils import local_datetime
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
+from sitebase.utils import local_datetime
 
 logger = getLogger('saskatoon')
 

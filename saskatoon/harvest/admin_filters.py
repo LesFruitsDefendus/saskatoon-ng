@@ -1,6 +1,6 @@
 from django.contrib.admin import SimpleListFilter
-from django.utils.translation import gettext_lazy as _
 from django.utils import timezone as tz
+from django.utils.translation import gettext_lazy as _
 
 from harvest.models import Harvest
 from sitebase.models import Email, EmailType

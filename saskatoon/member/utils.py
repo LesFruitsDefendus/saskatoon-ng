@@ -1,13 +1,14 @@
-import deal
+from datetime import datetime, timedelta
 from logging import getLogger
-from django.db.models import Q, QuerySet
-from datetime import timedelta, datetime
 from secrets import choice
-from typeguard import typechecked
 from typing import Optional, Union
 
-from member.models import AuthUser, Organization
+import deal
+from django.db.models import Q, QuerySet
+from typeguard import typechecked
+
 from harvest.models import Equipment, Harvest
+from member.models import AuthUser, Organization
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 
 logger = getLogger('saskatoon')

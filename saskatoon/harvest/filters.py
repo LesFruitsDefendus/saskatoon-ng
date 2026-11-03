@@ -1,12 +1,13 @@
-from dal import autocomplete
 from datetime import datetime
+
+from dal import autocomplete
 from django import forms
+from django.db.models import QuerySet
 from django.utils.translation import gettext_lazy as _
 from django_filters import rest_framework as filters
 from typeguard import typechecked
-from django.db.models import QuerySet
 
-from harvest.models import Harvest, TreeType, Property, Equipment, EquipmentType
+from harvest.models import Equipment, EquipmentType, Harvest, Property, TreeType
 from member.autocomplete import AuthUserAutocomplete
 from member.models import AuthUser, Neighborhood, Organization
 from sitebase.utils import local_today

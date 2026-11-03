@@ -1,9 +1,10 @@
 from datetime import datetime
-from django.utils import timezone
+
 import pytest
+from django.utils import timezone
 
 from saskatoon.formats.common import DATETIME_INPUT_FORMATS
-from sitebase.utils import parse_naive_datetime, local_today, maybe
+from sitebase.utils import local_today, maybe, parse_naive_datetime
 
 
 @pytest.mark.parametrize("unparsed", ["2025-12-18 16:00", "2025-12-18 18:00", "2025-12-19 15:00"])

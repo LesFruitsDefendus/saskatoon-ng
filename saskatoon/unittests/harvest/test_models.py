@@ -1,19 +1,19 @@
-from hypothesis import given, strategies as st, settings
+from hypothesis import given, settings, strategies as st
 from hypothesis.extra.django import TestCase, from_model
 
-from member.models import Organization
-from harvest.models import (
-    RequestForParticipation,
-    Comment,
-    Property,
-    Harvest,
-    HarvestYield,
-    Equipment,
-    EquipmentType,
-    TreeType,
-)
 import unittests.harvest.strategies as harvest_st
 import unittests.member.strategies as member_st
+from harvest.models import (
+    Comment,
+    Equipment,
+    EquipmentType,
+    Harvest,
+    HarvestYield,
+    Property,
+    RequestForParticipation,
+    TreeType,
+)
+from member.models import Organization
 
 settings.register_profile("fast", max_examples=50)
 

@@ -1,14 +1,14 @@
 import pytest
 
 from harvest.forms import (
-    RFPForm,
     CommentForm,
-    PropertyForm,
-    PropertyCreateForm,
-    PublicPropertyForm,
+    EquipmentForm,
     HarvestForm,
     HarvestYieldForm,
-    EquipmentForm,
+    PropertyCreateForm,
+    PropertyForm,
+    PublicPropertyForm,
+    RFPForm,
 )
 
 """ I had to remove RFPManageForm from the list of classes

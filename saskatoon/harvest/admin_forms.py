@@ -1,12 +1,12 @@
-from django.contrib import admin
 from dal import autocomplete
 from django import forms
-from harvest.forms import HarvestYieldForm
+from django.contrib import admin
 
+from harvest.forms import HarvestYieldForm
 from harvest.models import (
     Equipment,
-    HarvestYield,
     HarvestImage,
+    HarvestYield,
     RequestForParticipation as RFP,
 )
 

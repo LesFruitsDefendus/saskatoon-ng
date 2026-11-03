@@ -1,12 +1,12 @@
 import os
+
 from selenium.webdriver import Remote
-from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
 from . import PAGE_LOAD_TIMEOUT
 from .helpers import login, logoff
-
 
 URLS = [
     '/harvest/',

@@ -1,11 +1,11 @@
-import pytest
-from datetime import timedelta, datetime, timezone
+from datetime import datetime, timedelta, timezone
 from zoneinfo import ZoneInfo
 
-from harvest.models import Harvest, Equipment, EquipmentType, Property
-from member.models import Organization
+import pytest
 
-from harvest.filters import HarvestFilter, PropertyFilter, EquipmentFilter
+from harvest.filters import EquipmentFilter, HarvestFilter, PropertyFilter
+from harvest.models import Equipment, EquipmentType, Harvest, Property
+from member.models import Organization
 
 # ruff tries to erase it because the weird way pytest applies
 # fixtures is not recognised.

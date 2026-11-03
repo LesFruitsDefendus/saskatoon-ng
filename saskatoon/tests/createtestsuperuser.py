@@ -5,8 +5,9 @@ Command to create a test super user.
 
 if __name__ == "__main__":
     import pathlib
-    import invoke
     import sys
+
+    import invoke
 
     if len(sys.argv) != 3:
         print("Usage: createtestsuperuser.py <email> <password>")
