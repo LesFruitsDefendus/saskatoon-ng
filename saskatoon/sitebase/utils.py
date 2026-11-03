@@ -141,7 +141,7 @@ def resize_and_save_image(
             field_name=field_name,
             name=jpg_filename,
             content_type='image/jpeg',
-            size=image_io.tell(),
+            size=file_size,
             charset=None,
         )
     except ValidationError:

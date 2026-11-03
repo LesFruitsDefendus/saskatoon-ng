@@ -1050,6 +1050,12 @@ class PropertyImage(models.Model):
                 resized_file = resize_and_save_image(self.image, path, image_resize_px=1080)
                 if resized_file:
                     self.image = resized_file
+                else:
+                    raise ValidationError(
+                        _(
+                            "Could not process the uploaded image. Please ensure it is a valid image file."
+                        )
+                    )
 
         super().save(*args, **kwargs)
 

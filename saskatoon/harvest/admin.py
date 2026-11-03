@@ -301,6 +301,13 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
         )
         return queryset
 
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if isinstance(instance, PropertyImage) and not instance.uploaded_by:
+                instance.uploaded_by = request.user
+            instance.save()
+
 
 @admin.register(TreeType)
 class TreeTypeAdmin(admin.ModelAdmin[TreeType]):
