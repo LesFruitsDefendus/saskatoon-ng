@@ -257,6 +257,10 @@
     "latitude": 45.514527,
     "status": "authorized",
     "auth_email_date": null,
+    "images": [
+        "property/3/property_3_f5f3b965.jpg", 
+        "property/3/property_3_f636024c.jpg"
+    ],
     "is_active": true,
     "authorized": true,
     "pending": false,
