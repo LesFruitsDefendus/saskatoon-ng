@@ -10,11 +10,7 @@ from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
 from sortedm2m.fields import SortedManyToManyField
 
-from harvest.models import (
-    Comment,
-    Property,
-    RequestForParticipation as RFP,
-)
+from harvest.models import Comment, Property
 from member.models import Person
 from saskatoon.settings import (
     DEFAULT_FROM_EMAIL,
@@ -27,7 +23,6 @@ from sitebase.serializers import (
     EmailPickLeaderSerializer,
     EmailPropertySerializer,
     EmailRecipientSerializer,
-    EmailRFPSerializer,
 )
 
 logger = getLogger('saskatoon')
@@ -521,20 +516,6 @@ def notify_unselected_pickers(sender, instance, **kwargs):
                 r.status = RFP.Status.DECLINED
                 r.save()
 """
-
-
-@receiver(post_save, sender=RFP)
-def notify_new_request_for_participation(sender, instance, created, **kwargs):
-    if created:
-        pick_leader = instance.harvest.pick_leader
-        if pick_leader is None or pick_leader.person == instance.person:
-            return
-
-        Email.objects.create(
-            recipient=pick_leader.person,
-            type=EmailType.NEW_HARVEST_RFP,
-            harvest=instance.harvest,
-        ).send(data=dict(EmailRFPSerializer(instance).data))
 
 
 @receiver(post_save, sender=Comment)
