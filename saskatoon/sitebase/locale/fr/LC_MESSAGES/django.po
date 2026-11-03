@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 17:58-0400\n"
+"POT-Creation-Date: 2026-11-02 19:24-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,201 +18,201 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Translated-Using: django-rosetta 0.9.8\n"
 
-#: sitebase/admin_filters.py:17
+#: sitebase/admin_filters.py:18
 msgid "Duplicates"
 msgstr ""
 
-#: sitebase/admin_filters.py:18
+#: sitebase/admin_filters.py:19
 msgid "Originals"
 msgstr ""
 
-#: sitebase/models.py:39
+#: sitebase/models.py:40
 msgid "Page Content"
 msgstr "Contenu de la page"
 
-#: sitebase/models.py:45
+#: sitebase/models.py:46
 msgid "[Home] Introduction"
 msgstr "[Accueil] Introduction"
 
-#: sitebase/models.py:46
+#: sitebase/models.py:47
 msgid "[Home] Volunteers"
 msgstr "[Accueil] Bénévoles"
 
-#: sitebase/models.py:47
+#: sitebase/models.py:48
 msgid "[Home] Tree Owners"
 msgstr "[Accueil] Propriétaires"
 
-#: sitebase/models.py:48
+#: sitebase/models.py:49
 msgid "[Home] Beneficiaries"
 msgstr "[Accueil] Bénéficiaires"
 
-#: sitebase/models.py:49
+#: sitebase/models.py:50
 msgid "[Home] Pickleaders"
 msgstr "[Accueil] Chef.fe.s"
 
-#: sitebase/models.py:52
+#: sitebase/models.py:53
 msgid "[About] Us"
 msgstr "[À propos] de nous"
 
-#: sitebase/models.py:53
+#: sitebase/models.py:54
 msgid "[About] Values"
 msgstr "[À propos] Valeurs"
 
-#: sitebase/models.py:54
+#: sitebase/models.py:55
 msgid "[About] Roles"
 msgstr "[À propos] Roles"
 
-#: sitebase/models.py:57
+#: sitebase/models.py:58
 msgid "Privacy Policy"
 msgstr "Politique de confidentialité"
 
-#: sitebase/models.py:58
+#: sitebase/models.py:59
 msgid "FAQ"
 msgstr "FAQ"
 
-#: sitebase/models.py:59
+#: sitebase/models.py:60
 msgid "New Property Thanks"
 msgstr "Merci Nouvelle Propriété"
 
-#: sitebase/models.py:62
+#: sitebase/models.py:63
 msgid "[Guides] Preamble"
 msgstr ""
 
-#: sitebase/models.py:63
+#: sitebase/models.py:64
 msgid "Guides - How to Adopt Harvest"
 msgstr ""
 
-#: sitebase/models.py:64
+#: sitebase/models.py:65
 msgid "[Guides] How to Publish Calendar"
 msgstr ""
 
-#: sitebase/models.py:65
+#: sitebase/models.py:66
 msgid "[Guides] How to Select Pickers"
 msgstr ""
 
-#: sitebase/models.py:66
+#: sitebase/models.py:67
 msgid "[Guides] How to Distribute Fruits"
 msgstr ""
 
-#: sitebase/models.py:67
+#: sitebase/models.py:68
 msgid "[Guides] Pickleader Resources"
 msgstr ""
 
-#: sitebase/models.py:70
+#: sitebase/models.py:71
 msgid "Terms & Conditions"
 msgstr "Termes & Conditions"
 
-#: sitebase/models.py:73
+#: sitebase/models.py:74
 msgid "Page type"
 msgstr "Type de page"
 
-#: sitebase/models.py:128
+#: sitebase/models.py:129
 msgid "FAQ Item"
 msgstr "Item de FAQ"
 
-#: sitebase/models.py:129
+#: sitebase/models.py:130
 msgid "FAQ Items"
 msgstr "Items de FAQ"
 
-#: sitebase/models.py:165
+#: sitebase/models.py:166
 msgid "FAQ List"
 msgstr "Liste FAQ"
 
-#: sitebase/models.py:166
+#: sitebase/models.py:167
 msgid "FAQ Lists"
 msgstr "Listes FAQ"
 
-#: sitebase/models.py:170
+#: sitebase/models.py:171
 msgid "Ref. Name"
 msgstr "Ref. Nom"
 
-#: sitebase/models.py:187
+#: sitebase/models.py:188
 msgid "Items"
 msgstr "Items"
 
-#: sitebase/models.py:189
+#: sitebase/models.py:190
 msgid "Enabled"
 msgstr "Activé"
 
-#: sitebase/models.py:196
+#: sitebase/models.py:197
 msgid "Closing (common)"
 msgstr "Signature (commune)"
 
-#: sitebase/models.py:199
+#: sitebase/models.py:200
 msgid "Pickleader Registration Invite"
 msgstr "Invitation pour l'enregistrement d'un.e chef.fe de cueillette"
 
-#: sitebase/models.py:200
+#: sitebase/models.py:201
 msgid "Password Reset"
 msgstr "Réinitialiser mot de passe"
 
-#: sitebase/models.py:201
+#: sitebase/models.py:202
 msgid "New Request For Participation"
 msgstr "Nouvelle requête de participation"
 
-#: sitebase/models.py:202
+#: sitebase/models.py:203
 msgid "New Harvest Comment"
 msgstr "Nouveau commentaire de récolte"
 
-#: sitebase/models.py:205
+#: sitebase/models.py:206
 msgid "Property was registered"
 msgstr "Propriété enregistrée"
 
-#: sitebase/models.py:206
+#: sitebase/models.py:207
 msgid "Seasonal property authorization"
 msgstr "Authorization saisonnière de la propriété"
 
-#: sitebase/models.py:209
+#: sitebase/models.py:210
 msgid "Unselected pickers"
 msgstr "Cueilleur.euse non sélectionné.es"
 
-#: sitebase/models.py:210
+#: sitebase/models.py:211
 msgid "Selected picker"
 msgstr "Participation acceptée"
 
-#: sitebase/models.py:211
+#: sitebase/models.py:212
 msgid "Rejected picker"
 msgstr "Cueilleur.euse Rejetée"
 
-#: sitebase/models.py:218
+#: sitebase/models.py:219
 msgid "Email Content"
 msgstr "Contenu du courriel"
 
-#: sitebase/models.py:223 sitebase/models.py:295
+#: sitebase/models.py:224 sitebase/models.py:296
 msgid "Email type"
 msgstr "Type de courriel"
 
-#: sitebase/models.py:233
+#: sitebase/models.py:234
 msgid "Ref. description"
 msgstr "Déscription ref."
 
-#: sitebase/models.py:248
+#: sitebase/models.py:249
 msgid "Body (en)"
 msgstr "Contenu (en)"
 
-#: sitebase/models.py:252
+#: sitebase/models.py:253
 msgid "Corps (fr)"
 msgstr "Contenu (fr)"
 
-#: sitebase/models.py:284
+#: sitebase/models.py:285
 #: sitebase/templates/app/detail_views/harvest/about.html:57
 #: sitebase/templates/app/detail_views/organization/contact.html:46
 #: sitebase/templates/app/detail_views/property/contact.html:62
 msgid "Email"
 msgstr "Courriel"
 
-#: sitebase/models.py:285
+#: sitebase/models.py:286
 msgid "Emails"
 msgstr "Courriels"
 
-#: sitebase/models.py:290
+#: sitebase/models.py:291
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:20
 #: sitebase/templates/app/stats.html:247
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
-#: sitebase/models.py:302
+#: sitebase/models.py:303
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:38
 #: sitebase/templates/app/forms/participation_manage_form.html:15
@@ -220,11 +220,11 @@ msgstr "Bénéficiaire"
 msgid "Harvest"
 msgstr "Récolte"
 
-#: sitebase/models.py:308
+#: sitebase/models.py:309
 msgid "Successfully sent"
 msgstr "Envoyé avec succès"
 
-#: sitebase/models.py:319
+#: sitebase/models.py:320
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:26
 #: sitebase/templates/app/detail_views/property/harvest_table.html:42
 msgid "Date"
@@ -473,7 +473,7 @@ msgstr "n'aura pas lieu"
 #: sitebase/templates/app/calendar/legend.html:23
 #: sitebase/templates/app/calendar/orphan-modal.html:31
 #: sitebase/templates/app/detail_views/property/harvest_row.html:9
-#: sitebase/templatetags/harvest_status.py:195
+#: sitebase/templatetags/harvest_status.py:196
 msgid "Orphan"
 msgstr "Orpheline"
 
@@ -1499,36 +1499,36 @@ msgstr "Connexion"
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
-#: sitebase/templatetags/harvest_status.py:225
+#: sitebase/templatetags/harvest_status.py:226
 msgid "Harvest has been adopted, but still needs to be scheduled"
 msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
-#: sitebase/templatetags/harvest_status.py:229
+#: sitebase/templatetags/harvest_status.py:230
 msgid "Harvest has been scheduled and has room for more pickers"
 msgstr "Récolte a été planifiée et attend la participation de bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:233
+#: sitebase/templatetags/harvest_status.py:234
 msgid "Harvest is ready to start, there are no more empty spots for pickers"
 msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:237
+#: sitebase/templatetags/harvest_status.py:238
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
 msgstr ""
 "Récolte annulée, devra être replanifiée par le ou la chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:241
+#: sitebase/templatetags/harvest_status.py:242
 msgid "Harvest is finished and fruits have been harvested"
 msgstr "Récolte est terminée et les fruits ont été récoltés"
 
-#: sitebase/templatetags/harvest_status.py:243
+#: sitebase/templatetags/harvest_status.py:244
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:267
+#: sitebase/templatetags/harvest_status.py:268
 msgid "This harvest does not accept requests for participation"
 msgstr "cette récolte n'accepte pas les demandes de participation"
 
-#: sitebase/templatetags/harvest_status.py:270
+#: sitebase/templatetags/harvest_status.py:271
 msgid ""
 "This harvest is currently published on the public calendar and open for "
 "participation requests"
@@ -1536,24 +1536,24 @@ msgstr ""
 "Cette récolte est actuellement publiée sur le calendrier et ouverte aux "
 "demandes de participation"
 
-#: sitebase/templatetags/harvest_status.py:273
+#: sitebase/templatetags/harvest_status.py:274
 msgid "This harvest is not currently published on the public calendar"
 msgstr "Cette récolte n'est pas actuellement publiée sur le calendrier"
 
-#: sitebase/templatetags/harvest_status.py:302
+#: sitebase/templatetags/harvest_status.py:303
 msgid ""
 "A harvest must be marked as Ready before you can complete fruit distribution"
 msgstr "Une cueillette doit être Prête avant d'ajouter des bénéficiaires"
 
-#: sitebase/templatetags/harvest_status.py:309
+#: sitebase/templatetags/harvest_status.py:310
 msgid "Add a new recipient to record fruit distribution for this harvest"
 msgstr "Ajouter un nouveau bénéficiaire pour répartir les fruits récoltés"
 
-#: sitebase/templatetags/property.py:149
+#: sitebase/templatetags/property.py:150
 msgid "The property information needs to be validated by a core member."
 msgstr "La propriété n'a pas encore été validé"
 
-#: sitebase/templatetags/property.py:154
+#: sitebase/templatetags/property.py:155
 msgid ""
 "The property owner does not want a harvest this season, please don't contact "
 "them"
@@ -1561,15 +1561,15 @@ msgstr ""
 "Les propriétaires ne veulent pas de cueillette cette saison, s'il vous plaît "
 "ne les contactez pas"
 
-#: sitebase/templatetags/property.py:159
+#: sitebase/templatetags/property.py:160
 msgid "If this property does not already have a harvest, you can create one"
 msgstr "Si cette propriété n'a pas de cueillettes, il faudrait en créer une"
 
-#: sitebase/templatetags/property.py:161
+#: sitebase/templatetags/property.py:162
 msgid "This property is inactive"
 msgstr "Cette propriété est marquée comme inactive"
 
-#: sitebase/templatetags/property.py:165
+#: sitebase/templatetags/property.py:166
 msgid ""
 "The property owner has not yet indicated whether they want to participate "
 "this year, you may contact them to confirm"
