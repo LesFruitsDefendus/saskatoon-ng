@@ -47,7 +47,7 @@ from sitebase.templatetags.property import property_icon_shape, property_status,
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
     class Meta:
         model = TreeType
-        fields = '__all__'
+        fields: str | list[str] = '__all__'
 
 
 class RequestForParticipationSerializer(serializers.ModelSerializer[RFP]):
@@ -145,9 +145,12 @@ class CommentSerializer(serializers.ModelSerializer[Comment]):
 class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
-        fields = '__all__'
+        fields: str | list[str] = '__all__'
 
-    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    # typed as a plain Field so other serializers can override it as StringRelatedField
+    neighborhood: serializers.Field[Any, Any, Any, Any] = NeighborhoodSerializer(
+        many=False, read_only=True
+    )
     city = CitySerializer(many=False, read_only=True)
     state = StateSerializer(many=False, read_only=True)
     country = CountrySerializer(many=False, read_only=True)
@@ -193,10 +196,11 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
             recipient=recipient,
             sent=True,
         )
-        if not sent.exists():
+        last = sent.last()
+        if last is None or last.date_sent is None:
             return None
 
-        return sent.last().date_sent.strftime("%Y-%m-%d %-I:%M %p")
+        return last.date_sent.strftime("%Y-%m-%d %-I:%M %p")
 
 
 class PropertyMapSerializer(serializers.ModelSerializer[Property]):
@@ -252,7 +256,7 @@ class PropertyMapSerializer(serializers.ModelSerializer[Property]):
 
 class PropertyTreeTypeSerializer(TreeTypeSerializer):
     class Meta(TreeTypeSerializer.Meta):
-        fields = [  # type: ignore[assignment]
+        fields = [
             'id',
             'name_en',
             'name_fr',
@@ -281,10 +285,8 @@ class PropertyListSerializer(PropertySerializer):
             'status',
         ]
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
-    # mypy says it should be a NeighborhoodSerializer
+    neighborhood = serializers.StringRelatedField(many=False)
     harvests = PropertyHarvestSerializer(many=True, read_only=True)
-    auth_email_date = None  # type: ignore[assignment]
     trees = TreeTypeSerializer(many=True, read_only=True)
 
 
@@ -429,18 +431,16 @@ class EquipmentTypeSerializer(serializers.ModelSerializer[EquipmentType]):
 
 class HarvestDetailPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'address', 'owner', 'neighborhood', 'longitude', 'latitude']  # type: ignore[assignment]
+        fields = ['id', 'title', 'address', 'owner', 'neighborhood', 'longitude', 'latitude']
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
-    # mypy says it should be a NeighborhoodSerializer
+    neighborhood = serializers.StringRelatedField(many=False)
 
 
 class HarvestListPropertySerializer(PropertySerializer):
     class Meta(PropertySerializer.Meta):
-        fields = ['id', 'title', 'ladder_available', 'neighborhood']  # type: ignore[assignment]
+        fields = ['id', 'title', 'ladder_available', 'neighborhood']
 
-    neighborhood = serializers.StringRelatedField(many=False)  # type: ignore[assignment, var-annotated]
-    # mypy says it should be a NeighborhoodSerializer
+    neighborhood = serializers.StringRelatedField(many=False)
 
 
 class HarvestListSerializer(HarvestSerializer):
@@ -597,7 +597,9 @@ class HarvestDetailSerializer(HarvestSerializer):
 
     def __init__(self, *args, **kwargs):
         super(HarvestDetailSerializer, self).__init__(*args, **kwargs)
-        self.unserialized_equipment_point = self.instance.get_equipment_point()
+        self.unserialized_equipment_point = (
+            self.instance.get_equipment_point() if self.instance is not None else None
+        )
 
     def get_about(self, obj):
         return obj.about.html

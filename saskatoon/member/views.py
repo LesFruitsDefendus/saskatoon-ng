@@ -58,7 +58,7 @@ class PersonCreateView(
             cancel_url = '/property/' + str(p.id)
         except KeyError:
             initial = None
-            cancel_url = reverse_lazy('community-list')
+            cancel_url = reverse('community-list')
 
         context = super().get_context_data(**kwargs)
         context['title'] = _("Person Registration")
@@ -112,6 +112,7 @@ class PersonUpdateView(
 
 class OnboardingPersonUpdateView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     SuccessMessageMixin[OnboardingPersonUpdateForm],
     UpdateView[Person, OnboardingPersonUpdateForm],
 ):
@@ -122,7 +123,12 @@ class OnboardingPersonUpdateView(
 
     def has_permission(self):
         # Only allow onboarding member to update own person
-        return self.get_object().pk == self.request.user.person.pk
+        user = self.request.user
+        return (
+            user.is_authenticated
+            and user.person is not None
+            and str(self.kwargs.get('pk')) == str(user.person.pk)
+        )
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -200,6 +206,15 @@ class PasswordResetView(
             messages.error(
                 request,
                 _("Cannot reset password for {email}: User does not have a password set.").format(
+                    email=user.email
+                ),
+            )
+            return redirect('community-list')
+
+        if user.person is None:
+            messages.error(
+                request,
+                _("Cannot reset password for {email}: User has no associated person.").format(
                     email=user.email
                 ),
             )

@@ -86,9 +86,10 @@ class PendingPickLeaderAdminForm(forms.ModelForm[Person]):
             for key in ['first_name', 'family_name', 'phone']:
                 setattr(person, key, data.get(key))
             person.onboarding = self.instance.onboarding
-            person.save()
-            self.instance.pk = person.pk
-            return self.instance
+            if commit:
+                person.save()
+            self.instance = person
+            return person
 
         return super().save(commit)
 
@@ -101,7 +102,7 @@ class PendingPickLeaderInlineAdminFormSet(
             [
                 (f.instance.pk, f.cleaned_data.get('email'))
                 for f in self.forms
-                if f.instance.pk is not None
+                if not f.instance._state.adding
             ]
         )
 
@@ -112,7 +113,7 @@ class PendingPickLeaderInlineAdminFormSet(
 
     def save_new_objects(self, commit=True):
         saved_instances = super().save_new_objects(commit)
-        for person in [p for p in saved_instances if p is not None]:
+        for person in saved_instances:
             email = self.get_emails().get(person.pk)
             user, _ = AuthUser.objects.get_or_create(email=email, person=person)
 

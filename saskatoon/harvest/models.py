@@ -72,6 +72,8 @@ class TreeType(models.Model):
 
     @property
     def maturity_range(self):
+        if self.maturity_start is None or self.maturity_end is None:
+            return ""
         return "{} - {}".format(
             self.maturity_start.strftime("%b. %-d"),
             self.maturity_end.strftime("%b. %-d, %Y"),
@@ -743,6 +745,9 @@ class Harvest(models.Model):
         return tz.now() > self.publication_date
 
     def is_open_to_requests(self, public: bool = True) -> bool:
+        if self.pick_leader is None:
+            return False
+
         if self.end_date is not None and tz.now() > self.end_date:
             return False
 

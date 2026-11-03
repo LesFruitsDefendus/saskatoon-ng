@@ -253,7 +253,7 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
                     AuthUser.objects.create(email=email, person=_property.owner.person)
                     nb_users += 1
             except Exception as e:
-                messages.error(request, e)
+                messages.error(request, str(e))
 
         messages.info(request, f"Successfully created {nb_users} new users!")
 

@@ -87,32 +87,50 @@ class RFPForm(forms.ModelForm[RFP]):
 
         return email
 
-    def save(self):
+    def save(self, commit: bool = True) -> RFP:
         instance = super().save(commit=False)
         instance.harvest = self.harvest
+        if not commit:
+            return instance
 
         # check if a user with the same email is already registered
         email = self.cleaned_data['email']
-        if AuthUser.objects.filter(email=email).exists():
-            auth_user = AuthUser.objects.get(email=email)
-            instance.person = auth_user.person
+        person_data = {
+            'first_name': self.cleaned_data['first_name'],
+            'family_name': self.cleaned_data['last_name'],
+            'phone': self.cleaned_data['phone'],
+        }
+        auth_user = AuthUser.objects.filter(email=email).first()
+        if auth_user is None:
+            person = Person.objects.create(**person_data)
+            auth_user = AuthUser.objects.create(email=email, person=person)
+        elif auth_user.person is None:
+            person = Person.objects.create(**person_data)
+            auth_user.person = person
+            auth_user.save()
         else:
-            instance.person = Person.objects.create(
-                first_name=self.cleaned_data['first_name'],
-                family_name=self.cleaned_data['last_name'],
-                phone=self.cleaned_data['phone'],
-            )
-            auth_user = AuthUser.objects.create(email=email, person=instance.person)
+            person = auth_user.person
+
+        instance.person = person
 
         group, __ = Group.objects.get_or_create(name='volunteer')
         auth_user.groups.add(group)
         instance.save()
 
-        Email(
-            recipient=instance.harvest.pick_leader.person,
-            type=EmailType.NEW_HARVEST_RFP,
-            harvest=instance.harvest,
-        ).send(data=dict(EmailRFPSerializer(instance).data))
+        pick_leader = instance.harvest.pick_leader
+        if pick_leader is not None and pick_leader.person is not None:
+            Email(
+                recipient=pick_leader.person,
+                type=EmailType.NEW_HARVEST_RFP,
+                harvest=instance.harvest,
+            ).send(data=dict(EmailRFPSerializer(instance).data))
+        else:
+            logger.error(
+                "RFP %s: no notification sent, harvest %s has %s",
+                instance.pk,
+                instance.harvest.pk,
+                "no pick leader" if pick_leader is None else "a pick leader with no person",
+            )
 
         return instance
 
@@ -171,12 +189,12 @@ class RFPManageForm(forms.ModelForm[RFP]):
                 )
             )
 
-    def save(self):
-        if self.cleaned_data.get('send_email'):
+    def save(self, commit: bool = True) -> RFP:
+        if commit and self.cleaned_data.get('send_email'):
             email_body = self.cleaned_data.get('email_body')
             self.email.send(email_body)
 
-        return super().save()
+        return super().save(commit)
 
 
 class CommentForm(forms.ModelForm[Comment]):
@@ -230,7 +248,8 @@ class PropertyForm(forms.ModelForm[Property]):
     field_order = ['pending', 'is_active', 'authorized', 'owner']
 
     def clean(self):
-        data = super().clean()
+        super().clean()
+        data = self.cleaned_data
         if not data['pending']:
             owner = data['owner']
             email = data.get('owner_email')  # may be provided in PropertyCreateForm
@@ -286,9 +305,9 @@ class PropertyCreateForm(PropertyForm):
                 )
         return data
 
-    def save(self):
-        instance = super().save()
-        if not self.cleaned_data['owner']:
+    def save(self, commit: bool = True) -> Property:
+        instance = super().save(commit)
+        if commit and not self.cleaned_data['owner']:
             person = Person.objects.create(
                 first_name=self.cleaned_data['owner_first_name'],
                 family_name=self.cleaned_data['owner_last_name'],
@@ -473,7 +492,8 @@ class PublicPropertyForm(forms.ModelForm[Property]):
         self.fields['complement'].widget.attrs['min'] = 0.0
 
     def clean(self):
-        cleaned_data = super().clean()
+        super().clean()
+        cleaned_data = self.cleaned_data
         logger.info("Pending property form submitted by %s", cleaned_data['pending_contact_email'])
 
         postal_code = cleaned_data['postal_code'].replace(" ", "")
@@ -484,9 +504,10 @@ class PublicPropertyForm(forms.ModelForm[Property]):
 
         return cleaned_data
 
-    def save(self):
-        pending_property = super().save(True)
-        logger.info("Pending property successfully saved: %s", pending_property)
+    def save(self, commit: bool = True) -> Property:
+        pending_property = super().save(commit)
+        if commit:
+            logger.info("Pending property successfully saved: %s", pending_property)
 
         return pending_property
 

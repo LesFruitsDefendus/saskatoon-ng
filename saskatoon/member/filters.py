@@ -234,12 +234,10 @@ class EquipmentPointFilter(filters.FilterSet):
         return queryset
 
     def filter_queryset(self, queryset):
-        sup = super()
-
         # When doing simple tests with pytest, the form itself isnt valid, so we cant call the super.
         # Unless we find a way to have a valid form when instantiating the filter in pytest, we
         # need this check
-        filtered = sup.filter_queryset(queryset) if sup.is_valid() else queryset
+        filtered = super().filter_queryset(queryset) if self.is_valid() else queryset
 
         if self.status_val == 'reserved' and self.start_val < self.end_val:
             available = get_available_equipment_points(self.start_val, self.end_val)

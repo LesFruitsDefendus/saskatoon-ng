@@ -1,4 +1,4 @@
-from typing import List
+from typing import Any, List
 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -24,7 +24,7 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        content_types: List[PageContent.Type] = (  # type: ignore[annotation-unchecked]
+        content_types: List[PageContent.Type] = (
             [
                 PageContent.Type.GUIDES_INTRO,
                 PageContent.Type.GUIDES_ADOPT,
@@ -60,7 +60,7 @@ class Index(TemplateView):
             if not user.agreed_terms:
                 return redirect('terms_conditions')
 
-            if user.is_onboarding:
+            if user.is_onboarding and user.person is not None:
                 return redirect('onboarding-person-update', user.person.pk)
 
             if user.has_temporary_password:
@@ -125,8 +125,10 @@ class TermsConditionsView(LoginRequiredMixin, TemplateView):
         return context
 
     def post(self, *args, **kwargs):
-        self.request.user.agreed_terms = True
-        self.request.user.save()
+        user = self.request.user
+        if user.is_authenticated:
+            user.agreed_terms = True
+            user.save()
         return redirect('home')
 
 
@@ -195,14 +197,17 @@ class JsonCalendar(View):
         else:
             harvests = harvests.filter(start_date__gte=start_date, end_date__lte=end_date)
 
+        user = self.request.user
         events = []
         for harvest in harvests:
-            if is_pickleader_or_core_or_admin(self.request.user) or harvest.is_publishable():
+            if (
+                user.is_authenticated and is_pickleader_or_core_or_admin(user)
+            ) or harvest.is_publishable():
                 # https://fullcalendar.io/docs/event-object
-                event = dict()
+                event: dict[str, Any] = dict()
 
                 event['url'] = reverse_lazy('rfp-create', kwargs={'hid': harvest.id})
-                colors = {
+                colors: dict[str, str] = {
                     Harvest.Status.SCHEDULED: "#e8ad2bcc",  # btn-warning
                     Harvest.Status.READY: "#2da4f0cc",  # btn-info
                     Harvest.Status.SUCCEEDED: "#8bc34acc",  # btn-success

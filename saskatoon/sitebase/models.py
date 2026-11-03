@@ -359,7 +359,7 @@ class Email(models.Model):
 
     @property
     def reply_to_list(self):
-        if self.harvest is None:
+        if self.harvest is None or self.harvest.pick_leader is None:
             return [DEFAULT_REPLY_TO_EMAIL]
         return [self.harvest.pick_leader.email]
 
@@ -367,9 +367,11 @@ class Email(models.Model):
     def is_duplicate(self):
         try:
             prev = Email.objects.get(id=self.id - 1)
+            if self.date_sent is None or prev.date_sent is None:
+                return False
             return (
                 prev.recipient == self.recipient
-                and prev.type == prev.type
+                and prev.type == self.type
                 and prev.harvest == self.harvest
                 and prev.body == self.body
                 and (self.date_sent - prev.date_sent).total_seconds() < 1
