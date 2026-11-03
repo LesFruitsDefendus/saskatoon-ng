@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from datetime import datetime, timedelta
 from logging import getLogger
 from typing import Optional
@@ -19,7 +21,6 @@ def sum_harvest_yields(harvest_yield_qs):
 
 def similar_properties(pending_property: Property):
     """Look for potential property/owner duplicates"""
-
     p = pending_property
     if not p.pending:
         return Property.objects.none()
