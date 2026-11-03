@@ -10,7 +10,7 @@ from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils import timezone as tz
 from django.utils.safestring import mark_safe
-from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
+from leaflet.admin import LeafletGeoAdminMixin
 
 from member.admin_filters import (
     ActorTypeAdminFilter,

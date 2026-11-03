@@ -3,7 +3,7 @@ from django.db.models import Value
 from django.db.models.functions import Replace
 from django.urls import reverse
 from django.utils.safestring import mark_safe
-from leaflet.admin import LeafletGeoAdminMixin  # pytype: disable=import-error
+from leaflet.admin import LeafletGeoAdminMixin
 
 from harvest.admin_filters import (
     HarvestHasNoDateAdminFilter,

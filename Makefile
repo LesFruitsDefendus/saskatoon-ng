@@ -36,7 +36,6 @@ staticchecks:
 	@tox -e ruff_check
 	@tox -e ruff_imports_check
 	@tox -e mypy
-	@tox -e pytype
 	@tox -e djlint
 
 unittests:
