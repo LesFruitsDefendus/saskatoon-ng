@@ -102,7 +102,6 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-
     padding: 6px 14px;
     border-radius: 20px;
     background-color: var(--saskatoon-info);
@@ -169,7 +168,6 @@
     .conversation-text {
         flex-grow: 1;
         word-break: break-word;
-
         background-color: #e7e0f9aa;
         border: 1px solid #e2e8f0;
         border-radius: 8px;
