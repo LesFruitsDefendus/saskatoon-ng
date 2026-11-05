@@ -6,7 +6,7 @@
 
     <ol class="carousel-indicators">
         {% for img in images %}
-            <li data-target="#propertyPhotoCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            <li data-target="#PhotoCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
         {% endfor %}
     </ol>
 
@@ -21,7 +21,7 @@
                         title="{% trans 'Click to enlarge' %}">
                     
                     <div id="image-view-{{ img.id }}">
-                        <div class="property-photo-caption">
+                        <div class="photo-caption">
                             <p class="mb-0">
                                 {% if img.description %}
                                     {{ img.description }}

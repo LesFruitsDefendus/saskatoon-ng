@@ -13,12 +13,18 @@
                     <div class="carousel-inner" role="listbox">
                         {% for img in images %}
                             <div class="item {% if forloop.first %}active{% endif %}">
-                                <img src="{{ img.image }}" class=" lightbox-image" alt="{% trans 'Enlarged property photo' %}">
-                                {% if img.description %}
-                                    <div class="lightbox-caption">
-                                        <p class="mb-0">{{ img.description }}</p>
-                                    </div>
-                                {% endif %}
+                                <div class="lightbox-image-container">
+                                    <img src="{{ img.image }}" class=" lightbox-image" alt="{% trans 'Enlarged property photo' %}">
+                                </div>
+                                <div class="lightbox-caption">
+                                    <p class="mb-0">
+                                        {% if img.description %}
+                                            {{ img.description }}
+                                        {% else %}
+                                            <span class="text-muted">{% trans 'No description' %}</span>
+                                        {% endif %}
+                                    </p>
+                                </div>
                             </div>
                         {% endfor %}
                     </div>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 18:50-0500\n"
+"POT-Creation-Date: 2026-11-04 21:15-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -906,9 +906,13 @@ msgstr "Photo précédente"
 msgid "Next photo"
 msgstr "Photo suivante"
 
-#: sitebase/templates/app/detail_views/image/lightbox.html:16
+#: sitebase/templates/app/detail_views/image/lightbox.html:17
 msgid "Enlarged property photo"
 msgstr "Photo agrandie de la propriété"
+
+#: sitebase/templates/app/detail_views/image/lightbox.html:24
+msgid "No description"
+msgstr "Pas de Déscription"
 
 #: sitebase/templates/app/detail_views/image/view.html:10
 msgid "Photos"

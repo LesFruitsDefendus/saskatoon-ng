@@ -42,7 +42,7 @@ from harvest.models import (
 from member.models import Organization, Role
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
-from sitebase.utils import to_datetime
+from sitebase.utils import local_datetime, to_datetime
 
 logger = getLogger('saskatoon')
 
@@ -776,7 +776,7 @@ class PropertyImageDeleteView(
     def form_valid(self, form):
         self.object = self.get_object()
         self.object.is_deleted = True
-        self.object.deleted_at = datetime.now()
+        self.object.deleted_at = local_datetime(tz.now())
         self.object.save()
         messages.success(self.request, self.success_message)
         return HttpResponseRedirect(self.get_success_url())
