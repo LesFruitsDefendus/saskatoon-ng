@@ -1,0 +1,69 @@
+{% load i18n %}
+{% load auth_users %}
+
+<div class="photo-description-cell">
+    <div id="image-view-{{ img.id }}" class="photo-description-container">
+        <div class="photo-description-body">
+            <div class="description-wrap">
+                <p id="image-text-{{ img.id }}" class="photo-description-text mb-0">
+                    {% if img.description %}
+                        {{ img.description }}
+                    {% elif img.uploaded_by == request.user or user|is_admin %}
+                        <span class="text-muted font-italic">{% trans "Click the edit button to add a description..." %}</span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+
+        {% if img.uploaded_by == request.user or user|is_admin %}
+        <div class="photo-actions-group">
+                <button type="button"
+                        class="btn btn-sm btn-link text-primary edit-image-btn btn-photo-action"
+                        data-image-id="{{ img.id }}"
+                        title="{% trans 'Edit description' %}">
+                    <i class="fa fa-pencil"></i>
+                </button>
+
+                {% translate "Are you sure you want to delete this photo?" as delete_confirm_msg %}
+                <form method="post" 
+                      action="{{ img.get_delete_url }}" 
+                      class="image-delete-form"
+                      onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
+                    {% csrf_token %}
+                    <button type="submit" 
+                            class="btn btn-sm btn-link text-danger btn-photo-action" 
+                            title="{% trans 'Delete photo' %}">
+                        <i class="fa fa-trash text-danger"></i>
+                    </button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+
+    {% if img.uploaded_by == request.user or user|is_admin %}
+        <div id="image-edit-{{ img.id }}" class="image-edit-form-container" style="display: none;">
+            <form method="post" action="{{ img.get_update_url }}">
+                {% csrf_token %}
+                <div class="form-group mg-b-10">
+                    <textarea name="description" 
+                              class="form-control image-edit-textarea" 
+                              rows="2"
+                              maxlength="255"
+                              required>{{ img.description|default:"" }}</textarea>
+                </div>
+                <div class="text-right">
+                    <div class="edit-form-actions">
+                        <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                            <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
+                        </button>
+                        <button type="button" 
+                                class="btn btn-default waves-effect btn-sm cancel-image-edit-btn" 
+                                data-image-id="{{ img.id }}">
+                            {% trans "Cancel" %}
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+</div>

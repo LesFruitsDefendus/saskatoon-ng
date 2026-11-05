@@ -49,7 +49,7 @@
     <div class="container mg-t-30">
         <div class="equal-grid">
             <div>
-                {% include 'app/detail_views/image/view.html' with images=images property_id=id %}
+                {% include 'app/detail_views/image/view.html' with images=images upload_url=object.get_image_upload_url %}
             </div>
             <div>
                 {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-property' object_id=id %}

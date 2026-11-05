@@ -1,95 +1,36 @@
 {% load i18n %}
 {% load static %}
-{% load auth_users %}
 
-<div id="propertyPhotoCarousel" class="carousel slide" data-ride="carousel" data-interval="false">
+<div id="{{ carousel_id|default:'photoCarousel' }}" class="carousel slide" data-ride="carousel" data-interval="false">
 
     <ol class="carousel-indicators">
         {% for img in images %}
-            <li data-target="#PhotoCarousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
         {% endfor %}
     </ol>
 
-    <div class="carousel-inner" role="listbox">
+    <div class="carousel-inner">
         {% for img in images %}
             <div class="item {% if forloop.first %}active{% endif %}">
                 <div class="thumbnail">
                     <img src="{{ img.image }}" 
-                        alt="{% trans 'Property photo' %}" 
+                        alt="{% trans 'photo' %}" 
                         class="img-responsive lightbox-trigger" 
                         data-slide-index="{{ forloop.counter0 }}"
                         title="{% trans 'Click to enlarge' %}">
                     
-                    <div id="image-view-{{ img.id }}">
-                        <div class="photo-caption">
-                            <p class="mb-0">
-                                {% if img.description %}
-                                    {{ img.description }}
-                                {% elif img.uploaded_by == request.user.id or user|is_admin %}
-                                    <span class="text-muted font-italic">{% trans "Click the edit button to add a description..." %}</span>
-                                {% endif %}
-                            </p>
-
-                            {% if img.uploaded_by == request.user.id or user|is_admin %}
-                                <div class="image-action-buttons">
-                                    <button type="button"
-                                        class="btn btn-sm btn-link text-primary edit-image-btn"
-                                        data-image-id="{{ img.id }}"
-                                        title="{% trans 'Edit description' %}">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-
-                                    {% translate "Are you sure you want to delete this photo?" as delete_confirm_msg %}
-                                    <form method="post"
-                                        action="{% url 'property-image-delete' img.id %}"
-                                        class="image-delete-form"
-                                        onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
-                                        {% csrf_token %}
-                                        <button type="submit"
-                                            class="btn btn-sm btn-link delete-btn text-danger"
-                                            title="{% trans 'Delete photo' %}">
-                                            <i class="fa fa-trash text-danger"></i>
-                                        </button>
-                                    </form>
-                                </div>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    {% if img.uploaded_by == request.user.id or user|is_admin %}
-                        <div id="image-edit-{{ img.id }}" class="image-edit-form-container">
-                            <form method="post" action="{% url 'property-image-update' img.id %}">
-                                {% csrf_token %}
-                                <div class="form-group mg-b-10">
-                                    <textarea name="description" 
-                                        class="form-control" 
-                                        rows="2"
-                                        maxlength="255">{{ img.description|default:"" }}</textarea>
-                                </div>
-                                <div class="text-right">
-                                    <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
-                                        <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
-                                    </button>
-                                    <button type="button" 
-                                        class="btn btn-default waves-effect btn-sm cancel-image-edit-btn" 
-                                        data-image-id="{{ img.id }}">
-                                        {% trans "Cancel" %}
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    {% endif %}
+                    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        <span class="sr-only">{% trans "Previous photo" %}</span>
+                    </a>
+                    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        <span class="sr-only">{% trans "Next photo" %}</span>
+                    </a>
                 </div>
+
+            {% include 'app/detail_views/image/image_description.html' with img=img %}
             </div>
         {% endfor %}
     </div>
-
-    <a class="left carousel-control" href="#propertyPhotoCarousel" role="button" data-slide="prev">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Previous photo" %}</span>
-    </a>
-    <a class="right carousel-control" href="#propertyPhotoCarousel" role="button" data-slide="next">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Next photo" %}</span>
-    </a>
 </div>
