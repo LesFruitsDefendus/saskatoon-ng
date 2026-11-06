@@ -1,0 +1,36 @@
+{% load i18n %}
+{% load static %}
+
+<div id="{{ carousel_id|default:'photoCarousel' }}" class="carousel slide" data-ride="carousel" data-interval="false">
+
+    <ol class="carousel-indicators">
+        {% for img in images %}
+            <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+        {% endfor %}
+    </ol>
+
+    <div class="carousel-inner">
+        {% for img in images %}
+            <div class="item {% if forloop.first %}active{% endif %}">
+                <div class="thumbnail">
+                    <img src="{{ img.image }}" 
+                        alt="{% trans 'photo' %}" 
+                        class="img-responsive lightbox-trigger" 
+                        data-slide-index="{{ forloop.counter0 }}"
+                        title="{% trans 'Click to enlarge' %}">
+                    
+                    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                        <span class="sr-only">{% trans "Previous photo" %}</span>
+                    </a>
+                    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+                        <span class="sr-only">{% trans "Next photo" %}</span>
+                    </a>
+                </div>
+
+            {% include 'app/detail_views/property/image/image_description.html' with img=img %}
+            </div>
+        {% endfor %}
+    </div>
+</div>

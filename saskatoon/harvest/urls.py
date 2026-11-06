@@ -67,16 +67,21 @@ urlpatterns = [
         name='rfp-create',
     ),
     path(
-        r'comment/create/harvest/<int:hid>/',
+        r'harvest/comment/create/<int:hid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create-harvest',
+        name='harvest-comment-create',
     ),
     path(
-        r'comment/create/property/<int:pid>/',
+        r'property/comment/create/<int:pid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create-property',
+        name='property-comment-create',
     ),
     path(r'yield/create/', views.harvest_yield_create, name='harvest-yield-create'),
+    path(
+        'property/image/create/<int:pid>/',
+        views.PropertyImageCreateView.as_view(),
+        name='property-image-create',
+    ),
     # DELETE VIEWS
     path(
         r'yield/delete/<int:id>/',
@@ -87,6 +92,11 @@ urlpatterns = [
         r'^comment/delete/(?P<id>\d+)/$',
         views.CommentDeleteView.as_view(),
         name='comment-delete',
+    ),
+    re_path(
+        r'^property/image/delete/(?P<pk>\d+)/$',
+        views.PropertyImageDeleteView.as_view(),
+        name='property-image-delete',
     ),
     # UPDATE VIEWS
     re_path(
@@ -113,6 +123,11 @@ urlpatterns = [
         r'^comment/update/(?P<id>\d+)/$',
         views.CommentUpdateView.as_view(),
         name='comment-update',
+    ),
+    path(
+        'property/image/update/<int:pk>/',
+        views.PropertyImageUpdateView.as_view(),
+        name='property-image-update',
     ),
     # AUTO-COMPLETE VIEWS
     re_path(

@@ -138,15 +138,9 @@ class EquipmentAdmin(admin.ModelAdmin[Equipment]):
     form = EquipmentAdminForm
 
 
-class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
-    model = PropertyImage
-    extra = 3
-
-
 @admin.register(Property)
 class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     model = Property
-    inlines = [PropertyImageInline]
     list_display = (
         'short_address',
         'neighborhood',
@@ -300,6 +294,13 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
             postal_code_cleaned=Replace('postal_code', Value(" "), Value(""))
         )
         return queryset
+
+    def save_formset(self, request, form, formset, change):
+        instances = formset.save(commit=False)
+        for instance in instances:
+            if isinstance(instance, PropertyImage) and not instance.uploaded_by:
+                instance.uploaded_by = request.user
+            instance.save()
 
 
 @admin.register(TreeType)

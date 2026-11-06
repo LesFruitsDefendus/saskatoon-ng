@@ -1,0 +1,16 @@
+{% load i18n %}
+{% load static %}
+
+<div class="modal fade" id="photoLightboxModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body text-center">
+                <button type="button" class="close close-btn" data-dismiss="modal" aria-label="{% trans 'Close' %}">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+                {% include 'app/detail_views/property/image/carousel.html' with images=images carousel_id="lightboxCarousel" %}
+            </div>
+        </div>
+    </div>
+</div>
