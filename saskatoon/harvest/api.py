@@ -1,8 +1,9 @@
 from typing import Dict
 
+import openpyxl
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django_filters.rest_framework import DjangoFilterBackend
@@ -489,3 +490,92 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
                 )
 
         return total_weight_harvests_per_picker
+
+    def get_excel_response(self, request, *args, **kwargs):
+        """Generates and returns an Excel workbook with multiple stats tabs."""
+
+        self.harvest_qs = self.filter_queryset(self.get_queryset())
+        self.harvest_yield_qs = HarvestYield.objects.filter(harvest__in=self.harvest_qs)
+
+        wb = openpyxl.Workbook()
+        default_sheet = wb.active
+
+        bold_font = openpyxl.styles.Font(bold=True)
+        section = request.query_params.get('section', 'all')
+
+        # --- Tab 1: Highlights (Only include when fetching all or explicitly requested) ---
+        if section == 'all':
+            ws_highlights = wb.create_sheet(title="Highlights")
+            ws_highlights.append(["Metric", "Value"])
+            for cell in ws_highlights[1]:
+                cell.font = bold_font
+
+            highlights = self.get_highlights()
+            for key, val in highlights.items():
+                ws_highlights.append([key.replace("_", " ").title(), val])
+
+            highlights = self.get_highlights()
+            for key, val in highlights.items():
+                ws_highlights.append([key.replace("_", " ").title(), val])
+
+        # --- Tab 2: Fruit Stats ---
+        if section in ['all', 'fruit']:
+            ws_fruit = wb.create_sheet(title="By Fruit")
+            ws_fruit.append(["Fruit", "Total Harvests", "Total Weight (kg)"])
+            for cell in ws_fruit[1]:
+                cell.font = bold_font
+
+            for row in self.get_total_weight_harvest_per_fruit(request.LANGUAGE_CODE):
+                ws_fruit.append(list(row))
+
+        # --- Tab 3: Neighborhood Stats ---
+        if section in ['all', 'borough', 'neighborhood']:
+            ws_neigh = wb.create_sheet(title="By Neighborhood")
+            ws_neigh.append(["Neighborhood", "Total Harvests", "Total Weight (kg)"])
+            for cell in ws_neigh[1]:
+                cell.font = bold_font
+
+            for row in self.get_total_weight_harvest_per_neighborhood():
+                ws_neigh.append([str(row[0]), row[1], row[2]])
+
+        # --- Tab 4: Beneficiary Stats ---
+        if section in ['all', 'beneficiary']:
+            ws_bene = wb.create_sheet(title="By Beneficiary")
+            ws_bene.append(["Beneficiary Organization", "Total Harvests", "Total Weight (kg)"])
+            for cell in ws_bene[1]:
+                cell.font = bold_font
+
+            for row in self.get_total_weight_harvest_per_beneficiary():
+                ws_bene.append([str(row[0]), row[1], row[2]])
+
+        # --- Tab 5: Picker Stats ---
+        if section in ['all', 'picker']:
+            ws_picker = wb.create_sheet(title="By Picker")
+            ws_picker.append(
+                [
+                    "Picker",
+                    "Harvests as Leader",
+                    "Total RFPs",
+                    "Accepted RFPs",
+                    "Recipient Harvests",
+                    "Total Weight (kg)",
+                ]
+            )
+            for cell in ws_picker[1]:
+                cell.font = bold_font
+
+            for row in self.get_total_weight_harvest_per_picker():
+                ws_picker.append([str(row[0]), row[1], row[2], row[3], row[4], row[5]])
+
+        wb.remove(default_sheet)
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        season_param = self.request.query_params.get('season', 'all')
+        response['Content-Disposition'] = (
+            f'attachment; filename="harvest_stats_{season_param}.xlsx"'
+        )
+        wb.save(response)
+
+        return response

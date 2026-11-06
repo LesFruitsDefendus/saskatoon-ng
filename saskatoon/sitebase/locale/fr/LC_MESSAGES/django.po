@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 22:03-0500\n"
+"POT-Creation-Date: 2026-11-06 17:48-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,7 +208,7 @@ msgstr "Courriels"
 #: sitebase/models.py:286
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:6
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:20
-#: sitebase/templates/app/stats.html:247
+#: sitebase/templates/app/stats.html:282
 msgid "Recipient"
 msgstr "Bénéficiaire"
 
@@ -273,8 +273,8 @@ msgstr "Calendrier"
 #: sitebase/templates/app/base/menu-tabs.html:9
 #: sitebase/templates/app/detail_views/property/harvest_table.html:14
 #: sitebase/templates/app/list_views/community/view.html:14
-#: sitebase/templates/app/stats.html:69 sitebase/templates/app/stats.html:133
-#: sitebase/templates/app/stats.html:169 sitebase/templates/app/stats.html:208
+#: sitebase/templates/app/stats.html:78 sitebase/templates/app/stats.html:168
+#: sitebase/templates/app/stats.html:204 sitebase/templates/app/stats.html:243
 msgid "Harvests"
 msgstr "Récoltes"
 
@@ -458,7 +458,7 @@ msgid "still accepts participation requests"
 msgstr "accepte encore les demandes de participation"
 
 #: sitebase/templates/app/calendar/legend.html:14
-#: sitebase/templates/app/stats.html:71
+#: sitebase/templates/app/stats.html:80
 msgid "Succeeded"
 msgstr "Réussie"
 
@@ -674,7 +674,7 @@ msgid "Pending"
 msgstr "En attente"
 
 #: sitebase/templates/app/detail_views/harvest/data_row.html:58
-#: sitebase/templates/app/stats.html:246
+#: sitebase/templates/app/stats.html:281
 msgid "Accepted"
 msgstr "Acceptée"
 
@@ -746,17 +746,17 @@ msgstr "Action"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:7
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:21
-#: sitebase/templates/app/stats.html:132
+#: sitebase/templates/app/stats.html:167
 msgid "Fruit"
 msgstr "Fruits"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:7
-#: sitebase/templates/app/stats.html:79
+#: sitebase/templates/app/stats.html:88
 msgid "Pickers"
 msgstr "Cueilleur.euse.s"
 
 #: sitebase/templates/app/detail_views/harvest/distribution/recipient_select.html:11
-#: sitebase/templates/app/stats.html:91
+#: sitebase/templates/app/stats.html:100
 msgid "Organizations"
 msgstr "Organisations"
 
@@ -921,7 +921,7 @@ msgstr "Description"
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:37
 #: sitebase/templates/app/list_views/organization/beneficiary_modal.html:43
 #: sitebase/templates/app/list_views/organization/organizations.html:36
-#: sitebase/templates/app/stats.html:89 sitebase/templates/app/stats.html:207
+#: sitebase/templates/app/stats.html:98 sitebase/templates/app/stats.html:242
 msgid "Beneficiary"
 msgstr "Bénéficiaire"
 
@@ -1145,7 +1145,7 @@ msgstr "Propriété"
 #: sitebase/templates/app/list_views/organization/organizations.html:38
 #: sitebase/templates/app/list_views/property/view.html:29
 #: sitebase/templates/app/participation_list.html:21
-#: sitebase/templates/app/stats.html:168
+#: sitebase/templates/app/stats.html:203
 msgid "Borough"
 msgstr "Arrondissement"
 
@@ -1425,56 +1425,64 @@ msgstr "Pas de récoltes"
 msgid "Back to Home"
 msgstr "Retour à la page d'accueil"
 
-#: sitebase/templates/app/stats.html:15
+#: sitebase/templates/app/stats.html:25
 msgid "Season"
 msgstr "Saison"
 
-#: sitebase/templates/app/stats.html:28
+#: sitebase/templates/app/stats.html:38
 msgid "All"
 msgstr "Tout"
 
-#: sitebase/templates/app/stats.html:51
+#: sitebase/templates/app/stats.html:61
 msgid "All Seasons"
 msgstr "Toutes les saisons"
 
-#: sitebase/templates/app/stats.html:81
+#: sitebase/templates/app/stats.html:90
 msgid "Participated"
 msgstr "Ont participé"
 
-#: sitebase/templates/app/stats.html:99
+#: sitebase/templates/app/stats.html:108
 msgid "Total weight"
 msgstr "Poids total"
 
-#: sitebase/templates/app/stats.html:120
+#: sitebase/templates/app/stats.html:132
+msgid "Export to Excel"
+msgstr "Exporter vers Excel"
+
+#: sitebase/templates/app/stats.html:135
+msgid "All Sections (Workbook)"
+msgstr "Toutes les sections (classeur)"
+
+#: sitebase/templates/app/stats.html:137 sitebase/templates/app/stats.html:155
 msgid "Total per Fruit"
 msgstr "Total par Fruit"
 
-#: sitebase/templates/app/stats.html:134 sitebase/templates/app/stats.html:170
-#: sitebase/templates/app/stats.html:209 sitebase/templates/app/stats.html:248
-msgid "Weight (lbs)"
-msgstr "Poids (lbs)"
-
-#: sitebase/templates/app/stats.html:156
+#: sitebase/templates/app/stats.html:138 sitebase/templates/app/stats.html:191
 msgid "Total per Borough"
 msgstr "Total par Arrondissement"
 
-#: sitebase/templates/app/stats.html:195
+#: sitebase/templates/app/stats.html:139 sitebase/templates/app/stats.html:230
 msgid "Total per Beneficiary"
 msgstr "Total par Bénéficiaire"
 
-#: sitebase/templates/app/stats.html:231
+#: sitebase/templates/app/stats.html:140 sitebase/templates/app/stats.html:266
 msgid "Total per Picker"
 msgstr "Total par Cueilleur.euse"
 
-#: sitebase/templates/app/stats.html:243
+#: sitebase/templates/app/stats.html:169 sitebase/templates/app/stats.html:205
+#: sitebase/templates/app/stats.html:244 sitebase/templates/app/stats.html:283
+msgid "Weight (lbs)"
+msgstr "Poids (lbs)"
+
+#: sitebase/templates/app/stats.html:278
 msgid "Picker"
 msgstr "Cueilleur.euse"
 
-#: sitebase/templates/app/stats.html:244
+#: sitebase/templates/app/stats.html:279
 msgid "Leader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/stats.html:245
+#: sitebase/templates/app/stats.html:280
 msgid "Request"
 msgstr "Requête"
 

@@ -132,4 +132,5 @@ urlpatterns = [
         name='property-thanks',
     ),
     path('stats/', api.StatsView.as_view(), name='statistics'),
+    path('statistics/export/', views.StatsExportView.as_view(), name='statistics-export'),
 ] + router.urls
