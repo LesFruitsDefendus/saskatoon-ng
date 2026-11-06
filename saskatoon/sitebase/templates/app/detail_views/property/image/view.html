@@ -31,8 +31,8 @@
     <div class="card-box mg-t-20">
         <div>
             {% if images %}
-                {% include 'app/detail_views/image/carousel.html' with images=images %}
-                {% include 'app/detail_views/image/lightbox.html' with images=images %}
+                {% include 'app/detail_views/property/image/carousel.html' with images=images %}
+                {% include 'app/detail_views/property/image/lightbox.html' with images=images %}
             {% else %}
                 <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
             {% endif %}
