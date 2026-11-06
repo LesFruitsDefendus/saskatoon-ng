@@ -25,9 +25,9 @@ document.addEventListener("DOMContentLoaded", function() {
     // Inline Image Description Edit Toggle
     document.querySelectorAll('.edit-image-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const imageId = btn.getAttribute('data-image-id');
-            const viewDiv = document.getElementById(`image-view-${imageId}`);
-            const editDiv = document.getElementById(`image-edit-${imageId}`);
+            const cell = btn.closest('.photo-description-cell');
+            const viewDiv = cell.querySelector('.photo-description-container');
+            const editDiv = cell.querySelector('.image-edit-form-container');
             
             if (viewDiv && editDiv) {
                 viewDiv.style.display = 'none';
@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.querySelectorAll('.cancel-image-edit-btn').forEach(btn => {
         btn.addEventListener('click', () => {
-            const imageId = btn.getAttribute('data-image-id');
-            const viewDiv = document.getElementById(`image-view-${imageId}`);
-            const editDiv = document.getElementById(`image-edit-${imageId}`);
+            const cell = btn.closest('.photo-description-cell');
+            const viewDiv = cell.querySelector('.photo-description-container');
+            const editDiv = cell.querySelector('.image-edit-form-container');
             
             if (viewDiv && editDiv) {
                 editDiv.style.display = 'none';

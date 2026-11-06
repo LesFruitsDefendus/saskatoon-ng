@@ -21,12 +21,14 @@
     box-shadow: none;
     margin: none;
     padding: none;
+    position: relative;
 }
 
 #PhotoCarousel .carousel-control {
     width: 40px;
-    height: 500px;
+    height: auto;
     top: 0;
+    bottom: 0;
     z-index: 10;
 }
 
