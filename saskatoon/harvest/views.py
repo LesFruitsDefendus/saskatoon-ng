@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from logging import getLogger
 from typing import Optional
@@ -42,7 +43,7 @@ from harvest.models import (
 from member.models import Organization, Role
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
-from sitebase.utils import local_datetime, to_datetime
+from sitebase.utils import to_datetime
 
 logger = getLogger('saskatoon')
 
@@ -680,20 +681,21 @@ def property_create_orphans(request, id):
 
 
 class PropertyImageCreateView(
-    LoginRequiredMixin,
     PermissionRequiredMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     CreateView[PropertyImage, ModelForm[PropertyImage]],
 ):
+    """Create a new image for a property."""
+
+    permission_required = 'harvest.add_propertyimage'
     model = PropertyImage
     fields = ['image', 'description']
     template_name = "app/forms/property_image_form.html"
     success_message = _("Image uploaded successfully!")
-    permission_required = 'harvest.add_propertyimage'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        property_id = self.kwargs.get('property_pk')
+        property_id = self.kwargs.get('pid')
         property_obj = Property.objects.get(pk=property_id)
 
         context['property'] = property_obj
@@ -701,7 +703,7 @@ class PropertyImageCreateView(
         return context
 
     def form_valid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
-        property_id = self.kwargs.get('property_pk')
+        property_id = self.kwargs.get('pid')
         property_obj = get_object_or_404(Property, pk=property_id)
 
         form.instance.property = property_obj
@@ -713,12 +715,12 @@ class PropertyImageCreateView(
             self.request,
             _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
         )
-        property_id = self.kwargs.get('property_pk')
+        property_id = self.kwargs.get('pid')
         return redirect('property-detail', pk=property_id)
 
     def get_success_url(self) -> str:
-        property_pk = self.kwargs.get('property_pk')
-        return reverse('property-detail', kwargs={'pk': property_pk})
+        property_id = self.kwargs.get('pid')
+        return reverse('property-detail', kwargs={'pk': property_id})
 
 
 class PropertyImageUpdateView(
@@ -775,9 +777,20 @@ class PropertyImageDeleteView(
 
     def form_valid(self, form):
         self.object = self.get_object()
-        self.object.is_deleted = True
-        self.object.deleted_at = local_datetime(tz.now())
-        self.object.save()
+        try:
+            image_field = self.object.image
+            name = image_field.name
+            path, filename = os.path.split(name)
+            new_name = os.path.join('trash', path, filename)
+
+            if image_field.storage.exists(name):
+                with image_field.open('rb') as f:
+                    image_field.storage.save(new_name, f)
+                image_field.storage.delete(name)
+        except Exception as e:
+            logger.warning(f"Failed to move image {self.object.image.name} to trash: {e}")
+
+        self.object.delete()
         messages.success(self.request, self.success_message)
         return HttpResponseRedirect(self.get_success_url())
 

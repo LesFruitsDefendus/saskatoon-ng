@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-05 12:22-0500\n"
+"POT-Creation-Date: 2026-11-05 21:44-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -914,11 +914,11 @@ msgstr "Fermer"
 msgid "Photos"
 msgstr "Photos"
 
-#: sitebase/templates/app/detail_views/image/view.html:19
+#: sitebase/templates/app/detail_views/image/view.html:24
 msgid "Upload photo"
 msgstr "Téléverser une photo"
 
-#: sitebase/templates/app/detail_views/image/view.html:32
+#: sitebase/templates/app/detail_views/image/view.html:37
 msgid "No photos uploaded yet."
 msgstr "Aucune photo n'a encore été téléchargée."
 

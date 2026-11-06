@@ -11,7 +11,12 @@
                 </div>
             </div>
             <div class="col-xs-6 text-right upload-button">
-                <form method="post" action="{{ upload_url }}" enctype="multipart/form-data" style="display: inline-block;">
+                <form
+                    method="post"
+                    action="{% url 'property-image-create' id %}"
+                    enctype="multipart/form-data"
+                    style="display: inline-block;"
+                >
                     {% csrf_token %}
                     <input type="file" name="image" id="trigger_file_input" accept="image/*" class="hide" onchange="this.form.submit()">
                     <button type="button" class="btn btn-primary notika-btn-primary waves-effect" onclick="document.getElementById('trigger_file_input').click();">

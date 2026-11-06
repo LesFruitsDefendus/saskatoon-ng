@@ -5,7 +5,6 @@ import django.core.validators
 from django.db import migrations, models
 import django.db.models.deletion
 import harvest.models
-import sitebase.utils
 
 
 class Migration(migrations.Migration):
@@ -34,16 +33,6 @@ class Migration(migrations.Migration):
             model_name='propertyimage',
             name='uploaded_by',
             field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL),
-        ),
-        migrations.AddField(
-            model_name='propertyimage',
-            name='is_deleted',
-            field=models.BooleanField(default=False, db_index=True, verbose_name="Deleted"),
-        ),
-        migrations.AddField(
-            model_name='propertyimage',
-            name='deleted_at',
-            field=models.DateTimeField(null=True, blank=True, verbose_name="Deleted on"),
         ),
         migrations.AlterField(
             model_name='propertyimage',

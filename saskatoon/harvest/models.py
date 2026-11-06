@@ -12,7 +12,6 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
-from django.urls import reverse_lazy
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 from django_quill.fields import QuillField
@@ -1036,12 +1035,6 @@ class PropertyImage(models.Model):
         null=True,
         blank=True,
     )
-    is_deleted = models.BooleanField(default=False, db_index=True, verbose_name=_("Deleted"))
-    deleted_at = models.DateTimeField(
-        null=True,
-        blank=True,
-        verbose_name=_("Deleted on"),
-    )
 
     def save(self, *args, **kwargs):
         """Automatically resize and convert uploaded images to JPG before saving."""
@@ -1059,12 +1052,6 @@ class PropertyImage(models.Model):
                     )
 
         super().save(*args, **kwargs)
-
-    def get_delete_url(self) -> str:
-        return str(reverse_lazy('property-image-delete', kwargs={'pk': self.pk}))
-
-    def get_update_url(self) -> str:
-        return str(reverse_lazy('property-image-update', kwargs={'pk': self.pk}))
 
     def __str__(self):
         return self.image.name

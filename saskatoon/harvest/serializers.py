@@ -176,7 +176,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     latitude = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
     auth_email_date = serializers.SerializerMethodField()
-    images = serializers.SerializerMethodField()
+    images = PropertyImageSerializer(many=True, read_only=True)
 
     def get_owner(self, obj):
         if obj.owner:
@@ -209,10 +209,6 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
             return None
 
         return last.date_sent.strftime("%Y-%m-%d %-I:%M %p")
-
-    def get_images(self, obj):
-        active_images = obj.images.filter(is_deleted=False)
-        return PropertyImageSerializer(active_images, many=True, context=self.context).data
 
 
 class PropertyMapSerializer(serializers.ModelSerializer[Property]):

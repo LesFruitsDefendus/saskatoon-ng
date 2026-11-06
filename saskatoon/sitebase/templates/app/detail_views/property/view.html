@@ -52,7 +52,7 @@
                 {% include 'app/detail_views/image/view.html' with images=images upload_url=object.get_image_upload_url %}
             </div>
             <div>
-                {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-property' object_id=id %}
+                {% include 'app/detail_views/comment/view.html' with comment_create_url_name='property-comment-create' object_id=id %}
             </div>
         </div>
     </div>

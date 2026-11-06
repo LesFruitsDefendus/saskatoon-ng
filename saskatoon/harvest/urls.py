@@ -67,18 +67,18 @@ urlpatterns = [
         name='rfp-create',
     ),
     path(
-        r'comment/create/harvest/<int:hid>/',
+        r'harvest/comment/create/<int:hid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create-harvest',
+        name='harvest-comment-create',
     ),
     path(
-        r'comment/create/property/<int:pid>/',
+        r'property/comment/create/<int:pid>/',
         views.CommentCreateView.as_view(),
-        name='comment-create-property',
+        name='property-comment-create',
     ),
     path(r'yield/create/', views.harvest_yield_create, name='harvest-yield-create'),
     path(
-        r'property/image/create/<int:property_pk>/',
+        'property/image/create/<int:pid>/',
         views.PropertyImageCreateView.as_view(),
         name='property-image-create',
     ),
