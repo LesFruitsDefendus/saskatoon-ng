@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-06 08:26-0500\n"
+"POT-Creation-Date: 2026-11-06 08:43-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -572,7 +572,6 @@ msgstr "Sauvegarder"
 #: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:49
 #: sitebase/templates/app/forms/property_create_form.html:65
-#: sitebase/templates/app/forms/property_image_form.html:22
 msgid "Cancel"
 msgstr "Annuler"
 
@@ -1267,14 +1266,6 @@ msgstr "Arbres"
 msgid "Add a new property"
 msgstr "Ajouter une nouvelle propriété"
 
-#: sitebase/templates/app/forms/property_image_form.html:11
-msgid "Upload Property Photo"
-msgstr "Téléverser une photo de la propriété"
-
-#: sitebase/templates/app/forms/property_image_form.html:19
-msgid "Upload"
-msgstr "Téléverser"
-
 #: sitebase/templates/app/list_views/base.html:30
 msgid "Search"
 msgstr "Rechercher"
@@ -1643,9 +1634,3 @@ msgid ""
 msgstr ""
 "La taille du fichier traité est trop grande (%(size).1f Mo). La taille "
 "maximale autorisée est de 5 Mo."
-
-#~ msgid "Enlarged photo"
-#~ msgstr "Photo agrandie"
-
-#~ msgid "No description"
-#~ msgstr "Pas de Déscription"

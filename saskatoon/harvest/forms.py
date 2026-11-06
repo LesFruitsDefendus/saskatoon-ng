@@ -19,6 +19,7 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
+    PropertyImage,
     RequestForParticipation as RFP,
     TreeType,
 )
@@ -744,3 +745,11 @@ class EquipmentForm(forms.ModelForm[Equipment]):
         labels = {
             'owner': _('Equipment Point'),
         }
+
+
+class PropertyImageForm(forms.ModelForm[PropertyImage]):
+    """Property image form"""
+
+    class Meta:
+        model = PropertyImage
+        fields = ['image', 'description']

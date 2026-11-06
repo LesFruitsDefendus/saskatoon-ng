@@ -12,12 +12,12 @@ from django.contrib.auth.mixins import (
 )
 from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import ModelForm
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse_lazy
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, View
 from django_stubs_ext import StrOrPromise
 
 from harvest.forms import (
@@ -26,6 +26,7 @@ from harvest.forms import (
     HarvestForm,
     PropertyCreateForm,
     PropertyForm,
+    PropertyImageForm,
     PublicPropertyForm,
     RFPForm,
     RFPManageForm,
@@ -682,45 +683,33 @@ def property_create_orphans(request, id):
 
 class PropertyImageCreateView(
     PermissionRequiredMixin,
-    SuccessMessageMixin[ModelForm[PropertyImage]],
-    CreateView[PropertyImage, ModelForm[PropertyImage]],
+    View,
 ):
     """Create a new image for a property."""
 
     permission_required = 'harvest.add_propertyimage'
-    model = PropertyImage
-    fields = ['image', 'description']
-    template_name = "app/forms/property_image_form.html"
-    success_message = _("Image uploaded successfully!")
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        property_id = self.kwargs.get('pid')
-        property_obj = Property.objects.get(pk=property_id)
+    def post(self, request, pid):
+        property_obj = get_object_or_404(Property, pk=pid)
 
-        context['property'] = property_obj
-        context['images'] = property_obj.images.all()
-        return context
+        form = PropertyImageForm(request.POST, request.FILES)
 
-    def form_valid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
-        property_id = self.kwargs.get('pid')
-        property_obj = get_object_or_404(Property, pk=property_id)
+        if form.is_valid():
+            image_obj = form.save(commit=False)
+            image_obj.property = property_obj
+            image_obj.uploaded_by = request.user
+            image_obj.save()
+            messages.success(request, _("Image uploaded successfully!"))
+        else:
+            messages.error(
+                request,
+                _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
+            )
 
-        form.instance.property = property_obj
-        form.instance.uploaded_by = self.request.user  # type: ignore[assignment]
-        return super().form_valid(form)
+        return redirect('property-detail', pk=pid)
 
-    def form_invalid(self, form: ModelForm[PropertyImage]) -> HttpResponse:
-        messages.error(
-            self.request,
-            _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
-        )
-        property_id = self.kwargs.get('pid')
-        return redirect('property-detail', pk=property_id)
-
-    def get_success_url(self) -> str:
-        property_id = self.kwargs.get('pid')
-        return reverse('property-detail', kwargs={'pk': property_id})
+    def get(self, request, pid):
+        return redirect('property-detail', pk=pid)
 
 
 class PropertyImageUpdateView(
