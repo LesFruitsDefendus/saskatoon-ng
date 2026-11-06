@@ -2,6 +2,7 @@ from datetime import datetime
 from logging import getLogger
 from typing import Optional
 
+import openpyxl
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import (
@@ -10,14 +11,15 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 from django.contrib.messages.views import SuccessMessageMixin
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, View
 from django_stubs_ext import StrOrPromise
 
+from harvest.filters import HarvestFilter
 from harvest.forms import (
     CommentForm,
     EquipmentForm,
@@ -36,8 +38,15 @@ from harvest.models import (
     HarvestYield,
     Property,
     RequestForParticipation as RFP,
+    TreeType,
 )
-from member.models import Organization, Role
+from harvest.utils import sum_harvest_yields
+from member.models import (
+    Neighborhood,
+    Organization,
+    Person,
+    Role,
+)
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
@@ -675,3 +684,124 @@ def property_create_orphans(request, id):
         messages.warning(request, _("Harvests have already been created for this property"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class StatsExportView(LoginRequiredMixin, View):
+    """Generates and downloads Excel reports for stats data."""
+
+    def get(self, request, *args, **kwargs):
+        lang = request.LANGUAGE_CODE
+        season = request.GET.get('season')
+        section = request.GET.get('section', 'all')
+
+        harvest_qs = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
+        if season:
+            harvest_qs = harvest_qs.filter(start_date__year=season)
+            filter_data = {'season': season}
+            filtered_filter = HarvestFilter(filter_data, queryset=harvest_qs)
+            harvest_qs = filtered_filter.qs
+
+        harvest_yield_qs = HarvestYield.objects.filter(harvest__in=harvest_qs)
+
+        wb = openpyxl.Workbook()
+        default_sheet = wb.active
+        bold_font = openpyxl.styles.Font(bold=True)
+
+        def add_fruit_sheet():
+            ws = wb.create_sheet(title=_("Fruit"))
+            ws.append([str(_("Fruit")), str(_("Harvests")), str(_("Weight (lbs)"))])
+            for cell in ws[1]:
+                cell.font = bold_font
+            for tree in TreeType.objects.all():
+                tw = sum_harvest_yields(harvest_yield_qs.filter(tree=tree))
+                if tw is not None:
+                    th = harvest_qs.filter(trees__in=[tree]).count()
+                    ws.append([tree.get_fruit_name(request.LANGUAGE_CODE), th, tw])
+
+        def add_borough_sheet():
+            ws = wb.create_sheet(title=_("Borough"))
+            ws.append([str(_("Borough")), str(_("Harvests")), str(_("Weight (lbs)"))])
+            for cell in ws[1]:
+                cell.font = bold_font
+            for neighborhood in Neighborhood.objects.all().order_by("name"):
+                tw = sum_harvest_yields(
+                    harvest_yield_qs.filter(harvest__property__neighborhood=neighborhood)
+                )
+                if tw is not None:
+                    th = harvest_qs.filter(property__neighborhood=neighborhood).count()
+                    ws.append([str(neighborhood), th, tw])
+
+        def add_beneficiary_sheet():
+            ws = wb.create_sheet(title=_("Beneficiary"))
+            ws.append([str(_("Beneficiary")), str(_("Harvests")), str(_("Weight (lbs)"))])
+            for cell in ws[1]:
+                cell.font = bold_font
+            for ben in Organization.objects.filter(is_beneficiary=True):
+                tw = sum_harvest_yields(harvest_yield_qs.filter(recipient=ben))
+                if tw is not None:
+                    th = harvest_yield_qs.filter(recipient=ben).count()
+                    ws.append([str(ben), th, tw])
+
+        def add_picker_sheet():
+            ws = wb.create_sheet(title=_("Picker"))
+            ws.append(
+                [
+                    str(_("Picker")),
+                    str(_("Leader")),
+                    str(_("Request")),
+                    str(_("Accepted")),
+                    str(_("Recipient")),
+                    str(_("Weight (lbs)")),
+                ]
+            )
+            for cell in ws[1]:
+                cell.font = bold_font
+            for p in Person.objects.all().order_by("first_name"):
+                tw = sum_harvest_yields(harvest_yield_qs.filter(recipient=p))
+                if tw is not None:
+                    ws.append(
+                        [
+                            str(p),
+                            harvest_qs.filter(pick_leader__person=p).count(),
+                            RFP.objects.filter(person=p).count(),
+                            RFP.objects.filter(person=p, status=RFP.Status.ACCEPTED).count(),
+                            harvest_yield_qs.filter(recipient=p).count(),
+                            tw,
+                        ]
+                    )
+
+        is_french = lang == ('fr')
+
+        section_names = {
+            'all': 'sommaire' if is_french else 'summary',
+            'fruit': 'fruits',
+            'borough': 'arrondissements' if is_french else 'boroughs',
+            'beneficiary': 'beneficiaires' if is_french else 'beneficiaries',
+            'picker': 'cueilleurs' if is_french else 'pickers',
+        }
+
+        if section in ['all', 'fruit']:
+            add_fruit_sheet()
+        if section in ['all', 'borough']:
+            add_borough_sheet()
+        if section in ['all', 'beneficiary']:
+            add_beneficiary_sheet()
+        if section in ['all', 'picker']:
+            add_picker_sheet()
+
+        wb.remove(default_sheet)
+
+        section_label = section_names.get(section, 'harvest_stats')
+        file_prefix = 'recoltes' if is_french else 'harvest'
+        season_suffix = f"_{season}" if season else ("_cumulatif" if is_french else "_cumulative")
+
+        response = HttpResponse(
+            content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        response['Content-Disposition'] = (
+            f'attachment; filename="{file_prefix}_{section_label}{season_suffix}.xlsx"'
+        )
+
+        wb.save(response)
+
+        return response
