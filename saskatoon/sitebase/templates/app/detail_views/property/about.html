@@ -15,7 +15,7 @@
             <h2>{% translate 'Available tree(s)' %}(s)</h2>
             <ul>
                 {% for t in trees %}
-                    <li>- {% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }}</li>
+                    <li>- {% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %}</li>
                 {% endfor %}
             </ul>
             <br>

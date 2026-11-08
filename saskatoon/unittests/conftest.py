@@ -16,6 +16,7 @@ FIXTURE_SEQUENCE = [
     'member-person',
     'member-organization',
     'member-authuser',
+    'harvest-treecategory',
     'harvest-treetype',
     'harvest-property',
     'harvest-equipmenttype',

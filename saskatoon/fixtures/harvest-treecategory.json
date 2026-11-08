@@ -1,0 +1,83 @@
+[
+{
+  "model": "harvest.treecategory",
+  "pk": 1,
+  "fields": {
+    "name_en": "Apples",
+    "name_fr": "Pommes",
+    "icon": "🍎"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 2,
+  "fields": {
+    "name_en": "Pears",
+    "name_fr": "Poires",
+    "icon": "🍐"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 3,
+  "fields": {
+    "name_en": "Cherries",
+    "name_fr": "Cerises",
+    "icon": "🍒"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 4,
+  "fields": {
+    "name_en": "Plums",
+    "name_fr": "Prunes",
+    "icon": "🍈"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 5,
+  "fields": {
+    "name_en": "Peaches & apricots",
+    "name_fr": "Pêches et abricots",
+    "icon": "🍑"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 6,
+  "fields": {
+    "name_en": "Grapes",
+    "name_fr": "Raisins",
+    "icon": "🍇"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 7,
+  "fields": {
+    "name_en": "Berries",
+    "name_fr": "Petits fruits",
+    "icon": "🫐"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 8,
+  "fields": {
+    "name_en": "Nuts",
+    "name_fr": "Noix",
+    "icon": "🌰"
+  }
+},
+{
+  "model": "harvest.treecategory",
+  "pk": 9,
+  "fields": {
+    "name_en": "Other",
+    "name_fr": "Autres",
+    "icon": "⚪"
+  }
+}
+]

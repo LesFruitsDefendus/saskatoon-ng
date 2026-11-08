@@ -13,10 +13,12 @@ from harvest.models import (
     HarvestYield,
     Property,
     RequestForParticipation,
+    TreeCategory,
     TreeType,
 )
 from member.models import City, Country, Neighborhood, State
 
+tree_type = from_model(TreeType, category=from_model(TreeCategory))
 property = from_model(
     Property,
     owner=st.just(None),
@@ -52,7 +54,7 @@ harvest = st.datetimes(min_value=datetime(1950, 1, 1, 0, 0), timezones=st.timezo
 harvest_yield = from_model(
     HarvestYield,
     harvest=harvest,
-    tree=from_model(TreeType),
+    tree=tree_type,
     recipient=member_st.actor,
 )
 comment = from_model(Comment, author=member_st.auth_user, harvest=harvest)

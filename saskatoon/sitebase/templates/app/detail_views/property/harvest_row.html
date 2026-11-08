@@ -23,7 +23,7 @@
     <td>
         <ul>
         {% for t in harvest.trees %}
-            <li>{% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }}</li>
+            <li>{% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %}</li>
         {% endfor %}
         </ul>
     </td>

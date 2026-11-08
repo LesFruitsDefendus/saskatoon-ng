@@ -13,14 +13,18 @@
             "trees": [
                 {
                     "id": 6,
+                    "category": {
+                        "id": 7,
+                        "name_en": "Berries",
+                        "name_fr": "Petits fruits",
+                        "icon": "🫐"
+                    },
                     "name_en": "Raspberry bush",
                     "name_fr": "Framboisier",
                     "fruit_name_en": "Raspberries",
                     "fruit_name_fr": "Framboises",
-                    "fruit_icon": null,
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -40,14 +44,18 @@
             "trees": [
                 {
                     "id": 10,
+                    "category": {
+                        "id": 5,
+                        "name_en": "Peaches & apricots",
+                        "name_fr": "Pêches et abricots",
+                        "icon": "🍑"
+                    },
                     "name_en": "Peach tree",
                     "name_fr": "Pêcher",
                     "fruit_name_en": "Peaches",
                     "fruit_name_fr": "Pêches",
-                    "fruit_icon": "🍑",
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -68,14 +76,18 @@
                 "trees": [
                     {
                         "id": 10,
+                        "category": {
+                            "id": 5,
+                            "name_en": "Peaches & apricots",
+                            "name_fr": "Pêches et abricots",
+                            "icon": "🍑"
+                        },
                         "name_en": "Peach tree",
                         "name_fr": "Pêcher",
                         "fruit_name_en": "Peaches",
                         "fruit_name_fr": "Pêches",
-                        "fruit_icon": "🍑",
                         "maturity_start": "2025-05-01",
-                        "maturity_end": "2025-10-01",
-                        "image": null
+                        "maturity_end": "2025-10-01"
                     }
                 ]
             },
@@ -95,14 +107,18 @@
                     "trees": [
                         {
                             "id": 10,
+                            "category": {
+                                "id": 5,
+                                "name_en": "Peaches & apricots",
+                                "name_fr": "Pêches et abricots",
+                                "icon": "🍑"
+                            },
                             "name_en": "Peach tree",
                             "name_fr": "Pêcher",
                             "fruit_name_en": "Peaches",
                             "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 },
@@ -123,14 +139,18 @@
                     "trees": [
                         {
                             "id": 10,
+                            "category": {
+                                "id": 5,
+                                "name_en": "Peaches & apricots",
+                                "name_fr": "Pêches et abricots",
+                                "icon": "🍑"
+                            },
                             "name_en": "Peach tree",
                             "name_fr": "Pêcher",
                             "fruit_name_en": "Peaches",
                             "fruit_name_fr": "Pêches",
-                            "fruit_icon": "🍑",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 }
@@ -146,14 +166,18 @@
             "trees": [
                 {
                     "id": 1,
+                    "category": {
+                        "id": 5,
+                        "name_en": "Peaches & apricots",
+                        "name_fr": "Pêches et abricots",
+                        "icon": "🍑"
+                    },
                     "name_en": "Apricot tree",
                     "name_fr": "Abricotier",
                     "fruit_name_en": "Apricots",
                     "fruit_name_fr": "Abricots",
-                    "fruit_icon": "🍑",
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -173,14 +197,18 @@
             "trees": [
                 {
                     "id": 18,
+                    "category": {
+                        "id": 4,
+                        "name_en": "Plums",
+                        "name_fr": "Prunes",
+                        "icon": "🟣"
+                    },
                     "name_en": "Purple plum tree",
                     "name_fr": "Prunier mauve",
                     "fruit_name_en": "Purple plums",
                     "fruit_name_fr": "Prunes mauves",
-                    "fruit_icon": null,
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -206,14 +234,18 @@
                     "trees": [
                         {
                             "id": 18,
+                            "category": {
+                                "id": 4,
+                                "name_en": "Plums",
+                                "name_fr": "Prunes",
+                                "icon": "🟣"
+                            },
                             "name_en": "Purple plum tree",
                             "name_fr": "Prunier mauve",
                             "fruit_name_en": "Purple plums",
                             "fruit_name_fr": "Prunes mauves",
-                            "fruit_icon": null,
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/img018_IFXEa0p.jpg"
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 }
@@ -229,14 +261,18 @@
             "trees": [
                 {
                     "id": 25,
+                    "category": {
+                        "id": 7,
+                        "name_en": "Berries",
+                        "name_fr": "Petits fruits",
+                        "icon": "🫐"
+                    },
                     "name_en": "Aronia bush",
                     "name_fr": "Aronie",
                     "fruit_name_en": "Chokeberries",
                     "fruit_name_fr": "Aronia",
-                    "fruit_icon": null,
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": "http://testserver/media/fruits_images/img018.jpg"
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -256,25 +292,33 @@
             "trees": [
                 {
                     "id": 8,
+                    "category": {
+                        "id": 7,
+                        "name_en": "Berries",
+                        "name_fr": "Petits fruits",
+                        "icon": "🫐"
+                    },
                     "name_en": "Blackberry tree",
                     "name_fr": "Mûrier sauvage",
                     "fruit_name_en": "Blackberries",
                     "fruit_name_fr": "Mûres sauvages",
-                    "fruit_icon": null,
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": "http://testserver/media/fruits_images/220px-Ripe_ripening_and_green_blackberries.jpg"
+                    "maturity_end": "2025-10-01"
                 },
                 {
                     "id": 21,
+                    "category": {
+                        "id": 9,
+                        "name_en": "Other",
+                        "name_fr": "Autres",
+                        "icon": null
+                    },
                     "name_en": "Rhubarb",
                     "name_fr": "Rhubarbe",
                     "fruit_name_en": "Rhubarb",
                     "fruit_name_fr": "Rhubarbe",
-                    "fruit_icon": null,
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": false,
@@ -294,25 +338,33 @@
             "trees": [
                 {
                     "id": 14,
+                    "category": {
+                        "id": 1,
+                        "name_en": "Apples",
+                        "name_fr": "Pommes",
+                        "icon": "🍎"
+                    },
                     "name_en": "Green apple tree",
                     "name_fr": "Pommier vert",
                     "fruit_name_en": "Green apples",
                     "fruit_name_fr": "Pommes vertes",
-                    "fruit_icon": "🍏",
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                    "maturity_end": "2025-10-01"
                 },
                 {
                     "id": 9,
+                    "category": {
+                        "id": 8,
+                        "name_en": "Nuts",
+                        "name_fr": "Noix",
+                        "icon": "🌰"
+                    },
                     "name_en": "Walnut tree",
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",
                     "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜",
                     "maturity_start": "2025-05-01",
-                    "maturity_end": "2025-10-01",
-                    "image": null
+                    "maturity_end": "2025-10-01"
                 }
             ],
             "ladder_available": true,
@@ -333,25 +385,33 @@
                 "trees": [
                     {
                         "id": 14,
+                        "category": {
+                            "id": 1,
+                            "name_en": "Apples",
+                            "name_fr": "Pommes",
+                            "icon": "🍎"
+                        },
                         "name_en": "Green apple tree",
                         "name_fr": "Pommier vert",
                         "fruit_name_en": "Green apples",
                         "fruit_name_fr": "Pommes vertes",
-                        "fruit_icon": "🍏",
                         "maturity_start": "2025-05-01",
-                        "maturity_end": "2025-10-01",
-                        "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                        "maturity_end": "2025-10-01"
                     },
                     {
                         "id": 9,
+                        "category": {
+                            "id": 8,
+                            "name_en": "Nuts",
+                            "name_fr": "Noix",
+                            "icon": "🌰"
+                        },
                         "name_en": "Walnut tree",
                         "name_fr": "Noyer",
                         "fruit_name_en": "Walnuts",
                         "fruit_name_fr": "Noix de Grenoble",
-                        "fruit_icon": "🥜",
                         "maturity_start": "2025-05-01",
-                        "maturity_end": "2025-10-01",
-                        "image": null
+                        "maturity_end": "2025-10-01"
                     }
                 ]
             },
@@ -376,14 +436,18 @@
                     "trees": [
                         {
                             "id": 9,
+                            "category": {
+                                "id": 8,
+                                "name_en": "Nuts",
+                                "name_fr": "Noix",
+                                "icon": "🌰"
+                            },
                             "name_en": "Walnut tree",
                             "name_fr": "Noyer",
                             "fruit_name_en": "Walnuts",
                             "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 },
@@ -404,14 +468,18 @@
                     "trees": [
                         {
                             "id": 9,
+                            "category": {
+                                "id": 8,
+                                "name_en": "Nuts",
+                                "name_fr": "Noix",
+                                "icon": "🌰"
+                            },
                             "name_en": "Walnut tree",
                             "name_fr": "Noyer",
                             "fruit_name_en": "Walnuts",
                             "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 },
@@ -432,14 +500,18 @@
                     "trees": [
                         {
                             "id": 14,
+                            "category": {
+                                "id": 1,
+                                "name_en": "Apples",
+                                "name_fr": "Pommes",
+                                "icon": "🍎"
+                            },
                             "name_en": "Green apple tree",
                             "name_fr": "Pommier vert",
                             "fruit_name_en": "Green apples",
                             "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 },
@@ -460,25 +532,33 @@
                     "trees": [
                         {
                             "id": 14,
+                            "category": {
+                                "id": 1,
+                                "name_en": "Apples",
+                                "name_fr": "Pommes",
+                                "icon": "🍎"
+                            },
                             "name_en": "Green apple tree",
                             "name_fr": "Pommier vert",
                             "fruit_name_en": "Green apples",
                             "fruit_name_fr": "Pommes vertes",
-                            "fruit_icon": "🍏",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                            "maturity_end": "2025-10-01"
                         },
                         {
                             "id": 9,
+                            "category": {
+                                "id": 8,
+                                "name_en": "Nuts",
+                                "name_fr": "Noix",
+                                "icon": "🌰"
+                            },
                             "name_en": "Walnut tree",
                             "name_fr": "Noyer",
                             "fruit_name_en": "Walnuts",
                             "fruit_name_fr": "Noix de Grenoble",
-                            "fruit_icon": "🥜",
                             "maturity_start": "2025-05-01",
-                            "maturity_end": "2025-10-01",
-                            "image": null
+                            "maturity_end": "2025-10-01"
                         }
                     ]
                 }
