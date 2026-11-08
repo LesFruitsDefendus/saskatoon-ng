@@ -22,7 +22,12 @@
             "name_fr": "Pommier vert",
             "fruit_name_en": "Green apples",
             "fruit_name_fr": "Pommes vertes",
-            "fruit_icon": "🍏"
+            "category": {
+                "id": 1,
+                "name_en": "Apples",
+                "name_fr": "Pommes",
+                "icon": "🍎"
+            }
         },
         {
             "id": 9,
@@ -30,7 +35,12 @@
             "name_fr": "Noyer",
             "fruit_name_en": "Walnuts",
             "fruit_name_fr": "Noix de Grenoble",
-            "fruit_icon": "🥜"
+            "category": {
+                "id": 8,
+                "name_en": "Nuts",
+                "name_fr": "Noix",
+                "icon": "🌰"
+            }
         }
     ],
     "property": {
@@ -117,14 +127,18 @@
             "id": 1,
             "tree": {
                 "id": 9,
+                "category": {
+                    "id": 8,
+                    "name_en": "Nuts",
+                    "name_fr": "Noix",
+                    "icon": "🌰"
+                },
                 "name_en": "Walnut tree",
                 "name_fr": "Noyer",
                 "fruit_name_en": "Walnuts",
                 "fruit_name_fr": "Noix de Grenoble",
-                "fruit_icon": "🥜",
                 "maturity_start": "2025-05-01",
-                "maturity_end": "2025-10-01",
-                "image": null
+                "maturity_end": "2025-10-01"
             },
             "recipient": "Nice Owner",
             "total_in_lb": 3.0,
@@ -134,14 +148,18 @@
             "id": 2,
             "tree": {
                 "id": 14,
+                "category": {
+                    "id": 1,
+                    "name_en": "Apples",
+                    "name_fr": "Pommes",
+                    "icon": "🍎"
+                },
                 "name_en": "Green apple tree",
                 "name_fr": "Pommier vert",
                 "fruit_name_en": "Green apples",
                 "fruit_name_fr": "Pommes vertes",
-                "fruit_icon": "🍏",
                 "maturity_start": "2025-05-01",
-                "maturity_end": "2025-10-01",
-                "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                "maturity_end": "2025-10-01"
             },
             "recipient": "Les Fruits Défendus",
             "total_in_lb": 6.0,
@@ -151,14 +169,18 @@
             "id": 3,
             "tree": {
                 "id": 9,
+                "category": {
+                    "id": 8,
+                    "name_en": "Nuts",
+                    "name_fr": "Noix",
+                    "icon": "🌰"
+                },
                 "name_en": "Walnut tree",
                 "name_fr": "Noyer",
                 "fruit_name_en": "Walnuts",
                 "fruit_name_fr": "Noix de Grenoble",
-                "fruit_icon": "🥜",
                 "maturity_start": "2025-05-01",
-                "maturity_end": "2025-10-01",
-                "image": null
+                "maturity_end": "2025-10-01"
             },
             "recipient": "Pick Leader",
             "total_in_lb": 4.0,
@@ -168,14 +190,18 @@
             "id": 4,
             "tree": {
                 "id": 14,
+                "category": {
+                    "id": 1,
+                    "name_en": "Apples",
+                    "name_fr": "Pommes",
+                    "icon": "🍎"
+                },
                 "name_en": "Green apple tree",
                 "name_fr": "Pommier vert",
                 "fruit_name_en": "Green apples",
                 "fruit_name_fr": "Pommes vertes",
-                "fruit_icon": "🍏",
                 "maturity_start": "2025-05-01",
-                "maturity_end": "2025-10-01",
-                "image": "http://testserver/media/fruits_images/Granny_smith.jpg"
+                "maturity_end": "2025-10-01"
             },
             "recipient": "Nice Owner",
             "total_in_lb": 2.0,

@@ -24,7 +24,7 @@ settings.load_profile("fast")
 
 
 class TestTreeType(TestCase):
-    @given(tree_type=from_model(TreeType))
+    @given(tree_type=harvest_st.tree_type)
     def test_can_be_created(self, tree_type):
         assert isinstance(tree_type, TreeType)
 

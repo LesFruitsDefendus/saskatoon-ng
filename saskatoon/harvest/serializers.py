@@ -16,6 +16,7 @@ from harvest.models import (
     HarvestYield,
     Property,
     RequestForParticipation as RFP,
+    TreeCategory,
     TreeType,
 )
 from harvest.utils import buffer_reservation_time, similar_properties
@@ -44,10 +45,18 @@ from sitebase.templatetags.harvest_status import (
 from sitebase.templatetags.property import property_icon_shape, property_status, show_property
 
 
+class TreeCategorySerializer(serializers.ModelSerializer[TreeCategory]):
+    class Meta:
+        model = TreeCategory
+        fields = '__all__'
+
+
 class TreeTypeSerializer(serializers.ModelSerializer[TreeType]):
     class Meta:
         model = TreeType
         fields: str | list[str] = '__all__'
+
+    category = TreeCategorySerializer(read_only=True)
 
 
 class RequestForParticipationSerializer(serializers.ModelSerializer[RFP]):
@@ -262,7 +271,7 @@ class PropertyTreeTypeSerializer(TreeTypeSerializer):
             'name_fr',
             'fruit_name_en',
             'fruit_name_fr',
-            'fruit_icon',
+            'category',
         ]
 
 

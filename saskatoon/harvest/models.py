@@ -1,4 +1,4 @@
-import builtins
+from builtins import property as builtins_property
 from datetime import datetime, timedelta
 from enum import Enum
 from sys import float_info
@@ -28,6 +28,34 @@ from sitebase.utils import (
 from sitebase.validators import validate_is_not_nan
 
 
+class TreeCategory(models.Model):
+    """Tree Category model"""
+
+    class Meta:
+        verbose_name = _("tree category")
+        verbose_name_plural = _("tree categories")
+        ordering = ["name_en"]
+
+    name_en = models.CharField(verbose_name=_("Name (en)"), max_length=20)
+
+    name_fr = models.CharField(verbose_name=_("Nom (fr)"), max_length=20)
+
+    icon = models.CharField(
+        verbose_name=_("Icon"),
+        max_length=50,
+    )
+
+    def get_name(self, lang='fr'):
+        return getattr(self, "name_{}".format(lang))
+
+    @property
+    def name(self):
+        return "{} / {}".format(self.name_fr, self.name_en)
+
+    def __str__(self):
+        return self.name
+
+
 class TreeType(models.Model):
     """Tree Type model"""
 
@@ -35,6 +63,15 @@ class TreeType(models.Model):
         verbose_name = _("tree type")
         verbose_name_plural = _("tree types")
         ordering = ["name_en"]
+
+    category = models.ForeignKey(
+        'TreeCategory',
+        verbose_name=_("Tree category"),
+        related_name='tree_types',
+        blank=False,
+        null=True,
+        on_delete=models.PROTECT,
+    )
 
     name_en = models.CharField(verbose_name=_("Tree name (en)"), max_length=20, default="")
 
@@ -46,23 +83,9 @@ class TreeType(models.Model):
         verbose_name=_("Nom du fruit (fr)"), max_length=20, default=""
     )
 
-    fruit_icon = models.CharField(
-        verbose_name=_("Fruit icon"),
-        max_length=50,
-        blank=True,
-        null=True,
-    )
-
     maturity_start = models.DateField(verbose_name=_("Maturity start date"), blank=True, null=True)
 
     maturity_end = models.DateField(verbose_name=_("Maturity end date"), blank=True, null=True)
-
-    image = models.ImageField(
-        upload_to='fruits_images',
-        verbose_name=_("Fruit image"),
-        blank=True,
-        null=True,
-    )
 
     def get_name(self, lang='fr'):
         return getattr(self, "name_{}".format(lang))
@@ -970,7 +993,7 @@ class Comment(models.Model):
         null=True,
     )
 
-    @builtins.property
+    @builtins_property
     def edited(self) -> bool:
         if not self.date_updated:
             return False

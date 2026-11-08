@@ -26,7 +26,12 @@
                     "name_fr": "Prunier mauve",
                     "fruit_name_en": "Purple plums",
                     "fruit_name_fr": "Prunes mauves",
-                    "fruit_icon": null
+                    "category": {
+                        "id": 4,
+                        "name_en": "Plums",
+                        "name_fr": "Prunes",
+                        "icon": "🟣"
+                    }
                 }
             ],
             "property": {
@@ -163,7 +168,12 @@
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",
                     "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
+                    "category": {
+                        "id": 8,
+                        "name_en": "Nuts",
+                        "name_fr": "Noix",
+                        "icon": "🌰"
+                    }
                 }
             ],
             "property": {
@@ -287,7 +297,12 @@
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",
                     "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
+                    "category": {
+                        "id": 8,
+                        "name_en": "Nuts",
+                        "name_fr": "Noix",
+                        "icon": "🌰"
+                    }
                 }
             ],
             "property": {
@@ -321,7 +336,12 @@
                     "name_fr": "Pêcher",
                     "fruit_name_en": "Peaches",
                     "fruit_name_fr": "Pêches",
-                    "fruit_icon": "🍑"
+                    "category": {
+                        "id": 5,
+                        "name_en": "Peaches & apricots",
+                        "name_fr": "Pêches et abricots",
+                        "icon": "🍑"
+                    }
                 }
             ],
             "property": {
@@ -359,7 +379,12 @@
                     "name_fr": "Pommier vert",
                     "fruit_name_en": "Green apples",
                     "fruit_name_fr": "Pommes vertes",
-                    "fruit_icon": "🍏"
+                    "category": {
+                        "id": 1,
+                        "name_en": "Apples",
+                        "name_fr": "Pommes",
+                        "icon": "🍎"
+                    }
                 }
             ],
             "property": {
@@ -397,7 +422,12 @@
                     "name_fr": "Pommier vert",
                     "fruit_name_en": "Green apples",
                     "fruit_name_fr": "Pommes vertes",
-                    "fruit_icon": "🍏"
+                    "category": {
+                        "id": 1,
+                        "name_en": "Apples",
+                        "name_fr": "Pommes",
+                        "icon": "🍎"
+                    }
                 },
                 {
                     "id": 9,
@@ -405,7 +435,12 @@
                     "name_fr": "Noyer",
                     "fruit_name_en": "Walnuts",
                     "fruit_name_fr": "Noix de Grenoble",
-                    "fruit_icon": "🥜"
+                    "category": {
+                        "id": 8,
+                        "name_en": "Nuts",
+                        "name_fr": "Noix",
+                        "icon": "🌰"
+                    }
                 }
             ],
             "property": {
@@ -443,7 +478,12 @@
                     "name_fr": "Pêcher",
                     "fruit_name_en": "Peaches",
                     "fruit_name_fr": "Pêches",
-                    "fruit_icon": "🍑"
+                    "category": {
+                        "id": 5,
+                        "name_en": "Peaches & apricots",
+                        "name_fr": "Pêches et abricots",
+                        "icon": "🍑"
+                    }
                 }
             ],
             "property": {

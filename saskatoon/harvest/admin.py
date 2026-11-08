@@ -28,6 +28,7 @@ from harvest.models import (
     Property,
     PropertyImage,
     RequestForParticipation as RFP,
+    TreeCategory,
     TreeType,
 )
 from member.models import AuthUser
@@ -302,17 +303,28 @@ class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
         return queryset
 
 
+@admin.register(TreeCategory)
+class TreeCategoryAdmin(admin.ModelAdmin[TreeCategory]):
+    model = TreeCategory
+    list_display = (
+        'name',
+        'icon',
+        'id',
+    )
+
+
 @admin.register(TreeType)
 class TreeTypeAdmin(admin.ModelAdmin[TreeType]):
     model = TreeType
     list_display = (
         'name',
         'fruit',
-        'fruit_icon',
+        'category',
         'maturity_start',
         'maturity_end',
         'id',
     )
+    list_filter = ('category',)
     search_fields = (
         'fruit_name_en',
         'fruit_name_fr',

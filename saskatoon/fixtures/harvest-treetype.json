@@ -3,448 +3,416 @@
   "model": "harvest.treetype",
   "pk": 1,
   "fields": {
+    "category": 5,
     "name_en": "Apricot tree",
     "name_fr": "Abricotier",
     "fruit_name_en": "Apricots",
     "fruit_name_fr": "Abricots",
-    "fruit_icon": "🍑",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 2,
   "fields": {
+    "category": 7,
     "name_en": "Amelanchier",
     "name_fr": "Amélanchier",
     "fruit_name_en": "Saskatoon berries",
     "fruit_name_fr": "Amélanches",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/Saskatoon_Berries_in_Alberta.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 3,
   "fields": {
+    "category": 3,
     "name_en": "Sweet cherry tree",
     "name_fr": "Cerisier sucré",
     "fruit_name_en": "Sweet cherries",
     "fruit_name_fr": "Cerises sucrées",
-    "fruit_icon": "🍒",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/220px-Prunus_avium_fruit.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 4,
   "fields": {
+    "category": 3,
     "name_en": "Sour cherry tree",
     "name_fr": "Cerisier griotte",
     "fruit_name_en": "Sour cherries",
-    "fruit_name_fr": "Cerise griotte",
-    "fruit_icon": "🍒",
+    "fruit_name_fr": "Cerises griottes",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/Italienische_Süßkirschen.JPG"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 5,
   "fields": {
+    "category": 7,
     "name_en": "Strawberry bush",
     "name_fr": "Fraisier",
     "fruit_name_en": "Strawberries",
     "fruit_name_fr": "Fraises",
-    "fruit_icon": "🍓",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 6,
   "fields": {
+    "category": 7,
     "name_en": "Raspberry bush",
     "name_fr": "Framboisier",
     "fruit_name_en": "Raspberries",
     "fruit_name_fr": "Framboises",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 7,
   "fields": {
+    "category": 7,
     "name_en": "Redcurrant",
     "name_fr": "Groseillier",
-    "fruit_name_en": "Gooseberries",
-    "fruit_name_fr": "Groseilles",
-    "fruit_icon": "🫐",
+    "fruit_name_en": "Redcurrants",
+    "fruit_name_fr": "Gadelles rouges",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 8,
   "fields": {
+    "category": 7,
     "name_en": "Blackberry tree",
     "name_fr": "Mûrier sauvage",
     "fruit_name_en": "Blackberries",
     "fruit_name_fr": "Mûres sauvages",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/220px-Ripe_ripening_and_green_blackberries.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 9,
   "fields": {
+    "category": 8,
     "name_en": "Walnut tree",
     "name_fr": "Noyer",
     "fruit_name_en": "Walnuts",
     "fruit_name_fr": "Noix de Grenoble",
-    "fruit_icon": "🥜",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 10,
   "fields": {
+    "category": 5,
     "name_en": "Peach tree",
     "name_fr": "Pêcher",
     "fruit_name_en": "Peaches",
     "fruit_name_fr": "Pêches",
-    "fruit_icon": "🍑",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 11,
   "fields": {
-    "name_en": "Read pear tree",
+    "category": 2,
+    "name_en": "Red pear tree",
     "name_fr": "Poirier rouge",
     "fruit_name_en": "Red pears",
     "fruit_name_fr": "Poires rouges",
-    "fruit_icon": "🍐",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/af46a7028cb06aaa46e9357ca4d9cde0.jpe"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 12,
   "fields": {
+    "category": 2,
     "name_en": "Yellow pear tree",
     "name_fr": "Poirier jaune",
     "fruit_name_en": "Yellow pears",
     "fruit_name_fr": "Poires jaunes",
-    "fruit_icon": "🍐",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/pear_tree_l1.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 13,
   "fields": {
+    "category": 2,
     "name_en": "Green pear tree",
     "name_fr": "Poirier vert",
     "fruit_name_en": "Green pears",
-    "fruit_name_fr": "Poires verte",
-    "fruit_icon": "🍐",
+    "fruit_name_fr": "Poires vertes",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/234px-Lukas_pear.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 14,
   "fields": {
+    "category": 1,
     "name_en": "Green apple tree",
     "name_fr": "Pommier vert",
     "fruit_name_en": "Green apples",
     "fruit_name_fr": "Pommes vertes",
-    "fruit_icon": "🍏",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/Granny_smith.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 15,
   "fields": {
+    "category": 1,
     "name_en": "Red apple tree",
     "name_fr": "Pommier rouge",
     "fruit_name_en": "Red apples",
     "fruit_name_fr": "Pommes rouges",
-    "fruit_icon": "🍎",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/320px-Sampion_cultivar.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 16,
   "fields": {
+    "category": 1,
     "name_en": "Yellow apple tree",
     "name_fr": "Pommier jaune",
     "fruit_name_en": "Yellow apples",
     "fruit_name_fr": "Pommes jaunes",
-    "fruit_icon": "🟡",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/220px-Golden_delicious_apple.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 17,
   "fields": {
+    "category": 1,
     "name_en": "Crabapple tree",
     "name_fr": "Pommettier",
     "fruit_name_en": "Crabapples",
     "fruit_name_fr": "Pommettes",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 18,
   "fields": {
+    "category": 4,
     "name_en": "Purple plum tree",
     "name_fr": "Prunier mauve",
     "fruit_name_en": "Purple plums",
     "fruit_name_fr": "Prunes mauves",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_IFXEa0p.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 19,
   "fields": {
+    "category": 6,
     "name_en": "Green grapevine",
     "name_fr": "Vigne verte",
     "fruit_name_en": "Green grapes",
     "fruit_name_fr": "Raisin vert",
-    "fruit_icon": "🍇",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/download.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 20,
   "fields": {
+    "category": 6,
     "name_en": "Black grapevine",
     "name_fr": "Vigne noire",
     "fruit_name_en": "Black grapes",
     "fruit_name_fr": "Raisin noir",
-    "fruit_icon": "🍇",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/170px-Wine_grapes03.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 21,
   "fields": {
+    "category": 9,
     "name_en": "Rhubarb",
     "name_fr": "Rhubarbe",
     "fruit_name_en": "Rhubarb",
     "fruit_name_fr": "Rhubarbe",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 22,
   "fields": {
+    "category": 7,
     "name_en": "Elderberry tree",
     "name_fr": "Sureau",
     "fruit_name_en": "Elderberries",
-    "fruit_name_fr": "Sureau",
-    "fruit_icon": null,
+    "fruit_name_fr": "Baies de sureau",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 23,
   "fields": {
+    "category": 9,
     "name_en": "Fig tree",
     "name_fr": "Figuier",
     "fruit_name_en": "Figs",
     "fruit_name_fr": "Figues",
-    "fruit_icon": "🌰",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 24,
   "fields": {
+    "category": 7,
     "name_en": "Blackcurrant",
     "name_fr": "Cassissier",
-    "fruit_name_en": "Blackcurrant",
+    "fruit_name_en": "Blackcurrants",
     "fruit_name_fr": "Cassis",
-    "fruit_icon": "🫐",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/220px-Ribes_nigrum_a1.JPG"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 25,
   "fields": {
+    "category": 7,
     "name_en": "Aronia bush",
     "name_fr": "Aronie",
     "fruit_name_en": "Chokeberries",
     "fruit_name_fr": "Aronia",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 26,
   "fields": {
+    "category": 7,
     "name_en": "Mulberry tree",
     "name_fr": "Mûrier",
     "fruit_name_en": "Mulberries",
     "fruit_name_fr": "Mûres",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_zxA4Kdu.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 27,
   "fields": {
+    "category": 6,
     "name_en": "Red grapevine",
     "name_fr": "Vigne rouge",
     "fruit_name_en": "Red grapes",
     "fruit_name_fr": "Raisin rouge",
-    "fruit_icon": "🍇",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_x8DeipW.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 28,
   "fields": {
+    "category": 4,
     "name_en": "Yellow plum tree",
     "name_fr": "Prunier jaune",
     "fruit_name_en": "Yellow plums",
     "fruit_name_fr": "Prunes jaunes",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_qOrAW2L.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 29,
   "fields": {
+    "category": 2,
     "name_en": "Asian pear tree",
     "name_fr": "Poirier asiatique",
-    "fruit_name_en": "Asian pear",
+    "fruit_name_en": "Asian pears",
     "fruit_name_fr": "Poires asiatiques",
-    "fruit_icon": "🍐",
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_JG8lVhr.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 30,
   "fields": {
+    "category": 4,
     "name_en": "Green plum tree",
     "name_fr": "Prunier Reine-Claude",
     "fruit_name_en": "Green plums",
     "fruit_name_fr": "Prunes Reine-Claude",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": "fruits_images/img018_OX0YSyP.jpg"
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 31,
   "fields": {
+    "category": 8,
     "name_en": "Ginkgo biloba",
     "name_fr": "Ginkgo biloba",
     "fruit_name_en": "Ginkgo nuts",
     "fruit_name_fr": "Noix de ginkgo",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 },
 {
   "model": "harvest.treetype",
   "pk": 32,
   "fields": {
+    "category": 7,
     "name_en": "Goji bush",
-    "name_fr": "Vigne de goji",
-    "fruit_name_en": "Goji Berries",
+    "name_fr": "Goji",
+    "fruit_name_en": "Goji berries",
     "fruit_name_fr": "Baies de goji",
-    "fruit_icon": null,
     "maturity_start": "2025-05-01",
-    "maturity_end": "2025-10-01",
-    "image": ""
+    "maturity_end": "2025-10-01"
   }
 }
 ]
