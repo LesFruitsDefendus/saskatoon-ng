@@ -1,0 +1,53 @@
+name: Migrations
+
+# Checks that the PR migrations apply cleanly on top of a database
+# populated from the base branch, and that the PR fixtures still load afterwards.
+
+on:
+  pull_request:
+    branches: [ main, dev, prod ]
+
+jobs:
+  migrations:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        # full history so we can switch between base and PR branches
+        fetch-depth: 0
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+
+    - name: Install system dependencies
+      run: |
+        sudo apt update
+        sudo apt install gettext libgdal-dev
+
+    - name: Create env file
+      run: |
+        saskatoon/tests/newenvfile.py ./sqlite3-testing.db --virtual --admin-pass testing1234 --admin-email admin@example.com > saskatoon/.env
+
+    - name: Checkout base branch (${{ github.base_ref }})
+      run: |
+        git checkout origin/${{ github.base_ref }}
+
+    - name: Initialize database from base branch
+      run: |
+        make init
+
+    - name: Checkout PR branch
+      run: |
+        git checkout ${{ github.sha }}
+
+    - name: Apply PR migrations
+      run: |
+        python3 -m pip install '.[test]'
+        make migrate
+
+    - name: Load PR fixtures
+      run: |
+        saskatoon/fixtures/init
