@@ -17,7 +17,7 @@
                         alt="{% trans 'photo' %}" 
                         class="img-responsive lightbox-trigger" 
                         data-slide-index="{{ forloop.counter0 }}"
-                        title="{% trans 'Click to enlarge' %}">
+                        {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
                     
                     <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
                         <i class="fa fa-chevron-left" aria-hidden="true"></i>

@@ -1,13 +1,21 @@
 from __future__ import annotations
 
+import os
 from datetime import datetime, timedelta
+from io import BytesIO
 from logging import getLogger
-from typing import Optional
+from typing import TYPE_CHECKING, Any, Optional
 
+from django.apps import apps
+from django.core.exceptions import ValidationError
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q, Sum
+from django.utils.translation import gettext_lazy as _
+from PIL import Image
 from typeguard import typechecked
 
-from harvest.models import Property
+if TYPE_CHECKING:
+    from harvest.models import Property
 from saskatoon.settings import DEFAULT_RESERVATION_BUFFER
 from sitebase.utils import local_datetime
 
@@ -21,6 +29,7 @@ def sum_harvest_yields(harvest_yield_qs):
 
 def similar_properties(pending_property: Property):
     """Look for potential property/owner duplicates"""
+    Property = apps.get_model('harvest', 'Property')
     p = pending_property
     if not p.pending:
         return Property.objects.none()
@@ -65,3 +74,48 @@ def buffer_reservation_time(
         return None
 
     return local_time.strftime("%I:%M %p")
+
+
+def resize_and_save_image(
+    image: Any, filename: str, image_resize_px: int = 1080, field_name: str = 'image'
+) -> Optional[InMemoryUploadedFile]:
+    """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
+    try:
+        jpg_image = Image.open(image).convert('RGB')
+        w0, h0 = jpg_image.size
+
+        if max(w0, h0) > image_resize_px:
+            if h0 > w0:  # portrait
+                h1 = image_resize_px
+                w1 = int(w0 * h1 / float(h0))
+            else:  # landscape
+                w1 = image_resize_px
+                h1 = int(h0 * w1 / float(w0))
+            jpg_image = jpg_image.resize((w1, h1), Image.Resampling.LANCZOS)
+
+        image_io = BytesIO()
+        jpg_image.save(image_io, format='JPEG', quality=90)
+        image_io.seek(0)
+
+        file_size = image_io.tell()
+
+        if file_size > 5 * 1024 * 1024:
+            raise ValidationError(
+                _("Processed file size too large (%(size).1fMB). Maximum allowed size is 5MB."),
+                params={'size': file_size / (1024 * 1024), 'max_size': 5},
+            )
+
+        jpg_filename = os.path.splitext(filename)[0] + '.jpg'
+        return InMemoryUploadedFile(
+            file=image_io,
+            field_name=field_name,
+            name=jpg_filename,
+            content_type='image/jpeg',
+            size=file_size,
+            charset=None,
+        )
+    except ValidationError:
+        raise
+    except Exception as e:
+        logger.error("%s: %s", type(e).__name__, str(e))
+        return None

@@ -19,13 +19,13 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typeguard import typechecked
 
+from harvest.utils import resize_and_save_image
+from harvest.validators import IMAGE_VALIDATORS
 from sitebase.utils import (
-    IMAGE_VALIDATORS,
     french_ordinal,
     is_quill_html_empty,
     local_datetime,
     local_today,
-    resize_and_save_image,
     to_datetime,
 )
 from sitebase.validators import validate_is_not_nan

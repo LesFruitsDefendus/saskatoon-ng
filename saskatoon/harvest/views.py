@@ -714,6 +714,7 @@ class PropertyImageCreateView(
 
 class PropertyImageUpdateView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     UserPassesTestMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     UpdateView[PropertyImage, ModelForm[PropertyImage]],
@@ -757,6 +758,7 @@ class PropertyImageUpdateView(
 
 class PropertyImageDeleteView(
     LoginRequiredMixin,
+    PermissionRequiredMixin,
     UserPassesTestMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     DeleteView[PropertyImage, ModelForm[PropertyImage]],

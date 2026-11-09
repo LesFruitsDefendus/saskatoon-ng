@@ -24,7 +24,7 @@
                     <i class="fa fa-pencil"></i>
                 </button>
 
-                {% translate "Are you sure you want to delete this photo?" as delete_confirm_msg %}
+                {% translate "Are you sure you want to permenantly delete this photo?" as delete_confirm_msg %}
                 <form method="post" 
                       action="{% url 'property-image-delete' img.id %}" 
                       class="image-delete-form"
