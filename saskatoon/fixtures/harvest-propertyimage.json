@@ -1,0 +1,24 @@
+[
+{
+  "model": "harvest.propertyimage",
+  "pk": 1,
+  "fields": {
+    "property": 3,
+    "image": "property/3/property_3_f5f3b965.jpg",
+    "description": "Definitely a tree of some kind",
+    "uploaded_by": 7,
+    "date_uploaded": "2026-11-09T15:39:46.173Z"
+  }
+},
+{
+  "model": "harvest.propertyimage",
+  "pk": 2,
+  "fields": {
+    "property": 3,
+    "image": "property/3/property_3_f636024c.jpg",
+    "description": "Serviceberry bush",
+    "uploaded_by": 2,
+    "date_uploaded": "2026-11-09T15:39:51.398Z"
+  }
+}
+]

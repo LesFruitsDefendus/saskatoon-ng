@@ -258,8 +258,20 @@
     "status": "authorized",
     "auth_email_date": null,
     "images": [
-        "property/3/property_3_f5f3b965.jpg", 
-        "property/3/property_3_f636024c.jpg"
+        {
+            "id": 2,
+            "image": "http://testserver/media/property/3/property_3_f636024c.jpg",
+            "description": "Serviceberry bush",
+            "date_uploaded": "2026-11-09T10:39:51.398000-05:00",
+            "uploaded_by": 2
+        },
+        {
+            "id": 1,
+            "image": "http://testserver/media/property/3/property_3_f5f3b965.jpg",
+            "description": "Definitely a tree of some kind",
+            "date_uploaded": "2026-11-09T10:39:46.173000-05:00",
+            "uploaded_by": 7
+        }
     ],
     "is_active": true,
     "authorized": true,

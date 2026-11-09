@@ -31,7 +31,7 @@ from harvest.forms import (
     RFPForm,
     RFPManageForm,
 )
-from harvest.mixins import TaggedSuccessMessageMixin
+from harvest.mixins import TaggedSuccessMessageMixin, UploaderOrAdminRequiredMixin
 from harvest.models import (
     Comment,
     Equipment,
@@ -682,12 +682,10 @@ def property_create_orphans(request, id):
 
 
 class PropertyImageCreateView(
-    PermissionRequiredMixin,
+    LoginRequiredMixin,
     View,
 ):
     """Create a new image for a property."""
-
-    permission_required = 'harvest.add_propertyimage'
 
     def post(self, request, pid):
         property_obj = get_object_or_404(Property, pk=pid)
@@ -701,10 +699,8 @@ class PropertyImageCreateView(
             image_obj.save()
             messages.success(request, _("Image uploaded successfully!"))
         else:
-            messages.error(
-                request,
-                _("Could not upload image. Please check that it is a valid JPG or PNG under 5MB."),
-            )
+            errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
+            messages.error(request, errors or _("Could not upload image."))
 
         return redirect('property-detail', pk=pid)
 
@@ -713,9 +709,7 @@ class PropertyImageCreateView(
 
 
 class PropertyImageUpdateView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    UserPassesTestMixin,
+    UploaderOrAdminRequiredMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     UpdateView[PropertyImage, ModelForm[PropertyImage]],
 ):
@@ -723,25 +717,8 @@ class PropertyImageUpdateView(
 
     model = PropertyImage
     fields = ['description']
+    http_method_names = ['post']
     success_message = _("Image description updated successfully!")
-    permission_required = 'harvest.update_propertyimage'
-    pk_url_kwarg = 'pk'
-
-    def test_func(self) -> bool:
-        return self.get_object().uploaded_by_id == self.request.user.id or is_core_or_admin(
-            self.request.user
-        )
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = _("Edit Photo Description")
-        context['cancel_url'] = self.get_success_url()
-        return context
-
-    def form_valid(self, form):
-        self.object = form.save()
-        messages.success(self.request, self.success_message)
-        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):
         error_messages = []
@@ -758,39 +735,31 @@ class PropertyImageUpdateView(
 
 
 class PropertyImageDeleteView(
-    LoginRequiredMixin,
-    PermissionRequiredMixin,
-    UserPassesTestMixin,
-    SuccessMessageMixin[ModelForm[PropertyImage]],
+    UploaderOrAdminRequiredMixin,
     DeleteView[PropertyImage, ModelForm[PropertyImage]],
 ):
     model = PropertyImage
+    http_method_names = ['post']
     success_message = _("Property image deleted successfully!")
-    permission_required = 'harvest.delete_propertyimage'
 
     def form_valid(self, form):
-        self.object = self.get_object()
-        try:
-            image_field = self.object.image
-            name = image_field.name
-            path, filename = os.path.split(name)
-            new_name = os.path.join('trash', path, filename)
-
-            if image_field.storage.exists(name):
-                with image_field.open('rb') as f:
-                    image_field.storage.save(new_name, f)
-                image_field.storage.delete(name)
-        except Exception as e:
-            logger.warning(f"Failed to move image {self.object.image.name} to trash: {e}")
+        image_field = self.object.image
+        storage, name = image_field.storage, image_field.name
 
         self.object.delete()
+
+        try:
+            path, filename = os.path.split(name)
+            new_name = os.path.join('trash', path, filename)
+            if storage.exists(name):
+                with storage.open(name, 'rb') as f:
+                    storage.save(new_name, f)
+                storage.delete(name)
+        except Exception as e:
+            logger.warning(f"Failed to move image {name} to trash: {e}")
+
         messages.success(self.request, self.success_message)
         return HttpResponseRedirect(self.get_success_url())
-
-    def test_func(self) -> bool:
-        self.object = self.get_object()
-        user = self.request.user
-        return self.object.uploaded_by == user or is_core_or_admin(user)
 
     def get_success_url(self):
         return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
