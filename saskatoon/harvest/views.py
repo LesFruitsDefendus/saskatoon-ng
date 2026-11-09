@@ -724,6 +724,7 @@ class PropertyImageUpdateView(
     model = PropertyImage
     fields = ['description']
     success_message = _("Image description updated successfully!")
+    permission_required = 'harvest.update_propertyimage'
     pk_url_kwarg = 'pk'
 
     def test_func(self) -> bool:
@@ -765,6 +766,7 @@ class PropertyImageDeleteView(
 ):
     model = PropertyImage
     success_message = _("Property image deleted successfully!")
+    permission_required = 'harvest.delete_propertyimage'
 
     def form_valid(self, form):
         self.object = self.get_object()
