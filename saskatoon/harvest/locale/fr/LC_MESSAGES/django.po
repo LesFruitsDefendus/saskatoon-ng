@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 09:45-0500\n"
+"POT-Creation-Date: 2026-11-11 14:15-0500\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1256,14 +1256,14 @@ msgstr ""
 "Impossible de télécharger l'image. Veuillez vérifier qu'il s'agit d'un "
 "fichier JPG ou PNG valide dont la taille est inférieure à 5 Mo."
 
-#: harvest/views.py:726
+#: harvest/views.py:725
 msgid "Image description updated successfully!"
 msgstr "Mise à jour de la description de l'image réussie!"
 
-#: harvest/views.py:736
+#: harvest/views.py:739
 msgid "Edit Photo Description"
 msgstr "Modifier la Description de la photo"
 
-#: harvest/views.py:767
+#: harvest/views.py:769
 msgid "Property image deleted successfully!"
 msgstr "L'image de la propriété a effacé réussie!"

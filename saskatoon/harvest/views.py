@@ -682,7 +682,7 @@ def property_create_orphans(request, id):
 
 
 class PropertyImageCreateView(
-    PermissionRequiredMixin,
+    LoginRequiredMixin,
     View,
 ):
     """Create a new image for a property."""
@@ -715,7 +715,6 @@ class PropertyImageCreateView(
 class PropertyImageUpdateView(
     LoginRequiredMixin,
     PermissionRequiredMixin,
-    UserPassesTestMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     UpdateView[PropertyImage, ModelForm[PropertyImage]],
 ):
@@ -724,13 +723,16 @@ class PropertyImageUpdateView(
     model = PropertyImage
     fields = ['description']
     success_message = _("Image description updated successfully!")
-    permission_required = 'harvest.update_propertyimage'
     pk_url_kwarg = 'pk'
 
-    def test_func(self) -> bool:
-        return self.get_object().uploaded_by_id == self.request.user.id or is_core_or_admin(
-            self.request.user
-        )
+    def get_permission_required(self):
+        self.object = self.get_object()
+        user = self.request.user
+
+        if self.object.uploaded_by == user or is_core_or_admin(user):
+            return []
+
+        return ['harvest.update_propertyimage']
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -760,13 +762,20 @@ class PropertyImageUpdateView(
 class PropertyImageDeleteView(
     LoginRequiredMixin,
     PermissionRequiredMixin,
-    UserPassesTestMixin,
     SuccessMessageMixin[ModelForm[PropertyImage]],
     DeleteView[PropertyImage, ModelForm[PropertyImage]],
 ):
     model = PropertyImage
     success_message = _("Property image deleted successfully!")
-    permission_required = 'harvest.delete_propertyimage'
+
+    def get_permission_required(self):
+        self.object = self.get_object()
+        user = self.request.user
+
+        if self.object.uploaded_by == user or is_core_or_admin(user):
+            return []
+
+        return ['harvest.delete_propertyimage']
 
     def form_valid(self, form):
         self.object = self.get_object()
@@ -786,11 +795,6 @@ class PropertyImageDeleteView(
         self.object.delete()
         messages.success(self.request, self.success_message)
         return HttpResponseRedirect(self.get_success_url())
-
-    def test_func(self) -> bool:
-        self.object = self.get_object()
-        user = self.request.user
-        return self.object.uploaded_by == user or is_core_or_admin(user)
 
     def get_success_url(self):
         return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})

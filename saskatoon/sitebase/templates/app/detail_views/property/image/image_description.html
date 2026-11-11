@@ -8,14 +8,14 @@
                 <p id="image-text-{{ img.id }}" class="photo-description-text mb-0">
                     {% if img.description %}
                         {{ img.description }}
-                    {% elif img.uploaded_by == request.user or user|is_admin %}
+                    {% elif img.uploaded_by == request.user.id or user|is_core_or_admin %}
                         <span class="text-muted font-italic">{% trans "Click the edit button to add a description..." %}</span>
                     {% endif %}
                 </p>
             </div>
         </div>
 
-        {% if img.uploaded_by == request.user or user|is_admin %}
+        {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
         <div class="photo-actions-group">
                 <button type="button"
                         class="btn btn-sm btn-link text-primary edit-image-btn btn-photo-action"
@@ -40,7 +40,7 @@
         {% endif %}
     </div>
 
-    {% if img.uploaded_by == request.user or user|is_admin %}
+    {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
         <div id="image-edit-{{ img.id }}" class="image-edit-form-container" style="display: none;">
             <form method="post" action="{% url 'property-image-update' img.id %}">
                 {% csrf_token %}
