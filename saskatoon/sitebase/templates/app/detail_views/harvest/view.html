@@ -25,7 +25,7 @@
         {% include 'app/detail_views/harvest/data_table.html' %}
         <div class="distribution-and-comments">
             {% include 'app/detail_views/harvest/distribution/view.html' %}
-            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='comment-create-harvest' object_id=id %}
+            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='harvest-comment-create' object_id=id %}
         </div>
     </div>
 {% endblock content %}

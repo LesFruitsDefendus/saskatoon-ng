@@ -38,7 +38,7 @@ setup(
         "django-geojson>=4.2,<5",
         "django-leaflet>=0.34",
         "mysqlclient>=2.2.1",
-        "Pillow>=12.0,<14",
+        "Pillow>=13.0,<14",
         "pycparser>=2.20,<3",
         "sqlparse>=0.5,<1",
         "django-dotenv>=1.4.2,<2",

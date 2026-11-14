@@ -1,0 +1,37 @@
+{% load i18n %}
+{% load auth_users %}
+
+<div class="photo-description-cell">
+    {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
+        <form method="post" action="{% url 'property-image-update' img.id %}" class="image-edit-form">
+            {% csrf_token %}
+            <textarea name="description" 
+                        class="form-control image-edit-textarea" 
+                        rows="2"
+                        maxlength="255"
+                        placeholder="{% trans 'Add a description...' %}">{{ img.description|default:"" }}</textarea>
+            <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                <i class="fa fa-save"></i> {% trans "Save description" %}
+            </button>
+        </form>
+
+        {% translate "Are you sure you want to permanently delete this photo?" as delete_confirm_msg %}
+        <form method="post"
+                action="{% url 'property-image-delete' img.id %}"
+                class="image-delete-form"
+                onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
+            {% csrf_token %}
+            <button type="submit" class="btn saskatoon-danger btn-sm">
+                <i class="fa fa-trash"></i> {% trans 'Permanently delete photo' %}
+            </button>
+        </form>
+    {% else %}
+        <p>
+            {% if img.description %}
+                {{ img.description }}
+            {% else %}
+                <span class="text-muted">{% trans "No description provided." %}</span>
+            {% endif %}
+        </p>
+    {% endif %}
+</div>
