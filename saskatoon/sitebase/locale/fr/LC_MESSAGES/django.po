@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-09 09:45-0500\n"
+"POT-Creation-Date: 2026-11-13 20:54-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -560,7 +560,6 @@ msgstr "Effacer le Commentaire"
 
 #: sitebase/templates/app/detail_views/comment/comment_content.html:59
 #: sitebase/templates/app/detail_views/harvest/distribution/create_yield.html:9
-#: sitebase/templates/app/detail_views/property/image/image_description.html:57
 #: sitebase/templates/app/forms/model_form.html:17
 #: sitebase/templates/app/forms/organization_create_form.html:45
 #: sitebase/templates/app/forms/property_create_form.html:61
@@ -568,7 +567,6 @@ msgid "Save"
 msgstr "Sauvegarder"
 
 #: sitebase/templates/app/detail_views/comment/comment_content.html:64
-#: sitebase/templates/app/detail_views/property/image/image_description.html:62
 #: sitebase/templates/app/forms/model_form.html:21
 #: sitebase/templates/app/forms/organization_create_form.html:49
 #: sitebase/templates/app/forms/property_create_form.html:65
@@ -1130,29 +1128,33 @@ msgstr "Chef.fe de cueillette"
 msgid "photo"
 msgstr "Photo"
 
-#: sitebase/templates/app/detail_views/property/image/carousel.html:24
+#: sitebase/templates/app/detail_views/property/image/carousel.html:31
 msgid "Previous photo"
 msgstr "Photo précédente"
 
-#: sitebase/templates/app/detail_views/property/image/carousel.html:28
+#: sitebase/templates/app/detail_views/property/image/carousel.html:35
 msgid "Next photo"
 msgstr "Photo suivante"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:12
-msgid "Click the edit button to add a description..."
-msgstr "Cliquez sur le bouton « Modifier » pour ajouter une description…"
+msgid "Add a description..."
+msgstr "Ajute la déscription"
 
-#: sitebase/templates/app/detail_views/property/image/image_description.html:23
-msgid "Edit description"
-msgstr "Modifier la déscription"
+#: sitebase/templates/app/detail_views/property/image/image_description.html:14
+msgid "Save description"
+msgstr "Sauver la Déscription"
 
-#: sitebase/templates/app/detail_views/property/image/image_description.html:27
-msgid "Are you sure you want to permenantly delete this photo?"
+#: sitebase/templates/app/detail_views/property/image/image_description.html:18
+msgid "Are you sure you want to permanently delete this photo?"
 msgstr "Êtes-vous certain(e) de vouloir effacer définitivement ce photo?"
 
-#: sitebase/templates/app/detail_views/property/image/image_description.html:35
-msgid "Delete photo"
-msgstr "Effacer le photo"
+#: sitebase/templates/app/detail_views/property/image/image_description.html:25
+msgid "Permanently delete photo"
+msgstr "Effacer le photo définitivement"
+
+#: sitebase/templates/app/detail_views/property/image/image_description.html:33
+msgid "No description provided."
+msgstr "Aucune déscription."
 
 #: sitebase/templates/app/detail_views/property/image/lightbox.html:8
 msgid "Close"

@@ -721,6 +721,7 @@ class PropertyImageUpdateView(
     """Edit an existing property image description inline."""
 
     model = PropertyImage
+    http_method_names = ['post']
     fields = ['description']
     success_message = _("Image description updated successfully!")
     pk_url_kwarg = 'pk'
@@ -739,11 +740,6 @@ class PropertyImageUpdateView(
         context['title'] = _("Edit Photo Description")
         context['cancel_url'] = self.get_success_url()
         return context
-
-    def form_valid(self, form):
-        self.object = form.save()
-        messages.success(self.request, self.success_message)
-        return HttpResponseRedirect(self.get_success_url())
 
     def form_invalid(self, form):
         error_messages = []
@@ -766,6 +762,7 @@ class PropertyImageDeleteView(
     DeleteView[PropertyImage, ModelForm[PropertyImage]],
 ):
     model = PropertyImage
+    http_method_names = ['post']
     success_message = _("Property image deleted successfully!")
 
     def get_permission_required(self):

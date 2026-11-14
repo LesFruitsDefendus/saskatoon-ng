@@ -18,19 +18,20 @@
                         class="img-responsive lightbox-trigger" 
                         data-slide-index="{{ forloop.counter0 }}"
                         {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
-                    
-                    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
-                        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-                        <span class="sr-only">{% trans "Previous photo" %}</span>
-                    </a>
-                    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
-                        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-                        <span class="sr-only">{% trans "Next photo" %}</span>
-                    </a>
                 </div>
-
-            {% include 'app/detail_views/property/image/image_description.html' with img=img %}
+                {% if in_lightbox%}
+                    {% include 'app/detail_views/property/image/image_description.html' with img=img %}
+                {% endif %}
             </div>
         {% endfor %}
     </div>
+                    
+    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+        <i class="fa fa-chevron-left" aria-hidden="true"></i>
+        <span class="sr-only">{% trans "Previous photo" %}</span>
+    </a>
+    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+        <i class="fa fa-chevron-right" aria-hidden="true"></i>
+        <span class="sr-only">{% trans "Next photo" %}</span>
+    </a>
 </div>

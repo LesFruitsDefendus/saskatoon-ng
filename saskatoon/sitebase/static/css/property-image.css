@@ -1,0 +1,200 @@
+.detail-section-card {
+    margin-bottom: 0;
+    padding-bottom: 5px;
+}
+
+.upload-button {
+    padding-right: 0;
+}
+
+#photoLightboxModal .modal-dialog {
+    width: 90vw;
+    height: 85vh;
+    margin: 5vh auto;
+}
+
+#photoLightboxModal .modal-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    box-shadow: none;
+    overflow: hidden;
+}
+
+#photoLightboxModal .modal-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #e7e0f9aa;
+}
+
+#photoLightboxModal .close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 30;
+    color: var(--saskatoon-danger);
+    opacity: 1;
+    text-shadow: none;
+}
+
+#photoLightboxModal .close span {
+    font-size: 28px;
+}
+
+#lightboxCarousel {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.carousel-indicators {
+    bottom: 15px;
+    margin: 0;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+#lightboxCarousel .carousel-indicators {
+    bottom: calc(var(--lb-desc-h, 140px) + 15px);
+}
+
+.carousel-indicators li {
+    pointer-events: auto;
+    width: 10px;
+    height: 10px;
+    margin: 1px 4px;
+    background-color: #e7e0f9aa;
+    border: 1px solid #000;
+    border-radius: 50%;
+    opacity: 1;
+}
+
+.carousel-indicators li.active {
+    width: 12px;
+    height: 12px;
+    margin: 0 3px;
+    background-color: #fff;
+}
+
+#lightboxCarousel .carousel-inner {
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+#lightboxCarousel .carousel-inner > .item {
+    height: 100%;
+    flex-direction: column;
+}
+
+#lightboxCarousel .carousel-inner > .active,
+#lightboxCarousel .carousel-inner > .next,
+#lightboxCarousel .carousel-inner > .prev {
+    display: flex;
+}
+
+#photoCarousel .thumbnail,
+#lightboxCarousel .thumbnail {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 0 50px;
+    border: none;
+    box-shadow: none;
+    background-color: transparent;
+}
+
+#photoCarousel .thumbnail {
+    height: 400px;
+}
+
+#lightboxCarousel .thumbnail {
+    flex: 1 1 0;
+    min-height: 0;
+}
+
+#photoCarousel img.lightbox-trigger,
+#lightboxCarousel img.lightbox-trigger {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#photoCarousel img.lightbox-trigger {
+    cursor: pointer;
+}
+
+#lightboxCarousel .photo-description-cell {
+    flex: 0 0 var(--lb-desc-h, 140px);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 50px;
+    overflow-y: auto;
+    text-align: center;
+}
+
+#lightboxCarousel .photo-description-cell p {
+    margin: auto 0;
+}
+
+.photo-description-cell .image-edit-form,
+.photo-description-cell .image-delete-form {
+    width: 100%;
+    max-width: 640px;
+}
+
+.photo-description-cell .image-edit-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+}
+
+.photo-description-cell .image-edit-textarea {
+    flex: 1;
+    resize: none;
+    margin: 0;
+}
+
+.photo-description-cell .image-delete-form {
+    padding-top: 8px;
+    border-top: 1px solid #d9d4ec;
+}
+
+.carousel-control.left,
+.carousel-control.right {
+    background-image: none;
+}
+
+.carousel-control i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #333;
+    text-shadow: none;
+}
+
+#photoCarousel .carousel-control {
+    width: 40px;
+}
+
+#lightboxCarousel .carousel-control {
+    width: 40px;
+    height: 40px;
+    top: calc((100% - var(--lb-desc-h, 140px)) / 2);
+    bottom: auto;
+    margin-top: -20px;
+}
+
+#lightboxCarousel .carousel-control.left {
+    left: 10px;
+}
+
+#lightboxCarousel .carousel-control.right {
+    right: 10px;
+}
