@@ -1138,11 +1138,11 @@ msgstr "Photo suivante"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:12
 msgid "Add a description..."
-msgstr "Ajute la déscription"
+msgstr "Ajute une description"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:14
 msgid "Save description"
-msgstr "Sauver la Déscription"
+msgstr "Sauver la Description"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:18
 msgid "Are you sure you want to permanently delete this photo?"
@@ -1154,7 +1154,7 @@ msgstr "Effacer le photo définitivement"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:33
 msgid "No description provided."
-msgstr "Aucune déscription."
+msgstr "Aucune description fournie."
 
 #: sitebase/templates/app/detail_views/property/image/lightbox.html:8
 msgid "Close"

@@ -19,8 +19,6 @@ from djgeojson.fields import PointField
 from phone_field import PhoneField
 from typeguard import typechecked
 
-from harvest.utils import resize_and_save_image
-from harvest.validators import IMAGE_VALIDATORS
 from sitebase.utils import (
     french_ordinal,
     is_quill_html_empty,
@@ -1014,7 +1012,6 @@ class PropertyImage(models.Model):
     )
     image = models.ImageField(
         upload_to=property_image_upload_path,
-        validators=IMAGE_VALIDATORS,
         verbose_name=_("Image"),
     )
     description = models.CharField(
@@ -1035,23 +1032,6 @@ class PropertyImage(models.Model):
         null=True,
         blank=True,
     )
-
-    def save(self, *args, **kwargs):
-        """Automatically resize and convert uploaded images to JPG before saving."""
-        if self.image and hasattr(self.image, 'file'):
-            if not isinstance(self.image, models.fields.files.FieldFile):
-                path = property_image_upload_path(self, self.image.name)
-                resized_file = resize_and_save_image(self.image, path, image_resize_px=1080)
-                if resized_file:
-                    self.image = resized_file
-                else:
-                    raise ValidationError(
-                        _(
-                            "Could not process the uploaded image. Please ensure it is a valid image file."
-                        )
-                    )
-
-        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.image.name

@@ -7,11 +7,9 @@ from logging import getLogger
 from typing import TYPE_CHECKING, Any, Optional
 
 from django.apps import apps
-from django.core.exceptions import ValidationError
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.db.models import Q, Sum
-from django.utils.translation import gettext_lazy as _
-from PIL import Image
+from PIL import Image, ImageOps
 from typeguard import typechecked
 
 if TYPE_CHECKING:
@@ -76,46 +74,42 @@ def buffer_reservation_time(
     return local_time.strftime("%I:%M %p")
 
 
+def _flatten_to_rgb(img: Image.Image) -> Image.Image:
+    """Convert to RGB, putting transparent areas on white (not black)."""
+    has_alpha = img.mode in ('RGBA', 'LA') or (img.mode == 'P' and 'transparency' in img.info)
+    if not has_alpha:
+        return img.convert('RGB')
+
+    rgba = img.convert('RGBA')
+    background = Image.new('RGB', rgba.size, (255, 255, 255))
+    background.paste(rgba, mask=rgba.getchannel('A'))
+    return background
+
+
 def resize_and_save_image(
     image: Any, filename: str, image_resize_px: int = 1080, field_name: str = 'image'
 ) -> Optional[InMemoryUploadedFile]:
     """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
     try:
-        jpg_image = Image.open(image).convert('RGB')
-        w0, h0 = jpg_image.size
+        with Image.open(image) as src:
+            img = ImageOps.exif_transpose(src)
+            img = _flatten_to_rgb(img)
+            img.thumbnail((image_resize_px, image_resize_px), Image.Resampling.LANCZOS)
 
-        if max(w0, h0) > image_resize_px:
-            if h0 > w0:  # portrait
-                h1 = image_resize_px
-                w1 = int(w0 * h1 / float(h0))
-            else:  # landscape
-                w1 = image_resize_px
-                h1 = int(h0 * w1 / float(w0))
-            jpg_image = jpg_image.resize((w1, h1), Image.Resampling.LANCZOS)
+            buffer = BytesIO()
+            img.save(buffer, format='JPEG', quality=85, optimize=True)
 
-        image_io = BytesIO()
-        jpg_image.save(image_io, format='JPEG', quality=90)
-        image_io.seek(0)
+        file_size = buffer.getbuffer().nbytes
+        buffer.seek(0)
 
-        file_size = image_io.tell()
-
-        if file_size > 5 * 1024 * 1024:
-            raise ValidationError(
-                _("Processed file size too large (%(size).1fMB). Maximum allowed size is 5MB."),
-                params={'size': file_size / (1024 * 1024), 'max_size': 5},
-            )
-
-        jpg_filename = os.path.splitext(filename)[0] + '.jpg'
         return InMemoryUploadedFile(
-            file=image_io,
+            file=buffer,
             field_name=field_name,
-            name=jpg_filename,
+            name=os.path.splitext(filename)[0] + '.jpg',
             content_type='image/jpeg',
             size=file_size,
             charset=None,
         )
-    except ValidationError:
-        raise
-    except Exception as e:
-        logger.error("%s: %s", type(e).__name__, str(e))
+    except Exception:
+        logger.exception("Could not process uploaded image %s", filename)
         return None
