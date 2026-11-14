@@ -7,10 +7,15 @@
     padding-right: 0;
 }
 
+#photoLightboxModal {
+    --lightbox-description-height: 140px;
+}
+
 #photoLightboxModal .modal-dialog {
     width: 90vw;
     height: 85vh;
     margin: 5vh auto;
+    flex: 0 0 var(--lightbox-description-height);
 }
 
 #photoLightboxModal .modal-content {
@@ -58,7 +63,8 @@
 }
 
 #lightboxCarousel .carousel-indicators {
-    bottom: calc(var(--lb-desc-h, 140px) + 15px);
+    bottom: var(--lightbox-description-height);
+    margin-bottom: 15px;
 }
 
 .carousel-indicators li {
@@ -127,7 +133,7 @@
 }
 
 #lightboxCarousel .photo-description-cell {
-    flex: 0 0 var(--lb-desc-h, 140px);
+    flex: 0 0 var(--lightbox-description-height);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -185,10 +191,8 @@
 
 #lightboxCarousel .carousel-control {
     width: 40px;
-    height: 40px;
-    top: calc((100% - var(--lb-desc-h, 140px)) / 2);
-    bottom: auto;
-    margin-top: -20px;
+    top: 0;
+    bottom: var(--lightbox-description-height);
 }
 
 #lightboxCarousel .carousel-control.left {
