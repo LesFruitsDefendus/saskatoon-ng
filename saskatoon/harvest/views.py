@@ -698,9 +698,11 @@ class PropertyImageCreateView(
             image_obj.uploaded_by = request.user
             image_obj.save()
             messages.success(request, _("Image uploaded successfully!"))
-        else:
-            errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
-            messages.error(request, errors or _("Could not upload image."))
+
+            return redirect(reverse_lazy('property-detail', kwargs={'pk': pid}) + '#new-photo')
+
+        errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
+        messages.error(request, errors or _("Could not upload image."))
 
         return redirect('property-detail', pk=pid)
 

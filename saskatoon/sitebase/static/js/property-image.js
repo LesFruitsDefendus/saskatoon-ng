@@ -21,4 +21,9 @@ document.addEventListener("DOMContentLoaded", function() {
     $modal.on('shown.bs.modal', function () {
         $lightboxCarousel.focus();
     });
+
+    if (window.location.hash === '#new-photo') {
+    $modal.modal('show');
+    history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
 })
