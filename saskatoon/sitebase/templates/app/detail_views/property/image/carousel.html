@@ -3,11 +3,13 @@
 
 <div id="{{ carousel_id|default:'photoCarousel' }}" class="carousel slide" data-ride="carousel" data-interval="false">
 
-    <ol class="carousel-indicators">
-        {% for img in images %}
-            <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
-        {% endfor %}
-    </ol>
+    {% if images|length > 1 %}
+        <ol class="carousel-indicators">
+            {% for img in images %}
+                <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+    {% endif %}
 
     <div class="carousel-inner">
         {% for img in images %}
@@ -25,13 +27,15 @@
             </div>
         {% endfor %}
     </div>
-                    
-    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Previous photo" %}</span>
-    </a>
-    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Next photo" %}</span>
-    </a>
+    
+    {% if images|length > 1 %}          
+        <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <span class="sr-only">{% trans "Previous photo" %}</span>
+        </a>
+        <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">{% trans "Next photo" %}</span>
+        </a>
+    {% endif %}
 </div>

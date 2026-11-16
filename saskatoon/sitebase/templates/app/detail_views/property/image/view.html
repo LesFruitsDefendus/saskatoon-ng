@@ -34,7 +34,10 @@
                 {% include 'app/detail_views/property/image/carousel.html' with images=images %}
                 {% include 'app/detail_views/property/image/lightbox.html' with images=images %}
             {% else %}
-                <p class="text-muted">{% trans "No photos uploaded yet." %}</p>
+                <div class="photo-placeholder" role="button" tabindex="0" onclick="document.getElementById('trigger_file_input').click();">
+                    <i class="fa fa-camera" aria-hidden="true"></i>
+                    <p>{% trans "No photos uploaded yet" %}</p>
+                </div>
             {% endif %}
         </div>
     </div>

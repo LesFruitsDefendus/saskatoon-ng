@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-13 20:54-0500\n"
+"POT-Creation-Date: 2026-11-16 07:38-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1124,15 +1124,15 @@ msgstr "Arbre(s)"
 msgid "Pickleader"
 msgstr "Chef.fe de cueillette"
 
-#: sitebase/templates/app/detail_views/property/image/carousel.html:17
+#: sitebase/templates/app/detail_views/property/image/carousel.html:19
 msgid "photo"
 msgstr "Photo"
 
-#: sitebase/templates/app/detail_views/property/image/carousel.html:31
+#: sitebase/templates/app/detail_views/property/image/carousel.html:34
 msgid "Previous photo"
 msgstr "Photo précédente"
 
-#: sitebase/templates/app/detail_views/property/image/carousel.html:35
+#: sitebase/templates/app/detail_views/property/image/carousel.html:38
 msgid "Next photo"
 msgstr "Photo suivante"
 
@@ -1168,8 +1168,8 @@ msgstr "Photos"
 msgid "Upload photo"
 msgstr "Téléverser une photo"
 
-#: sitebase/templates/app/detail_views/property/image/view.html:37
-msgid "No photos uploaded yet."
+#: sitebase/templates/app/detail_views/property/image/view.html:39
+msgid "No photos uploaded yet"
 msgstr "Aucune photo n'a encore été téléchargée."
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:8

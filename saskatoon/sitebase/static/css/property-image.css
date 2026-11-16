@@ -202,3 +202,24 @@
 #lightboxCarousel .carousel-control.right {
     right: 10px;
 }
+
+.photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    border: 1px dashed #d9d4ec;
+    border-radius: 8px;
+    background-color: #f7f7f7;
+    color: #c4c4c4;
+}
+
+.photo-placeholder i {
+    font-size: 64px;
+}
+
+.photo-placeholder p {
+    margin: 8px 0 0;
+    font-size: 13px;
+}
