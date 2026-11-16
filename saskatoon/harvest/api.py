@@ -371,7 +371,8 @@ class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
             "pickers": self.get_total_weight_harvest_per_picker(),
         }
         data = StatsSerializer(stats).data
-        data["seasons"] = [c[0] for c in Harvest.SEASON_CHOICES]
+        if request.accepted_renderer.format == "html":
+            data["seasons"] = [c[0] for c in Harvest.SEASON_CHOICES]
         return Response(data)
 
     def get_highlights(self) -> Dict[str, int]:
