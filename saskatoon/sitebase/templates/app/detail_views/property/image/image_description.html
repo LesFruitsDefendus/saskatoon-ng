@@ -3,35 +3,45 @@
 
 <div class="photo-description-cell">
     {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
-        <form method="post" action="{% url 'property-image-update' img.id %}" class="image-edit-form">
-            {% csrf_token %}
-            <textarea name="description" 
-                        class="form-control image-edit-textarea" 
-                        rows="2"
-                        maxlength="255"
-                        placeholder="{% trans 'Add a description...' %}">{{ img.description|default:"" }}</textarea>
-            <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
-                <i class="fa fa-save"></i> {% trans "Save description" %}
+        <p class="image-description-view">
+            {{ img.description|default:"" }}
+            <button type="button"
+                    class="btn btn-sm btn-link text-primary image-edit-toggle"
+                    title="{% trans 'Edit description' %}"
+                    aria-controls="image-edit-form-{{ img.id }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
+        </p>
+
+        <form method="post"
+              action="{% url 'property-image-update' img.id %}"
+              id="image-edit-form-{{ img.id }}"
+              class="image-edit-form"
+              hidden>
+            {% csrf_token %}
+            <textarea name="description"
+                      class="form-control image-edit-textarea"
+                      rows="2"
+                      maxlength="255"
+                      aria-label="{% trans 'Photo description' %}"
+                      placeholder="{% trans 'Add a description...' %}">{{ img.description|default:"" }}</textarea>
+            <div class="image-edit-actions">
+                <button type="submit"
+                        class="btn btn-sm btn-link text-primary"
+                        title="{% trans 'Save description' %}">
+                    <i class="fa fa-save fa-lg" aria-hidden="true"></i>
+                </button>
+                <button type="button"
+                        class="btn btn-sm btn-link image-edit-cancel"
+                        title="{% trans 'Cancel' %}">
+                    <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                </button>
+            </div>
         </form>
 
-        {% translate "Are you sure you want to permanently delete this photo?" as delete_confirm_msg %}
-        <form method="post"
-                action="{% url 'property-image-delete' img.id %}"
-                class="image-delete-form"
-                onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
-            {% csrf_token %}
-            <button type="submit" class="btn saskatoon-danger btn-sm">
-                <i class="fa fa-trash"></i> {% trans 'Permanently delete photo' %}
-            </button>
-        </form>
     {% else %}
-        <p>
-            {% if img.description %}
-                {{ img.description }}
-            {% else %}
-                <span class="text-muted">{% trans "No description provided." %}</span>
-            {% endif %}
-        </p>
+        {% if img.description %}
+            <p>{{ img.description }}</p>
+        {% endif %}
     {% endif %}
 </div>

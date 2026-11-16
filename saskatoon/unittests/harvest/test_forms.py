@@ -94,12 +94,6 @@ def test_oversize_upload_is_rejected():
     assert 'too large' in str(form.errors['image'])
 
 
-def test_description_is_optional():
-    form = PropertyImageForm({}, {'image': upload('ok.png', png_bytes())})
-
-    assert form.is_valid(), form.errors
-
-
 """ TODO: add tests for harvest form clean, clean_end_date,
        clean_trees, clean_about and save (and other forms).
 

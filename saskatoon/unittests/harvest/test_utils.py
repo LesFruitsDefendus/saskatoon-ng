@@ -25,6 +25,7 @@ def make_image_file(size=(100, 100), mode='RGB', fmt='PNG', color='red', **save_
 
 
 def open_result(result):
+    assert result is not None, "resize_and_save_image returned None"
     result.file.seek(0)
     return Image.open(result.file)
 

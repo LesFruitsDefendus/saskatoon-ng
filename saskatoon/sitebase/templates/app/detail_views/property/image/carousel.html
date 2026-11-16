@@ -1,23 +1,45 @@
 {% load i18n %}
 {% load static %}
+{% load auth_users %}
 
 <div id="{{ carousel_id|default:'photoCarousel' }}" class="carousel slide" data-ride="carousel" data-interval="false">
 
-    <ol class="carousel-indicators">
-        {% for img in images %}
-            <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
-        {% endfor %}
-    </ol>
+    {% if images|length > 1 %}
+        <ol class="carousel-indicators">
+            {% for img in images %}
+                <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+    {% endif %}
 
     <div class="carousel-inner">
         {% for img in images %}
             <div class="item {% if forloop.first %}active{% endif %}">
                 <div class="thumbnail">
-                    <img src="{{ img.image }}" 
-                        alt="{% trans 'photo' %}" 
-                        class="img-responsive lightbox-trigger" 
-                        data-slide-index="{{ forloop.counter0 }}"
-                        {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
+                    <div class="photo-frame">
+                        <img src="{{ img.image }}"
+                             alt="{{ img.description|default:_("photo") }}"
+                             class="img-responsive lightbox-trigger"
+                             data-slide-index="{{ forloop.counter0 }}"
+                             data-photo-id="{{ img.id }}"
+                             {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
+                        {% if in_lightbox %}
+                            {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
+                                {% translate "Are you sure you want to permanently delete this photo?" as delete_confirm_msg %}
+                                <form method="post"
+                                      action="{% url 'property-image-delete' img.id %}"
+                                      class="image-delete-form"
+                                      onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
+                                    {% csrf_token %}
+                                    <button type="submit"
+                                            class="btn btn-sm btn-link text-danger image-delete-btn"
+                                            title="{% trans 'Permanently delete photo' %}">
+                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                 </div>
                 {% if in_lightbox%}
                     {% include 'app/detail_views/property/image/image_description.html' with img=img %}
@@ -25,13 +47,15 @@
             </div>
         {% endfor %}
     </div>
-                    
-    <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
-        <i class="fa fa-chevron-left" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Previous photo" %}</span>
-    </a>
-    <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
-        <i class="fa fa-chevron-right" aria-hidden="true"></i>
-        <span class="sr-only">{% trans "Next photo" %}</span>
-    </a>
+
+    {% if images|length > 1 %}          
+        <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+            <i class="fa fa-chevron-left" aria-hidden="true"></i>
+            <span class="sr-only">{% trans "Previous photo" %}</span>
+        </a>
+        <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+            <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <span class="sr-only">{% trans "Next photo" %}</span>
+        </a>
+    {% endif %}
 </div>

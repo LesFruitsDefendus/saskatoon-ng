@@ -14,7 +14,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.forms import ModelForm
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, View
@@ -698,9 +698,13 @@ class PropertyImageCreateView(
             image_obj.uploaded_by = request.user
             image_obj.save()
             messages.success(request, _("Image uploaded successfully!"))
-        else:
-            errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
-            messages.error(request, errors or _("Could not upload image."))
+
+            return redirect(
+                f"{reverse('property-detail', kwargs={'pk': pid})}#photo-{image_obj.pk}"
+            )
+
+        errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
+        messages.error(request, errors or _("Could not upload image."))
 
         return redirect('property-detail', pk=pid)
 
@@ -720,6 +724,12 @@ class PropertyImageUpdateView(
     http_method_names = ['post']
     success_message = _("Image description updated successfully!")
 
+    def _detail_url(self):
+        return reverse('property-detail', kwargs={'pk': self.object.property_id})
+
+    def get_success_url(self):
+        return f'{self._detail_url()}#photo-{self.object.pk}'
+
     def form_invalid(self, form):
         error_messages = []
         for field, errors in form.errors.items():
@@ -728,10 +738,7 @@ class PropertyImageUpdateView(
                 error_messages.append(f"{field_name}: {error}" if field_name else error)
 
         messages.error(self.request, " | ".join(error_messages))
-        return HttpResponseRedirect(self.get_success_url())
-
-    def get_success_url(self):
-        return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})
+        return HttpResponseRedirect(self._detail_url())
 
 
 class PropertyImageDeleteView(
