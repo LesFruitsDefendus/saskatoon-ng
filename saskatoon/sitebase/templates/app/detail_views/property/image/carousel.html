@@ -16,9 +16,10 @@
             <div class="item {% if forloop.first %}active{% endif %}">
                 <div class="thumbnail">
                     <img src="{{ img.image }}" 
-                        alt="{% trans 'photo' %}" 
+                        alt="{{ img.description|default:_('photo') }}" 
                         class="img-responsive lightbox-trigger" 
                         data-slide-index="{{ forloop.counter0 }}"
+                        data-photo-id="{{ img.id }}"
                         {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
                 </div>
                 {% if in_lightbox%}
@@ -27,7 +28,7 @@
             </div>
         {% endfor %}
     </div>
-    
+
     {% if images|length > 1 %}          
         <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>

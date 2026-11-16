@@ -22,8 +22,14 @@ document.addEventListener("DOMContentLoaded", function() {
         $lightboxCarousel.focus();
     });
 
-    if (window.location.hash === '#new-photo') {
-    $modal.modal('show');
-    history.replaceState(null, '', window.location.pathname + window.location.search);
+    // Reopen the lightbox on a photo (fragment set by the upload and update views)
+    const hashMatch = window.location.hash.match(/^#photo-(\d+)$/);
+    if (hashMatch) {
+        const trigger = document.querySelector(
+            `#photoCarousel .lightbox-trigger[data-photo-id="${hashMatch[1]}"]`
+        );
+        if (trigger) trigger.click();
+        // Drop the fragment so a refresh doesn't reopen the lightbox
+        history.replaceState(null, '', window.location.pathname + window.location.search);
     }
 })
