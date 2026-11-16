@@ -130,7 +130,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for fruit_name, total_harvests, total_weight in total_fruit %}
+                                        {% for row in fruits %}
                                             <tr role="row">
                                                 <td>{{ fruit_name }}</td>
                                                 <td>{{ total_harvests }}</td>
@@ -164,7 +164,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for neighborhood,total_harvests, total_weight in total_neighborhood %}
+                                        {% for row in neighborhoods %}
                                             <tr role="row">
                                                 <td>{{ neighborhood }}</td>
                                                 <td>{{ total_harvests }}</td>
@@ -201,7 +201,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for beneficiary,total_harvests, total_weight in total_beneficiary %}
+                                        {% for row in beneficiaries %}
                                             <tr role="row">
                                                 <td>{{ beneficiary }}</td>
                                                 <td>{{ total_harvests }}</td>
@@ -238,7 +238,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {% for picker,total_harvests_leader,total_harvests_rfp,total_harvests_is_accepted,total_harvests_recipient,total_weight in total_picker %}
+                                        {% for row in pickers %}
                                             <tr role="row">
                                                 <td>{{ picker }}</td>
                                                 <td>{{ total_harvests_leader }}</td>

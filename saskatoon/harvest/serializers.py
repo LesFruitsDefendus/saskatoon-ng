@@ -1,6 +1,6 @@
 from datetime import timedelta
 from itertools import chain
-from typing import Any, Mapping, Optional
+from typing import Any, Dict, Mapping, Optional
 
 from django.db.models import Value
 from django.utils import timezone as tz
@@ -655,3 +655,46 @@ class HarvestDetailSerializer(HarvestSerializer):
         return HarvestDetailOrganizationSerializer(
             list(chain(available, not_available, reserved)), many=True, read_only=True
         ).data
+
+
+class HighlightsSerializer(serializers.Serializer[Dict[str, Any]]):
+    total_harvests = serializers.IntegerField()
+    total_pickers = serializers.IntegerField()
+    total_beneficiaries = serializers.IntegerField()
+    total_weight = serializers.FloatField()
+
+
+class FruitRowSerializer(serializers.Serializer[Dict[str, Any]]):
+    fruit_name = serializers.CharField()
+    harvests = serializers.IntegerField()
+    weight = serializers.FloatField()
+
+
+class PickerRowSerializer(serializers.Serializer[Dict[str, Any]]):
+    picker = serializers.CharField()
+    as_leader = serializers.IntegerField()
+    requests = serializers.IntegerField()
+    accepted = serializers.IntegerField()
+    as_recipient = serializers.IntegerField()
+    weight = serializers.FloatField()
+
+
+class NeighborhoodRowSerializer(serializers.Serializer[Dict[str, Any]]):
+    borough = serializers.CharField()
+    harvests = serializers.IntegerField()
+    weight = serializers.FloatField()
+
+
+class BeneficiaryRowSerializer(serializers.Serializer[Dict[str, Any]]):
+    beneficiary = serializers.CharField()
+    harvests = serializers.IntegerField()
+    weight = serializers.FloatField()
+
+
+class StatsSerializer(serializers.Serializer[Dict[str, Any]]):
+    season = serializers.CharField(allow_null=True)
+    highlights = HighlightsSerializer()
+    fruits = FruitRowSerializer(many=True)
+    neighborhoods = NeighborhoodRowSerializer(many=True)
+    beneficiaries = BeneficiaryRowSerializer(many=True)
+    pickers = PickerRowSerializer(many=True)

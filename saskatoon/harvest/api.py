@@ -34,6 +34,7 @@ from harvest.serializers import (
     PropertyMapSerializer,
     PropertySerializer,
     RequestForParticipationSerializer,
+    StatsSerializer,
 )
 from harvest.utils import sum_harvest_yields
 from member.models import Neighborhood, Organization, Person
@@ -352,36 +353,30 @@ class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet[RFP]):
         )
 
 
-class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
-    """Statistics list view"""
-
+class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
-    filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
-    filterset_fields = ('status', 'season')
 
-    def list(self, request, format="html", *args, **kwargs) -> Response:
-        """Returns statistics on harvests for all seasons or a specific season"""
-
+    def get(self, request, *args, **kwargs):
         self.harvest_qs = self.filter_queryset(self.get_queryset())
         self.harvest_yield_qs = HarvestYield.objects.filter(harvest__in=self.harvest_qs)
 
-        if not self.harvest_qs:
+        if not self.harvest_qs.exists():
             messages.error(request, _("No harvests found for the selected season(s)"))
 
-        return Response(
-            {
-                "season": self.request.query_params.get('season'),
-                "seasons": [choice[0] for choice in Harvest.SEASON_CHOICES],
-                "highlights": self.get_highlights(),
-                "total_fruit": self.get_total_weight_harvest_per_fruit(request.LANGUAGE_CODE),
-                "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),
-                "total_beneficiary": self.get_total_weight_harvest_per_beneficiary(),
-                "total_picker": self.get_total_weight_harvest_per_picker(),
-            }
-        )
+        stats = {
+            "season": request.query_params.get("season"),
+            "highlights": self.get_highlights(),
+            "fruits": self.get_total_weight_harvest_per_fruit(request.LANGUAGE_CODE),
+            "neighborhoods": self.get_total_weight_harvest_per_neighborhood(),
+            "beneficiaries": self.get_total_weight_harvest_per_beneficiary(),
+            "pickers": self.get_total_weight_harvest_per_picker(),
+        }
+        data = StatsSerializer(stats).data
+        data["seasons"] = [c[0] for c in Harvest.SEASON_CHOICES]
+        return Response(data)
 
     def get_highlights(self) -> Dict[str, int]:
         """Returns general statistics of harvests"""
@@ -421,7 +416,11 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
             if total_weight is not None:
                 total_harvests = self.harvest_qs.filter(trees__in=[tree]).count()
                 total_weight_harvests_per_fruit.append(
-                    (tree.get_fruit_name(lang), total_harvests, total_weight)
+                    {
+                        "fruit_name": tree.get_fruit_name(lang),
+                        "harvests": total_harvests,
+                        "weight": total_weight,
+                    }
                 )
 
         return total_weight_harvests_per_fruit
@@ -441,7 +440,11 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
                     property__neighborhood=neighborhood
                 ).count()
                 total_weight_harvests_per_neighborhood.append(
-                    (neighborhood, total_harvests, total_weight)
+                    {
+                        "borough": neighborhood,
+                        "harvests": total_harvests,
+                        "weight": total_weight,
+                    }
                 )
 
         return total_weight_harvests_per_neighborhood
@@ -458,7 +461,11 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
             if total_weight is not None:
                 total_harvests = self.harvest_yield_qs.filter(recipient=beneficiary).count()
                 total_weight_harvests_per_beneficiary.append(
-                    (beneficiary, total_harvests, total_weight)
+                    {
+                        "beneficiary": beneficiary,
+                        "harvests": total_harvests,
+                        "weight": total_weight,
+                    }
                 )
 
         return total_weight_harvests_per_beneficiary
@@ -482,14 +489,14 @@ class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
 
             if total_weight is not None:
                 total_weight_harvests_per_picker.append(
-                    (
-                        p,
-                        total_harvests_leader,
-                        total_harvests_rfp,
-                        total_harvests_accepted,
-                        total_harvests_recipient,
-                        total_weight,
-                    )
+                    {
+                        "picker": p,
+                        "as_leader": total_harvests_leader,
+                        "requests": total_harvests_rfp,
+                        "accepted": total_harvests_accepted,
+                        "as_recipient": total_harvests_recipient,
+                        "weight": total_weight,
+                    }
                 )
 
         return total_weight_harvests_per_picker
