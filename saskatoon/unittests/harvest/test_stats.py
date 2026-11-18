@@ -16,8 +16,8 @@ pytestmark = pytest.mark.django_db
 
 
 @pytest.fixture
-def core_client(django_db_setup_with_fixtures, client_core_user):
-    """Core user client with the shared test fixtures loaded (see conftest)"""
+def core_client(db_with_fixtures, client_core_user):
+    """Core user client with the baselines loaded for this test only"""
     return client_core_user
 
 
