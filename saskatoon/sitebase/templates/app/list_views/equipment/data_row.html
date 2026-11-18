@@ -58,13 +58,13 @@
                     &nbsp; <a data-toggle="modal"
                            title="equipment"
                         {% if LANG == "fr" %}
-                           data-info="Équipment disponible à cette organisation:"
+                           data-info="Équipement disponible à cette organisation:"
                            data-inventory="{{org.inventory.fr}}"
                         {% else %}
                            data-info="This organization has the following equipment:"
                            data-inventory="{{org.inventory.en}}"
                         {% endif %}
-                        data-description="{{ org.equipment_description|safe }}"
+                        data-description="{{ org.equipment_description }}"
                            data-title="{{org.civil_name}}"
                            href="#modal">
                         {% trans "info" %}
@@ -80,7 +80,7 @@
             {{ equipment.owner.person.name }}<br>
             <a href='mailto:{{equipment.owner.person.email}}'>
                 {{ equipment.owner.person.email }}</a><br>
-            {{ user.person.phone | default:"" }}
+            {{ equipment.owner.person.phone | default:"" }}
         {% elif equipment.owner.organization %}
             {% with org=equipment.owner.organization %}
                 {% if org.contact_person %}

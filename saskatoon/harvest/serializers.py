@@ -290,11 +290,6 @@ class PropertyListSerializer(PropertySerializer):
     trees = TreeTypeSerializer(many=True, read_only=True)
 
 
-class PropertyEquipmentSerializer(PropertyListSerializer):
-    class Meta(PropertyListSerializer.Meta):
-        fields = ['id', 'title', 'neighborhood', 'owner']
-
-
 class HarvestYieldSerializer(serializers.ModelSerializer[HarvestYield]):
     class Meta:
         model = HarvestYield
@@ -478,6 +473,49 @@ class HarvestListSerializer(HarvestSerializer):
         return OrganizationSerializer(point, many=False, read_only=True).data
 
 
+class EquipmentOwnerOrganizationSerializer(serializers.ModelSerializer[Organization]):
+    """Organization fields shown in the equipment list (no nested equipment)"""
+
+    class Meta:
+        model = Organization
+        fields = [
+            'actor_id',
+            'civil_name',
+            'address',
+            'description',
+            'phone',
+            'inventory',
+            'equipment_description',
+            'contact_person',
+            'neighborhood',
+        ]
+
+    contact_person = ContactPersonSerializer(many=False, read_only=True)
+    neighborhood = NeighborhoodSerializer(many=False, read_only=True)
+    inventory = serializers.SerializerMethodField()
+    description = serializers.CharField(read_only=True)
+    equipment_description = serializers.CharField(read_only=True)
+
+    def get_inventory(self, org):
+        return {
+            lang: "&;".join(e.inventory(lang) for e in org.equipment.all())
+            for lang in ['fr', 'en']
+        }
+
+
+class EquipmentOwnerSerializer(serializers.ModelSerializer[Actor]):
+    organization = EquipmentOwnerOrganizationSerializer(read_only=True)
+
+    class Meta:
+        model = Actor
+        fields = ['organization']
+
+
+class PropertyEquipmentSerializer(PropertyListSerializer):
+    class Meta(PropertyListSerializer.Meta):
+        fields = ['id', 'title', 'neighborhood', 'owner']
+
+
 class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
     class Meta:
         model = Equipment
@@ -485,6 +523,7 @@ class EquipmentSerializer(serializers.ModelSerializer[Equipment]):
 
     property = PropertyEquipmentSerializer(many=False, read_only=True)
     type = EquipmentTypeSerializer(many=False, read_only=True)
+    owner = EquipmentOwnerSerializer(many=False, read_only=True)
 
 
 class OrganizationMapSerializer(serializers.ModelSerializer[Organization]):
