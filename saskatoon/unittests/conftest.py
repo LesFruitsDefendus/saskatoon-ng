@@ -38,6 +38,13 @@ def django_db_setup_with_fixtures(django_db_setup, django_db_blocker):
 
 
 @pytest.fixture
+def db_with_fixtures(db):
+    """Loads the baselines inside the test's transaction, so they're rolled back after each test"""
+    for fixture_name in FIXTURE_SEQUENCE:
+        call_command('loaddata', FIXTURE_PATH.joinpath(f"{fixture_name}.json"))
+
+
+@pytest.fixture
 def client_core_user(client):
     # Revisit after we have 10 tests: whether it is necessary to reuse user from django fixtures
     user = AuthUser.objects.create_user(email="test@user.com", password="password1234")
