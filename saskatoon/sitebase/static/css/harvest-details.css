@@ -160,6 +160,17 @@
         height: 100%;
     }
 
+    .distribution-and-comments > section > header > div {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .weight-unit-toggle {
+            display: inline-flex;
+            flex-shrink: 0;
+        }
+    }
+
     .equipment-point,
     .picker-requests {
         background-color: #e7e0f9aa;
