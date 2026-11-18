@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 22:00-0500\n"
+"POT-Creation-Date: 2026-11-17 20:24-0500\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,67 +31,67 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: harvest/api.py:95 harvest/api.py:125
+#: harvest/api.py:94 harvest/api.py:124
 msgid "New Harvest"
 msgstr "Nouvelle Cueillette"
 
-#: harvest/api.py:142
+#: harvest/api.py:141
 msgid "Missing Organization id"
 msgstr "ID d'organisation manquant"
 
-#: harvest/api.py:145
+#: harvest/api.py:144
 msgid "Organization does not exist"
 msgstr "L'organisation n'existe pas"
 
-#: harvest/api.py:151
+#: harvest/api.py:150
 msgid "Harvest does not exist"
 msgstr "Cette récolte n'existe pas"
 
-#: harvest/api.py:155
+#: harvest/api.py:154
 msgid "Harvest dates must be set before reserving equipment"
 msgstr ""
 "Les dates de la récolte doivent être fixées avant de pouvoir réserver un "
 "point d'équipement"
 
-#: harvest/api.py:165
+#: harvest/api.py:164
 msgid "Your reservation was successful!"
 msgstr "Réservation réussie"
 
-#: harvest/api.py:167
+#: harvest/api.py:166
 msgid "Sorry, this equipment point is no longer available"
 msgstr "Désolé, ce point d'équipement n'est plus disponible"
 
-#: harvest/api.py:216 harvest/api.py:283
+#: harvest/api.py:215 harvest/api.py:282
 msgid "New Property"
 msgstr "Nouvelle Propriété"
 
-#: harvest/api.py:235
+#: harvest/api.py:234
 msgid "Property successfully authorized!"
 msgstr "Création de propriété réussie!"
 
-#: harvest/api.py:237 harvest/views.py:297
+#: harvest/api.py:236 harvest/views.py:297
 msgid "Something went wrong"
 msgstr "Une erreur est survenue"
 
-#: harvest/api.py:246
+#: harvest/api.py:245
 msgid "No email address associated with property!"
 msgstr "Aucun courriel n'est associé à la propriété!"
 
-#: harvest/api.py:255
+#: harvest/api.py:254
 #, python-brace-format
 msgid "Authorization email successfully sent to {email}!"
 msgstr "Courriel d'autorisation envoyé avec succès à {email}!"
 
-#: harvest/api.py:262
+#: harvest/api.py:261
 #, python-brace-format
 msgid "Could not send authorization email to {email}."
 msgstr "L'envoi du courriel d'autorisation à {email} a échoué."
 
-#: harvest/api.py:319
+#: harvest/api.py:318
 msgid "New Equipment"
 msgstr "Nouvel Équipement"
 
-#: harvest/api.py:368
+#: harvest/api.py:364
 msgid "No harvests found for the selected season(s)"
 msgstr "Aucune récolte trouvée pour la saison sélectionnée"
 
