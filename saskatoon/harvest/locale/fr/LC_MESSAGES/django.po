@@ -31,19 +31,19 @@ msgstr "Personne"
 msgid "Organization"
 msgstr "Organisme"
 
-#: harvest/api.py:95 harvest/api.py:125
+#: harvest/api.py:94 harvest/api.py:124
 msgid "New Harvest"
 msgstr "Nouvelle Cueillette"
 
-#: harvest/api.py:142
+#: harvest/api.py:141
 msgid "Missing Organization id"
 msgstr "ID d'organisation manquant"
 
-#: harvest/api.py:145
+#: harvest/api.py:144
 msgid "Organization does not exist"
 msgstr "L'organisation n'existe pas"
 
-#: harvest/api.py:151
+#: harvest/api.py:150
 msgid "Harvest does not exist"
 msgstr "Cette récolte n'existe pas"
 
