@@ -109,168 +109,60 @@
     </div>
     <!-- End Highlights area -->
 
+    <div class="container" style="margin-top: 10px;">
+        <a href="{% url 'statistics-export' %}{% if season %}?season={{ season }}{% endif %}"
+        class="btn btn-primary notika-btn-primary waves-effect">
+            <i class="fa fa-download"></i> {% trans "Export" %}
+        </a>
+    </div>
+
     <div class="data-table-area">
         <div class="container">
             <!--Start Tables Area-->
             <div class="row mg-tb-40">
-                <!--Start Fruit Table-->
-                <div class="col-xs-12 col-md-6">
-                    <div class="data-table-list">
-                        <div class="basic-tb-hd">
-                            <h3>{% trans "Total per Fruit" %}</h3>
-                        </div>
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_fruit_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="fruit-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
-                                    <thead>
-                                        <tr role="row">
-                                            <th>{% trans "Fruit" %}</th>
-                                            <th>{% trans "Harvests" %}</th>
-                                            <th>{% trans "Weight (lbs)" %}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for row in fruits %}
+                {% for table in tables %}
+                    <div class="col-xs-12 col-md-6">
+                        <div class="data-table-list">
+                            <div class="basic-tb-hd">
+                                <h3>{{ table.title }}</h3>
+                            </div>
+                            <div class="table-responsive">
+                                <div id="DataTables_Table_{{ table.key }}_wrapper" class="dataTables_wrapper">
+                                    <table
+                                    id="{{ table.key }}-table"
+                                    class="table table-striped dataTable display"
+                                    role="grid"
+                                    aria-describedby="data-table-basic_info"
+                                    >
+                                        <thead>
                                             <tr role="row">
-                                                <td>{{ row.fruit_name }}</td>
-                                                <td>{{ row.harvests }}</td>
-                                                <td>{{ row.weight }}</td>
+                                                {% for header in table.headers %}
+                                                    <th>{{ header }}</th>
+                                                {% endfor %}
                                             </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
+                                            {% for row in table.rows %}
+                                                <tr role="row">
+                                                    {% for cell in row %}
+                                                        <td>{{ cell }}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!--End Fruit Table-->
-                <!--Start Borough Table-->
-                <div class="col-xs-12 col-md-6">
-                    <div class="data-table-list">
-                        <div class="basic-tb-hd">
-                            <h3>{% trans "Total per Borough" %}</h3>
+                    {% if forloop.counter|divisibleby:2 and not forloop.last %}
                         </div>
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_neighborhood_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="neighborhood-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
-                                    <thead>
-                                        <tr role="row">
-                                            <th>{% trans "Borough" %}</th>
-                                            <th>{% trans "Harvests" %}</th>
-                                            <th>{% trans "Weight (lbs)" %}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for row in neighborhoods %}
-                                            <tr role="row">
-                                                <td>{{ row.borough }}</td>
-                                                <td>{{ row.harvests }}</td>
-                                                <td>{{ row.weight }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Borough Table-->
+                        <div class="row mg-tb-40">
+                    {% endif %}
+                {% endfor %}
             </div>
-
-            <div class="row mg-tb-40">
-                <!--Start Beneficiary Table-->
-                <div class="col-xs-12 col-md-6">
-                    <div class="data-table-list">
-                        <div class="basic-tb-hd">
-                            <h3>{% trans "Total per Beneficiary" %}</h3>
-                        </div>
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_beneficiary_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="beneficiary-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
-                                    <thead>
-                                        <tr role="row">
-                                            <th>{% trans "Beneficiary" %}</th>
-                                            <th>{% trans "Harvests" %}</th>
-                                            <th>{% trans "Weight (lbs)" %}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for row in beneficiaries %}
-                                            <tr role="row">
-                                                <td>{{ row.beneficiary }}</td>
-                                                <td>{{ row.harvests }}</td>
-                                                <td>{{ row.weight }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Beneficiary Table-->
-                <!--Start Picker Table-->
-                <div class="col-xs-12 col-md-6">
-                    <div class="data-table-list">
-                        <div class="basic-tb-hd">
-                            <h3>{% trans "Total per Picker" %}</h3>
-                        </div>
-                        <div class="table-responsive">
-                            <div id="DataTables_Table_picker_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="picker-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
-                                    <thead>
-                                        <tr role="row">
-                                            <th>{% trans "Picker" %}</th>
-                                            <th>{% trans "Leader" %}</th>
-                                            <th>{% trans "Request" %}</th>
-                                            <th>{% trans "Accepted" %}</th>
-                                            <th>{% trans "Recipient" %}</th>
-                                            <th>{% trans "Weight (lbs)" %}</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {% for row in pickers %}
-                                            <tr role="row">
-                                                <td>{{ row.picker }}</td>
-                                                <td>{{ row.as_leader }}</td>
-                                                <td>{{ row.requests }}</td>
-                                                <td>{{ row.accepted }}</td>
-                                                <td>{{ row.as_recipient }}</td>
-                                                <td>{{ row.weight }}</td>
-                                            </tr>
-                                        {% endfor %}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--End Picker Table-->
-            </div>
-
             <!--End Tables Area-->
         </div>
-
     </div>
 
 {% endblock content %}

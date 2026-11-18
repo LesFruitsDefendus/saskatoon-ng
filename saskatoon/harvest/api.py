@@ -1,7 +1,10 @@
+import csv
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.cache import cache
 from django.db.models import Count, F, Q, Sum
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django_filters.rest_framework import DjangoFilterBackend
@@ -357,11 +360,20 @@ class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
     filterset_class = HarvestFilter
 
     def get(self, request, *args, **kwargs):
+        data = self.get_stats()
+        cache.set(self.stats_cache_key(), data, 600)
+        if not data["highlights"]["total_harvests"]:
+            messages.error(request, _("No harvests found for the selected season(s)"))
+        return Response(data)
+
+    def stats_cache_key(self):
+        season = self.request.query_params.get("season") or "all"
+        return f"stats:{season}:{self.request.LANGUAGE_CODE}"
+
+    def get_stats(self):
+        request = self.request
         harvests = self.filter_queryset(self.get_queryset())
         yields = HarvestYield.objects.filter(harvest__in=harvests)
-
-        if not harvests.exists():
-            messages.error(request, _("No harvests found for the selected season(s)"))
 
         pickers = self.per_picker(harvests, yields)
         beneficiaries = self.per_beneficiary(yields)
@@ -382,7 +394,7 @@ class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
         }
         data = StatsSerializer(stats).data
         data["seasons"] = [c[0] for c in Harvest.SEASON_CHOICES]
-        return Response(data)
+        return data
 
     def per_fruit(self, harvests, yields, lang="fr"):
         weights = {
@@ -467,3 +479,25 @@ class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
             }
             for p in Person.objects.filter(pk__in=ids).order_by("first_name")
         ]
+
+
+class StatsExportView(StatsView):
+    """Exports the stats page tables as one stacked CSV"""
+
+    def get(self, request, *args, **kwargs):
+        data = cache.get(self.stats_cache_key()) or self.get_stats()
+        is_french = request.LANGUAGE_CODE == "fr"
+        season = data.get("season") or ("cumulatif" if is_french else "cumulative")
+        prefix = "recoltes" if is_french else "harvest"
+        response = HttpResponse(content_type="text/csv; charset=utf-8")
+        response["Content-Disposition"] = f'attachment; filename="{prefix}_{season}.csv"'
+        response.write("\ufeff")
+
+        writer = csv.writer(response)
+        for table in data["tables"]:
+            writer.writerow([table["title"]])
+            writer.writerow(table["headers"])
+            writer.writerows(table["rows"])
+            writer.writerow([])
+
+        return response
