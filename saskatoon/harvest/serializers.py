@@ -4,6 +4,7 @@ from typing import Any, Dict, Mapping, Optional
 
 from django.db.models import Value
 from django.utils import timezone as tz
+from django.utils.translation import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.utils.serializer_helpers import ReturnDict
 from typeguard import typechecked
@@ -692,6 +693,45 @@ class PickerRowSerializer(serializers.Serializer[Dict[str, Any]]):
     weight = weight_field()
 
 
+STATS_TABLES = [
+    (
+        "fruit",
+        _("Total per Fruit"),
+        "fruits",
+        [(_("Fruit"), "fruit_name"), (_("Harvests"), "harvests"), (_("Weight (lbs)"), "weight")],
+    ),
+    (
+        "neighborhood",
+        _("Total per Borough"),
+        "neighborhoods",
+        [(_("Borough"), "borough"), (_("Harvests"), "harvests"), (_("Weight (lbs)"), "weight")],
+    ),
+    (
+        "beneficiary",
+        _("Total per Beneficiary"),
+        "beneficiaries",
+        [
+            (_("Beneficiary"), "beneficiary"),
+            (_("Harvests"), "harvests"),
+            (_("Weight (lbs)"), "weight"),
+        ],
+    ),
+    (
+        "picker",
+        _("Total per Picker"),
+        "pickers",
+        [
+            (_("Picker"), "picker"),
+            (_("Leader"), "as_leader"),
+            (_("Request"), "requests"),
+            (_("Accepted"), "accepted"),
+            (_("Recipient"), "as_recipient"),
+            (_("Weight (lbs)"), "weight"),
+        ],
+    ),
+]
+
+
 class StatsSerializer(serializers.Serializer[Dict[str, Any]]):
     season = serializers.CharField(allow_null=True)
     highlights = HighlightsSerializer()
@@ -699,3 +739,16 @@ class StatsSerializer(serializers.Serializer[Dict[str, Any]]):
     neighborhoods = NeighborhoodRowSerializer(many=True)
     beneficiaries = BeneficiaryRowSerializer(many=True)
     pickers = PickerRowSerializer(many=True)
+
+    def to_representation(self, instance: Dict[str, Any]) -> Dict[str, Any]:
+        data = super().to_representation(instance)
+        data["tables"] = [
+            {
+                "key": key,
+                "title": str(title),
+                "headers": [str(label) for label, _field in columns],
+                "rows": [[row[field] for _label, field in columns] for row in data.pop(source)],
+            }
+            for key, title, source, columns in STATS_TABLES
+        ]
+        return data
