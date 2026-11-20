@@ -46,29 +46,29 @@
                     <th>{% trans 'Owner' %}</th>
                     <td>{{ property.owner.name }}</td>
                     {% if property.owner.phone is not None %}
-                    </tr>
-                    <tr>
-                        <th>{% trans "Phone" %}</th>
-                        <td>{{ property.owner.phone }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans "Phone" %}</th>
+                            <td>{{ property.owner.phone }}</td>
                     {% endif %}
                     {% if property.owner.email is not None %}
-                    </tr>
-                    <tr>
-                        <th>{% trans "Email" %}</th>
-                        <td>{{ property.owner.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans "Email" %}</th>
+                            <td>{{ property.owner.email }}</td>
                     {% endif %}
                     {% if property.owner.language %}
-                    </tr>
-                    <tr>
-                        <th>{% trans "Language" %}</th>
-                        <td>{{ property.owner.language }}</td>
+                        </tr>
+                        <tr>
+                            <th>{% trans "Language" %}</th>
+                            <td>{{ property.owner.language }}</td>
                     {% endif %}
                 </tr>
             </table>
         </address>
         {% if property.owner.comments %}
-        <b>{% trans "Notes" %}</b>
-        <p>{{ property.owner.comments }}</p>
+            <b>{% trans "Notes" %}</b>
+            <p>{{ property.owner.comments }}</p>
         {% endif %}
     </section>
 </div>

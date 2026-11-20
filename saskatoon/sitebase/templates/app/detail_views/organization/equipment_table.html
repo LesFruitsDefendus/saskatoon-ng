@@ -1,42 +1,45 @@
 {% load i18n %}
 {% load static %}
 <div class="search-engine-area mg-t-30">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <div class="data-table-list">
-          <div class="table-responsive">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h4>{% trans "Available equipment" %}</h4>
-                </div>
-                <div class="col-xs-6">
-                    {% if perms.harvest.add_equipment %}
-                    <a href="{% url 'equipment-create' %}?aid={{ actor_id }}" style="float: right" title="New Equipment" class="btn btn-primary notika-btn-primary waves-effect">
-                        <i class="fa fa-plus"></i> {% trans "New Equipment" %}
-                    </a>
-                    {% endif %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="data-table-list">
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <h4>{% trans "Available equipment" %}</h4>
+                            </div>
+                            <div class="col-xs-6">
+                                {% if perms.harvest.add_equipment %}
+                                    <a href="{% url 'equipment-create' %}?aid={{ actor_id }}"
+                                       style="float: right"
+                                       title="New Equipment"
+                                       class="btn btn-primary notika-btn-primary waves-effect">
+                                        <i class="fa fa-plus"></i> {% trans "New Equipment" %}
+                                    </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <br>
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                                <tr>
+                                    <th style="min-width: 5em; width: 10%">#&nbsp;</th>
+                                    <th style="width: 25%">{% trans "Type" %}</th>
+                                    <th style="width: 10%">{% trans "Count" %}</th>
+                                    <th style="width: 55%">{% trans "Description" %}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for item in equipment %}
+                                    {% include 'app/detail_views/organization/equipment_row.html' %}
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <br>
-            <table class="table table-striped" id="data-table-basic">
-              <thead>
-                <tr>
-                  <th style="min-width: 5em; width: 10%">#&nbsp;</th>
-                  <th style="width: 25%">{% trans "Type" %}</th>
-                  <th style="width: 10%">{% trans "Count" %}</th>
-                  <th style="width: 55%">{% trans "Description" %}</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in equipment %}
-                    {% include 'app/detail_views/organization/equipment_row.html' %}
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>

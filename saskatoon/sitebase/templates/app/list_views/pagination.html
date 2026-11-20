@@ -5,48 +5,54 @@
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
         <span class="pull-right">
             {% if previous is None %}
-                <button type="button" class="btn btn-sm btn-default notika-btn-default disabled" id="previous-btn">
+                <button type="button"
+                        class="btn btn-sm btn-default notika-btn-default disabled"
+                        id="previous-btn">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </button>
             {% else %}
-                <a href="{{ previous }}" class="btn btn-sm btn-primary notika-btn-primary" id="previous-btn">
+                <a href="{{ previous }}"
+                   class="btn btn-sm btn-primary notika-btn-primary"
+                   id="previous-btn">
                     <span class="glyphicon glyphicon-chevron-left"></span>
                 </a>
             {% endif %}
             &nbsp;
             <span class="dropup">
-                <button
-                    type="button"
-                    class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    id="page-number"
-                >
+                <button type="button"
+                        class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                        id="page-number">
                     <span style="font-size: 1.2em">{{ current_page_number }}</span>
                 </button>
-                <ul
-                    class="dropdown-menu"
-                    style="height:auto; max-height: 250px; overflow-y: auto;"
-                >
+                <ul class="dropdown-menu"
+                    style="height:auto;
+                           max-height: 250px;
+                           overflow-y: auto">
                     {% with pages_count|get_pages_range as page_number_options %}
-                    {% for page_number_option in page_number_options %}
-                    <li>
-                        <a href="{% get_page_url request.get_full_path page_number_option %}">
-                            {{ page_number_option }}
-                        </a>
-                    </li>
-                    {% endfor %}
+                        {% for page_number_option in page_number_options %}
+                            <li>
+                                <a href="{% get_page_url request.get_full_path page_number_option %}">
+                                    {{ page_number_option }}
+                                </a>
+                            </li>
+                        {% endfor %}
                     {% endwith %}
                 </ul>
                 / {{ pages_count }} &nbsp;
             </span>
             {% if next is None %}
-                <button type="button" class="btn btn-sm btn-default notika-btn-default disabled" id="next-button">
+                <button type="button"
+                        class="btn btn-sm btn-default notika-btn-default disabled"
+                        id="next-button">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </button>
             {% else %}
-                <a href="{{ next }}" class="btn btn-sm btn-primary notika-btn-primary" id="next-button">
+                <a href="{{ next }}"
+                   class="btn btn-sm btn-primary notika-btn-primary"
+                   id="next-button">
                     <span class="glyphicon glyphicon-chevron-right"></span>
                 </a>
             {% endif %}
@@ -57,28 +63,26 @@
         <span class="pull-right">
             {% trans "Show" %} &nbsp;
             <div class="btn-group">
-                <button
-                    type="button"
-                    class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                >
+                <button type="button"
+                        class="btn btn-sm btn-primary notika-btn-primary dropdown-toggle"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false">
                     <span style="font-size: 1.2em">{{ items_per_page }}</span>
                 </button>
                 <ul class="dropdown-menu">
-                {% with "10 25 50 100" as page_size_options %}
-                    {% for page_size_option in page_size_options.split %}
-                    <li>
-                        <a href="{{ request.get_full_path|add_page_size_param }}{{ page_size_option }}">
-                            {{ page_size_option }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                {% endwith %}
+                    {% with "10 25 50 100" as page_size_options %}
+                        {% for page_size_option in page_size_options.split %}
+                            <li>
+                                <a href="{{ request.get_full_path|add_page_size_param }}{{ page_size_option }}">
+                                    {{ page_size_option }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% endwith %}
                 </ul>
             </div>
-            &nbsp;/ {{count}} {% trans "entries" %}
+            &nbsp;/ {{ count }} {% trans "entries" %}
         </span>
     </div>
 </div>

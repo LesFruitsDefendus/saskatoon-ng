@@ -3,16 +3,17 @@
 {% load auth_users %}
 
 <div class="comment-content-cell">
-    <div id="comment-view-{{ comment.id }}" class="conversation-text-container">
+    <div id="comment-view-{{ comment.id }}"
+         class="conversation-text-container">
         <div class="conversation-text">
             <div class="ctext-wrap comment-wrapper">
-                <p id="comment-text-{{ comment.id }}" class="collapsed-comment comment-text">{{ comment.content }}</p>
+                <p id="comment-text-{{ comment.id }}"
+                   class="collapsed-comment comment-text">{{ comment.content }}</p>
                 <button type="button"
                         class="btn-link toggle-comment-btn"
-                        style="display: none;"
+                        style="display: none"
                         data-more-text="{% trans 'Read more' %}"
-                        data-less-text="{% trans 'Read less' %}">
-                </button>
+                        data-less-text="{% trans 'Read less' %}"></button>
             </div>
         </div>
 
@@ -25,16 +26,16 @@
                     <i class="fa fa-pencil"></i>
                 </button>
             {% endif %}
-            
+
             {% if user|is_admin %}
                 {% translate "Are you sure you want to delete this comment?" as delete_confirm_msg %}
-                <form method="post" 
-                      action="{% url 'comment-delete' comment.id %}" 
+                <form method="post"
+                      action="{% url 'comment-delete' comment.id %}"
                       class="comment-delete-form"
                       onsubmit="return confirm('{{ delete_confirm_msg|escapejs }}');">
                     {% csrf_token %}
-                    <button type="submit" 
-                            class="btn btn-sm btn-link text-danger btn-comment-action" 
+                    <button type="submit"
+                            class="btn btn-sm btn-link text-danger btn-comment-action"
                             title="{% trans 'Delete comment' %}">
                         <i class="fa fa-trash text-danger"></i>
                     </button>
@@ -44,22 +45,24 @@
     </div>
 
     {% if comment.author.id == user.id or user|is_admin %}
-        <div id="comment-edit-{{ comment.id }}" class="comment-edit-form-container">
+        <div id="comment-edit-{{ comment.id }}"
+             class="comment-edit-form-container">
             <form method="post" action="{% url 'comment-update' comment.id %}">
                 {% csrf_token %}
                 <div class="form-group mg-b-10">
-                    <textarea name="content" 
-                              class="form-control comment-edit-textarea" 
+                    <textarea name="content"
+                              class="form-control comment-edit-textarea"
                               maxlength="500"
                               required>{{ comment.content }}</textarea>
                 </div>
                 <div class="text-right">
                     <div class="edit-form-actions">
-                        <button type="submit" class="btn btn-primary notika-btn-primary waves-effect btn-sm">
+                        <button type="submit"
+                                class="btn btn-primary notika-btn-primary waves-effect btn-sm">
                             <i class="fa fa-save"></i>&nbsp; {% trans "Save" %}
                         </button>
-                        <button type="button" 
-                                class="btn btn-default waves-effect btn-sm cancel-edit-btn" 
+                        <button type="button"
+                                class="btn btn-default waves-effect btn-sm cancel-edit-btn"
                                 data-comment-id="{{ comment.id }}">
                             {% trans "Cancel" %}
                         </button>

@@ -6,15 +6,18 @@
 <tr>
     <td>
         <a href='{% url "harvest-detail" harvest.id %}'>
-            {% if harvest.pick_leader %}{% trans "Harvest" %}{% else %}{% trans "Orphan" %}{% endif %}
+            {% if harvest.pick_leader %}
+                {% trans "Harvest" %}
+            {% else %}
+                {% trans "Orphan" %}
+            {% endif %}
             #{{ harvest.id }} &nbsp; <i class="fa fa-eye"></i>
         </a>
         {% if perms.harvest.delete_harvest %}
             &nbsp;
             <small>
                 <a href="{% url 'admin:harvest_harvest_delete' harvest.id %}"
-                     onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');"
-                >
+                   onclick="return confirm('{% trans "Are you really sure you want to delete this harvest?" %}');">
                     <i class="fa fa-trash text-danger"></i>
                 </a>
             </small>
@@ -22,46 +25,46 @@
     </td>
     <td>
         <ul>
-        {% for t in harvest.trees %}
-            <li>{% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }}</li>
-        {% endfor %}
+            {% for t in harvest.trees %}
+                <li>{% if LANG == "en" %}{{ t.name_en }}{% else %}{{ t.name_fr }}{% endif %} {{ t.fruit_icon|default:"" }}</li>
+            {% endfor %}
         </ul>
     </td>
     <td>
         {% if harvest.pick_leader %}
             <b>{{ harvest.pick_leader.name }}</b>
             {% if perms.member.change_person %}
-            &nbsp;
-            <small><a href="{% url 'person-update' harvest.pick_leader.actor_id %}"
-                title="edit">
-                <i class="fa fa-pencil"></i>
-            </a></small>
+                &nbsp;
+                <small><a href="{% url 'person-update' harvest.pick_leader.actor_id %}"
+   title="edit">
+                    <i class="fa fa-pencil"></i>
+                </a></small>
             {% endif %}
 
             {% if harvest.pick_leader.phone %}
-            <br> <i class="fa fa-mobile text-muted"></i>&nbsp;
-            {{ harvest.pick_leader.phone }}
+                <br>
+                <i class="fa fa-mobile text-muted"></i>&nbsp;
+                {{ harvest.pick_leader.phone }}
             {% endif %}
             <br>
-            <a href="mailto:{{harvest.pick_leader.email}}">
-                {{ harvest.pick_leader.email }}
-            </a>
+            <a href="mailto:{{ harvest.pick_leader.email }}">{{ harvest.pick_leader.email }}</a>
         {% endif %}
     </td>
 
     <td>
         <div class="skill">
-            <div class="progress" {{ harvest.status | harvest_status_attributes | safe }}>
+            <div class="progress"
+                 {{ harvest.status | harvest_status_attributes | safe }}>
                 <div class="lead-content">{{ harvest.status_display }}</div>
                 {% with progress=harvest.status|progress %}
-                    <div class="progress-bar wow fadeInLeft {{harvest.status|color}}"
-                            data-progress="{{progress}}%"
-                            data-wow-delay="1.2s" data-wow-duration="1.5s"
-                            style="width: {{progress}}%;">
-                    </div>
+                    <div class="progress-bar wow fadeInLeft {{ harvest.status|color }}"
+                         data-progress="{{ progress }}%"
+                         data-wow-delay="1.2s"
+                         data-wow-duration="1.5s"
+                         style="width: {{ progress }}%"></div>
                 {% endwith %}
-                </div>
             </div>
+        </div>
     </td>
 
     <td>

@@ -30,6 +30,7 @@ collectstatic:
 lint:
 	@tox -e ruff_format
 	@tox -e ruff_imports
+	@tox -e djlint_format
 	@tox -e css-beautify
 
 staticchecks:

@@ -3,32 +3,33 @@
 <tr>
     <td>
         <span><b>{{ user.person.name }}</b> &nbsp;
-        {% if perms.member.change_person %}
-            <small><a href="{% url 'person-update' user.person.actor_id %}"
-                    title="edit">
-                <i class="fa fa-pencil"></i>
+            {% if perms.member.change_person %}
+                <small><a href="{% url 'person-update' user.person.actor_id %}" title="edit">
+                    <i class="fa fa-pencil"></i>
+                    &nbsp;
+                </a></small>
+            {% endif %}
+            {% if perms.member.delete_actor %}
                 &nbsp;
-            </a></small>
-        {% endif %}
-        {% if perms.member.delete_actor %}
-            &nbsp;
-            <small>
-                <a href="{% url 'admin:member_actor_delete' user.person.actor_id %}"
-                    onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
-                    <i class="fa fa-trash text-danger"></i>
-                </a>
-            </small>
-        {% endif %}
-        </span><br>
-        <a href='mailto:{{user.email}}'>{{ user.email }}</a> &nbsp;
+                <small>
+                    <a href="{% url 'admin:member_actor_delete' user.person.actor_id %}"
+                       onclick="return confirm('{% trans "Are you really sure you want to delete this actor?" %}');">
+                        <i class="fa fa-trash text-danger"></i>
+                    </a>
+                </small>
+            {% endif %}
+        </span>
+        <br>
+        <a href='mailto:{{ user.email }}'>{{ user.email }}</a> &nbsp;
         {% if perms.member.change_authuser and user.password != '' %}
             <a href="{% url 'reset-password' user.id %}"
-                onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
-                title="reset-password">
+               onclick="return confirm('{% trans "Are you sure you want to reset this user password?" %}');"
+               title="reset-password">
                 <small><i class="fa fa-refresh"></i></small>
             </a>
         {% endif %}
-        <br>{{ user.person.phone|default:"" }}
+        <br>
+        {{ user.person.phone|default:"" }}
     </td>
     <td>
         <ul>
@@ -37,9 +38,7 @@
             {% endfor %}
         </ul>
     </td>
-    <td>
-        {{ user.date_joined }}
-    </td>
+    <td>{{ user.date_joined }}</td>
     <td>
         <ul class="list-inline">
             {% include 'app/list_views/community/harvest_list.html' %}
@@ -47,20 +46,16 @@
     </td>
     <td>
         {% for property in user.person.properties %}
-            <p><a href="{% url 'property-detail' property.id %}">
-                {{ property.short_address }} (#{{ property.id }})
-            </a></p>
+            <p>
+                <a href="{% url 'property-detail' property.id %}">
+                    {{ property.short_address }} (#{{ property.id }})
+                </a>
+            </p>
         {% endfor %}
         {% for org in user.person.organizations_as_contact %}
-            <a href="{% url 'organization-update' org.pk %}">
-                {{ org.civil_name }}
-            </a>
+            <a href="{% url 'organization-update' org.pk %}">{{ org.civil_name }}</a>
         {% endfor %}
     </td>
-    <td>
-        {{ user.person.neighborhood.name }}
-    </td>
-    <td>
-        {{ user.person.comments }}
-    </td>
+    <td>{{ user.person.neighborhood.name }}</td>
+    <td>{{ user.person.comments }}</td>
 </tr>

@@ -5,12 +5,13 @@
 
 <div class="user-guides">
     <p>
-        {{guides_intro.title}} <b>{{user.name}}</b> !
-        {{guides_intro.body.html | safe}}
+        {{ guides_intro.title }} <b>{{ user.name }}</b> !
+        {{ guides_intro.body.html | safe }}
     </p>
     <br>
 
-    <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png" alt="harvest lifecycle" />
+    <img src="{{ MEDIA_URL }}/guides/harvest_lifecycle_{{ LANG }}.png"
+         alt="harvest lifecycle" />
 
     {% with guides_adopt_harvest as guide %}
         {% include 'app/home/guide.html' %}

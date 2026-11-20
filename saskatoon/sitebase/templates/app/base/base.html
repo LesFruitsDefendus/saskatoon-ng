@@ -17,19 +17,19 @@
 
     <!-- Notifications -->
     {% block message %}
-    {% if messages %}
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                {% for message in messages %}
-                    {% if "component-" not in message.tags %}
-                        <div class="text-center alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
-                    {% endif %}
-                {% endfor %}
+        {% if messages %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% for message in messages %}
+                            {% if "component-" not in message.tags %}
+                                <div class="text-center alert alert-{{ message.tags }}" role="alert">{{ message|safe }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    {% endif %}
+        {% endif %}
     {% endblock message %}
 
     <div class="main-content mg-b-15">
@@ -40,7 +40,7 @@
 
     <footer>
         {% block footer %}
-        {% include 'app/base/footer.html' %}
+            {% include 'app/base/footer.html' %}
         {% endblock footer %}
     </footer>
 

@@ -8,7 +8,7 @@
     {% for p in pickers %}
         <option value={{ p.pk }}>{{ p.name }}</option>
     {% endfor %}
-        <option selected disabled>{% translate 'Organizations' %}</option>
+    <option selected disabled>{% translate 'Organizations' %}</option>
     {% for o in organizations %}
         <option value={{ o.actor_id }}>{{ o.civil_name }}</option>
     {% endfor %}

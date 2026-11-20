@@ -2,17 +2,17 @@
 {% load rfp_status %}
 
 {% for harvest in user.person.harvests %}
-  {% if harvest.role == "volunteer" %}
-    {% with icon="hand-paper-o" color=harvest.rfp_status|rfp_color status=harvest.rfp_status|rfp_status_display%}
-      {% include 'app/list_views/community/harvest_icon.html' %}
-    {% endwith %}
-  {% elif harvest.role == "pickleader" %}
-    {% with icon="star" color=harvest.status|color status=harvest.status_display %}
-      {% include 'app/list_views/community/harvest_icon.html' %}
-    {% endwith %}
-  {% elif harvest.role == "owner" %}
-    {% with icon="home" color=harvest.status|color status=harvest.status_display %}
-      {% include 'app/list_views/community/harvest_icon.html' %}
-    {% endwith %}
-  {% endif %}
+    {% if harvest.role == "volunteer" %}
+        {% with icon="hand-paper-o" color=harvest.rfp_status|rfp_color status=harvest.rfp_status|rfp_status_display %}
+            {% include 'app/list_views/community/harvest_icon.html' %}
+        {% endwith %}
+    {% elif harvest.role == "pickleader" %}
+        {% with icon="star" color=harvest.status|color status=harvest.status_display %}
+            {% include 'app/list_views/community/harvest_icon.html' %}
+        {% endwith %}
+    {% elif harvest.role == "owner" %}
+        {% with icon="home" color=harvest.status|color status=harvest.status_display %}
+            {% include 'app/list_views/community/harvest_icon.html' %}
+        {% endwith %}
+    {% endif %}
 {% endfor %}

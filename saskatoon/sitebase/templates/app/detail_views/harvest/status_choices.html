@@ -1,11 +1,11 @@
 {% load harvest_status %}
 
-<div class="dropdown" {{ status | harvest_status_attributes:"top" | safe }}>
-    <button class="btn btn-default notika-btn-default dropdown-toggle {{status|color}}"
+<div class="dropdown"
+     {{ status | harvest_status_attributes:"top" | safe }}>
+    <button class="btn btn-default notika-btn-default dropdown-toggle {{ status|color }}"
             type="button"
             id="harvest-status-dropdown"
-            data-toggle="dropdown"
-    >
+            data-toggle="dropdown">
         <p style="font-size: 1.2em; color:white;">
             <strong>
                 {{ status_display }}
@@ -13,14 +13,16 @@
             </strong>
         </p>
     </button>
-    <ul
-        class="dropdown-menu harvest-status-menu"
+    <ul class="dropdown-menu harvest-status-menu"
         role="menu"
-        aria-labelledby="menu1"
-    >
+        aria-labelledby="menu1">
         {% for choice in status_choices %}
-            <li role="presentation" {{ choice.0 | harvest_status_attributes:"right" | safe }}>
-                <a href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}" role="menuitem" tabindex="-1" class="status-dropdown-item"><span class="status-icon-wrapper {{ choice.0 | color }}">{{ choice.0 | harvest_icon | safe }}</span><span>{{ choice.1 }}</span></a>
+            <li role="presentation"
+                {{ choice.0 | harvest_status_attributes:"right" | safe }}>
+                <a href="{% url 'harvest-status-change' id %}?status={{ choice.0 }}"
+                   role="menuitem"
+                   tabindex="-1"
+                   class="status-dropdown-item"><span class="status-icon-wrapper {{ choice.0 | color }}">{{ choice.0 | harvest_icon | safe }}</span><span>{{ choice.1 }}</span></a>
             </li>
             {% if not forloop.last %}
                 <li role="presentation" class="divider"></li>
