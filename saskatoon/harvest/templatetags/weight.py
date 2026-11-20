@@ -1,4 +1,7 @@
+from typing import Literal, Optional
+
 from django import template
+from typeguard import typechecked
 
 from harvest.utils import LB_TO_KG
 
@@ -6,7 +9,8 @@ register = template.Library()
 
 
 @register.filter
-def weight(lbs, unit="lb"):
+@typechecked
+def weight(lbs: Optional[float], unit: Literal["lb", "kg"] = "lb") -> str:
     if lbs is None:
         return ""
     if unit == "kg":

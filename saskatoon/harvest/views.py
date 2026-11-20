@@ -519,7 +519,7 @@ def harvest_yield_delete(request, id):
 def set_weight_unit(request, unit):
     """Stores the preferred weight display unit in the session"""
 
-    if unit in ('kg', 'lb'):
+    if unit in ('kg', 'lbs'):
         request.session['weight_unit'] = unit
 
     url = request.META.get('HTTP_REFERER', reverse_lazy('home'))

@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="btn-group weight-unit-toggle" role="group" aria-label="{% trans 'Weight unit' %}">
-    <a href="{% url 'set-weight-unit' 'lb' %}"
+    <a href="{% url 'set-weight-unit' 'lbs' %}"
        class="btn waves-effect {% if weight_unit == 'kg' %}btn-default notika-btn-default{% else %}btn-primary notika-btn-primary{% endif %}">lbs</a>
     <a href="{% url 'set-weight-unit' 'kg' %}"
        class="btn waves-effect {% if weight_unit == 'kg' %}btn-primary notika-btn-primary{% else %}btn-default notika-btn-default{% endif %}">kg</a>

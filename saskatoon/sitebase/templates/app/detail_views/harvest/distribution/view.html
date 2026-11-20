@@ -4,7 +4,7 @@
 {% load harvest_status %}
 {% get_current_language as LANG %}
 
-{% with weight_unit=request.session.weight_unit|default:"lb" %}
+{% with weight_unit=request.session.weight_unit|default:"lbs" %}
     <section id="distribution">
         <header>
             <h2>{% trans "Fruit distribution" %}</h2>
