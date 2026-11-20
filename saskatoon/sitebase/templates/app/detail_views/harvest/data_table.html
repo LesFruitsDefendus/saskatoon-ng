@@ -1,6 +1,7 @@
 {% load i18n %}
 {% load static %}
 {% load harvest_status %}
+{% load auth_users %}
 
 <section class="picker-requests">
     <header>
@@ -35,9 +36,11 @@
                 </tr>
             </thead>
             <tbody>
-                {% for r in requests %}
-                    {% include 'app/detail_views/harvest/data_row.html' %}
-                {% endfor %}
+                {% with user_is_harvest_pickleader=user|is_pickleader:id user_is_core_or_admin=user|is_core_or_admin %}
+                    {% for r in requests %}
+                        {% include 'app/detail_views/harvest/data_row.html' %}
+                    {% endfor %}
+                {% endwith %}
             </tbody>
         </table>
     </div>

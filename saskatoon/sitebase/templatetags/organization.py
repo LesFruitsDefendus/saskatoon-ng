@@ -13,6 +13,9 @@ register = template.Library()
 @register.filter
 @typechecked
 def available(status: str) -> bool:
+    if not status:
+        raise ValueError(f'Unexpected status: "{status}"')
+
     return status == Organization.EquipmentPointStatus.AVAILABLE.value
 
 
@@ -20,6 +23,9 @@ def available(status: str) -> bool:
 @typechecked
 def can_reserve_equipment(status: str) -> bool:
     """Whether a harvest can make a new equipment reservation (see Harvest.CAN_MAKE_RESERVATION)"""
+    if not status:
+        raise ValueError(f'Unexpected status: "{status}"')
+
     return status in Harvest.CAN_MAKE_RESERVATION
 
 

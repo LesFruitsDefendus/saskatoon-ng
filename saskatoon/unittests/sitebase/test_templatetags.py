@@ -58,6 +58,15 @@ def test_equipment_map_reserve_button(harvest_status, org_status, disabled):
     assert (DISABLED in html) is disabled
 
 
+def test_equipment_map_missing_status_raises():
+    """A missing/misspelled `status` must surface instead of silently enabling the button (#800)"""
+
+    with pytest.raises(ValueError, match='Unexpected status'):
+        render_to_string(
+            EQUIPMENT_MAP, equipment_map_context(Organization.EquipmentPointStatus.AVAILABLE.value)
+        )
+
+
 @pytest.mark.parametrize(
     'offset, ended',
     [
