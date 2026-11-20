@@ -16,15 +16,17 @@
                         <div class="col-xs-6">
                             <span style="float: right">
                                 {% if perms.harvest.add_harvest and authorized and not pending %}
-                                    {% if user|is_core_or_admin and needs_orphan %}
-                                        <a href="{% url 'property-create-orphans' id %}"
-                                           title="Create Orphan Harvest(s)"
-                                           class="btn btn-warning notika-btn-warning"
-                                           style="margin-right: 0.5em">
-                                            <i class="fa fa-plus"></i>&nbsp;
-                                            {% trans "Create Orphan(s)" %}
-                                        </a>
-                                    {% endif %}
+                                    {% with user_is_core_or_admin=user|is_core_or_admin %}
+                                        {% if user_is_core_or_admin and needs_orphan %}
+                                            <a href="{% url 'property-create-orphans' id %}"
+                                               title="Create Orphan Harvest(s)"
+                                               class="btn btn-warning notika-btn-warning"
+                                               style="margin-right: 0.5em">
+                                                <i class="fa fa-plus"></i>&nbsp;
+                                                {% trans "Create Orphan(s)" %}
+                                            </a>
+                                        {% endif %}
+                                    {% endwith %}
                                     <a href="{% url 'harvest-create' %}?pid={{ id }}"
                                        title="New harvest"
                                        class="btn btn-success notika-btn-success waves-effect">
