@@ -483,7 +483,7 @@
             },
             "latitude": 45.52451,
             "longitude": -73.586855,
-            "status": "available"
+            "status": "unavailable"
         },
         {
             "actor_id": 9,
@@ -558,7 +558,7 @@
             },
             "latitude": 45.511693,
             "longitude": -73.566792,
-            "status": "available"
+            "status": "unavailable"
         }
     ],
     "nb_required_pickers": 3

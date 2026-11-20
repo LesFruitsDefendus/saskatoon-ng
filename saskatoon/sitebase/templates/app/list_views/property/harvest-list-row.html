@@ -6,7 +6,7 @@
     <a class="{{ harvest.status | color }}"
        {{ harvest|harvest_link_attributes|safe }}>
         {{ harvest.status | harvest_icon | safe }}
-        {% if harvest|past_harvest == 'upcoming' %}
+        {% if harvest|is_upcoming %}
             <span style="color: black;">{{ harvest|next_harvest_date }}</span>
         {% endif %}
     </a>

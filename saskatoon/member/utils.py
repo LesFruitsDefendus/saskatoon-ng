@@ -67,7 +67,7 @@ def get_available_equipment_points(
 
     # If another harvest has already reserved the equipment available in the equipment
     # point and its datetime range overlaps, then the equipment point is unavailable.
-    query = Q(status__in=Harvest.CAN_RESERVE_EQUIPMENT)
+    query = Q(status__in=Harvest.CAN_HAVE_RESERVATION)
 
     # Dont include itself
     if harvest is not None:

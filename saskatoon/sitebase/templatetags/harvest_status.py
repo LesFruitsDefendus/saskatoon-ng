@@ -7,8 +7,6 @@ from django.utils.translation import gettext_lazy as _
 from typeguard import typechecked
 
 from harvest.models import Harvest
-from saskatoon.formats.common import DATE_INPUT_FORMATS
-from sitebase.utils import local_today, parse_naive_datetime
 
 register = template.Library()
 
@@ -154,39 +152,27 @@ def next_harvest_date(harvest):
 
 @register.filter
 @typechecked
-def past_harvest(harvest):
-    start = parse_naive_datetime(harvest['start_date'], DATE_INPUT_FORMATS[0])
-    end = parse_naive_datetime(harvest['end_date'], DATE_INPUT_FORMATS[0])
-    today = local_today()
-
-    if start is None or end is None:
-        return 'time parsing error'
-
-    if today > start and today < end:
-        return 'upcoming'
-
-    if today < start:
-        return 'upcoming'
-
-    return 'past'
+def is_upcoming(harvest) -> bool:
+    """Dated harvest that has not ended yet (see Harvest.has_ended)"""
+    return harvest['end_date'] is not None and not harvest['ended']
 
 
 @register.filter
 @typechecked
 def past_harvests_by_tree(harvests, tree):
-    return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'past', harvests))
+    return list(filter(lambda h: tree in h['trees'] and h['ended'], harvests))
 
 
 @register.filter
 @typechecked
 def upcoming_harvests_by_tree(harvests, tree):
-    return list(filter(lambda h: tree in h['trees'] and past_harvest(h) == 'upcoming', harvests))
+    return list(filter(lambda h: tree in h['trees'] and is_upcoming(h), harvests))
 
 
 @register.filter
 @typechecked
 def upcoming_harvests(harvests):
-    return list(filter(lambda h: past_harvest(h) == 'upcoming', harvests))
+    return list(filter(is_upcoming, harvests))
 
 
 @register.filter
