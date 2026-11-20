@@ -87,6 +87,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
             'start_date',
             'start_time',
             'end_date',
+            'ended',
             'date_range',
             'pick_leader',
             'trees',
@@ -99,6 +100,7 @@ class PropertyHarvestSerializer(serializers.ModelSerializer[Harvest]):
     start_time = serializers.DateTimeField(source='get_local_start', format=r"%-I:%M %p")
     end_date = serializers.DateTimeField(source='get_local_end', format=r"%Y-%m-%d")
     date_range = serializers.ReadOnlyField(source='get_date_range')
+    ended = serializers.ReadOnlyField(source='has_ended')
 
     def get_pick_leader(self, harvest):
         if harvest.pick_leader is None:
@@ -639,7 +641,7 @@ class HarvestDetailSerializer(HarvestSerializer):
             ).annotate(status=Value(Organization.EquipmentPointStatus.RESERVED))
 
         available = Organization.objects.none()
-        if obj.start_date and obj.end_date and obj.status in Harvest.CAN_RESERVE_EQUIPMENT:
+        if obj.start_date and obj.end_date and obj.status in Harvest.CAN_MAKE_RESERVATION:
             available = get_available_equipment_points(obj.start_date, obj.end_date).annotate(
                 status=Value(Organization.EquipmentPointStatus.AVAILABLE)
             )

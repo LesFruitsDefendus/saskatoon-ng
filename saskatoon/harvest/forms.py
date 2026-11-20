@@ -643,13 +643,16 @@ class HarvestForm(forms.ModelForm[Harvest]):
         if equipment_point is None:
             return None
 
-        if self.cleaned_data['status'] not in [
-            Harvest.Status.SCHEDULED,
-            Harvest.Status.READY,
-            Harvest.Status.SUCCEEDED,
-        ]:
+        status = self.cleaned_data['status']
+        if status not in Harvest.CAN_HAVE_RESERVATION:
             raise forms.ValidationError(
                 _("Harvest must be confirmed before an equipment point can be booked")
+            )
+
+        is_new_reservation = equipment_point != self.initial.get('equipment_point')
+        if is_new_reservation and status not in Harvest.CAN_MAKE_RESERVATION:
+            raise forms.ValidationError(
+                _("Only scheduled and ready harvests can reserve equipment")
             )
 
         try:

@@ -1,8 +1,10 @@
+from datetime import datetime
 from pathlib import Path
 
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
+from django.utils import timezone
 
 FIXTURE_PATH = Path(__file__).parent.parent.parent.joinpath('saskatoon/fixtures')
 FIXTURE_SEQUENCE = [
@@ -28,6 +30,16 @@ FIXTURE_SEQUENCE = [
 ]
 
 AuthUser = get_user_model()
+
+FROZEN_TODAY = datetime(2026, 11, 20)
+
+
+@pytest.fixture
+def frozen_today(monkeypatch) -> datetime:
+    """Pin `local_today` so date-relative fields (e.g. Harvest.has_ended) don't drift"""
+    today = timezone.make_aware(FROZEN_TODAY)
+    monkeypatch.setattr('harvest.models.local_today', lambda: today)
+    return today
 
 
 @pytest.fixture(scope="module")

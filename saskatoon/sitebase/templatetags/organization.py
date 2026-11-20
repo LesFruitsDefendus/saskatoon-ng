@@ -19,7 +19,8 @@ def available(status: str) -> bool:
 @register.filter
 @typechecked
 def can_reserve_equipment(status: str) -> bool:
-    return status in Harvest.CAN_RESERVE_EQUIPMENT
+    """Whether a harvest can make a new equipment reservation (see Harvest.CAN_MAKE_RESERVATION)"""
+    return status in Harvest.CAN_MAKE_RESERVATION
 
 
 @register.filter
