@@ -3,26 +3,26 @@
 
 <table class="table" style="margin-top: 1em;">
     <tr>
-        <th class="col-md-5"> {% trans "Recipient" %} </th>
-        <th class="col-md-4"> {% trans "Fruit" %} </th>
-        <th class="col-md-2"> {{ weight_unit }} </th>
-        <th class="col-md-1 text-center"> {% trans "Save" %} </th>
+        <th class="col-md-5">{% trans "Recipient" %}</th>
+        <th class="col-md-4">{% trans "Fruit" %}</th>
+        <th class="col-md-2">{{ weight_unit }}</th>
+        <th class="col-md-1 text-center">{% trans "Save" %}</th>
     </tr>
     <tbody>
         <tr>
-        <form action="{% url 'harvest-yield-create' %}" method="post" validate>
-        {% csrf_token %}
-            <input type="hidden" id="harvest-id" name="harvest" value={{id}}>
-            <input type="hidden" name="unit" value="{{ weight_unit }}">
-            <td> {% include 'app/detail_views/harvest/distribution/recipient_select.html' %} </td>
-            <td> {% include 'app/detail_views/harvest/distribution/tree_select.html' %} </td>
-            <td> {% include 'app/detail_views/harvest/distribution/weight_input.html' %} </td>
-            <td class="col-md-1 text-center">
-                <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
-                    <i class="fa fa-check"></i>
-                </button>
-            </td>
-        </form>
+            <form action="{% url 'harvest-yield-create' %}" method="post" validate>
+                {% csrf_token %}
+                <input type="hidden" id="harvest-id" name="harvest" value={{ id }}>
+                <input type="hidden" name="unit" value="{{ weight_unit }}">
+                <td>{% include 'app/detail_views/harvest/distribution/recipient_select.html' %}</td>
+                <td>{% include 'app/detail_views/harvest/distribution/tree_select.html' %}</td>
+                <td>{% include 'app/detail_views/harvest/distribution/weight_input.html' %}</td>
+                <td class="col-md-1 text-center">
+                    <button type="submit" class="btn btn-primary notika-btn-primary waves-effect">
+                        <i class="fa fa-check"></i>
+                    </button>
+                </td>
+            </form>
         </tr>
     </tbody>
 </table>
