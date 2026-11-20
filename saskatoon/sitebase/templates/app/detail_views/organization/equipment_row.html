@@ -2,25 +2,25 @@
 {% get_current_language as LANG %}
 {% load static %}
 <tr>
-  <td># {{ item.id }}
-    {% if perms.harvest.change_equipment %}
-        <a href="{% url 'equipment-update' item.id %}" title="{% trans 'Modify Equipment' %} {{ item.id }}">
-            &nbsp;
-            <small><i class="fa fa-pencil"></i></small>
-        </a>
-    {% endif %}
-  </td>
-  <td>
-    {% if LANG == "fr" %}
-        {{ item.type.name_fr }}
-    {% else %}
-        {{ item.type.name_en }}
-    {% endif %}
-  </td>
-  <td>
-    {{item.count}}
-  </td>
-  <td>
-    <span>{{ item.description }}</span>
-  </td>
+    <td>
+        # {{ item.id }}
+        {% if perms.harvest.change_equipment %}
+            <a href="{% url 'equipment-update' item.id %}"
+               title="{% trans 'Modify Equipment' %} {{ item.id }}">
+                &nbsp;
+                <small><i class="fa fa-pencil"></i></small>
+            </a>
+        {% endif %}
+    </td>
+    <td>
+        {% if LANG == "fr" %}
+            {{ item.type.name_fr }}
+        {% else %}
+            {{ item.type.name_en }}
+        {% endif %}
+    </td>
+    <td>{{ item.count }}</td>
+    <td>
+        <span>{{ item.description }}</span>
+    </td>
 </tr>

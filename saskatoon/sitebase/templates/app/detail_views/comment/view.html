@@ -9,13 +9,14 @@
     {% if messages %}
         {% for message in messages %}
             {% if "comment" in message.extra_tags %}
-                <div class="alert alert-{{ message.level_tag }} mb-2 {% if message.extra_tags %}{{ message.extra_tags }}{% endif %}">  
+                <div class="alert alert-{{ message.level_tag }} mb-2
+                            {% if message.extra_tags %}{{ message.extra_tags }}{% endif %}">
                     {{ message }}
                 </div>
             {% endif %}
         {% endfor %}
     {% endif %}
-    
+
     <div class="card-box mg-t-10">
         <div class="chat-conversation">
             {% include 'app/detail_views/comment/comment_form.html' %}
@@ -26,7 +27,8 @@
                             <div class="comment-author-meta">
                                 <div class="author-name">{{ comment.author.name }}</div>
                                 <div class="author-details">
-                                    {{ comment.author.email }}<br>
+                                    {{ comment.author.email }}
+                                    <br>
                                     {% if comment.date_updated %}
                                         {{ comment.date_updated }} ({% trans "edited" %})
                                     {% else %}
@@ -39,7 +41,10 @@
                     {% endfor %}
                 </div>
             </div>
-            <button type="button" class="btn-scroll-older hidden" id="scrollOlderBtn" aria-label="Scroll to older comments">
+            <button type="button"
+                    class="btn-scroll-older hidden"
+                    id="scrollOlderBtn"
+                    aria-label="Scroll to older comments">
                 <span>{% trans "Older comments" %}</span>
                 <i class="notika-icon notika-down-arrow"></i>
             </button>

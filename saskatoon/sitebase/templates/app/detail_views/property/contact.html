@@ -8,127 +8,125 @@
 <div class="search-engine-int sm-res-mg-t-30 tb-res-mg-t-30 tb-res-ds-n dk-res-ds">
 
     <div class="contact-hd search-hd-eg">
-      <h2>
-        {% if owner and 'pk' in owner %}
-            {% trans "Owner" %}
-            {% if owner_type.is_organization %}
-                <small>{% trans "(Organization)" %}</small>
-            {% elif owner_type.is_person and perms.member.change_person %}
-                &nbsp;
-                <small><a href="{% url 'person-update' owner.pk %}?pid={{id}}">
+        <h2>
+            {% if owner and 'pk' in owner %}
+                {% trans "Owner" %}
+                {% if owner_type.is_organization %}
+                    <small>{% trans "(Organization)" %}</small>
+                {% elif owner_type.is_person and perms.member.change_person %}
+                    &nbsp;
+                    <small><a href="{% url 'person-update' owner.pk %}?pid={{ id }}">
                         <i class="fa fa-pencil"></i> {% trans "edit" %}
-                </a></small>
-            {% endif %}
-        {% else %}
-            {% trans "Unregistered owner" %}
-            {% if perms.member.add_person %}
-                &nbsp;
-                <small><a href="{% url 'person-create' %}?pid={{id}}">
+                    </a></small>
+                {% endif %}
+            {% else %}
+                {% trans "Unregistered owner" %}
+                {% if perms.member.add_person %}
+                    &nbsp;
+                    <small><a href="{% url 'person-create' %}?pid={{ id }}">
                         <i class="fa fa-pencil"></i> {% translate 'register' %}
-                </a></small>
+                    </a></small>
+                {% endif %}
             {% endif %}
-        {% endif %}
-            </h2>
+        </h2>
         <hr>
     </div>
 
-    <p class="lead">
-        {{ owner.name }}
-    </p>
+    <p class="lead">{{ owner.name }}</p>
 
     <table class="table">
         <tbody>
-        {% if owner_type.is_organization %}
+            {% if owner_type.is_organization %}
+                <tr>
+                    <td>{% trans "Contact" %}</td>
+                    <td class="text-right">
+                        <h5>{{ owner.contact }}</h5>
+                    </td>
+                </tr>
+            {% endif %}
+
             <tr>
-                <td>{% trans "Contact" %}</td>
+                <td>{% trans "Phone" %}</td>
                 <td class="text-right">
-                    <h5>{{ owner.contact }}</h5>
+                    <h5>
+                        {% if owner.phone %}
+                            {{ owner.phone }}
+                        {% endif %}
+                    </h5>
                 </td>
             </tr>
-        {% endif %}
 
-        <tr>
-            <td>{% trans "Phone" %}</td>
-            <td class="text-right">
-                <h5>
-                    {% if owner.phone %}
-                        {{ owner.phone }}
-                    {% endif %}
-                </h5>
-            </td>
-        </tr>
+            <tr>
+                <td>{% trans "Email" %}</td>
+                <td class="text-right">
+                    <h5>{{ owner.email }}</h5>
+                </td>
+            </tr>
 
-        <tr>
-            <td>{% trans "Email" %}</td>
-            <td class="text-right">
-                <h5>
-                    {{ owner.email }}
-                </h5>
-            </td>
-        </tr>
-
-        {% if owner and 'language' in owner and owner.language %}
+            {% if owner and 'language' in owner and owner.language %}
                 <tr>
                     <td>{% trans "Language" %}</td>
                     <td class="text-right">
                         <h5>{{ owner.language }}</h5>
                     </td>
                 </tr>
-        {% else %}
-            <!-- TODO: preferred language -->
-        {% endif %}
+            {% else %}
+                <!-- TODO: preferred language -->
+            {% endif %}
 
-        {% if owner and 'comments' in owner and owner.comments %}
-        <tr>
-            <td>{% trans "Comments" %}</td>
-            <td class="text-right">
-                <p>{{ owner.comments }}</p>
-            </td>
-        </tr>
-        {% endif %}
+            {% if owner and 'comments' in owner and owner.comments %}
+                <tr>
+                    <td>{% trans "Comments" %}</td>
+                    <td class="text-right">
+                        <p>{{ owner.comments }}</p>
+                    </td>
+                </tr>
+            {% endif %}
 
-        {% if not pending and authorized is None %}
-            <tr>
-                <td>{% trans "Authorization" %}</td>
-                <td class="text-right">
-                {% if auth_email_date %}
-                    <h5>
-                        {% trans "Email sent" %}
-                        <i class="notika-icon notika-checked"></i>
-                        <br>
-                        <small>{{auth_email_date}}</small>
-                    </h5>
-                {% else %}
-                    <button type="button"
-                            class="btn btn-primary notika-btn-primary"
-                            commandFor="email-owner-dialog"
-                            command="show-modal">
-                        <i class="fa-solid fa-envelope"></i>&nbsp;
-                        {% trans "Send Email" %}
-                    </button>
-                    <dialog class="confirmation text-center" closedby="any" id="email-owner-dialog">
-                        <form method="post"
-                            action="{% url 'property-send-authorization-email' id %}"
-                            id="email-owner-form">
-                            {% csrf_token %}
-                            <p>{% trans "Are you sure you want to send an authorization request to" %} <b>{{ owner.email }}</b> ?</p>
-                        </form>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-danger notika-btn-danger"
-                                    type="submit"
-                                    form="email-owner-form">{% trans "Yes" %}
-                            </button>
+            {% if not pending and authorized is None %}
+                <tr>
+                    <td>{% trans "Authorization" %}</td>
+                    <td class="text-right">
+                        {% if auth_email_date %}
+                            <h5>
+                                {% trans "Email sent" %}
+                                <i class="notika-icon notika-checked"></i>
+                                <br>
+                                <small>{{ auth_email_date }}</small>
+                            </h5>
+                        {% else %}
                             <button type="button"
                                     class="btn btn-primary notika-btn-primary"
                                     commandFor="email-owner-dialog"
-                                    command="close">{% trans "No" %}
+                                    command="show-modal">
+                                <i class="fa-solid fa-envelope"></i>&nbsp;
+                                {% trans "Send Email" %}
                             </button>
-                        </div>
-                    </dialog>
-                {% endif %}
-                </td>
-            </tr>
-        {% endif %}
+                            <dialog class="confirmation text-center"
+                                    closedby="any"
+                                    id="email-owner-dialog">
+                                <form method="post"
+                                      action="{% url 'property-send-authorization-email' id %}"
+                                      id="email-owner-form">
+                                    {% csrf_token %}
+                                    <p>{% trans "Are you sure you want to send an authorization request to" %} <b>{{ owner.email }}</b> ?</p>
+                                </form>
+                                <div class="btn-group" role="group">
+                                    <button class="btn btn-danger notika-btn-danger"
+                                            type="submit"
+                                            form="email-owner-form">
+                                        {% trans "Yes" %}
+                                    </button>
+                                    <button type="button"
+                                            class="btn btn-primary notika-btn-primary"
+                                            commandFor="email-owner-dialog"
+                                            command="close">{% trans "No" %}</button>
+                                </div>
+                            </dialog>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

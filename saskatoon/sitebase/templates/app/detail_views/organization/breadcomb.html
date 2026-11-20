@@ -14,12 +14,8 @@
                         {% endif %}
                     </div>
                     <div class="breadcomb-ctn">
-                        <h1>
-                            {{ civil_name }}
-                        </h1>
-                        <h4>
-                            {{ neighborhood.name }}
-                        </h4>
+                        <h1>{{ civil_name }}</h1>
+                        <h4>{{ neighborhood.name }}</h4>
                     </div>
                 </div>
             </div>
@@ -27,7 +23,9 @@
             <div class="col-xs-12 col-sm-4">
                 <div class="breadcomb-report">
                     {% if perms.member.change_organization %}
-                        <a href="{% url 'organization-update' actor_id %}" title="Edit Organization" class="btn btn-primary notika-btn-primary waves-effect">
+                        <a href="{% url 'organization-update' actor_id %}"
+                           title="Edit Organization"
+                           class="btn btn-primary notika-btn-primary waves-effect">
                             <i class="fa fa-pencil"></i>&nbsp;
                             {% trans "Edit Organization" %}
                         </a>

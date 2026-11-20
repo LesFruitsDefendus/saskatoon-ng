@@ -3,36 +3,37 @@
 {% load crispy_forms_tags %}
 
 {% block script %}
-<script src="{%static 'js/filter-form.js' %}"></script>
+    <script src="{%static 'js/filter-form.js' %}"></script>
 {% endblock script %}
 
 {{ filter.form.media }}
 
 <div class="accordion-stn">
-    <div aria-multiselectable="true" class="panel-group"
-            data-collapse-color="nk-green"
-            id="accordion" role="tablist">
+    <div aria-multiselectable="true"
+         class="panel-group"
+         data-collapse-color="nk-green"
+         id="accordion"
+         role="tablist">
         <div class="panel panel-collapse">
             <div class="notika-accordion-cus panel-heading" role="tab">
                 <h4 class="panel-title">
-                    <a class="collapsed" aria-expanded="false" data-parent="#accordion"
-                        data-toggle="collapse" href="#accordion-body">
-                        &nbsp; {% trans "Filters" %}
-                    </a>
+                    <a class="collapsed"
+                       aria-expanded="false"
+                       data-parent="#accordion"
+                       data-toggle="collapse"
+                       href="#accordion-body">&nbsp; {% trans "Filters" %}</a>
                 </h4>
             </div>
             <div class="collapse" id="accordion-body" role="tabpanel">
                 <div id="filter-panel" class="panel-body" style="display:inline-block;">
                     <form role="form" id="filter-form" name="filter-form">
-                            {{ filter.form|crispy}}
+                        {{ filter.form|crispy }}
                         <button class="align-center btn btn-primary notika-btn-primary"
-                            role="button" type="submit">
-                            {% trans "Filter" %}
-                        </button>
+                                role="button"
+                                type="submit">{% trans "Filter" %}</button>
                         {% if filter.reset %}
                             &nbsp;
-                            <a class="btn btn-warning notika-btn-warning"
-                            href="{{filter.reset}}">
+                            <a class="btn btn-warning notika-btn-warning" href="{{ filter.reset }}">
                                 {% trans "Reset" %}
                             </a>
                         {% endif %}

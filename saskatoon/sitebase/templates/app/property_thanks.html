@@ -4,19 +4,21 @@
 
 {% block content %}
 
-<div>
-    <div class="row">
-        <div class="col text-center mg-t-15">
-            <h2>{{thanks.title}}</h2>
-            <h4>{{thanks.subtitle}}</h4>
-            <br>
-            <p>{{thanks.body.html | safe}}</p>
-            <br>
-            <a href="{% url 'home' %}" title="Home" class="btn btn-primary notika-btn-primary">
-                  {% trans 'Back to Home' %}
-            </a>
+    <div>
+        <div class="row">
+            <div class="col text-center mg-t-15">
+                <h2>{{ thanks.title }}</h2>
+                <h4>{{ thanks.subtitle }}</h4>
+                <br>
+                <p>{{ thanks.body.html | safe }}</p>
+                <br>
+                <a href="{% url 'home' %}"
+                   title="Home"
+                   class="btn btn-primary notika-btn-primary">
+                    {% trans 'Back to Home' %}
+                </a>
+            </div>
         </div>
     </div>
-</div>
 
 {% endblock content %}

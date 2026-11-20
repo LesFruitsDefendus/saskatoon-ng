@@ -9,25 +9,28 @@
                 <div class="row">
                     <div class="col-xs-6">
                         <div class="basic-tb-hd">
-                            <h2>
-                                {% trans "Harvests" %}
-                            </h2>
+                            <h2>{% trans "Harvests" %}</h2>
                         </div>
                     </div>
                     <div class="col-xs-6">
                         <span style="float: right">
-                        {% if perms.harvest.add_harvest and authorized and not pending %}
-                            {% if user|is_core_or_admin and needs_orphan %}
-                                <a href="{% url 'property-create-orphans' id %}" title="Create Orphan Harvest(s)" class="btn btn-warning notika-btn-warning" style="margin-right: 0.5em;">
+                            {% if perms.harvest.add_harvest and authorized and not pending %}
+                                {% if user|is_core_or_admin and needs_orphan %}
+                                    <a href="{% url 'property-create-orphans' id %}"
+                                       title="Create Orphan Harvest(s)"
+                                       class="btn btn-warning notika-btn-warning"
+                                       style="margin-right: 0.5em">
+                                        <i class="fa fa-plus"></i>&nbsp;
+                                        {% trans "Create Orphan(s)" %}
+                                    </a>
+                                {% endif %}
+                                <a href="{% url 'harvest-create' %}?pid={{ id }}"
+                                   title="New harvest"
+                                   class="btn btn-success notika-btn-success waves-effect">
                                     <i class="fa fa-plus"></i>&nbsp;
-                                    {% trans "Create Orphan(s)" %}
+                                    {% trans "New Harvest" %}
                                 </a>
                             {% endif %}
-                            <a href="{% url 'harvest-create' %}?pid={{ id }}" title="New harvest" class="btn btn-success notika-btn-success waves-effect">
-                                <i class="fa fa-plus"></i>&nbsp;
-                                {% trans "New Harvest" %}
-                            </a>
-                        {% endif %}
                         </span>
                     </div>
                 </div>
@@ -43,7 +46,7 @@
                             </tr>
                         </thead>
                         {% for harvest in harvests %}
-                        {% include 'app/detail_views/property/harvest_row.html' %}
+                            {% include 'app/detail_views/property/harvest_row.html' %}
                         {% endfor %}
                     </table>
                 </div>

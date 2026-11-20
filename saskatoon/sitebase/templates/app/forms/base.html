@@ -4,43 +4,43 @@
 {% load crispy_forms_tags %}
 
 {% block script %}
-<script src="{%static 'js/datetime-picker.js' %}"></script>
+    <script src="{%static 'js/datetime-picker.js' %}"></script>
 {% endblock script %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
 {% endblock style %}
 
 {% block content %}
 
-{{ form.media }}
+    {{ form.media }}
 
-{% if form.errors %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center alert alert-danger" role="alert">
-                {% trans "Could not save form: some fields are invalid." %}
+    {% if form.errors %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center alert alert-danger" role="alert">
+                        {% trans "Could not save form: some fields are invalid." %}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{% endif %}
-{% if form.non_field_errors %}
-<div class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="text-center alert alert-warning" role="alert">
-                {{ form.non_field_errors }}
+    {% endif %}
+    {% if form.non_field_errors %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="text-center alert alert-warning" role="alert">
+                        {{ form.non_field_errors }}
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
-{% endif %}
+    {% endif %}
 
-<div class="form-example-area" style="margin: 1em;">
-    <div class="container">
-        <div class="row">
+    <div class="form-example-area" style="margin: 1em;">
+        <div class="container">
+            <div class="row">
                 <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-xs-12">
                     <div class="form-example-wrap">
                         <div class="cmp-tb-hd">
@@ -50,7 +50,7 @@
                             <div class="form-group">
 
                                 {% block form %}
-                                <!-- {{ form }} -->
+                                    <!-- {{ form }} -->
                                 {% endblock form %}
 
                             </div>
@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-     </div>
-</div>
+        </div>
+    </div>
 
 {% endblock content %}

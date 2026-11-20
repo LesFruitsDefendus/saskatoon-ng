@@ -4,63 +4,57 @@
 {% load crispy_forms_tags %}
 
 {% block script %}
-<script src="{%static 'js/datetime-picker.js' %}"></script>
+    <script src="{%static 'js/datetime-picker.js' %}"></script>
 {% endblock script %}
 
 {% block content %}
 
-<div class="container-fluid">
-    <div class="row breadcomb-list">
-        <div class="col-lg-2 col-md-3 col-xs-12">
-            {% include 'app/list_views/filters.html' %}
-        </div>
-        <div class="col-lg-10 col-md-9 col-xs-12">
-            <div class="data-table-area">
-                <div class="data-table-list" style="padding-top: 0;">
+    <div class="container-fluid">
+        <div class="row breadcomb-list">
+            <div class="col-lg-2 col-md-3 col-xs-12">
+                {% include 'app/list_views/filters.html' %}
+            </div>
+            <div class="col-lg-10 col-md-9 col-xs-12">
+                <div class="data-table-area">
+                    <div class="data-table-list" style="padding-top: 0;">
 
-                    <div class="row">
-                        <div class="col-xs-6">
-                            <span class="form-group">
-                                <input
-                                    class="search-input"
-                                    type="text"
-                                    name="search"
-                                    form="filter-form"
-                                    id="search-input"
-                                    placeholder={% trans "Search" %}
-                                >
-                                <button class="search-btn btn btn-primary notika-btn-primary"
-                                   type="submit"
-                                   id="search-button"
-                                   form="filter-form"
-                                >
-                                    <i class="fa fa-solid fa-search"></i>
-                                </button>
-                            </span>
-                        </div>
-                        <div class="col-xs-4">
-                        </div>
-                        <div class="col-xs-2">
-                            <div class="pull-right">
-                                {% if new %}
-                                <a href="{{ new.url }}"
-                                class="btn btn-primary notika-btn-primary"
-                                >
-                                    <i class="fa fa-plus"></i> &nbsp;{{ new.title }}
-                                </a>
-                            {% endif %}
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <span class="form-group">
+                                    <input class="search-input"
+                                           type="text"
+                                           name="search"
+                                           form="filter-form"
+                                           id="search-input"
+                                           placeholder="{% trans "Search" %}">
+                                    <button class="search-btn btn btn-primary notika-btn-primary"
+                                            type="submit"
+                                            id="search-button"
+                                            form="filter-form">
+                                        <i class="fa fa-solid fa-search"></i>
+                                    </button>
+                                </span>
+                            </div>
+                            <div class="col-xs-4"></div>
+                            <div class="col-xs-2">
+                                <div class="pull-right">
+                                    {% if new %}
+                                        <a href="{{ new.url }}" class="btn btn-primary notika-btn-primary">
+                                            <i class="fa fa-plus"></i> &nbsp;{{ new.title }}
+                                        </a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
+                        {% block data %}
+                        {% endblock data %}
+                        {% if pages_count > 1 %}
+                            {% include 'app/list_views/pagination.html' %}
+                        {% endif %}
                     </div>
-                    {% block data %}
-                    {% endblock data %}
-                    {% if pages_count > 1 %}
-                        {% include 'app/list_views/pagination.html' %}
-                    {% endif %}
                 </div>
             </div>
         </div>
     </div>
-</div>
 
 {% endblock content %}

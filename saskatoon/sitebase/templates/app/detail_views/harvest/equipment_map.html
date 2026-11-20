@@ -43,6 +43,7 @@
                                 <form method="post" action="{% url 'harvest-make-reservation' id %}">
                                     {% csrf_token %}
                                     <input type="hidden" value="{{ org.actor_id }}" name="org">
+                                    {# djlint:off #}
                                     <button type="submit"
                                         class="btn saskatoon-success"
                                         {% if not status|can_reserve_equipment or not org.status|available %}
@@ -54,6 +55,7 @@
                                             {% trans 'Reserve' %}
                                         {% endif %}
                                     </button>
+                                    {# djlint:on #}
                                 </form>
                             {% endif %}
                         </section>

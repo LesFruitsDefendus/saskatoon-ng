@@ -65,9 +65,7 @@
             <a href="{% url 'organization-detail' harvest.equipment_point.actor_id %}">{{ harvest.equipment_point.civil_name }}</a>
         {% endif %}
     </td>
-    <td>
-        {% if harvest.pick_leader %}{{ harvest.pick_leader.name|default:'' }}{% endif %}
-    </td>
+    <td>{% if harvest.pick_leader %}{{ harvest.pick_leader.name|default:'' }}{% endif %}</td>
     <td>
         <i class="fa fa-check text-success"></i> {{ harvest.volunteers.accepted }} &nbsp;
         <i class="fa fa-question text-warning"></i> {{ harvest.volunteers.pending }}

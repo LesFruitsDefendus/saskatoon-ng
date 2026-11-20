@@ -3,25 +3,24 @@
 {% load static %}
 
 {% block content %}
-<!-- Start Highlights area -->
-<div class="notika-status-area mg-tb-20">
-    <div class="container">
-        <div class="row">
-            <!-- Start Dropdown area -->
-            <div class="col-sm-2">
-                <div class="col-12">
-                    <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
-                        <div class="website-traffic-ctn">
+    <!-- Start Highlights area -->
+    <div class="notika-status-area mg-tb-20">
+        <div class="container">
+            <div class="row">
+                <!-- Start Dropdown area -->
+                <div class="col-sm-2">
+                    <div class="col-12">
+                        <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
+                            <div class="website-traffic-ctn">
                                 <span class="count_top"><i class="fa fa-calendar-check-o"></i> {% trans "Season" %}</span>
                                 <span class="count">
                                     <div class="dropdown">
-                                        <button
-                                            type="button"
-                                            class="btn btn-default dropdown-toggle"
-                                            id="menu1"
-                                            data-toggle="dropdown"
-                                            style="font-size:0.85em;font-weight:bold;"
-                                        >
+                                        <button type="button"
+                                                class="btn btn-default dropdown-toggle"
+                                                id="menu1"
+                                                data-toggle="dropdown"
+                                                style="font-size:0.85em;
+                                                       font-weight:bold">
                                             <h3>
                                                 <span class="count">
                                                     {% if season is None %}
@@ -33,14 +32,12 @@
                                                 <span class="caret"></span>
                                             </h3>
                                         </button>
-                                        <ul
-                                        class="dropdown-menu"
-                                        role="menu"
-                                        aria-labelledby="menu1"
-                                        >
+                                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1">
                                             {% for season in seasons %}
                                                 <li role="presentation">
-                                                    <a role="menuitem" tabindex="-1" href="{% url 'statistics' %}?season={{ season }}">
+                                                    <a role="menuitem"
+                                                       tabindex="-1"
+                                                       href="{% url 'statistics' %}?season={{ season }}">
                                                         {{ season }}
                                                     </a>
                                                 </li>
@@ -67,8 +64,8 @@
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                                 <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-shopping-basket"></i> {% trans "Harvests" %}</span>
-                                    <h2><span class="count">{{highlights.total_harvests}}</span></h2>
-                                    <span class="count_bottom text-muted">{% trans "Succeeded"%}</span>
+                                    <h2><span class="count">{{ highlights.total_harvests }}</span></h2>
+                                    <span class="count_bottom text-muted">{% trans "Succeeded" %}</span>
                                 </div>
                             </div>
                         </div>
@@ -77,8 +74,8 @@
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                                 <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-users"></i> {% trans "Pickers" %}</span>
-                                    <h2><span class="count">{{highlights.total_pickers}}</span></h2>
-                                    <span class="count_bottom text-muted">{% trans "Participated"%}</span>
+                                    <h2><span class="count">{{ highlights.total_pickers }}</span></h2>
+                                    <span class="count_bottom text-muted">{% trans "Participated" %}</span>
                                 </div>
                             </div>
                         </div>
@@ -87,8 +84,8 @@
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                                 <div class="website-traffic-ctn">
                                     <span class="count_top"><i class="fa fa-university"></i> {% trans "Beneficiary" %}</span>
-                                    <h2><span class="count">{{highlights.total_beneficiaries}}</span></h2>
-                                    <span class="count_bottom text-muted">{% trans "Organizations"%}</span>
+                                    <h2><span class="count">{{ highlights.total_beneficiaries }}</span></h2>
+                                    <span class="count_bottom text-muted">{% trans "Organizations" %}</span>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +93,8 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
                             <div class="wb-traffic-inner notika-shadow sm-res-mg-t-30 tb-res-mg-t-30">
                                 <div class="website-traffic-ctn">
-                                    <span class="count_top"><i class="fa fa-balance-scale"></i> {%trans "Total weight" %}</span>
-                                    <h2><span class="count">{{highlights.total_weight}}</span></h2>
+                                    <span class="count_top"><i class="fa fa-balance-scale"></i> {% trans "Total weight" %}</span>
+                                    <h2><span class="count">{{ highlights.total_weight }}</span></h2>
                                     <span class="count_bottom text-muted">(lbs)</span>
                                 </div>
                             </div>
@@ -121,12 +118,10 @@
                         </div>
                         <div class="table-responsive">
                             <div id="DataTables_Table_fruit_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="fruit-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
+                                <table id="fruit-table"
+                                       class="table table-striped dataTable display"
+                                       role="grid"
+                                       aria-describedby="data-table-basic_info">
                                     <thead>
                                         <tr role="row">
                                             <th>{% trans "Fruit" %}</th>
@@ -137,9 +132,9 @@
                                     <tbody>
                                         {% for fruit_name, total_harvests, total_weight in total_fruit %}
                                             <tr role="row">
-                                                <td>{{fruit_name}}</td>
-                                                <td>{{total_harvests}}</td>
-                                                <td>{{total_weight}}</td>
+                                                <td>{{ fruit_name }}</td>
+                                                <td>{{ total_harvests }}</td>
+                                                <td>{{ total_weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -157,12 +152,10 @@
                         </div>
                         <div class="table-responsive">
                             <div id="DataTables_Table_neighborhood_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="neighborhood-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
+                                <table id="neighborhood-table"
+                                       class="table table-striped dataTable display"
+                                       role="grid"
+                                       aria-describedby="data-table-basic_info">
                                     <thead>
                                         <tr role="row">
                                             <th>{% trans "Borough" %}</th>
@@ -173,9 +166,9 @@
                                     <tbody>
                                         {% for neighborhood,total_harvests, total_weight in total_neighborhood %}
                                             <tr role="row">
-                                                <td>{{neighborhood}}</td>
-                                                <td>{{total_harvests}}</td>
-                                                <td>{{total_weight}}</td>
+                                                <td>{{ neighborhood }}</td>
+                                                <td>{{ total_harvests }}</td>
+                                                <td>{{ total_weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -196,12 +189,10 @@
                         </div>
                         <div class="table-responsive">
                             <div id="DataTables_Table_beneficiary_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="beneficiary-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
+                                <table id="beneficiary-table"
+                                       class="table table-striped dataTable display"
+                                       role="grid"
+                                       aria-describedby="data-table-basic_info">
                                     <thead>
                                         <tr role="row">
                                             <th>{% trans "Beneficiary" %}</th>
@@ -212,9 +203,9 @@
                                     <tbody>
                                         {% for beneficiary,total_harvests, total_weight in total_beneficiary %}
                                             <tr role="row">
-                                                <td>{{beneficiary}}</td>
-                                                <td>{{total_harvests}}</td>
-                                                <td>{{total_weight}}</td>
+                                                <td>{{ beneficiary }}</td>
+                                                <td>{{ total_harvests }}</td>
+                                                <td>{{ total_weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -232,12 +223,10 @@
                         </div>
                         <div class="table-responsive">
                             <div id="DataTables_Table_picker_wrapper" class="dataTables_wrapper">
-                                <table
-                                id="picker-table"
-                                class="table table-striped dataTable display"
-                                role="grid"
-                                aria-describedby="data-table-basic_info"
-                                >
+                                <table id="picker-table"
+                                       class="table table-striped dataTable display"
+                                       role="grid"
+                                       aria-describedby="data-table-basic_info">
                                     <thead>
                                         <tr role="row">
                                             <th>{% trans "Picker" %}</th>
@@ -251,12 +240,12 @@
                                     <tbody>
                                         {% for picker,total_harvests_leader,total_harvests_rfp,total_harvests_is_accepted,total_harvests_recipient,total_weight in total_picker %}
                                             <tr role="row">
-                                                <td>{{picker}}</td>
-                                                <td>{{total_harvests_leader}}</td>
-                                                <td>{{total_harvests_rfp}}</td>
-                                                <td>{{total_harvests_is_accepted}}</td>
-                                                <td>{{total_harvests_recipient}}</td>
-                                                <td>{{total_weight}}</td>
+                                                <td>{{ picker }}</td>
+                                                <td>{{ total_harvests_leader }}</td>
+                                                <td>{{ total_harvests_rfp }}</td>
+                                                <td>{{ total_harvests_is_accepted }}</td>
+                                                <td>{{ total_harvests_recipient }}</td>
+                                                <td>{{ total_weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
