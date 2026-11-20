@@ -26,7 +26,6 @@ from harvest.models import (
     EquipmentType,
     Harvest,
     Property,
-    PropertyImage,
     RequestForParticipation as RFP,
     TreeType,
 )
@@ -138,15 +137,9 @@ class EquipmentAdmin(admin.ModelAdmin[Equipment]):
     form = EquipmentAdminForm
 
 
-class PropertyImageInline(admin.TabularInline[PropertyImage, PropertyImage]):
-    model = PropertyImage
-    extra = 3
-
-
 @admin.register(Property)
 class PropertyAdmin(LeafletGeoAdminMixin, admin.ModelAdmin[Property]):
     model = Property
-    inlines = [PropertyImageInline]
     list_display = (
         'short_address',
         'neighborhood',

@@ -1,7 +1,13 @@
-from typing import Any, Optional
+from typing import Any, Callable, Optional
 
 from django.contrib import messages
+from django.contrib.auth.mixins import (
+    LoginRequiredMixin,
+    PermissionRequiredMixin,
+)
 from django.http import HttpRequest, HttpResponse
+
+from member.permissions import is_core_or_admin
 
 
 class TaggedSuccessMessageMixin:
@@ -20,3 +26,14 @@ class TaggedSuccessMessageMixin:
 
         messages.success(self.request, self.success_message, **extra_args)
         return response
+
+
+class UploaderOrAdminRequiredMixin(LoginRequiredMixin, PermissionRequiredMixin):
+    """Only the uploader and core/admin users may access."""
+
+    request: HttpRequest
+    get_object: Callable[..., Any]
+
+    def has_permission(self):
+        user = self.request.user
+        return self.get_object().uploaded_by == user or is_core_or_admin(user)
