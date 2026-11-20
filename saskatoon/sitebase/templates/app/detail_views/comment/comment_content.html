@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load auth_users %}
 
 <div class="comment-content-cell">
     <div id="comment-view-{{ comment.id }}"
@@ -18,7 +17,7 @@
         </div>
 
         <div class="comment-actions-group">
-            {% if comment.author.id == user.id or user|is_admin %}
+            {% if comment.author.id == user.id or user_is_admin %}
                 <button type="button"
                         class="btn btn-sm btn-link text-primary edit-comment-btn btn-comment-action"
                         data-comment-id="{{ comment.id }}"
@@ -27,7 +26,7 @@
                 </button>
             {% endif %}
 
-            {% if user|is_admin %}
+            {% if user_is_admin %}
                 {% translate "Are you sure you want to delete this comment?" as delete_confirm_msg %}
                 <form method="post"
                       action="{% url 'comment-delete' comment.id %}"
@@ -44,7 +43,7 @@
         </div>
     </div>
 
-    {% if comment.author.id == user.id or user|is_admin %}
+    {% if comment.author.id == user.id or user_is_admin %}
         <div id="comment-edit-{{ comment.id }}"
              class="comment-edit-form-container">
             <form method="post" action="{% url 'comment-update' comment.id %}">
