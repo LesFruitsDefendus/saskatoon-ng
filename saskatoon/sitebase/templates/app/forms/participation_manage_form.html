@@ -4,42 +4,45 @@
 {% load i18n %}
 
 {% block header %}
-{% get_current_language as LANG %}
+    {% get_current_language as LANG %}
 
-<div style="margin-left: 6px; color: #ff2079">
-    {% trans "Warning: modifying a Request For Participation does not automatically notify the volunteer. Please contact them directly to warn them of the changes." %}
-</div>
-<div class="table-responsive">
-    <table class="table compact">
-        <tr>
-            <td>{% translate "Harvest" %} #{{ rfp.harvest.id }}</td>
-            <td>{{ rfp.harvest.start_date|date }}
-                {% if LANG == "en" %}at{% else %}à{% endif %}
-                {{ rfp.harvest.start_date|time }}
-            </td>
-        </tr>
-        <tr>
-            <td>{% translate "Property" %} #{{ rfp.harvest.property.id }}</td>
-            <td>{{ rfp.harvest.property }}</td>
-        </tr>
-        <tr>
-            <td>{% translate "Participant" %} #{{rfp.person.pk}}</td>
-            <td>{{rfp.person.name}}<br>
-                <a href="mailto:{{rfp.person.email}}">{{rfp.person.email}}</a>
-            </td>
-        </tr>
-        <tr>
-            <td>{% translate "Number of pickers" %}</td>
-            <td>{{rfp.number_of_pickers}}</td>
-        </tr>
-        <tr>
-            <td>{% translate "Comments" %}</td>
-            <td>{{rfp.comment}}</td>
-        </tr>
-    </table>
-</div>
+    <div style="margin-left: 6px; color: #ff2079">
+        {% trans "Warning: modifying a Request For Participation does not automatically notify the volunteer. Please contact them directly to warn them of the changes." %}
+    </div>
+    <div class="table-responsive">
+        <table class="table compact">
+            <tr>
+                <td>{% translate "Harvest" %} #{{ rfp.harvest.id }}</td>
+                <td>
+                    {{ rfp.harvest.start_date|date }}
+                    {% if LANG == "en" %}at{% else %}à{% endif %}
+                    {{ rfp.harvest.start_date|time }}
+                </td>
+            </tr>
+            <tr>
+                <td>{% translate "Property" %} #{{ rfp.harvest.property.id }}</td>
+                <td>{{ rfp.harvest.property }}</td>
+            </tr>
+            <tr>
+                <td>{% translate "Participant" %} #{{ rfp.person.pk }}</td>
+                <td>
+                    {{ rfp.person.name }}
+                    <br>
+                    <a href="mailto:{{ rfp.person.email }}">{{ rfp.person.email }}</a>
+                </td>
+            </tr>
+            <tr>
+                <td>{% translate "Number of pickers" %}</td>
+                <td>{{ rfp.number_of_pickers }}</td>
+            </tr>
+            <tr>
+                <td>{% translate "Comments" %}</td>
+                <td>{{ rfp.comment }}</td>
+            </tr>
+        </table>
+    </div>
 
-<script>
+    <script>
     $(function () {
         $('#id_send_email').change(function () {
             if ($('#id_send_email').is(":checked")) {
@@ -49,6 +52,6 @@
             }
         });
     });
-</script>
+    </script>
 
 {% endblock header %}

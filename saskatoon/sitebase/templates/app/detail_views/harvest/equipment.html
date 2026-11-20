@@ -35,8 +35,8 @@
             {% include 'app/detail_views/harvest/cancel_reservation.html' %}
 
             <dl>
-                <dt class="{{'reserved' | reservation}}">
-                    {{ 'lg' | equipment_point_icon_shape | safe}}
+                <dt class="{{ 'reserved' | reservation }}">
+                    {{ 'lg' | equipment_point_icon_shape | safe }}
                 </dt>
                 <dd>
                     {% trans 'Currently Reserved Equipment Point' %}

@@ -8,43 +8,43 @@
 
 {% block content %}
 
-<div class="wizard-area mg-b-15">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="wizard-wrap-int">
-                    <div class="wizard-hd">
-                        <h1>{% trans "Harvest calendar" %}</h1>
-                        <hr>
-                        <div class="row">
-                            <div class="col-xs-4" >
-                                <h5>{% trans "LEGEND" %} </h5>
-                                {% include 'app/calendar/legend.html' %}
+    <div class="wizard-area mg-b-15">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="wizard-wrap-int">
+                        <div class="wizard-hd">
+                            <h1>{% trans "Harvest calendar" %}</h1>
+                            <hr>
+                            <div class="row">
+                                <div class="col-xs-4">
+                                    <h5>{% trans "LEGEND" %}</h5>
+                                    {% include 'app/calendar/legend.html' %}
+                                </div>
+                                <div class="col-xs-8">
+                                    <h5>{% trans "INSTRUCTIONS" %}</h5>
+                                    {% include 'app/calendar/instructions.html' %}
+                                </div>
                             </div>
-                            <div class="col-xs-8" >
-                                <h5>{% trans "INSTRUCTIONS" %} </h5>
-                                {% include 'app/calendar/instructions.html' %}
-                            </div>
+                            <br>
+                            <div id="calendar"></div>
                         </div>
-                        <br>
-                        <div id="calendar"></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-{% include 'app/calendar/scheduled-modal.html' %}
+    {% include 'app/calendar/scheduled-modal.html' %}
 
-{% include 'app/calendar/ready-modal.html' %}
+    {% include 'app/calendar/ready-modal.html' %}
 
-{% include 'app/calendar/succeeded-modal.html' %}
+    {% include 'app/calendar/succeeded-modal.html' %}
 
-{% include 'app/calendar/cancelled-modal.html' %}
+    {% include 'app/calendar/cancelled-modal.html' %}
 
-{% include 'app/calendar/orphan-modal.html' %}
+    {% include 'app/calendar/orphan-modal.html' %}
 
-{% include 'app/calendar/adopted-modal.html' %}
+    {% include 'app/calendar/adopted-modal.html' %}
 
 {% endblock content %}

@@ -5,11 +5,10 @@
 <tr>
     <!-- Requester -->
     <td class="col-requester">
-        <b>{{ r.person.name }}</b><br>
+        <b>{{ r.person.name }}</b>
+        <br>
         {% if r.person.email %}
-            <a href="mailto:{{ r.person.email }}">
-                {{ r.person.email }}
-            </a>
+            <a href="mailto:{{ r.person.email }}">{{ r.person.email }}</a>
             <br>
         {% endif %}
         {{ r.person.phone|default:"" }}
@@ -17,7 +16,8 @@
 
     <!-- Date requested -->
     <td class="col-date">
-        {{ r.date_created }}<br>
+        {{ r.date_created }}
+        <br>
         {% if LANG == "en" %}at{% else %}à{% endif %}
         {{ r.time_created }}
     </td>
@@ -31,18 +31,18 @@
     <!-- Past experience -->
     <td class="col-experience">
         {% if r.person.accept_count > 0 %}
-        <i class="fa fa-thumbs-up" style="color: var(--saskatoon-success);"></i>
-        {{ r.person.accept_count }}
-        {% trans "harvest(s)" %}
+            <i class="fa fa-thumbs-up" style="color: var(--saskatoon-success);"></i>
+            {{ r.person.accept_count }}
+            {% trans "harvest(s)" %}
         {% else %}
-        {% trans "First time" %} !
+            {% trans "First time" %} !
         {% endif %}
     </td>
 
     <!-- Rejections -->
     <td class="col-rejections">
         {% if r.person.reject_count > 0 %}
-        <i class="fa fa-frown" style="color: var(--saskatoon-danger);"></i>
+            <i class="fa fa-frown" style="color: var(--saskatoon-danger);"></i>
         {% endif %}
         {{ r.person.reject_count }}
     </td>
@@ -51,20 +51,20 @@
     <td class="col-status">
         <b>
             {% if r.status == 'pending' %}
-            <i class="fa fa-question text-warning"></i>
-            {% trans "Pending" %}
+                <i class="fa fa-question text-warning"></i>
+                {% trans "Pending" %}
             {% elif r.status == 'accepted' %}
-            <i class="fa fa-check text-success"></i>
-            {% trans "Accepted" %}
+                <i class="fa fa-check text-success"></i>
+                {% trans "Accepted" %}
             {% elif r.status == 'declined' %}
-            <i class="fa fa-times text-danger"></i>
-            {% trans "Declined" %}
+                <i class="fa fa-times text-danger"></i>
+                {% trans "Declined" %}
             {% elif r.status == 'cancelled' %}
-            <i class="fa fa-times text-muted"></i>
-            {% trans "Cancelled" %}
+                <i class="fa fa-times text-muted"></i>
+                {% trans "Cancelled" %}
             {% else %}
-            <i class="fa fa-times text-muted"></i>
-            {% trans "Obsolete" %}
+                <i class="fa fa-times text-muted"></i>
+                {% trans "Obsolete" %}
             {% endif %}
         </b>
     </td>
@@ -75,7 +75,7 @@
     <!-- Last updated -->
     <td class="col-date">
         {% if r.date_status_updated %}
-        {{ r.date_status_updated }}
+            {{ r.date_status_updated }}
         {% endif %}
     </td>
 
@@ -84,19 +84,21 @@
         {% if r.status == 'pending' and user|is_pickleader:id %}
             <div class="action-btn-group">
                 {% if volunteers_count < nb_required_pickers %}
-                    <a href="{% url 'participation-update' r.id %}accept/" title="Accept" class="btn btn-success notika-btn-success">
+                    <a href="{% url 'participation-update' r.id %}accept/"
+                       title="Accept"
+                       class="btn btn-success notika-btn-success">
                         {% trans "Accept" %}
                     </a>
                 {% endif %}
 
-                <a href="{% url 'participation-update' r.id %}decline/" title="Decline" class="btn btn-danger notika-btn-danger">
-                    {% trans "Decline" %}
-                </a>
+                <a href="{% url 'participation-update' r.id %}decline/"
+                   title="Decline"
+                   class="btn btn-danger notika-btn-danger">{% trans "Decline" %}</a>
             </div>
         {% elif user|is_core_or_admin or user|is_pickleader:id %}
-        <a href="{% url 'participation-update' r.id %}">
-            {% trans "Edit" %}&nbsp;<i class="fa fa-pencil"></i>
-        </a>
+            <a href="{% url 'participation-update' r.id %}">
+                {% trans "Edit" %}&nbsp;<i class="fa fa-pencil"></i>
+            </a>
         {% endif %}
     </td>
 </tr>

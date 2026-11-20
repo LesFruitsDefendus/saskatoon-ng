@@ -4,43 +4,39 @@
 {% load crispy_forms_tags %}
 
 {% block script %}
-<script src="{%static 'js/datetime-picker.js' %}"></script>
-<script src="{%static 'js/public-form.js' %}"></script>
+    <script src="{%static 'js/datetime-picker.js' %}"></script>
+    <script src="{%static 'js/public-form.js' %}"></script>
 {% endblock script %}
 
 {% block style %}
-<link rel="stylesheet" href="{% static 'css/form.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
 {% endblock style %}
 
 {% block content %}
 
-{{ form.media }}
+    {{ form.media }}
 
-<div class="form-example-area mg-t-15">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6 col-lg-offset-3
-                            col-md-8 col-md-offset-2
-                            col-sm-10 col-sm-offset-1
-                            col-xs-12"
-                >
+    <div class="form-example-area mg-t-15">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12">
                     <div id="public-form-panel" class="form-example-wrap">
                         <div class="cmp-tb-hd">
                             <h2>{% translate 'Add a new property' %}</h2>
                         </div>
                         <div class="form-example-int">
                             <div class="form-group">
-                                  <form method="post">
-                                      {% csrf_token %}
-                                      {{ form|crispy }}
-                                          <button type="submit" class="btn btn-primary notika-btn-primary">{% trans 'Send' %}</button>
-                                  </form>
+                                <form method="post">
+                                    {% csrf_token %}
+                                    {{ form|crispy }}
+                                    <button type="submit" class="btn btn-primary notika-btn-primary">{% trans 'Send' %}</button>
+                                </form>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-     </div>
-</div>
+        </div>
+    </div>
 
 {% endblock content %}

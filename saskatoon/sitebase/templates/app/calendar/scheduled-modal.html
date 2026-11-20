@@ -1,7 +1,12 @@
 {% load static %}
 {% load i18n %}
 
-<div id="scheduledModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="harvestModal" aria-hidden="true">
+<div id="scheduledModal"
+     class="modal fade"
+     tabindex="-1"
+     role="dialog"
+     aria-labelledby="harvestModal"
+     aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" style="border-bottom: 0 none">
@@ -19,10 +24,10 @@
                             {% trans "Scheduled" %}
                         </span>
                         <div>
-                            <span class="count start-date"> </span>
+                            <span class="count start-date"></span>
                             <span class="count_bottom">
                                 <b class="start-time"></b>
-                                <span> {% trans "to" %} </span>
+                                <span>{% trans "to" %}</span>
                                 <b class="end-time"></b>
                             </span>
                         </div>
@@ -47,13 +52,9 @@
 
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <a class="btn btn-primary waves-effect rfp-url" href="">
-                            {% trans "Participate" %}
-                        </a>
+                        <a class="btn btn-primary waves-effect rfp-url" href="">{% trans "Participate" %}</a>
                         {% if perms.harvest.view_harvest %}
-                        <a class="btn btn-default harvest-url" href="">
-                            {% trans "Harvest details" %}
-                        </a>
+                            <a class="btn btn-default harvest-url" href="">{% trans "Harvest details" %}</a>
                         {% endif %}
                     </div>
                 </div>

@@ -8,12 +8,12 @@
 
 {% block content %}
 
-<div class="home container mg-t-15 mg-b-15">
-    {% if user.is_authenticated %}
-        {% include 'app/home/pickleader.html' %}
-    {% else %}
-        {% include 'app/home/public.html' %}
-    {% endif %}
-</div>
+    <div class="home container mg-t-15 mg-b-15">
+        {% if user.is_authenticated %}
+            {% include 'app/home/pickleader.html' %}
+        {% else %}
+            {% include 'app/home/public.html' %}
+        {% endif %}
+    </div>
 
 {% endblock content %}

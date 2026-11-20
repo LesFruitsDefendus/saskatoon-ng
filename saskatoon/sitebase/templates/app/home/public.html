@@ -1,7 +1,9 @@
 {% load i18n %}
 {% load static %}
 
-<img class="banner" src="{{ MEDIA_URL }}/home/banner.jpg" alt="Photo Credit: Lauren Kolyn"/>
+<img class="banner"
+     src="{{ MEDIA_URL }}/home/banner.jpg"
+     alt="Photo Credit: Lauren Kolyn" />
 <div class="intro">
     <h1>{{ home_intro.title }}</h1>
     <p>{{ home_intro.body.html | safe }}</p>
@@ -10,7 +12,7 @@
 
 <div class="row section">
     <div class="col-md-3 col-sm-4 col-xs-12">
-        <img src="{{ MEDIA_URL }}/home/volunteer.jpg" alt="volunteer pickers"/>
+        <img src="{{ MEDIA_URL }}/home/volunteer.jpg" alt="volunteer pickers" />
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
         <h4>{{ home_volunteer.subtitle }}</h4>
@@ -20,7 +22,7 @@
 
 <div class="row section">
     <div class="col-md-3 col-sm-4 col-xs-12">
-        <img src="{{ MEDIA_URL }}/home/pickleader.jpg" alt="harvest leaders"/>
+        <img src="{{ MEDIA_URL }}/home/pickleader.jpg" alt="harvest leaders" />
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
         <h4>{{ home_pickleader.subtitle }}</h4>
@@ -30,7 +32,7 @@
 
 <div class="row section">
     <div class="col-md-3 col-sm-4 col-xs-12">
-        <img src="{{ MEDIA_URL }}/home/owner.jpg" alt="tree owners"/>
+        <img src="{{ MEDIA_URL }}/home/owner.jpg" alt="tree owners" />
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
         <h4>{{ home_owner.subtitle }}</h4>
@@ -40,7 +42,8 @@
 
 <div class="row section">
     <div class="col-md-3 col-sm-4 col-xs-12">
-        <img src="{{ MEDIA_URL }}/home/beneficiary.jpg" alt="beneficiary organizations"/>
+        <img src="{{ MEDIA_URL }}/home/beneficiary.jpg"
+             alt="beneficiary organizations" />
     </div>
     <div class="col-md-9 col-sm-8 col-xs-12 content">
         <h4>{{ home_beneficiary.subtitle }}</h4>
@@ -48,6 +51,4 @@
     </div>
 </div>
 
-<div class="closing">
-    {{ faq.body.html | safe }}
-</div>
+<div class="closing">{{ faq.body.html | safe }}</div>

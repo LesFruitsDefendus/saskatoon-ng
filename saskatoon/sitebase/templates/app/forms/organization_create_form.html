@@ -22,14 +22,13 @@
         {{ form.state|as_crispy_field }}
         {{ form.country|as_crispy_field }}
 
-        <br><hr>
+        <br>
+        <hr>
         <h5>{% trans "Contact Person" %}</h5>
 
         {{ form.create_new_person|as_crispy_field }}
 
-        <div id="existing-contact">
-            {{ form.contact_person|as_crispy_field }}
-        </div>
+        <div id="existing-contact">{{ form.contact_person|as_crispy_field }}</div>
 
         <div class="collapse" id="new-contact">
             {{ form.contact_first_name|as_crispy_field }}
@@ -45,9 +44,9 @@
             {% trans 'Save' %}
         </button>
         {% if cancel_url %}
-            <a href="{{ cancel_url }}" class="btn btn-warning notika-btn-warning" style="margin-left:1rem;">
-                {% translate 'Cancel' %}
-            </a>
+            <a href="{{ cancel_url }}"
+               class="btn btn-warning notika-btn-warning"
+               style="margin-left:1rem">{% translate 'Cancel' %}</a>
         {% endif %}
     </form>
 

@@ -2,9 +2,7 @@
     <a data-placement="top"
        data-toggle="tooltip"
        href="{% url 'harvest-detail' harvest.id %}"
-       title="#{{ harvest.id }}: {{harvest.property}} - {{ harvest.start_date }} - {{ status }}">
-         <i class="fa fa-{{icon}} fa-lg"
-            style="color:{{color}}"
-         ></i>
+       title="#{{ harvest.id }}: {{ harvest.property }} - {{ harvest.start_date }} - {{ status }}">
+        <i class="fa fa-{{ icon }} fa-lg" style="color:{{ color }}"></i>
     </a>
 </li>
