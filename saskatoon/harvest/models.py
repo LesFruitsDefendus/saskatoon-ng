@@ -572,8 +572,12 @@ class Harvest(models.Model):
 
     SEASON_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
-    CAN_MAKE_RESERVATION = [Status.READY, Status.SCHEDULED]
-    CAN_HAVE_RESERVATION = CAN_MAKE_RESERVATION + [Status.SUCCEEDED]
+    CAN_MAKE_RESERVATION_STATUSES = [Status.READY, Status.SCHEDULED]
+    CAN_HAVE_RESERVATION_STATUSES = CAN_MAKE_RESERVATION_STATUSES + [Status.SUCCEEDED]
+
+    CANNOT_MAKE_RESERVATION_MESSAGE = _(
+        "Equipment can only be reserved for harvests marked as Scheduled or Ready"
+    )
 
     status = models.CharField(
         choices=Status.choices,
@@ -809,7 +813,7 @@ def harvest_reservation_validation(sender, instance, **kwargs) -> None:
     if (
         instance.id is not None
         and instance.equipment_reserved.values().count() > 0
-        and instance.status not in Harvest.CAN_HAVE_RESERVATION
+        and instance.status not in Harvest.CAN_HAVE_RESERVATION_STATUSES
     ):
         instance.equipment_reserved.set([])
 

@@ -818,13 +818,6 @@ msgstr ""
 "prête."
 
 #: sitebase/templates/app/detail_views/harvest/equipment_map.html:50
-#, fuzzy
-#| msgid "Only scheduled and ready harvests can reserve equipment"
-msgid "Only Scheduled and Ready harvests can reserve equipment"
-msgstr ""
-"Seules les récoltes prêtes ou planifiées peuvent réserver de l'équipement"
-
-#: sitebase/templates/app/detail_views/harvest/equipment_map.html:50
 msgid "This equipment point is not available at the time of harvest"
 msgstr "Ce point d'équipment n'est pas disponible au moment de la récolte"
 

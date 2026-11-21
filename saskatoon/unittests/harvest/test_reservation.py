@@ -1,8 +1,9 @@
 """
-Statuses in Harvest.CAN_HAVE_RESERVATION can keep an equipment reservation,
-but only those in Harvest.CAN_MAKE_RESERVATION can make a new one.
+Statuses in Harvest.CAN_HAVE_RESERVATION_STATUSES can keep an equipment reservation,
+but only those in Harvest.CAN_MAKE_RESERVATION_STATUSES can make a new one.
 """
 
+import re
 from datetime import datetime, timedelta, timezone
 
 import pytest
@@ -73,7 +74,9 @@ def test_form_accepts_new_reservation_on_scheduled_harvest(harvest, equipment_po
 def test_form_rejects_new_reservation_on_succeeded_harvest(harvest, equipment_point):
     set_status(harvest, Harvest.Status.SUCCEEDED)
 
-    with pytest.raises(forms.ValidationError, match='Only scheduled and ready harvests'):
+    with pytest.raises(
+        forms.ValidationError, match=re.escape(str(Harvest.CANNOT_MAKE_RESERVATION_MESSAGE))
+    ):
         clean_equipment_point(harvest, equipment_point)
 
 

@@ -151,8 +151,8 @@ class HarvestViewset(LoginRequiredMixin, viewsets.ModelViewSet[Harvest]):
             messages.error(request, _("Harvest does not exist"))
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
-        if harvest.status not in Harvest.CAN_MAKE_RESERVATION:
-            messages.error(request, _("Only scheduled and ready harvests can reserve equipment"))
+        if harvest.status not in Harvest.CAN_MAKE_RESERVATION_STATUSES:
+            messages.error(request, Harvest.CANNOT_MAKE_RESERVATION_MESSAGE)
             return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
 
         if harvest.start_date is None or harvest.end_date is None:

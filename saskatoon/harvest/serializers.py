@@ -641,7 +641,7 @@ class HarvestDetailSerializer(HarvestSerializer):
             ).annotate(status=Value(Organization.EquipmentPointStatus.RESERVED))
 
         available = Organization.objects.none()
-        if obj.start_date and obj.end_date and obj.status in Harvest.CAN_MAKE_RESERVATION:
+        if obj.start_date and obj.end_date and obj.status in Harvest.CAN_MAKE_RESERVATION_STATUSES:
             available = get_available_equipment_points(obj.start_date, obj.end_date).annotate(
                 status=Value(Organization.EquipmentPointStatus.AVAILABLE)
             )
