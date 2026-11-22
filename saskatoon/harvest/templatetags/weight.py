@@ -1,4 +1,4 @@
-from typing import Literal, Optional
+from typing import Optional
 
 from django import template
 from typeguard import typechecked
@@ -10,16 +10,19 @@ register = template.Library()
 
 @register.filter
 @typechecked
-def weight(lbs: Optional[float], unit: Literal["lbs", "kg"] = "lbs") -> str:
+def weight(lbs: Optional[float], unit: str = "lbs") -> str:
     if lbs is None:
         return ""
-    if unit == "kg":
-        return f"{lbs * LB_TO_KG:.1f} kg"
-    return f"{lbs:.1f} lbs"
+    return f"{to_unit(lbs, unit):.1f} {unit}"
 
 
 @register.filter
 @typechecked
-def to_unit(lbs: float, unit: Literal["lbs", "kg"] = "lbs") -> float:
+def to_unit(lbs: float, unit: str = "lbs") -> float:
     """Converts a weight stored in lbs to the chosen unit"""
-    return lbs * LB_TO_KG if unit == "kg" else lbs
+    if unit == "lbs":
+        return lbs
+    elif unit == "kg":
+        return lbs * LB_TO_KG
+    else:
+        raise ValueError(f'Unexpected weight unit: "{unit}"')
