@@ -1,13 +1,12 @@
 {% load i18n %}
 {% load static %}
 {% load tz %}
-{% load auth_users %}
 {% load harvest_status %}
 {% load weight %}
 <div class="harvest-info">
     <section>
         <p>{% translate "Harvest status" %}</p>
-        {% if user|is_pickleader:id %}
+        {% if user_is_harvest_pickleader %}
             {% include 'app/detail_views/harvest/status_choices.html' %}
         {% else %}
             <h2 class="badge {{ status | color }}"
@@ -47,14 +46,10 @@
         <p>{% trans "Pick leader" %}</p>
         {% if pick_leader is None %}
             <h2>{% trans "Missing" %}</h2>
-            {% if status == 'orphan' %}
-                {% with user_is_pickleader=user|is_pickleader user_is_harvest_pickleader=user|is_pickleader:id %}
-                    {% if user_is_pickleader and not user_is_harvest_pickleader %}
-                        <a href="{% url 'harvest-adopt' id %}"
-                           title="Adopt"
-                           class="btn btn-success notika-btn-success">{% trans "Adopt it!" %}</a>
-                    {% endif %}
-                {% endwith %}
+            {% if status == 'orphan' and user_is_pickleader and not user_is_harvest_pickleader %}
+                <a href="{% url 'harvest-adopt' id %}"
+                   title="Adopt"
+                   class="btn btn-success notika-btn-success">{% trans "Adopt it!" %}</a>
             {% endif %}
         {% else %}
             <h2>{{ pick_leader.name }}</h2>
