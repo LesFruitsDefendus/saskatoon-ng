@@ -1,6 +1,5 @@
 {% load i18n %}
 {% load static %}
-{% load auth_users %}
 {% get_current_language as LANG %}
 
 <div class="breadcomb-area">
@@ -33,7 +32,7 @@
 
             <div class="col-xs-12 col-md-2">
                 <div class="breadcomb-report">
-                    {% if user|is_core_or_admin or user|is_pickleader:id %}
+                    {% if user_is_core_or_admin or user_is_harvest_pickleader %}
                         <a href="{% url 'harvest-update' id %}"
                            title="Edit harvest"
                            class="btn saskatoon-primary waves-effect">

@@ -46,9 +46,11 @@
                                     {# djlint:off #}
                                     <button type="submit"
                                         class="btn saskatoon-success"
-                                        {% if not status|can_reserve_equipment or not org.status|available %}
-                                            disabled data-placement="top" data-toggle="tooltip" title="{% if not status|can_reserve_equipment %}{% cannot_make_reservation_message %}{% else %}{% trans 'This equipment point is not available at the time of harvest' %}{% endif %}"
-                                        {% endif %}>
+                                        {% with can_reserve=status|can_reserve_equipment is_available=org.status|available %}
+                                            {% if not can_reserve or not is_available %}
+                                                disabled data-placement="top" data-toggle="tooltip" title="{% if not can_reserve %}{% cannot_make_reservation_message %}{% else %}{% trans 'This equipment point is not available at the time of harvest' %}{% endif %}"
+                                            {% endif %}
+                                        {% endwith %}>
                                         {% if equipment_point %}
                                             {% trans 'Change Reservation' %}
                                         {% else %}
