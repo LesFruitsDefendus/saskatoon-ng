@@ -110,7 +110,7 @@ def test_is_equipment_point_available_end_during(db, harvest, equipment) -> None
         None,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -132,7 +132,7 @@ def test_is_equipment_point_available_start_during(db, harvest, equipment) -> No
         None,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -155,7 +155,7 @@ def test_is_equipment_point_available_around(db, harvest, equipment) -> None:
         None,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -172,7 +172,7 @@ def test_is_equipment_point_available_same_dates(db, harvest, equipment) -> None
     harvest.equipment_reserved.set([equipment])
     available = is_equipment_point_available(equipment.owner, harvest.start_date, harvest.end_date)
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -267,7 +267,7 @@ def test_is_equipment_point_available_buffer_after(db, harvest, equipment) -> No
         None,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -289,7 +289,7 @@ def test_is_equipment_point_available_buffer_before(db, harvest, equipment) -> N
         None,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -315,7 +315,7 @@ def test_is_equipment_point_available_buffer_with_parse_naive_datetime(
         equipment.owner, HARVEST_END.replace(hour=13), HARVEST_END.replace(hour=14), None
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available is False
     else:
         assert available is True
@@ -344,7 +344,7 @@ def test_is_equipment_point_available_date_change_after_reservation(
         second_harvest,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available_before_change is False
     else:
         assert available_before_change is True
@@ -361,7 +361,7 @@ def test_is_equipment_point_available_date_change_after_reservation(
         second_harvest,
     )
 
-    if harvest.status in Harvest.CAN_RESERVE_EQUIPMENT:
+    if harvest.status in Harvest.CAN_HAVE_RESERVATION_STATUSES:
         assert available_after_change is False
     else:
         assert available_after_change is True
