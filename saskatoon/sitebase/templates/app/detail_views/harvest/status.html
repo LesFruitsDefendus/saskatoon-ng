@@ -3,6 +3,7 @@
 {% load tz %}
 {% load auth_users %}
 {% load harvest_status %}
+{% load weight %}
 <div class="harvest-info">
     <section>
         <p>{% translate "Harvest status" %}</p>
@@ -23,12 +24,16 @@
         {% endif %}
     </section>
     {% if status == "succeeded" %}
-        <section>
-            <p>{% trans "Total harvested:" %}</p>
-            <h2>
-                <span {% if total_distribution > 0 %}class="counter"{% endif %}>{{ total_distribution }}</span> lbs
-            </h2>
-        </section>
+        {% with weight_unit=request.session.weight_unit|default:"lbs" %}
+            <section>
+                <p>{% trans "Total harvested:" %}</p>
+                <h2>
+                    <span {% if total_distribution > 0 %} class="counter"{% endif %}>{{ total_distribution|to_unit:weight_unit|floatformat:"1u" }}</span>
+                    {% if weight_unit == "kg" %}kg{% else %}lbs
+                    {% endif %}
+                </h2>
+            </section>
+        {% endwith %}
     {% else %}
         <section>
             <p>{% trans "Pickers count" %}</p>

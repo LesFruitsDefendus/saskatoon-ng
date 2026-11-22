@@ -11,6 +11,8 @@ from sitebase.utils import local_datetime
 
 logger = getLogger('saskatoon')
 
+LB_TO_KG = 0.45359237
+
 
 def sum_harvest_yields(harvest_yield_qs):
     sum = harvest_yield_qs.aggregate(Sum("total_in_lb")).get("total_in_lb__sum")
