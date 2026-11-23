@@ -248,7 +248,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'saskatoon.pagination.BasicPageNumberPagination',
 }
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 
 # LOGS
