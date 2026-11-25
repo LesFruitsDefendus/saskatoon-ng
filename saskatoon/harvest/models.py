@@ -8,7 +8,7 @@ from typing import Optional
 
 from crequest.middleware import CrequestMiddleware
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -1021,6 +1021,7 @@ class PropertyImage(models.Model):
     image = models.ImageField(
         upload_to=property_image_upload_path,
         verbose_name=_("Image"),
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
     )
     description = models.CharField(
         max_length=255,

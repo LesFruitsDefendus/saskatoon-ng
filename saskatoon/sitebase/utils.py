@@ -12,7 +12,6 @@ from typeguard import typechecked
 from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 
 logger = getLogger('saskatoon')
-from saskatoon.formats.common import DATETIME_INPUT_FORMATS
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 

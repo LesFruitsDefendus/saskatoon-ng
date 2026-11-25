@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-24 19:50-0500\n"
+"POT-Creation-Date: 2026-11-25 09:15-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1132,7 +1132,7 @@ msgid "Pickleader"
 msgstr "Chef.fe de cueillette"
 
 #: sitebase/templates/app/detail_views/property/image/carousel.html:26
-msgid "photo"
+msgid "Photo"
 msgstr "Photo"
 
 #: sitebase/templates/app/detail_views/property/image/carousel.html:30
@@ -1141,11 +1141,11 @@ msgstr "Cliquez pour agrandir"
 
 #: sitebase/templates/app/detail_views/property/image/carousel.html:33
 msgid "Are you sure you want to permanently delete this photo?"
-msgstr "Êtes-vous certain(e) de vouloir effacer définitivement ce photo?"
+msgstr "Êtes-vous certain(e) de vouloir effacer définitivement cette photo?"
 
 #: sitebase/templates/app/detail_views/property/image/carousel.html:41
 msgid "Permanently delete photo"
-msgstr "Effacer le photo définitivement"
+msgstr "Effacer la photo définitivement"
 
 #: sitebase/templates/app/detail_views/property/image/carousel.html:63
 msgid "Previous photo"
@@ -1161,7 +1161,7 @@ msgstr "Modifié déscription"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:26
 msgid "Add a description..."
-msgstr "Ajute une description"
+msgstr "Ajouter une description"
 
 #: sitebase/templates/app/detail_views/property/image/image_description.html:30
 msgid "Save description"
@@ -1177,11 +1177,11 @@ msgstr "Photos"
 
 #: sitebase/templates/app/detail_views/property/image/view.html:29
 msgid "Upload photo"
-msgstr "Téléverser une photo"
+msgstr "Ajouter une photo"
 
 #: sitebase/templates/app/detail_views/property/image/view.html:47
 msgid "No photos uploaded yet"
-msgstr "Aucune photo n'a encore été téléchargée."
+msgstr "Aucune photo disponible."
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:8
 #: sitebase/templates/app/detail_views/property/similar_table.html:10

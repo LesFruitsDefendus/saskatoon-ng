@@ -24,7 +24,6 @@ from harvest.models import (
     TreeType,
 )
 from harvest.utils import resize_and_save_image
-from harvest.validators import IMAGE_VALIDATORS
 from member.forms import validate_email
 from member.models import AuthUser, Organization, Person
 from member.utils import is_equipment_point_available
@@ -756,7 +755,6 @@ class PropertyImageForm(forms.ModelForm[PropertyImage]):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['image'].validators.extend(IMAGE_VALIDATORS)
 
     def clean_image(self):
         image = self.cleaned_data['image']
