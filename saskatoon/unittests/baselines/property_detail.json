@@ -273,7 +273,7 @@
         {
             "id": 1,
             "image": "http://testserver/media/property/3/property_3_f5f3b965.jpg",
-            "description": "Definitely a tree of some kind",
+            "description": "",
             "date_uploaded": "2026-11-09T10:39:46.173000-05:00",
             "uploaded_by": 7
         }
