@@ -41,6 +41,7 @@ from harvest.models import (
     PropertyImage,
     RequestForParticipation as RFP,
 )
+from harvest.utils import LB_TO_KG
 from member.models import Organization, Role
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
@@ -515,7 +516,18 @@ def harvest_yield_delete(request, id):
         _yield.delete()
         messages.warning(request, "Fruit distribution deleted!")
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    url = request.META.get('HTTP_REFERER', reverse_lazy('home'))
+    return HttpResponseRedirect(f"{url}#distribution")
+
+
+def set_weight_unit(request, unit):
+    """Stores the preferred weight display unit in the session"""
+
+    if unit in ('kg', 'lbs'):
+        request.session['weight_unit'] = unit
+
+    url = request.META.get('HTTP_REFERER', reverse_lazy('home'))
+    return HttpResponseRedirect(f"{url}#distribution")
 
 
 @login_required
@@ -536,6 +548,9 @@ def harvest_yield_create(request):
         tree_id = data['tree']
         weight = float(data['weight'])
 
+        if data.get('unit') == 'kg':
+            weight /= LB_TO_KG
+
         if weight <= 0:
             messages.warning(request, _("New fruit distribution failed: weight must be positive"))
         else:
@@ -548,7 +563,8 @@ def harvest_yield_create(request):
             _yield.save()
             messages.success(request, _("New Fruit Recipient successfully added!"))
 
-    return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+    url = request.META.get('HTTP_REFERER', reverse_lazy('home'))
+    return HttpResponseRedirect(f"{url}#distribution")
 
 
 @login_required

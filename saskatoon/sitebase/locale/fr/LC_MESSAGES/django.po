@@ -406,7 +406,7 @@ msgstr "Programmée"
 
 #: sitebase/templates/app/calendar/cancelled-modal.html:39
 #: sitebase/templates/app/calendar/legend.html:19
-#: sitebase/templates/app/detail_views/harvest/data_row.html:64
+#: sitebase/templates/app/detail_views/harvest/data_row.html:63
 msgid "Cancelled"
 msgstr "Annulée"
 
@@ -662,15 +662,15 @@ msgstr "Oui"
 msgid "No"
 msgstr "Non"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:36
+#: sitebase/templates/app/detail_views/harvest/data_row.html:35
 msgid "harvest(s)"
 msgstr "récolte(s)"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:38
+#: sitebase/templates/app/detail_views/harvest/data_row.html:37
 msgid "First time"
 msgstr "Première fois"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:55
+#: sitebase/templates/app/detail_views/harvest/data_row.html:54
 msgid "Pending"
 msgstr "En attente"
 
@@ -679,11 +679,11 @@ msgstr "En attente"
 msgid "Accepted"
 msgstr "Acceptée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:61
+#: sitebase/templates/app/detail_views/harvest/data_row.html:60
 msgid "Declined"
 msgstr "Déclinée"
 
-#: sitebase/templates/app/detail_views/harvest/data_row.html:67
+#: sitebase/templates/app/detail_views/harvest/data_row.html:66
 msgid "Obsolete"
 msgstr "Obsolète"
 
@@ -765,7 +765,7 @@ msgstr "Organisations"
 msgid "Select a Recipient"
 msgstr "Sélectionner un bénéficiaire"
 
-#: sitebase/templates/app/detail_views/harvest/distribution/view.html:7
+#: sitebase/templates/app/detail_views/harvest/distribution/view.html:10
 msgid "Fruit distribution"
 msgstr "Partage des fruits récoltés"
 
@@ -785,6 +785,10 @@ msgstr "Effacer"
 #: sitebase/templates/app/detail_views/harvest/distribution/view.html:46
 msgid "Are you sure you want to delete this entry?"
 msgstr "Êtes-vous certain(e) de vouloir effacer cette entrée?"
+
+#: sitebase/templates/app/detail_views/harvest/distribution/weight_unit_toggle.html:5
+msgid "Weight unit"
+msgstr "Unité de poids"
 
 #: sitebase/templates/app/detail_views/harvest/equipment.html:8
 #: sitebase/templates/app/detail_views/organization/features.html:20
@@ -868,7 +872,7 @@ msgstr "Chef.fe de cueillette"
 msgid "Missing"
 msgstr "Manquant"
 
-#: sitebase/templates/app/detail_views/harvest/status.html:48
+#: sitebase/templates/app/detail_views/harvest/status.html:52
 msgid "Adopt it!"
 msgstr "Adoptez la!"
 
@@ -1555,36 +1559,36 @@ msgstr "Connexion"
 msgid "Forgot Password"
 msgstr "Mot de passe oublié"
 
-#: sitebase/templatetags/harvest_status.py:226
+#: sitebase/templatetags/harvest_status.py:212
 msgid "Harvest has been adopted, but still needs to be scheduled"
 msgstr "Récolte a été adoptée, mais doit encore être planifiée"
 
-#: sitebase/templatetags/harvest_status.py:230
+#: sitebase/templatetags/harvest_status.py:216
 msgid "Harvest has been scheduled and has room for more pickers"
 msgstr "Récolte a été planifiée et attend la participation de bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:234
+#: sitebase/templatetags/harvest_status.py:220
 msgid "Harvest is ready to start, there are no more empty spots for pickers"
 msgstr "Récolte est prête, il n'y a plus de place pour des bénévoles"
 
-#: sitebase/templatetags/harvest_status.py:238
+#: sitebase/templatetags/harvest_status.py:224
 msgid "Harvest is cancelled, it will need to be rescheduled by the pick leader"
 msgstr ""
 "Récolte annulée, devra être replanifiée par le ou la chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:242
+#: sitebase/templatetags/harvest_status.py:228
 msgid "Harvest is finished and fruits have been harvested"
 msgstr "Récolte est terminée et les fruits ont été récoltés"
 
-#: sitebase/templatetags/harvest_status.py:244
+#: sitebase/templatetags/harvest_status.py:230
 msgid "Harvest needs a pick leader to adopt it"
 msgstr "Récolte doit être adoptée par un.e chef.fe de cueillette"
 
-#: sitebase/templatetags/harvest_status.py:268
+#: sitebase/templatetags/harvest_status.py:254
 msgid "This harvest does not accept requests for participation"
 msgstr "cette récolte n'accepte pas les demandes de participation"
 
-#: sitebase/templatetags/harvest_status.py:271
+#: sitebase/templatetags/harvest_status.py:257
 msgid ""
 "This harvest is currently published on the public calendar and open for "
 "participation requests"
@@ -1592,16 +1596,16 @@ msgstr ""
 "Cette récolte est actuellement publiée sur le calendrier et ouverte aux "
 "demandes de participation"
 
-#: sitebase/templatetags/harvest_status.py:274
+#: sitebase/templatetags/harvest_status.py:260
 msgid "This harvest is not currently published on the public calendar"
 msgstr "Cette récolte n'est pas actuellement publiée sur le calendrier"
 
-#: sitebase/templatetags/harvest_status.py:303
+#: sitebase/templatetags/harvest_status.py:289
 msgid ""
 "A harvest must be marked as Ready before you can complete fruit distribution"
 msgstr "Une cueillette doit être Prête avant d'ajouter des bénéficiaires"
 
-#: sitebase/templatetags/harvest_status.py:310
+#: sitebase/templatetags/harvest_status.py:296
 msgid "Add a new recipient to record fruit distribution for this harvest"
 msgstr "Ajouter un nouveau bénéficiaire pour répartir les fruits récoltés"
 

@@ -58,6 +58,7 @@
                 "start_date": "2025-08-06",
                 "start_time": "3:00 PM",
                 "end_date": "2025-08-06",
+                "ended": true,
                 "date_range": "",
                 "pick_leader": {
                     "actor_id": 5,
@@ -90,6 +91,7 @@
                     "start_date": "2026-05-01",
                     "start_time": "12:00 AM",
                     "end_date": "2026-10-01",
+                    "ended": true,
                     "date_range": "May. 1 - Oct. 1, 2026",
                     "pick_leader": null,
                     "trees": [
@@ -113,6 +115,7 @@
                     "start_date": "2025-08-06",
                     "start_time": "3:00 PM",
                     "end_date": "2025-08-06",
+                    "ended": true,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 5,
@@ -196,6 +199,7 @@
                     "start_date": "2026-12-01",
                     "start_time": "8:00 AM",
                     "end_date": "2026-12-01",
+                    "ended": false,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 5,
@@ -323,6 +327,7 @@
                 "start_date": "2026-01-19",
                 "start_time": "4:00 PM",
                 "end_date": "2026-01-19",
+                "ended": true,
                 "date_range": "",
                 "pick_leader": {
                     "actor_id": 3,
@@ -366,6 +371,7 @@
                     "start_date": "2026-11-24",
                     "start_time": "3:00 PM",
                     "end_date": "2026-11-24",
+                    "ended": false,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 3,
@@ -394,6 +400,7 @@
                     "start_date": "2026-08-01",
                     "start_time": "9:00 AM",
                     "end_date": "2026-08-01",
+                    "ended": true,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 5,
@@ -422,6 +429,7 @@
                     "start_date": "2026-01-22",
                     "start_time": "5:00 PM",
                     "end_date": "2026-01-22",
+                    "ended": true,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 5,
@@ -450,6 +458,7 @@
                     "start_date": "2026-01-19",
                     "start_time": "4:00 PM",
                     "end_date": "2026-01-19",
+                    "ended": true,
                     "date_range": "",
                     "pick_leader": {
                         "actor_id": 3,

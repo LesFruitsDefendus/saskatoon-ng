@@ -381,7 +381,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
     @property
     def last_succeeded_harvest(self) -> Optional['Harvest']:
-        """Last Successful harvest for this property"""
+        """Last successful harvest for this property"""
         return self.harvests.filter(status=Harvest.Status.SUCCEEDED).order_by('start_date').last()
 
     @property
@@ -396,7 +396,7 @@ Unknown fruit type or colour can be mentioned in the additional comments at the 
 
     @property
     def nb_harvests(self) -> int:
-        """Next harvest for this property"""
+        """Number of harvests for this property"""
         return self.harvests.count()
 
     def get_owner_subclass(self):
@@ -573,7 +573,12 @@ class Harvest(models.Model):
 
     SEASON_CHOICES = [(y, y) for y in range(datetime.now().year, 2015, -1)]
 
-    CAN_RESERVE_EQUIPMENT = [Status.READY, Status.SCHEDULED, Status.SUCCEEDED]
+    CAN_MAKE_RESERVATION_STATUSES = [Status.READY, Status.SCHEDULED]
+    CAN_HAVE_RESERVATION_STATUSES = CAN_MAKE_RESERVATION_STATUSES + [Status.SUCCEEDED]
+
+    CANNOT_MAKE_RESERVATION_MESSAGE = _(
+        "Equipment can only be reserved for harvests marked as Scheduled or Ready"
+    )
 
     status = models.CharField(
         choices=Status.choices,
@@ -671,6 +676,10 @@ class Harvest(models.Model):
 
     def get_local_end(self) -> Optional[datetime]:
         return local_datetime(self.end_date)
+
+    def has_ended(self) -> bool:
+        """Harvest end date is before today"""
+        return self.end_date is not None and self.end_date < local_today()
 
     def get_date_range(self) -> str:
         start = self.get_local_start()
@@ -805,8 +814,7 @@ def harvest_reservation_validation(sender, instance, **kwargs) -> None:
     if (
         instance.id is not None
         and instance.equipment_reserved.values().count() > 0
-        and instance.status
-        not in [Harvest.Status.SUCCEEDED, Harvest.Status.READY, Harvest.Status.SCHEDULED]
+        and instance.status not in Harvest.CAN_HAVE_RESERVATION_STATUSES
     ):
         instance.equipment_reserved.set([])
 

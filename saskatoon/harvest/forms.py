@@ -567,7 +567,7 @@ class HarvestForm(forms.ModelForm[Harvest]):
             forward=['id', 'start_date', 'end_date'],
         ),
         label=_("Equipment Point"),
-        help_text=_("Harvest must be confirmed before an equipment point can be booked"),
+        help_text=Harvest.CANNOT_MAKE_RESERVATION_MESSAGE,
         required=False,
     )
 
@@ -646,14 +646,12 @@ class HarvestForm(forms.ModelForm[Harvest]):
         if equipment_point is None:
             return None
 
-        if self.cleaned_data['status'] not in [
-            Harvest.Status.SCHEDULED,
-            Harvest.Status.READY,
-            Harvest.Status.SUCCEEDED,
-        ]:
-            raise forms.ValidationError(
-                _("Harvest must be confirmed before an equipment point can be booked")
-            )
+        status = self.cleaned_data['status']
+        is_new_reservation = equipment_point != self.initial.get('equipment_point')
+        if status not in Harvest.CAN_HAVE_RESERVATION_STATUSES or (
+            is_new_reservation and status not in Harvest.CAN_MAKE_RESERVATION_STATUSES
+        ):
+            raise forms.ValidationError(Harvest.CANNOT_MAKE_RESERVATION_MESSAGE)
 
         try:
             harvest_id = self.cleaned_data['id']

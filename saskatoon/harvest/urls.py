@@ -147,4 +147,5 @@ urlpatterns = [
         name='property-thanks',
     ),
     path('stats/', api.StatsView.as_view(), name='statistics'),
+    path('set-weight-unit/<str:unit>/', views.set_weight_unit, name='set-weight-unit'),
 ] + router.urls
