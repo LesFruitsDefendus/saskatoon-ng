@@ -1,6 +1,7 @@
 {% extends 'app/base/view.html' %}
 {% load i18n %}
 {% load static %}
+{% load auth_users %}
 
 {% block style %}
     <link rel="stylesheet" href="{% static 'css/colors.css' %}">
@@ -18,15 +19,17 @@
 {% endblock script %}
 
 {% block content %}
-    <div class="container harvest-details">
-        {% include 'app/detail_views/harvest/breadcomb.html' %}
-        {% include 'app/detail_views/harvest/status.html' %}
-        {% include 'app/detail_views/harvest/about.html' %}
-        {% include 'app/detail_views/harvest/equipment.html' %}
-        {% include 'app/detail_views/harvest/data_table.html' %}
-        <div class="distribution-and-comments">
-            {% include 'app/detail_views/harvest/distribution/view.html' %}
-            {% include 'app/detail_views/comment/view.html' with comment_create_url_name='harvest-comment-create' object_id=id %}
+    {% with user_is_core_or_admin=user|is_core_or_admin user_is_pickleader=user|is_pickleader user_is_harvest_pickleader=user|is_pickleader:id %}
+        <div class="container harvest-details">
+            {% include 'app/detail_views/harvest/breadcomb.html' %}
+            {% include 'app/detail_views/harvest/status.html' %}
+            {% include 'app/detail_views/harvest/about.html' %}
+            {% include 'app/detail_views/harvest/equipment.html' %}
+            {% include 'app/detail_views/harvest/data_table.html' %}
+            <div class="distribution-and-comments">
+                {% include 'app/detail_views/harvest/distribution/view.html' %}
+                {% include 'app/detail_views/comment/view.html' with comment_create_url_name='harvest-comment-create' object_id=id %}
+            </div>
         </div>
-    </div>
+    {% endwith %}
 {% endblock content %}

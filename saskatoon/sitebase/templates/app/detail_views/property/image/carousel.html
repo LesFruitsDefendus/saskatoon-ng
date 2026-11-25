@@ -2,12 +2,17 @@
 {% load static %}
 {% load auth_users %}
 
-<div id="{{ carousel_id|default:'photoCarousel' }}" class="carousel slide" data-ride="carousel" data-interval="false">
+<div id="{{ carousel_id|default:'photoCarousel' }}"
+     class="carousel slide"
+     data-ride="carousel"
+     data-interval="false">
 
     {% if images|length > 1 %}
         <ol class="carousel-indicators">
             {% for img in images %}
-                <li data-target="#{{ carousel_id|default:'photoCarousel' }}" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+                <li data-target="#{{ carousel_id|default:'photoCarousel' }}"
+                    data-slide-to="{{ forloop.counter0 }}"
+                    {% if forloop.first %}class="active"{% endif %}></li>
             {% endfor %}
         </ol>
     {% endif %}
@@ -22,7 +27,7 @@
                              class="img-responsive lightbox-trigger"
                              data-slide-index="{{ forloop.counter0 }}"
                              data-photo-id="{{ img.id }}"
-                             {% if not in_lightbox %}title="Click to enlarge"{% endif %} />
+                             {% if not in_lightbox %}title="{% trans 'Click to enlarge' %}"{% endif %} />
                         {% if in_lightbox %}
                             {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
                                 {% translate "Are you sure you want to permanently delete this photo?" as delete_confirm_msg %}
@@ -41,19 +46,26 @@
                         {% endif %}
                     </div>
                 </div>
-                {% if in_lightbox%}
+                {% if in_lightbox %}
                     {% include 'app/detail_views/property/image/image_description.html' with img=img %}
                 {% endif %}
             </div>
         {% endfor %}
     </div>
 
-    {% if images|length > 1 %}          
-        <a class="left carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="prev">
+    {% if images|length > 1 %}
+
+        <a class="left carousel-control"
+           href="#{{ carousel_id|default:'photoCarousel' }}"
+           role="button"
+           data-slide="prev">
             <i class="fa fa-chevron-left" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Previous photo" %}</span>
         </a>
-        <a class="right carousel-control" href="#{{ carousel_id|default:'photoCarousel' }}" role="button" data-slide="next">
+        <a class="right carousel-control"
+           href="#{{ carousel_id|default:'photoCarousel' }}"
+           role="button"
+           data-slide="next">
             <i class="fa fa-chevron-right" aria-hidden="true"></i>
             <span class="sr-only">{% trans "Next photo" %}</span>
         </a>
