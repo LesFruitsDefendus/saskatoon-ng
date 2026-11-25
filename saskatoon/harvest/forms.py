@@ -758,6 +758,8 @@ class PropertyImageForm(forms.ModelForm[PropertyImage]):
 
     def clean_image(self):
         image = self.cleaned_data['image']
+        for validator in self._meta.model._meta.get_field('image').validators:
+            validator(image)
         if image.size > 25 * 1024 * 1024:
             raise forms.ValidationError(_("Image is too large (maximum 25MB)."))
 
