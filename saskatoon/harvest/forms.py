@@ -763,9 +763,11 @@ class PropertyImageForm(forms.ModelForm[PropertyImage]):
         if image.size > 25 * 1024 * 1024:
             raise forms.ValidationError(_("Image is too large (maximum 25MB)."))
 
-        resized = resize_and_save_image(image, image.name)
-        if resized is None:
+        try:
+            resized = resize_and_save_image(image, image.name)
+        except Exception as e:
+            logger.exception("Could not process uploaded image %s: %s", image.name, e)
             raise forms.ValidationError(
                 _("Could not process the uploaded image. Please ensure it is a valid image file.")
-            )
+            ) from e
         return resized

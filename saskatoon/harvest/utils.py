@@ -92,26 +92,22 @@ def resize_and_save_image(
     image: Any, filename: str, image_resize_px: int = 1080, field_name: str = 'image'
 ) -> Optional[InMemoryUploadedFile]:
     """Resize and save any uploaded image as a compressed JPG. Returns associated InMemoryUploadedFile."""
-    try:
-        with Image.open(image) as src:
-            img = ImageOps.exif_transpose(src)
-            img = _flatten_to_rgb(img)
-            img.thumbnail((image_resize_px, image_resize_px), Image.Resampling.LANCZOS)
+    with Image.open(image) as src:
+        img = ImageOps.exif_transpose(src)
+        img = _flatten_to_rgb(img)
+        img.thumbnail((image_resize_px, image_resize_px), Image.Resampling.LANCZOS)
 
-            buffer = BytesIO()
-            img.save(buffer, format='JPEG', quality=85, optimize=True)
+        buffer = BytesIO()
+        img.save(buffer, format='JPEG', quality=85, optimize=True)
 
-        file_size = buffer.getbuffer().nbytes
-        buffer.seek(0)
+    file_size = buffer.getbuffer().nbytes
+    buffer.seek(0)
 
-        return InMemoryUploadedFile(
-            file=buffer,
-            field_name=field_name,
-            name=os.path.splitext(filename)[0] + '.jpg',
-            content_type='image/jpeg',
-            size=file_size,
-            charset=None,
-        )
-    except Exception:
-        logger.exception("Could not process uploaded image %s", filename)
-        return None
+    return InMemoryUploadedFile(
+        file=buffer,
+        field_name=field_name,
+        name=os.path.splitext(filename)[0] + '.jpg',
+        content_type='image/jpeg',
+        size=file_size,
+        charset=None,
+    )

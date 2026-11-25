@@ -8,9 +8,9 @@
     "results": [
         {
             "id": 2,
-            "start_date": "Mon. May. 24, 2027",
-            "start_time": "4:00 PM",
-            "end_time": "7:00 PM",
+            "start_date": "Fri. Dec. 24, 2027",
+            "start_time": "3:00 PM",
+            "end_time": "6:00 PM",
             "date_range": "",
             "status": "ready",
             "status_display": "Ready",
@@ -121,9 +121,9 @@
                             "name": "Pick Leader",
                             "email": "pick@leader.com"
                         },
-                        "start_date": "2027-05-24",
-                        "start_time": "03:00 PM",
-                        "end_time": "08:00 PM"
+                        "start_date": "2027-12-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
                     }
                 ],
                 "latitude": 45.511693,
@@ -538,9 +538,9 @@
                             "name": "Pick Leader",
                             "email": "pick@leader.com"
                         },
-                        "start_date": "2027-05-24",
-                        "start_time": "03:00 PM",
-                        "end_time": "08:00 PM"
+                        "start_date": "2027-12-24",
+                        "start_time": "02:00 PM",
+                        "end_time": "07:00 PM"
                     }
                 ],
                 "latitude": 45.511693,

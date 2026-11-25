@@ -268,9 +268,9 @@
                         "name": "Pick Leader",
                         "email": "pick@leader.com"
                     },
-                    "start_date": "2027-05-24",
-                    "start_time": "03:00 PM",
-                    "end_time": "08:00 PM"
+                    "start_date": "2027-12-24",
+                    "start_time": "02:00 PM",
+                    "end_time": "07:00 PM"
                 }
             ],
             "latitude": 45.511693,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 10:05-0500\n"
+"POT-Creation-Date: 2026-11-25 15:23-0500\n"
 "PO-Revision-Date: 2025-06-13 11:05-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -480,7 +480,7 @@ msgstr ""
 msgid "Image is too large (maximum 25MB)."
 msgstr "L'image est trop grande (25 Mo maximum)."
 
-#: harvest/forms.py:769
+#: harvest/forms.py:771
 msgid ""
 "Could not process the uploaded image. Please ensure it is a valid image file."
 msgstr ""

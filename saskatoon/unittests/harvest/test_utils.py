@@ -1,8 +1,9 @@
 from datetime import datetime, timedelta
 from io import BytesIO
 
+import pytest
 from django.utils import timezone
-from PIL import Image
+from PIL import Image, UnidentifiedImageError
 
 from harvest.utils import buffer_reservation_time, resize_and_save_image
 
@@ -78,5 +79,6 @@ def test_exif_orientation_is_applied():
     assert open_result(result).size == (100, 200)
 
 
-def test_non_image_returns_none():
-    assert resize_and_save_image(BytesIO(b'not an image'), 'fake.jpg') is None
+def test_non_image_raises():
+    with pytest.raises(UnidentifiedImageError):
+        resize_and_save_image(BytesIO(b'not an image'), 'fake.jpg')

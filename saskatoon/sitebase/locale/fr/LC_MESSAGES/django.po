@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-25 13:40-0500\n"
+"POT-Creation-Date: 2026-11-25 15:23-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,7 +214,7 @@ msgstr "Bénéficiaire"
 
 #: sitebase/models.py:298
 #: sitebase/templates/app/detail_views/property/harvest_row.html:10
-#: sitebase/templates/app/detail_views/property/harvest_table.html:45
+#: sitebase/templates/app/detail_views/property/harvest_table.html:44
 #: sitebase/templates/app/forms/participation_manage_form.html:15
 #: sitebase/templates/app/list_views/harvest/view.html:29
 msgid "Harvest"
@@ -226,7 +226,7 @@ msgstr "Envoyé avec succès"
 
 #: sitebase/models.py:315
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:29
-#: sitebase/templates/app/detail_views/property/harvest_table.html:49
+#: sitebase/templates/app/detail_views/property/harvest_table.html:48
 msgid "Date"
 msgstr "Date"
 
@@ -371,7 +371,7 @@ msgstr "à"
 #: sitebase/templates/app/calendar/ready-modal.html:43
 #: sitebase/templates/app/calendar/succeeded-modal.html:37
 #: sitebase/templates/app/detail_views/harvest/data_table.html:31
-#: sitebase/templates/app/detail_views/property/harvest_table.html:48
+#: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
 #: sitebase/templates/app/list_views/harvest/view.html:31
@@ -1114,13 +1114,13 @@ msgstr "Créer orphelin(s)"
 msgid "New Harvest"
 msgstr "Nouvelle récolte"
 
-#: sitebase/templates/app/detail_views/property/harvest_table.html:46
+#: sitebase/templates/app/detail_views/property/harvest_table.html:45
 #: sitebase/templates/app/list_views/harvest/view.html:34
 #: sitebase/templates/app/list_views/property/view.html:31
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
-#: sitebase/templates/app/detail_views/property/harvest_table.html:47
+#: sitebase/templates/app/detail_views/property/harvest_table.html:46
 msgid "Pickleader"
 msgstr "Chef.fe de cueillette"
 
