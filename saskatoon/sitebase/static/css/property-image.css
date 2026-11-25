@@ -244,3 +244,22 @@
     margin: 8px 0 0;
     font-size: 13px;
 }
+
+@media (max-width: 767px) {
+    #lightboxCarousel .photo-description-cell {
+        padding: 8px 12px;
+    }
+
+    .photo-description-cell .image-edit-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .photo-description-cell .image-edit-textarea {
+        flex: none;
+    }
+
+    .photo-description-cell .image-edit-actions {
+        justify-content: flex-end;
+    }
+}

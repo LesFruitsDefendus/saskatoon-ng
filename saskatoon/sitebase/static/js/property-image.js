@@ -65,11 +65,12 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll('.photo-description-cell').forEach(cell => closeEditor(cell, false));
     }
 
-    document.addEventListener('click', function(e) {
-        const toggle = e.target.closest('.image-edit-toggle');
-        const cancel = e.target.closest('.image-edit-cancel');
-        if (toggle) openEditor(toggle.closest('.photo-description-cell'));
-        if (cancel) closeEditor(cancel.closest('.photo-description-cell'), true);
+    document.querySelectorAll('.image-edit-toggle').forEach(btn => {
+        btn.addEventListener('click', () => openEditor(btn.closest('.photo-description-cell')));
+    });
+
+    document.querySelectorAll('.image-edit-cancel').forEach(btn => {
+        btn.addEventListener('click', () => closeEditor(btn.closest('.photo-description-cell'), true));
     });
 
     // Capture phase so Escape cancels the edit instead of closing the modal
