@@ -1,5 +1,6 @@
 import re
 from datetime import date, datetime
+from logging import getLogger
 from typing import Any, Callable, Optional
 
 from django.contrib.humanize.templatetags.humanize import ordinal as django_ordinal
@@ -9,6 +10,8 @@ from django.utils.translation import get_language
 from typeguard import typechecked
 
 from saskatoon.formats.common import DATETIME_INPUT_FORMATS
+
+logger = getLogger('saskatoon')
 
 HTML_TAGS_REGEX = re.compile(r'<.*?>|\s+')
 

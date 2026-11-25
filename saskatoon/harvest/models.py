@@ -1,4 +1,5 @@
 import builtins
+import uuid
 from datetime import datetime, timedelta
 from enum import Enum
 from sys import float_info
@@ -7,7 +8,7 @@ from typing import Optional
 
 from crequest.middleware import CrequestMiddleware
 from django.core.exceptions import ValidationError
-from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.validators import FileExtensionValidator, MaxValueValidator, MinValueValidator
 from django.db import models
 from django.db.models.signals import pre_save
 from django.dispatch import receiver
@@ -997,8 +998,20 @@ class Comment(models.Model):
         return self.content
 
 
+def property_image_upload_path(instance, filename):
+    """Generates path: property/<pid>/property_<pid>_<image_id>.jpg"""
+    pid = instance.property_id
+    image_id = uuid.uuid4().hex[:8]
+    return f"property/{pid}/property_{pid}_{image_id}.jpg"
+
+
 class PropertyImage(models.Model):
     """Property Image model"""
+
+    class Meta:
+        verbose_name = _("Property Image")
+        verbose_name_plural = _("Property Images")
+        ordering = ["-date_uploaded"]
 
     property = models.ForeignKey(
         Property,
@@ -1006,11 +1019,31 @@ class PropertyImage(models.Model):
         on_delete=models.CASCADE,
     )
     image = models.ImageField(
-        upload_to='properties_images',
+        upload_to=property_image_upload_path,
+        verbose_name=_("Image"),
+        validators=[FileExtensionValidator(allowed_extensions=['jpg', 'jpeg', 'png'])],
+    )
+    description = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name=_("Description"),
+    )
+    uploaded_by = models.ForeignKey(
+        'member.AuthUser',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
+    date_uploaded = models.DateTimeField(
+        verbose_name=_("Uploaded on"),
+        auto_now_add=True,
+        null=True,
+        blank=True,
     )
 
     def __str__(self):
-        return self.property.__str__()
+        return self.image.name
 
 
 class HarvestImage(models.Model):

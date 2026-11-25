@@ -25,6 +25,7 @@ FIXTURE_SEQUENCE = [
     'harvest-harvest',
     'harvest-harvestyield',
     'harvest-comment',
+    'harvest-propertyimage',
     'harvest-requestforparticipation',
     'sitebase-pagecontent',
 ]

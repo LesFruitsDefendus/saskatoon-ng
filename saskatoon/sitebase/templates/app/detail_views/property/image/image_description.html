@@ -1,0 +1,46 @@
+{% load i18n %}
+{% load auth_users %}
+
+<div class="photo-description-cell">
+    {% if img.uploaded_by == request.user.id or user|is_core_or_admin %}
+        <p class="image-description-view">
+            {{ img.description|default:"" }}
+            <button type="button"
+                    class="btn btn-sm btn-link text-primary image-edit-toggle"
+                    title="{% trans 'Edit description' %}"
+                    aria-controls="image-edit-form-{{ img.id }}">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+            </button>
+        </p>
+
+        <form method="post"
+              action="{% url 'property-image-update' img.id %}"
+              id="image-edit-form-{{ img.id }}"
+              class="image-edit-form"
+              hidden>
+            {% csrf_token %}
+            <textarea name="description"
+                      class="form-control image-edit-textarea"
+                      rows="2"
+                      maxlength="255"
+                      placeholder="{% trans 'Add a description...' %}">{{ img.description|default:"" }}</textarea>
+            <div class="image-edit-actions">
+                <button type="submit"
+                        class="btn btn-sm btn-link text-primary"
+                        title="{% trans 'Save description' %}">
+                    <i class="fa fa-save fa-lg" aria-hidden="true"></i>
+                </button>
+                <button type="button"
+                        class="btn btn-sm btn-link image-edit-cancel"
+                        title="{% trans 'Cancel' %}">
+                    <i class="fa fa-times fa-lg text-danger" aria-hidden="true"></i>
+                </button>
+            </div>
+        </form>
+
+    {% else %}
+        {% if img.description %}
+            <p>{{ img.description }}</p>
+        {% endif %}
+    {% endif %}
+</div>

@@ -1,0 +1,15 @@
+.equal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+
+    .detail-section-card {
+        height: 100%;
+    }
+}
+
+@media (max-width: 991px) {
+    .equal-grid {
+        grid-template-columns: 1fr;
+    }
+}

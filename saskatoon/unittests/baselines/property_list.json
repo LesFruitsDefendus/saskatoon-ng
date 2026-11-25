@@ -368,9 +368,9 @@
                     "id": 2,
                     "status": "ready",
                     "status_display": "Ready",
-                    "start_date": "2026-11-24",
+                    "start_date": "2027-12-24",
                     "start_time": "3:00 PM",
-                    "end_date": "2026-11-24",
+                    "end_date": "2027-12-24",
                     "ended": false,
                     "date_range": "",
                     "pick_leader": {

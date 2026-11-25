@@ -15,6 +15,7 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
+    PropertyImage,
     RequestForParticipation as RFP,
     TreeType,
 )
@@ -144,6 +145,12 @@ class CommentSerializer(serializers.ModelSerializer[Comment]):
         return tz.localtime(obj.date_updated).strftime(r'%a %b %-d %Y %-I:%M %p')
 
 
+class PropertyImageSerializer(serializers.ModelSerializer[PropertyImage]):
+    class Meta:
+        model = PropertyImage
+        fields = ['id', 'image', 'description', 'date_uploaded', 'uploaded_by']
+
+
 class PropertySerializer(serializers.ModelSerializer[Property]):
     class Meta:
         model = Property
@@ -171,6 +178,7 @@ class PropertySerializer(serializers.ModelSerializer[Property]):
     latitude = serializers.ReadOnlyField()
     status = serializers.ReadOnlyField()
     auth_email_date = serializers.SerializerMethodField()
+    images = PropertyImageSerializer(many=True, read_only=True)
 
     def get_owner(self, obj):
         if obj.owner:

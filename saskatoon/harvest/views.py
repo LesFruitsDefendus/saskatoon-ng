@@ -1,3 +1,4 @@
+import os
 from datetime import datetime
 from logging import getLogger
 from typing import Optional
@@ -10,12 +11,13 @@ from django.contrib.auth.mixins import (
     UserPassesTestMixin,
 )
 from django.contrib.messages.views import SuccessMessageMixin
+from django.forms import ModelForm
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse, reverse_lazy
 from django.utils import timezone as tz
 from django.utils.translation import gettext_lazy as _
-from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView
+from django.views.generic import CreateView, DeleteView, TemplateView, UpdateView, View
 from django_stubs_ext import StrOrPromise
 
 from harvest.forms import (
@@ -24,17 +26,19 @@ from harvest.forms import (
     HarvestForm,
     PropertyCreateForm,
     PropertyForm,
+    PropertyImageForm,
     PublicPropertyForm,
     RFPForm,
     RFPManageForm,
 )
-from harvest.mixins import TaggedSuccessMessageMixin
+from harvest.mixins import TaggedSuccessMessageMixin, UploaderOrAdminRequiredMixin
 from harvest.models import (
     Comment,
     Equipment,
     Harvest,
     HarvestYield,
     Property,
+    PropertyImage,
     RequestForParticipation as RFP,
 )
 from harvest.utils import LB_TO_KG
@@ -691,3 +695,94 @@ def property_create_orphans(request, id):
         messages.warning(request, _("Harvests have already been created for this property"))
 
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+class PropertyImageCreateView(
+    LoginRequiredMixin,
+    View,
+):
+    """Create a new image for a property."""
+
+    def post(self, request, pid):
+        property_obj = get_object_or_404(Property, pk=pid)
+
+        form = PropertyImageForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            image_obj = form.save(commit=False)
+            image_obj.property = property_obj
+            image_obj.uploaded_by = request.user
+            image_obj.save()
+            messages.success(request, _("Image uploaded successfully!"))
+
+            return redirect(
+                f"{reverse('property-detail', kwargs={'pk': pid})}#photo-{image_obj.pk}"
+            )
+
+        errors = " ".join(str(e) for errs in form.errors.values() for e in errs)
+        messages.error(request, errors or _("Could not upload image."))
+
+        return redirect('property-detail', pk=pid)
+
+    def get(self, request, pid):
+        return redirect('property-detail', pk=pid)
+
+
+class PropertyImageUpdateView(
+    UploaderOrAdminRequiredMixin,
+    SuccessMessageMixin[ModelForm[PropertyImage]],
+    UpdateView[PropertyImage, ModelForm[PropertyImage]],
+):
+    """Edit an existing property image description inline."""
+
+    model = PropertyImage
+    fields = ['description']
+    http_method_names = ['post']
+    success_message = _("Image description updated successfully!")
+
+    def _detail_url(self):
+        return reverse('property-detail', kwargs={'pk': self.object.property_id})
+
+    def get_success_url(self):
+        return f'{self._detail_url()}#photo-{self.object.pk}'
+
+    def form_invalid(self, form):
+        error_messages = []
+        for field, errors in form.errors.items():
+            for error in errors:
+                field_name = field.capitalize() if field != '__all__' else ''
+                error_messages.append(f"{field_name}: {error}" if field_name else error)
+
+        messages.error(self.request, " | ".join(error_messages))
+        return HttpResponseRedirect(self._detail_url())
+
+
+class PropertyImageDeleteView(
+    UploaderOrAdminRequiredMixin,
+    DeleteView[PropertyImage, ModelForm[PropertyImage]],
+):
+    model = PropertyImage
+    http_method_names = ['post']
+    success_message = _("Property image deleted successfully!")
+
+    def form_valid(self, form):
+        image_field = self.object.image
+        storage, name = image_field.storage, image_field.name
+
+        self.object.delete()
+
+        try:
+            path, filename = os.path.split(name)
+            new_name = os.path.join('trash', path, filename)
+            if storage.exists(name):
+                with storage.open(name, 'rb') as f:
+                    storage.save(new_name, f)
+                storage.delete(name)
+        except Exception as e:
+            logger.warning(f"Failed to move image {name} to trash: {e}")
+
+        messages.success(self.request, self.success_message)
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_success_url(self):
+        return reverse_lazy('property-detail', kwargs={'pk': self.object.property_id})

@@ -19,9 +19,11 @@ from harvest.models import (
     Harvest,
     HarvestYield,
     Property,
+    PropertyImage,
     RequestForParticipation as RFP,
     TreeType,
 )
+from harvest.utils import resize_and_save_image
 from member.forms import validate_email
 from member.models import AuthUser, Organization, Person
 from member.utils import is_equipment_point_available
@@ -742,3 +744,30 @@ class EquipmentForm(forms.ModelForm[Equipment]):
         labels = {
             'owner': _('Equipment Point'),
         }
+
+
+class PropertyImageForm(forms.ModelForm[PropertyImage]):
+    """Property image form"""
+
+    class Meta:
+        model = PropertyImage
+        fields = ['image', 'description']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+    def clean_image(self):
+        image = self.cleaned_data['image']
+        for validator in self._meta.model._meta.get_field('image').validators:
+            validator(image)
+        if image.size > 25 * 1024 * 1024:
+            raise forms.ValidationError(_("Image is too large (maximum 25MB)."))
+
+        try:
+            resized = resize_and_save_image(image, image.name)
+        except Exception as e:
+            logger.exception("Could not process uploaded image %s: %s", image.name, e)
+            raise forms.ValidationError(
+                _("Could not process the uploaded image. Please ensure it is a valid image file.")
+            ) from e
+        return resized

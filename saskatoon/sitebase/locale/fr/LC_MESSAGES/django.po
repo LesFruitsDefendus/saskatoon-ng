@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-22 15:21-0500\n"
+"POT-Creation-Date: 2026-11-25 15:23-0500\n"
 "PO-Revision-Date: 2025-06-12 13:46-0518\n"
 "Last-Translator: Anonymous User\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -214,7 +214,7 @@ msgstr "Bénéficiaire"
 
 #: sitebase/models.py:298
 #: sitebase/templates/app/detail_views/property/harvest_row.html:10
-#: sitebase/templates/app/detail_views/property/harvest_table.html:43
+#: sitebase/templates/app/detail_views/property/harvest_table.html:44
 #: sitebase/templates/app/forms/participation_manage_form.html:15
 #: sitebase/templates/app/list_views/harvest/view.html:29
 msgid "Harvest"
@@ -226,7 +226,7 @@ msgstr "Envoyé avec succès"
 
 #: sitebase/models.py:315
 #: sitebase/templates/app/detail_views/organization/harvest_table.html:29
-#: sitebase/templates/app/detail_views/property/harvest_table.html:47
+#: sitebase/templates/app/detail_views/property/harvest_table.html:48
 msgid "Date"
 msgstr "Date"
 
@@ -371,7 +371,7 @@ msgstr "à"
 #: sitebase/templates/app/calendar/ready-modal.html:43
 #: sitebase/templates/app/calendar/succeeded-modal.html:37
 #: sitebase/templates/app/detail_views/harvest/data_table.html:31
-#: sitebase/templates/app/detail_views/property/harvest_table.html:46
+#: sitebase/templates/app/detail_views/property/harvest_table.html:47
 #: sitebase/templates/app/detail_views/property/similar_table.html:16
 #: sitebase/templates/app/forms/property_create_form.html:11
 #: sitebase/templates/app/list_views/harvest/view.html:31
@@ -567,6 +567,7 @@ msgid "Save"
 msgstr "Sauvegarder"
 
 #: sitebase/templates/app/detail_views/comment/comment_content.html:66
+#: sitebase/templates/app/detail_views/property/image/image_description.html:35
 #: sitebase/templates/app/forms/model_form.html:20
 #: sitebase/templates/app/forms/organization_create_form.html:49
 #: sitebase/templates/app/forms/property_create_form.html:67
@@ -589,11 +590,11 @@ msgstr "Ajouter un commentaire"
 msgid "Comments"
 msgstr "Commentaires"
 
-#: sitebase/templates/app/detail_views/comment/view.html:33
+#: sitebase/templates/app/detail_views/comment/view.html:35
 msgid "edited"
 msgstr "modifié"
 
-#: sitebase/templates/app/detail_views/comment/view.html:49
+#: sitebase/templates/app/detail_views/comment/view.html:51
 msgid "Older comments"
 msgstr "Plus anciens"
 
@@ -1113,15 +1114,67 @@ msgstr "Créer orphelin(s)"
 msgid "New Harvest"
 msgstr "Nouvelle récolte"
 
-#: sitebase/templates/app/detail_views/property/harvest_table.html:44
+#: sitebase/templates/app/detail_views/property/harvest_table.html:45
 #: sitebase/templates/app/list_views/harvest/view.html:34
 #: sitebase/templates/app/list_views/property/view.html:31
 msgid "Tree(s)"
 msgstr "Arbre(s)"
 
-#: sitebase/templates/app/detail_views/property/harvest_table.html:45
+#: sitebase/templates/app/detail_views/property/harvest_table.html:46
 msgid "Pickleader"
 msgstr "Chef.fe de cueillette"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:26
+msgid "Photo"
+msgstr "Photo"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:30
+msgid "Click to enlarge"
+msgstr "Cliquez pour agrandir"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:33
+msgid "Are you sure you want to permanently delete this photo?"
+msgstr "Êtes-vous certain(e) de vouloir effacer définitivement cette photo?"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:41
+msgid "Permanently delete photo"
+msgstr "Effacer la photo définitivement"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:63
+msgid "Previous photo"
+msgstr "Photo précédente"
+
+#: sitebase/templates/app/detail_views/property/image/carousel.html:70
+msgid "Next photo"
+msgstr "Photo suivante"
+
+#: sitebase/templates/app/detail_views/property/image/image_description.html:10
+msgid "Edit description"
+msgstr "Modifié déscription"
+
+#: sitebase/templates/app/detail_views/property/image/image_description.html:26
+msgid "Add a description..."
+msgstr "Ajouter une description"
+
+#: sitebase/templates/app/detail_views/property/image/image_description.html:30
+msgid "Save description"
+msgstr "Sauver la Description"
+
+#: sitebase/templates/app/detail_views/property/image/lightbox.html:15
+msgid "Close"
+msgstr "Fermer"
+
+#: sitebase/templates/app/detail_views/property/image/view.html:10
+msgid "Photos"
+msgstr "Photos"
+
+#: sitebase/templates/app/detail_views/property/image/view.html:29
+msgid "Upload photo"
+msgstr "Ajouter une photo"
+
+#: sitebase/templates/app/detail_views/property/image/view.html:47
+msgid "No photos uploaded yet"
+msgstr "Aucune photo disponible."
 
 #: sitebase/templates/app/detail_views/property/similar_table.html:9
 msgid "Similar properties"
