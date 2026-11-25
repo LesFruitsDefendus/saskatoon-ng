@@ -37,22 +37,22 @@
                             </span>
                         </div>
                     </div>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped" id="data-table-basic">
-                        <thead>
-                            <tr>
-                                <th class="col-xs-2">{% trans "Harvest" %}</th>
-                                <th class="col-xs-2">{% trans "Tree(s)" %}</th>
-                                <th class="col-xs-2">{% trans "Pickleader" %}</th>
-                                <th class="col-xs-2">{% trans "Status" %}</th>
-                                <th class="col-xs-2">{% trans "Date" %}</th>
-                            </tr>
-                        </thead>
-                        {% for harvest in harvests %}
-                            {% include 'app/detail_views/property/harvest_row.html' %}
-                        {% endfor %}
-                    </table>
+                    <div class="table-responsive">
+                        <table class="table table-striped" id="data-table-basic">
+                            <thead>
+                                <tr>
+                                    <th class="col-xs-2">{% trans "Harvest" %}</th>
+                                    <th class="col-xs-2">{% trans "Tree(s)" %}</th>
+                                    <th class="col-xs-2">{% trans "Pickleader" %}</th>
+                                    <th class="col-xs-2">{% trans "Status" %}</th>
+                                    <th class="col-xs-2">{% trans "Date" %}</th>
+                                </tr>
+                            </thead>
+                            {% for harvest in harvests %}
+                                {% include 'app/detail_views/property/harvest_row.html' %}
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
