@@ -28,7 +28,7 @@ from harvest.forms import (
     RFPForm,
     RFPManageForm,
 )
-from harvest.mixins import TaggedSuccessMessageMixin
+from harvest.mixins import EquipmentOrganizationMixin, TaggedSuccessMessageMixin
 from harvest.models import (
     Comment,
     Equipment,
@@ -38,7 +38,7 @@ from harvest.models import (
     RequestForParticipation as RFP,
 )
 from harvest.utils import LB_TO_KG
-from member.models import Organization, Role
+from member.models import Role
 from member.permissions import is_admin, is_core_or_admin, is_pickleader_or_core_or_admin
 from sitebase.models import EmailType, PageContent
 from sitebase.utils import to_datetime
@@ -47,6 +47,7 @@ logger = getLogger('saskatoon')
 
 
 class EquipmentCreateView(
+    EquipmentOrganizationMixin,
     PermissionRequiredMixin,
     SuccessMessageMixin[EquipmentForm],
     CreateView[Equipment, EquipmentForm],
@@ -55,16 +56,7 @@ class EquipmentCreateView(
     model = Equipment
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
-    success_url = reverse_lazy('equipment-list')
     success_message = _("Equipment created successfully!")
-
-    def get_organization(self):
-        """If creating new harvest from Organization page"""
-        try:
-            aid = self.request.GET['aid']
-            return Organization.objects.get(actor_id=aid)
-        except (KeyError, Organization.DoesNotExist):
-            return None
 
     def get_initial(self):
         initial = {}
@@ -76,11 +68,12 @@ class EquipmentCreateView(
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Add new equipment")
-        context['cancel_url'] = reverse_lazy('equipment-list')
+        context['cancel_url'] = self.get_success_url()
         return context
 
 
 class EquipmentUpdateView(
+    EquipmentOrganizationMixin,
     PermissionRequiredMixin,
     SuccessMessageMixin[EquipmentForm],
     UpdateView[Equipment, EquipmentForm],
@@ -90,12 +83,11 @@ class EquipmentUpdateView(
     form_class = EquipmentForm
     template_name = 'app/forms/model_form.html'
     success_message = _("Equipment updated successfully!")
-    success_url = reverse_lazy('equipment-list')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = _("Edit equipment")
-        context['cancel_url'] = reverse_lazy('equipment-list')
+        context['cancel_url'] = self.get_success_url()
         return context
 
 
