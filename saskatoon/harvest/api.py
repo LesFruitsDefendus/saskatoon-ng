@@ -294,7 +294,16 @@ class EquipmentViewset(LoginRequiredMixin, viewsets.ModelViewSet[Equipment]):
     """Equipment viewset"""
 
     permission_classes = [IsPickLeaderOrCoreOrAdmin]
-    queryset = Equipment.objects.all().order_by('-id')
+    queryset = (
+        Equipment.objects.select_related(
+            'type',
+            'property__neighborhood',
+            'owner__organization__contact_person',
+            'owner__organization__neighborhood',
+        )
+        .prefetch_related('owner__organization__equipment__type')
+        .order_by('-id')
+    )
     serializer_class = EquipmentSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = EquipmentFilter
