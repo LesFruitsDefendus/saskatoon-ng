@@ -1,7 +1,8 @@
-from typing import Dict
+from typing import Any, Callable
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.db.models import Count, F, Q, Sum
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
@@ -25,18 +26,22 @@ from harvest.models import (
     TreeType,
 )
 from harvest.serializers import (
+    BeneficiaryRowSerializer,
     EquipmentSerializer,
+    FruitRowSerializer,
     HarvestDetailSerializer,
     HarvestListSerializer,
     HarvestMapSerializer,
     HarvestSerializer,
+    HighlightsSerializer,
+    NeighborhoodRowSerializer,
+    PickerRowSerializer,
     PropertyListSerializer,
     PropertyMapSerializer,
     PropertySerializer,
     RequestForParticipationSerializer,
 )
-from harvest.utils import sum_harvest_yields
-from member.models import Neighborhood, Organization, Person
+from member.models import Organization, Person
 from member.permissions import (
     IsCoreOrAdmin,
     IsPickLeaderOrCoreOrAdmin,
@@ -352,144 +357,130 @@ class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet[RFP]):
         )
 
 
-class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
-    """Statistics list view"""
+WEIGHT = Sum("total_in_lb")
 
+
+class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
-    filter_backends = [DjangoFilterBackend]
     filterset_class = HarvestFilter
-    filterset_fields = ('status', 'season')
 
-    def list(self, request, format="html", *args, **kwargs) -> Response:
-        """Returns statistics on harvests for all seasons or a specific season"""
+    def list(self, request, *args, **kwargs):
+        harvests = self.filter_queryset(self.get_queryset())
+        yields = HarvestYield.objects.filter(harvest__in=harvests)
 
-        self.harvest_qs = self.filter_queryset(self.get_queryset())
-        self.harvest_yield_qs = HarvestYield.objects.filter(harvest__in=self.harvest_qs)
-
-        if not self.harvest_qs:
+        if not harvests.exists():
             messages.error(request, _("No harvests found for the selected season(s)"))
 
-        return Response(
-            {
-                "season": self.request.query_params.get('season'),
-                "seasons": [choice[0] for choice in Harvest.SEASON_CHOICES],
-                "highlights": self.get_highlights(),
-                "total_fruit": self.get_total_weight_harvest_per_fruit(request.LANGUAGE_CODE),
-                "total_neighborhood": self.get_total_weight_harvest_per_neighborhood(),
-                "total_beneficiary": self.get_total_weight_harvest_per_beneficiary(),
-                "total_picker": self.get_total_weight_harvest_per_picker(),
-            }
-        )
+        stat_tables: list[tuple[str, Callable[..., Any], Any]] = [
+            ("fruits", self.per_fruit, FruitRowSerializer),
+            ("neighborhoods", self.per_neighborhood, NeighborhoodRowSerializer),
+            ("beneficiaries", self.per_beneficiary, BeneficiaryRowSerializer),
+            ("pickers", self.per_picker, PickerRowSerializer),
+        ]
 
-    def get_highlights(self) -> Dict[str, int]:
-        """Returns general statistics of harvests"""
-        total_weight = 0
-        if self.harvest_qs:
-            total_weight = sum_harvest_yields(self.harvest_yield_qs) or 0
+        data = {
+            "season": request.query_params.get("season"),
+            "seasons": [c[0] for c in Harvest.SEASON_CHOICES],
+            "highlights": HighlightsSerializer(self.highlights(harvests, yields)).data,
+        }
+        for name, build, serializer in stat_tables:
+            data[name] = serializer(build(harvests, yields), many=True).data
 
+        return Response(data)
+
+    def highlights(self, harvests, yields):
         return {
-            "total_beneficiaries": self.get_total_number_beneficiaries(),
-            "total_pickers": self.harvest_yield_qs.values("recipient").distinct().count(),
-            "total_weight": total_weight,
-            "total_harvests": self.harvest_qs.count(),
+            "total_harvests": harvests.count(),
+            "total_weight": yields.aggregate(w=WEIGHT)["w"] or 0,
+            "total_pickers": yields.values("recipient").distinct().count(),
+            "total_beneficiaries": Organization.objects.filter(
+                pk__in=yields.values("recipient")
+            ).count(),
         }
 
-    def get_total_number_beneficiaries(self) -> int:
-        """Returns total number of beneficiary organizations"""
-        if not self.harvest_qs:
-            return 0
+    def per_fruit(self, harvests, yields, lang="fr"):
+        lang = self.request.LANGUAGE_CODE
+        weights = {
+            r["tree"]: r["weight"]
+            for r in yields.values("tree").annotate(weight=WEIGHT).order_by()
+        }
+        # harvests whose trees include the fruit, yielded or not
+        counts = dict(harvests.values_list("trees").annotate(n=Count("id")).order_by())
+        return [
+            {
+                "fruit_name": tree.get_fruit_name(lang),
+                "harvests": counts.get(tree.pk, 0),
+                "weight": weights[tree.pk],
+            }
+            for tree in TreeType.objects.filter(pk__in=list(weights))
+        ]
 
-        total_number_beneficiaries = 0
-        for org in Organization.objects.all():
-            if self.harvest_yield_qs.filter(recipient=org).exists():
-                total_number_beneficiaries += 1
+    def per_neighborhood(self, harvests, yields):
+        rows = (
+            yields.filter(harvest__property__neighborhood__isnull=False)
+            .values(borough=F("harvest__property__neighborhood__name"))
+            .annotate(weight=WEIGHT)
+            .order_by("borough")
+        )
+        # every succeeded harvest in the neighborhood, with or without yields
+        counts = dict(
+            harvests.values_list("property__neighborhood__name").annotate(n=Count("id")).order_by()
+        )
+        return [{**r, "harvests": counts.get(r["borough"], 0)} for r in rows]
 
-        return total_number_beneficiaries
+    def per_beneficiary(self, harvests, yields):
+        rows = {
+            r["recipient"]: r
+            for r in yields.filter(recipient__organization__is_beneficiary=True)
+            .values("recipient")
+            # BUG: counts yield rows, not harvests
+            .annotate(weight=WEIGHT, harvests=Count("id"))
+            .order_by()
+        }
+        return [
+            {
+                "beneficiary": org,
+                "harvests": rows[org.pk]["harvests"],
+                "weight": rows[org.pk]["weight"],
+            }
+            for org in Organization.objects.filter(pk__in=list(rows))
+        ]
 
-    def get_total_weight_harvest_per_fruit(self, lang='fr'):
-        """Returns total number of harvests and weight per fruit"""
-        if not self.harvest_qs:
-            return []
-
-        total_weight_harvests_per_fruit = []
-
-        for tree in TreeType.objects.all():
-            total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(tree=tree))
-
-            if total_weight is not None:
-                total_harvests = self.harvest_qs.filter(trees__in=[tree]).count()
-                total_weight_harvests_per_fruit.append(
-                    (tree.get_fruit_name(lang), total_harvests, total_weight)
-                )
-
-        return total_weight_harvests_per_fruit
-
-    def get_total_weight_harvest_per_neighborhood(self):
-        """Returns total number of harvests and weight per neighborhood"""
-        if not self.harvest_qs:
-            return []
-
-        total_weight_harvests_per_neighborhood = []
-        for neighborhood in Neighborhood.objects.all().order_by("name"):
-            total_weight = sum_harvest_yields(
-                self.harvest_yield_qs.filter(harvest__property__neighborhood=neighborhood)
+    def per_picker(self, harvests, yields):
+        received = {
+            r["recipient"]: r
+            for r in yields.filter(recipient__person__isnull=False)
+            .values("recipient")
+            .annotate(weight=WEIGHT, as_recipient=Count("id"))
+            .order_by()
+        }
+        ids = list(received)
+        led = dict(
+            harvests.filter(pick_leader__person__in=ids)
+            .values_list("pick_leader__person")
+            .annotate(n=Count("id"))
+            .order_by()
+        )
+        rfps = {
+            r["person"]: r
+            for r in RFP.objects.filter(person__in=ids)
+            .values("person")
+            .annotate(
+                requests=Count("id"),
+                accepted=Count("id", filter=Q(status=RFP.Status.ACCEPTED)),
             )
-            if total_weight is not None:
-                total_harvests = self.harvest_qs.filter(
-                    property__neighborhood=neighborhood
-                ).count()
-                total_weight_harvests_per_neighborhood.append(
-                    (neighborhood, total_harvests, total_weight)
-                )
-
-        return total_weight_harvests_per_neighborhood
-
-    def get_total_weight_harvest_per_beneficiary(self):
-        """Returns total number of harvests and weight per beneficiary organization"""
-        if not self.harvest_qs:
-            return []
-
-        total_weight_harvests_per_beneficiary = []
-
-        for beneficiary in Organization.objects.filter(is_beneficiary=True):
-            total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(recipient=beneficiary))
-            if total_weight is not None:
-                total_harvests = self.harvest_yield_qs.filter(recipient=beneficiary).count()
-                total_weight_harvests_per_beneficiary.append(
-                    (beneficiary, total_harvests, total_weight)
-                )
-
-        return total_weight_harvests_per_beneficiary
-
-    def get_total_weight_harvest_per_picker(self):
-        """Returns total number of harvests and weight per picker"""
-        if not self.harvest_qs:
-            return []
-
-        pickers = Person.objects.all().order_by("first_name")
-        total_weight_harvests_per_picker = []
-
-        for p in pickers:
-            total_weight = sum_harvest_yields(self.harvest_yield_qs.filter(recipient=p))
-            total_harvests_leader = self.harvest_qs.filter(pick_leader__person=p).count()
-            total_harvests_rfp = RFP.objects.filter(person=p).count()
-            total_harvests_accepted = RFP.objects.filter(
-                person=p, status=RFP.Status.ACCEPTED
-            ).count()
-            total_harvests_recipient = self.harvest_yield_qs.filter(recipient=p).count()
-
-            if total_weight is not None:
-                total_weight_harvests_per_picker.append(
-                    (
-                        p,
-                        total_harvests_leader,
-                        total_harvests_rfp,
-                        total_harvests_accepted,
-                        total_harvests_recipient,
-                        total_weight,
-                    )
-                )
-
-        return total_weight_harvests_per_picker
+            .order_by()
+        }
+        return [
+            {
+                "picker": p,
+                "as_leader": led.get(p.pk, 0),
+                "requests": rfps.get(p.pk, {}).get("requests", 0),
+                "accepted": rfps.get(p.pk, {}).get("accepted", 0),
+                "as_recipient": received[p.pk]["as_recipient"],
+                "weight": received[p.pk]["weight"],
+            }
+            for p in Person.objects.filter(pk__in=ids).order_by("first_name")
+        ]

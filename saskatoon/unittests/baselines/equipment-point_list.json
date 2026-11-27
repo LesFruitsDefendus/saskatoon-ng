@@ -77,19 +77,7 @@
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_reservations": [
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-11-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
-                }
-            ],
+            "upcoming_reservations": [],
             "latitude": 45.511693,
             "longitude": -73.566792
         },
