@@ -224,10 +224,38 @@
                         "name_fr": "Ciseaux",
                         "name_en": "Cisors"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "",
                     "count": 4,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 },
                 {
                     "id": 7,
@@ -237,10 +265,38 @@
                         "name_fr": "Cueille-fruits",
                         "name_en": "Fruit picker"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "10ft",
                     "count": 2,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 },
                 {
                     "id": 8,
@@ -250,29 +306,45 @@
                         "name_fr": "Cueille-fruits",
                         "name_en": "Fruit picker"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "13ft",
                     "count": 1,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 }
             ],
             "inventory": {
                 "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
                 "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
             },
-            "upcoming_reservations": [
-                {
-                    "id": 2,
-                    "pick_leader": {
-                        "id": 2,
-                        "name": "Pick Leader",
-                        "email": "pick@leader.com"
-                    },
-                    "start_date": "2026-11-24",
-                    "start_time": "02:00 PM",
-                    "end_time": "07:00 PM"
-                }
-            ],
+            "upcoming_reservations": [],
             "latitude": 45.511693,
             "longitude": -73.566792
         },
@@ -432,10 +504,38 @@
                         "name_fr": "Échelle",
                         "name_en": "Ladder"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 7,
+                            "civil_name": "L'Orgue Bien Équipée",
+                            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+                            "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
+                            "phone": "123-456-1234",
+                            "inventory": {
+                                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+                            },
+                            "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
+                            "contact_person": {
+                                "actor_id": 6,
+                                "roles": [
+                                    "Contact Person"
+                                ],
+                                "name": "Contact Person",
+                                "email": "contact@person.com",
+                                "phone": null,
+                                "language": "French",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 11,
+                                "name": "Mile End"
+                            }
+                        }
+                    },
                     "description": "Step ladder",
                     "count": 2,
-                    "shared": true,
-                    "owner": 7
+                    "shared": true
                 },
                 {
                     "id": 3,
@@ -445,10 +545,38 @@
                         "name_fr": "Échelle",
                         "name_en": "Ladder"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 7,
+                            "civil_name": "L'Orgue Bien Équipée",
+                            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+                            "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
+                            "phone": "123-456-1234",
+                            "inventory": {
+                                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+                            },
+                            "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
+                            "contact_person": {
+                                "actor_id": 6,
+                                "roles": [
+                                    "Contact Person"
+                                ],
+                                "name": "Contact Person",
+                                "email": "contact@person.com",
+                                "phone": null,
+                                "language": "French",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 11,
+                                "name": "Mile End"
+                            }
+                        }
+                    },
                     "description": "20ft extension ladder",
                     "count": 1,
-                    "shared": true,
-                    "owner": 7
+                    "shared": true
                 },
                 {
                     "id": 4,
@@ -458,10 +586,38 @@
                         "name_fr": "Cueille-fruits",
                         "name_en": "Fruit picker"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 7,
+                            "civil_name": "L'Orgue Bien Équipée",
+                            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+                            "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
+                            "phone": "123-456-1234",
+                            "inventory": {
+                                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+                            },
+                            "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
+                            "contact_person": {
+                                "actor_id": 6,
+                                "roles": [
+                                    "Contact Person"
+                                ],
+                                "name": "Contact Person",
+                                "email": "contact@person.com",
+                                "phone": null,
+                                "language": "French",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 11,
+                                "name": "Mile End"
+                            }
+                        }
+                    },
                     "description": "10ft",
                     "count": 4,
-                    "shared": true,
-                    "owner": 7
+                    "shared": true
                 },
                 {
                     "id": 5,
@@ -471,10 +627,38 @@
                         "name_fr": "Trousse de premiers soins",
                         "name_en": "First Aid Kit"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 7,
+                            "civil_name": "L'Orgue Bien Équipée",
+                            "address": "45 av. de la Fourchette. Montreal Quebec, V2VH13",
+                            "description": "<p>This organization shares its equipment but can't accept fruit donations.</p>",
+                            "phone": "123-456-1234",
+                            "inventory": {
+                                "fr": "2 Échelle&;1 Échelle&;4 Cueille-fruits&;1 Trousse de premiers soins",
+                                "en": "2 Ladder&;1 Ladder&;4 Fruit picker&;1 First Aid Kit"
+                            },
+                            "equipment_description": "<p>Equipment must be reserved at least 1 day in advance by calling Contact Person.</p>",
+                            "contact_person": {
+                                "actor_id": 6,
+                                "roles": [
+                                    "Contact Person"
+                                ],
+                                "name": "Contact Person",
+                                "email": "contact@person.com",
+                                "phone": null,
+                                "language": "French",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 11,
+                                "name": "Mile End"
+                            }
+                        }
+                    },
                     "description": "",
                     "count": 1,
-                    "shared": true,
-                    "owner": 7
+                    "shared": true
                 }
             ],
             "inventory": {
@@ -520,10 +704,38 @@
                         "name_fr": "Ciseaux",
                         "name_en": "Cisors"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "",
                     "count": 4,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 },
                 {
                     "id": 7,
@@ -533,10 +745,38 @@
                         "name_fr": "Cueille-fruits",
                         "name_en": "Fruit picker"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "10ft",
                     "count": 2,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 },
                 {
                     "id": 8,
@@ -546,10 +786,38 @@
                         "name_fr": "Cueille-fruits",
                         "name_en": "Fruit picker"
                     },
+                    "owner": {
+                        "organization": {
+                            "actor_id": 9,
+                            "civil_name": "Le Vestibule Vert",
+                            "address": "6 Ontario, Est. Montreal Quebec, N1V1AN",
+                            "description": "<p>This organization both accepts fruit donations and has some equipment.</p>",
+                            "phone": "(555) 444-3333",
+                            "inventory": {
+                                "fr": "4 Ciseaux&;2 Cueille-fruits&;1 Cueille-fruits",
+                                "en": "4 Cisors&;2 Fruit picker&;1 Fruit picker"
+                            },
+                            "equipment_description": "<p>You must register online at www.equipment.ca</p>",
+                            "contact_person": {
+                                "actor_id": 5,
+                                "roles": [
+                                    "Core Member"
+                                ],
+                                "name": "Core Member",
+                                "email": "core@member.com",
+                                "phone": "(514) 123-4321",
+                                "language": "English",
+                                "comments": ""
+                            },
+                            "neighborhood": {
+                                "id": 10,
+                                "name": "Mercier-Hochelaga-Maisonneuve"
+                            }
+                        }
+                    },
                     "description": "13ft",
                     "count": 1,
-                    "shared": true,
-                    "owner": 9
+                    "shared": true
                 }
             ],
             "inventory": {
