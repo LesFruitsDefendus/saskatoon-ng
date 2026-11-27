@@ -1,3 +1,5 @@
+from typing import Any, Callable
+
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count, F, Q, Sum
@@ -24,16 +26,20 @@ from harvest.models import (
     TreeType,
 )
 from harvest.serializers import (
+    BeneficiaryRowSerializer,
     EquipmentSerializer,
+    FruitRowSerializer,
     HarvestDetailSerializer,
     HarvestListSerializer,
     HarvestMapSerializer,
     HarvestSerializer,
+    HighlightsSerializer,
+    NeighborhoodRowSerializer,
+    PickerRowSerializer,
     PropertyListSerializer,
     PropertyMapSerializer,
     PropertySerializer,
     RequestForParticipationSerializer,
-    StatsSerializer,
 )
 from member.models import Organization, Person
 from member.permissions import (
@@ -354,41 +360,48 @@ class RFPViewset(LoginRequiredMixin, viewsets.ModelViewSet[RFP]):
 WEIGHT = Sum("total_in_lb")
 
 
-class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
+class StatsView(LoginRequiredMixin, generics.ListAPIView[Harvest]):
     permission_classes = [IsCoreOrAdmin]
     template_name = "app/stats.html"
     queryset = Harvest.objects.filter(status=Harvest.Status.SUCCEEDED)
     filterset_class = HarvestFilter
 
-    def get(self, request, *args, **kwargs):
+    def list(self, request, *args, **kwargs):
         harvests = self.filter_queryset(self.get_queryset())
         yields = HarvestYield.objects.filter(harvest__in=harvests)
 
         if not harvests.exists():
             messages.error(request, _("No harvests found for the selected season(s)"))
 
-        pickers = self.per_picker(harvests, yields)
-        beneficiaries = self.per_beneficiary(yields)
-        stats = {
+        stat_tables: list[tuple[str, Callable[..., Any], Any]] = [
+            ("fruits", self.per_fruit, FruitRowSerializer),
+            ("neighborhoods", self.per_neighborhood, NeighborhoodRowSerializer),
+            ("beneficiaries", self.per_beneficiary, BeneficiaryRowSerializer),
+            ("pickers", self.per_picker, PickerRowSerializer),
+        ]
+
+        data = {
             "season": request.query_params.get("season"),
-            "highlights": {
-                "total_harvests": harvests.count(),
-                "total_weight": yields.aggregate(w=WEIGHT)["w"] or 0,
-                "total_pickers": yields.values("recipient").distinct().count(),
-                "total_beneficiaries": Organization.objects.filter(
-                    pk__in=yields.values("recipient")
-                ).count(),
-            },
-            "fruits": self.per_fruit(harvests, yields, request.LANGUAGE_CODE),
-            "neighborhoods": self.per_neighborhood(harvests, yields),
-            "beneficiaries": beneficiaries,
-            "pickers": pickers,
+            "seasons": [c[0] for c in Harvest.SEASON_CHOICES],
+            "highlights": HighlightsSerializer(self.highlights(harvests, yields)).data,
         }
-        data = StatsSerializer(stats).data
-        data["seasons"] = [c[0] for c in Harvest.SEASON_CHOICES]
+        for name, build, serializer in stat_tables:
+            data[name] = serializer(build(harvests, yields), many=True).data
+
         return Response(data)
 
+    def highlights(self, harvests, yields):
+        return {
+            "total_harvests": harvests.count(),
+            "total_weight": yields.aggregate(w=WEIGHT)["w"] or 0,
+            "total_pickers": yields.values("recipient").distinct().count(),
+            "total_beneficiaries": Organization.objects.filter(
+                pk__in=yields.values("recipient")
+            ).count(),
+        }
+
     def per_fruit(self, harvests, yields, lang="fr"):
+        lang = self.request.LANGUAGE_CODE
         weights = {
             r["tree"]: r["weight"]
             for r in yields.values("tree").annotate(weight=WEIGHT).order_by()
@@ -417,7 +430,7 @@ class StatsView(LoginRequiredMixin, generics.GenericAPIView[Harvest]):
         )
         return [{**r, "harvests": counts.get(r["borough"], 0)} for r in rows]
 
-    def per_beneficiary(self, yields):
+    def per_beneficiary(self, harvests, yields):
         rows = {
             r["recipient"]: r
             for r in yields.filter(recipient__organization__is_beneficiary=True)

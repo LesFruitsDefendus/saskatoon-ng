@@ -673,6 +673,18 @@ class WeightRowSerializer(serializers.Serializer[Dict[str, Any]]):
     weight = weight_field()
 
 
+class FruitRowSerializer(WeightRowSerializer):
+    fruit_name = serializers.CharField()
+
+
+class NeighborhoodRowSerializer(WeightRowSerializer):
+    borough = serializers.CharField()
+
+
+class BeneficiaryRowSerializer(WeightRowSerializer):
+    beneficiary = serializers.CharField()
+
+
 class PickerRowSerializer(serializers.Serializer[Dict[str, Any]]):
     picker = serializers.CharField()
     as_leader = serializers.IntegerField()
@@ -680,12 +692,3 @@ class PickerRowSerializer(serializers.Serializer[Dict[str, Any]]):
     accepted = serializers.IntegerField()
     as_recipient = serializers.IntegerField()
     weight = weight_field()
-
-
-class StatsSerializer(serializers.Serializer[Dict[str, Any]]):
-    season = serializers.CharField(allow_null=True)
-    highlights = HighlightsSerializer()
-    fruits = WeightRowSerializer(many=True)
-    neighborhoods = WeightRowSerializer(many=True)
-    beneficiaries = WeightRowSerializer(many=True)
-    pickers = PickerRowSerializer(many=True)

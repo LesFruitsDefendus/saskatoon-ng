@@ -107,25 +107,6 @@ class HarvestFilter(filters.FilterSet):
 
 
 @typechecked
-class StatsFilter(HarvestFilter):
-    "Stats page filter: season plus harvest status (succeeded unless chosen)"
-
-    class Meta(HarvestFilter.Meta):
-        fields = ['season', 'status']
-
-    status = filters.MultipleChoiceFilter(
-        label=_("Status"),
-        choices=list(Harvest.get_status_choices()),
-    )
-
-    def __init__(self, data=None, *args, **kwargs):
-        if data is not None and not data.getlist('status'):
-            data = data.copy()
-            data.setlist('status', [Harvest.Status.SUCCEEDED])
-        super().__init__(data, *args, **kwargs)
-
-
-@typechecked
 class PropertyFilter(filters.FilterSet):
     "Property filter"
 

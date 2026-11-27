@@ -132,9 +132,9 @@
                                     <tbody>
                                         {% for row in fruits %}
                                             <tr role="row">
-                                                <td>{{ fruit_name }}</td>
-                                                <td>{{ total_harvests }}</td>
-                                                <td>{{ total_weight }}</td>
+                                                <td>{{ row.fruit_name }}</td>
+                                                <td>{{ row.harvests }}</td>
+                                                <td>{{ row.weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -166,9 +166,9 @@
                                     <tbody>
                                         {% for row in neighborhoods %}
                                             <tr role="row">
-                                                <td>{{ neighborhood }}</td>
-                                                <td>{{ total_harvests }}</td>
-                                                <td>{{ total_weight }}</td>
+                                                <td>{{ row.borough }}</td>
+                                                <td>{{ row.harvests }}</td>
+                                                <td>{{ row.weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -203,9 +203,9 @@
                                     <tbody>
                                         {% for row in beneficiaries %}
                                             <tr role="row">
-                                                <td>{{ beneficiary }}</td>
-                                                <td>{{ total_harvests }}</td>
-                                                <td>{{ total_weight }}</td>
+                                                <td>{{ row.beneficiary }}</td>
+                                                <td>{{ row.harvests }}</td>
+                                                <td>{{ row.weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
@@ -240,12 +240,12 @@
                                     <tbody>
                                         {% for row in pickers %}
                                             <tr role="row">
-                                                <td>{{ picker }}</td>
-                                                <td>{{ total_harvests_leader }}</td>
-                                                <td>{{ total_harvests_rfp }}</td>
-                                                <td>{{ total_harvests_is_accepted }}</td>
-                                                <td>{{ total_harvests_recipient }}</td>
-                                                <td>{{ total_weight }}</td>
+                                                <td>{{ row.picker }}</td>
+                                                <td>{{ row.as_leader }}</td>
+                                                <td>{{ row.requests }}</td>
+                                                <td>{{ row.accepted }}</td>
+                                                <td>{{ row.as_recipient }}</td>
+                                                <td>{{ row.weight }}</td>
                                             </tr>
                                         {% endfor %}
                                     </tbody>
